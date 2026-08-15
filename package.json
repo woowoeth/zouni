@@ -1,0 +1,20 @@
+{
+  "name": "zouni",
+  "version": "1.0.0",
+  "description": "走你 — 输入去哪儿、几天、多少预算，出一份能直接照着走的攻略",
+  "private": true,
+  "scripts": {
+    "start": "npx --yes http-server . -p 8080 -c-1 -o /src/",
+    "test": "cd tests && bash run-all.sh",
+    "test:stress": "cd tests && node 20-stress.js",
+    "test:density": "cd tests && node 21-data-density.js",
+    "test:rules": "cd tests && node 19-rule-regression.js",
+    "verify": "node tools/route-factory.js verify all",
+    "days:report": "node tools/extend-days.js --report",
+    "proposals": "node tools/proposal-scan.js"
+  },
+  "devDependencies": {
+    "puppeteer": "^23.0.0"
+  },
+  "engines": { "node": ">=18" }
+}

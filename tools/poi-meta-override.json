@@ -1,0 +1,17 @@
+{
+ "_说明": "人工校正层。这里写的字段覆盖机器推断，重跑推断不会丢。只写要改的字段，附 _why 说明为什么改。",
+
+ "bj-bank":    {"tags":["photo","chill"], "_why":"额河落日长椅：看落日发呆，规则只认出时段没认出标签"},
+ "pier-dusk":  {"tags":["photo","chill"], "_why":"中环码头黄昏：维港天际线机位"},
+ "peak":       {"tags":["photo","nature"], "_why":"太平山顶：香港最著名俯瞰机位"},
+ "sc-zheduo":  {"tags":["photo","nature"], "_why":"折多山垭口：川西第一个雪山观景点"},
+ "bright-peak":{"tags":["photo","nature"], "_why":"黄山光明顶：看日落与云海"},
+ "yulong-raft":{"tags":["nature","chill"], "_why":"遇龙河竹筏：漂流看峰林，慢节奏"},
+ "tianmen":    {"tags":["nature","photo"], "_why":"天门山索道：垂直落差 1200m 的峰林"},
+ "dujiangyan": {"tags":["history","nature"], "_why":"都江堰：两千年水利工程，兼具人文与江景"},
+ "umeda-sky":  {"tags":["photo"], "_why":"梅田蓝天大厦：大阪夜景机位"},
+ "xz-arrive":  {"type":"logistics", "tags":[], "_why":"拉萨到达日：高反缓冲，不是景点"},
+ "guanyu":     {"tags":["photo","nature","hike"], "_why":"观鱼台是登高观湖，与吃鱼无关"},
+ "sanwan":     {"tags":["photo","nature"], "_why":"喀纳斯三湾是观景，误判成美食"},
+ "sailimu-loop":{"tags":["nature","photo"], "_why":"环湖自驾看湖，非美食"}
+}
