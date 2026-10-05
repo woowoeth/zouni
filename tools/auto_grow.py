@@ -79,6 +79,15 @@ def ask(prompt):
                 LOG.append(f'模型 {m} @{url.split("/")[2]}：HTTP {e.code} {e.read()[:160]!r}')
             except Exception as e:
                 LOG.append(f'模型 {m} @{url.split("/")[2]}：{str(e)[:60]}；返回 {raw[:160]!r}')
+                try:
+                    import subprocess
+                    out = subprocess.run(['curl', '-sL', '--http2', '-X', 'POST', url, '-H', 'Authorization: Bearer ' + TOKEN, '-H', 'Content-Type: application/json',
+                                          '-H', 'Accept: application/vnd.github+json', '-H', 'X-GitHub-Api-Version: 2022-11-28', '-d', body.decode()], capture_output=True, timeout=150).stdout
+                    j = json.loads(out); txt = j['choices'][0]['message']['content']
+                    txt = re.sub(r'^```(json)?|```$', '', txt.strip(), flags=re.M).strip()
+                    return json.loads(txt[txt.find('{'): txt.rfind('}') + 1]), m + '（curl）'
+                except Exception as e2:
+                    LOG.append(f'  curl 也不行：{str(e2)[:60]}；返回 {out[:160] if "out" in dir() else b""!r}')
     return None, None
 
 
@@ -117,7 +126,7 @@ def main():
         d0 = CAT[tg['dest']]; tg['city'] = tg.get('city') or d0['base']['name']
         days = 3 if tg['kind'] != 'asia' else 4
         it, model = ask(PROMPT.format(days=days, name=tg['name'], prov=d0['name'], note=tg.get('note', '')))
-        if not it: Q['failed'].append(tg['key']); LOG.append(f'{tg["name"]}：模型没给出可用结果'); continue
+        if not it: LOG.append(f'{tg["name"]}：模型这次没给出可用结果，下次再试'); continue
         good, why = validate(it, tg)
         if not good: Q['failed'].append(tg['key']); LOG.append(f'{tg["name"]}：不合格（{why}）'); continue
         rid = 'a' + re.sub(r'[^a-z0-9]', '', tg['key'].lower())[:10] + str(len(it['days']))
