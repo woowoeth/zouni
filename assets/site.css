@@ -317,3 +317,4 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .pk-g button{margin:0;padding:0;width:100%;min-width:0;-webkit-appearance:none;appearance:none;border-radius:0;color:var(--ink)}
 .pk-g button.on{color:var(--bg)}.pk-g button.off{color:#c5c3bc}.pk-g button.we:not(.on):not(.off){color:var(--red)}
 .pk-q button,.pk-x,.xd button{-webkit-appearance:none;appearance:none;border-radius:0;color:var(--ink)}
+.hlegend a{display:inline-flex;align-items:center;min-height:32px;color:var(--ink)}
