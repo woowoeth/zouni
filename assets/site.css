@@ -73,3 +73,9 @@ section,.dh{padding:24px 20px 0}
 .flt{padding:12px 20px 0}.flt input{width:100%;height:44px;padding:0 14px;border:0;background:var(--card);font:16px var(--sans);color:var(--ink);border-radius:0;-webkit-appearance:none}
 .chips{display:flex;gap:4px;overflow-x:auto;margin-top:8px}.chips button{flex:none;height:36px;padding:0 12px;border:0;background:var(--card);font:700 13px var(--sans);color:var(--ink);cursor:pointer}.chips button.on{background:var(--ink);color:var(--bg)}
 .cnt{margin:8px 0 0;font-size:13px;font-weight:700}.card[hidden],.reg[hidden]{display:none}
+.acts{display:flex;gap:8px;padding:12px 20px 0}.acts button{height:40px;padding:0 14px;border:0;background:var(--card);font:700 14px var(--sans);color:var(--ink);cursor:pointer}.acts .fav.on{background:var(--ink);color:var(--bg)}
+.daynav{position:sticky;top:52px;z-index:4;display:flex;gap:2px;margin:16px 0 0;padding:6px 20px;background:rgba(244,242,236,.97);box-shadow:0 1px 0 rgba(28,29,26,.08)}
+.daynav a{flex:1;min-width:0;height:36px;display:flex;align-items:center;justify-content:center;font:900 15px var(--serif);text-decoration:none}.daynav a.on{background:var(--ink);color:var(--bg)}
+.org{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:14px;font-weight:700}.org select{height:40px;padding:0 10px;border:0;background:var(--card);font:700 14px var(--sans);color:var(--ink)}
+.card .dist{color:#3d3f3a;font-size:13px;font-weight:700}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);padding:10px 16px;background:var(--ink);color:var(--bg);font-size:14px;z-index:9}
