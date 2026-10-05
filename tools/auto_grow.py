@@ -57,18 +57,28 @@ PROMPT = '''你是“走你”旅行网站的行程编辑。为下面这个目�
 JSON 格式：{{"label":"X N 天","title":"N 天，……","prep":["…"],"days":[{{"title":"…","text":"…","stay":"住哪一片","stops":[{{"name":"…","q":"…","type":"sight","dur":120}}]}}]}}'''
 
 
+ENDPOINTS = [('https://models.github.ai/inference/chat/completions', ['openai/gpt-4.1-mini', 'openai/gpt-4o-mini', 'deepseek/DeepSeek-V3-0324']),
+             ('https://models.inference.ai.azure.com/chat/completions', ['gpt-4o-mini', 'DeepSeek-V3-0324'])]
+
+
 def ask(prompt):
-    for m in MODELS:
-        body = json.dumps({'model': m, 'messages': [{'role': 'user', 'content': prompt}], 'temperature': 0.3, 'max_tokens': 2200}).encode()
-        req = urllib.request.Request('https://models.github.ai/inference/chat/completions', data=body, method='POST',
-                                     headers={'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28'})
-        try:
-            j = json.loads(urllib.request.urlopen(req, timeout=120).read())
-            txt = j['choices'][0]['message']['content']
-            txt = re.sub(r'^```(json)?|```$', '', txt.strip(), flags=re.M).strip()
-            return json.loads(txt[txt.find('{'): txt.rfind('}') + 1]), m
-        except Exception as e:
-            LOG.append(f'模型 {m} 失败：{str(e)[:80]}')
+    for url, models in ENDPOINTS:
+        for m in models:
+            body = json.dumps({'model': m, 'messages': [{'role': 'user', 'content': prompt}], 'temperature': 0.3, 'max_tokens': 2200}).encode()
+            req = urllib.request.Request(url, data=body, method='POST', headers={'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'application/json',
+                                         'Accept': 'application/json', 'User-Agent': 'zouni-autogrow/1.0', 'X-GitHub-Api-Version': '2022-11-28'})
+            raw = b''
+            try:
+                with urllib.request.urlopen(req, timeout=120) as x:
+                    raw = x.read(); ct = x.headers.get('content-type'); code = x.status
+                j = json.loads(raw)
+                txt = j['choices'][0]['message']['content']
+                txt = re.sub(r'^```(json)?|```$', '', txt.strip(), flags=re.M).strip()
+                return json.loads(txt[txt.find('{'): txt.rfind('}') + 1]), m
+            except urllib.error.HTTPError as e:
+                LOG.append(f'模型 {m} @{url.split("/")[2]}：HTTP {e.code} {e.read()[:160]!r}')
+            except Exception as e:
+                LOG.append(f'模型 {m} @{url.split("/")[2]}：{str(e)[:60]}；返回 {raw[:160]!r}')
     return None, None
 
 
