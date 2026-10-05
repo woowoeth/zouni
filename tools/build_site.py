@@ -58,6 +58,34 @@ def book_of(text):
     return next(((k, v) for k, v in BOOK.items() if k in t), None)
 
 
+SIGHT = {
+    '故宫': '明清两代的皇宫，现存规模最大的古代宫殿建筑群', '天坛': '明清皇帝祭天的地方，祈年殿是三重檐圆顶', '颐和园': '清代皇家园林，昆明湖和万寿山',
+    '景山': '能从高处看故宫全景', '慕田峪长城': '明长城，有缆车和滑道，人比八达岭少', '八达岭长城': '最出名的一段明长城',
+    '西安城墙': '明代城墙，一圈约 13.7 公里，可以骑车绕城', '大雁塔': '唐代为保存玄奘带回的经卷修建', '华清宫': '唐代皇家温泉宫苑',
+    '西湖': '苏堤、白堤、三潭印月都在湖上', '灵隐寺': '杭州最有名的古寺，旁边是飞来峰石刻', '拙政园': '苏州最大的古典园林', '虎丘': '云岩寺塔是一座斜塔',
+    '外滩': '黄浦江边的万国建筑群，对面是陆家嘴', '豫园': '明代私家园林，旁边是城隍庙', '布达拉宫': '建在红山上的宫堡，海拔约 3,700 米',
+    '大昭寺': '拉萨最热闹的寺庙，外面一圈是八廓街', '纳木错': '海拔 4,700 多米的大湖', '莫高窟': '现存七百多个洞窟，有壁画和彩塑',
+    '鸣沙山': '沙山脚下有月牙泉，傍晚骑骆驼看日落', '天门山': '有天门洞和悬崖栈道', '黄龙': '一层层钙华彩池', '九寨沟': '翠海、叠瀑和彩林',
+    '乐山大佛': '唐代开凿，高 71 米，坐船能看全身', '都江堰': '战国时李冰主持修建，到今天还在灌溉', '峨眉山': '金顶看云海和日出',
+    '平遥古城': '明清城墙保存完整，城里有票号博物馆', '云冈石窟': '北魏开凿的大型石窟', '悬空寺': '建在悬崖半腰上的寺庙', '龙门石窟': '卢舍那大佛是代表',
+    '少林寺': '禅宗祖庭，有塔林', '青海湖': '中国最大的咸水湖', '茶卡盐湖': '平静时像一面镜子', '赛里木湖': '湖水很蓝，六七月湖边开满野花',
+    '喀纳斯': '湖水随季节变色，秋天最好看', '天山天池': '天山北坡的高山湖', '鼓浪屿': '岛上不通汽车，老房子多', '田螺坑土楼': '四座圆楼围着一座方楼',
+    '泰山': '五岳之首，可以夜爬看日出', '孔庙': '曲阜三孔之一，祭祀孔子的地方', '漓江': '桂林到阳朔，20 元人民币背景就在兴坪',
+    '洱海': '大理旁边的高原湖，环湖骑行最舒服', '丽江古城': '纳西族古城，水系穿街过巷', '玉龙雪山': '主峰海拔 5,596 米', '石林': '喀斯特石林，像一片石头森林',
+    '元阳梯田': '哈尼族开垦了一千多年的梯田', '黄果树瀑布': '可以走到瀑布后面的水帘洞', '凤凰古城': '沱江两岸的吊脚楼', '张家界国家森林公园': '石英砂岩峰林，袁家界、天子山都在里面',
+    '宏村': '月沼和南湖倒影最出名', '篁岭': '秋天晒秋，屋顶晒满辣椒和稻谷', '武夷山': '九曲溪坐竹筏', '三坊七巷': '福州老城的坊巷',
+    '雍布拉康': '相传是西藏最早的宫殿', '桑耶寺': '西藏第一座佛法僧三宝俱全的寺院', '佩特拉': '在红色砂岩里凿出来的古城', '狮子岩': '巨岩顶上的王宫遗址',
+    '吴哥窟': '高棉王朝的寺庙城，日出时最好看', '大象保护营': '给大象喂食、洗澡，不骑大象'}
+
+
+def sight_of(text):
+    t = text or ''
+    return next((v for k, v in SIGHT.items() if k in t), None)
+
+
+TZ = {'japan': 9, 'korea': 9, 'thailand': 7, 'vietnam': 7, 'cambodia': 7, 'laos': 7, 'malaysia': 8, 'singapore': 8, 'indonesia': 8, 'philippines': 8,
+      'nepal': 5.75, 'bhutan': 6, 'india': 5.5, 'srilanka': 5.5, 'maldives': 5, 'uzbekistan': 5, 'kazakhstan': 5, 'turkey': 3, 'uae': 4, 'georgia': 4,
+      'jordan': 3, 'mongolia': 8}
 STATUS = {'open': '可以去', 'restricted': '有条件', 'paused': '暂停开放', 'check': '出发前查'}
 TRIP_OF_ROUTE = {}
 for t in TRIPS:
@@ -291,7 +319,8 @@ def row_html(w, city, app):
     else:
         main = E(w.get('name')); sub = ' · '.join(x for x in [E(w.get('d')), E(w.get('kb'))] if x); kw = w.get('poi')
         mu = museum_of(w.get('name')) or museum_of(w.get('poi'))
-        bk_ = book_of(w.get('name'))
+        bk_ = book_of(w.get('name')); sg_ = sight_of(w.get('name'))
+        if sg_ and not (mu and mu['treasures']): sub = (sub + '</p><p class="s sn2">' if sub else '') + E(sg_)
         if mu and mu['treasures']:
             main += '<span class="gb">国宝</span>'
             note_ = re.sub(r'，?(要提前预约|要预约)', '', mu.get('note') or '').strip('，')
@@ -371,7 +400,8 @@ def trip_page(rid):
         if d.get('driveMin'): facts.append(('开车', hrs(d['driveMin'])))
         if (d.get('elev') or 0) >= 1500: facts.append(('高海拔' if d['elev'] >= 3000 else '海拔', f'{d["elev"]:,}'))
         fx = ''.join(f'<div class="fx"><small>{k}</small><b>{E(v)}</b></div>' for k, v in facts)
-        fx += f'<div class="fx"><small>日出</small><b class="sun" data-lat="{d["lat"]}" data-lng="{d["lng"]}" data-date="{dates[i].isoformat()}" data-k="rise">—</b></div><div class="fx"><small>日落</small><b class="sun" data-lat="{d["lat"]}" data-lng="{d["lng"]}" data-date="{dates[i].isoformat()}" data-k="set">—</b></div>'
+        tz_ = TZ.get(t.get('dest'), 8)
+        fx += f'<div class="fx"><small>日出</small><b class="sun" data-lat="{d["lat"]}" data-lng="{d["lng"]}" data-tz="{tz_}" data-date="{dates[i].isoformat()}" data-k="rise">—</b></div><div class="fx"><small>日落</small><b class="sun" data-lat="{d["lat"]}" data-lng="{d["lng"]}" data-tz="{tz_}" data-date="{dates[i].isoformat()}" data-k="set">—</b></div>'
         stays = ''
         if d.get('stay') and i < n - 1 and not (i > 0 and r['days'][i - 1].get('city') == d.get('city') and r['days'][i - 1].get('stay')):
             run = 1
@@ -386,10 +416,12 @@ def trip_page(rid):
             while i + run < n - 1 and r['days'][i + run].get('stayName') == d.get('stayName'): run += 1
             BIG = {'北京', '上海', '广州', '深圳', '杭州', '成都', '西安', '南京', '苏州', '重庆', '武汉', '长沙', '厦门', '三亚', '香港', '澳门', '青岛', '大连', '天津', '东京', '首尔', '新加坡', '迪拜', '伊斯坦布尔', '大阪', '京都'}
             hi = (d.get('elev') or 0) >= 2500
+            vil = bool(re.search(r'(村|寨|镇|营地|客栈)$', area or ''))
             pr = (('¥600 起', '¥300–500', '¥120–250') if hi else ('¥1,500 起', '¥600–1,000', '¥250–400') if city in BIG else ('¥900 起', '¥400–700', '¥150–300'))
             kw_ = re.sub(r'(附近|一带|边上|里|市区)$', '', area) if area != city else city
             q_ = lambda w_: hotel_url(kw_, city, app, d0.get('base', {}).get('name'))
-            tiers = [('奢华', '五星或高端度假酒店' if not hi else '当地最好的酒店', pr[0], q_('五星酒店' if not hi else '酒店')), ('高级', '四星或品牌连锁', pr[1], q_('四星酒店')), ('中低', '经济连锁或干净的客栈', pr[2], q_('经济型酒店'))]
+            tiers = [('奢华', '五星或高端度假酒店' if not hi else '当地最好的酒店', pr[0], q_('')), ('高级', '四星或品牌连锁', pr[1], q_('')), ('中低', '经济连锁或干净的客栈', pr[2], q_(''))]
+            if vil: tiers = [('奢华', '当地最好的精品民宿', '¥500 起', q_('')), ('高级', '评分高的客栈', '¥200–400', q_('')), ('中低', '干净的农家乐或青旅', '¥80–200', q_(''))]
             lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{tn}</span><div><b class="tg">{desc}</b><small>参考价 {pp}/晚</small></div></li>' for k, (tn, desc, pp, u) in enumerate(tiers))
             stays = (f'<div class="stays"><div class="sh"><span class="lbl">今晚住</span><span>{E(area)}{" · 连住 " + str(run) + " 晚" if run > 1 else ""}</span></div><ul>{lis}</ul><button type="button" class="tog">看另外两档</button><p class="sn">到携程后用「价格/星级」筛档位</p>'
                      f'<div class="bk"><a class="btn" rel="nofollow noopener" target="_blank" href="{E(tiers[0][3])}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpurl(area + " 酒店", city))}" aria-label="在大众点评看附近酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')

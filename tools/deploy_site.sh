@@ -26,7 +26,7 @@ def api(path, tok, method='GET'):
     with urllib.request.urlopen(r, timeout=30) as x: return json.loads(x.read() or b'{}')
 head = subprocess.run(['git', '-C', '/tmp/zdeploy/repo', 'rev-parse', 'HEAD'], capture_output=True, text=True).stdout.strip()
 for attempt in range(2):
-    for i in range(16):
+    for i in range(7):
         time.sleep(15)
         b = api('/repos/woowoeth/zouni/pages/builds/latest', '/tmp/.zt_read')
         if b.get('commit', '').startswith(head[:7]) and b.get('status') in ('built', 'errored'): break
