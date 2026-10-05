@@ -72,12 +72,26 @@ def coord(kw, city):
     return None
 
 
+
+import math as _m
+def wgs2gcj(lat, lng):
+    """WGS-84 → GCJ-02（高德用的坐标），国外不转"""
+    if not (73.5 < lng < 135.1 and 3.8 < lat < 53.6): return lat, lng
+    a = 6378245.0; ee = 0.00669342162296594323
+    def tl(x, y): return -100.0 + 2.0*x + 3.0*y + 0.2*y*y + 0.1*x*y + 0.2*_m.sqrt(abs(x)) + (20.0*_m.sin(6.0*x*_m.pi) + 20.0*_m.sin(2.0*x*_m.pi)) * 2.0/3.0 + (20.0*_m.sin(y*_m.pi) + 40.0*_m.sin(y/3.0*_m.pi)) * 2.0/3.0 + (160.0*_m.sin(y/12.0*_m.pi) + 320*_m.sin(y*_m.pi/30.0)) * 2.0/3.0
+    def tg(x, y): return 300.0 + x + 2.0*y + 0.1*x*x + 0.1*x*y + 0.1*_m.sqrt(abs(x)) + (20.0*_m.sin(6.0*x*_m.pi) + 20.0*_m.sin(2.0*x*_m.pi)) * 2.0/3.0 + (20.0*_m.sin(x*_m.pi) + 40.0*_m.sin(x/3.0*_m.pi)) * 2.0/3.0 + (150.0*_m.sin(x/12.0*_m.pi) + 300.0*_m.sin(x/30.0*_m.pi)) * 2.0/3.0
+    dlat = tl(lng - 105.0, lat - 35.0); dlng = tg(lng - 105.0, lat - 35.0)
+    rl = lat / 180.0 * _m.pi; mg = 1 - ee * _m.sin(rl) ** 2; sm = _m.sqrt(mg)
+    dlat = (dlat * 180.0) / ((a * (1 - ee)) / (mg * sm) * _m.pi); dlng = (dlng * 180.0) / (a / sm * _m.cos(rl) * _m.pi)
+    return round(lat + dlat, 6), round(lng + dlng, 6)
+
 def mapurl(kw, city, app):
     ll = coord(kw, city)
     if app == 'google':
         return 'https://www.google.com/maps/search/?api=1&query=' + (f'{ll[0]},{ll[1]}' if ll else urllib.parse.quote(kw))
     if ll:
-        return f'https://uri.amap.com/marker?position={ll[1]},{ll[0]}&name={urllib.parse.quote(kw)}&src=zouni&coordinate=wgs84&callnative=1'
+        g = wgs2gcj(ll[0], ll[1])
+        return f'https://uri.amap.com/marker?position={g[1]},{g[0]}&name={urllib.parse.quote(kw)}&src=zouni&callnative=1'
     return 'https://uri.amap.com/search?keyword=' + urllib.parse.quote(kw) + ('&city=' + urllib.parse.quote(city) if city else '') + '&src=zouni&callnative=1'
 
 
@@ -419,10 +433,26 @@ def hero(r, back=None, share=False):
     return f'<div class="hero text" style="background:{bg}"><span class="mark" aria-hidden="true">{E(mark)}</span>{sq}<div class="hero-t"><span class="kick">{kick}</span><h1>{E(r["title"])}</h1></div></div>'
 
 
+def navurl(a, b, how, app, name):
+    if not a or not b: return None
+    h = how or ''
+    if any(k in h for k in ('高铁', '飞机', '轮渡', '火车', 'JR', '坐船', '徒步约')): return None
+    mode = 'walk' if '步行' in h else 'bus' if ('地铁' in h or '公交' in h) else 'car'
+    if app == 'google':
+        gm = {'walk': 'walking', 'bus': 'transit', 'car': 'driving'}[mode]
+        return f'https://www.google.com/maps/dir/?api=1&origin={a[0]},{a[1]}&destination={b[0]},{b[1]}&travelmode={gm}'
+    ga, gb = wgs2gcj(*a), wgs2gcj(*b)
+    return f'https://uri.amap.com/navigation?from={ga[1]},{ga[0]},{urllib.parse.quote("上一站")}&to={gb[1]},{gb[0]},{urllib.parse.quote(name or "下一站")}&mode={mode}&src=zouni&callnative=1'
+
+
 def row_html(w, city, app):
     t = w['type']
     if t == 'dep':
-        return f'<li class="r dep"><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">出发 → {E(w.get("to"))}</p>{f"<p class=s>{E(w.get(chr(104)+chr(111)+chr(119)))}</p>" if w.get("how") else ""}</div></li>'
+        sub = E(w.get('how')) if w.get('how') else ''
+        if w.get('nav'):
+            return (f'<li class="r dep"><time>{E(w["t"])}</time><span class="dot"></span><a class="rb nav" href="{E(w["nav"])}" rel="nofollow noopener" target="_blank" aria-label="导航到 {E(w.get("to"))}">'
+                    f'<p class="m">出发 → {E(w.get("to"))}</p><p class="s">{sub}{" · " if sub else ""}<em>导航</em></p></a></li>')
+        return f'<li class="r dep"><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">出发 → {E(w.get("to"))}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
     if t == 'eat':
         place = w.get('place') if w.get('place') not in ('随意', '住的地方附近', '附近', '车站或机场里吃', '沿途', '路上') else ''
         main = f'{E(w.get("slot"))} · {E(w.get("dish"))}'
@@ -471,7 +501,7 @@ def trip_page(rid):
         w = next((w for w in d['rows'] if w['type'] == 'dep'), None); return w['t'] if w else ''
     over = ''.join(f'<li><a href="#d{i + 1}"><b>{i + 1:02d}</b><i>{md(dates[i])}</i><span class="ot"><strong>{E(d["title"])}</strong><small>{"回家" if i == n - 1 else "住" + E(d.get("navCity") or d.get("city"))}</small></span><em>{E(firstdep(d))} 走</em></a></li>' for i, d in enumerate(r['days']))
     daynav = '<nav class="daynav" aria-label="跳到第几天">' + ''.join(f'<a href="#d{i + 1}">{i + 1}</a>' for i in range(n)) + '</nav>'
-    days = []; sights = []
+    days = []; sights = []; navprev = None
     for i, d in enumerate(r['days']):
         city = d.get('navCity') or d.get('city'); rows = list(d['rows'])
         if i < n - 1 and (d.get('stayName') or d.get('stay')):
@@ -496,6 +526,17 @@ def trip_page(rid):
         mlist = (CULT.get('manners') or {}).get(t.get('dest'), []) if i == 0 else []
         if mlist: story = f'<div class="mn"><span class="lbl">当地讲究</span><ul>' + ''.join(f'<li>{E(x)}</li>' for x in mlist) + '</ul></div>' + story
         notes = ''.join(f'<p class="note"><b>路上</b>{E(x)}</p>' for x in d.get('notes') or [])
+        lastpt = navprev
+        for k, w in enumerate(rows):
+            if w['type'] == 'dep':
+                nxt = next((x for x in rows[k + 1:] if x['type'] != 'dep' and x.get('poi')), None)
+                b_ = coord(nxt['poi'], city) if nxt else None
+                u_ = navurl(lastpt, b_, w.get('how'), app, (nxt.get('name') or nxt.get('place') or nxt.get('dish') or '') if nxt else '') if nxt else None
+                if u_: rows[k] = dict(w, nav=u_)
+            elif w.get('poi'):
+                c_ = coord(w['poi'], city)
+                if c_: lastpt = c_
+        navprev = lastpt
         days.append(f'<section class="day" id="d{i + 1}"><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
                     f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (d.get("clim") or {}).get(str(dates[i].month)) else ""}</p>{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
         sights += [w['name'] for w in d['rows'] if w['type'] == 'see' and w.get('poi')]
