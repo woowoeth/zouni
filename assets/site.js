@@ -146,11 +146,18 @@
       hk.addEventListener('change',function(){if(!hk.value)return;cur=hk.value;all=false;try{localStorage.setItem('zouni_home_date',cur)}catch(e){}var d=new Date(cur+'T12:00:00');hb.querySelector('b').textContent=(d.getMonth()+1)+'/'+d.getDate()+' 周'+W[d.getDay()]+' 出发';show();document.getElementById('now').scrollIntoView()});
       try{var h0=localStorage.getItem('zouni_home_date');if(h0&&h0>=(hk.dataset.min||hk.min)){hk.value=h0;cur=h0;var d0=new Date(h0+'T12:00:00');hb.querySelector('b').textContent=(d0.getMonth()+1)+'/'+d0.getDate()+' 周'+W[d0.getDay()]+' 出发'}}catch(e){}}
     show()}
+  // ——— 路线图点一下放大看（手机上可以拖着看） ———
+  document.querySelectorAll('.hmap').forEach(function(f){var svg=f.querySelector('svg');if(!svg)return;f.setAttribute('role','button');f.setAttribute('tabindex','0');f.title='点一下放大看';
+    function open(e){if(e.target.closest('a'))return;var m=document.createElement('div');m.className='hmap-zoom';m.innerHTML='<button type="button" class="hz-x">关上</button><div class="hz-b"></div>';m.querySelector('.hz-b').appendChild(svg.cloneNode(true));
+      document.body.appendChild(m);document.body.classList.add('pk-open');var b=m.querySelector('.hz-b');b.scrollLeft=(b.scrollWidth-b.clientWidth)/2;
+      function cl(){m.remove();document.body.classList.remove('pk-open')}m.querySelector('.hz-x').addEventListener('click',cl);m.addEventListener('click',function(e){if(e.target===m)cl()})}
+    f.addEventListener('click',open);f.addEventListener('keydown',function(e){if(e.key==='Enter')open(e)})});
   // ——— 本期：我的行程、最近看过 ———
   function mineEmpty(){var sec=document.getElementById('mine');if(sec&&location.hash==='#mine'&&!ld('zouni_fav').length){sec.hidden=false;sec.querySelector('ul').innerHTML='<li class=empty>还没有收进的行程。打开任意一条行程，点底部“收进行程”，就会出现在这里。</li>'}}
   window.addEventListener('hashchange',mineEmpty);mineEmpty();
   document.querySelectorAll('.mine').forEach(function(sec){var ul=sec.querySelector('ul'),k=ul.dataset.k==='fav'?'zouni_fav':'zouni_seen',xs=ld(k);if(!xs.length)return;sec.hidden=false;
-    ul.innerHTML=xs.map(function(x){return'<li><a href="/trip/'+encodeURIComponent(x.id)+'/"><b>'+String(x.label).replace(/</g,'&lt;')+' ›</b><span>'+String(x.title).replace(/</g,'&lt;')+'</span></a></li>'}).join('')});
+    ul.innerHTML=xs.map(function(x){var s0='';try{s0=localStorage.getItem('zouni_start_'+x.id)||''}catch(e){}var when='';if(s0){var d=new Date(s0+'T12:00:00'),n=new Date();n.setHours(12,0,0,0);var left=Math.round((d-n)/864e5);when='<small>'+(d.getMonth()+1)+'/'+d.getDate()+' 出发 · '+(left>0?'还有 '+left+' 天':left===0?'就是今天':'已出发')+'</small>'}
+      return'<li><a href="/trip/'+encodeURIComponent(x.id)+'/"><b>'+String(x.label).replace(/</g,'&lt;')+' ›</b><span>'+String(x.title).replace(/</g,'&lt;')+'</span>'+when+'</a></li>'}).join('')});
 
   // ——— 去哪儿 ———
   var flt=document.querySelector('.flt'),mon=document.querySelector('.mon');
