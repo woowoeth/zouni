@@ -307,7 +307,7 @@ a,button{-webkit-tap-highlight-color:transparent}
 .qual li small{width:52px;text-align:right}.qual .icg,.niche .icg{flex:none}
 .hlegend span{white-space:nowrap;margin-right:12px}
 .r .s em.bkn{font-style:normal;font-weight:700;color:var(--blue);margin-right:6px}
-h1,h2,h3,.items h3,.cv h2{text-wrap:balance}
+h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block}
 .r .s.sn2{color:#6b6d66}
 .addday{padding:28px 20px 0}
 .minebtn{height:36px;padding:0 12px;border:0;background:var(--bg);color:var(--ink);font:700 13px var(--sans);cursor:pointer}
