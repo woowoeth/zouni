@@ -493,6 +493,8 @@ def trip_page(rid):
                      + (f'<button type="button" class="tog">看另外两档</button>' if len(d['stay']) > 1 else '')
                      + f'<div class="bk"><a class="btn" rel="nofollow noopener" target="_blank" href="https://m.ctrip.com/webapp/hotels/list?keyword={urllib.parse.quote(d["stay"][0]["name"])}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpu)}" aria-label="在大众点评看这家酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
         story = f'<aside class="story"><span class="lbl">懂一点</span><p>{E(d["story"])}</p></aside>' if d.get('story') else ''
+        mlist = (CULT.get('manners') or {}).get(t.get('dest'), []) if i == 0 else []
+        if mlist: story = f'<div class="mn"><span class="lbl">当地讲究</span><ul>' + ''.join(f'<li>{E(x)}</li>' for x in mlist) + '</ul></div>' + story
         notes = ''.join(f'<p class="note"><b>路上</b>{E(x)}</p>' for x in d.get('notes') or [])
         days.append(f'<section class="day" id="d{i + 1}"><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
                     f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (d.get("clim") or {}).get(str(dates[i].month)) else ""}</p>{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
@@ -662,20 +664,24 @@ def home_page():
         return f'{int(b[0][:2])}/{int(b[0][3:])}–{int(b[1][:2])}/{int(b[1][3:])}' if b else ''
     def item(i, rid, kicker, hide=False):
         rr = ROUTES[rid]; tt = TRIP_OF_ROUTE[rid]; dd = DEST.get(tt['dest'], {}); c = clim(dd); n = len(rr['days'])
+        wb = window(tt) or ['', '']
+        extra = f' data-ws="{wb[0]}" data-we="{wb[1]}" data-img="{1 if rr.get("img") else 0}" data-comp="{1 if rr.get("compiled") else 0}" data-clim=\'{E(json.dumps(dd.get("climate") or {}))}\''
         img = (rr.get('img') or '').replace('/_blob/', '')
         tile = (f'<a class="tile img" href="/trip/{rid}/"><img src="/img/{img}.svg" alt="" loading="lazy"></a>' if img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg'))
                 else f'<a class="tile" href="/trip/{rid}/" style="background:{["#c8432f", "#2e5b6b", "#4f6233", "#5a4a6b", "#8a5a2b", "#3b5a7a"][i % 6]}">{E(re.sub(r"\s*\d+\s*天$", "", rr.get("label") or ""))}</a>')
         dl = days_left(tt)
         when = (f'<span class="left{" urgent" if dl is not None and dl <= 14 else ""}">{"最后 " + str(dl) + " 天" if dl is not None and dl <= 14 else "最好 " + wtxt(tt) + (" · 还剩 " + str(dl) + " 天" if dl is not None else "")}</span>' if window(tt) else '<span class="left">一年四季都能去</span>')
         band = 'd1' if n <= 3 else 'd2' if n <= 5 else 'd3'
-        return (f'<li data-band="{band}"{" hidden" if hide else ""}><span class="num">{i:02d}</span><div class="tx"><span class="k">{kicker}</span><h3>{E(dd.get("name", ""))} · {E(rr.get("label"))}</h3><p>{E(rr["title"])}</p>'
+        return (f'<li data-band="{band}"{extra}{" hidden" if hide else ""}><span class="num">{i:02d}</span><div class="tx"><span class="k">{kicker}</span><h3>{E(dd.get("name", ""))} · {E(rr.get("label"))}</h3><p>{E(rr["title"])}</p>'
                 f'<small>{n} 天 · 人均 {E(rr.get("price"))}</small>{when}<span class="c">{m} 月白天 {c[0]}℃，夜里 {c[1]}℃</span><a class="open" href="/trip/{rid}/">翻开 ›</a></div>{tile}</li>')
     rest = [x for x in inseason if x != cover]
     urgent = sorted([x for x in rest if days_left(TRIP_OF_ROUTE[x]) <= 14], key=lambda x: (0 if ROUTES[x].get('img') else 1, days_left(TRIP_OF_ROUTE[x])))[:3]
     # 其余：有海报的精编线路先，再按离过季远近
     order = urgent + sorted([x for x in rest if x not in urgent], key=lambda x: (0 if ROUTES[x].get('img') else 1, 0 if not ROUTES[x].get('compiled') else 1, days_left(TRIP_OF_ROUTE[x])))
     counts = {b: sum(1 for x in order if ('d1' if len(ROUTES[x]['days']) <= 3 else 'd2' if len(ROUTES[x]['days']) <= 5 else 'd3') == b) for b in ('d1', 'd2', 'd3')}
-    toc = ''.join(item(i + 2, rid, '小众' if '小众' in (TRIP_OF_ROUTE[rid].get('tags') or []) else '正当季', hide=i >= 8) for i, rid in enumerate(order))
+    others = [x for x in ROUTE_IDS if TRIP_OF_ROUTE.get(x) and window(TRIP_OF_ROUTE[x]) and x not in order and x != cover]
+    toc = ''.join(item(i + 2, rid, '小众' if '小众' in (TRIP_OF_ROUTE[rid].get('tags') or []) else '正当季', hide=i >= 8) for i, rid in enumerate(order)) + \
+          ''.join(item(0, rid, '小众' if '小众' in (TRIP_OF_ROUTE[rid].get('tags') or []) else '正当季', hide=True) for rid in others)
     chips = (f'<div class="dchips" role="group" aria-label="我有几天"><button type="button" data-b="" class="on">全部 {len(order)}</button>'
              f'<button type="button" data-b="d1">周末 2–3 天 · {counts["d1"]}</button><button type="button" data-b="d2">4–5 天 · {counts["d2"]}</button><button type="button" data-b="d3">一周以上 · {counts["d3"]}</button></div>')
     nxt = (m % 12) + 1
@@ -687,10 +693,11 @@ def home_page():
     c0 = clim(dc); dl0 = days_left(tc)
     body = (f'<article class="home"><div class="cover">{f"<img src=/img/{cimg}.svg alt=>" if cimg else ""}'
             f'<div class="mast"><div><h1>走你</h1><small>{TODAY.year} · {mname}</small></div><a href="#mine"><span>我的行程</span></a></div>'
+            f'<div class="datebar"><button type="button" class="hdt" aria-label="改出发日期"><b>{TODAY.month}/{TODAY.day} 周{"一二三四五六日"[TODAY.weekday()]} 出发</b><i>改</i></button><input type="date" class="hdpk" min="{TODAY.isoformat()}" value="{TODAY.isoformat()}" tabindex="-1" aria-hidden="true"></div>'
             f'<div class="cv"><span class="kick">封面故事 · 正当季{(" · 还剩 " + str(dl0) + " 天") if dl0 is not None else ""}</span><h2>{E(r["title"])}</h2><div class="chips"><span>{len(r["days"])} 天 · 人均 {E(r.get("price"))}</span><span>{m} 月 {c0[0]}°C / {c0[1]}°C</span></div><a class="go" href="/trip/{cover}/">翻开 →</a></div></div>'
             f'<section class="mine" id="mine" hidden><h2>我的行程</h2><ul class="list" data-k="fav"></ul></section>'
             f'<section class="mine" hidden><h2>最近看过</h2><ul class="list" data-k="seen"></ul></section>'
-            f'<section class="toc now"><h2>现在去正好<small>{len(order) + 1} 条，快过季的先看</small></h2>{chips}<ol class="items">{toc}</ol>'
+            f'<section class="toc now" id="now"><h2><span class="nt">现在去正好</span><small class="ns">{len(order) + 1} 条，快过季的先看</small></h2>{chips}<ol class="items">{toc}</ol>'
             f'{("<button type=button class=moreb>再看 " + str(max(0, len(order) - 8)) + " 条</button>") if len(order) > 8 else ""}</section>'
             f'<a class="allbar" href="/where/"><span>全部目的地 · 按月份挑</span><span>›</span></a>'
             + (f'<section class="toc"><h2>下个月正好<small>{nxt} 月开始</small></h2><ol class="items">{nitems}</ol></section>' if nitems else '')

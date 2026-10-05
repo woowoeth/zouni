@@ -18314,6 +18314,603 @@
      ]
     }
    ]
+  },
+  "hmi2": {
+   "dest": "xinjiang",
+   "city": "哈密",
+   "label": "哈密 2 天",
+   "title": "两天，哈密回王府和巴里坤",
+   "kicker": "东疆 · 两天",
+   "start": [
+    2026,
+    8,
+    15
+   ],
+   "prep": [
+    "巴里坤湖在天山北边，夏天去"
+   ],
+   "days": [
+    {
+     "title": "哈密回王府 · 哈密博物馆",
+     "text": "看哈密回王府和哈密博物馆，晚上吃哈密瓜。",
+     "stops": [
+      {
+       "name": "哈密回王府",
+       "q": "哈密回王府",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "哈密博物馆",
+       "q": "哈密博物馆",
+       "type": "museum",
+       "dur": 90
+      }
+     ],
+     "stay": "哈密"
+    },
+    {
+     "title": "巴里坤湖 · 回程",
+     "text": "包车翻天山去巴里坤湖，下午回哈密出发。",
+     "stops": [
+      {
+       "name": "巴里坤湖",
+       "q": "巴里坤湖",
+       "type": "sight",
+       "dur": 150,
+       "via": "包车约 2 小时"
+      }
+     ],
+     "city": "巴里坤"
+    }
+   ]
+  },
+  "weh2": {
+   "dest": "xinjiang",
+   "city": "克拉玛依",
+   "label": "乌尔禾魔鬼城 2 天",
+   "title": "两天，乌尔禾魔鬼城看日落",
+   "kicker": "北疆 · 两天",
+   "start": [
+    2026,
+    8,
+    15
+   ],
+   "prep": [
+    "魔鬼城白天晒，傍晚光最好"
+   ],
+   "days": [
+    {
+     "title": "世界魔鬼城",
+     "text": "包车去乌尔禾，傍晚在世界魔鬼城看日落。",
+     "stops": [
+      {
+       "name": "世界魔鬼城",
+       "q": "世界魔鬼城",
+       "type": "sight",
+       "dur": 180,
+       "via": "包车约 1 小时 30 分钟",
+       "at": "17:30"
+      }
+     ],
+     "city": "乌尔禾",
+     "stay": "乌尔禾"
+    },
+    {
+     "title": "黑油山 · 回程",
+     "text": "回克拉玛依看黑油山，下午出发。",
+     "stops": [
+      {
+       "name": "黑油山",
+       "q": "黑油山",
+       "type": "sight",
+       "dur": 60,
+       "via": "包车约 1 小时 30 分钟"
+      }
+     ]
+    }
+   ]
+  },
+  "tch2": {
+   "dest": "xinjiang",
+   "city": "塔城",
+   "label": "塔城 2 天",
+   "title": "两天，边境小城塔城",
+   "kicker": "北疆 · 两天",
+   "start": [
+    2026,
+    6,
+    15
+   ],
+   "prep": [
+    "塔城离中哈边境很近，带身份证"
+   ],
+   "days": [
+    {
+     "title": "红楼 · 老城",
+     "text": "看塔城红楼博物馆，逛老城的俄式小楼。",
+     "stops": [
+      {
+       "name": "塔城红楼",
+       "q": "塔城红楼博物馆",
+       "type": "museum",
+       "dur": 90
+      },
+      {
+       "name": "塔城老城",
+       "q": "塔城市",
+       "type": "street",
+       "dur": 120
+      }
+     ],
+     "stay": "塔城"
+    },
+    {
+     "title": "巴尔鲁克山 · 回程",
+     "text": "包车去巴尔鲁克山看野巴旦杏林（春天开花），下午出发。",
+     "stops": [
+      {
+       "name": "巴尔鲁克山",
+       "q": "巴尔鲁克山",
+       "type": "sight",
+       "dur": 180,
+       "via": "包车约 2 小时"
+      }
+     ],
+     "city": "裕民"
+    }
+   ]
+  },
+  "hcxd2": {
+   "dest": "anhui",
+   "city": "黄山",
+   "label": "宏村西递 2 天",
+   "title": "两天，宏村和西递",
+   "kicker": "古村 · 两天",
+   "start": [
+    2026,
+    9,
+    20
+   ],
+   "prep": [
+    "宏村清早和傍晚人少，住村里"
+   ],
+   "days": [
+    {
+     "title": "宏村",
+     "text": "下午进宏村，看月沼和南湖，傍晚在村里走。",
+     "stops": [
+      {
+       "name": "宏村",
+       "q": "宏村",
+       "type": "street",
+       "dur": 210
+      }
+     ],
+     "start": "13:00",
+     "city": "黟县",
+     "stay": "宏村"
+    },
+    {
+     "title": "西递 · 回程",
+     "text": "清早再看一眼宏村，上午去西递，下午出发。",
+     "stops": [
+      {
+       "name": "西递",
+       "q": "西递",
+       "type": "street",
+       "dur": 150,
+       "via": "包车约 30 分钟"
+      }
+     ],
+     "city": "黟县",
+     "story": "宏村和西递 2000 年一起列入世界遗产，是皖南古村落的代表。"
+    }
+   ]
+  },
+  "sri6": {
+   "dest": "srilanka",
+   "city": "科伦坡",
+   "label": "斯里兰卡 6 天",
+   "title": "六天，狮子岩、康提和海边",
+   "kicker": "南亚 · 6 天",
+   "start": [
+    2026,
+    11,
+    15
+   ],
+   "prep": [
+    "斯里兰卡要办电子签（ETA）",
+    "进寺庙要脱鞋、穿过膝的衣服"
+   ],
+   "days": [
+    {
+     "title": "科伦坡 → 丹布勒",
+     "text": "到科伦坡，包车去丹布勒。",
+     "stops": [
+      {
+       "name": "丹布勒金寺",
+       "q": "Dambulla Cave Temple",
+       "type": "sight",
+       "dur": 90,
+       "via": "包车约 4 小时"
+      }
+     ],
+     "city": "丹布勒",
+     "stay": "丹布勒"
+    },
+    {
+     "title": "狮子岩",
+     "text": "清早爬狮子岩，下午看波隆纳鲁沃古城。",
+     "stops": [
+      {
+       "name": "狮子岩",
+       "q": "Sigiriya",
+       "type": "sight",
+       "dur": 180
+      },
+      {
+       "name": "波隆纳鲁沃",
+       "q": "Polonnaruwa",
+       "type": "sight",
+       "dur": 150,
+       "via": "包车约 1 小时 30 分钟"
+      }
+     ],
+     "start": "07:00",
+     "city": "丹布勒",
+     "stay": "丹布勒",
+     "story": "狮子岩是 5 世纪建在巨岩顶上的王宫遗址，岩壁上有古代壁画。"
+    },
+    {
+     "title": "康提",
+     "text": "去康提，看佛牙寺。",
+     "stops": [
+      {
+       "name": "佛牙寺",
+       "q": "Temple of the Tooth",
+       "type": "sight",
+       "dur": 120,
+       "via": "包车约 2 小时 30 分钟"
+      },
+      {
+       "name": "康提湖",
+       "q": "Kandy Lake",
+       "type": "park",
+       "dur": 60
+      }
+     ],
+     "city": "康提",
+     "stay": "康提"
+    },
+    {
+     "title": "努沃勒埃利耶 · 茶园",
+     "text": "坐高山火车去努沃勒埃利耶，看茶园。",
+     "stops": [
+      {
+       "name": "茶园",
+       "q": "Pedro Tea Estate",
+       "type": "fun",
+       "dur": 120,
+       "via": "火车约 4 小时"
+      }
+     ],
+     "city": "努沃勒埃利耶",
+     "stay": "努沃勒埃利耶"
+    },
+    {
+     "title": "加勒",
+     "text": "包车去南部海边的加勒古城。",
+     "stops": [
+      {
+       "name": "加勒古堡",
+       "q": "Galle Fort",
+       "type": "sight",
+       "dur": 180,
+       "via": "包车约 5 小时"
+      }
+     ],
+     "city": "加勒",
+     "stay": "加勒"
+    },
+    {
+     "title": "回程",
+     "text": "上午在海边走走，去机场。",
+     "stops": [
+      {
+       "name": "加勒灯塔",
+       "q": "Galle Lighthouse",
+       "type": "sight",
+       "dur": 45
+      }
+     ],
+     "city": "加勒"
+    }
+   ]
+  },
+  "geo5": {
+   "dest": "georgia",
+   "city": "第比利斯",
+   "label": "格鲁吉亚 5 天",
+   "title": "五天，第比利斯和卡兹别克",
+   "kicker": "高加索 · 5 天",
+   "start": [
+    2026,
+    8,
+    15
+   ],
+   "prep": [
+    "格鲁吉亚对大陆护照免签（以出发前政策为准）",
+    "进教堂女士戴头巾、穿裙子"
+   ],
+   "days": [
+    {
+     "title": "第比利斯老城",
+     "text": "坐缆车上纳里卡拉城堡，逛老城和硫磺浴区。",
+     "stops": [
+      {
+       "name": "纳里卡拉城堡",
+       "q": "Narikala Fortress",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "硫磺浴区",
+       "q": "Abanotubani",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "start": "13:00",
+     "stay": "老城"
+    },
+    {
+     "title": "姆茨赫塔",
+     "text": "去古都姆茨赫塔，看斯维提茨霍维利大教堂。",
+     "stops": [
+      {
+       "name": "斯维提茨霍维利大教堂",
+       "q": "Svetitskhoveli Cathedral",
+       "type": "sight",
+       "dur": 90,
+       "via": "包车约 40 分钟"
+      },
+      {
+       "name": "季瓦里修道院",
+       "q": "Jvari Monastery",
+       "type": "sight",
+       "dur": 60
+      }
+     ],
+     "city": "姆茨赫塔",
+     "stay": "老城"
+    },
+    {
+     "title": "军用公路 → 卡兹别克",
+     "text": "走格鲁吉亚军用公路到卡兹别克，爬到圣三一教堂。",
+     "stops": [
+      {
+       "name": "圣三一教堂",
+       "q": "Gergeti Trinity Church",
+       "type": "sight",
+       "dur": 150,
+       "via": "包车约 3 小时"
+      }
+     ],
+     "city": "斯捷潘茨明达",
+     "stay": "卡兹别克"
+    },
+    {
+     "title": "回第比利斯",
+     "text": "回第比利斯，下午在老城喝葡萄酒。",
+     "stops": [
+      {
+       "name": "和平桥",
+       "q": "Bridge of Peace",
+       "type": "sight",
+       "dur": 60,
+       "via": "包车约 3 小时"
+      }
+     ],
+     "stay": "老城"
+    },
+    {
+     "title": "回程",
+     "text": "上午逛干桥跳蚤市场，去机场。",
+     "stops": [
+      {
+       "name": "干桥市场",
+       "q": "Dry Bridge Market",
+       "type": "street",
+       "dur": 90
+      }
+     ]
+    }
+   ]
+  },
+  "jor5": {
+   "dest": "jordan",
+   "city": "安曼",
+   "label": "约旦 5 天",
+   "title": "五天，佩特拉、瓦迪拉姆和死海",
+   "kicker": "中东 · 5 天",
+   "start": [
+    2026,
+    3,
+    15
+   ],
+   "prep": [
+    "约旦落地签或电子签，买 Jordan Pass 含签证费和门票",
+    "斋月期间白天餐馆少"
+   ],
+   "days": [
+    {
+     "title": "安曼",
+     "text": "看安曼城堡和罗马剧场。",
+     "stops": [
+      {
+       "name": "安曼城堡",
+       "q": "Amman Citadel",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "罗马剧场",
+       "q": "Roman Theatre Amman",
+       "type": "sight",
+       "dur": 60
+      }
+     ],
+     "start": "13:00",
+     "stay": "安曼"
+    },
+    {
+     "title": "去佩特拉",
+     "text": "包车走国王大道去佩特拉，晚上看佩特拉烛光夜游（开放日）。",
+     "stops": [
+      {
+       "name": "佩特拉",
+       "q": "Petra",
+       "type": "sight",
+       "dur": 120,
+       "via": "包车约 3 小时 30 分钟",
+       "at": "16:00"
+      }
+     ],
+     "city": "瓦迪穆萨",
+     "stay": "瓦迪穆萨"
+    },
+    {
+     "title": "佩特拉",
+     "text": "一整天在佩特拉，走到修道院。",
+     "stops": [
+      {
+       "name": "佩特拉修道院",
+       "q": "Ad Deir",
+       "type": "sight",
+       "dur": 360
+      }
+     ],
+     "start": "07:00",
+     "city": "瓦迪穆萨",
+     "stay": "瓦迪穆萨",
+     "story": "佩特拉是纳巴泰人在红色砂岩里凿出来的城市，卡兹尼神殿是它的标志。"
+    },
+    {
+     "title": "瓦迪拉姆",
+     "text": "包车去瓦迪拉姆沙漠，坐吉普车看沙漠，住沙漠营地。",
+     "stops": [
+      {
+       "name": "瓦迪拉姆",
+       "q": "Wadi Rum",
+       "type": "sight",
+       "dur": 240,
+       "via": "包车约 2 小时"
+      }
+     ],
+     "city": "瓦迪拉姆",
+     "stay": "沙漠营地"
+    },
+    {
+     "title": "死海 · 回程",
+     "text": "去死海漂浮，傍晚回安曼出发。",
+     "stops": [
+      {
+       "name": "死海",
+       "q": "Dead Sea",
+       "type": "park",
+       "dur": 150,
+       "via": "包车约 4 小时"
+      }
+     ],
+     "city": "死海"
+    }
+   ]
+  },
+  "kz4": {
+   "dest": "kazakhstan",
+   "city": "阿拉木图",
+   "label": "阿拉木图 4 天",
+   "title": "四天，阿拉木图和天山",
+   "kicker": "中亚 · 4 天",
+   "start": [
+    2026,
+    6,
+    15
+   ],
+   "prep": [
+    "哈萨克斯坦对大陆护照免签（以出发前政策为准）",
+    "大恰伦峡谷、科尔赛湖一天来回要早出发"
+   ],
+   "days": [
+    {
+     "title": "阿拉木图",
+     "text": "看潘菲洛夫公园和升天大教堂，逛绿色巴扎。",
+     "stops": [
+      {
+       "name": "升天大教堂",
+       "q": "Ascension Cathedral Almaty",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "绿色巴扎",
+       "q": "Green Bazaar Almaty",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "start": "13:00",
+     "stay": "阿拉木图"
+    },
+    {
+     "title": "麦迪奥 · 琼布拉克",
+     "text": "坐缆车上琼布拉克看天山。",
+     "stops": [
+      {
+       "name": "麦迪奥滑冰场",
+       "q": "Medeu",
+       "type": "sight",
+       "dur": 45,
+       "via": "打车约 40 分钟"
+      },
+      {
+       "name": "琼布拉克",
+       "q": "Shymbulak",
+       "type": "sight",
+       "dur": 180
+      }
+     ],
+     "stay": "阿拉木图"
+    },
+    {
+     "title": "恰伦大峡谷",
+     "text": "包车去恰伦大峡谷，走城堡谷。",
+     "stops": [
+      {
+       "name": "恰伦大峡谷",
+       "q": "Charyn Canyon",
+       "type": "sight",
+       "dur": 180,
+       "via": "包车约 3 小时 30 分钟"
+      }
+     ],
+     "city": "恰伦",
+     "stay": "阿拉木图"
+    },
+    {
+     "title": "科克托别 · 回程",
+     "text": "上午坐缆车上科克托别看城市，去机场。",
+     "stops": [
+      {
+       "name": "科克托别",
+       "q": "Kok Tobe",
+       "type": "sight",
+       "dur": 90
+      }
+     ]
+    }
+   ]
   }
  }
 }

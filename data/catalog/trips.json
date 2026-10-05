@@ -498,9 +498,9 @@
   },
   {
    "id": "cb4",
-   "dest": "hebei",
+   "dest": "sichuan",
    "name": "塞罕坝",
-   "region": "华北",
+   "region": "西南",
    "days": 4,
    "title": "河北 · 塞罕坝与避暑山庄",
    "headline": "坝上的秋只有半个月",
@@ -4970,7 +4970,7 @@
   },
   {
    "id": "pzh2",
-   "dest": "yunnan",
+   "dest": "sichuan",
    "name": "普者黑",
    "region": "西南",
    "days": 2,
@@ -9713,6 +9713,270 @@
    "anytime": false,
    "status": "ok",
    "page": "Route.dc.html#wfg2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hmi2",
+   "dest": "xinjiang",
+   "name": "哈密",
+   "region": "西北",
+   "days": 2,
+   "title": "哈密 2 天",
+   "headline": "两天，哈密回王府和巴里坤",
+   "dek": "看哈密回王府和哈密博物馆，晚上吃哈密瓜。 包车翻天山去巴里坤湖，下午回哈密出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hmi2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "weh2",
+   "dest": "xinjiang",
+   "name": "乌尔禾魔鬼城",
+   "region": "西北",
+   "days": 2,
+   "title": "乌尔禾魔鬼城 2 天",
+   "headline": "两天，乌尔禾魔鬼城看日落",
+   "dek": "包车去乌尔禾，傍晚在世界魔鬼城看日落。 回克拉玛依看黑油山，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-15"
+    ],
+    "best": [
+     "05-01",
+     "10-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#weh2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "tch2",
+   "dest": "xinjiang",
+   "name": "塔城",
+   "region": "西北",
+   "days": 2,
+   "title": "塔城 2 天",
+   "headline": "两天，边境小城塔城",
+   "dek": "看塔城红楼博物馆，逛老城的俄式小楼。 包车去巴尔鲁克山看野巴旦杏林（春天开花），下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "09-30"
+    ],
+    "best": [
+     "04-15",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#tch2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hcxd2",
+   "dest": "anhui",
+   "name": "宏村西递",
+   "region": "华东",
+   "days": 2,
+   "title": "宏村西递 2 天",
+   "headline": "两天，宏村和西递",
+   "dek": "下午进宏村，看月沼和南湖，傍晚在村里走。 清早再看一眼宏村，上午去西递，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-30"
+    ],
+    "best": [
+     "03-15",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hcxd2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sri6",
+   "dest": "srilanka",
+   "name": "斯里兰卡",
+   "region": "南亚",
+   "days": 6,
+   "title": "斯里兰卡 6 天",
+   "headline": "六天，狮子岩、康提和海边",
+   "dek": "到科伦坡，包车去丹布勒。 清早爬狮子岩，下午看波隆纳鲁沃古城。",
+   "why": null,
+   "price": {
+    "lo": 5600,
+    "hi": 10500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "12-01",
+     "04-15"
+    ],
+    "best": [
+     "12-01",
+     "04-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sri6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "geo5",
+   "dest": "georgia",
+   "name": "格鲁吉亚",
+   "region": "西亚",
+   "days": 5,
+   "title": "格鲁吉亚 5 天",
+   "headline": "五天，第比利斯和卡兹别克",
+   "dek": "坐缆车上纳里卡拉城堡，逛老城和硫磺浴区。 去古都姆茨赫塔，看斯维提茨霍维利大教堂。",
+   "why": null,
+   "price": {
+    "lo": 5000,
+    "hi": 9200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-15",
+     "10-15"
+    ],
+    "best": [
+     "05-15",
+     "10-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#geo5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jor5",
+   "dest": "jordan",
+   "name": "约旦",
+   "region": "西亚",
+   "days": 5,
+   "title": "约旦 5 天",
+   "headline": "五天，佩特拉、瓦迪拉姆和死海",
+   "dek": "看安曼城堡和罗马剧场。 包车走国王大道去佩特拉，晚上看佩特拉烛光夜游（开放日）。",
+   "why": null,
+   "price": {
+    "lo": 5000,
+    "hi": 9300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-01",
+     "05-15"
+    ],
+    "best": [
+     "03-01",
+     "05-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jor5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "kz4",
+   "dest": "kazakhstan",
+   "name": "阿拉木图",
+   "region": "中亚",
+   "days": 4,
+   "title": "阿拉木图 4 天",
+   "headline": "四天，阿拉木图和天山",
+   "dek": "看潘菲洛夫公园和升天大教堂，逛绿色巴扎。 坐缆车上琼布拉克看天山。",
+   "why": null,
+   "price": {
+    "lo": 4100,
+    "hi": 7700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-15",
+     "09-30"
+    ],
+    "best": [
+     "05-15",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#kz4",
    "engineRoute": null,
    "poster": null
   }
