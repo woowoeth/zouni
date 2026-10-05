@@ -73,6 +73,7 @@ s = open(OUT, encoding='utf-8').read()
 ORDER = json.loads(re.search(r'window.ZOUNI_ORDER=(\[.*?\]);', s).group(1))
 ROUTES = json.loads(re.search(r'window.ZOUNI_ROUTES=(.*);\n', s).group(1))
 report = []
+CITY_FOOD = json.load(open('data/catalog/city_food.json')) if os.path.exists('data/catalog/city_food.json') else {}
 for rid, it in IT.items():
     dest = CAT[it['dest']]; city = it['city']; CUR_CC[0] = CC.get(it['dest'], 'cn')
     base = (dest['base']['lat'], dest['base']['lng'])
@@ -94,7 +95,8 @@ for rid, it in IT.items():
 
         def meal(slot, spec, at):
             global meal_i
-            dish = (spec or {}).get('dish') or eat_pool[meal_i % len(eat_pool)]; meal_i += 1
+            pool = CITY_FOOD.get(dcity) or CITY_FOOD.get(city) or eat_pool   # 先用当天城市的招牌菜
+            dish = (spec or {}).get('dish') or pool[meal_i % len(pool)]; meal_i += 1
             place = (spec or {}).get('place') or '附近'
             return {'t': hm(at), 'type': 'eat', 'slot': slot, 'dish': dish, 'place': place, 'd': '', 'poi': '', 'dp': dp(city, dish.split('、')[0])}
 

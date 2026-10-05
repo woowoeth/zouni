@@ -248,3 +248,4 @@ a,button{-webkit-tap-highlight-color:transparent}
 .daynav a.now:after{content:"今";margin-left:3px;font:700 10px var(--sans);color:var(--red)}.daynav a.on.now:after{color:var(--pink)}
 .r.flash{background:rgba(166,61,39,.12);transition:background .4s}
 .offline{position:fixed;left:0;right:0;top:0;z-index:40;padding:8px 16px;background:var(--red);color:var(--bg);font-size:13px;text-align:center}
+.hlegend{margin:8px 0 0;font-size:12px;line-height:1.9;color:#3d3f3a}.hlegend b{margin-right:3px;color:var(--red);font-weight:700}

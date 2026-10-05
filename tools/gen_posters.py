@@ -21,6 +21,7 @@ CATS = [  # 顺序即优先级
     ('dunhuang', ('鸣沙山', '月牙泉')), ('huangshan', ('黄山', '三清山', '华山', '光明顶', '迎客松')),
     ('waterfall', ('瀑布', '黄果树', '壶口', '德天', '九龙瀑')), ('watertown', ('周庄', '乌镇', '同里', '西塘', '南浔', '甪直', '朱家角', '水乡')),
     ('tropic', ('三亚', '亚龙湾', '西双版纳', '巴厘', '马尔代夫', '日月湾', '万宁', '涠洲', '分界洲', '兴隆')),
+    ('huizhou', ('宏村', '西递', '婺源', '徽州', '歙县', '呈坎', '篁岭', '唐模')), ('bamboo', ('竹海', '竹林', '莫干山')),
     ('tulou', ('土楼',)), ('garden', ('拙政园', '留园', '个园', '何园', '网师园', '园林')), ('wall', ('城墙', '永宁门', '古城墙')),
     ('mountain', ('雪山', '冰川', '神山', '冈仁波齐', '珠峰', '贡嘎', '梅里', '格聂', '四姑娘', '玉龙', '南迦巴瓦', '阿尼玛卿', '鱼子西', '日照金山')), ('snow', ('雪乡', '雾凇', '滑雪', '冰雪', '冰灯', '雪如意')),
     ('desert', ('沙漠', '沙坡', '鸣沙', '雅丹', '戈壁', '魔鬼城', '巴丹吉林', '沙湖', '瓦迪拉姆', '佩特拉', '死海', '迪拜')), ('terrace', ('梯田', '红土地')),
@@ -127,7 +128,34 @@ def poster(rid, it):
     else:
         g.append(f'<path d="{ridge(rnd, 440, 26, 30)}" fill="{P["mid"]}"/>')
     main = P['main']; acc = P['acc']
-    if cat == 'dunhuang':
+    if cat == 'huizhou':
+        g.append(f'<rect x="0" y="{horizon}" width="{W}" height="{H - horizon}" fill="url(#wt)"/>')
+        x = -20
+        while x < W:
+            w_ = rnd.uniform(110, 150); h_ = rnd.uniform(110, 170); y0 = horizon
+            g.append(f'<rect x="{x:.0f}" y="{y0 - h_:.0f}" width="{w_:.0f}" height="{h_:.0f}" fill="#f2efe8"/>')
+            # 马头墙：一级一级的阶梯山墙
+            st = 3; sw = w_ / (2 * st)
+            pts = [(x, y0 - h_)]
+            for k in range(st): pts += [(x + k * sw, y0 - h_ - 18 * (k + 1)), (x + (k + 1) * sw, y0 - h_ - 18 * (k + 1))]
+            for k in range(st): pts += [(x + w_ / 2 + k * sw, y0 - h_ - 18 * (st - k)), (x + w_ / 2 + (k + 1) * sw, y0 - h_ - 18 * (st - k))]
+            pts += [(x + w_, y0 - h_)]
+            g.append('<polyline points="' + ' '.join(f'{a:.0f},{b:.0f}' for a, b in pts) + f'" fill="#f2efe8" stroke="{P["gnd"]}" stroke-width="7" stroke-linejoin="miter"/>')
+            for k in range(2): g.append(f'<rect x="{x + 22 + k * (w_ - 56):.0f}" y="{y0 - h_ * .55:.0f}" width="12" height="18" fill="{P["gnd"]}" opacity=".7"/>')
+            x += w_ + rnd.uniform(6, 18)
+        g.append(f'<path d="M0,{horizon + 4} L{W},{horizon + 4}" stroke="#f2efe8" stroke-width="2" opacity=".5"/>')
+    elif cat == 'bamboo':
+        g.append(f'<rect x="0" y="0" width="{W}" height="{H}" fill="url(#sk)"/>')
+        for layer in range(3):
+            col = ['#9cb88a', '#5f8a4a', '#3a5a2e'][layer]
+            for k in range(9 + layer * 3):
+                x = rnd.uniform(-20, W + 20); wd = 6 + layer * 3
+                g.append(f'<rect x="{x:.0f}" y="{rnd.uniform(-40, 120):.0f}" width="{wd}" height="{H}" fill="{col}" opacity=".9"/>')
+                for y in range(80, H, 70): g.append(f'<rect x="{x - 1:.0f}" y="{y + rnd.uniform(-10, 10):.0f}" width="{wd + 2}" height="3" fill="{P["gnd"]}" opacity=".25"/>')
+                for k2 in range(3):
+                    ly = rnd.uniform(60, 500); dirn = rnd.choice((-1, 1))
+                    g.append(f'<path d="M{x + wd / 2:.0f},{ly:.0f} q{dirn * 26},{-6} {dirn * 52},{6} q{-dirn * 26},{-2} {-dirn * 52},{-6}" fill="{col}"/>')
+    elif cat == 'dunhuang':
         for k, (y, c) in enumerate(((440, P['far']), (500, '#c9955e'), (560, '#a8733f'))):
             a = 60 - k * 12; pts = ' '.join(f'{x},{y + a * math.sin(x / 120 + k):.0f}' for x in range(-20, W + 40, 20))
             g.append(f'<path d="M-20,{H} L{pts} L{W + 40},{H} Z" fill="{c}"/>')
@@ -238,6 +266,9 @@ def poster(rid, it):
         for k in range(rnd.randint(4, 9)):
             hx = rnd.uniform(60, 540); hy = 540 + rnd.uniform(-10, 30)
             g.append(f'<ellipse cx="{hx:.0f}" cy="{hy:.0f}" rx="9" ry="5" fill="#f4efe6" opacity=".9"/>')
+        for k in range(rnd.randint(2, 4)):
+            hx = rnd.uniform(80, 520); hy = 565 + rnd.uniform(-8, 12); f_ = rnd.choice((1, -1))
+            g.append(f'<g transform="translate({hx:.0f},{hy:.0f}) scale({f_},1)" fill="{P["gnd"]}"><path d="M-14,-10 h22 q6,0 8,-6 l6,-8 4,2 -5,10 q-1,4 -6,6 v16 h-3 v-12 h-16 v12 h-3 v-14 q-6,-2 -7,-6 z"/></g>')
     elif cat == 'terrace':
         for k in range(9):
             y = 470 + k * 28; a = 14 + k * 2

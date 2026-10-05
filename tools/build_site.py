@@ -546,7 +546,7 @@ def hand_map(r):
            f'<rect x="1" y="1" width="{Wm - 2}" height="{Hm - 2}" fill="#efe9dc"/><rect x="1" y="1" width="{Wm - 2}" height="{Hm - 2}" filter="url(#pp)"/>',
            f'<rect x="6" y="6" width="{Wm - 12}" height="{Hm - 12}" fill="none" stroke="#1c1d1a" stroke-width="1.2" opacity=".55"/><rect x="9" y="9" width="{Wm - 18}" height="{Hm - 18}" fill="none" stroke="#1c1d1a" stroke-width=".6" opacity=".35"/>']
     # 手抖的线：每段用略微偏移的二次曲线画两遍
-    prev = None; dots = []; labels = []; boxes = []
+    prev = None; dots = []; labels = []; boxes = []; legend = []
     for di, pts in enumerate(days):
         for k, (la, lo, nm, tp) in enumerate(pts):
             x, y = P(la, lo)
@@ -559,6 +559,8 @@ def hand_map(r):
             prev = (x, y)
             if k == 0: dots.append((x, y, di + 1))
             elif tp in ('see', 'fun'): out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.6" fill="#1c1d1a"/>')
+            if nm and tp in ('see', 'fun') and nm not in [l_[1] for l_ in legend]:
+                legend.append((len(legend) + 1, nm)); out.append(f'<text x="{x + 4:.1f}" y="{y - 4:.1f}" font-family="Noto Sans SC,sans-serif" font-size="8" font-weight="700" fill="#a63d27">{len(legend)}</text>') if len(pts) > 1 or di > 0 else None
             for (qx_, qy_, _n) in labels:
                 if abs(qx_ - x) < 3 and abs(qy_ - y) < 3: x += 5; y -= 4
             if nm and len(labels) < 20: labels.append((x, y, nm[:7]))
@@ -586,6 +588,8 @@ def hand_map(r):
     out.append(f'<g transform="translate({Wm - 30},34)" opacity=".75"><path d="M0,-14 L5,4 L0,0 L-5,4 Z" fill="#1c1d1a"/><text x="0" y="-17" text-anchor="middle" font-family="Noto Serif SC,serif" font-size="10" font-weight="900" fill="#1c1d1a">北</text></g>')
     km_w = spanx * 111
     out.append(f'<text x="16" y="{Hm - 16}" font-family="Noto Sans SC,sans-serif" font-size="10" fill="#5d5f59">东西约 {round(km_w) if km_w >= 10 else round(km_w, 1)} 公里 · 示意，不按比例</text></svg>')
+    if legend:
+        out.append('<p class="hlegend">' + '　'.join(f'<b>{n_}</b>{E(nm_)}' for n_, nm_ in legend) + '</p>')
     return ''.join(out)
 
 
