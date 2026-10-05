@@ -18,6 +18,9 @@ PAL = {  # 季节配色：天空上、天空下、远山、近山、主色、点
 CATS = [  # 顺序即优先级
     ('museum', ('博物馆 ', '国宝', '三星堆')),
     ('greatwall', ('长城', '嘉峪关', '山海关', '老龙头')), ('karst', ('漓江', '阳朔', '遇龙河', '喀斯特', '万峰林', '普者黑', '下龙湾', '桂林')),
+    ('dunhuang', ('鸣沙山', '月牙泉')), ('huangshan', ('黄山', '三清山', '华山', '光明顶', '迎客松')),
+    ('waterfall', ('瀑布', '黄果树', '壶口', '德天', '九龙瀑')), ('watertown', ('周庄', '乌镇', '同里', '西塘', '南浔', '甪直', '朱家角', '水乡')),
+    ('tropic', ('三亚', '亚龙湾', '西双版纳', '巴厘', '马尔代夫', '日月湾', '万宁', '涠洲', '分界洲', '兴隆')),
     ('tulou', ('土楼',)), ('garden', ('拙政园', '留园', '个园', '何园', '网师园', '园林')), ('wall', ('城墙', '永宁门', '古城墙')),
     ('mountain', ('雪山', '冰川', '神山', '冈仁波齐', '珠峰', '贡嘎', '梅里', '格聂', '四姑娘', '玉龙', '南迦巴瓦', '阿尼玛卿', '鱼子西', '日照金山')), ('snow', ('雪乡', '雾凇', '滑雪', '冰雪', '冰灯', '雪如意')),
     ('desert', ('沙漠', '沙坡', '鸣沙', '雅丹', '戈壁', '魔鬼城', '巴丹吉林', '沙湖', '瓦迪拉姆', '佩特拉', '死海', '迪拜')), ('terrace', ('梯田', '红土地')),
@@ -111,6 +114,12 @@ def poster(rid, it):
         d, tops = peaks(rnd, 470, rnd.randint(2, 3), 160, 290)
         g.append(f'<path d="{d}" fill="{P["mid"]}"/>')
         snowy = cat == 'snow' or se == 'wi' or (cat == 'mountain' and (it['dest'] in TIBET or max((x.get('elev') or 0) for x in it['days']) >= 2500 or any(k in ' '.join(s['name'] for dd in it['days'] for s in dd['stops']) for k in ('雪山', '冰川', '贡嘎', '梅里', '冈仁波齐', '珠峰', '玉龙', '四姑娘', '格聂', '南迦巴瓦', '阿尼玛卿'))))
+        if it['dest'] in TIBET or '冈仁波齐' in ' '.join(s_['name'] for dd in it['days'] for s_ in dd['stops']):
+            fx0, fy0, fx1, fy1 = 40, 420, 560, 400
+            g.append(f'<path d="M{fx0},{fy0} Q300,{fy0 + 40} {fx1},{fy1}" fill="none" stroke="{P["gnd"]}" stroke-width="1.2" opacity=".6"/>')
+            for k in range(18):
+                tt = k / 17; xx = (1 - tt) ** 2 * fx0 + 2 * (1 - tt) * tt * 300 + tt ** 2 * fx1; yy = (1 - tt) ** 2 * fy0 + 2 * (1 - tt) * tt * (fy0 + 40) + tt ** 2 * fy1
+                g.append(f'<rect x="{xx:.0f}" y="{yy:.0f}" width="12" height="15" fill="{["#2f6ea8", "#f4f6f8", "#c8432f", "#4e8a3a", "#e0b040"][k % 5]}" opacity=".9"/>')
         if snowy:
             for x, ty, w, h in tops:
                 k = .3
@@ -118,7 +127,45 @@ def poster(rid, it):
     else:
         g.append(f'<path d="{ridge(rnd, 440, 26, 30)}" fill="{P["mid"]}"/>')
     main = P['main']; acc = P['acc']
-    if cat == 'greatwall':
+    if cat == 'dunhuang':
+        for k, (y, c) in enumerate(((440, P['far']), (500, '#c9955e'), (560, '#a8733f'))):
+            a = 60 - k * 12; pts = ' '.join(f'{x},{y + a * math.sin(x / 120 + k):.0f}' for x in range(-20, W + 40, 20))
+            g.append(f'<path d="M-20,{H} L{pts} L{W + 40},{H} Z" fill="{c}"/>')
+        g.append(f'<path d="M180,600 C220,560 380,560 420,600 C380,580 230,585 180,600 Z" fill="#5f8a8a"/><path d="M360,560 h50 l-6,-14 h-38 z M366,560 v20 M404,560 v20" fill="{P["gnd"]}" stroke="{P["gnd"]}" stroke-width="3"/>')
+    elif cat == 'huangshan':
+        for k in range(3):
+            x0 = 60 + k * 170 + rnd.uniform(-20, 20); h0 = rnd.uniform(220, 320)
+            g.append(f'<path d="M{x0 - 70:.0f},560 L{x0 - 30:.0f},{560 - h0:.0f} L{x0 + 10:.0f},{560 - h0 * .9:.0f} L{x0 + 60:.0f},560 Z" fill="{[P["far"], P["mid"], main][k]}"/>')
+        for k in range(5): g.append(f'<ellipse cx="{rnd.uniform(0, W):.0f}" cy="{rnd.uniform(470, 540):.0f}" rx="{rnd.uniform(90, 170):.0f}" ry="18" fill="#f7f4ee" opacity=".85"/>')
+        px, py = rnd.uniform(380, 480), 330
+        g.append(f'<path d="M{px},{py + 140} q-6,-70 10,-130" fill="none" stroke="{P["gnd"]}" stroke-width="7"/>')
+        for k in range(4): g.append(f'<ellipse cx="{px - 40 + k * 26:.0f}" cy="{py + 10 - k * 18:.0f}" rx="44" ry="10" fill="#2f4a32"/>')
+    elif cat == 'waterfall':
+        g.append(f'<path d="M-20,{H} L-20,300 L230,330 L250,{H} Z" fill="{main}"/><path d="M{W + 20},{H} L{W + 20},310 L370,330 L350,{H} Z" fill="{main}"/>')
+        g.append(f'<rect x="250" y="330" width="100" height="250" fill="#e9eef0"/>')
+        for k in range(14): g.append(f'<rect x="{255 + k * 7}" y="{330 + rnd.uniform(0, 60):.0f}" width="2" height="{rnd.uniform(120, 220):.0f}" fill="#c9d6dc" opacity=".8"/>')
+        g.append(f'<ellipse cx="300" cy="585" rx="150" ry="26" fill="#f4f6f8" opacity=".85"/>')
+    elif cat == 'watertown':
+        g.append(f'<rect x="0" y="{horizon}" width="{W}" height="{H - horizon}" fill="url(#wt)"/>')
+        for side in (0, 1):
+            x0 = -10 if side == 0 else 360
+            for k in range(3):
+                bx = x0 + k * 85; h_ = rnd.uniform(90, 140)
+                g.append(f'<rect x="{bx}" y="{horizon - h_:.0f}" width="80" height="{h_:.0f}" fill="#efe9dc"/><path d="M{bx - 6},{horizon - h_:.0f} h92 l-10,-16 h-72 z" fill="{P["gnd"]}"/><rect x="{bx + 26}" y="{horizon - h_ + 34:.0f}" width="16" height="20" fill="{P["gnd"]}" opacity=".7"/>')
+        g.append(f'<path d="M190,{horizon + 8} Q300,{horizon - 90} 410,{horizon + 8} L392,{horizon + 8} Q300,{horizon - 64} 208,{horizon + 8} Z" fill="#b8b0a2"/><path d="M190,{horizon + 8} Q300,{horizon + 90} 410,{horizon + 8}" fill="none" stroke="#b8b0a2" stroke-width="4" opacity=".4"/>')
+        g.append(f'<path d="M250,{horizon + 70} h70 l-10,8 h-50 z" fill="{P["gnd"]}"/>')
+        for k in range(6): g.append(f'<circle cx="{40 + k * 100:.0f}" cy="{horizon - 160:.0f}" r="7" fill="#c8432f" opacity=".85"/>')
+    elif cat == 'tropic':
+        g.append(f'<rect x="0" y="{horizon}" width="{W}" height="{H - horizon}" fill="url(#wt)"/><path d="M-20,{horizon + 90} Q300,{horizon + 40} 620,{horizon + 100} L620,{H} L-20,{H} Z" fill="#e8d7b0"/>')
+        for k in range(2):
+            tx = 120 + k * 330 + rnd.uniform(-30, 30); ty = horizon + 80
+            g.append(f'<path d="M{tx},{ty} q{20 - k * 40},-120 {10 - k * 20},-220" fill="none" stroke="#5a4030" stroke-width="10" stroke-linecap="round"/>')
+            top = (tx + 10 - k * 20, ty - 220)
+            for a in range(6):
+                ang = a * 60 + rnd.uniform(-10, 10); r_ = 70
+                ex, ey = top[0] + r_ * math.cos(math.radians(ang)), top[1] + r_ * .55 * math.sin(math.radians(ang)) + 20
+                g.append(f'<path d="M{top[0]:.0f},{top[1]:.0f} Q{(top[0] + ex) / 2:.0f},{min(top[1], ey) - 24:.0f} {ex:.0f},{ey:.0f}" fill="none" stroke="#2f5a3a" stroke-width="12" stroke-linecap="round"/>')
+    elif cat == 'greatwall':
         g.append(f'<path d="{ridge(rnd, 470, 34, 30)}" fill="{P["mid"]}"/>')
         pts = []; x = -20; y = 470
         while x < W + 40:

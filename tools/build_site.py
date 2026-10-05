@@ -574,6 +574,15 @@ def hand_map(r):
             boxes.append((bx0, by0, bx1, by1))
             out.append(f'<text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anc}" font-family="Noto Serif SC,serif" font-size="11" font-weight="700" fill="#1c1d1a" paint-order="stroke" stroke="#efe9dc" stroke-width="3">{E(nm)}</text>')
             break
+        else:
+            nm2 = nm[:5]; w2 = len(nm2) * 9 + 2
+            for (lx, ly, anc) in ((x + 6, y - 5, 'start'), (x - 6, y - 5, 'end'), (x + 6, y + 12, 'start'), (x - 6, y + 12, 'end')):
+                bx0 = lx if anc == 'start' else lx - w2; bx1 = bx0 + w2; by0, by1 = ly - 9, ly + 2
+                if bx0 < 12 or bx1 > Wm - 12 or by0 < 12 or by1 > Hm - 12: continue
+                if any(not (bx1 < a or bx0 > c or by1 < b or by0 > d) for a, b, c, d in boxes): continue
+                boxes.append((bx0, by0, bx1, by1))
+                out.append(f'<text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anc}" font-family="Noto Serif SC,serif" font-size="9" font-weight="700" fill="#3d3f3a" paint-order="stroke" stroke="#efe9dc" stroke-width="2.5">{E(nm2)}</text>')
+                break
     out.append(f'<g transform="translate({Wm - 30},34)" opacity=".75"><path d="M0,-14 L5,4 L0,0 L-5,4 Z" fill="#1c1d1a"/><text x="0" y="-17" text-anchor="middle" font-family="Noto Serif SC,serif" font-size="10" font-weight="900" fill="#1c1d1a">北</text></g>')
     km_w = spanx * 111
     out.append(f'<text x="16" y="{Hm - 16}" font-family="Noto Sans SC,sans-serif" font-size="10" fill="#5d5f59">东西约 {round(km_w) if km_w >= 10 else round(km_w, 1)} 公里 · 示意，不按比例</text></svg>')

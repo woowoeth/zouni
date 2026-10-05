@@ -1,4 +1,7 @@
 (function(){
+  // 没网时告诉一声：看的是存在手机上的版本
+  function netBar(){var b=document.querySelector('.offline');if(navigator.onLine){if(b)b.remove();return}if(!b){b=document.createElement('div');b.className='offline';b.textContent='现在没有网络，看的是之前打开时存下的版本';document.body.appendChild(b)}}
+  window.addEventListener('online',netBar);window.addEventListener('offline',netBar);netBar();
   if('serviceWorker' in navigator&&location.protocol==='https:')window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})});
   function ld(k){try{return JSON.parse(localStorage.getItem(k)||'[]')}catch(e){return[]}}
   function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
@@ -51,6 +54,17 @@
       dtb.addEventListener('click',function(){try{dk.showPicker()}catch(e){dk.style.pointerEvents='auto';dk.focus();dk.click()}});
       dk.addEventListener('change',function(){if(!dk.value)return;try{localStorage.setItem(sk,dk.value)}catch(e){}applyStart(dk.value);var d=new Date(dk.value+'T12:00:00');toast('改成 '+fmt(d)+' 出发了')});
       try{var s0=localStorage.getItem(sk)||localStorage.getItem('zouni_home_date');if(s0&&s0>=dk.min&&s0!==dk.value){dk.value=s0;applyStart(s0)}}catch(e){}}
+    // 旅途中：出发日到了，就在底部提示“今天第几天、下一站”
+    function todayBar(){var old=document.querySelector('.today');if(old)old.remove();
+      var st0=(dk&&dk.value)||art.dataset.start;if(!st0)return;var d0=new Date(st0+'T00:00:00'),nw=new Date(),idx=Math.floor((new Date(nw.getFullYear(),nw.getMonth(),nw.getDate())-d0)/864e5),secs=document.querySelectorAll('.day');
+      if(idx<0||idx>=secs.length)return;var sec=secs[idx],hm=('0'+nw.getHours()).slice(-2)+':'+('0'+nw.getMinutes()).slice(-2),nxt=null;
+      sec.querySelectorAll('.tl .r:not(.dep)').forEach(function(r){var t=r.querySelector('time');if(!nxt&&t&&/^\d\d:\d\d$/.test(t.textContent)&&t.textContent>=hm)nxt=r});
+      var bar=document.createElement('button');bar.type='button';bar.className='today';bar.setAttribute('data-role','today-bar');
+      bar.innerHTML=nxt?('<b>今天第 '+(idx+1)+' 天</b><span>下一站 '+nxt.querySelector('time').textContent+' '+nxt.querySelector('.m').childNodes[0].textContent.trim()+'</span><i>去看</i>'):('<b>今天第 '+(idx+1)+' 天</b><span>'+(idx+1<secs.length?'今天的安排走完了，早点休息':'行程最后一天，一路顺风')+'</span><i>看今天</i>');
+      bar.addEventListener('click',function(){var tgt=nxt||sec;tgt.scrollIntoView({block:'center'});tgt.classList.add('flash');setTimeout(function(){tgt.classList.remove('flash')},1600)});
+      var dock=document.querySelector('.dock');dock.parentNode.insertBefore(bar,dock);
+      var nv=document.querySelectorAll('.daynav a')[idx];if(nv)nv.classList.add('now')}
+    todayBar();if(dk)dk.addEventListener('change',function(){setTimeout(todayBar,0)});
     // 今晚住：标记已订
     var bk=ld('zouni_booked');document.querySelectorAll('.stays .mk').forEach(function(b){function pt(){var on=bk.indexOf(b.dataset.k)>=0;b.classList.toggle('on',on);b.textContent=on?'已订 ✓':'标记已订'}pt();
       b.addEventListener('click',function(){var i=bk.indexOf(b.dataset.k);if(i>=0)bk.splice(i,1);else bk.push(b.dataset.k);sv('zouni_booked',bk);pt()})});
