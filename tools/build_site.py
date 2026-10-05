@@ -585,6 +585,35 @@ def hand_map(r):
                 boxes.append((bx0, by0, bx1, by1))
                 out.append(f'<text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anc}" font-family="Noto Serif SC,serif" font-size="9" font-weight="700" fill="#3d3f3a" paint-order="stroke" stroke="#efe9dc" stroke-width="2.5">{E(nm2)}</text>')
                 break
+    # 景点扎堆的城市：右下角放一块放大图（西安城里那一堆，主图上挤在一起看不清）
+    seq = [(la, lo, nm, tp) for d_ in days for (la, lo, nm, tp) in d_]
+    kmp = [((lo - cx0) * kx * 111, (la - cy0) * 111) for la, lo, _, _ in seq]
+    span_km = max(spanx, spany) * 111
+    if span_km > 25 and len(seq) >= 6:
+        R_ = max(2.5, span_km * .06); best = None
+        for i_, (ax, ay) in enumerate(kmp):
+            mem = [j_ for j_, (bx, by) in enumerate(kmp) if _m.hypot(ax - bx, ay - by) <= R_]
+            if not best or len(mem) > len(best): best = mem
+        if best and len(best) >= 4 and len(best) >= .4 * len(seq):
+            cl = [seq[j_] for j_ in best]
+            clat = [c[0] for c in cl]; clng = [c[1] for c in cl]
+            ix0, iy0, iw, ih = Wm - 152, Hm - 112, 138, 96
+            sx_ = max((max(clng) - min(clng)) * kx, .005); sy_ = max(max(clat) - min(clat), .005)
+            isc = min((iw - 24) / sx_, (ih - 24) / sy_); icx = (max(clng) + min(clng)) / 2; icy = (max(clat) + min(clat)) / 2
+            IP = lambda la, lo: (ix0 + iw / 2 + (lo - icx) * kx * isc, iy0 + ih / 2 - (la - icy) * isc)
+            bx0, by1 = P(min(clat), min(clng)); bx1, by0 = P(max(clat), max(clng))
+            out.append(f'<rect x="{bx0 - 5:.1f}" y="{by0 - 5:.1f}" width="{bx1 - bx0 + 10:.1f}" height="{by1 - by0 + 10:.1f}" fill="none" stroke="#1c1d1a" stroke-width=".8" stroke-dasharray="3 2" opacity=".6"/>')
+            out.append(f'<rect x="{ix0}" y="{iy0}" width="{iw}" height="{ih}" fill="#f6f1e6" stroke="#1c1d1a" stroke-width="1"/><text x="{ix0 + 6}" y="{iy0 + 12}" font-family="Noto Sans SC,sans-serif" font-size="9" fill="#5d5f59">城里放大</text>')
+            numof = {nm_: n_ for n_, nm_ in legend}
+            pp = None
+            for la, lo, nm, tp in cl:
+                x_, y_ = IP(la, lo)
+                if pp: out.append(f'<path d="M{pp[0]:.1f},{pp[1]:.1f} L{x_:.1f},{y_:.1f}" stroke="#a63d27" stroke-width="1.4" fill="none" opacity=".8"/>')
+                pp = (x_, y_)
+            for la, lo, nm, tp in cl:
+                x_, y_ = IP(la, lo)
+                out.append(f'<circle cx="{x_:.1f}" cy="{y_:.1f}" r="2.4" fill="#1c1d1a"/>')
+                if nm in numof: out.append(f'<text x="{x_ + 4:.1f}" y="{y_ - 3:.1f}" font-family="Noto Sans SC,sans-serif" font-size="9" font-weight="700" fill="#a63d27">{numof[nm]}</text>')
     out.append(f'<g transform="translate({Wm - 30},34)" opacity=".75"><path d="M0,-14 L5,4 L0,0 L-5,4 Z" fill="#1c1d1a"/><text x="0" y="-17" text-anchor="middle" font-family="Noto Serif SC,serif" font-size="10" font-weight="900" fill="#1c1d1a">北</text></g>')
     km_w = spanx * 111
     out.append(f'<text x="16" y="{Hm - 16}" font-family="Noto Sans SC,sans-serif" font-size="10" fill="#5d5f59">东西约 {round(km_w) if km_w >= 10 else round(km_w, 1)} 公里 · 示意，不按比例</text></svg>')
