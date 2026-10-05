@@ -318,3 +318,6 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .pk-g button.on{color:var(--bg)}.pk-g button.off{color:#c5c3bc}.pk-g button.we:not(.on):not(.off){color:var(--red)}
 .pk-q button,.pk-x,.xd button{-webkit-appearance:none;appearance:none;border-radius:0;color:var(--ink)}
 .hlegend a{display:inline-flex;align-items:center;min-height:32px;color:var(--ink)}
+.daynav.long{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}.daynav.long::-webkit-scrollbar{display:none}.daynav.long a{flex:0 0 auto;min-width:44px;padding:0 6px}
+.overview.folded ol li:nth-child(n+11){display:none}.overview.folded.open ol li{display:block}
+.ovmore{display:block;width:100%;height:44px;margin-top:4px;border:0;background:var(--card);font-size:14px;font-weight:700;color:var(--ink);cursor:pointer}
