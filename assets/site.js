@@ -272,10 +272,12 @@
       var o='<svg viewBox="0 0 '+Wm+' '+Hm+'" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="'+(Wm-2)+'" height="'+(Hm-2)+'" fill="#efe9dc"/><rect x="6" y="6" width="'+(Wm-12)+'" height="'+(Hm-12)+'" fill="none" stroke="#1c1d1a" stroke-width="1.2" opacity=".55"/>',boxes=[];
       pts.sort(function(a,b){return(a.f==='fit'?0:1)-(b.f==='fit'?0:1)}).forEach(function(p){var q=P(p),col=p.f==='fit'?'#1c1d1a':/ok/.test(p.f)?'#4f6233':'#8d8f88',w=p.n.length*12+6;
         o+='<circle cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="'+(p.f==='fit'?5:4)+'" fill="'+col+'"/>';
-        var cand=[[q[0]+8,q[1]+4,'start'],[q[0]-8,q[1]+4,'end'],[q[0],q[1]-9,'middle'],[q[0],q[1]+17,'middle']];
-        for(var i=0;i<cand.length;i++){var c=cand[i],x0=c[2]==='start'?c[0]:c[2]==='end'?c[0]-w:c[0]-w/2,x1=x0+w,y0=c[1]-12,y1=c[1]+3;if(x0<10||x1>Wm-10||y0<10||y1>Hm-10)continue;
-          if(boxes.some(function(b){return!(x1<b[0]||x0>b[2]||y1<b[1]||y0>b[3])}))continue;boxes.push([x0,y0,x1,y1]);
-          o+='<a href="'+p.h+'"><rect x="'+(x0-2)+'" y="'+(y0-10)+'" width="'+(w+4)+'" height="34" fill="#efe9dc" fill-opacity="0"/><text x="'+c[0].toFixed(1)+'" y="'+c[1].toFixed(1)+'" text-anchor="'+c[2]+'" font-family="Noto Serif SC,serif" font-size="12" font-weight="900" fill="'+col+'" paint-order="stroke" stroke="#efe9dc" stroke-width="3">'+p.n+'</text></a>';break}});
+        var placed=false;
+        [12,10].forEach(function(fs){if(placed)return;var w2=p.n.length*fs+6,dy=fs;
+          var cand=[[q[0]+8,q[1]+4,'start'],[q[0]-8,q[1]+4,'end'],[q[0],q[1]-9,'middle'],[q[0],q[1]+dy+5,'middle'],[q[0]+6,q[1]-8,'start'],[q[0]-6,q[1]-8,'end'],[q[0]+6,q[1]+dy+4,'start'],[q[0]-6,q[1]+dy+4,'end']];
+          for(var i=0;i<cand.length;i++){var c=cand[i],x0=c[2]==='start'?c[0]:c[2]==='end'?c[0]-w2:c[0]-w2/2,x1=x0+w2,y0=c[1]-dy,y1=c[1]+3;if(x0<10||x1>Wm-10||y0<10||y1>Hm-26)continue;
+            if(boxes.some(function(b){return!(x1<b[0]||x0>b[2]||y1<b[1]||y0>b[3])}))continue;boxes.push([x0,y0,x1,y1]);placed=true;
+            o+='<a href="'+p.h+'"><rect x="'+(x0-2)+'" y="'+(y0-12)+'" width="'+(w2+4)+'" height="36" fill="#efe9dc" fill-opacity="0"/><text x="'+c[0].toFixed(1)+'" y="'+c[1].toFixed(1)+'" text-anchor="'+c[2]+'" font-family="Noto Serif SC,serif" font-size="'+fs+'" font-weight="900" fill="'+col+'" paint-order="stroke" stroke="#efe9dc" stroke-width="3">'+p.n+'</text></a>';break}})});
       o+='<text x="14" y="'+(Hm-14)+'" font-family="Noto Sans SC,sans-serif" font-size="10" fill="#5d5f59">黑点正好去，绿点也行，灰点不建议 · 点名字进去</text></svg>';mapbox.innerHTML=o}
     if(mt)mt.addEventListener('click',function(){var on=!mapbox;if(on){mapbox=document.createElement('div');mapbox.className='wmap hmap';document.querySelector('.wbar').insertAdjacentElement('afterend',mapbox);document.querySelectorAll('.scope').forEach(function(s){s.classList.add('maphide')});drawMap()}
       else{mapbox.remove();mapbox=null;document.querySelectorAll('.scope').forEach(function(s){s.classList.remove('maphide')})}mt.textContent=on?'列表看':'地图看';mt.classList.toggle('on',on)});
