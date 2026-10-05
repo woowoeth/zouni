@@ -83,7 +83,7 @@ def render(days, title, home=None, W=390, H=290, uid='m'):
     vx0 = cx - (W / 2) / sc - 1; vx1 = cx + (W / 2) / sc + 1
     o = [f'<svg viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{E(title)} 路线示意图">',
          f'<defs><clipPath id="c{uid}"><rect width="{W}" height="{H}"/></clipPath></defs><rect width="{W}" height="{H}" fill="#e5ebeb"/><g clip-path="url(#c{uid})">']
-    eps = 0.6
+    eps = 0.9
     for nm, src, ring, (bx0, by0, bx1, by1) in load_base():
         if bx1 < vx0 or bx0 > vx1: continue
         if merc(by1) < cy - (H / 2) / sc - 1 or merc(by0) > cy + (H / 2) / sc + 1: continue
@@ -92,7 +92,7 @@ def render(days, title, home=None, W=390, H=290, uid='m'):
         pts = rdp(pts, eps)
         if len(pts) < 3: continue
         hl = bool(home) and (home in nm or nm in (home or ''))
-        o.append(f'<path d="M' + ' L'.join(f'{x:.1f},{y:.1f}' for x, y in pts) + f'Z" fill="{"#efe7d6" if hl else "#f6f3ec"}" stroke="#cfc6b3" stroke-width=".7" stroke-linejoin="round"/>')
+        o.append(f'<path d="M' + ' L'.join(f'{x:.0f},{y:.0f}' for x, y in pts) + f'Z" fill="{"#efe7d6" if hl else "#f6f3ec"}" stroke="#cfc6b3" stroke-width=".7" stroke-linejoin="round"/>')
     o.append('</g>')
     # 路线
     seq = [(P(la, lo), nm, tp, di) for di, d in enumerate(days) for (la, lo, nm, tp) in d]
@@ -161,10 +161,10 @@ def render_points(pts, title, home=None, dots=(), W=390, H=300, uid='d'):
         if merc(by1) < cy - (H / 2) / sc - 1 or merc(by0) > cy + (H / 2) / sc + 1: continue
         q = [P(la, lo) for lo, la in ring]
         if max(abs(q[0][0] - p[0]) for p in q) < 1.5 and max(abs(q[0][1] - p[1]) for p in q) < 1.5: continue
-        q = rdp(q, .6)
+        q = rdp(q, .9)
         if len(q) < 3: continue
         hl = bool(home) and (home in nm or nm in (home or ''))
-        o.append(f'<path d="M' + ' L'.join(f'{x:.1f},{y:.1f}' for x, y in q) + f'Z" fill="{"#efe7d6" if hl else "#f6f3ec"}" stroke="#cfc6b3" stroke-width=".7" stroke-linejoin="round"/>')
+        o.append(f'<path d="M' + ' L'.join(f'{x:.0f},{y:.0f}' for x, y in q) + f'Z" fill="{"#efe7d6" if hl else "#f6f3ec"}" stroke="#cfc6b3" stroke-width=".7" stroke-linejoin="round"/>')
     o.append('</g>')
     for la, lo in dots:
         x, y = P(la, lo); o.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2" fill="#2b2c28" opacity=".35"/>')

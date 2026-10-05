@@ -339,3 +339,6 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .dock .fav.on .fi path{fill:currentColor}
 .minebtn{display:inline-flex;align-items:center;gap:5px}.minebtn .fi{width:16px;height:16px;color:var(--red)}
 .glance b.big small{display:inline;margin:0 0 0 2px;font:700 13px/28px var(--sans);color:var(--ink)}
+.hz-t{display:flex;justify-content:flex-end;gap:6px;margin:calc(8px + env(safe-area-inset-top,0)) 12px 0}.hz-t .hz-x{margin:0}
+.hz-m,.hz-p{width:44px;height:44px;border:0;background:var(--bg);font-size:20px;font-weight:700;color:var(--ink);cursor:pointer}.hz-m:disabled,.hz-p:disabled{opacity:.4}
+.hz-b{align-items:flex-start}.hz-b svg{width:200vw;max-width:none;margin:12px auto}
