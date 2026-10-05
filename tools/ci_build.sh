@@ -11,6 +11,7 @@ python3 tools/compile_itineraries.py build/routes.js
 python3 tools/build_quality.py | head -1
 python3 tools/build_catalog.py build/catalog.js
 python3 tools/validate_catalog.py build/routes.js > build/validate.txt; head -1 build/validate.txt
+python3 tools/gen_posters.py site_src/posters | tail -1
 python3 tools/build_site.py "$OUT"
 python3 - "$OUT" <<'EOF'
 import os, re, sys

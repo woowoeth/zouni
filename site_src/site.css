@@ -242,3 +242,4 @@ a,button{-webkit-tap-highlight-color:transparent}
 .mn{margin-top:16px}.mn ul{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:6px}
 .mn li{padding:5px 9px;font-size:13px;line-height:1.4;box-shadow:inset 0 0 0 1px rgba(28,29,26,.2)}
 .rb.nav{display:block;color:inherit}.rb.nav em{font-style:normal;font-weight:700;color:var(--red)}.rb.nav:active{background:rgba(166,61,39,.06)}
+.hmap{margin:16px 0 0;padding:0}.hmap svg{display:block;width:100%;height:auto}

@@ -426,6 +426,9 @@ def hero(r, back=None, share=False):
     sq = (f'<a class="sq l" href="{E(back)}" aria-label="返回">{BACK_ICON}</a>' if back else '') + (f'<button type="button" class="sq rt share" aria-label="分享">{SHARE_ICON}</button>' if share else '')
     kick = E(r.get('kicker'))
     img = (r.get('img') or '').replace('/_blob/', '')
+    gen = os.path.join('site_src', 'posters', (r.get('id') or '') + '.svg')
+    if not (img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg'))) and os.path.exists(gen):
+        return f'<div class="hero"><img src="/img/p/{E(r.get("id"))}.svg" alt="{E(r.get("alt") or r["title"])}" width="430" height="380">{sq}<div class="hero-t"><span class="kick">{kick}</span><h1>{E(r["title"])}</h1></div></div>'
     if img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg')):
         return f'<div class="hero"><img src="/img/{E(img)}.svg" alt="{E(r.get("alt") or r["title"])}" width="430" height="380">{sq}<div class="hero-t"><span class="kick">{kick}</span><h1>{E(r["title"])}</h1></div></div>'
     mark = re.sub(r'\s*\d+\s*天$', '', r.get('label') or '')
@@ -500,6 +503,7 @@ def trip_page(rid):
     def firstdep(d):
         w = next((w for w in d['rows'] if w['type'] == 'dep'), None); return w['t'] if w else ''
     over = ''.join(f'<li><a href="#d{i + 1}"><b>{i + 1:02d}</b><i>{md(dates[i])}</i><span class="ot"><strong>{E(d["title"])}</strong><small>{"回家" if i == n - 1 else "住" + E(d.get("navCity") or d.get("city"))}</small></span><em>{E(firstdep(d))} 走</em></a></li>' for i, d in enumerate(r['days']))
+    hm_ = hand_map(r)
     daynav = '<nav class="daynav" aria-label="跳到第几天">' + ''.join(f'<a href="#d{i + 1}">{i + 1}</a>' for i in range(n)) + '</nav>'
     days = []; sights = []; navprev = None
     for i, d in enumerate(r['days']):
@@ -551,7 +555,7 @@ def trip_page(rid):
     dock = f'<div class="dock"><div><b>{md(dates[0])} 出发 · {n} 天</b><small>2 人 · 每人 {E(price.replace("约 ", ""))}</small></div><button type="button" class="fav" data-id="{rid}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">收进行程</button></div>'
     body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-start="{dates[0].isoformat()}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
             f'<section class="pre"><h2>出发前</h2><ul>{prep or "<li class=fit>没有特别要提前办的</li>"}</ul></section>'
-            f'<section class="overview"><h2>{n} 天，怎么排</h2><ol>{over}</ol></section>{daynav}{"".join(days)}<div class="acts"><button type="button" class="copy">复制整条行程，发到微信</button></div>{dest_link}{dock}</article>')
+            f'<section class="overview"><h2>{n} 天，怎么排</h2><ol>{over}</ol>{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{"".join(days)}<div class="acts"><button type="button" class="copy">复制整条行程，发到微信</button></div>{dest_link}{dock}</article>')
     crumbs = [('首页', '/'), ('去哪儿', '/where/')] + ([(d0['name'], f'/d/{t["dest"]}/')] if d0 else []) + [(r.get('label') or r['title'], f'/trip/{rid}/')]
     img = '/img/' + (r.get('img') or '').replace('/_blob/', '') + '.svg' if r.get('img') else None
     write(f'/trip/{rid}/', page(f'/trip/{rid}/', f'{r.get("label") or r["title"]}行程：{r["title"]} | 走你', desc, body, [ld], img, crumbs))
@@ -653,7 +657,8 @@ def home_page():
     def item(i, rid, kicker):
         rr = ROUTES[rid]; tt = TRIP_OF_ROUTE[rid]; dd = DEST.get(tt['dest'], {}); c = clim(dd)
         img = (rr.get('img') or '').replace('/_blob/', '')
-        tile = (f'<a class="tile img" href="/trip/{rid}/"><img src="/img/{img}.svg" alt="" loading="lazy"></a>' if img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg'))
+        if not (img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg'))) and os.path.exists(os.path.join('site_src', 'posters', rid + '.svg')): img = 'p/' + rid
+        tile = (f'<a class="tile img" href="/trip/{rid}/"><img src="/img/{img}.svg" alt="" loading="lazy"></a>' if img and (img.startswith('p/') or os.path.exists(os.path.join(POSTER_SRC, img + '.svg')))
                 else f'<a class="tile" href="/trip/{rid}/" style="background:{["#7b4b3a", "#2e5b6b", "#4f6233", "#5a4a6b", "#8a5a2b"][i % 5]}">{E(re.sub(r"\s*\d+\s*天$", "", rr.get("label") or ""))}</a>')
         tags = ' · '.join((tt.get('tags') or [])[:2])
         return (f'<li><span class="num">{i:02d}</span><div class="tx"><span class="k">{kicker}</span><h3>{E(dd.get("name", ""))} · {E(rr.get("label"))}</h3><p>{E(rr["title"])}</p>'
@@ -708,7 +713,8 @@ def home_page():
         wb = window(tt) or ['', '']
         extra = f' data-ws="{wb[0]}" data-we="{wb[1]}" data-img="{1 if rr.get("img") else 0}" data-comp="{1 if rr.get("compiled") else 0}" data-clim=\'{E(json.dumps(dd.get("climate") or {}))}\''
         img = (rr.get('img') or '').replace('/_blob/', '')
-        tile = (f'<a class="tile img" href="/trip/{rid}/"><img src="/img/{img}.svg" alt="" loading="lazy"></a>' if img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg'))
+        if not (img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg'))) and os.path.exists(os.path.join('site_src', 'posters', rid + '.svg')): img = 'p/' + rid
+        tile = (f'<a class="tile img" href="/trip/{rid}/"><img src="/img/{img}.svg" alt="" loading="lazy"></a>' if img and (img.startswith('p/') or os.path.exists(os.path.join(POSTER_SRC, img + '.svg')))
                 else f'<a class="tile" href="/trip/{rid}/" style="background:{["#c8432f", "#2e5b6b", "#4f6233", "#5a4a6b", "#8a5a2b", "#3b5a7a"][i % 6]}">{E(re.sub(r"\s*\d+\s*天$", "", rr.get("label") or ""))}</a>')
         dl = days_left(tt)
         when = (f'<span class="left{" urgent" if dl is not None and dl <= 14 else ""}">{"最后 " + str(dl) + " 天" if dl is not None and dl <= 14 else "最好 " + wtxt(tt) + (" · 还剩 " + str(dl) + " 天" if dl is not None else "")}</span>' if window(tt) else '<span class="left">一年四季都能去</span>')
@@ -749,11 +755,73 @@ def home_page():
     write('/', page('/', '走你：按季节挑目的地，按天排好每一站', f'{len(ROUTE_IDS)} 条按天排好的行程，现在正当季的 {len(inseason)} 条，国内 34 个省级行政区和亚洲 22 国的目的地按月份看。', body, [ld], '/img/' + cimg + '.svg' if cimg else None))
 
 
+
+def hand_map(r):
+    """手绘路线图：按每天经过的地点画（纸面、手抖的红线、天数圆章、主要地名、指北针）"""
+    import random as _r, hashlib as _h, math as _m
+    days = []
+    for i, d in enumerate(r['days']):
+        city = d.get('navCity') or d.get('city'); pts = []
+        for w in d['rows']:
+            if w['type'] in ('see', 'fun', 'eat', 'stay') and w.get('poi'):
+                c = coord(w['poi'], city)
+                if c and (not pts or abs(pts[-1][0] - c[0]) + abs(pts[-1][1] - c[1]) > 1e-4):
+                    nm = re.sub(r'\s*·.*$', '', w.get('name') or w.get('place') or '')
+                    pts.append((c[0], c[1], nm if w['type'] in ('see', 'fun') else '', w['type']))
+        days.append(pts)
+    allp = [p for d in days for p in d]
+    if len(allp) < 3: return ''
+    lats = [p[0] for p in allp]; lngs = [p[1] for p in allp]
+    clat = (max(lats) + min(lats)) / 2; kx = _m.cos(_m.radians(clat))
+    spanx = max((max(lngs) - min(lngs)) * kx, .03); spany = max(max(lats) - min(lats), .03)
+    Wm, Hm, pad = 390, 260, 34
+    sc = min((Wm - 2 * pad) / spanx, (Hm - 2 * pad - 10) / spany)
+    cx0 = (max(lngs) + min(lngs)) / 2; cy0 = clat
+    P = lambda la, lo: (Wm / 2 + (lo - cx0) * kx * sc, Hm / 2 + 6 - (la - cy0) * sc)
+    rnd = _r.Random(int(_h.md5(r['title'].encode()).hexdigest()[:6], 16))
+    out = [f'<svg viewBox="0 0 {Wm} {Hm}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{E(r["title"])} 路线手绘图">',
+           '<defs><filter id="pp"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 .45  0 0 0 0 .38  0 0 0 0 .28  0 0 0 .06 0"/><feComposite in2="SourceGraphic" operator="in"/></filter></defs>',
+           f'<rect x="1" y="1" width="{Wm - 2}" height="{Hm - 2}" fill="#efe9dc"/><rect x="1" y="1" width="{Wm - 2}" height="{Hm - 2}" filter="url(#pp)"/>',
+           f'<rect x="6" y="6" width="{Wm - 12}" height="{Hm - 12}" fill="none" stroke="#1c1d1a" stroke-width="1.2" opacity=".55"/><rect x="9" y="9" width="{Wm - 18}" height="{Hm - 18}" fill="none" stroke="#1c1d1a" stroke-width=".6" opacity=".35"/>']
+    # 手抖的线：每段用略微偏移的二次曲线画两遍
+    prev = None; dots = []; labels = []; boxes = []
+    for di, pts in enumerate(days):
+        for k, (la, lo, nm, tp) in enumerate(pts):
+            x, y = P(la, lo)
+            if prev:
+                px, py = prev; mx, my = (px + x) / 2, (py + y) / 2; dx, dy = x - px, y - py; L = max(1, _m.hypot(dx, dy))
+                off = rnd.uniform(-.18, .18) * L; qx, qy = mx - dy / L * off, my + dx / L * off
+                dash = ' stroke-dasharray="5 4"' if (k == 0 and di > 0 and L > 120) else ''
+                out.append(f'<path d="M{px:.1f},{py:.1f} Q{qx:.1f},{qy:.1f} {x:.1f},{y:.1f}" fill="none" stroke="#a63d27" stroke-width="2.2" stroke-linecap="round"{dash}/>')
+                out.append(f'<path d="M{px + .8:.1f},{py - .6:.1f} Q{qx + 1.2:.1f},{qy + .8:.1f} {x - .6:.1f},{y + .7:.1f}" fill="none" stroke="#a63d27" stroke-width=".8" opacity=".5"/>')
+            prev = (x, y)
+            if k == 0: dots.append((x, y, di + 1))
+            elif tp in ('see', 'fun'): out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.6" fill="#1c1d1a"/>')
+            if nm and len(labels) < 14: labels.append((x, y, nm[:7]))
+    for x, y, n in dots:
+        out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="9" fill="#f4f2ec" stroke="#a63d27" stroke-width="1.8"/><text x="{x:.1f}" y="{y + 4:.1f}" text-anchor="middle" font-family="Noto Serif SC,serif" font-weight="900" font-size="11" fill="#a63d27">{n}</text>')
+        boxes.append((x - 10, y - 10, x + 10, y + 10))
+    for x, y, nm in labels:
+        w = len(nm) * 11 + 4
+        for (lx, ly, anc) in ((x + 7, y - 6, 'start'), (x - 7, y - 6, 'end'), (x + 7, y + 14, 'start'), (x - 7, y + 14, 'end')):
+            bx0 = lx if anc == 'start' else lx - w; bx1 = bx0 + w; by0, by1 = ly - 11, ly + 3
+            if bx0 < 12 or bx1 > Wm - 12 or by0 < 12 or by1 > Hm - 12: continue
+            if any(not (bx1 < a or bx0 > c or by1 < b or by0 > d) for a, b, c, d in boxes): continue
+            boxes.append((bx0, by0, bx1, by1))
+            out.append(f'<text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anc}" font-family="Noto Serif SC,serif" font-size="11" font-weight="700" fill="#1c1d1a" paint-order="stroke" stroke="#efe9dc" stroke-width="3">{E(nm)}</text>')
+            break
+    out.append(f'<g transform="translate({Wm - 30},34)" opacity=".75"><path d="M0,-14 L5,4 L0,0 L-5,4 Z" fill="#1c1d1a"/><text x="0" y="-17" text-anchor="middle" font-family="Noto Serif SC,serif" font-size="10" font-weight="900" fill="#1c1d1a">北</text></g>')
+    km_w = spanx * 111
+    out.append(f'<text x="16" y="{Hm - 16}" font-family="Noto Sans SC,sans-serif" font-size="10" fill="#5d5f59">东西约 {round(km_w) if km_w >= 10 else round(km_w, 1)} 公里 · 示意，不按比例</text></svg>')
+    return ''.join(out)
+
+
 if __name__ == '__main__':
     if os.path.exists(OUT): shutil.rmtree(OUT)
     os.makedirs(os.path.join(OUT, 'img')); os.makedirs(os.path.join(OUT, 'assets'))
     for f in glob.glob(os.path.join(POSTER_SRC, '*.svg')): shutil.copy(f, os.path.join(OUT, 'img'))
     if os.path.isdir('site_src/fonts'): shutil.copytree('site_src/fonts', os.path.join(OUT, 'assets', 'fonts'))
+    if os.path.isdir('site_src/posters'): shutil.copytree('site_src/posters', os.path.join(OUT, 'img', 'p'))
     for f in ('site.css', 'site.js', 'favicon.svg', 'og.png'):
         src = os.path.join('site_src', f)
         if os.path.exists(src): shutil.copy(src, os.path.join(OUT, 'img' if f in ('favicon.svg', 'og.png') else 'assets', f))
