@@ -212,3 +212,9 @@ main{max-width:430px;margin:0 auto;background:var(--bg);min-height:100vh;positio
 .nf p{padding:0 20px}
 .toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);padding:10px 16px;background:var(--ink);color:var(--bg);font-size:14px;z-index:30}
 .day .cl{margin:8px 0 0;font-size:13px;color:var(--sub)}.day .cl:empty{display:none}
+.dchips{display:flex;gap:4px;overflow-x:auto;margin-top:12px}
+.dchips button{flex:none;height:36px;padding:0 12px;border:0;background:var(--card);font-size:13px;font-weight:700;color:var(--ink);cursor:pointer}
+.dchips button.on{background:var(--ink);color:var(--bg)}
+.items li[hidden]{display:none}
+.items .left{font-size:12px;font-weight:700;color:var(--green)}.items .left.urgent{color:var(--red)}
+.moreb{display:block;width:100%;height:44px;margin-top:4px;border:0;background:var(--card);font-size:14px;font-weight:700;color:var(--ink);cursor:pointer}
