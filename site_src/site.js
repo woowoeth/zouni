@@ -38,6 +38,17 @@
     var nav=document.querySelector('.daynav');if(nav){var as=[].slice.call(nav.querySelectorAll('a'));window.addEventListener('scroll',function(){var cur=0;as.forEach(function(a,i){var s=document.getElementById('d'+(i+1));if(s&&s.getBoundingClientRect().top<140)cur=i+1});as.forEach(function(a,i){a.classList.toggle('on',i+1===cur)})},{passive:true})}
   }
 
+  // ——— 点评：手机上先试 App，打不开（或在微信里）再去网页 ———
+  document.addEventListener('click',function(e){var a=e.target.closest('a.dp[data-app]');if(!a)return;
+    var mobile=/iPhone|iPad|Android/i.test(navigator.userAgent),wx=/MicroMessenger/i.test(navigator.userAgent);if(!mobile||wx)return;
+    e.preventDefault();var web=a.href,t=Date.now(),gone=false;function hid(){gone=true}document.addEventListener('visibilitychange',hid,{once:true});
+    location.href=a.dataset.app;setTimeout(function(){if(!gone&&!document.hidden&&Date.now()-t<2500)location.href=web},1200)});
+  // ——— 本期：现在去正好，按“我有几天”筛、再看更多 ———
+  var dc=document.querySelector('.dchips');
+  if(dc){var lis=[].slice.call(document.querySelectorAll('.now .items li')),mb=document.querySelector('.moreb'),band='',all=false;
+    function show(){var k=0;lis.forEach(function(li){var ok=!band||li.dataset.band===band;if(ok)k++;li.hidden=!ok||(!all&&k>8)});if(mb){var rest=lis.filter(function(li){return(!band||li.dataset.band===band)}).length-8;mb.hidden=all||rest<=0;mb.textContent='再看 '+Math.max(0,rest)+' 条'}}
+    dc.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;band=b.dataset.b;all=false;dc.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});show()});
+    if(mb)mb.addEventListener('click',function(){all=true;show()});show()}
   // ——— 本期：我的行程、最近看过 ———
   document.querySelectorAll('.mine').forEach(function(sec){var ul=sec.querySelector('ul'),k=ul.dataset.k==='fav'?'zouni_fav':'zouni_seen',xs=ld(k);if(!xs.length)return;sec.hidden=false;
     ul.innerHTML=xs.map(function(x){return'<li><a href="/trip/'+encodeURIComponent(x.id)+'/"><b>'+String(x.label).replace(/</g,'&lt;')+' ›</b><span>'+String(x.title).replace(/</g,'&lt;')+'</span></a></li>'}).join('')});
