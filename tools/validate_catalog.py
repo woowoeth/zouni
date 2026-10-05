@@ -52,7 +52,11 @@ print('提醒', len(W)); [print('  ·', w) for w in W]
 try:
     _IT = json.load(open('data/itineraries.json'))['itineraries']
     _T = json.load(open('data/catalog/trips.json'))['trips']
-    _bad = [f"{t['id']}: 目录“{t['title']}” / 行程“{_IT[t['id']]['label']}”" for t in _T if t['id'] in _IT and t['title'] != _IT[t['id']]['label']]
+    def _clash(t, it):
+        nm = (t.get('name') or '').split(' · ')[-1]
+        same_place = bool(nm) and (nm[:2] in it['label'] or it['label'][:2] in t['title'])
+        return t['dest'] != it['dest'] or not same_place
+    _bad = [f"{t['id']}: 目录“{t['title']}”（{t['dest']}） / 行程“{_IT[t['id']]['label']}”（{_IT[t['id']]['dest']}）" for t in _T if t['id'] in _IT and _clash(t, _IT[t['id']])]
     if _bad: print('编号撞车', len(_bad)); [print('  · ' + b) for b in _bad]
     else: print('编号撞车 0')
 except Exception as _e: print('编号检查没跑成', _e)
