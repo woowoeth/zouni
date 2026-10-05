@@ -49,8 +49,11 @@ def mm(t): h, m = t.split(':'); return int(h) * 60 + int(m)
 def dur_txt(m): return (f'{m // 60} 小时' + (f' {m % 60} 分' if m % 60 else '')) if m >= 60 else f'{m} 分钟'
 
 
+SELF = [False]
+
+
 def leg(a, b, via=None):
-    """两点之间：怎么走、多久、多远"""
+    """两点之间：怎么走、多久、多远（自驾线路写开车）"""
     if via:
         h = re.search(r'(\d+) 小时', via); m2 = re.search(r'(\d+) 分钟', via)
         mins = (int(h.group(1)) * 60 if h else 0) + (int(m2.group(1)) if m2 else 0)
@@ -58,6 +61,9 @@ def leg(a, b, via=None):
     if not a or not b: return '打车', 20, None
     d = km(a, b) * 1.25
     if d < 1.3: return '步行', max(5, r5(d / 4.5 * 60)), None
+    if SELF[0]:
+        if d < 20: return '开车', max(10, r5(d / 30 * 60 + 5)), round(d)
+        return '自驾约', r5(d / 70 * 60 + 10), round(d)
     if d < 20: return '打车', max(10, r5(d / 25 * 60 + 8)), round(d)
     if d < 60: return '打车约', r5(d / 55 * 60 + 10), round(d)
     return '包车约', r5(d / 65 * 60 + 10), round(d)
@@ -75,7 +81,7 @@ ROUTES = json.loads(re.search(r'window.ZOUNI_ROUTES=(.*);\n', s).group(1))
 report = []
 CITY_FOOD = json.load(open('data/catalog/city_food.json')) if os.path.exists('data/catalog/city_food.json') else {}
 for rid, it in IT.items():
-    dest = CAT[it['dest']]; city = it['city']; CUR_CC[0] = CC.get(it['dest'], 'cn')
+    dest = CAT[it['dest']]; city = it['city']; CUR_CC[0] = CC.get(it['dest'], 'cn'); SELF[0] = bool(it.get('drive'))
     base = (dest['base']['lat'], dest['base']['lng'])
     cg = geocode(city, city, None)                      # 以行程所在城市为中心，不用省会
     if cg and km(base, (cg['lat'], cg['lng'])) < 2500: base = (cg['lat'], cg['lng'])   # 离省会远的城市（喀什、札幌、天水）也认
@@ -120,7 +126,7 @@ for rid, it in IT.items():
                 gap = mm(st['at']) - mins - t
                 if gap >= 60 and rows: rows.append({'t': hm(t), 'type': 'see', 'name': '沿途慢慢走', 'd': dur_txt(gap), 'poi': '', 'dp': ''})   # (d) 等夕照、等开船的空当
                 t = max(t, mm(st['at']) - mins)
-            if how.startswith('包车'): drive += mins
+            if how.startswith(('包车', '自驾', '开车')): drive += mins
             rows.append({'t': hm(t), 'type': 'dep', 'to': short(st['name']), 'how': f'{how} {dur_txt(mins)}' + (f' · {dist} 公里' if dist and dist >= 5 else '')})
             if not lunched and t < 12 * 60 and t + mins > 13 * 60:   # 车开过中午：路上吃
                 spec = d.get('lunch') or {}
@@ -149,9 +155,9 @@ for rid, it in IT.items():
             if not dined:
                 if t < 17 * 60 + 30:
                     rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '回去歇一下'}); t = 18 * 60 + 10; prev = prev if far(prev) else stay_pt
-                rows.append({'t': hm(max(t, 18 * 60 + 10)), 'type': 'dep', 'to': '吃晚饭', 'how': '打车或步行'})
+                rows.append({'t': hm(max(t, 18 * 60 + 10)), 'type': 'dep', 'to': '吃晚饭', 'how': '开车或步行' if SELF[0] else '打车或步行'})
                 rows.append(meal('晚饭', d.get('dinner'), max(t, 18 * 60 + 10) + 20)); t = max(t, 18 * 60 + 10) + 95
-            rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '打车或步行'})
+            rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '开车或步行' if SELF[0] else '打车或步行'})
         # 时间必须单调递增
         ts = [mm(w['t']) for w in rows]
         if ts != sorted(ts): report.append(f'{rid} D{di + 1} 时间倒序')
@@ -169,7 +175,7 @@ for rid, it in IT.items():
     tr = TRIPS.get(rid, {}); p = tr.get('price') or {}
     meta = {'id': rid, 'label': it['label'], 'title': it['title'], 'kicker': it['kicker'], 'alt': it['title'], 'start': it['start'], 'prep': it['prep'],
             'price': (('约 ' if str(p.get('basis', '')).startswith('参考价') else '') + '¥{:,}–{:,}'.format(p['lo'], p['hi'])) if p.get('lo') else '人均另算',
-            'img': ('/_blob/' + tr['poster']) if tr.get('poster') else '', 'driveTop': '包车' if drive_tot else '不开车',
+            'img': ('/_blob/' + tr['poster']) if tr.get('poster') else '', 'driveTop': ('自驾' if SELF[0] else '包车') if drive_tot else '不开车', 'drive': SELF[0], 'loop': bool(it.get('loop')),
             'driveSub': (f'最长一天 {longest / 60:.1f} 小时' if drive_tot else '地铁、打车加步行'), 'navApp': 'google' if it['dest'] in ASIA_CC else 'amap', 'cost': None,
             'fit': ((['高海拔，最高住在 {:,} 米：7 岁以下的孩子、心肺不好的老人慎重'.format(max(x.get('elev') or 0 for x in it['days']))] if max(x.get('elev') or 0 for x in it['days']) >= 3000 else []) + (['有一天要坐 %d 小时以上的车：带孩子要多停几次' % (longest // 60)] if longest >= 180 else [])), 'days': days, 'compiled': True}
     ROUTES[rid] = meta

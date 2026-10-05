@@ -626,7 +626,8 @@ def trip_page(rid):
 def dest_page(d):
     did = d['id']; cl = d.get('climate') or {}; best = set(d['months']['best'])
     months = ''.join(f'<li class="{"on" if m in best else ""}{" now" if m == TODAY.month else ""}"><b>{m} 月</b><small>{cl.get(str(m), ["", ""])[0]}° / {cl.get(str(m), ["", ""])[1]}°</small></li>' for m in range(1, 13))
-    trips = ''.join(f'<li><a href="/trip/{rid}/"><b>{E(ROUTES[rid].get("label"))} ›</b><span>{E(day_line(ROUTES[rid]))}</span><small>{E(ROUTES[rid].get("price"))}</small></a></li>' for rid in DEST_ROUTES.get(did, []))
+    _dr = sorted(DEST_ROUTES.get(did, []), key=lambda r_: 1 if ROUTES[r_].get('drive') else 0)
+    trips = ''.join(f'<li><a href="/trip/{rid}/"><b>{E(ROUTES[rid].get("label"))} ›</b><span>{E(day_line(ROUTES[rid]))}</span><small>{"自驾 · " if ROUTES[rid].get("drive") else ""}{E(ROUTES[rid].get("price"))}</small></a></li>' for rid in _dr)
     other = [t for t in TRIPS if t['dest'] == did and not any(TRIP_OF_ROUTE.get(r) is t for r in DEST_ROUTES.get(did, []))]
     trips += ''.join(f'<li><span><b>{E(t["title"])}</b> · {"暂不排" if t["status"] == "blocked" else "整理中"}</span></li>' for t in other)
     city = d['base']['name']; app = 'google' if d['scope'] == 'asia' else 'amap'
@@ -682,7 +683,7 @@ def where_page():
                 qlink = (f'<a class="q" href="/d/{x["id"]}/#q">{qn_} 处 5A 和世界遗产 ›</a>' if qn_ else '') + (f'<a class="q" href="/d/{x["id"]}/">还有 {more} 条行程 ›</a>' if more > 0 else '')
                 entry = f'<p class="kv"><b>入境</b>{E(x.get("entry"))}</p>' if x.get('entry') else ''
                 cards.append(f'<li class="card" data-best="{",".join(map(str, x["best"]))}" data-clim=\'{E(json.dumps(x["clim"]))}\' data-no="{1 if x["noTrip"] else 0}" data-days="{",".join(map(str, days))}" '
-                             f'data-high="{1 if (x.get("elev") or 0) >= 2200 else 0}" data-lat="{x["lat"]}" data-lng="{x["lng"]}" data-niche="{nn}" data-plo="{min(los) if los else ""}" data-hits="{E(hits)}" data-q="{E(qn)}" data-name="{E(x["name"])}">'
+                             f'data-high="{1 if (x.get("elev") or 0) >= 2200 else 0}" data-lat="{x["lat"]}" data-lng="{x["lng"]}" data-niche="{nn}" data-drive="{1 if any(ROUTES[r_].get('drive') for r_ in DEST_ROUTES.get(x['id'], [])) else 0}" data-plo="{min(los) if los else ""}" data-hits="{E(hits)}" data-q="{E(qn)}" data-name="{E(x["name"])}">'
                              f'<a class="ch" href="/d/{x["id"]}/"><div><h3>{E(x["name"])}</h3><span class="base">{E(base)}</span></div><span class="{fcls}">{f}</span></a>'
                              f'<p class="cl">{m} 月：白天 {cl[0]}℃，夜里 {cl[1]}℃</p><p class="hit" hidden></p><p class="dist" hidden></p>'
                              f'<p class="kv"><b>看</b>{E("、".join(x["see"]))}</p><p class="kv"><b>吃</b>{E("、".join(x["eat"]))}</p>{entry}'
@@ -698,7 +699,7 @@ def where_page():
             f'<div class="row"><span>出发</span><select class="org" aria-label="从哪出发"><option value="">不限</option>{"".join(f"<option value={o}>{o}</option>" for o in ORIGINS)}</select><button type="button" data-f="near" hidden>500 公里内</button></div>'
             f'<div class="row"><span>天数</span><button type="button" data-f="d1">2–3 天</button><button type="button" data-f="d2">4–5 天</button><button type="button" data-f="d3">6 天以上</button></div>'
             f'<div class="row"><span>预算</span><select class="bud" aria-label="每人预算"><option value="">不限</option><option value="2000">2,000 以内</option><option value="5000">5,000 以内</option><option value="10000">1 万以内</option></select></div>'
-            f'<div class="row"><span>其他</span><button type="button" data-f="fit" class="on">只看合适的</button><button type="button" data-f="low">避开高原</button><button type="button" data-f="niche">有小众</button></div><button type="button" class="clr" hidden>清空筛选</button></div>'
+            f'<div class="row"><span>其他</span><button type="button" data-f="fit" class="on">只看合适的</button><button type="button" data-f="low">避开高原</button><button type="button" data-f="niche">有小众</button><button type="button" data-f="drive">有自驾环线</button></div><button type="button" class="clr" hidden>清空筛选</button></div>'
             f'</div>{"".join(scopes)}</article>')
     write('/where/', page('/where/', '去哪儿：国内 34 个省级行政区和亚洲 22 国，按月份挑目的地 | 走你', '每个目的地按月份标出正好去、也行、不建议，附每月平均气温、看什么吃什么和排好的行程。', body, [], None, [('首页', '/'), ('去哪儿', '/where/')]))
 
@@ -757,6 +758,10 @@ def home_page():
         band = 'd1' if n <= 3 else 'd2' if n <= 5 else 'd3'
         return (f'<li data-band="{band}"{extra}{" hidden" if hide else ""}><span class="num">{i:02d}</span><div class="tx"><span class="k">{kicker}</span><h3>{(E(dd.get("name", "")) + " · ") if not (rr.get("label") or "").startswith(dd.get("name", "") or "@") else ""}{E(re.sub(r"\s*\d+\s*天$", "", rr.get("label") or ""))}</h3><p>{E(day_line(rr))}</p>'
                 f'<small>{n} 天 · 人均 {E(rr.get("price"))}</small>{when}<span class="c">{m} 月白天 {c[0]}℃，夜里 {c[1]}℃</span><a class="open" href="/trip/{rid}/">翻开 ›</a></div>{tile}</li>')
+    TAGS = {t['id']: (t.get('tags') or []) for t in TRIPS_ALL} if 'TRIPS_ALL' in globals() else {}
+    drv = [r_ for r_ in ROUTES if ROUTES[r_].get('drive') and r_ in TRIP_OF_ROUTE]
+    drv.sort(key=lambda r_: (0 if '全国' in (TRIP_OF_ROUTE[r_].get('tags') or []) else 1 if '跨省' in (TRIP_OF_ROUTE[r_].get('tags') or []) else 2, -len(ROUTES[r_]['days'])))
+    ditems = ''.join(item(k + 1, r_, ('全国环线' if '全国' in (TRIP_OF_ROUTE[r_].get('tags') or []) else '跨省长线' if '跨省' in (TRIP_OF_ROUTE[r_].get('tags') or []) else '自驾环线' if ROUTES[r_].get('loop') else '自驾长线') + ' · ' + str(len(ROUTES[r_]['days'])) + ' 天', hide=k >= 8) for k, r_ in enumerate(drv))
     rest = [x for x in inseason if x != cover]
     urgent = sorted([x for x in rest if days_left(TRIP_OF_ROUTE[x]) <= 14], key=lambda x: (0 if ROUTES[x].get('img') else 1, days_left(TRIP_OF_ROUTE[x])))[:3]
     # 其余：有海报的精编线路先，再按离过季远近
@@ -784,6 +789,7 @@ def home_page():
             f'{("<button type=button class=moreb>再看 " + str(max(0, len(order) - 8)) + " 条</button>") if len(order) > 8 else ""}</section>'
             f'<a class="allbar" href="/where/"><span>全部目的地 · 按月份挑</span><span>›</span></a>'
             + (f'<section class="toc"><h2>下个月正好<small>{nxt} 月开始</small></h2><ol class="items">{nitems}</ol></section>' if nitems else '')
+            + (f'<section class="toc" id="drive"><h2>长途和自驾<small>{len(drv)} 条环线和长线</small></h2><ol class="items">{ditems}</ol>{f'<button type="button" class="moreb dmore">再看 {len(drv) - 8} 条</button>' if len(drv) > 8 else ''}<a class="allbar" href="/where/?f=drive"><span>按目的地看全部自驾线路</span><i>›</i></a></section>' if ditems else '')
             + (f'<section class="toc"><h2>什么时候去都行<small>城市、古城、博物馆</small></h2><ol class="items">{aitems}</ol></section>' if aitems else '')
             + '</article>'
             '<script>(function(){var m=location.hash.match(/#trip=(\\w+)/);if(m){location.replace("/trip/"+m[1]+"/");}})();</script>')
