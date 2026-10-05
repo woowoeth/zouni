@@ -1,0 +1,61 @@
+name: 自动加内容
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      n:
+        description: 这次加几条
+        default: "3"
+permissions:
+  contents: write
+  models: read
+  pages: write
+concurrency:
+  group: autogrow
+  cancel-in-progress: false
+jobs:
+  grow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: source
+          path: src
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: site
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: 起草新行程（GitHub Models），核坐标，重建网站
+        working-directory: src
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 tools/auto_grow.py "${{ github.event.inputs.n || '3' }}"
+          sh tools/ci_build.sh ../out
+      - name: 发布网站
+        run: |
+          cd site
+          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name .github -exec rm -rf {} +
+          cp -R ../out/. .
+          git config user.name zouni-bot
+          git config user.email bot@zouni.app
+          git add -A
+          if git commit -q -m "自动加内容 $(date -u +%F-%H%M)"; then git push -q; else echo 没有变化; fi
+      - name: 保存数据
+        run: |
+          cd src
+          git config user.name zouni-bot
+          git config user.email bot@zouni.app
+          git add -A
+          if git commit -q -m "自动加内容：数据 $(date -u +%F-%H%M)"; then git push -q; else echo 没有变化; fi
+      - name: 触发 Pages 构建、通知搜索引擎
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -s -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" https://api.github.com/repos/${{ github.repository }}/pages/builds || true
+          python3 src/tools/indexnow.py out
