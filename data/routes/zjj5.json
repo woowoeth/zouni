@@ -1,0 +1,925 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "zjj5",
+ "fam": "zjj",
+ "title": "🏞 张家界 5 天 · 三山一桥全收",
+ "dest": "湖南 · 张家界",
+ "days_count": 5,
+ "seasons": [
+  {
+   "name": "武陵源云雾",
+   "why": "雨后清晨悬浮山概率最高"
+  },
+  {
+   "name": "玻璃桥开放",
+   "why": "大风雷雨会临时封桥 · 出发前查公告"
+  }
+ ],
+ "transport": {
+  "mode": "drive",
+  "rent": 1000,
+  "perCar": true,
+  "roadfood": 275,
+  "label": "租车 · 油费"
+ },
+ "prep": [
+  "天门山限流 · 提前 1 天官网分时段购票",
+  "武陵源 ¥228 四日有效 · 刷身份证进",
+  "两天爬山 · 抓地好的鞋 · 山顶带件外套",
+  "两大景区都 7:00 前到 · 晚一小时排队翻倍"
+ ],
+ "weather_note": "张家界 8 月 · 昼 26–34°C · 山顶凉 5°C · 午后雷阵雨",
+ "days": [
+  {
+   "n": 1,
+   "title": "张家界市 · 落脚",
+   "sub": "提车+老城暖场 · 极轻",
+   "place": "张家界市",
+   "lat": 29.373828,
+   "lng": 110.530142,
+   "facts": {
+    "depart": "10:40",
+    "drive": "0.5 h",
+    "altitude_m": 843,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      6,
+      -1
+     ],
+     "2": [
+      8,
+      0
+     ],
+     "3": [
+      13,
+      6
+     ],
+     "4": [
+      18,
+      10
+     ],
+     "5": [
+      22,
+      15
+     ],
+     "6": [
+      25,
+      18
+     ],
+     "7": [
+      28,
+      21
+     ],
+     "8": [
+      28,
+      21
+     ],
+     "9": [
+      24,
+      18
+     ],
+     "10": [
+      18,
+      12
+     ],
+     "11": [
+      13,
+      7
+     ],
+     "12": [
+      8,
+      1
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "10:00",
+     "type": "see",
+     "name": "张家界提车 · 验车",
+     "dur": 40,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "10:40",
+     "type": "dep",
+     "to": "大庸古城 · 夜",
+     "mode": "drive",
+     "min": 20,
+     "km": 8
+    },
+    {
+     "t": "11:00",
+     "type": "see",
+     "name": "大庸古城 · 夜",
+     "dur": 630,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "凉面",
+     "place": "猪脑壳凉面（南正街店）",
+     "price": 20,
+     "poi": "猪脑壳凉面 南正街",
+     "src": "携程美食林",
+     "priceText": null
+    },
+    {
+     "t": "21:25",
+     "type": "dep",
+     "to": "印象老灶台三下锅（天门山索道店）",
+     "mode": "drive",
+     "min": 20
+    },
+    {
+     "t": "21:45",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "土家三下锅",
+     "place": "印象老灶台三下锅（天门山索道店）",
+     "price": 66,
+     "poi": "印象老灶台三下锅 天门山索道店",
+     "src": "携程美食林",
+     "priceText": null
+    },
+    {
+     "t": "22:55",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 20
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "张家界市 · 古城边",
+     "name": "张家界市 · 古城边",
+     "engine_price": 280
+    }
+   ],
+   "stay": {
+    "city": "张家界市 · 古城边",
+    "engine": [
+     {
+      "city": "张家界市 · 古城边",
+      "price": 280,
+      "why": "老城步行圈 · 明早去天门山近"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "市内到两大景区都不远，车是腿。 第二天要爬山，今晚就在古城慢慢吃、早点睡。",
+    "manners": [
+     "绕车拍视频 · 确认山路险",
+     "三下锅 · 人均¥50 管饱"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "天门山 · 全天",
+   "sub": "索道+玻璃栈道+天门洞 · 重",
+   "place": "张家界市",
+   "lat": 29.373828,
+   "lng": 110.530142,
+   "facts": {
+    "depart": "07:30",
+    "drive": "0.5 h",
+    "altitude_m": 843,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      6,
+      -1
+     ],
+     "2": [
+      8,
+      0
+     ],
+     "3": [
+      13,
+      6
+     ],
+     "4": [
+      18,
+      10
+     ],
+     "5": [
+      22,
+      15
+     ],
+     "6": [
+      25,
+      18
+     ],
+     "7": [
+      28,
+      21
+     ],
+     "8": [
+      28,
+      21
+     ],
+     "9": [
+      24,
+      18
+     ],
+     "10": [
+      18,
+      12
+     ],
+     "11": [
+      13,
+      7
+     ],
+     "12": [
+      8,
+      1
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:30",
+     "type": "dep",
+     "to": "天门山 · 索道上山",
+     "mode": "drive",
+     "min": 15,
+     "km": 5,
+     "via": null
+    },
+    {
+     "t": "07:50",
+     "type": "see",
+     "name": "天门山 · 索道上山",
+     "dur": 60,
+     "cost": 278,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "08:50",
+     "type": "dep",
+     "to": "玻璃栈道 · 西线",
+     "mode": "walk",
+     "min": 30,
+     "km": null
+    },
+    {
+     "t": "09:20",
+     "type": "see",
+     "name": "玻璃栈道 · 西线",
+     "dur": 60,
+     "cost": 5,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "10:20",
+     "type": "dep",
+     "to": "天门洞 · 999 级天梯",
+     "mode": "walk",
+     "min": 25,
+     "km": null
+    },
+    {
+     "t": "10:45",
+     "type": "see",
+     "name": "天门洞 · 999 级天梯",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:15",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 20,
+     "km": 5
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "三下锅",
+     "place": "富正毅三下锅",
+     "price": 52,
+     "poi": "富正毅三下锅",
+     "src": "携程美食林",
+     "priceText": null
+    },
+    {
+     "t": "18:10",
+     "type": "dep",
+     "to": "印象老灶台三下锅（天门山索道店）",
+     "mode": "drive",
+     "min": 20
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "土家三下锅",
+     "place": "印象老灶台三下锅（天门山索道店）",
+     "price": 66,
+     "poi": "印象老灶台三下锅 天门山索道店",
+     "src": "携程美食林",
+     "priceText": null
+    },
+    {
+     "t": "19:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 20
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "市区 · 连住",
+     "name": "市区 · 连住",
+     "engine_price": 280
+    }
+   ],
+   "stay": {
+    "city": "市区 · 连住",
+    "engine": [
+     {
+      "city": "市区 · 连住",
+      "price": 280,
+      "why": "不挪窝 · 行李不动"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "索道跨过整座城再钻进云里，28 分钟像一场电影。 脚下就是垂直崖壁，鞋套一穿，走出去就赢了。 山被凿开一扇门，云从洞里穿过去。",
+    "manners": [
+     "A 线（索道上环保车下）· 7:00 首班避高峰",
+     "恐高就走鬼谷栈道平行段",
+     "洞下仰拍 · 天梯量力（可扶梯替代）"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 3,
+   "title": "武陵源 · 袁家界",
+   "sub": "阿凡达悬浮山 · 重",
+   "place": "武陵源",
+   "lat": 29.3487871,
+   "lng": 110.5457064,
+   "facts": {
+    "depart": "07:30",
+    "drive": "1 h",
+    "altitude_m": 325,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      9,
+      3
+     ],
+     "2": [
+      11,
+      4
+     ],
+     "3": [
+      17,
+      9
+     ],
+     "4": [
+      21,
+      14
+     ],
+     "5": [
+      25,
+      18
+     ],
+     "6": [
+      28,
+      22
+     ],
+     "7": [
+      31,
+      25
+     ],
+     "8": [
+      31,
+      25
+     ],
+     "9": [
+      28,
+      21
+     ],
+     "10": [
+      21,
+      15
+     ],
+     "11": [
+      17,
+      10
+     ],
+     "12": [
+      11,
+      4
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:30",
+     "type": "dep",
+     "to": "武陵源 · 购票进山",
+     "mode": "drive",
+     "min": 50,
+     "km": 32,
+     "via": "沿途 · 存行李到武陵源镇住处再进园"
+    },
+    {
+     "t": "08:30",
+     "type": "see",
+     "name": "武陵源 · 购票进山",
+     "dur": 30,
+     "cost": 228,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "袁家界 · 悬浮山",
+     "mode": "shuttle",
+     "min": 40,
+     "km": null
+    },
+    {
+     "t": "09:40",
+     "type": "see",
+     "name": "袁家界 · 悬浮山",
+     "dur": 150,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:10",
+     "type": "dep",
+     "to": "天子山 · 御笔峰",
+     "mode": "shuttle",
+     "min": 30,
+     "km": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "三下锅、湘西腊牛肉",
+     "place": "湘健土菜馆",
+     "price": 68,
+     "poi": "湘健土菜馆 武陵源",
+     "src": "携程美食林",
+     "priceText": null
+    },
+    {
+     "t": "12:40",
+     "type": "see",
+     "name": "天子山 · 御笔峰",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:10",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "随意",
+     "place": "住的地方附近",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "武陵源镇 · 景区门口",
+     "name": "张家界国家森林公园标志门亚朵酒店",
+     "engine_price": 360
+    }
+   ],
+   "stay": {
+    "city": "武陵源镇 · 景区门口",
+    "engine": [
+     {
+      "city": "武陵源镇 · 景区门口",
+      "price": 360,
+      "why": "省下每天 50 分往返"
+     },
+     {
+      "city": "武陵源镇 · 巷内客栈",
+      "price": 260,
+      "why": "省 ¥50/人 · 走 5 分钟到门口"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": {
+      "name": "张家界国家森林公园标志门亚朵酒店",
+      "sell": "武陵源标志门，走到景区入口",
+      "price": null,
+      "src": "携程"
+     },
+     "budget": {
+      "name": "标志门附近的客栈",
+      "sell": "走 5 分钟进景区",
+      "price": "¥150–200",
+      "src": "新浪 2026-07"
+     }
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "三千奇峰的家，票管四天，今天走精华。 乾坤柱就是哈利路亚山的原型，云一来，柱子真的浮起来。 御笔峰像几支插在云里的笔，黄昏侧光最立体。",
+    "manners": [
+     "刷身份证进 · 环保车全含",
+     "迷魂台 · 天下第一桥 · 沿栈道走全",
+     "贺龙公园观景台 · 索道下山¥72 自选"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 存行李到武陵源镇住处再进园"
+   ]
+  },
+  {
+   "n": 4,
+   "title": "大峡谷 · 玻璃桥",
+   "sub": "30 km · 桥上走 + 谷底下行 · 中",
+   "place": "武陵源",
+   "lat": 29.3487871,
+   "lng": 110.5457064,
+   "facts": {
+    "depart": "08:00",
+    "drive": "1 h",
+    "altitude_m": 325,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      9,
+      3
+     ],
+     "2": [
+      11,
+      4
+     ],
+     "3": [
+      17,
+      9
+     ],
+     "4": [
+      21,
+      14
+     ],
+     "5": [
+      25,
+      18
+     ],
+     "6": [
+      28,
+      22
+     ],
+     "7": [
+      31,
+      25
+     ],
+     "8": [
+      31,
+      25
+     ],
+     "9": [
+      28,
+      21
+     ],
+     "10": [
+      21,
+      15
+     ],
+     "11": [
+      17,
+      10
+     ],
+     "12": [
+      11,
+      4
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:00",
+     "type": "dep",
+     "to": "张家界大峡谷玻璃桥",
+     "mode": "drive",
+     "min": 50,
+     "km": 30,
+     "via": "沿途 · 三官寺方向 · 景区停车场 ¥15"
+    },
+    {
+     "t": "08:50",
+     "type": "see",
+     "name": "张家界大峡谷玻璃桥",
+     "dur": 90,
+     "cost": 259,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "10:20",
+     "type": "dep",
+     "to": "大峡谷 · 谷底栈道",
+     "mode": "walk",
+     "min": 20,
+     "km": null
+    },
+    {
+     "t": "10:40",
+     "type": "see",
+     "name": "大峡谷 · 谷底栈道",
+     "dur": 150,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "三下锅、湘西腊牛肉",
+     "place": "湘健土菜馆",
+     "price": 68,
+     "poi": "湘健土菜馆 武陵源",
+     "src": "携程美食林",
+     "priceText": null
+    },
+    {
+     "t": "13:10",
+     "type": "see",
+     "name": "出谷 · 垂直电梯",
+     "dur": 30,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "13:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 50,
+     "km": 30
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "随意",
+     "place": "住的地方附近",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "武陵源镇 · 连住",
+     "name": "张家界国家森林公园标志门亚朵酒店",
+     "engine_price": 260
+    }
+   ],
+   "stay": {
+    "city": "武陵源镇 · 连住",
+    "engine": [
+     {
+      "city": "武陵源镇 · 连住",
+      "price": 260,
+      "why": "不挪窝 · 明早直接进十里画廊"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": {
+      "name": "张家界国家森林公园标志门亚朵酒店",
+      "sell": "武陵源标志门，走到景区入口",
+      "price": null,
+      "src": "携程"
+     },
+     "budget": {
+      "name": "标志门附近的客栈",
+      "sell": "走 5 分钟进景区",
+      "price": "¥150–200",
+      "src": "新浪 2026-07"
+     }
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "一脚踏空的错觉持续整座桥，桥中央往下看，溪水细成一条线。 谷底常年不见太阳，水声压过人声，一线天那段抬头只有一条缝。 从谷底直提到出口，回头看整条峡谷缩成一道绿痕。",
+    "manners": [
+     "分时预约进桥 · 鞋套现场发",
+     "下行为主省力 · 神泉湖可坐船（¥30 自选）",
+     "含在联票 · 排队高峰 15 分"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 三官寺方向 · 景区停车场 ¥15"
+   ]
+  },
+  {
+   "n": 5,
+   "title": "十里画廊 → 还车",
+   "sub": "轻徒步+收官 · 轻",
+   "place": "张家界市",
+   "lat": 29.373828,
+   "lng": 110.530142,
+   "facts": {
+    "depart": "08:30",
+    "drive": "1 h",
+    "altitude_m": 843,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      6,
+      -1
+     ],
+     "2": [
+      8,
+      0
+     ],
+     "3": [
+      13,
+      6
+     ],
+     "4": [
+      18,
+      10
+     ],
+     "5": [
+      22,
+      15
+     ],
+     "6": [
+      25,
+      18
+     ],
+     "7": [
+      28,
+      21
+     ],
+     "8": [
+      28,
+      21
+     ],
+     "9": [
+      24,
+      18
+     ],
+     "10": [
+      18,
+      12
+     ],
+     "11": [
+      13,
+      7
+     ],
+     "12": [
+      8,
+      1
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "十里画廊 · 徒步",
+     "mode": "walk",
+     "min": 15,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "08:45",
+     "type": "see",
+     "name": "十里画廊 · 徒步",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "10:45",
+     "type": "see",
+     "name": "还车 · 张家界市",
+     "dur": 40,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "11:25",
+     "type": "dep",
+     "to": "回程",
+     "mode": "drive",
+     "min": 60,
+     "km": 40
+    },
+    {
+     "t": "11:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "凉面",
+     "place": "猪脑壳凉面（南正街店）",
+     "price": 20,
+     "poi": "猪脑壳凉面 南正街",
+     "src": "携程美食林",
+     "priceText": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "沿着小火车轨道慢慢走，三姐妹峰在头顶排队。 四天两座山，腿酸得值。",
+    "manners": [
+     "徒步去小火车回（¥38）· 采药老人峰",
+     "满油 · 对公里数"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

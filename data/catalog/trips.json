@@ -1,0 +1,8849 @@
+{
+ "version": "2026-10-04",
+ "issueBase": "2026-09-16",
+ "trips": [
+  {
+   "id": "xz7",
+   "dest": "xizang",
+   "name": "西藏",
+   "region": "西南",
+   "days": 7,
+   "title": "西藏 · 拉萨经典圈",
+   "headline": "十月，去西藏正好",
+   "dek": "拉萨、羊湖、日喀则、纳木错，自驾一圈。",
+   "why": null,
+   "price": {
+    "lo": 7300,
+    "hi": 8800,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "高海拔",
+    "自驾"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Plan.dc.html",
+   "engineRoute": "xz7",
+   "poster": "40ded8f3e82571ca89f537b705827717"
+  },
+  {
+   "id": "njg8",
+   "dest": "xinjiang",
+   "name": "南疆",
+   "region": "西北",
+   "days": 8,
+   "title": "南疆 · 喀什与帕米尔",
+   "headline": "金草滩最金的时候",
+   "dek": "喀什老城、帕米尔、石头城外的金草滩。去塔县要办边防证，喀什当天可取。",
+   "why": null,
+   "price": {
+    "lo": 8900,
+    "hi": 10400,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "高海拔",
+    "3,000 米以上"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "10-31"
+    ],
+    "best": [
+     "09-20",
+     "10-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": null,
+   "engineRoute": "njg8",
+   "poster": "97b5315107bde68569d84f80a82ff7ee"
+  },
+  {
+   "id": "nm4",
+   "dest": "neimenggu",
+   "name": "额济纳",
+   "region": "华北",
+   "days": 4,
+   "title": "额济纳 · 胡杨",
+   "headline": "胡杨只金这几天",
+   "dek": "一二三道桥的胡杨林，峰值只有五到七天。",
+   "why": "胡杨最金在十月上中旬。",
+   "price": {
+    "lo": 4200,
+    "hi": 5400,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "沙漠边",
+    "早晚温差大"
+   ],
+   "season": {
+    "ok": [
+     "09-25",
+     "10-20"
+    ],
+    "best": [
+     "10-01",
+     "10-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nm4",
+   "engineRoute": "nm4",
+   "poster": "9069ac3532948608f504915c536a1868"
+  },
+  {
+   "id": "jz4",
+   "dest": "sichuan",
+   "name": "九寨沟",
+   "region": "西南",
+   "days": 4,
+   "title": "九寨沟 · 黄龙",
+   "headline": "九寨的彩林，一年两周",
+   "dek": "一天九寨，一天黄龙，头尾两天在路上。",
+   "why": null,
+   "price": {
+    "lo": 4500,
+    "hi": 5500,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "头尾长途车",
+    "黄龙 3,000 米以上"
+   ],
+   "season": {
+    "ok": [
+     "10-15",
+     "11-10"
+    ],
+    "best": [
+     "10-22",
+     "11-02"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jz4",
+   "engineRoute": "jz4",
+   "poster": "c82ca510fedd5a46a37cb5d513763808"
+  },
+  {
+   "id": "bj4",
+   "dest": "beijing",
+   "name": "北京",
+   "region": "华北",
+   "days": 4,
+   "title": "北京 · 中轴线与长城",
+   "headline": "香山红叶，景山日落",
+   "dek": "故宫提前七天、晚上八点放票。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 3400,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市",
+    "走路多"
+   ],
+   "season": {
+    "ok": [
+     "10-20",
+     "11-15"
+    ],
+    "best": [
+     "10-25",
+     "11-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bj4",
+   "engineRoute": "bj4",
+   "poster": "b01badba08f9c4dfdde7614c8b699f23"
+  },
+  {
+   "id": "sc5",
+   "dest": "sichuan",
+   "name": "稻城亚丁",
+   "region": "西南",
+   "days": 5,
+   "title": "稻城 · 亚丁",
+   "headline": "亚丁的秋天",
+   "dek": "雪山和海子要徒步一整天。",
+   "why": "洛绒牛场的红叶在十月初。",
+   "price": {
+    "lo": 4200,
+    "hi": 5200,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "高海拔",
+    "4,000 米以上"
+   ],
+   "season": {
+    "ok": [
+     "09-20",
+     "10-12"
+    ],
+    "best": [
+     "09-28",
+     "10-08"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sc5",
+   "engineRoute": "sc5",
+   "poster": "35694c9b2ca382bd45bcfe4772df62b2"
+  },
+  {
+   "id": "xj10",
+   "dest": "xinjiang",
+   "name": "北疆环线",
+   "region": "西北",
+   "days": 10,
+   "title": "北疆环线",
+   "headline": "喀纳斯最后的金秋",
+   "dek": "喀纳斯、禾木、赛里木湖。",
+   "why": "喀纳斯金秋九月中旬起，独库公路只开到十月。",
+   "price": {
+    "lo": 9300,
+    "hi": 10500,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "长途自驾"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "10-08"
+    ],
+    "best": [
+     "09-16",
+     "10-01"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xj10",
+   "engineRoute": "xj10",
+   "poster": "a03694044d237334d84db145f6f7a58f"
+  },
+  {
+   "id": "cd3",
+   "dest": "sichuan",
+   "name": "成都",
+   "region": "西南",
+   "days": 3,
+   "title": "成都 · 茶馆、熊猫和火锅",
+   "headline": "三天，泡在成都",
+   "dek": "宽窄巷子、人民公园喝盖碗茶、早起看熊猫、晚上看变脸。",
+   "why": null,
+   "price": {
+    "lo": 1600,
+    "hi": 2400,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市",
+    "不开车"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#cd3",
+   "engineRoute": "cd3",
+   "poster": "32e3d481b8862e203eb47cd762b9afce"
+  },
+  {
+   "id": "sh3",
+   "dest": "shanghai",
+   "name": "上海",
+   "region": "华东",
+   "days": 3,
+   "title": "上海 · 外滩到梧桐区",
+   "headline": "三天，上海走一遍",
+   "dek": "豫园、南京路、外滩，一天梧桐区，一天上博和陆家嘴。",
+   "why": null,
+   "price": {
+    "lo": 1700,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市",
+    "不开车"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#sh3",
+   "engineRoute": "sh3",
+   "poster": "701a8fc3e98af25187d582c22c5e0dd4"
+  },
+  {
+   "id": "hz3",
+   "dest": "zhejiang",
+   "name": "杭州",
+   "region": "华东",
+   "days": 3,
+   "title": "杭州 · 西湖与龙井",
+   "headline": "三天，绕着西湖过",
+   "dek": "断桥、苏堤、雷峰塔，灵隐寺和龙井村，最后看大运河。",
+   "why": null,
+   "price": {
+    "lo": 1600,
+    "hi": 2400,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市",
+    "走路多"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#hz3",
+   "engineRoute": "hz3",
+   "poster": "187168aec09628cb37c2c3e5172fa8a0"
+  },
+  {
+   "id": "sz3",
+   "dest": "jiangsu",
+   "name": "苏州",
+   "region": "华东",
+   "days": 3,
+   "title": "苏州 · 园林与平江路",
+   "headline": "三天，住进园林边",
+   "dek": "拙政园早场、平江路、虎丘斜塔、七里山塘、贝聿铭的苏博。",
+   "why": null,
+   "price": {
+    "lo": 1600,
+    "hi": 2400,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市",
+    "走路多"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#sz3",
+   "engineRoute": "sz3",
+   "poster": "53045776e2b701ebf1ea6b299109c2b3"
+  },
+  {
+   "id": "zjj4",
+   "dest": "hunan",
+   "name": "张家界",
+   "region": "华中",
+   "days": 4,
+   "title": "张家界 · 天门山与武陵源",
+   "headline": "四天，两座山各给一天",
+   "dek": "一天天门山，一天袁家界和天子山，晚上吃三下锅。",
+   "why": null,
+   "price": {
+    "lo": 2600,
+    "hi": 3400,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "爬山",
+    "台阶多"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#zjj4",
+   "engineRoute": "zjj4",
+   "poster": "593f98efd721b7d1d2a5368deb8b8cec"
+  },
+  {
+   "id": "hk2",
+   "dest": "hongkong",
+   "name": "香港",
+   "region": "港澳台",
+   "days": 2,
+   "title": "香港 · 中环与山顶",
+   "headline": "两天，香港走个周末",
+   "dek": "大馆、文武庙、陆羽茶室饮茶，天星小轮过海，晚上逛庙街。",
+   "why": null,
+   "price": {
+    "lo": 1600,
+    "hi": 2400,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市",
+    "地铁加渡轮"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#hk2",
+   "engineRoute": "hk2",
+   "poster": "9ffe32de2faf342abf6f6b1c71d83544"
+  },
+  {
+   "id": "kansai4",
+   "dest": "japan",
+   "name": "大阪京都",
+   "region": "东亚",
+   "days": 4,
+   "title": "关西 · 大阪与京都",
+   "headline": "四天，大阪住下，京都走一天",
+   "dek": "道顿堀、大阪城、黑门市场，一天伏见稻荷和清水寺。",
+   "why": null,
+   "price": {
+    "lo": 4400,
+    "hi": 6400,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "出境",
+    "要签证"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#kansai4",
+   "engineRoute": "kansai4",
+   "poster": "49725b5c4e5ce00e190aeb8646b6e995"
+  },
+  {
+   "id": "hs2",
+   "dest": "anhui",
+   "name": "黄山",
+   "region": "华东",
+   "days": 2,
+   "title": "黄山 · 宏村",
+   "headline": "两天，直接上黄山",
+   "dek": "杭州提车，索道上山，光明顶看日落，第二天下山逛宏村。",
+   "why": null,
+   "price": {
+    "lo": 2200,
+    "hi": 2900,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "爬山",
+    "台阶多"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#hs2",
+   "engineRoute": "hs2",
+   "poster": "42ed89f28e94b385ef6b9253ef0763e3"
+  },
+  {
+   "id": "tj2",
+   "dest": "tianjin",
+   "name": "天津",
+   "region": "华北",
+   "days": 2,
+   "title": "天津 · 五大道与海河",
+   "headline": "两天，听天津话",
+   "dek": "五大道骑车看小洋楼，意式风情区、古文化街，晚上海河坐船看天津之眼。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 1600,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市",
+    "不开车"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#tj2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cb4",
+   "dest": "hebei",
+   "name": "塞罕坝",
+   "region": "华北",
+   "days": 4,
+   "title": "河北 · 塞罕坝与避暑山庄",
+   "headline": "坝上的秋只有半个月",
+   "dek": "承德看避暑山庄和外八庙，再上坝上，白桦和落叶松一片金。",
+   "why": null,
+   "price": {
+    "lo": 2800,
+    "hi": 3800,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "草原自驾",
+    "早晚冷"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "10-16"
+    ],
+    "best": [
+     "09-21",
+     "10-08"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cb4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sx4",
+   "dest": "shanxi",
+   "name": "平遥",
+   "region": "华北",
+   "days": 4,
+   "title": "山西 · 平遥与晋中大院",
+   "headline": "住进平遥城墙里",
+   "dek": "平遥古城、日升昌票号、王家大院，顺路去双林寺看彩塑。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 2800,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "古城",
+    "走路多"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "11-30"
+    ],
+    "best": [
+     "09-24",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sx4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "aes4",
+   "dest": "neimenggu",
+   "name": "阿尔山",
+   "region": "华北",
+   "days": 4,
+   "title": "内蒙古 · 阿尔山",
+   "headline": "落叶松变金的那十天",
+   "dek": "天池、杜鹃湖、驼峰岭，五花山色九月中下旬最好。",
+   "why": null,
+   "price": {
+    "lo": 3500,
+    "hi": 4500,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "林区",
+    "早晚零下"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "10-11"
+    ],
+    "best": [
+     "09-19",
+     "10-01"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#aes4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "dl3",
+   "dest": "liaoning",
+   "name": "大连",
+   "region": "东北",
+   "days": 3,
+   "title": "辽宁 · 大连与旅顺",
+   "headline": "三天，沿着海走",
+   "dek": "滨海路、星海广场、老虎滩，一天去旅顺看军港和日俄监狱旧址。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "海边城市",
+    "坡多"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#dl3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cbs3",
+   "dest": "jilin",
+   "name": "长白山",
+   "region": "东北",
+   "days": 3,
+   "title": "吉林 · 长白山",
+   "headline": "天池前的最后一批秋色",
+   "dek": "北坡看天池和长白瀑布，二道白河住一晚。十月中旬以后常有雪封山。",
+   "why": null,
+   "price": {
+    "lo": 2800,
+    "hi": 3800,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "山地",
+    "天气多变"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "10-11"
+    ],
+    "best": [
+     "09-16",
+     "09-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": null,
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hrb3",
+   "dest": "heilongjiang",
+   "name": "哈尔滨",
+   "region": "东北",
+   "days": 3,
+   "title": "黑龙江 · 哈尔滨",
+   "headline": "秋天的中央大街",
+   "dek": "中央大街、索菲亚教堂、松花江边，吃锅包肉和红肠。冰雪大世界要等到十二月底。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市",
+    "秋冬冷"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": null,
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "nj3",
+   "dest": "jiangsu",
+   "name": "南京",
+   "region": "华东",
+   "days": 3,
+   "title": "江苏 · 南京",
+   "headline": "梧桐和秦淮河",
+   "dek": "中山陵、明孝陵、总统府、夫子庙；十一月中旬栖霞山红叶。",
+   "why": null,
+   "price": {
+    "lo": 1600,
+    "hi": 2400,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市",
+    "走路多"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#nj3",
+   "engineRoute": "nj3",
+   "poster": null
+  },
+  {
+   "id": "xm4",
+   "dest": "fujian",
+   "name": "厦门",
+   "region": "华东",
+   "days": 4,
+   "title": "福建 · 厦门与土楼",
+   "headline": "鼓浪屿，再进土楼",
+   "dek": "鼓浪屿、沙坡尾、南普陀，一天去南靖土楼。九月还有台风，十月起稳。",
+   "why": null,
+   "price": {
+    "lo": 2600,
+    "hi": 3600,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "海岛城市",
+    "走路多"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xm4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wy3",
+   "dest": "jiangxi",
+   "name": "婺源",
+   "region": "华东",
+   "days": 3,
+   "title": "江西 · 婺源",
+   "headline": "篁岭晒秋，石城红枫",
+   "dek": "篁岭看晒秋，晓起、江湾走古村，十一月去石城看枫叶和晨雾。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 2800,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "乡村",
+    "走路多"
+   ],
+   "season": {
+    "ok": [
+     "10-11",
+     "11-25"
+    ],
+    "best": [
+     "10-28",
+     "11-17"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wy3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "qd3",
+   "dest": "shandong",
+   "name": "青岛",
+   "region": "华东",
+   "days": 3,
+   "title": "山东 · 青岛",
+   "headline": "红瓦绿树，碧海蓝天",
+   "dek": "八大关、小鱼山、栈桥、啤酒博物馆，喝一袋散啤吃海鲜。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "海边城市",
+    "坡多"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#qd3",
+   "engineRoute": "qd3",
+   "poster": null
+  },
+  {
+   "id": "ly3",
+   "dest": "henan",
+   "name": "洛阳",
+   "region": "华中",
+   "days": 3,
+   "title": "河南 · 洛阳与少林",
+   "headline": "龙门石窟，再上嵩山",
+   "dek": "龙门石窟、白马寺、老城十字街吃水席，一天去登封少林寺。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "古迹",
+    "台阶多"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#ly3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "es4",
+   "dest": "hubei",
+   "name": "恩施",
+   "region": "华中",
+   "days": 4,
+   "title": "湖北 · 恩施大峡谷",
+   "headline": "一线天和云龙地缝",
+   "dek": "恩施大峡谷、云龙地缝、土司城，吃一顿土家十碗菜。",
+   "why": null,
+   "price": {
+    "lo": 2600,
+    "hi": 3400,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "山地",
+    "台阶多"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "11-15"
+    ],
+    "best": [
+     "09-28",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#es4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gz3",
+   "dest": "guangdong",
+   "name": "广州",
+   "region": "华南",
+   "days": 3,
+   "title": "广东 · 广州与顺德",
+   "headline": "饮早茶，去顺德吃",
+   "dek": "陈家祠、沙面、北京路，早茶吃到中午；一天去顺德吃双皮奶和鱼生。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市",
+    "吃为主"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#gz3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gl4",
+   "dest": "guangxi",
+   "name": "桂林阳朔",
+   "region": "华南",
+   "days": 4,
+   "title": "广西 · 桂林与阳朔",
+   "headline": "漓江上一天，遇龙河一天",
+   "dek": "漓江竹筏、兴坪、十里画廊骑车，遇龙河漂流，龙脊梯田可加一天。",
+   "why": null,
+   "price": {
+    "lo": 2600,
+    "hi": 3500,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "山水",
+    "骑车"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gl4",
+   "engineRoute": "gl4",
+   "poster": null
+  },
+  {
+   "id": "sy4",
+   "dest": "hainan",
+   "name": "三亚",
+   "region": "华南",
+   "days": 4,
+   "title": "海南 · 三亚",
+   "headline": "十一月起，海才好",
+   "dek": "亚龙湾、蜈支洲岛潜水、后海冲浪。九十月台风多，十一月进旺季。",
+   "why": null,
+   "price": {
+    "lo": 3500,
+    "hi": 5000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "海岛",
+    "晒"
+   ],
+   "season": {
+    "ok": [
+     "10-16",
+     "11-30"
+    ],
+    "best": [
+     "11-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sy4",
+   "engineRoute": "sy4",
+   "poster": null
+  },
+  {
+   "id": "cq3",
+   "dest": "chongqing",
+   "name": "重庆",
+   "region": "西南",
+   "days": 3,
+   "title": "重庆 · 山城步道",
+   "headline": "三天，在坡上走",
+   "dek": "洪崖洞、李子坝轻轨穿楼、山城步道、长江索道，晚上一顿火锅。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市",
+    "坡多台阶多"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#cq3",
+   "engineRoute": "cq3",
+   "poster": null
+  },
+  {
+   "id": "qdn5",
+   "dest": "guizhou",
+   "name": "黔东南",
+   "region": "西南",
+   "days": 5,
+   "title": "贵州 · 黔东南",
+   "headline": "苗寨、侗寨和稻田",
+   "dek": "西江千户苗寨、肇兴侗寨、加榜梯田；稻子九月底到十月中金黄。",
+   "why": null,
+   "price": {
+    "lo": 2800,
+    "hi": 3800,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "山路",
+    "自驾"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "10-31"
+    ],
+    "best": [
+     "09-20",
+     "10-11"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#qdn5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "dali5",
+   "dest": "yunnan",
+   "name": "大理丽江",
+   "region": "西南",
+   "days": 5,
+   "title": "云南 · 大理与丽江",
+   "headline": "洱海边骑车，玉龙雪山下住",
+   "dek": "大理古城、洱海环湖、喜洲，丽江古城和玉龙雪山蓝月谷。",
+   "why": null,
+   "price": {
+    "lo": 3000,
+    "hi": 4200,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "高原",
+    "2,000 米以上"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#dali5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "tc4",
+   "dest": "yunnan",
+   "name": "腾冲",
+   "region": "西南",
+   "days": 4,
+   "title": "云南 · 腾冲",
+   "headline": "银杏村的金黄",
+   "dek": "江东银杏村、和顺古镇、热海泡温泉；银杏十一月中旬起最黄。",
+   "why": null,
+   "price": {
+    "lo": 2800,
+    "hi": 3800,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "小城",
+    "温泉"
+   ],
+   "season": {
+    "ok": [
+     "10-26",
+     "11-30"
+    ],
+    "best": [
+     "11-13",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#tc4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xa3",
+   "dest": "shaanxi",
+   "name": "西安",
+   "region": "西北",
+   "days": 3,
+   "title": "陕西 · 西安",
+   "headline": "城墙骑车，兵马俑站着",
+   "dek": "兵马俑、陕历博、城墙骑一圈、回民街和永兴坊吃一路。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市",
+    "走路多"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#xa3",
+   "engineRoute": "xa3",
+   "poster": null
+  },
+  {
+   "id": "dh4",
+   "dest": "gansu",
+   "name": "敦煌",
+   "region": "西北",
+   "days": 4,
+   "title": "甘肃 · 敦煌",
+   "headline": "莫高窟和鸣沙山",
+   "dek": "莫高窟提前约票，鸣沙山月牙泉看日落，雅丹魔鬼城、阳关玉门关。",
+   "why": null,
+   "price": {
+    "lo": 3000,
+    "hi": 4000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "沙漠",
+    "早晚温差大"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "10-31"
+    ],
+    "best": [
+     "09-16",
+     "10-16"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#dh4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "qh5",
+   "dest": "qinghai",
+   "name": "青海湖",
+   "region": "西北",
+   "days": 5,
+   "title": "青海 · 青海湖与茶卡",
+   "headline": "环湖一圈，看茶卡天空之镜",
+   "dek": "西宁出发，塔尔寺、青海湖二郎剑、茶卡盐湖、黑马河日出。",
+   "why": null,
+   "price": {
+    "lo": 3500,
+    "hi": 4500,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "高海拔",
+    "3,200 米"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "10-11"
+    ],
+    "best": [
+     "09-16",
+     "09-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": null,
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "nx3",
+   "dest": "ningxia",
+   "name": "中卫",
+   "region": "西北",
+   "days": 3,
+   "title": "宁夏 · 中卫与银川",
+   "headline": "黄河从沙漠边流过",
+   "dek": "沙坡头滑沙、黄河羊皮筏子，银川看西夏陵和镇北堡影城。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 2800,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "沙漠",
+    "黄河"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "11-15"
+    ],
+    "best": [
+     "09-16",
+     "10-16"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nx3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "mo2",
+   "dest": "macau",
+   "name": "澳门",
+   "region": "港澳台",
+   "days": 2,
+   "title": "澳门 · 大三巴与氹仔",
+   "headline": "两天，葡国菜和蛋挞",
+   "dek": "大三巴、议事亭前地、望厦山，氹仔官也街吃葡国菜。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市",
+    "坡多"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#mo2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "tw5",
+   "dest": "taiwan",
+   "name": "台湾",
+   "region": "港澳台",
+   "days": 5,
+   "title": "台湾 · 台北与花莲",
+   "headline": "夜市和太鲁阁",
+   "dek": "台北故宫、九份、士林夜市，坐火车去花莲看太鲁阁和清水断崖。",
+   "why": "大陆居民赴台湾本岛旅游尚未恢复；福建、上海居民可去金门、马祖。",
+   "price": {
+    "lo": 5000,
+    "hi": 7000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市加山海",
+    "火车"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "blocked",
+   "page": null,
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hkd5",
+   "dest": "japan",
+   "name": "北海道",
+   "region": "东亚",
+   "days": 5,
+   "title": "日本 · 北海道",
+   "headline": "大雪山的第一抹红",
+   "dek": "札幌、小樽、富良野、层云峡和大雪山红叶，自驾最方便。",
+   "why": null,
+   "price": {
+    "lo": 8000,
+    "hi": 11000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "自驾",
+    "签证"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "10-26"
+    ],
+    "best": [
+     "09-24",
+     "10-14"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hkd5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "tk4",
+   "dest": "japan",
+   "name": "东京",
+   "region": "东亚",
+   "days": 4,
+   "title": "日本 · 东京",
+   "headline": "四天，东京走一遍",
+   "dek": "浅草、上野、银座、涩谷、新宿，一天去镰仓看海。",
+   "why": null,
+   "price": {
+    "lo": 6000,
+    "hi": 9000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市",
+    "地铁",
+    "签证"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#tk4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "kr4",
+   "dest": "korea",
+   "name": "首尔",
+   "region": "东亚",
+   "days": 4,
+   "title": "韩国 · 首尔与雪岳山",
+   "headline": "景福宫外的银杏，雪岳山的枫",
+   "dek": "首尔景福宫、北村、益善洞，坐车去束草爬雪岳山看红叶。",
+   "why": null,
+   "price": {
+    "lo": 4500,
+    "hi": 6500,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市加爬山",
+    "签证"
+   ],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-15"
+    ],
+    "best": [
+     "10-15",
+     "11-05"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#kr4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "mn5",
+   "dest": "mongolia",
+   "name": "蒙古",
+   "region": "东亚",
+   "days": 5,
+   "title": "蒙古 · 乌兰巴托与草原",
+   "headline": "住一晚蒙古包",
+   "dek": "特日勒吉国家公园、成吉思汗雕像，住游牧人家的蒙古包。九月底以后很多营地关门。",
+   "why": null,
+   "price": {
+    "lo": 6000,
+    "hi": 8000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "草原",
+    "早晚零下"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "10-01"
+    ],
+    "best": [
+     "09-16",
+     "09-24"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#mn5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cm5",
+   "dest": "thailand",
+   "name": "清迈",
+   "region": "东南亚",
+   "days": 5,
+   "title": "泰国 · 清迈",
+   "headline": "天凉了，水灯节也到了",
+   "dek": "古城寺庙、素贴山、周日夜市，学一节泰菜课；十一月月圆有水灯节放天灯。",
+   "why": null,
+   "price": {
+    "lo": 5000,
+    "hi": 7000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "古城",
+    "免签"
+   ],
+   "season": {
+    "ok": [
+     "10-16",
+     "11-30"
+    ],
+    "best": [
+     "10-31",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cm5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "vn5",
+   "dest": "vietnam",
+   "name": "河内下龙湾",
+   "region": "东南亚",
+   "days": 5,
+   "title": "越南 · 河内与下龙湾",
+   "headline": "住一夜下龙湾的船",
+   "dek": "河内还剑湖、老城区、火车街，下龙湾住游船，宁平坐竹筏。",
+   "why": null,
+   "price": {
+    "lo": 5000,
+    "hi": 7000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市加海湾",
+    "电子签"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#vn5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sg3",
+   "dest": "singapore",
+   "name": "新加坡",
+   "region": "东南亚",
+   "days": 3,
+   "title": "新加坡",
+   "headline": "三天，吃遍熟食中心",
+   "dek": "滨海湾花园、牛车水、甘榜格南、老巴刹沙爹，夜间动物园。",
+   "why": null,
+   "price": {
+    "lo": 5000,
+    "hi": 7500,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市",
+    "免签"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#sg3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "pg4",
+   "dest": "malaysia",
+   "name": "槟城",
+   "region": "东南亚",
+   "days": 4,
+   "title": "马来西亚 · 槟城",
+   "headline": "乔治市的壁画和炒粿条",
+   "dek": "乔治市老街壁画、姓氏桥、升旗山，一路吃炒粿条和煎蕊。",
+   "why": null,
+   "price": {
+    "lo": 4500,
+    "hi": 6500,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "老城",
+    "免签"
+   ],
+   "season": null,
+   "anytime": true,
+   "status": "ok",
+   "page": "Route.dc.html#pg4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bali5",
+   "dest": "indonesia",
+   "name": "巴厘岛",
+   "region": "东南亚",
+   "days": 5,
+   "title": "印尼 · 巴厘岛",
+   "headline": "旱季的尾巴",
+   "dek": "乌布梯田和猴林、海神庙日落、库塔冲浪；十一月起进雨季。",
+   "why": null,
+   "price": {
+    "lo": 6000,
+    "hi": 8500,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "海岛",
+    "落地签"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "10-31"
+    ],
+    "best": [
+     "09-16",
+     "10-16"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bali5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sr4",
+   "dest": "cambodia",
+   "name": "吴哥",
+   "region": "东南亚",
+   "days": 4,
+   "title": "柬埔寨 · 吴哥",
+   "headline": "吴哥窟的日出",
+   "dek": "小圈大圈各一天，女王宫、崩密列；十一月雨季结束，最舒服。",
+   "why": null,
+   "price": {
+    "lo": 4500,
+    "hi": 6500,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "古迹",
+    "落地签"
+   ],
+   "season": {
+    "ok": [
+     "10-16",
+     "11-30"
+    ],
+    "best": [
+     "11-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sr4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lpb4",
+   "dest": "laos",
+   "name": "琅勃拉邦",
+   "region": "东南亚",
+   "days": 4,
+   "title": "老挝 · 琅勃拉邦",
+   "headline": "清晨布施，光西瀑布",
+   "dek": "看僧侣清晨布施、普西山日落、光西瀑布，坐中老铁路来回。",
+   "why": null,
+   "price": {
+    "lo": 4500,
+    "hi": 6000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "小城",
+    "铁路"
+   ],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-16",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lpb4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "plw5",
+   "dest": "philippines",
+   "name": "巴拉望",
+   "region": "东南亚",
+   "days": 5,
+   "title": "菲律宾 · 巴拉望",
+   "headline": "爱妮岛跳岛",
+   "dek": "爱妮岛跳岛、科隆潜水看沉船；十二月起旱季，十一月下旬能去。",
+   "why": null,
+   "price": {
+    "lo": 6000,
+    "hi": 9000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "海岛",
+    "马尼拉入境免签 14 天"
+   ],
+   "season": {
+    "ok": [
+     "10-31",
+     "11-30"
+    ],
+    "best": [
+     "11-25",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#plw5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "np8",
+   "dest": "nepal",
+   "name": "尼泊尔",
+   "region": "南亚",
+   "days": 8,
+   "title": "尼泊尔 · 安纳普尔纳",
+   "headline": "雪山下走一周",
+   "dek": "加德满都、博卡拉，徒步布恩山或 ABC；十月十一月天最透。",
+   "why": null,
+   "price": {
+    "lo": 9000,
+    "hi": 13000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "徒步",
+    "3,000 米以上"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-25"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#np8",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bt6",
+   "dest": "bhutan",
+   "name": "不丹",
+   "region": "南亚",
+   "days": 6,
+   "title": "不丹 · 帕罗与廷布",
+   "headline": "虎穴寺和戒楚节",
+   "dek": "徒步上虎穴寺、普那卡宗，秋天赶上廷布戒楚节。要交可持续发展费。",
+   "why": null,
+   "price": {
+    "lo": 18000,
+    "hi": 25000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "高海拔",
+    "跟团"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bt6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "in7",
+   "dest": "india",
+   "name": "拉贾斯坦",
+   "region": "南亚",
+   "days": 7,
+   "title": "印度 · 拉贾斯坦",
+   "headline": "粉城、蓝城和泰姬陵",
+   "dek": "斋浦尔、焦特布尔、乌代浦，回德里路上去阿格拉看泰姬陵。",
+   "why": null,
+   "price": {
+    "lo": 8000,
+    "hi": 12000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "长途",
+    "签证"
+   ],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-16",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#in7",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "mv5",
+   "dest": "maldives",
+   "name": "马尔代夫",
+   "region": "南亚",
+   "days": 5,
+   "title": "马尔代夫",
+   "headline": "住水屋，浮潜看鲨鱼",
+   "dek": "选一个岛住水屋，浮潜、出海看海豚；十二月进旱季。",
+   "why": null,
+   "price": {
+    "lo": 12000,
+    "hi": 25000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "海岛",
+    "免签"
+   ],
+   "season": {
+    "ok": [
+     "10-16",
+     "11-30"
+    ],
+    "best": [
+     "11-05",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#mv5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "uz6",
+   "dest": "uzbekistan",
+   "name": "撒马尔罕",
+   "region": "中亚西亚",
+   "days": 6,
+   "title": "乌兹别克斯坦 · 丝路古城",
+   "headline": "雷吉斯坦广场的蓝",
+   "dek": "塔什干、撒马尔罕、布哈拉、希瓦，坐高铁串起来。",
+   "why": null,
+   "price": {
+    "lo": 8000,
+    "hi": 11000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "古城",
+    "免签"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "11-15"
+    ],
+    "best": [
+     "09-16",
+     "10-26"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#uz6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "tr6",
+   "dest": "turkey",
+   "name": "卡帕多奇亚",
+   "region": "中亚西亚",
+   "days": 6,
+   "title": "土耳其 · 伊斯坦布尔与卡帕多奇亚",
+   "headline": "天亮前坐热气球",
+   "dek": "伊斯坦布尔老城和博斯普鲁斯海峡，飞卡帕多奇亚坐热气球。",
+   "why": null,
+   "price": {
+    "lo": 9000,
+    "hi": 13000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市加奇石",
+    "免签"
+   ],
+   "season": {
+    "ok": [
+     "09-16",
+     "11-15"
+    ],
+    "best": [
+     "09-16",
+     "10-26"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#tr6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ae4",
+   "dest": "uae",
+   "name": "迪拜",
+   "region": "中亚西亚",
+   "days": 4,
+   "title": "阿联酋 · 迪拜与阿布扎比",
+   "headline": "沙漠冲沙和清真寺",
+   "dek": "哈利法塔、老城和香料市场、沙漠冲沙，一天去阿布扎比大清真寺。",
+   "why": null,
+   "price": {
+    "lo": 7000,
+    "hi": 11000,
+    "currency": "CNY",
+    "basis": "每人·2人同行·含往返大交通"
+   },
+   "tags": [
+    "城市",
+    "免签"
+   ],
+   "season": {
+    "ok": [
+     "10-16",
+     "11-30"
+    ],
+    "best": [
+     "11-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ae4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ts4",
+   "dest": "shandong",
+   "name": "泰山曲阜",
+   "region": "华东",
+   "days": 4,
+   "title": "泰山曲阜 4 天",
+   "headline": "四天，登泰山、拜孔子",
+   "dek": "下午到泰安，看岱庙，晚上早点睡。 从红门往上爬，过中天门、十八盘到南天门，傍晚在玉皇顶看日落，住山顶。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 4400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "世界遗产"
+   ],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ts4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "dt3",
+   "dest": "shanxi",
+   "name": "大同五台山",
+   "region": "华北",
+   "days": 3,
+   "title": "大同五台山 3 天",
+   "headline": "三天，云冈石窟到五台山",
+   "dek": "上午看云冈石窟，下午上大同古城墙，晚上逛古城。 上午看悬空寺，下午包车去五台山，住台怀镇。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 2900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "世界遗产"
+   ],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#dt3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cd4",
+   "dest": "hebei",
+   "name": "承德山海关",
+   "region": "华北",
+   "days": 4,
+   "title": "承德山海关 4 天",
+   "headline": "四天，避暑山庄到长城入海",
+   "dek": "一整天在避暑山庄：宫殿区、湖区和山区。 上午看普宁寺的千手观音，下午看普陀宗乘之庙。",
+   "why": null,
+   "price": {
+    "lo": 1600,
+    "hi": 3400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "世界遗产"
+   ],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cd4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wys4",
+   "dest": "fujian",
+   "name": "武夷山泉州",
+   "region": "华东",
+   "days": 4,
+   "title": "武夷山泉州 4 天",
+   "headline": "四天，武夷山喝茶、泉州看海港",
+   "dek": "下午爬天游峰，看九曲溪全景。 上午坐竹筏漂九曲溪，下午走大红袍景区看母树。",
+   "why": null,
+   "price": {
+    "lo": 1600,
+    "hi": 3700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "世界遗产"
+   ],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wys4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lus4",
+   "dest": "jiangxi",
+   "name": "庐山三清山",
+   "region": "华东",
+   "days": 4,
+   "title": "庐山三清山 4 天",
+   "headline": "四天，两座世界遗产名山",
+   "dek": "下午上庐山，住牯岭镇，傍晚走花径和如琴湖。 上午走到三叠泉瀑布，下午去含鄱口看鄱阳湖。",
+   "why": null,
+   "price": {
+    "lo": 2100,
+    "hi": 4500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "世界遗产"
+   ],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lus4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "em4",
+   "dest": "sichuan",
+   "name": "峨眉乐山都江堰",
+   "region": "西南",
+   "days": 4,
+   "title": "峨眉乐山都江堰 4 天",
+   "headline": "四天，乐山大佛、峨眉金顶、都江堰",
+   "dek": "下午看乐山大佛，晚上吃跷脚牛肉。 坐观光车和索道上金顶，看十方普贤，住山顶。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "世界遗产"
+   ],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#em4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wd4",
+   "dest": "hubei",
+   "name": "武当山神农架",
+   "region": "华中",
+   "days": 4,
+   "title": "武当山神农架 4 天",
+   "headline": "四天，武当山和神农架",
+   "dek": "坐车和索道上武当山金顶，下午看南岩宫。 上午看紫霄宫，下午包车去神农架。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "世界遗产"
+   ],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wd4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "dz3",
+   "dest": "chongqing",
+   "name": "大足武隆",
+   "region": "西南",
+   "days": 3,
+   "title": "大足武隆 3 天",
+   "headline": "三天，大足石刻和武隆天坑",
+   "dek": "包车去大足，看宝顶山和北山石刻。 包车去武隆，看天生三桥，再走龙水峡地缝。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "世界遗产"
+   ],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#dz3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cbs3x",
+   "dest": "jilin",
+   "name": "长春长白山",
+   "region": "东北",
+   "days": 4,
+   "title": "长春长白山 4 天",
+   "headline": "四天，长白山看天池",
+   "dek": "上午看伪满皇宫博物院，下午去净月潭走走。 坐高铁到二道白河，下午在镇上和美人松林里走走。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 3100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "01-01",
+     "02-28"
+    ],
+    "best": [
+     "01-01",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cbs3x",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hrb4",
+   "dest": "heilongjiang",
+   "name": "哈尔滨镜泊湖",
+   "region": "东北",
+   "days": 4,
+   "title": "哈尔滨镜泊湖 4 天",
+   "headline": "四天，哈尔滨和镜泊湖",
+   "dek": "下午逛中央大街，看圣索菲亚教堂，傍晚到松花江边。 上午坐索道过江去太阳岛，下午去伏尔加庄园。",
+   "why": null,
+   "price": {
+    "lo": 1600,
+    "hi": 3400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "01-01",
+     "02-28"
+    ],
+    "best": [
+     "01-01",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hrb4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wz3",
+   "dest": "zhejiang",
+   "name": "乌镇西塘",
+   "region": "华东",
+   "days": 3,
+   "title": "乌镇西塘 3 天",
+   "headline": "三天，住在江南水乡",
+   "dek": "下午进西栅，晚上看水乡夜景。 上午逛东栅，下午去西塘，晚上看烟雨长廊的灯。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wz3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gz4x",
+   "dest": "guizhou",
+   "name": "黄果树荔波",
+   "region": "西南",
+   "days": 4,
+   "title": "黄果树荔波 4 天",
+   "headline": "四天，贵州的瀑布和小七孔",
+   "dek": "一整天在黄果树：大瀑布、天星桥和陡坡塘。 包车去荔波，傍晚在古镇里走走。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 4000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gz4x",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "zy4",
+   "dest": "gansu",
+   "name": "张掖嘉峪关",
+   "region": "西北",
+   "days": 4,
+   "title": "张掖嘉峪关 4 天",
+   "headline": "四天，七彩丹霞到嘉峪关",
+   "dek": "下午去七彩丹霞，在观景台等日落。 上午看张掖大佛寺的卧佛，下午去冰沟丹霞。",
+   "why": null,
+   "price": {
+    "lo": 1600,
+    "hi": 3700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#zy4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gd4",
+   "dest": "guangdong",
+   "name": "开平碉楼丹霞山",
+   "region": "华南",
+   "days": 4,
+   "title": "开平碉楼丹霞山 4 天",
+   "headline": "四天，碉楼和丹霞",
+   "dek": "从广州出发去开平，看自力村碉楼群和立园。 上午逛赤坎古镇的骑楼街，下午回广州。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gd4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "qh4",
+   "dest": "qinghai",
+   "name": "青海湖茶卡",
+   "region": "西北",
+   "days": 4,
+   "title": "青海湖茶卡 4 天",
+   "headline": "四天，塔尔寺到青海湖",
+   "dek": "上午去湟中看塔尔寺，下午回西宁逛东关清真大寺。 翻日月山到青海湖，在二郎剑景区看湖，住黑马河。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 5100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#qh4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hlb4",
+   "dest": "neimenggu",
+   "name": "呼伦贝尔",
+   "region": "华北",
+   "days": 4,
+   "title": "呼伦贝尔 4 天",
+   "headline": "四天，草原、湿地和国门",
+   "dek": "从海拉尔出发，去看“天下第一曲水”莫尔格勒河。 上午看额尔古纳湿地，下午去室韦俄罗斯族乡。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 4800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "10-31"
+    ],
+    "best": [
+     "10-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hlb4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "eds3",
+   "dest": "neimenggu",
+   "name": "鄂尔多斯",
+   "region": "华北",
+   "days": 3,
+   "title": "鄂尔多斯 3 天",
+   "headline": "三天，响沙湾和成吉思汗陵",
+   "dek": "下午看成吉思汗陵。 一整天在响沙湾，滑沙、骑骆驼，听沙子响。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "10-31"
+    ],
+    "best": [
+     "10-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#eds3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gx3",
+   "dest": "guangxi",
+   "name": "德天花山",
+   "region": "华南",
+   "days": 3,
+   "title": "德天花山 3 天",
+   "headline": "三天，跨国瀑布和花山岩画",
+   "dek": "下午在青秀山走走，晚上去中山路吃老友粉。 包车去大新，看中越边境的德天瀑布，住硕龙。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gx3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "yn4",
+   "dest": "yunnan",
+   "name": "石林建水元阳",
+   "region": "西南",
+   "days": 4,
+   "title": "石林建水元阳 4 天",
+   "headline": "四天，石林、老城和梯田",
+   "dek": "从昆明出发去石林，走大石林和小石林。 包车去建水，看朱家花园和文庙，晚上吃烧豆腐。",
+   "why": null,
+   "price": {
+    "lo": 2100,
+    "hi": 4200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#yn4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hn4",
+   "dest": "henan",
+   "name": "开封云台山殷墟",
+   "region": "华中",
+   "days": 4,
+   "title": "开封云台山殷墟 4 天",
+   "headline": "四天，从宋都到殷墟",
+   "dek": "在清明上河园待一下午，晚上看演出，逛鼓楼夜市。 包车去云台山，走红石峡和潭瀑峡。",
+   "why": null,
+   "price": {
+    "lo": 2200,
+    "hi": 4600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hn4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "fh3",
+   "dest": "hunan",
+   "name": "凤凰湘西",
+   "region": "华中",
+   "days": 3,
+   "title": "凤凰湘西 3 天",
+   "headline": "三天，凤凰古城和矮寨",
+   "dek": "下午进古城，走虹桥和沱江边，晚上看夜景。 包车去矮寨，看矮寨大桥和德夯大峡谷。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#fh3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sh2",
+   "dest": "shanghai",
+   "name": "上海",
+   "region": "华东",
+   "days": 2,
+   "title": "上海 2 天",
+   "headline": "两天，陆家嘴和新天地",
+   "dek": "下午上东方明珠，傍晚过江到外滩看两岸亮灯。 上午看中共一大纪念馆和新天地，下午去上海科技馆。",
+   "why": null,
+   "price": {
+    "lo": 800,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sh2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "yz3",
+   "dest": "jiangsu",
+   "name": "扬州镇江",
+   "region": "华东",
+   "days": 3,
+   "title": "扬州镇江 3 天",
+   "headline": "三天，瘦西湖和金山寺",
+   "dek": "下午游瘦西湖，傍晚逛东关街。 早上吃扬州早茶，再看个园和何园。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 2800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#yz3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wx4",
+   "dest": "jiangsu",
+   "name": "无锡周庄同里",
+   "region": "华东",
+   "days": 4,
+   "title": "无锡周庄同里 4 天",
+   "headline": "四天，太湖和水乡",
+   "dek": "上午游鼋头渚看太湖，下午逛惠山古镇。 上午看灵山大佛和梵宫，晚上去拈花湾。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wx4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "pt3",
+   "dest": "zhejiang",
+   "name": "普陀山",
+   "region": "华东",
+   "days": 3,
+   "title": "普陀山 3 天",
+   "headline": "三天，海天佛国普陀山",
+   "dek": "坐船上普陀山，看南海观音和紫竹林。 看普济寺、法雨寺，坐索道上佛顶山。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#pt3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lz2",
+   "dest": "zhejiang",
+   "name": "良渚西溪",
+   "region": "华东",
+   "days": 2,
+   "title": "良渚西溪 2 天",
+   "headline": "两天，五千年良渚和西溪",
+   "dek": "上午看良渚博物院，下午骑车逛良渚古城遗址公园。 上午坐船游西溪湿地，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 800,
+    "hi": 1800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lz2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "yds3",
+   "dest": "zhejiang",
+   "name": "雁荡山",
+   "region": "华东",
+   "days": 3,
+   "title": "雁荡山 3 天",
+   "headline": "三天，雁荡山看奇峰",
+   "dek": "下午进灵峰，傍晚等天黑看山峰的剪影。 上午看大龙湫瀑布，下午去灵岩看飞渡表演。",
+   "why": null,
+   "price": {
+    "lo": 1600,
+    "hi": 3400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#yds3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jh4",
+   "dest": "anhui",
+   "name": "九华山天柱山",
+   "region": "华东",
+   "days": 4,
+   "title": "九华山天柱山 4 天",
+   "headline": "四天，九华山和天柱山",
+   "dek": "上九华山，看化城寺和肉身宝殿。 坐索道上天台，走到天台寺。",
+   "why": null,
+   "price": {
+    "lo": 2100,
+    "hi": 4400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jh4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sy3",
+   "dest": "liaoning",
+   "name": "沈阳本溪五女山",
+   "region": "东北",
+   "days": 3,
+   "title": "沈阳本溪五女山 3 天",
+   "headline": "三天，沈阳故宫到五女山",
+   "dek": "上午看沈阳故宫，下午看张氏帅府。 上午看清昭陵，下午去本溪坐船游水洞。",
+   "why": null,
+   "price": {
+    "lo": 1900,
+    "hi": 4000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sy3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "tlf3",
+   "dest": "xinjiang",
+   "name": "天池吐鲁番",
+   "region": "西北",
+   "days": 3,
+   "title": "天池吐鲁番 3 天",
+   "headline": "三天，天山天池和吐鲁番",
+   "dek": "包车去天山天池，坐区间车上湖边。 包车去吐鲁番，看交河故城、坎儿井和葡萄沟。",
+   "why": null,
+   "price": {
+    "lo": 1600,
+    "hi": 3200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#tlf3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ks3",
+   "dest": "xinjiang",
+   "name": "喀什帕米尔",
+   "region": "西北",
+   "days": 3,
+   "title": "喀什帕米尔 3 天",
+   "headline": "三天，喀什老城和帕米尔",
+   "dek": "逛喀什老城，看艾提尕尔清真寺。 沿喀喇昆仑公路去塔县，路过白沙湖和卡拉库里湖。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 4800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ks3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "fjs3",
+   "dest": "guizhou",
+   "name": "梵净山镇远",
+   "region": "西南",
+   "days": 3,
+   "title": "梵净山镇远 3 天",
+   "headline": "三天，梵净山和镇远",
+   "dek": "一早进梵净山，坐索道上去，爬红云金顶。 包车去镇远，逛古城和青龙洞。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#fjs3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xg4",
+   "dest": "yunnan",
+   "name": "香格里拉虎跳峡",
+   "region": "西南",
+   "days": 4,
+   "title": "香格里拉虎跳峡 4 天",
+   "headline": "四天，三江并流的门口",
+   "dek": "下午到香格里拉，逛独克宗古城，晚上在四方街跳锅庄。 上午看松赞林寺，下午去普达措国家公园。",
+   "why": null,
+   "price": {
+    "lo": 1900,
+    "hi": 4100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xg4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sgn3",
+   "dest": "sichuan",
+   "name": "四姑娘山",
+   "region": "西南",
+   "days": 3,
+   "title": "四姑娘山 3 天",
+   "headline": "三天，四姑娘山和卧龙",
+   "dek": "包车经卧龙去四姑娘山，下午走双桥沟。 走长坪沟的栈道，看幺妹峰。",
+   "why": null,
+   "price": {
+    "lo": 1700,
+    "hi": 3400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sgn3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gzc2",
+   "dest": "guangdong",
+   "name": "广州长隆白云山",
+   "region": "华南",
+   "days": 2,
+   "title": "广州长隆白云山 2 天",
+   "headline": "两天，带孩子去长隆",
+   "dek": "一整天在长隆野生动物世界，坐小火车看动物。 上午坐缆车上白云山，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 800,
+    "hi": 1700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gzc2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hzlf2",
+   "dest": "guangdong",
+   "name": "惠州罗浮山",
+   "region": "华南",
+   "days": 2,
+   "title": "惠州罗浮山 2 天",
+   "headline": "两天，罗浮山和惠州西湖",
+   "dek": "一整天在罗浮山，看冲虚观，坐索道上飞云顶。 上午游惠州西湖，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hzlf2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bdc3",
+   "dest": "chongqing",
+   "name": "白帝城巫山",
+   "region": "西南",
+   "days": 3,
+   "title": "白帝城巫山 3 天",
+   "headline": "三天，瞿塘峡和小三峡",
+   "dek": "看白帝城，坐船进瞿塘峡看夔门。 包车去巫山，坐船游小三峡和小小三峡。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bdc3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "pl3",
+   "dest": "shandong",
+   "name": "蓬莱威海",
+   "region": "华东",
+   "days": 3,
+   "title": "蓬莱威海 3 天",
+   "headline": "三天，蓬莱阁到刘公岛",
+   "dek": "上午看蓬莱阁，下午去八仙过海景区。 包车去威海，坐船上刘公岛看甲午战争博物馆。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#pl3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wh2",
+   "dest": "hubei",
+   "name": "武汉",
+   "region": "华中",
+   "days": 2,
+   "title": "武汉 2 天",
+   "headline": "两天，黄鹤楼、东湖和编钟",
+   "dek": "上午登黄鹤楼，中午在户部巷吃热干面，下午走长江大桥。 上午看曾侯乙编钟，下午在东湖骑车。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wh2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "yc3",
+   "dest": "hubei",
+   "name": "宜昌三峡",
+   "region": "华中",
+   "days": 3,
+   "title": "宜昌三峡 3 天",
+   "headline": "三天，三峡大坝和三峡人家",
+   "dek": "包车去三峡大坝，看坛子岭和截流纪念园。 上午游三峡人家，下午看屈原故里。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#yc3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hkp3",
+   "dest": "shanxi",
+   "name": "晋祠乔家壶口",
+   "region": "华北",
+   "days": 3,
+   "title": "晋祠乔家壶口 3 天",
+   "headline": "三天，晋商大院到壶口瀑布",
+   "dek": "上午看晋祠，下午去祁县乔家大院。 包车去吉县，看黄河壶口瀑布。",
+   "why": null,
+   "price": {
+    "lo": 2100,
+    "hi": 4300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hkp3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jdz2",
+   "dest": "jiangxi",
+   "name": "景德镇",
+   "region": "华东",
+   "days": 2,
+   "title": "景德镇 2 天",
+   "headline": "两天，瓷都景德镇",
+   "dek": "下午看古窑民俗博览区的柴窑，晚上逛陶溪川。 上午看御窑厂遗址，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jdz2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "tn3",
+   "dest": "fujian",
+   "name": "福州泰宁",
+   "region": "华东",
+   "days": 3,
+   "title": "福州泰宁 3 天",
+   "headline": "三天，三坊七巷和泰宁丹霞",
+   "dek": "下午逛三坊七巷，晚上吃鱼丸和锅边。 坐动车去泰宁，坐船游大金湖。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#tn3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wdlc2",
+   "dest": "heilongjiang",
+   "name": "五大连池",
+   "region": "东北",
+   "days": 2,
+   "title": "五大连池 2 天",
+   "headline": "两天，火山和矿泉",
+   "dek": "爬老黑山看火山口，下午走火烧山的熔岩台地。 上午喝一口药泉的矿泉水，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "01-01",
+     "02-28"
+    ],
+    "best": [
+     "01-01",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wdlc2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bjc3",
+   "dest": "heilongjiang",
+   "name": "漠河北极村",
+   "region": "东北",
+   "days": 3,
+   "title": "漠河北极村 3 天",
+   "headline": "三天，去中国最北",
+   "dek": "包车去北极村，找“中国最北一家”。 去北红村，回程看龙江第一湾。",
+   "why": null,
+   "price": {
+    "lo": 1700,
+    "hi": 3600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "01-01",
+     "02-28"
+    ],
+    "best": [
+     "01-01",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bjc3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jsl2",
+   "dest": "hebei",
+   "name": "金山岭长城清东陵",
+   "region": "华北",
+   "days": 2,
+   "title": "金山岭长城清东陵 2 天",
+   "headline": "两天，长城和清东陵",
+   "dek": "从北京包车去金山岭，走一段长城看日落。 包车去遵化看清东陵，下午回北京。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jsl2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "huiz3",
+   "dest": "anhui",
+   "name": "古徽州",
+   "region": "华东",
+   "days": 3,
+   "title": "古徽州 3 天",
+   "headline": "三天，走进古徽州",
+   "dek": "下午逛徽州古城，傍晚到渔梁坝看老街。 上午看棠樾牌坊群，下午去呈坎八卦村。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#huiz3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ttz2",
+   "dest": "anhui",
+   "name": "天堂寨",
+   "region": "华东",
+   "days": 2,
+   "title": "天堂寨 2 天",
+   "headline": "两天，大别山天堂寨",
+   "dek": "包车去金寨，爬天堂寨，看瀑布群。 上午在山下走走，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ttz2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hf2",
+   "dest": "anhui",
+   "name": "三河万佛湖",
+   "region": "华东",
+   "days": 2,
+   "title": "三河万佛湖 2 天",
+   "headline": "两天，三河古镇和万佛湖",
+   "dek": "去三河古镇，看万年台和老街，晚上吃三河米饺。 包车去舒城万佛湖，坐船游湖，下午回合肥。",
+   "why": null,
+   "price": {
+    "lo": 1400,
+    "hi": 2900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hf2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jgs2",
+   "dest": "jiangxi",
+   "name": "井冈山",
+   "region": "华东",
+   "days": 2,
+   "title": "井冈山 2 天",
+   "headline": "两天，井冈山",
+   "dek": "上午看井冈山革命博物馆，下午去黄洋界。 上午看五指峰，走龙潭瀑布，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jgs2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lhs2",
+   "dest": "jiangxi",
+   "name": "龙虎山",
+   "region": "华东",
+   "days": 2,
+   "title": "龙虎山 2 天",
+   "headline": "两天，龙虎山竹筏",
+   "dek": "坐竹筏漂泸溪河，看岸边的崖墓和仙水岩。 上午看嗣汉天师府，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lhs2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wgs2",
+   "dest": "jiangxi",
+   "name": "武功山",
+   "region": "华东",
+   "days": 2,
+   "title": "武功山 2 天",
+   "headline": "两天，武功山高山草甸",
+   "dek": "坐索道上山，走高山草甸到金顶，住山上。 清晨在金顶看日出，坐索道下山，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wgs2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "nc2",
+   "dest": "jiangxi",
+   "name": "南昌庐山西海",
+   "region": "华东",
+   "days": 2,
+   "title": "南昌庐山西海 2 天",
+   "headline": "两天，滕王阁和庐山西海",
+   "dek": "上午登滕王阁，下午看八一南昌起义纪念馆。 包车去庐山西海，坐船游湖，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nc2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jfs2",
+   "dest": "chongqing",
+   "name": "金佛山黑山谷",
+   "region": "西南",
+   "days": 2,
+   "title": "金佛山黑山谷 2 天",
+   "headline": "两天，金佛山和黑山谷",
+   "dek": "包车去南川，坐索道上金佛山。 上午走黑山谷峡谷栈道，下午回重庆。",
+   "why": null,
+   "price": {
+    "lo": 1400,
+    "hi": 2800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jfs2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wls2",
+   "dest": "chongqing",
+   "name": "武陵山大裂谷",
+   "region": "西南",
+   "days": 2,
+   "title": "武陵山大裂谷 2 天",
+   "headline": "两天，大裂谷和白鹤梁",
+   "dek": "下午看白鹤梁水下博物馆，晚上吃涪陵榨菜做的菜。 包车去武陵山大裂谷，走峡谷栈道，下午回重庆。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wls2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "tsm3",
+   "dest": "gansu",
+   "name": "麦积山崆峒山",
+   "region": "西北",
+   "days": 3,
+   "title": "麦积山崆峒山 3 天",
+   "headline": "三天，麦积山石窟和崆峒山",
+   "dek": "上午看麦积山石窟，下午看伏羲庙。 包车去平凉，爬崆峒山。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#tsm3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "qdh3",
+   "dest": "zhejiang",
+   "name": "千岛湖",
+   "region": "华东",
+   "days": 3,
+   "title": "千岛湖 3 天",
+   "headline": "三天，千岛湖骑车看湖",
+   "dek": "坐高铁到千岛湖，坐船游中心湖区的几个岛。 在环湖绿道骑车，傍晚看日落。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#qdh3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sxnx2",
+   "dest": "zhejiang",
+   "name": "绍兴南浔",
+   "region": "华东",
+   "days": 2,
+   "title": "绍兴南浔 2 天",
+   "headline": "两天，鲁迅故里和南浔",
+   "dek": "看鲁迅故里和沈园，傍晚走仓桥直街。 包车去南浔，看小莲庄和张石铭旧居，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sxnx2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hd2",
+   "dest": "zhejiang",
+   "name": "横店",
+   "region": "华东",
+   "days": 2,
+   "title": "横店 2 天",
+   "headline": "两天，横店影视城",
+   "dek": "看秦王宫和清明上河图景区，晚上看演出。 上午看明清宫苑，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 2000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hd2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jn2",
+   "dest": "shandong",
+   "name": "济南",
+   "region": "华东",
+   "days": 2,
+   "title": "济南 2 天",
+   "headline": "两天，泉城济南",
+   "dek": "上午看趵突泉，走曲水亭街，下午游大明湖。 上午看黑虎泉，登千佛山，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jn2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ls2",
+   "dest": "shandong",
+   "name": "崂山",
+   "region": "华东",
+   "days": 2,
+   "title": "崂山 2 天",
+   "headline": "两天，海上名山崂山",
+   "dek": "包车去崂山，看太清宫，沿海边栈道走。 上午在奥帆中心看海，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1400,
+    "hi": 2800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ls2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "tez2",
+   "dest": "shandong",
+   "name": "台儿庄",
+   "region": "华东",
+   "days": 2,
+   "title": "台儿庄 2 天",
+   "headline": "两天，台儿庄古城和微山湖",
+   "dek": "下午进台儿庄古城，晚上看运河边的夜景。 包车去微山湖，坐船看湿地，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#tez2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "css3",
+   "dest": "hunan",
+   "name": "长沙韶山",
+   "region": "华中",
+   "days": 3,
+   "title": "长沙韶山 3 天",
+   "headline": "三天，长沙和韶山",
+   "dek": "上午爬岳麓山，看岳麓书院，傍晚到橘子洲。 上午看湖南博物院的马王堆汉墓文物，下午逛太平街。",
+   "why": null,
+   "price": {
+    "lo": 1900,
+    "hi": 3900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#css3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "nyhs2",
+   "dest": "hunan",
+   "name": "衡山",
+   "region": "华中",
+   "days": 2,
+   "title": "衡山 2 天",
+   "headline": "两天，南岳衡山",
+   "dek": "看南岳大庙，坐车和索道上山，住山上。 清晨在祝融峰看日出，下山出发。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nyhs2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lns2",
+   "dest": "hunan",
+   "name": "崀山",
+   "region": "华中",
+   "days": 2,
+   "title": "崀山 2 天",
+   "headline": "两天，崀山丹霞",
+   "dek": "包车去新宁，爬八角寨看丹霞峰林。 上午走天一巷，看辣椒峰，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lns2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "chs2",
+   "dest": "guizhou",
+   "name": "赤水",
+   "region": "西南",
+   "days": 2,
+   "title": "赤水 2 天",
+   "headline": "两天，赤水丹霞和瀑布",
+   "dek": "包车去赤水，看赤水大瀑布和红色丹霞。 上午看佛光岩，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#chs2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bjx2",
+   "dest": "beijing",
+   "name": "北京西山",
+   "region": "华北",
+   "days": 2,
+   "title": "北京西山 2 天",
+   "headline": "两天，周口店、圆明园和恭王府",
+   "dek": "包车去房山周口店，看北京人遗址博物馆。 上午看圆明园遗址，下午看恭王府。",
+   "why": null,
+   "price": {
+    "lo": 1100,
+    "hi": 2200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bjx2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ysd3",
+   "dest": "neimenggu",
+   "name": "元上都锡林郭勒",
+   "region": "华北",
+   "days": 3,
+   "title": "元上都锡林郭勒 3 天",
+   "headline": "三天，元上都和锡林郭勒草原",
+   "dek": "从锡林浩特出发，在草原上走走，看贝子庙。 包车去正蓝旗，看元上都遗址。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "10-31"
+    ],
+    "best": [
+     "10-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ysd3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hlg2",
+   "dest": "sichuan",
+   "name": "海螺沟",
+   "region": "西南",
+   "days": 2,
+   "title": "海螺沟 2 天",
+   "headline": "两天，海螺沟冰川和温泉",
+   "dek": "坐观光车和索道上去，看冰川和贡嘎雪山。 上午泡温泉，中午回成都。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hlg2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "anr2",
+   "dest": "sichuan",
+   "name": "安仁碧峰峡",
+   "region": "西南",
+   "days": 2,
+   "title": "安仁碧峰峡 2 天",
+   "headline": "两天，安仁古镇和碧峰峡",
+   "dek": "包车去大邑安仁，看刘氏庄园和建川博物馆。 包车去雅安碧峰峡，看熊猫和峡谷，下午回成都。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#anr2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "fszq2",
+   "dest": "guangdong",
+   "name": "西樵山七星岩",
+   "region": "华南",
+   "days": 2,
+   "title": "西樵山七星岩 2 天",
+   "headline": "两天，佛山西樵山和肇庆七星岩",
+   "dek": "上西樵山，看南海观音和山上的瀑布。 游肇庆星湖七星岩，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#fszq2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "zs2",
+   "dest": "guangdong",
+   "name": "中山顺德",
+   "region": "华南",
+   "days": 2,
+   "title": "中山顺德 2 天",
+   "headline": "两天，孙中山故里和顺德",
+   "dek": "去翠亨村看孙中山故居纪念馆。 一整天在长鹿旅游休博园，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 600,
+    "hi": 1500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#zs2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sz2x",
+   "dest": "guangdong",
+   "name": "深圳",
+   "region": "华南",
+   "days": 2,
+   "title": "深圳 2 天",
+   "headline": "两天，世界之窗和观澜湖",
+   "dek": "一整天在华侨城：世界之窗、欢乐谷选一个。 去观澜湖，逛观澜古墟和版画村，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 800,
+    "hi": 1600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sz2x",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "mz2",
+   "dest": "guangdong",
+   "name": "梅州",
+   "region": "华南",
+   "days": 2,
+   "title": "梅州 2 天",
+   "headline": "两天，雁南飞茶田和客家围屋",
+   "dek": "包车去雁南飞茶田，在茶园里走走。 去看客家围龙屋，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#mz2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "nd3",
+   "dest": "fujian",
+   "name": "太姥山白水洋",
+   "region": "华东",
+   "days": 3,
+   "title": "太姥山白水洋 3 天",
+   "headline": "三天，太姥山和白水洋",
+   "dek": "包车去福鼎太姥山，走峡谷和岩洞。 包车去屏南，看白水洋的平底石河床和鸳鸯溪。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nd3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "mzd2",
+   "dest": "fujian",
+   "name": "湄洲岛",
+   "region": "华东",
+   "days": 2,
+   "title": "湄洲岛 2 天",
+   "headline": "两天，湄洲岛妈祖",
+   "dek": "坐船上湄洲岛，看妈祖祖庙。 上午在黄金沙滩看海，中午下岛。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#mzd2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ly2",
+   "dest": "fujian",
+   "name": "古田冠豸山",
+   "region": "华东",
+   "days": 2,
+   "title": "古田冠豸山 2 天",
+   "headline": "两天，古田和冠豸山",
+   "dek": "包车去上杭古田，看古田会议旧址和纪念馆。 上午爬冠豸山，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ly2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ljs2",
+   "dest": "henan",
+   "name": "老君山",
+   "region": "华中",
+   "days": 2,
+   "title": "老君山 2 天",
+   "headline": "两天，老君山金顶和鸡冠洞",
+   "dek": "包车去栾川，坐索道上老君山金顶。 上午看鸡冠洞溶洞，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ljs2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lz2x",
+   "dest": "henan",
+   "name": "红旗渠太行大峡谷",
+   "region": "华中",
+   "days": 2,
+   "title": "红旗渠太行大峡谷 2 天",
+   "headline": "两天，红旗渠和太行大峡谷",
+   "dek": "包车去林州，看红旗渠纪念馆和青年洞。 一早去太行大峡谷，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lz2x",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jgs2x",
+   "dest": "henan",
+   "name": "鸡公山",
+   "region": "华中",
+   "days": 2,
+   "title": "鸡公山 2 天",
+   "headline": "两天，鸡公山避暑",
+   "dek": "上鸡公山，看报晓峰和山上的老别墅。 上午在山上走走，中午下山。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jgs2x",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ys2",
+   "dest": "henan",
+   "name": "尧山中原大佛",
+   "region": "华中",
+   "days": 2,
+   "title": "尧山中原大佛 2 天",
+   "headline": "两天，尧山和中原大佛",
+   "dek": "包车去鲁山，看中原大佛，下午爬尧山。 上午泡尧山温泉，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ys2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ja2",
+   "dest": "jilin",
+   "name": "集安高句丽",
+   "region": "东北",
+   "days": 2,
+   "title": "集安高句丽 2 天",
+   "headline": "两天，集安高句丽遗址",
+   "dek": "看高句丽的国内城和丸都山城。 上午看好太王碑和将军坟，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "01-01",
+     "02-28"
+    ],
+    "best": [
+     "01-01",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ja2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cc2",
+   "dest": "jilin",
+   "name": "长春",
+   "region": "东北",
+   "days": 2,
+   "title": "长春 2 天",
+   "headline": "两天，长影世纪城和雕塑公园",
+   "dek": "一整天在长影世纪城。 上午逛长春世界雕塑公园，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 600,
+    "hi": 1500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "01-01",
+     "02-28"
+    ],
+    "best": [
+     "01-01",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cc2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cgh2",
+   "dest": "jilin",
+   "name": "查干湖冬捕",
+   "region": "东北",
+   "days": 2,
+   "title": "查干湖冬捕 2 天",
+   "headline": "两天，看查干湖冬捕",
+   "dek": "包车去前郭，看凿冰拉网的冬捕。 去大安嫩江湾看冰雪，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "01-01",
+     "02-28"
+    ],
+    "best": [
+     "01-01",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cgh2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bdjl3",
+   "dest": "neimenggu",
+   "name": "巴丹吉林",
+   "region": "华北",
+   "days": 3,
+   "title": "巴丹吉林 3 天",
+   "headline": "三天，巴丹吉林沙漠",
+   "dek": "从阿拉善右旗坐越野车进巴丹吉林沙漠，住沙漠里的湖边。 越野车上必鲁图峰，看庙海子和音德日图泉。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "10-31"
+    ],
+    "best": [
+     "10-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bdjl3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jm2",
+   "dest": "yunnan",
+   "name": "景迈山",
+   "region": "西南",
+   "days": 2,
+   "title": "景迈山 2 天",
+   "headline": "两天，景迈山古茶林",
+   "dek": "包车上景迈山，走古茶林，看布朗族的芒景村。 上午看翁基古寨，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jm2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cj2",
+   "dest": "yunnan",
+   "name": "澄江抚仙湖",
+   "region": "西南",
+   "days": 2,
+   "title": "澄江抚仙湖 2 天",
+   "headline": "两天，澄江化石地和抚仙湖",
+   "dek": "包车去澄江，看澄江化石地博物馆。 上午在抚仙湖边走走，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cj2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "yc2",
+   "dest": "jiangsu",
+   "name": "盐城条子泥",
+   "region": "华东",
+   "days": 2,
+   "title": "盐城条子泥 2 天",
+   "headline": "两天，看候鸟和麋鹿",
+   "dek": "包车去东台条子泥，看潮间带上的候鸟。 包车去大丰中华麋鹿园看麋鹿，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#yc2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bn4",
+   "dest": "yunnan",
+   "name": "西双版纳",
+   "region": "西南",
+   "days": 4,
+   "title": "西双版纳 4 天",
+   "headline": "四天，热带雨林和告庄",
+   "dek": "下午到景洪，晚上逛告庄西双景的夜市。 包车去勐仑，逛中科院西双版纳热带植物园。",
+   "why": null,
+   "price": {
+    "lo": 2100,
+    "hi": 4300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bn4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "km2",
+   "dest": "yunnan",
+   "name": "昆明",
+   "region": "西南",
+   "days": 2,
+   "title": "昆明 2 天",
+   "headline": "两天，世博园和西山",
+   "dek": "上午逛昆明世博园，傍晚到海埂大坝看滇池。 上午爬西山到龙门，俯看滇池，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 700,
+    "hi": 1600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#km2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "pzh2",
+   "dest": "yunnan",
+   "name": "普者黑",
+   "region": "西南",
+   "days": 2,
+   "title": "普者黑 2 天",
+   "headline": "两天，普者黑的山水",
+   "dek": "坐高铁到普者黑，坐小船游湖，看青龙山日落。 上午逛仙人洞彝族村寨，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 600,
+    "hi": 1400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#pzh2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "my2",
+   "dest": "qinghai",
+   "name": "门源",
+   "region": "西北",
+   "days": 2,
+   "title": "门源 2 天",
+   "headline": "两天，门源油菜花和阿咪东索",
+   "dek": "从西宁包车去门源，看油菜花海。 坐索道上阿咪东索看冰川和雪山，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#my2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bd3",
+   "dest": "hebei",
+   "name": "白洋淀野三坡清西陵",
+   "region": "华北",
+   "days": 3,
+   "title": "白洋淀野三坡清西陵 3 天",
+   "headline": "三天，白洋淀、野三坡和清西陵",
+   "dek": "坐船游白洋淀，看芦苇荡和荷花淀。 包车去野三坡，走百里峡。",
+   "why": null,
+   "price": {
+    "lo": 1700,
+    "hi": 3400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bd3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sjz3",
+   "dest": "hebei",
+   "name": "西柏坡娲皇宫广府",
+   "region": "华北",
+   "days": 3,
+   "title": "西柏坡娲皇宫广府 3 天",
+   "headline": "三天，西柏坡、娲皇宫和广府古城",
+   "dek": "包车去平山看西柏坡纪念馆。 包车去涉县看娲皇宫的悬空楼阁。",
+   "why": null,
+   "price": {
+    "lo": 1700,
+    "hi": 3300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sjz3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "as2",
+   "dest": "liaoning",
+   "name": "千山红海滩",
+   "region": "东北",
+   "days": 2,
+   "title": "千山红海滩 2 天",
+   "headline": "两天，千山和红海滩",
+   "dek": "爬千山，看无量观和五佛顶。 包车去盘锦，走红海滩风景廊道，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#as2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sys2",
+   "dest": "hainan",
+   "name": "呀诺达槟榔谷分界洲",
+   "region": "华南",
+   "days": 2,
+   "title": "呀诺达槟榔谷分界洲 2 天",
+   "headline": "两天，雨林、黎苗村寨和海岛",
+   "dek": "上午走呀诺达雨林，下午看槟榔谷黎苗文化。 包车去陵水，坐船上分界洲岛浮潜，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "01-01",
+     "04-30"
+    ],
+    "best": [
+     "01-01",
+     "04-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sys2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "nxyc2",
+   "dest": "ningxia",
+   "name": "水洞沟青铜峡",
+   "region": "西北",
+   "days": 2,
+   "title": "水洞沟青铜峡 2 天",
+   "headline": "两天，水洞沟和黄河大峡谷",
+   "dek": "看水洞沟遗址和明长城、藏兵洞。 包车去青铜峡，坐船看黄河大峡谷和一百零八塔，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nxyc2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "nsk2",
+   "dest": "xinjiang",
+   "name": "天山大峡谷",
+   "region": "西北",
+   "days": 2,
+   "title": "天山大峡谷 2 天",
+   "headline": "两天，天山大峡谷和大巴扎",
+   "dek": "包车去乌鲁木齐南山，走天山大峡谷。 上午逛国际大巴扎，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nsk2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "nb2",
+   "dest": "zhejiang",
+   "name": "宁波溪口",
+   "region": "华东",
+   "days": 2,
+   "title": "宁波溪口 2 天",
+   "headline": "两天，天一阁和溪口",
+   "dek": "看天一阁藏书楼，在月湖边走走。 包车去奉化溪口，看蒋氏故居和滕头村，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nb2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "tz3",
+   "dest": "zhejiang",
+   "name": "天台山神仙居",
+   "region": "华东",
+   "days": 3,
+   "title": "天台山神仙居 3 天",
+   "headline": "三天，天台山、神仙居和台州府城",
+   "dek": "逛临海台州府城，登江南长城。 包车去仙居，坐索道上神仙居，走悬崖栈道。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#tz3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "qz2",
+   "dest": "zhejiang",
+   "name": "江郎山廿八都",
+   "region": "华东",
+   "days": 2,
+   "title": "江郎山廿八都 2 天",
+   "headline": "两天，江郎山和廿八都",
+   "dek": "包车去江山，爬江郎山看三片石。 上午逛廿八都古镇，下午看根宫佛国，傍晚出发。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#qz2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lsx3",
+   "dest": "zhejiang",
+   "name": "仙都云和梯田",
+   "region": "华东",
+   "days": 3,
+   "title": "仙都云和梯田 3 天",
+   "headline": "三天，仙都、云和梯田和刘伯温故里",
+   "dek": "包车去缙云仙都，看鼎湖峰和朱潭山。 包车去云和梯田，傍晚在观景台看日落。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 4100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lsx3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "rj2",
+   "dest": "jiangxi",
+   "name": "瑞金三百山",
+   "region": "华东",
+   "days": 2,
+   "title": "瑞金三百山 2 天",
+   "headline": "两天，瑞金和三百山",
+   "dek": "包车去瑞金，看共和国摇篮旅游区。 包车去安远三百山，看东江源，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#rj2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jc3",
+   "dest": "shanxi",
+   "name": "皇城相府八泉峡",
+   "region": "华北",
+   "days": 3,
+   "title": "皇城相府八泉峡 3 天",
+   "headline": "三天，皇城相府和太行山大峡谷",
+   "dek": "包车去阳城，看皇城相府。 包车去壶关，游八泉峡。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jc3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wzd3",
+   "dest": "guangxi",
+   "name": "北海涠洲岛",
+   "region": "华南",
+   "days": 3,
+   "title": "北海涠洲岛 3 天",
+   "headline": "三天，北海老街和涠洲岛",
+   "dek": "下午逛北海老街，傍晚去银滩。 坐船上涠洲岛，看鳄鱼山火山口和南湾。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wzd3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cy2",
+   "dest": "guangxi",
+   "name": "程阳八寨",
+   "region": "华南",
+   "days": 2,
+   "title": "程阳八寨 2 天",
+   "headline": "两天，程阳风雨桥和侗寨",
+   "dek": "包车去三江，看程阳永济桥和侗寨鼓楼。 上午在寨子里走走，听侗族大歌，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 2100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cy2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hyg2",
+   "dest": "guangxi",
+   "name": "黄姚古镇",
+   "region": "华南",
+   "days": 2,
+   "title": "黄姚古镇 2 天",
+   "headline": "两天，黄姚古镇",
+   "dek": "下午进黄姚古镇，走石板街和带龙桥。 清早在古镇里走走，上午出发。",
+   "why": null,
+   "price": {
+    "lo": 600,
+    "hi": 1300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hyg2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "yy3x",
+   "dest": "chongqing",
+   "name": "阿依河濯水桃花源",
+   "region": "西南",
+   "days": 3,
+   "title": "阿依河濯水桃花源 3 天",
+   "headline": "三天，渝东南的峡谷和古镇",
+   "dek": "在阿依河漂流或坐船看峡谷。 包车去黔江，逛濯水古镇和风雨廊桥。",
+   "why": null,
+   "price": {
+    "lo": 1700,
+    "hi": 3600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#yy3x",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xaw2",
+   "dest": "shaanxi",
+   "name": "法门寺乾陵大明宫",
+   "region": "西北",
+   "days": 2,
+   "title": "法门寺乾陵大明宫 2 天",
+   "headline": "两天，法门寺、乾陵和大明宫",
+   "dek": "包车去扶风法门寺，回程看乾陵。 上午看大明宫遗址，下午看小雁塔，傍晚出发。",
+   "why": null,
+   "price": {
+    "lo": 1100,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xaw2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sb3",
+   "dest": "shaanxi",
+   "name": "黄帝陵延安乾坤湾",
+   "region": "西北",
+   "days": 3,
+   "title": "黄帝陵延安乾坤湾 3 天",
+   "headline": "三天，黄帝陵、延安和乾坤湾",
+   "dek": "包车去黄陵县，拜黄帝陵，再到延安。 看宝塔山、枣园和延安革命纪念馆。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sb3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy2",
+   "dest": "hubei",
+   "name": "襄阳古隆中",
+   "region": "华中",
+   "days": 2,
+   "title": "襄阳古隆中 2 天",
+   "headline": "两天，古隆中和明显陵",
+   "dek": "看诸葛亮隐居的古隆中，傍晚走襄阳城墙。 包车去钟祥看明显陵，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "szth2",
+   "dest": "jiangsu",
+   "name": "苏州金鸡湖太湖",
+   "region": "华东",
+   "days": 2,
+   "title": "苏州金鸡湖太湖 2 天",
+   "headline": "两天，金鸡湖和太湖东山",
+   "dek": "傍晚在金鸡湖边走，看湖边的灯。 包车去东山，逛陆巷古村，看太湖，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#szth2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "csh2",
+   "dest": "jiangsu",
+   "name": "沙家浜虞山尚湖",
+   "region": "华东",
+   "days": 2,
+   "title": "沙家浜虞山尚湖 2 天",
+   "headline": "两天，沙家浜和虞山尚湖",
+   "dek": "去沙家浜，坐船游芦苇荡。 上午爬虞山，下午在尚湖边走走，傍晚出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 2000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#csh2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "czh3",
+   "dest": "jiangsu",
+   "name": "常州天目湖",
+   "region": "华东",
+   "days": 3,
+   "title": "常州天目湖 3 天",
+   "headline": "三天，恐龙园、淹城和天目湖",
+   "dek": "一整天在环球恐龙城。 看春秋淹城遗址和乐园。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#czh3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "nttz2",
+   "dest": "jiangsu",
+   "name": "南通濠河泰州溱湖",
+   "region": "华东",
+   "days": 2,
+   "title": "南通濠河泰州溱湖 2 天",
+   "headline": "两天，濠河和溱湖",
+   "dek": "沿濠河走一圈，看南通博物苑。 包车去泰州姜堰，游溱湖湿地，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 2000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nttz2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xzlyg3",
+   "dest": "jiangsu",
+   "name": "徐州连云港",
+   "region": "华东",
+   "days": 3,
+   "title": "徐州连云港 3 天",
+   "headline": "三天，云龙湖、花果山和连岛",
+   "dek": "游云龙湖，看徐州博物馆的汉代文物。 坐高铁去连云港，爬花果山，看水帘洞。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xzlyg3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ha2",
+   "dest": "jiangsu",
+   "name": "淮安",
+   "region": "华东",
+   "days": 2,
+   "title": "淮安 2 天",
+   "headline": "两天，周恩来故里和洪泽湖",
+   "dek": "看周恩来故居和纪念馆，晚上吃淮扬菜。 包车去洪泽湖湿地，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ha2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gyqy2",
+   "dest": "guizhou",
+   "name": "贵阳青岩",
+   "region": "西南",
+   "days": 2,
+   "title": "贵阳青岩 2 天",
+   "headline": "两天，青岩古镇和甲秀楼",
+   "dek": "傍晚看甲秀楼，晚上逛夜市吃丝娃娃。 包车去青岩古镇，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gyqy2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "zjd2",
+   "dest": "guizhou",
+   "name": "龙宫织金洞",
+   "region": "西南",
+   "days": 2,
+   "title": "龙宫织金洞 2 天",
+   "headline": "两天，龙宫和织金洞",
+   "dek": "去安顺龙宫，坐船进地下暗河溶洞。 包车去织金洞，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#zjd2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wfl2",
+   "dest": "guizhou",
+   "name": "万峰林马岭河",
+   "region": "西南",
+   "days": 2,
+   "title": "万峰林马岭河 2 天",
+   "headline": "两天，万峰林和马岭河峡谷",
+   "dek": "在万峰林骑车，看田园和峰林。 走马岭河峡谷，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 600,
+    "hi": 1500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wfl2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bldj2",
+   "dest": "guizhou",
+   "name": "百里杜鹃",
+   "region": "西南",
+   "days": 2,
+   "title": "百里杜鹃 2 天",
+   "headline": "两天，百里杜鹃花海",
+   "dek": "包车去百里杜鹃，看普底和金坡的花海。 上午再看一片花，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bldj2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wlh2",
+   "dest": "guangdong",
+   "name": "万绿湖",
+   "region": "华南",
+   "days": 2,
+   "title": "万绿湖 2 天",
+   "headline": "两天，万绿湖",
+   "dek": "坐船游万绿湖，上镜花缘岛。 上午在河源市区走走，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wlh2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hld2",
+   "dest": "guangdong",
+   "name": "海陵岛",
+   "region": "华南",
+   "days": 2,
+   "title": "海陵岛 2 天",
+   "headline": "两天，海陵岛大角湾",
+   "dek": "上海陵岛，在大角湾游泳看海。 看广东海上丝绸之路博物馆的南海一号沉船，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hld2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "yl4",
+   "dest": "xinjiang",
+   "name": "喀拉峻巴音布鲁克",
+   "region": "西北",
+   "days": 4,
+   "title": "喀拉峻巴音布鲁克 4 天",
+   "headline": "四天，喀拉峻草原和巴音布鲁克",
+   "dek": "包车去特克斯，看八卦城的放射状街道。 一整天在喀拉峻，看五花草甸和雪山。",
+   "why": null,
+   "price": {
+    "lo": 2300,
+    "hi": 4800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#yl4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "kel3",
+   "dest": "xinjiang",
+   "name": "博斯腾湖",
+   "region": "西北",
+   "days": 3,
+   "title": "博斯腾湖 3 天",
+   "headline": "三天，博斯腾湖和库尔勒",
+   "dek": "看铁门关，傍晚在孔雀河边走走。 包车去博斯腾湖，在金沙滩和莲花湖看湖。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#kel3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "aks3",
+   "dest": "xinjiang",
+   "name": "天山托木尔",
+   "region": "西北",
+   "days": 3,
+   "title": "天山托木尔 3 天",
+   "headline": "三天，托木尔大峡谷和塔克拉玛干",
+   "dek": "包车去温宿，走天山托木尔大峡谷。 包车去阿拉尔，看三五九旅屯垦纪念馆和沙漠边。",
+   "why": null,
+   "price": {
+    "lo": 2100,
+    "hi": 4200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#aks3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jbl2",
+   "dest": "xinjiang",
+   "name": "江布拉克",
+   "region": "西北",
+   "days": 2,
+   "title": "江布拉克 2 天",
+   "headline": "两天，江布拉克麦田和雪山",
+   "dek": "包车去奇台，看江布拉克的万亩麦田和天山。 上午出发回乌鲁木齐。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jbl2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lx3",
+   "dest": "gansu",
+   "name": "炳灵寺甘南",
+   "region": "西北",
+   "days": 3,
+   "title": "炳灵寺甘南 3 天",
+   "headline": "三天，炳灵寺石窟和冶力关",
+   "dek": "包车去永靖，坐快艇到炳灵寺石窟。 包车去冶力关，看赤壁幽谷和冶海。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 4100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lx3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gegs2",
+   "dest": "gansu",
+   "name": "官鹅沟",
+   "region": "西北",
+   "days": 2,
+   "title": "官鹅沟 2 天",
+   "headline": "两天，官鹅沟",
+   "dek": "包车去宕昌，走官鹅沟的栈道和瀑布。 上午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gegs2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "zl2",
+   "dest": "heilongjiang",
+   "name": "扎龙",
+   "region": "东北",
+   "days": 2,
+   "title": "扎龙 2 天",
+   "headline": "两天，扎龙看丹顶鹤",
+   "dek": "去扎龙看丹顶鹤放飞。 上午逛龙沙公园，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "01-01",
+     "02-28"
+    ],
+    "best": [
+     "01-01",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#zl2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ych2",
+   "dest": "heilongjiang",
+   "name": "伊春林海奇石",
+   "region": "东北",
+   "days": 2,
+   "title": "伊春林海奇石 2 天",
+   "headline": "两天，小兴安岭林海",
+   "dek": "包车去汤旺河，看花岗岩石林和林海。 上午去五营国家森林公园走走，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "01-01",
+     "02-28"
+    ],
+    "best": [
+     "01-01",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ych2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "shz2",
+   "dest": "shanghai",
+   "name": "上海野生动物园崇明",
+   "region": "华东",
+   "days": 2,
+   "title": "上海野生动物园崇明 2 天",
+   "headline": "两天，野生动物园和崇明西沙",
+   "dek": "一整天在上海野生动物园。 开车去崇明，走西沙湿地栈道和明珠湖，傍晚回市区。",
+   "why": null,
+   "price": {
+    "lo": 800,
+    "hi": 1700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#shz2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lzhi4",
+   "dest": "xizang",
+   "name": "林芝",
+   "region": "西南",
+   "days": 4,
+   "title": "林芝 4 天",
+   "headline": "四天，巴松措和雅鲁藏布大峡谷",
+   "dek": "到林芝，傍晚在尼洋河边走走，早点休息。 包车去巴松措，看湖心岛的错宗工巴寺。",
+   "why": null,
+   "price": {
+    "lo": 2200,
+    "hi": 4500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lzhi4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "yy2",
+   "dest": "hunan",
+   "name": "岳阳楼君山岛",
+   "region": "华中",
+   "days": 2,
+   "title": "岳阳楼君山岛 2 天",
+   "headline": "两天，岳阳楼和君山岛",
+   "dek": "登岳阳楼，看洞庭湖。 去君山岛，看湘妃竹和君山银针茶园，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#yy2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "djh2",
+   "dest": "hunan",
+   "name": "东江湖",
+   "region": "华中",
+   "days": 2,
+   "title": "东江湖 2 天",
+   "headline": "两天，东江湖雾漫小东江",
+   "dek": "包车去资兴，坐船游东江湖。 清早看雾漫小东江，上午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#djh2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lyi2",
+   "dest": "shandong",
+   "name": "沂蒙山萤火虫水洞",
+   "region": "华东",
+   "days": 2,
+   "title": "沂蒙山萤火虫水洞 2 天",
+   "headline": "两天，沂蒙山和萤火虫水洞",
+   "dek": "包车去沂蒙山龟蒙景区。 看萤火虫水洞和地下大峡谷，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lyi2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "zb2",
+   "dest": "shandong",
+   "name": "青州周村",
+   "region": "华东",
+   "days": 2,
+   "title": "青州周村 2 天",
+   "headline": "两天，青州古城和周村古商城",
+   "dek": "逛青州古城，看青州博物馆。 逛周村古商城，吃周村烧饼，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 2100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#zb2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "dyhk2",
+   "dest": "shandong",
+   "name": "黄河口",
+   "region": "华东",
+   "days": 2,
+   "title": "黄河口 2 天",
+   "headline": "两天，看黄河入海",
+   "dek": "包车去黄河口生态旅游区，坐船到黄河入海口。 上午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#dyhk2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lt2",
+   "dest": "henan",
+   "name": "龙潭大峡谷",
+   "region": "华中",
+   "days": 2,
+   "title": "龙潭大峡谷 2 天",
+   "headline": "两天，龙潭大峡谷",
+   "dek": "包车去新安，走龙潭大峡谷的嶂谷。 上午看洛阳博物馆，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lt2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bq2",
+   "dest": "henan",
+   "name": "八里沟宝泉",
+   "region": "华中",
+   "days": 2,
+   "title": "八里沟宝泉 2 天",
+   "headline": "两天，太行山的八里沟和宝泉",
+   "dek": "包车去辉县八里沟，看天河瀑布。 上午游宝泉大峡谷，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bq2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cys2",
+   "dest": "henan",
+   "name": "嵖岈山",
+   "region": "华中",
+   "days": 2,
+   "title": "嵖岈山 2 天",
+   "headline": "两天，嵖岈山的石头",
+   "dek": "包车去遂平，爬嵖岈山看花岗岩奇石。 上午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cys2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "mds2",
+   "dest": "henan",
+   "name": "太昊伏羲陵芒砀山",
+   "region": "华中",
+   "days": 2,
+   "title": "太昊伏羲陵芒砀山 2 天",
+   "headline": "两天，太昊伏羲陵和芒砀山",
+   "dek": "去淮阳拜太昊伏羲陵。 包车去永城芒砀山，看汉梁王墓群，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#mds2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xxk2",
+   "dest": "henan",
+   "name": "西峡老界岭",
+   "region": "华中",
+   "days": 2,
+   "title": "西峡老界岭 2 天",
+   "headline": "两天，恐龙蛋和老界岭",
+   "dek": "包车去西峡，看恐龙蛋化石遗迹园。 上午爬老界岭，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xxk2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "chb2",
+   "dest": "hubei",
+   "name": "三国赤壁",
+   "region": "华中",
+   "days": 2,
+   "title": "三国赤壁 2 天",
+   "headline": "两天，三国赤壁古战场",
+   "dek": "看三国赤壁古战场的摩崖石刻和周瑜像。 上午逛羊楼洞古镇，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 2100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#chb2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lcw2",
+   "dest": "hubei",
+   "name": "腾龙洞",
+   "region": "华中",
+   "days": 2,
+   "title": "腾龙洞 2 天",
+   "headline": "两天，腾龙洞和大水井",
+   "dek": "看腾龙洞的旱洞和卧龙吞江瀑布。 包车去大水井古建筑群，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lcw2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bdsx2",
+   "dest": "hubei",
+   "name": "神农溪三峡大瀑布",
+   "region": "华中",
+   "days": 2,
+   "title": "神农溪三峡大瀑布 2 天",
+   "headline": "两天，神农溪纤夫和三峡大瀑布",
+   "dek": "坐船游神农溪，看纤夫拉纤。 包车去宜昌三峡大瀑布，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bdsx2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "mlgf2",
+   "dest": "hubei",
+   "name": "木兰山龟峰山",
+   "region": "华中",
+   "days": 2,
+   "title": "木兰山龟峰山 2 天",
+   "headline": "两天，木兰文化和龟峰山",
+   "dek": "包车去黄陂，看木兰山和木兰天池。 包车去麻城龟峰山，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#mlgf2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "whms2",
+   "dest": "anhui",
+   "name": "芜湖马鞍山",
+   "region": "华东",
+   "days": 2,
+   "title": "芜湖马鞍山 2 天",
+   "headline": "两天，方特和采石矶",
+   "dek": "一整天在芜湖方特。 去马鞍山采石矶，看李白衣冠冢和太白楼，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 600,
+    "hi": 1500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#whms2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lys2",
+   "dest": "anhui",
+   "name": "琅琊山",
+   "region": "华东",
+   "days": 2,
+   "title": "琅琊山 2 天",
+   "headline": "两天，琅琊山和醉翁亭",
+   "dek": "爬琅琊山，看醉翁亭。 上午出发。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lys2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wcmx2",
+   "dest": "sichuan",
+   "name": "汶川茂县",
+   "region": "西南",
+   "days": 2,
+   "title": "汶川茂县 2 天",
+   "headline": "两天，汶川和古羌城",
+   "dek": "包车去映秀，看汶川地震遗址和纪念馆，住水磨古镇。 包车去茂县，看中国古羌城，下午回成都。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wcmx2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gayl2",
+   "dest": "sichuan",
+   "name": "邓小平故里朱德故里",
+   "region": "西南",
+   "days": 2,
+   "title": "邓小平故里朱德故里 2 天",
+   "headline": "两天，邓小平故里和朱德故里",
+   "dek": "看邓小平故居和陈列馆。 包车去仪陇看朱德故里，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gayl2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "qlt2",
+   "dest": "sichuan",
+   "name": "天台山平乐",
+   "region": "西南",
+   "days": 2,
+   "title": "天台山平乐 2 天",
+   "headline": "两天，天台山和平乐古镇",
+   "dek": "包车去邛崃天台山，沿溪谷栈道走。 上午逛平乐古镇，中午回成都。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#qlt2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "tbs2",
+   "dest": "shaanxi",
+   "name": "太白山",
+   "region": "西北",
+   "days": 2,
+   "title": "太白山 2 天",
+   "headline": "两天，秦岭主峰太白山",
+   "dek": "包车去眉县，坐观光车和索道上太白山。 上午泡汤峪温泉，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#tbs2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jsx2",
+   "dest": "shaanxi",
+   "name": "金丝峡",
+   "region": "西北",
+   "days": 2,
+   "title": "金丝峡 2 天",
+   "headline": "两天，金丝大峡谷",
+   "dek": "包车去商南，走金丝大峡谷。 上午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jsx2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bjo2",
+   "dest": "beijing",
+   "name": "奥林匹克公园大运河",
+   "region": "华北",
+   "days": 2,
+   "title": "奥林匹克公园大运河 2 天",
+   "headline": "两天，奥林匹克公园和通州大运河",
+   "dek": "看鸟巢、水立方，傍晚上奥林匹克塔。 去通州大运河森林公园，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 800,
+    "hi": 1700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bjo2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "psh2",
+   "dest": "tianjin",
+   "name": "蓟州盘山",
+   "region": "华北",
+   "days": 2,
+   "title": "蓟州盘山 2 天",
+   "headline": "两天，盘山和独乐寺",
+   "dek": "包车去蓟州，爬盘山。 看独乐寺，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#psh2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lps2",
+   "dest": "ningxia",
+   "name": "六盘山须弥山",
+   "region": "西北",
+   "days": 2,
+   "title": "六盘山须弥山 2 天",
+   "headline": "两天，六盘山和须弥山石窟",
+   "dek": "看六盘山红军长征纪念馆，爬六盘山。 包车去须弥山石窟，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lps2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "htx2",
+   "dest": "heilongjiang",
+   "name": "虎头要塞",
+   "region": "东北",
+   "days": 2,
+   "title": "虎头要塞 2 天",
+   "headline": "两天，虎头要塞和乌苏里江",
+   "dek": "包车去虎头，看侵华日军虎头要塞遗址和乌苏里江。 上午在乌苏里江边看日出，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "01-01",
+     "02-28"
+    ],
+    "best": [
+     "01-01",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#htx2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ash2",
+   "dest": "neimenggu",
+   "name": "阿斯哈图石林",
+   "region": "华北",
+   "days": 2,
+   "title": "阿斯哈图石林 2 天",
+   "headline": "两天，阿斯哈图石林和贡格尔草原",
+   "dek": "包车去克什克腾，看阿斯哈图石林。 在草原上走走，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "10-31"
+    ],
+    "best": [
+     "10-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ash2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lnw2",
+   "dest": "neimenggu",
+   "name": "老牛湾",
+   "region": "华北",
+   "days": 2,
+   "title": "老牛湾 2 天",
+   "headline": "两天，老牛湾黄河大峡谷",
+   "dek": "包车去老牛湾，看黄河大拐弯和古堡。 上午出发。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "10-31"
+    ],
+    "best": [
+     "10-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lnw2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "dhld2",
+   "dest": "jilin",
+   "name": "六鼎山",
+   "region": "东北",
+   "days": 2,
+   "title": "六鼎山 2 天",
+   "headline": "两天，六鼎山",
+   "dek": "看六鼎山的金鼎大佛和渤海国遗址。 上午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 2100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "01-01",
+     "02-28"
+    ],
+    "best": [
+     "01-01",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#dhld2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "glcx2",
+   "dest": "guangxi",
+   "name": "桂林城区",
+   "region": "华南",
+   "days": 2,
+   "title": "桂林城区 2 天",
+   "headline": "两天，靖江王城和象山",
+   "dek": "看靖江王府，登独秀峰。 上午逛七星公园，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#glcx2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "smsh2",
+   "dest": "chongqing",
+   "name": "四面山",
+   "region": "西南",
+   "days": 2,
+   "title": "四面山 2 天",
+   "headline": "两天，四面山瀑布",
+   "dek": "包车去江津四面山，看望乡台瀑布和土地岩。 上午出发。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 2700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#smsh2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bss2",
+   "dest": "hebei",
+   "name": "白石山",
+   "region": "华北",
+   "days": 2,
+   "title": "白石山 2 天",
+   "headline": "两天，白石山玻璃栈道",
+   "dek": "包车去涞源白石山，走玻璃栈道。 上午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bss2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "mys2",
+   "dest": "jiangxi",
+   "name": "明月山",
+   "region": "华东",
+   "days": 2,
+   "title": "明月山 2 天",
+   "headline": "两天，明月山和温汤",
+   "dek": "坐索道上明月山，走栈道。 上午泡温汤温泉，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#mys2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lzdx2",
+   "dest": "guangdong",
+   "name": "连州地下河",
+   "region": "华南",
+   "days": 2,
+   "title": "连州地下河 2 天",
+   "headline": "两天，连州地下河",
+   "dek": "包车去连州，坐船游地下河。 上午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lzdx2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "zp2",
+   "dest": "xinjiang",
+   "name": "泽普金湖杨",
+   "region": "西北",
+   "days": 2,
+   "title": "泽普金湖杨 2 天",
+   "headline": "两天，金湖杨的胡杨",
+   "dek": "包车去泽普金湖杨，看胡杨林和湖。 上午出发回喀什。",
+   "why": null,
+   "price": {
+    "lo": 1700,
+    "hi": 3300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#zp2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jrms2",
+   "dest": "jiangsu",
+   "name": "茅山",
+   "region": "华东",
+   "days": 2,
+   "title": "茅山 2 天",
+   "headline": "两天，茅山",
+   "dek": "爬茅山，看九霄万福宫。 上午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jrms2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jhsl2",
+   "dest": "zhejiang",
+   "name": "双龙洞",
+   "region": "华东",
+   "days": 2,
+   "title": "双龙洞 2 天",
+   "headline": "两天，金华双龙洞",
+   "dek": "去金华北山，看双龙洞和冰壶洞。 上午登八咏楼，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 600,
+    "hi": 1500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jhsl2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "msjx2",
+   "dest": "shanxi",
+   "name": "绵山张壁",
+   "region": "华北",
+   "days": 2,
+   "title": "绵山张壁 2 天",
+   "headline": "两天，绵山和张壁古堡",
+   "dek": "包车上绵山，看云峰寺和栈道。 上午看张壁古堡的地道，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#msjx2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ydl2",
+   "dest": "hunan",
+   "name": "炎帝陵",
+   "region": "华中",
+   "days": 2,
+   "title": "炎帝陵 2 天",
+   "headline": "两天，炎帝陵和神农谷",
+   "dek": "包车去炎陵，拜炎帝陵。 上午走神农谷，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ydl2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "qzx4",
+   "dest": "qinghai",
+   "name": "青藏线可可西里",
+   "region": "西北",
+   "days": 4,
+   "title": "青藏线可可西里 4 天",
+   "headline": "四天，青藏公路穿过可可西里",
+   "dek": "在格尔木适应海拔，去察尔汗盐湖。 翻昆仑山口，沿青藏公路穿过可可西里，在索南达杰保护站看藏羚羊，晚上住沱沱河。",
+   "why": null,
+   "price": {
+    "lo": 2800,
+    "hi": 5600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众",
+    "高海拔"
+   ],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#qzx4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hhy4",
+   "dest": "qinghai",
+   "name": "黄河源",
+   "region": "西北",
+   "days": 4,
+   "title": "黄河源 4 天",
+   "headline": "四天，去黄河源头",
+   "dek": "从西宁包车往南，翻鄂拉山、过花石峡到玛多。 去黄河源园区，看鄂陵湖、扎陵湖和牛头碑。",
+   "why": null,
+   "price": {
+    "lo": 2700,
+    "hi": 5500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众",
+    "高海拔"
+   ],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hhy4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gn5",
+   "dest": "sichuan",
+   "name": "格聂",
+   "region": "西南",
+   "days": 5,
+   "title": "格聂 5 天",
+   "headline": "五天，格聂神山",
+   "dek": "翻折多山到塔公草原，先在 3,700 米适应。 经新都桥到理塘，傍晚逛千户藏寨。",
+   "why": null,
+   "price": {
+    "lo": 3400,
+    "hi": 6400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gn5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lbyz3",
+   "dest": "sichuan",
+   "name": "莲宝叶则",
+   "region": "西南",
+   "days": 3,
+   "title": "莲宝叶则 3 天",
+   "headline": "三天，莲宝叶则的石山和海子",
+   "dek": "从成都包车走九寨环线方向到阿坝县。 进景区看石山、海子和草甸。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lbyz3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "zgn3",
+   "dest": "gansu",
+   "name": "扎尕那郎木寺",
+   "region": "西北",
+   "days": 3,
+   "title": "扎尕那郎木寺 3 天",
+   "headline": "三天，扎尕那和郎木寺",
+   "dek": "走进扎尕那的石城和藏寨，爬到观景台。 路上看则岔石林，傍晚到郎木寺。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "06-01",
+     "10-31"
+    ],
+    "best": [
+     "06-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#zgn3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "yb4",
+   "dest": "yunnan",
+   "name": "梅里雨崩",
+   "region": "西南",
+   "days": 4,
+   "title": "梅里雨崩 4 天",
+   "headline": "四天，梅里雪山和雨崩村",
+   "dek": "到德钦，傍晚在飞来寺观景台等梅里雪山。 清早看日照金山，坐车到西当温泉，徒步翻南宗垭口进上雨崩。",
+   "why": null,
+   "price": {
+    "lo": 1900,
+    "hi": 4100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#yb4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xt3",
+   "dest": "xinjiang",
+   "name": "夏塔",
+   "region": "西北",
+   "days": 3,
+   "title": "夏塔 3 天",
+   "headline": "三天，夏塔冰川和草原",
+   "dek": "从伊宁到昭苏，路上看天马和油菜花（7 月）。 进夏塔景区，坐区间车看木扎尔特冰川和雪山草甸。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xt3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "rw3",
+   "dest": "xizang",
+   "name": "然乌来古冰川",
+   "region": "西南",
+   "days": 3,
+   "title": "然乌来古冰川 3 天",
+   "headline": "三天，318 上的然乌湖和来古冰川",
+   "dek": "走 318 过鲁朗林海，到波密。 到然乌湖，再往里开去来古冰川。",
+   "why": null,
+   "price": {
+    "lo": 2200,
+    "hi": 4400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "04-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#rw3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "zf4",
+   "dest": "xizang",
+   "name": "珠峰大本营",
+   "region": "西南",
+   "days": 4,
+   "title": "珠峰大本营 4 天",
+   "headline": "四天，去珠峰大本营",
+   "dek": "从日喀则走 318 到定日。 进珠峰保护区，到绒布寺和大本营看珠峰。",
+   "why": null,
+   "price": {
+    "lo": 3300,
+    "hi": 6400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "04-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#zf4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xp3",
+   "dest": "fujian",
+   "name": "霞浦",
+   "region": "华东",
+   "days": 3,
+   "title": "霞浦 3 天",
+   "headline": "三天，霞浦滩涂",
+   "dek": "到霞浦，傍晚去小皓看滩涂日落。 清早在北岐拍日出，傍晚去东壁看日落。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xp3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jbtt2",
+   "dest": "guizhou",
+   "name": "加榜梯田",
+   "region": "西南",
+   "days": 2,
+   "title": "加榜梯田 2 天",
+   "headline": "两天，加榜梯田",
+   "dek": "从从江去加榜，看苗寨和梯田，傍晚在观景台等日落。 回从江路上看岜沙苗寨，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1400,
+    "hi": 2900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-31"
+    ],
+    "best": [
+     "05-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jbtt2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wsd2",
+   "dest": "jilin",
+   "name": "雾凇岛",
+   "region": "东北",
+   "days": 2,
+   "title": "雾凇岛 2 天",
+   "headline": "两天，看雾凇",
+   "dek": "到韩屯村雾凇岛，住村里等第二天早上。 清早看雾凇，上午回吉林市。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "12-01",
+     "02-28"
+    ],
+    "best": [
+     "12-01",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wsd2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bzl4",
+   "dest": "yunnan",
+   "name": "丙中洛独龙江",
+   "region": "西南",
+   "days": 4,
+   "title": "丙中洛独龙江 4 天",
+   "headline": "四天，怒江大峡谷到丙中洛",
+   "dek": "从六库沿怒江往北，看老虎跳和石月亮，晚上住贡山。 上丙中洛观景台，看怒江第一湾，走雾里村和秋那桶。",
+   "why": null,
+   "price": {
+    "lo": 2600,
+    "hi": 5200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bzl4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ali8",
+   "dest": "xizang",
+   "name": "阿里南线",
+   "region": "西南",
+   "days": 8,
+   "title": "阿里南线 8 天",
+   "headline": "八天，冈仁波齐、玛旁雍错和古格",
+   "dek": "走 219 国道往西，晚上住萨嘎。 继续往西，下午到玛旁雍错，晚上住冈仁波齐脚下的塔钦。",
+   "why": null,
+   "price": {
+    "lo": 5100,
+    "hi": 10000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "05-01",
+     "09-30"
+    ],
+    "best": [
+     "05-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ali8",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "reg3",
+   "dest": "sichuan",
+   "name": "若尔盖",
+   "region": "西南",
+   "days": 3,
+   "title": "若尔盖 3 天",
+   "headline": "三天，若尔盖草原和九曲黄河",
+   "dek": "走进若尔盖湿地，看花湖。 去唐克，傍晚上观景台看黄河九曲第一湾日落。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#reg3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "dg3",
+   "dest": "sichuan",
+   "name": "达古冰川毕棚沟",
+   "region": "西南",
+   "days": 3,
+   "title": "达古冰川毕棚沟 3 天",
+   "headline": "三天，达古冰川和毕棚沟",
+   "dek": "包车去理县，下午走毕棚沟。 包车去黑水，坐索道上达古冰川。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 3700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#dg3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bhb2",
+   "dest": "xinjiang",
+   "name": "白哈巴",
+   "region": "西北",
+   "days": 2,
+   "title": "白哈巴 2 天",
+   "headline": "两天，白哈巴的图瓦村子",
+   "dek": "包车去白哈巴，在村里和边境栈道走走。 清早看村子的晨雾，上午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bhb2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "kc4",
+   "dest": "xinjiang",
+   "name": "库尔勒库车",
+   "region": "西北",
+   "days": 4,
+   "title": "库尔勒库车 4 天",
+   "headline": "四天，罗布人村寨到克孜尔",
+   "dek": "从库尔勒去尉犁，看塔里木河边的胡杨和沙漠。 包车去库车，傍晚逛库车老城。",
+   "why": null,
+   "price": {
+    "lo": 2300,
+    "hi": 4800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#kc4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ht2",
+   "dest": "xinjiang",
+   "name": "和田",
+   "region": "西北",
+   "days": 2,
+   "title": "和田 2 天",
+   "headline": "两天，和田玉和约特干",
+   "dek": "看约特干故城，晚上逛和田夜市。 上午在玉龙喀什河边看捡玉，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "04-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ht2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ljslm2",
+   "dest": "yunnan",
+   "name": "老君山黎明",
+   "region": "西南",
+   "days": 2,
+   "title": "老君山黎明 2 天",
+   "headline": "两天，老君山千龟山",
+   "dek": "包车去黎明乡，坐索道上千龟山看丹霞。 上午在黎明村走走，中午回丽江。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-31"
+    ],
+    "best": [
+     "05-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ljslm2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hb2",
+   "dest": "yunnan",
+   "name": "哈巴村",
+   "region": "西南",
+   "days": 2,
+   "title": "哈巴村 2 天",
+   "headline": "两天，哈巴雪山脚下",
+   "dek": "包车去三坝乡哈巴村，看哈巴雪山，住村里。 去白水台看钙华台地，下午回香格里拉。",
+   "why": null,
+   "price": {
+    "lo": 1400,
+    "hi": 2900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-31"
+    ],
+    "best": [
+     "05-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hb2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "dbdl3",
+   "dest": "sichuan",
+   "name": "丹巴党岭",
+   "region": "西南",
+   "days": 3,
+   "title": "丹巴党岭 3 天",
+   "headline": "三天，丹巴藏寨和党岭葫芦海",
+   "dek": "从成都包车到丹巴，下午看甲居藏寨。 包车去党岭村，徒步到葫芦海。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "06-01",
+     "10-31"
+    ],
+    "best": [
+     "06-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#dbdl3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "mssl2",
+   "dest": "beijing",
+   "name": "明十三陵居庸关",
+   "region": "华北",
+   "days": 2,
+   "title": "明十三陵居庸关 2 天",
+   "headline": "两天，明十三陵和居庸关",
+   "dek": "包车去昌平，看神路、长陵和定陵地宫。 上午爬居庸关长城，中午回市区。",
+   "why": null,
+   "price": {
+    "lo": 1100,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#mssl2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hsh2",
+   "dest": "hebei",
+   "name": "衡水湖",
+   "region": "华北",
+   "days": 2,
+   "title": "衡水湖 2 天",
+   "headline": "两天，衡水湖看鸟",
+   "dek": "坐船游衡水湖，看湿地和候鸟。 上午逛衡水老白干酒文化园，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 600,
+    "hi": 1500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hsh2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "blh2",
+   "dest": "anhui",
+   "name": "八里河",
+   "region": "华东",
+   "days": 2,
+   "title": "八里河 2 天",
+   "headline": "两天，八里河",
+   "dek": "包车去颍上八里河景区。 上午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#blh2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "djs2",
+   "dest": "jiangxi",
+   "name": "大觉山",
+   "region": "华东",
+   "days": 2,
+   "title": "大觉山 2 天",
+   "headline": "两天，大觉山峡谷漂流",
+   "dek": "包车去资溪大觉山，坐索道上山，下午漂流。 上午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#djs2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bs2",
+   "dest": "guangxi",
+   "name": "百色",
+   "region": "华南",
+   "days": 2,
+   "title": "百色 2 天",
+   "headline": "两天，百色起义纪念园和通灵大峡谷",
+   "dek": "看百色起义纪念馆和红七军军部旧址。 包车去靖西通灵大峡谷，下午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bs2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lgy2",
+   "dest": "chongqing",
+   "name": "龙缸",
+   "region": "西南",
+   "days": 2,
+   "title": "龙缸 2 天",
+   "headline": "两天，云阳龙缸",
+   "dek": "包车去龙缸，看天坑和悬崖廊桥。 上午看云阳张飞庙，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lgy2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "slmh2",
+   "dest": "xinjiang",
+   "name": "赛里木湖",
+   "region": "西北",
+   "days": 2,
+   "title": "赛里木湖 2 天",
+   "headline": "两天，绕赛里木湖一圈",
+   "dek": "环湖走一圈，在点将台看湖。 过果子沟大桥去伊宁出发。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#slmh2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "qhx4",
+   "dest": "qinghai",
+   "name": "青海西部",
+   "region": "西北",
+   "days": 4,
+   "title": "青海西部 4 天",
+   "headline": "四天，翡翠湖、水上雅丹和冷湖",
+   "dek": "从格尔木往北，路边看东台吉乃尔湖，傍晚到大柴旦。 傍晚去翡翠湖看盐湖变色。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 5000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-31"
+    ],
+    "best": [
+     "05-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#qhx4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "dcrl3",
+   "dest": "yunnan",
+   "name": "东川红土地罗平",
+   "region": "西南",
+   "days": 3,
+   "title": "东川红土地罗平 3 天",
+   "headline": "三天，红土地和油菜花",
+   "dek": "从昆明包车去东川红土地，傍晚在落霞沟看日落。 包车去罗平，看金鸡峰丛的油菜花。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "02-01",
+     "03-31"
+    ],
+    "best": [
+     "02-01",
+     "03-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#dcrl3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gyl2",
+   "dest": "hunan",
+   "name": "高椅岭",
+   "region": "华中",
+   "days": 2,
+   "title": "高椅岭 2 天",
+   "headline": "两天，高椅岭的丹霞和水库",
+   "dek": "在高椅岭徒步，看丹霞和碧水。 上午登苏仙岭，中午出发。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gyl2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wxg2",
+   "dest": "jiangxi",
+   "name": "望仙谷",
+   "region": "华东",
+   "days": 2,
+   "title": "望仙谷 2 天",
+   "headline": "两天，崖壁上的望仙谷",
+   "dek": "下午进望仙谷，晚上看崖壁上的灯。 清早在谷里走走，上午出发。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wxg2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "djd3",
+   "dest": "zhejiang",
+   "name": "东极岛",
+   "region": "华东",
+   "days": 3,
+   "title": "东极岛 3 天",
+   "headline": "三天，去东极岛看日出",
+   "dek": "从沈家门坐船到东极岛庙子湖。 坐船去东福山看日出，回庙子湖逛渔村。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 2100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#djd3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xx3",
+   "dest": "heilongjiang",
+   "name": "雪乡",
+   "region": "东北",
+   "days": 3,
+   "title": "雪乡 3 天",
+   "headline": "三天，雪乡和亚布力",
+   "dek": "从哈尔滨包车去雪乡，傍晚看雪屋亮灯。 清早爬羊草山看日出，下午去亚布力滑雪。",
+   "why": null,
+   "price": {
+    "lo": 1700,
+    "hi": 3400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "小众"
+   ],
+   "season": {
+    "ok": [
+     "12-01",
+     "12-31"
+    ],
+    "best": [
+     "12-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xx3",
+   "engineRoute": null,
+   "poster": null
+  }
+ ]
+}

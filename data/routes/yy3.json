@@ -1,0 +1,482 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "yy3",
+ "fam": "yy",
+ "title": "🌾 元阳梯田 3 天 · 灌水期限定",
+ "dest": "云南 · 红河元阳",
+ "days_count": 3,
+ "seasons": [
+  {
+   "name": "灌水期镜面",
+   "why": "11 月至次年 4 月才有水镜 · 其余月份是绿田"
+  },
+  {
+   "name": "多依树日出",
+   "why": "日出前 40 分到位占机位 · 冬季 7:20 前"
+  },
+  {
+   "name": "哈尼长街宴",
+   "why": "农历十月年 · 一年一次"
+  }
+ ],
+ "transport": {
+  "mode": "drive",
+  "rent": 1500,
+  "perCar": true,
+  "roadfood": 180,
+  "label": "租车 · 油费路桥（按车均摊）"
+ },
+ "prep": [
+  "11–4 月才是灌水期 · 其余月份没有水镜",
+  "多依树日出需 6:30 起床 · 住多依树可少赶路",
+  "日出前山顶接近 0℃ · 羽绒服与手套",
+  "后段全是盘山弯道 · 夜间不建议开"
+ ],
+ "weather_note": "元阳 1 月 · 昼 10–20℃ · 早晚冷 · 日出前山顶接近 0℃",
+ "days": [
+  {
+   "n": 1,
+   "title": "昆明 → 元阳",
+   "sub": "长途转场 · 傍晚看坝达 · 中",
+   "place": "元阳·多依树",
+   "lat": 23.22,
+   "lng": 102.83,
+   "facts": {
+    "depart": "07:30",
+    "drive": "5 h",
+    "altitude_m": 302,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      24,
+      14
+     ],
+     "2": [
+      26,
+      15
+     ],
+     "3": [
+      31,
+      18
+     ],
+     "4": [
+      34,
+      21
+     ],
+     "5": [
+      35,
+      24
+     ],
+     "6": [
+      34,
+      25
+     ],
+     "7": [
+      33,
+      25
+     ],
+     "8": [
+      32,
+      25
+     ],
+     "9": [
+      32,
+      24
+     ],
+     "10": [
+      30,
+      22
+     ],
+     "11": [
+      27,
+      18
+     ],
+     "12": [
+      24,
+      15
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:30",
+     "type": "dep",
+     "to": "坝达梯田 · 日落",
+     "mode": "drive",
+     "min": 300,
+     "km": 350,
+     "via": "沿途 · 建水可停一小时吃烧豆腐 · 后段盘山"
+    },
+    {
+     "t": "10:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "12:30",
+     "type": "see",
+     "name": "坝达梯田 · 日落",
+     "dur": 120,
+     "cost": 100,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 30,
+     "km": 20
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "多依树 · 观景客栈",
+     "name": "多依树 · 观景客栈",
+     "engine_price": 340
+    }
+   ],
+   "stay": {
+    "city": "多依树 · 观景客栈",
+    "engine": [
+     {
+      "city": "多依树 · 观景客栈",
+      "price": 340,
+      "why": "出门就是日出机位 · 不用摸黑赶路"
+     },
+     {
+      "city": "元阳新街镇",
+      "price": 220,
+      "why": "省 ¥60/人 · 吃饭方便"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "三千七百级梯田从山顶铺到谷底，日落时每一块水田都是一面镜子。",
+    "manners": [
+     "日落前 1 小时到 · 联票含四个观景台"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 建水可停一小时吃烧豆腐 · 后段盘山"
+   ]
+  },
+  {
+   "n": 2,
+   "title": "多依树日出 · 老虎嘴日落",
+   "sub": "追光一整天 · 中",
+   "place": "元阳·多依树",
+   "lat": 23.22,
+   "lng": 102.83,
+   "facts": {
+    "depart": "05:30",
+    "drive": "1 h",
+    "altitude_m": 302,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      24,
+      14
+     ],
+     "2": [
+      26,
+      15
+     ],
+     "3": [
+      31,
+      18
+     ],
+     "4": [
+      34,
+      21
+     ],
+     "5": [
+      35,
+      24
+     ],
+     "6": [
+      34,
+      25
+     ],
+     "7": [
+      33,
+      25
+     ],
+     "8": [
+      32,
+      25
+     ],
+     "9": [
+      32,
+      24
+     ],
+     "10": [
+      30,
+      22
+     ],
+     "11": [
+      27,
+      18
+     ],
+     "12": [
+      24,
+      15
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "05:30",
+     "type": "dep",
+     "to": "多依树 · 日出云海",
+     "mode": "drive",
+     "min": 10,
+     "km": 3,
+     "via": "摸黑出发 · 日出前 40 分到位占机位"
+    },
+    {
+     "t": "05:40",
+     "type": "see",
+     "name": "多依树 · 日出云海",
+     "dur": 150,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "08:10",
+     "type": "see",
+     "name": "哈尼族蘑菇房村寨",
+     "dur": 100,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "09:50",
+     "type": "see",
+     "name": "老虎嘴 · 日落",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:50",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 40,
+     "km": 25
+    },
+    {
+     "t": "12:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "多依树 · 连住",
+     "name": "多依树 · 连住",
+     "engine_price": 340
+    }
+   ],
+   "stay": {
+    "city": "多依树 · 连住",
+    "engine": [
+     {
+      "city": "多依树 · 连住",
+      "price": 340,
+      "why": "不挪窝 · 明早还看日出"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "天没亮就有人架三脚架，太阳一出来，云海从谷底涌上梯田。 蘑菇房的茅草顶一层压一层，村里的水渠还在按老规矩分水。 梯田顺着山势拧成漩涡，夕阳一斜，整片田由银变金再变红。",
+    "manners": [
+     "日出前 40 分到位 · 联票已含",
+     "阿者科村 · 箐口村",
+     "日落前 1 小时到 · 联票已含"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "摸黑出发 · 日出前 40 分到位占机位"
+   ]
+  },
+  {
+   "n": 3,
+   "title": "建水古城 · 返程",
+   "sub": "回程顺路一站 · 中",
+   "place": "昆明",
+   "lat": 25.04,
+   "lng": 102.71,
+   "facts": {
+    "depart": "08:00",
+    "drive": "5 h",
+    "altitude_m": 1902,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      14,
+      3
+     ],
+     "2": [
+      17,
+      5
+     ],
+     "3": [
+      22,
+      9
+     ],
+     "4": [
+      24,
+      12
+     ],
+     "5": [
+      25,
+      14
+     ],
+     "6": [
+      24,
+      16
+     ],
+     "7": [
+      24,
+      16
+     ],
+     "8": [
+      24,
+      16
+     ],
+     "9": [
+      22,
+      14
+     ],
+     "10": [
+      20,
+      12
+     ],
+     "11": [
+      17,
+      8
+     ],
+     "12": [
+      15,
+      5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:00",
+     "type": "dep",
+     "to": "建水古城 · 朱家花园",
+     "mode": "drive",
+     "min": 150,
+     "km": 140,
+     "via": null
+    },
+    {
+     "t": "10:30",
+     "type": "see",
+     "name": "建水古城 · 朱家花园",
+     "dur": 150,
+     "cost": 50,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "13:00",
+     "type": "dep",
+     "to": "回程",
+     "mode": "drive",
+     "min": 180,
+     "km": 220
+    },
+    {
+     "t": "13:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "朱家花园是滇南最大的私家园林，隔壁的文庙规模仅次于曲阜。",
+    "manners": [
+     "朱家花园 · 文庙 · 烧豆腐配米线"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

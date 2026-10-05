@@ -1,0 +1,422 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "djy2",
+ "fam": "djy",
+ "title": "⛲ 都江堰·青城山 2 日 · 前山问道后山听水",
+ "dest": "四川 · 成都周边",
+ "days_count": 2,
+ "seasons": [
+  {
+   "name": "后山避暑季",
+   "why": "6-9 月谷内比市区低 8-10℃"
+  },
+  {
+   "name": "青城山雪后",
+   "why": "12-1 月上清宫雾凇 · 本季未到"
+  }
+ ],
+ "transport": {
+  "mode": "transit",
+  "rent": 0,
+  "perCar": false,
+  "roadfood": 0,
+  "label": "动车 · 摆渡（每人实付）"
+ },
+ "prep": [
+  "动车票 12306 提前 1 天买 · 节假日提前 3 天",
+  "青城山石阶多 · 防滑鞋 · 带把伞",
+  "18:30 前到青城山站 · 末班动车别赌"
+ ],
+ "weather_note": "成都平原 8 月 · 昼 26–34°C · 后山谷内低 8–10°C · 午后阵雨",
+ "days": [
+  {
+   "n": 1,
+   "title": "都江堰 → 青城前山",
+   "sub": "动车进 · 拜水问道 · 中",
+   "place": "青城山",
+   "lat": 30.881316,
+   "lng": 103.5887676,
+   "facts": {
+    "depart": "07:20",
+    "drive": "— h",
+    "altitude_m": 673,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      9,
+      3
+     ],
+     "2": [
+      11,
+      5
+     ],
+     "3": [
+      16,
+      9
+     ],
+     "4": [
+      21,
+      13
+     ],
+     "5": [
+      25,
+      17
+     ],
+     "6": [
+      28,
+      20
+     ],
+     "7": [
+      29,
+      23
+     ],
+     "8": [
+      30,
+      23
+     ],
+     "9": [
+      25,
+      20
+     ],
+     "10": [
+      19,
+      15
+     ],
+     "11": [
+      15,
+      10
+     ],
+     "12": [
+      10,
+      4
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:20",
+     "type": "dep",
+     "to": "都江堰 · 鱼嘴分水",
+     "mode": "train",
+     "min": 55,
+     "km": null,
+     "via": "犀浦/成都西均可上车 · 刷身份证进站"
+    },
+    {
+     "t": "08:35",
+     "type": "see",
+     "name": "都江堰 · 鱼嘴分水",
+     "dur": 180,
+     "cost": 80,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:35",
+     "type": "dep",
+     "to": "南桥 · 尤兔头或冷锅鱼",
+     "mode": "walk",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "11:50",
+     "type": "see",
+     "name": "南桥 · 尤兔头或冷锅鱼",
+     "dur": 70,
+     "cost": 55,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "13:00",
+     "type": "dep",
+     "to": "青城山前山 · 索道上步行下",
+     "mode": "train",
+     "min": 45,
+     "km": null
+    },
+    {
+     "t": "13:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:45",
+     "type": "see",
+     "name": "青城山前山 · 索道上步行下",
+     "dur": 180,
+     "cost": 115,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "16:45",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "青城山镇 · 溪边民宿",
+     "name": "青城山镇 · 溪边民宿",
+     "engine_price": 320
+    }
+   ],
+   "stay": {
+    "city": "青城山镇 · 溪边民宿",
+    "engine": [
+     {
+      "city": "青城山镇 · 溪边民宿",
+      "price": 320,
+      "why": "推窗听水 · 明早直接进后山"
+     },
+     {
+      "city": "青城山镇 · 快捷房",
+      "price": 220,
+      "why": "省 ¥50/人 · 干净够睡"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "两千多年前的水利工程今天还在上班，鱼嘴把岷江一分为二。 桥下就是奔腾的岷江水，夏天坐桥边风都是凉的。 索道直上上清宫一线，省两小时脚程，把力气留给殿宇。",
+    "manners": [
+     "鱼嘴 → 飞沙堰 → 宝瓶口顺序走 · 安澜索桥来回",
+     "冷锅鱼 · 或麻辣兔头配冰粉",
+     "上清宫 · 老君阁登顶 · 天然图画牌坊"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "犀浦/成都西均可上车 · 刷身份证进站"
+   ]
+  },
+  {
+   "n": 2,
+   "title": "青城后山 · 徒步一日",
+   "sub": "五龙沟栈道 · 中偏重",
+   "place": "成都",
+   "lat": 30.66,
+   "lng": 104.06,
+   "facts": {
+    "depart": "07:30",
+    "drive": "0 h",
+    "altitude_m": 1000,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      10,
+      3
+     ],
+     "2": [
+      13,
+      5
+     ],
+     "3": [
+      18,
+      10
+     ],
+     "4": [
+      24,
+      14
+     ],
+     "5": [
+      27,
+      18
+     ],
+     "6": [
+      30,
+      21
+     ],
+     "7": [
+      31,
+      23
+     ],
+     "8": [
+      31,
+      23
+     ],
+     "9": [
+      26,
+      20
+     ],
+     "10": [
+      21,
+      15
+     ],
+     "11": [
+      16,
+      10
+     ],
+     "12": [
+      11,
+      4
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:30",
+     "type": "dep",
+     "to": "泰安古镇 · 早茶",
+     "mode": "transit",
+     "min": 20,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "07:50",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "早茶",
+     "place": "泰安古镇",
+     "price": 25,
+     "poi": "泰安古镇",
+     "from_engine": "泰安古镇 · 早茶"
+    },
+    {
+     "t": "08:50",
+     "type": "see",
+     "name": "青城后山 · 购票进山",
+     "dur": 20,
+     "cost": 20,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "09:10",
+     "type": "see",
+     "name": "五龙沟 · 溪边栈道",
+     "dur": 150,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:40",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "半山农家午饭",
+     "place": "又一村",
+     "price": 45,
+     "poi": "又一村",
+     "from_engine": "又一村 · 半山农家午饭"
+    },
+    {
+     "t": "12:50",
+     "type": "see",
+     "name": "白云索道下山",
+     "dur": 60,
+     "cost": 45,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "13:50",
+     "type": "dep",
+     "to": "回程",
+     "mode": "transit",
+     "min": 60,
+     "km": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": {
+      "name": "成都博舍",
+      "sell": "太古里，挨着大慈寺；有米其林餐厅和水疗",
+      "price": null,
+      "src": "spachina 访谈"
+     },
+     "upscale": {
+      "name": "成都太古里春熙美居酒店",
+      "sell": "走 10 分钟到太古里",
+      "price": "约 ¥459",
+      "src": "eastchinatrip"
+     },
+     "budget": {
+      "name": "文殊院一带的青旅",
+      "sell": "平价，周边本地小吃多",
+      "price": null,
+      "src": "wanderinchina 住宿指南"
+     }
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "溪水穿镇过，铺子刚开门，豆花和油茶端上来还烫嘴。 后山不讲道观讲水，一进门就是溪声。 栈道贴着水走，飞泉从头顶落下来，夏天比城里凉十度。 走两小时到这儿，腊肉炒笋和一碗甜皮鸭最解乏。 索道从又一村直落山门，膝盖谢谢你。",
+    "manners": [
+     "豆花 + 老鸭汤 · 带一份猪肉脯上山",
+     "现场扫码购票 · 山门取地图",
+     "飞泉坊拍水帘 · 幽一水段最阴凉",
+     "腊肉炒春笋 · 山泉豆花",
+     "索道末班 17:00 · 步行需留足 2.5 小时"
+    ],
+    "verified": false
+   },
+   "experiences": [
+    {
+     "t": "15:00",
+     "name": "人民公园鹤鸣茶社喝盖碗茶",
+     "detail": "最低消费 16 元/人，傍晚 18 元；可以掏耳朵",
+     "poi": "鹤鸣茶社",
+     "src": "携程点评 2026-04"
+    },
+    {
+     "t": "20:00",
+     "name": "看川剧变脸（蜀风雅韵）",
+     "detail": "琴台路文化公园里，每晚 20:00，约 90 分钟，提前订票",
+     "poi": "蜀风雅韵",
+     "src": "旅行社票务页"
+    },
+    {
+     "t": "07:30",
+     "name": "大熊猫基地趁早去",
+     "detail": "早上 7:30–10:00 最活跃",
+     "poi": "成都大熊猫繁育研究基地",
+     "src": "引擎季节提示"
+    }
+   ],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

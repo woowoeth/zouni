@@ -1,0 +1,658 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "sz3",
+ "fam": "sz",
+ "title": "🏯 苏州 3 天 · 园林与平江路",
+ "dest": "江苏 · 苏州",
+ "days_count": 3,
+ "seasons": [
+  {
+   "name": "苏博预约",
+   "why": "免费但需提前 3 天官网预约 · 周一闭馆"
+  },
+  {
+   "name": "拙政园早场",
+   "why": "8:30 开园就进 · 十点后人挤人"
+  },
+  {
+   "name": "留园与网师园夜花园",
+   "why": "需另半天 · 夜花园 3-11 月开放"
+  }
+ ],
+ "transport": {
+  "mode": "transit",
+  "rent": 0,
+  "perCar": false,
+  "roadfood": 0,
+  "label": "地铁 · 步行（每人实付）"
+ },
+ "prep": [
+  "苏州博物馆提前 3 天官网预约 · 周一闭馆",
+  "拙政园需实名预约 · 建议订 8:30 首场",
+  "苏 e 行或支付宝乘车码 · 地铁公交通用",
+  "江南夏天午后雷阵雨 · 折伞随身"
+ ],
+ "weather_note": "苏州 8 月 · 昼 28–35℃ · 闷热多雨 · 园林里阴凉",
+ "days": [
+  {
+   "n": 1,
+   "title": "拙政园 · 平江路",
+   "sub": "园林一上午 · 老街一下午 · 轻",
+   "place": "平江路·观前",
+   "lat": 31.3149294,
+   "lng": 120.6296912,
+   "facts": {
+    "depart": "09:00",
+    "drive": "0 h",
+    "altitude_m": 7,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      9,
+      1
+     ],
+     "2": [
+      11,
+      2
+     ],
+     "3": [
+      16,
+      7
+     ],
+     "4": [
+      22,
+      12
+     ],
+     "5": [
+      26,
+      17
+     ],
+     "6": [
+      28,
+      22
+     ],
+     "7": [
+      32,
+      26
+     ],
+     "8": [
+      33,
+      26
+     ],
+     "9": [
+      28,
+      22
+     ],
+     "10": [
+      23,
+      16
+     ],
+     "11": [
+      18,
+      10
+     ],
+     "12": [
+      11,
+      3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "拙政园",
+     "mode": "transit",
+     "min": 15,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:15",
+     "type": "see",
+     "name": "拙政园",
+     "dur": 120,
+     "cost": 70,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:15",
+     "type": "dep",
+     "to": "狮子林 · 假山迷宫",
+     "mode": "walk",
+     "min": 8,
+     "km": null
+    },
+    {
+     "t": "11:23",
+     "type": "see",
+     "name": "狮子林 · 假山迷宫",
+     "dur": 70,
+     "cost": 40,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "枫镇大肉面",
+     "place": "同得兴（十全街店）",
+     "price": 30,
+     "poi": "同得兴 十全街",
+     "src": "携程点评 / ITBear 2026",
+     "priceText": null
+    },
+    {
+     "t": "12:33",
+     "type": "dep",
+     "to": "平江路 · 河街并行",
+     "mode": "walk",
+     "min": 10,
+     "km": null
+    },
+    {
+     "t": "12:43",
+     "type": "see",
+     "name": "平江路 · 河街并行",
+     "dur": 100,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:23",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 12,
+     "km": null
+    },
+    {
+     "t": "18:10",
+     "type": "dep",
+     "to": "松鹤楼（观前街总店）",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "松鼠鳜鱼",
+     "place": "松鹤楼（观前街总店）",
+     "price": 190,
+     "poi": "松鹤楼 观前街 太监弄",
+     "src": "新浪 2026-08",
+     "priceText": null
+    },
+    {
+     "t": "19:40",
+     "type": "dep",
+     "to": "平江路听评弹",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "20:00",
+     "type": "fun",
+     "name": "平江路听评弹",
+     "detail": "河对岸有评弹馆",
+     "poi": "平江路 评弹",
+     "src": "携程点评 2026-07"
+    },
+    {
+     "t": "21:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "平江路 · 河边客栈",
+     "name": "苏州金普顿竹辉酒店",
+     "engine_price": 400
+    }
+   ],
+   "stay": {
+    "city": "平江路 · 河边客栈",
+    "engine": [
+     {
+      "city": "平江路 · 河边客栈",
+      "price": 400,
+      "why": "推窗见河 · 走到拙政园 10 分"
+     },
+     {
+      "city": "观前街 · 地铁口",
+      "price": 280,
+      "why": "省 ¥60/人 · 两站到各景点"
+     }
+    ],
+    "tiers": {
+     "luxury": {
+      "name": "苏州金普顿竹辉酒店",
+      "sell": "十全街，苏式园林风格，洲际旗下",
+      "price": null,
+      "src": "携程"
+     },
+     "upscale": {
+      "name": "苏州书香府邸平江府",
+      "sell": "平江路上，走到拙政园",
+      "price": null,
+      "src": "携程"
+     },
+     "budget": {
+      "name": "如家商旅酒店（拙政园平江路店）",
+      "sell": "园林式老建筑，免费停车",
+      "price": null,
+      "src": "携程"
+     }
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "水面占了三分之一，走几步换一个框景，是园林的教科书。 一堆太湖石堆成的迷宫，钻进去能绕半天出不来。 一条水一条街并排走了八百年，摇橹船从桥洞里钻出来。",
+    "manners": [
+     "远香堂 · 小飞虹廊桥 · 早上 8:30 开园就进",
+     "假山群钻一圈 · 燕誉堂",
+     "往小巷钻 · 猫的天空之城 · 评弹馆听一段"
+    ],
+    "verified": false
+   },
+   "experiences": [
+    {
+     "t": "20:00",
+     "name": "平江路听评弹",
+     "detail": "河对岸有评弹馆",
+     "poi": "平江路 评弹",
+     "src": "携程点评 2026-07"
+    }
+   ],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "虎丘 · 山塘街",
+   "sub": "斜塔与七里山塘 · 轻",
+   "place": "平江路·观前",
+   "lat": 31.3149294,
+   "lng": 120.6296912,
+   "facts": {
+    "depart": "09:00",
+    "drive": "0 h",
+    "altitude_m": 7,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      9,
+      1
+     ],
+     "2": [
+      11,
+      2
+     ],
+     "3": [
+      16,
+      7
+     ],
+     "4": [
+      22,
+      12
+     ],
+     "5": [
+      26,
+      17
+     ],
+     "6": [
+      28,
+      22
+     ],
+     "7": [
+      32,
+      26
+     ],
+     "8": [
+      33,
+      26
+     ],
+     "9": [
+      28,
+      22
+     ],
+     "10": [
+      23,
+      16
+     ],
+     "11": [
+      18,
+      10
+     ],
+     "12": [
+      11,
+      3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "虎丘 · 云岩寺塔",
+     "mode": "transit",
+     "min": 30,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:30",
+     "type": "see",
+     "name": "虎丘 · 云岩寺塔",
+     "dur": 120,
+     "cost": 60,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:30",
+     "type": "dep",
+     "to": "山塘街 · 七里山塘",
+     "mode": "walk",
+     "min": 20,
+     "km": null
+    },
+    {
+     "t": "11:50",
+     "type": "see",
+     "name": "山塘街 · 七里山塘",
+     "dur": 100,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "13:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "本地菜",
+     "place": "巷子里的面馆",
+     "price": 45,
+     "poi": "巷子里的面馆",
+     "from_engine": "巷子里的面馆"
+    },
+    {
+     "t": "14:20",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 20,
+     "km": null
+    },
+    {
+     "t": "18:10",
+     "type": "dep",
+     "to": "松鹤楼（观前街总店）",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "松鼠鳜鱼",
+     "place": "松鹤楼（观前街总店）",
+     "price": 190,
+     "poi": "松鹤楼 观前街 太监弄",
+     "src": "新浪 2026-08",
+     "priceText": null
+    },
+    {
+     "t": "19:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "平江路 · 连住",
+     "name": "苏州金普顿竹辉酒店",
+     "engine_price": 400
+    }
+   ],
+   "stay": {
+    "city": "平江路 · 连住",
+    "engine": [
+     {
+      "city": "平江路 · 连住",
+      "price": 400,
+      "why": "不挪窝 · 行李不动"
+     }
+    ],
+    "tiers": {
+     "luxury": {
+      "name": "苏州金普顿竹辉酒店",
+      "sell": "十全街，苏式园林风格，洲际旗下",
+      "price": null,
+      "src": "携程"
+     },
+     "upscale": {
+      "name": "苏州书香府邸平江府",
+      "sell": "平江路上，走到拙政园",
+      "price": null,
+      "src": "携程"
+     },
+     "budget": {
+      "name": "如家商旅酒店（拙政园平江路店）",
+      "sell": "园林式老建筑，免费停车",
+      "price": null,
+      "src": "携程"
+     }
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "中国的比萨斜塔，倾斜了一千年还立着，苏东坡说到苏州不游虎丘乃憾事。 从虎丘一直通到阊门，晚上灯笼亮起来，船在河里慢慢划。 一碗焖肉面配一碟爆鱼，苏州人的日常。",
+    "manners": [
+     "云岩寺塔 · 剑池 · 千人石",
+     "往西段走人少 · 夜里坐一次船",
+     "松鼠鳜鱼 · 响油鳝糊 · 头汤面"
+    ],
+    "verified": false
+   },
+   "experiences": [
+    {
+     "t": "20:00",
+     "name": "平江路听评弹",
+     "detail": "河对岸有评弹馆",
+     "poi": "平江路 评弹",
+     "src": "携程点评 2026-07"
+    }
+   ],
+   "notes": []
+  },
+  {
+   "n": 3,
+   "title": "苏州博物馆 · 观前街收官",
+   "sub": "看展与老街 · 下午离开 · 轻",
+   "place": "平江路·观前",
+   "lat": 31.3149294,
+   "lng": 120.6296912,
+   "facts": {
+    "depart": "09:00",
+    "drive": "0 h",
+    "altitude_m": 7,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      9,
+      1
+     ],
+     "2": [
+      11,
+      2
+     ],
+     "3": [
+      16,
+      7
+     ],
+     "4": [
+      22,
+      12
+     ],
+     "5": [
+      26,
+      17
+     ],
+     "6": [
+      28,
+      22
+     ],
+     "7": [
+      32,
+      26
+     ],
+     "8": [
+      33,
+      26
+     ],
+     "9": [
+      28,
+      22
+     ],
+     "10": [
+      23,
+      16
+     ],
+     "11": [
+      18,
+      10
+     ],
+     "12": [
+      11,
+      3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "苏州博物馆 · 贝聿铭设计",
+     "mode": "transit",
+     "min": 15,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:15",
+     "type": "see",
+     "name": "苏州博物馆 · 贝聿铭设计",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "11:15",
+     "type": "dep",
+     "to": "观前街 · 玄妙观",
+     "mode": "walk",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "11:30",
+     "type": "see",
+     "name": "观前街 · 玄妙观",
+     "dur": 70,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:40",
+     "type": "dep",
+     "to": "回程",
+     "mode": "transit",
+     "min": 12,
+     "km": null
+    },
+    {
+     "t": "13:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "松鼠鳜鱼",
+     "place": "松鹤楼（观前街总店）",
+     "price": 190,
+     "poi": "松鹤楼 观前街 太监弄",
+     "src": "新浪 2026-08",
+     "priceText": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": {
+      "name": "苏州金普顿竹辉酒店",
+      "sell": "十全街，苏式园林风格，洲际旗下",
+      "price": null,
+      "src": "携程"
+     },
+     "upscale": {
+      "name": "苏州书香府邸平江府",
+      "sell": "平江路上，走到拙政园",
+      "price": null,
+      "src": "携程"
+     },
+     "budget": {
+      "name": "如家商旅酒店（拙政园平江路店）",
+      "sell": "园林式老建筑，免费停车",
+      "price": null,
+      "src": "携程"
+     }
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "白墙灰瓦的现代版园林，主庭院那面片石假山是照着米芾的画堆的。 玄妙观的三清殿是南宋的，殿前就是热闹的小吃摊。",
+    "manners": [
+     "片石假山 · 秘色瓷莲花碗 · 提前 3 天预约",
+     "采芝斋买糖 · 黄天源糕团"
+    ],
+    "verified": false
+   },
+   "experiences": [
+    {
+     "t": "20:00",
+     "name": "平江路听评弹",
+     "detail": "河对岸有评弹馆",
+     "poi": "平江路 评弹",
+     "src": "携程点评 2026-07"
+    }
+   ],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

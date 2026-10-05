@@ -1,0 +1,635 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "sy4",
+ "fam": "sy",
+ "title": "🏖 三亚 4 天 · 海岛慢走",
+ "dest": "海南 · 三亚",
+ "days_count": 4,
+ "seasons": [
+  {
+   "name": "蜈支洲订票",
+   "why": "旺季提前 3 天 · 早班船进岛人少"
+  },
+  {
+   "name": "避开水母季",
+   "why": "6-9 月大东海偶有水母 · 下水前问救生员"
+  }
+ ],
+ "transport": {
+  "mode": "transit",
+  "rent": 0,
+  "perCar": false,
+  "roadfood": 0,
+  "label": "打车 · 景区专线（每人实付）"
+ },
+ "prep": [
+  "蜈支洲岛旺季提前 3 天订票 · 订早班船",
+  "第一市场认明码标价摊位 · 加工费先问清",
+  "紫外线全年最强 · 防晒霜每两小时补一次",
+  "8-10 月台风季 · 出发前查航班与船班"
+ ],
+ "weather_note": "三亚 8 月 · 昼 28–33℃ · 紫外线全年最强 · 注意台风",
+ "days": [
+  {
+   "n": 1,
+   "title": "抵达 · 大东海落日",
+   "sub": "不赶路 · 先下海 · 极轻",
+   "place": "三亚湾·市区",
+   "lat": 18.2532648,
+   "lng": 109.4760243,
+   "facts": {
+    "depart": "12:00",
+    "drive": "0 h",
+    "altitude_m": 0,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      26,
+      19
+     ],
+     "2": [
+      26,
+      19
+     ],
+     "3": [
+      28,
+      22
+     ],
+     "4": [
+      30,
+      24
+     ],
+     "5": [
+      31,
+      26
+     ],
+     "6": [
+      31,
+      27
+     ],
+     "7": [
+      31,
+      26
+     ],
+     "8": [
+      31,
+      26
+     ],
+     "9": [
+      30,
+      25
+     ],
+     "10": [
+      29,
+      24
+     ],
+     "11": [
+      28,
+      22
+     ],
+     "12": [
+      26,
+      19
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "11:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "12:00",
+     "type": "dep",
+     "to": "放行李 · 换泳衣",
+     "mode": "transit",
+     "min": 40,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "12:40",
+     "type": "see",
+     "name": "放行李 · 换泳衣",
+     "dur": 40,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "13:20",
+     "type": "see",
+     "name": "大东海 · 落日",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "15:20",
+     "type": "see",
+     "name": "第一市场 · 海鲜加工",
+     "dur": 100,
+     "cost": 150,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "17:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 10,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "三亚湾 · 海景房",
+     "name": "三亚湾 · 海景房",
+     "engine_price": 460
+    }
+   ],
+   "stay": {
+    "city": "三亚湾 · 海景房",
+    "engine": [
+     {
+      "city": "三亚湾 · 海景房",
+      "price": 460,
+      "why": "市区吃饭方便 · 落日就在窗外"
+     },
+     {
+      "city": "市区 · 商圈",
+      "price": 300,
+      "why": "省 ¥80/人 · 第一市场走得到"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "海就在门口，行李一扔先去泡半小时。 沙子偏粗但胜在方便，太阳落进海里那十分钟整片沙滩都安静下来。 市场里挑好虾蟹，隔壁排档按斤收加工费，比酒店便宜一半。",
+    "manners": [
+     "防晒霜先涂 · 三亚紫外线全年最强",
+     "日落前 40 分到 · 沙滩免费",
+     "和乐蟹 · 芒果螺 · 加工费问清楚"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "蜈支洲岛",
+   "sub": "跨海船 · 浮潜看珊瑚 · 中",
+   "place": "亚龙湾",
+   "lat": 18.2243578,
+   "lng": 109.6241652,
+   "facts": {
+    "depart": "07:30",
+    "drive": "0 h",
+    "altitude_m": 10,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      24,
+      19
+     ],
+     "2": [
+      25,
+      19
+     ],
+     "3": [
+      27,
+      22
+     ],
+     "4": [
+      29,
+      24
+     ],
+     "5": [
+      30,
+      26
+     ],
+     "6": [
+      31,
+      27
+     ],
+     "7": [
+      30,
+      27
+     ],
+     "8": [
+      30,
+      27
+     ],
+     "9": [
+      30,
+      26
+     ],
+     "10": [
+      29,
+      24
+     ],
+     "11": [
+      28,
+      22
+     ],
+     "12": [
+      25,
+      20
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:30",
+     "type": "dep",
+     "to": "蜈支洲岛",
+     "mode": "transit",
+     "min": 50,
+     "km": null,
+     "via": "早班船 8:00 起 · 提前网上订票"
+    },
+    {
+     "t": "08:20",
+     "type": "see",
+     "name": "蜈支洲岛",
+     "dur": 300,
+     "cost": 214,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:20",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 40,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "亚龙湾 · 沙滩边",
+     "name": "亚龙湾 · 沙滩边",
+     "engine_price": 680
+    }
+   ],
+   "stay": {
+    "city": "亚龙湾 · 沙滩边",
+    "engine": [
+     {
+      "city": "亚龙湾 · 沙滩边",
+      "price": 680,
+      "why": "推门就是白沙滩 · 明早不用赶路"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "水下十几米还能看清珊瑚，环岛观光车绕一圈能停五六个观景台。",
+    "manners": [
+     "早班船进岛 · 情人桥 · 观日岩"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "早班船 8:00 起 · 提前网上订票"
+   ]
+  },
+  {
+   "n": 3,
+   "title": "亚龙湾 · 天涯海角",
+   "sub": "白沙滩泡半天 · 轻",
+   "place": "亚龙湾",
+   "lat": 18.2243578,
+   "lng": 109.6241652,
+   "facts": {
+    "depart": "09:00",
+    "drive": "0 h",
+    "altitude_m": 10,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      24,
+      19
+     ],
+     "2": [
+      25,
+      19
+     ],
+     "3": [
+      27,
+      22
+     ],
+     "4": [
+      29,
+      24
+     ],
+     "5": [
+      30,
+      26
+     ],
+     "6": [
+      31,
+      27
+     ],
+     "7": [
+      30,
+      27
+     ],
+     "8": [
+      30,
+      27
+     ],
+     "9": [
+      30,
+      26
+     ],
+     "10": [
+      29,
+      24
+     ],
+     "11": [
+      28,
+      22
+     ],
+     "12": [
+      25,
+      20
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "亚龙湾 · 白沙滩",
+     "mode": "walk",
+     "min": 8,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:08",
+     "type": "see",
+     "name": "亚龙湾 · 白沙滩",
+     "dur": 180,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:08",
+     "type": "dep",
+     "to": "天涯海角",
+     "mode": "transit",
+     "min": 50,
+     "km": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "12:58",
+     "type": "see",
+     "name": "天涯海角",
+     "dur": 100,
+     "cost": 81,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:38",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 55,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "亚龙湾 · 连住",
+     "name": "亚龙湾 · 连住",
+     "engine_price": 680
+    }
+   ],
+   "stay": {
+    "city": "亚龙湾 · 连住",
+    "engine": [
+     {
+      "city": "亚龙湾 · 连住",
+      "price": 680,
+      "why": "不挪窝 · 行李不动"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "沙子白得晃眼，走上去像踩在面粉里，海水一层层从透明到深蓝。 两块大石头立在海边刻着字，说实话是拍照打卡多过看景。",
+    "manners": [
+     "上午光线最好 · 沙滩公共段免费",
+     "天涯石 · 海角石 · 傍晚人少"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 4,
+   "title": "南山寺 · 返程",
+   "sub": "海上观音 · 中午离开 · 轻",
+   "place": "三亚湾·市区",
+   "lat": 18.2532648,
+   "lng": 109.4760243,
+   "facts": {
+    "depart": "08:30",
+    "drive": "0 h",
+    "altitude_m": 0,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      26,
+      19
+     ],
+     "2": [
+      26,
+      19
+     ],
+     "3": [
+      28,
+      22
+     ],
+     "4": [
+      30,
+      24
+     ],
+     "5": [
+      31,
+      26
+     ],
+     "6": [
+      31,
+      27
+     ],
+     "7": [
+      31,
+      26
+     ],
+     "8": [
+      31,
+      26
+     ],
+     "9": [
+      30,
+      25
+     ],
+     "10": [
+      29,
+      24
+     ],
+     "11": [
+      28,
+      22
+     ],
+     "12": [
+      26,
+      19
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "南山寺 · 海上观音",
+     "mode": "transit",
+     "min": 60,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:30",
+     "type": "see",
+     "name": "南山寺 · 海上观音",
+     "dur": 180,
+     "cost": 129,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "dep",
+     "to": "回程",
+     "mode": "transit",
+     "min": 50,
+     "km": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "观音像从海里立起来一百多米高，走到底座下面才知道有多大。",
+    "manners": [
+     "海上观音 · 三十三观音堂 · 园区有电瓶车"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "todo",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

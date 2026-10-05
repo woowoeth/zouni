@@ -1,0 +1,488 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "ts3",
+ "fam": "ts",
+ "title": "⛰ 泰山曲阜 3 天 · 登顶与三孔",
+ "dest": "山东 · 泰安曲阜",
+ "days_count": 3,
+ "seasons": [
+  {
+   "name": "日观峰日出",
+   "why": "日出前 40 分到位 · 山顶 10℃ 以下"
+  },
+  {
+   "name": "泰山云海",
+   "why": "雨后初晴概率最高 · 看天吃饭"
+  }
+ ],
+ "transport": {
+  "mode": "transit",
+  "rent": 0,
+  "perCar": false,
+  "roadfood": 0,
+  "label": "高铁 · 公交 · 索道（每人实付）"
+ },
+ "prep": [
+  "山顶日出时 10℃ 以下 · 可租军大衣¥30",
+  "山顶宾馆旺季需提前 1 周订 · 房少价高",
+  "7000 级台阶 · 护膝与好走的鞋",
+  "曲阜三孔联票¥140 · 孔林需另坐观光车"
+ ],
+ "weather_note": "泰山 8 月 · 山下 26–33℃ · 山顶 15–22℃ · 日出时 10℃ 以下",
+ "days": [
+  {
+   "n": 1,
+   "title": "泰山 · 红门登顶",
+   "sub": "七千级台阶 · 重",
+   "place": "泰安·泰山",
+   "lat": 36.2,
+   "lng": 117.09,
+   "facts": {
+    "depart": "07:00",
+    "drive": "0 h",
+    "altitude_m": 171,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      4,
+      -4
+     ],
+     "2": [
+      8,
+      -2
+     ],
+     "3": [
+      15,
+      3
+     ],
+     "4": [
+      21,
+      9
+     ],
+     "5": [
+      26,
+      14
+     ],
+     "6": [
+      31,
+      20
+     ],
+     "7": [
+      30,
+      23
+     ],
+     "8": [
+      30,
+      22
+     ],
+     "9": [
+      26,
+      17
+     ],
+     "10": [
+      19,
+      10
+     ],
+     "11": [
+      13,
+      3
+     ],
+     "12": [
+      5,
+      -3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:00",
+     "type": "dep",
+     "to": "红门 · 中天门",
+     "mode": "transit",
+     "min": 20,
+     "km": null,
+     "via": "红门是传统登山道起点 · 全程约 6 小时"
+    },
+    {
+     "t": "07:20",
+     "type": "see",
+     "name": "红门 · 中天门",
+     "dur": 210,
+     "cost": 115,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "10:50",
+     "type": "see",
+     "name": "十八盘 · 南天门",
+     "dur": 150,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:20",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 20,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "泰山山顶 · 神憩宾馆",
+     "name": "泰山山顶 · 神憩宾馆",
+     "engine_price": 680
+    }
+   ],
+   "stay": {
+    "city": "泰山山顶 · 神憩宾馆",
+    "engine": [
+     {
+      "city": "泰山山顶 · 神憩宾馆",
+      "price": 680,
+      "why": "不用摸黑爬夜山 · 明早直接看日出"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "一路都是石刻，从红门到中天门这段还算缓，真正的硬仗在后面。 最后那段陡到要手脚并用，抬头就是南天门那道石门框着天。",
+    "manners": [
+     "红门起步 · 中天门可坐索道跳过",
+     "慢慢来 · 不赶时间"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "红门是传统登山道起点 · 全程约 6 小时"
+   ]
+  },
+  {
+   "n": 2,
+   "title": "日观峰日出 · 下山",
+   "sub": "四点起床 · 中",
+   "place": "泰安·泰山",
+   "lat": 36.2,
+   "lng": 117.09,
+   "facts": {
+    "depart": "04:00",
+    "drive": "0 h",
+    "altitude_m": 171,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      4,
+      -4
+     ],
+     "2": [
+      8,
+      -2
+     ],
+     "3": [
+      15,
+      3
+     ],
+     "4": [
+      21,
+      9
+     ],
+     "5": [
+      26,
+      14
+     ],
+     "6": [
+      31,
+      20
+     ],
+     "7": [
+      30,
+      23
+     ],
+     "8": [
+      30,
+      22
+     ],
+     "9": [
+      26,
+      17
+     ],
+     "10": [
+      19,
+      10
+     ],
+     "11": [
+      13,
+      3
+     ],
+     "12": [
+      5,
+      -3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "04:00",
+     "type": "dep",
+     "to": "日观峰日出",
+     "mode": "walk",
+     "min": 25,
+     "km": null,
+     "via": "日出前 40 分到位 · 山顶风大"
+    },
+    {
+     "t": "04:25",
+     "type": "see",
+     "name": "日观峰日出",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "06:25",
+     "type": "see",
+     "name": "岱庙",
+     "dur": 100,
+     "cost": 30,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "08:05",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 90,
+     "km": null
+    },
+    {
+     "t": "11:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "泰安 · 岱庙旁",
+     "name": "泰安 · 岱庙旁",
+     "engine_price": 320
+    }
+   ],
+   "stay": {
+    "city": "泰安 · 岱庙旁",
+    "engine": [
+     {
+      "city": "泰安 · 岱庙旁",
+      "price": 320,
+      "why": "高铁站近 · 明早去曲阜方便"
+     },
+     {
+      "city": "泰安 · 火车站旁",
+      "price": 240,
+      "why": "省 ¥40/人"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "云海在脚下，太阳从海那边爬出来，四周全是裹着军大衣等日出的人。 和故宫太和殿同规格的天贶殿，宋代壁画画的就是封禅仪仗。",
+    "manners": [
+     "日出前 40 分到 · 山顶租军大衣¥30",
+     "天贶殿宋代壁画 · 汉柏"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "日出前 40 分到位 · 山顶风大"
+   ]
+  },
+  {
+   "n": 3,
+   "title": "曲阜三孔 · 返程",
+   "sub": "孔庙孔府孔林 · 下午离开 · 轻",
+   "place": "泰安·泰山",
+   "lat": 36.2,
+   "lng": 117.09,
+   "facts": {
+    "depart": "08:30",
+    "drive": "0 h",
+    "altitude_m": 171,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      4,
+      -4
+     ],
+     "2": [
+      8,
+      -2
+     ],
+     "3": [
+      15,
+      3
+     ],
+     "4": [
+      21,
+      9
+     ],
+     "5": [
+      26,
+      14
+     ],
+     "6": [
+      31,
+      20
+     ],
+     "7": [
+      30,
+      23
+     ],
+     "8": [
+      30,
+      22
+     ],
+     "9": [
+      26,
+      17
+     ],
+     "10": [
+      19,
+      10
+     ],
+     "11": [
+      13,
+      3
+     ],
+     "12": [
+      5,
+      -3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "孔庙 · 大成殿",
+     "mode": "transit",
+     "min": 45,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:15",
+     "type": "see",
+     "name": "孔庙 · 大成殿",
+     "dur": 150,
+     "cost": 140,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:45",
+     "type": "see",
+     "name": "孔林 · 孔子墓",
+     "dur": 110,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:35",
+     "type": "dep",
+     "to": "回程",
+     "mode": "transit",
+     "min": 25,
+     "km": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "大成殿前那十根蟠龙石柱是明代雕的，据说皇帝来时要用红绸盖住。 世界上延续时间最长的家族墓地，十万座坟散在两万棵古树之间。",
+    "manners": [
+     "大成殿蟠龙柱 · 杏坛 · 三孔联票",
+     "孔子墓 · 子贡手植楷"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "todo",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

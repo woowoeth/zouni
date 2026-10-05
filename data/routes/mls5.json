@@ -1,0 +1,852 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "mls5",
+ "fam": "mls",
+ "title": "🗻 梅里雪山·雨崩 5 天 · 轻装进出",
+ "dest": "云南 · 梅里雪山",
+ "days_count": 5,
+ "seasons": [
+  {
+   "name": "日照金山",
+   "why": "秋冬清晨概率最高 · 飞来寺守候"
+  },
+  {
+   "name": "冰湖徒步",
+   "why": "往返一整天 · 6 天版才排得下"
+  }
+ ],
+ "transport": {
+  "mode": "drive",
+  "rent": 3000,
+  "perCar": true,
+  "roadfood": 380,
+  "label": "租车 · 油费 · 路桥"
+ },
+ "prep": [
+  "雨崩门票实名 · 旺季提前 3 天线上购（含生态车）",
+  "两天徒步 26 km · 出发前两周开始爬楼训练",
+  "垭口 3,700 m · 高反药备好 · 头痛就骑骡子",
+  "飞来寺金山景观房旺季紧俏 · 提前订",
+  "雨衣+登山杖+防水鞋 · 雨季必备三件",
+  "香格里拉满箱 · 飞来寺油贵且少"
+ ],
+ "weather_note": "梅里 8 月 · 昼 12–20°C 夜 4–8°C · 雨季云多 · 金山看运气",
+ "days": [
+  {
+   "n": 1,
+   "title": "丽江 → 香格里拉",
+   "sub": "180 km · 约 3.5 h · 轻",
+   "place": "香格里拉",
+   "lat": 27.8140311,
+   "lng": 99.6888689,
+   "facts": {
+    "depart": "10:15",
+    "drive": "3.5 h",
+    "altitude_m": 3274,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      4,
+      -8
+     ],
+     "2": [
+      5,
+      -6
+     ],
+     "3": [
+      8,
+      -3
+     ],
+     "4": [
+      12,
+      1
+     ],
+     "5": [
+      15,
+      5
+     ],
+     "6": [
+      18,
+      9
+     ],
+     "7": [
+      18,
+      10
+     ],
+     "8": [
+      19,
+      10
+     ],
+     "9": [
+      17,
+      9
+     ],
+     "10": [
+      14,
+      4
+     ],
+     "11": [
+      10,
+      -2
+     ],
+     "12": [
+      7,
+      -5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "see",
+     "name": "丽江提车 · 验车",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "10:15",
+     "type": "dep",
+     "to": "独克宗古城 · 转经筒",
+     "mode": "drive",
+     "min": 210,
+     "km": 180
+    },
+    {
+     "t": "12:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "13:45",
+     "type": "see",
+     "name": "独克宗古城 · 转经筒",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "15:45",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 8,
+     "km": null
+    },
+    {
+     "t": "18:10",
+     "type": "dep",
+     "to": "顺顺小吃（独克宗古城店）",
+     "mode": "drive",
+     "min": 20
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "牦牛火锅、松茸鸡、青稞饼",
+     "place": "顺顺小吃（独克宗古城店）",
+     "price": 80,
+     "poi": "顺顺小吃 独克宗古城店",
+     "src": "携程美食林",
+     "priceText": null
+    },
+    {
+     "t": "20:10",
+     "type": "dep",
+     "to": "四方街跳锅庄",
+     "mode": "drive",
+     "min": 20
+    },
+    {
+     "t": "20:30",
+     "type": "fun",
+     "name": "四方街跳锅庄",
+     "detail": "每晚本地人围圈跳，游客可以一起",
+     "poi": "独克宗古城四方街",
+     "src": "新浪旅游 2026-06"
+    },
+    {
+     "t": "22:10",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 20
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "香格里拉 · 独克宗",
+     "name": "迪庆月光城英迪格酒店",
+     "engine_price": 320
+    }
+   ],
+   "stay": {
+    "city": "香格里拉 · 独克宗",
+    "engine": [
+     {
+      "city": "香格里拉 · 独克宗",
+      "price": 320,
+      "why": "古城里 · 转经筒步行 5 分"
+     }
+    ],
+    "tiers": {
+     "luxury": {
+      "name": "迪庆月光城英迪格酒店",
+      "sell": "落地窗俯瞰独克宗古城",
+      "price": null,
+      "src": "携程"
+     },
+     "upscale": {
+      "name": "叁季·柳庐度假民宿（独克宗古城店）",
+      "sell": "住在古城里",
+      "price": null,
+      "src": "携程"
+     },
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "滇藏线第一段，SUV 稳一点。 世界最大转经筒要五六个人才推得动，黄昏的古城安静下来。",
+    "manners": [
+     "绕车拍视频 · 查备胎防冻液",
+     "龟山公园大转经筒推三圈 · 四方街喝碗酥油茶"
+    ],
+    "verified": false
+   },
+   "experiences": [
+    {
+     "t": "20:30",
+     "name": "四方街跳锅庄",
+     "detail": "每晚本地人围圈跳，游客可以一起",
+     "poi": "独克宗古城四方街",
+     "src": "新浪旅游 2026-06"
+    }
+   ],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "香格里拉 → 飞来寺",
+   "sub": "190 km · 约 4 h · 中",
+   "place": "飞来寺",
+   "lat": 28.4463021,
+   "lng": 98.8802566,
+   "facts": {
+    "depart": "09:00",
+    "drive": "4 h",
+    "altitude_m": 3469,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      3,
+      -7
+     ],
+     "2": [
+      3,
+      -6
+     ],
+     "3": [
+      6,
+      -3
+     ],
+     "4": [
+      9,
+      0
+     ],
+     "5": [
+      13,
+      4
+     ],
+     "6": [
+      16,
+      9
+     ],
+     "7": [
+      17,
+      10
+     ],
+     "8": [
+      17,
+      10
+     ],
+     "9": [
+      16,
+      8
+     ],
+     "10": [
+      12,
+      4
+     ],
+     "11": [
+      8,
+      -2
+     ],
+     "12": [
+      6,
+      -4
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "金沙江大湾",
+     "mode": "drive",
+     "min": 240,
+     "km": 190,
+     "via": "沿途 · 金沙江大湾观景台 · 白马雪山垭口 4,292 m"
+    },
+    {
+     "t": "11:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "13:00",
+     "type": "see",
+     "name": "金沙江大湾",
+     "dur": 45,
+     "cost": 20,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "13:45",
+     "type": "dep",
+     "to": "飞来寺 · 梅里十三峰全景",
+     "mode": "drive",
+     "min": 150,
+     "km": 110
+    },
+    {
+     "t": "16:15",
+     "type": "see",
+     "name": "飞来寺 · 梅里十三峰全景",
+     "dur": 255,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "20:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 3,
+     "km": null
+    },
+    {
+     "t": "20:45",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "飞来寺 · 金山景观房",
+     "name": "飞来寺 · 金山景观房",
+     "engine_price": 460
+    }
+   ],
+   "stay": {
+    "city": "飞来寺 · 金山景观房",
+    "engine": [
+     {
+      "city": "飞来寺 · 金山景观房",
+      "price": 460,
+      "why": "躺床上等日照金山"
+     },
+     {
+      "city": "飞来寺 · 普通标间",
+      "price": 320,
+      "why": "省 ¥70/人 · 走 3 分到观景台"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "江水在这里拐了一个 180 度的弯，把山抱在怀里。 十三座雪峰一字排开，卡瓦格博至今无人登顶。",
+    "manners": [
+     "观景台最高层 · 全湾收进来",
+     "日落后雪山剪影 · 明早在这里等日照金山"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 金沙江大湾观景台 · 白马雪山垭口 4,292 m"
+   ]
+  },
+  {
+   "n": 3,
+   "title": "日照金山 · 徒步进雨崩",
+   "sub": "12 km 上坡徒步 · 重",
+   "place": "雨崩",
+   "lat": 28.3926095,
+   "lng": 98.7927169,
+   "facts": {
+    "depart": "08:30",
+    "drive": "1 h",
+    "altitude_m": 3074,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      4,
+      -6
+     ],
+     "2": [
+      5,
+      -4
+     ],
+     "3": [
+      8,
+      -1
+     ],
+     "4": [
+      11,
+      3
+     ],
+     "5": [
+      16,
+      7
+     ],
+     "6": [
+      19,
+      12
+     ],
+     "7": [
+      20,
+      13
+     ],
+     "8": [
+      20,
+      13
+     ],
+     "9": [
+      19,
+      11
+     ],
+     "10": [
+      16,
+      7
+     ],
+     "11": [
+      11,
+      1
+     ],
+     "12": [
+      8,
+      -2
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:00",
+     "type": "see",
+     "name": "日照金山 · 飞来寺",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "徒步进雨崩 · 南宗垭口",
+     "mode": "drive",
+     "min": 60,
+     "km": 30
+    },
+    {
+     "t": "09:30",
+     "type": "see",
+     "name": "徒步进雨崩 · 南宗垭口",
+     "dur": 360,
+     "cost": 230,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "15:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 10,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "雨崩上村 · 客栈",
+     "name": "雨崩上村 · 客栈",
+     "engine_price": 280
+    }
+   ],
+   "stay": {
+    "city": "雨崩上村 · 客栈",
+    "engine": [
+     {
+      "city": "雨崩上村 · 客栈",
+      "price": 280,
+      "why": "进村先到 · 明早往冰湖近"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "太阳先点亮卡瓦格博的顶，然后金色一路淌下来。 翻过 3,700 m 的南宗垭口，雪山脚下的村子就到了。",
+    "manners": [
+     "日出前 30 分钟站好机位 · 雨季看到靠运气",
+     "门票含生态车 · 骑骡子可省一半体力（另 ¥300）"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 4,
+   "title": "徒步出山 → 香格里拉",
+   "sub": "尼农线 9 km + 车 4 h · 重",
+   "place": "香格里拉",
+   "lat": 27.8140311,
+   "lng": 99.6888689,
+   "facts": {
+    "depart": "12:00",
+    "drive": "4 h",
+    "altitude_m": 3274,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      4,
+      -8
+     ],
+     "2": [
+      5,
+      -6
+     ],
+     "3": [
+      8,
+      -3
+     ],
+     "4": [
+      12,
+      1
+     ],
+     "5": [
+      15,
+      5
+     ],
+     "6": [
+      18,
+      9
+     ],
+     "7": [
+      18,
+      10
+     ],
+     "8": [
+      19,
+      10
+     ],
+     "9": [
+      17,
+      9
+     ],
+     "10": [
+      14,
+      4
+     ],
+     "11": [
+      10,
+      -2
+     ],
+     "12": [
+      7,
+      -5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:00",
+     "type": "see",
+     "name": "尼农大峡谷 · 徒步出山",
+     "dur": 240,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 8,
+     "km": null
+    },
+    {
+     "t": "12:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "牦牛肉汤锅",
+     "place": "圣宴特色牦牛肉汤锅",
+     "price": 45,
+     "poi": "圣宴特色牦牛肉汤锅",
+     "src": "携程美食林",
+     "priceText": null
+    },
+    {
+     "t": "18:10",
+     "type": "dep",
+     "to": "宏宏无烟石板烧烤",
+     "mode": "drive",
+     "min": 20
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "石板烤藏香猪",
+     "place": "宏宏无烟石板烧烤",
+     "price": 73,
+     "poi": "宏宏无烟石板烧烤",
+     "src": "携程美食林",
+     "priceText": null
+    },
+    {
+     "t": "19:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 20
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "香格里拉 · 独克宗",
+     "name": "迪庆月光城英迪格酒店",
+     "engine_price": 320
+    }
+   ],
+   "stay": {
+    "city": "香格里拉 · 独克宗",
+    "engine": [
+     {
+      "city": "香格里拉 · 独克宗",
+      "price": 320,
+      "why": "出山落脚 · 好好洗个澡"
+     }
+    ],
+    "tiers": {
+     "luxury": {
+      "name": "迪庆月光城英迪格酒店",
+      "sell": "落地窗俯瞰独克宗古城",
+      "price": null,
+      "src": "携程"
+     },
+     "upscale": {
+      "name": "叁季·柳庐度假民宿（独克宗古城店）",
+      "sell": "住在古城里",
+      "price": null,
+      "src": "携程"
+     },
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "沿着水渠走出峡谷，澜沧江在脚下越来越近。",
+    "manners": [
+     "靠山侧行走 · 峡谷段不要停留拍照"
+    ],
+    "verified": false
+   },
+   "experiences": [
+    {
+     "t": "20:30",
+     "name": "四方街跳锅庄",
+     "detail": "每晚本地人围圈跳，游客可以一起",
+     "poi": "独克宗古城四方街",
+     "src": "新浪旅游 2026-06"
+    }
+   ],
+   "notes": []
+  },
+  {
+   "n": 5,
+   "title": "香格里拉 → 丽江还车",
+   "sub": "180 km · 约 3.5 h · 轻",
+   "place": "丽江",
+   "lat": 26.87,
+   "lng": 100.23,
+   "facts": {
+    "depart": "09:00",
+    "drive": "3.5 h",
+    "altitude_m": 2399,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      13,
+      -1
+     ],
+     "2": [
+      15,
+      0
+     ],
+     "3": [
+      18,
+      3
+     ],
+     "4": [
+      21,
+      7
+     ],
+     "5": [
+      23,
+      10
+     ],
+     "6": [
+      24,
+      13
+     ],
+     "7": [
+      23,
+      14
+     ],
+     "8": [
+      22,
+      14
+     ],
+     "9": [
+      21,
+      13
+     ],
+     "10": [
+      19,
+      10
+     ],
+     "11": [
+      17,
+      4
+     ],
+     "12": [
+      15,
+      0
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "还车 · 丽江",
+     "mode": "drive",
+     "min": 210,
+     "km": 180,
+     "via": "沿途 · 虎跳峡镇可停 · 拉市海随停"
+    },
+    {
+     "t": "10:45",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "12:30",
+     "type": "see",
+     "name": "还车 · 丽江",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "六天，雪山住进身体里了。",
+    "manners": [
+     "满油 · 对公里数 · 拍视频"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 虎跳峡镇可停 · 拉市海随停"
+   ]
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

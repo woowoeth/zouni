@@ -1,0 +1,658 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "cx4",
+ "fam": "cx",
+ "title": "🚗 川西小环线 4 天 · 快速版",
+ "dest": "川西 · 小环线",
+ "days_count": 4,
+ "seasons": [
+  {
+   "name": "双桥沟观光车",
+   "why": "旺季 9 点前进沟人最少"
+  },
+  {
+   "name": "子梅垭口看贡嘎",
+   "why": "需硬派越野 · 本次不排"
+  }
+ ],
+ "transport": {
+  "mode": "drive",
+  "rent": 1600,
+  "perCar": true,
+  "roadfood": 180,
+  "label": "租车 · 油费 · 路桥"
+ },
+ "prep": [
+  "垭口不跑跳 · 氧气罐每人一瓶 · 头痛即下撤",
+  "确认石子 / 玻璃单独险",
+  "巴朗山隧道货车多 · 保持车距开雾灯",
+  "D3 住 新都桥 · 观景房 · 已订",
+  "现金少量 · 寨子里扫码偶尔没信号"
+ ],
+ "weather_note": "川西 8 月 · 昼 12–24°C · 午后常阵雨 · 海拔 2,700–4,298 m",
+ "days": [
+  {
+   "n": 1,
+   "title": "成都 → 日隆",
+   "sub": "232 km 翻巴朗山 · 中",
+   "place": "日隆",
+   "lat": 30.9955986,
+   "lng": 102.8308521,
+   "facts": {
+    "depart": "10:15",
+    "drive": "4.3 h",
+    "altitude_m": 3171,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      2,
+      -9
+     ],
+     "2": [
+      3,
+      -9
+     ],
+     "3": [
+      6,
+      -5
+     ],
+     "4": [
+      10,
+      0
+     ],
+     "5": [
+      13,
+      3
+     ],
+     "6": [
+      17,
+      8
+     ],
+     "7": [
+      18,
+      10
+     ],
+     "8": [
+      18,
+      10
+     ],
+     "9": [
+      16,
+      8
+     ],
+     "10": [
+      12,
+      3
+     ],
+     "11": [
+      7,
+      -2
+     ],
+     "12": [
+      5,
+      -6
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "see",
+     "name": "成都提车 · 验车",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "10:15",
+     "type": "dep",
+     "to": "猫鼻梁 · 四姑娘全景",
+     "mode": "drive",
+     "min": 250,
+     "km": 230
+    },
+    {
+     "t": "12:15",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "14:25",
+     "type": "see",
+     "name": "猫鼻梁 · 四姑娘全景",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "15:10",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 5,
+     "km": 2
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "日隆镇",
+     "name": "日隆镇",
+     "engine_price": 380
+    }
+   ],
+   "stay": {
+    "city": "日隆镇",
+    "engine": [
+     {
+      "city": "日隆镇",
+      "price": 380,
+      "why": "猫鼻梁 10 分钟 · 明早进沟顺"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "上高原前，先把车况摸清。 四座雪峰第一次整队亮相。",
+    "manners": [
+     "绕车拍视频 · 查防冻液 · 记油位",
+     "黄昏侧光下的幺妹峰"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "双桥沟",
+   "sub": "沟内观光车 · 轻",
+   "place": "日隆",
+   "lat": 30.9955986,
+   "lng": 102.8308521,
+   "facts": {
+    "depart": "09:30",
+    "drive": "0.5 h",
+    "altitude_m": 3171,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      2,
+      -9
+     ],
+     "2": [
+      3,
+      -9
+     ],
+     "3": [
+      6,
+      -5
+     ],
+     "4": [
+      10,
+      0
+     ],
+     "5": [
+      13,
+      3
+     ],
+     "6": [
+      17,
+      8
+     ],
+     "7": [
+      18,
+      10
+     ],
+     "8": [
+      18,
+      10
+     ],
+     "9": [
+      16,
+      8
+     ],
+     "10": [
+      12,
+      3
+     ],
+     "11": [
+      7,
+      -2
+     ],
+     "12": [
+      5,
+      -6
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "双桥沟 · 观光车全线",
+     "mode": "drive",
+     "min": 15,
+     "km": 8,
+     "via": null
+    },
+    {
+     "t": "10:00",
+     "type": "see",
+     "name": "双桥沟 · 观光车全线",
+     "dur": 300,
+     "cost": 150,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "15:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 15,
+     "km": 8
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "日隆镇 · 连住",
+     "name": "日隆镇 · 连住",
+     "engine_price": 380
+    }
+   ],
+   "stay": {
+    "city": "日隆镇 · 连住",
+    "engine": [
+     {
+      "city": "日隆镇 · 连住",
+      "price": 380,
+      "why": "不挪窝 · 行李不动"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "车到红杉林，雪山贴着车窗走。",
+    "manners": [
+     "四姑娘山观景平台 · 撵鱼坝栈道走一段"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 3,
+   "title": "丹巴",
+   "sub": "198 km · 丹巴→八美→新都桥 · 4 h · 中",
+   "place": "新都桥",
+   "lat": 30.046713,
+   "lng": 101.4918038,
+   "facts": {
+    "depart": "10:00",
+    "drive": "2.8 h",
+    "altitude_m": 3469,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      5,
+      -8
+     ],
+     "2": [
+      5,
+      -7
+     ],
+     "3": [
+      8,
+      -4
+     ],
+     "4": [
+      11,
+      -1
+     ],
+     "5": [
+      15,
+      3
+     ],
+     "6": [
+      18,
+      7
+     ],
+     "7": [
+      19,
+      9
+     ],
+     "8": [
+      19,
+      9
+     ],
+     "9": [
+      17,
+      7
+     ],
+     "10": [
+      14,
+      3
+     ],
+     "11": [
+      9,
+      -2
+     ],
+     "12": [
+      7,
+      -5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "10:00",
+     "type": "dep",
+     "to": "甲居藏寨",
+     "mode": "drive",
+     "min": 150,
+     "km": 110,
+     "via": "沿途 · 小金河谷 · 落石段勿停车"
+    },
+    {
+     "t": "11:15",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "12:30",
+     "type": "see",
+     "name": "甲居藏寨",
+     "dur": 120,
+     "cost": 50,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 120,
+     "km": 88
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "新都桥 · 观景房",
+     "name": "新都桥 · 观景房",
+     "engine_price": 420
+    }
+   ],
+   "stay": {
+    "city": "新都桥 · 观景房",
+    "engine": [
+     {
+      "city": "新都桥 · 观景房",
+      "price": 420,
+      "why": "窗外就是光影长廊"
+     },
+     {
+      "city": "新都桥 · 普通房",
+      "price": 320,
+      "why": "省 ¥50/人 · 步行 8 分到机位"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "白色藏房撒在整面山坡，留 2 小时走清楚。",
+    "manners": [
+     "2 号观景台 · 进寨喝碗酥油茶"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 小金河谷 · 落石段勿停车"
+   ]
+  },
+  {
+   "n": 4,
+   "title": "折多山 → 还车",
+   "sub": "392 km · 驾驶约 5.5 h · 重",
+   "place": "成都",
+   "lat": 30.66,
+   "lng": 104.06,
+   "facts": {
+    "depart": "09:00",
+    "drive": "5.5 h",
+    "altitude_m": 496,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      10,
+      3
+     ],
+     "2": [
+      13,
+      5
+     ],
+     "3": [
+      18,
+      10
+     ],
+     "4": [
+      24,
+      14
+     ],
+     "5": [
+      27,
+      18
+     ],
+     "6": [
+      30,
+      21
+     ],
+     "7": [
+      31,
+      23
+     ],
+     "8": [
+      31,
+      23
+     ],
+     "9": [
+      26,
+      20
+     ],
+     "10": [
+      21,
+      15
+     ],
+     "11": [
+      16,
+      10
+     ],
+     "12": [
+      11,
+      4
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "折多山垭口",
+     "mode": "drive",
+     "min": 50,
+     "km": 35,
+     "via": "沿途 · 垭口 4,298 m 慢行防高反"
+    },
+    {
+     "t": "09:50",
+     "type": "see",
+     "name": "折多山垭口",
+     "dur": 30,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "10:20",
+     "type": "dep",
+     "to": "还车 · 成都",
+     "mode": "drive",
+     "min": 280,
+     "km": 355
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "15:00",
+     "type": "see",
+     "name": "还车 · 成都",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": {
+      "name": "成都博舍",
+      "sell": "太古里，挨着大慈寺；有米其林餐厅和水疗",
+      "price": null,
+      "src": "spachina 访谈"
+     },
+     "upscale": {
+      "name": "成都太古里春熙美居酒店",
+      "sell": "走 10 分钟到太古里",
+      "price": "约 ¥459",
+      "src": "eastchinatrip"
+     },
+     "budget": {
+      "name": "文殊院一带的青旅",
+      "sell": "平价，周边本地小吃多",
+      "price": null,
+      "src": "wanderinchina 住宿指南"
+     }
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "翻过这座山，就从高原回到盆地。 五天小环画圆。",
+    "manners": [
+     "观景台回望贡嘎方向",
+     "满油 · 对公里数 · 验车拍视频"
+    ],
+    "verified": false
+   },
+   "experiences": [
+    {
+     "t": "15:00",
+     "name": "人民公园鹤鸣茶社喝盖碗茶",
+     "detail": "最低消费 16 元/人，傍晚 18 元；可以掏耳朵",
+     "poi": "鹤鸣茶社",
+     "src": "携程点评 2026-04"
+    },
+    {
+     "t": "20:00",
+     "name": "看川剧变脸（蜀风雅韵）",
+     "detail": "琴台路文化公园里，每晚 20:00，约 90 分钟，提前订票",
+     "poi": "蜀风雅韵",
+     "src": "旅行社票务页"
+    },
+    {
+     "t": "07:30",
+     "name": "大熊猫基地趁早去",
+     "detail": "早上 7:30–10:00 最活跃",
+     "poi": "成都大熊猫繁育研究基地",
+     "src": "引擎季节提示"
+    }
+   ],
+   "notes": [
+    "沿途 · 垭口 4,298 m 慢行防高反"
+   ]
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

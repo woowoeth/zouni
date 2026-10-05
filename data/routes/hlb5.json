@@ -1,0 +1,823 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "hlb5",
+ "fam": "hlb",
+ "title": "🌾 呼伦贝尔 5 天 · 草原到边城",
+ "dest": "内蒙古 · 呼伦贝尔",
+ "days_count": 5,
+ "seasons": [
+  {
+   "name": "草原盛季",
+   "why": "7-8 月草最绿 · 蚊虫也最多"
+  },
+  {
+   "name": "莫尔道嘎金秋",
+   "why": "9 月中下旬落叶松全金 · 本次未到季"
+  }
+ ],
+ "transport": {
+  "mode": "drive",
+  "rent": 2200,
+  "perCar": true,
+  "roadfood": 300,
+  "label": "租车 · 油费（含异地还车费）"
+ },
+ "prep": [
+  "满洲里异地还车费约 ¥400/车 · 订车时确认",
+  "骑马选正规马场 · 头盔护具缺一不可",
+  "防蚊液+长袖 · 草原蚊子认真的",
+  "额尔古纳、莫尔道嘎各加满一次 · 卡线加油站稀",
+  "早晚 10°C 上下 · 抓绒带一件"
+ ],
+ "weather_note": "呼伦贝尔 8 月 · 昼 18–26°C 夜 8–13°C · 昼夜温差大 · 午后偶阵雨",
+ "days": [
+  {
+   "n": 1,
+   "title": "海拉尔 → 额尔古纳",
+   "sub": "130 km · 草原第一天 · 轻",
+   "place": "额尔古纳",
+   "lat": 51.67179,
+   "lng": 120.781386,
+   "facts": {
+    "depart": "10:15",
+    "drive": "2.5 h",
+    "altitude_m": 849,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      -18,
+      -26
+     ],
+     "2": [
+      -13,
+      -23
+     ],
+     "3": [
+      -2,
+      -14
+     ],
+     "4": [
+      6,
+      -5
+     ],
+     "5": [
+      14,
+      3
+     ],
+     "6": [
+      21,
+      10
+     ],
+     "7": [
+      24,
+      14
+     ],
+     "8": [
+      20,
+      11
+     ],
+     "9": [
+      14,
+      5
+     ],
+     "10": [
+      4,
+      -4
+     ],
+     "11": [
+      -8,
+      -16
+     ],
+     "12": [
+      -18,
+      -25
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "see",
+     "name": "海拉尔提车 · 验车",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "10:15",
+     "type": "dep",
+     "to": "莫日格勒河 · 九曲十八弯",
+     "mode": "drive",
+     "min": 50,
+     "km": 40
+    },
+    {
+     "t": "11:05",
+     "type": "see",
+     "name": "莫日格勒河 · 九曲十八弯",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:05",
+     "type": "dep",
+     "to": "额尔古纳湿地 · 黄昏",
+     "mode": "drive",
+     "min": 100,
+     "km": 90
+    },
+    {
+     "t": "14:45",
+     "type": "see",
+     "name": "额尔古纳湿地 · 黄昏",
+     "dur": 315,
+     "cost": 65,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "20:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 5,
+     "km": null
+    },
+    {
+     "t": "20:15",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "额尔古纳市区",
+     "name": "额尔古纳市区",
+     "engine_price": 360
+    }
+   ],
+   "stay": {
+    "city": "额尔古纳市区",
+    "engine": [
+     {
+      "city": "额尔古纳市区",
+      "price": 360,
+      "why": "湿地公园 10 分钟 · 补给方便"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "草原公路笔直到天边，油要满箱。 河在草原上随手画了几十个弯，老舍说它是天下第一曲水。 根河在湿地里摊开成一面面镜子，落日一块块点亮它们。",
+    "manners": [
+     "绕车拍视频 · 备防蚊液",
+     "制高点俯瞰全弯 · 别开车碾草场",
+     "木栈道走到最高观景台"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "额尔古纳 → 室韦",
+   "sub": "160 km · 白桦林+俄乡 · 轻",
+   "place": "室韦",
+   "lat": 51.338436,
+   "lng": 119.9004692,
+   "facts": {
+    "depart": "09:30",
+    "drive": "3 h",
+    "altitude_m": 487,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      -18,
+      -31
+     ],
+     "2": [
+      -11,
+      -27
+     ],
+     "3": [
+      0,
+      -16
+     ],
+     "4": [
+      8,
+      -4
+     ],
+     "5": [
+      16,
+      2
+     ],
+     "6": [
+      23,
+      9
+     ],
+     "7": [
+      25,
+      15
+     ],
+     "8": [
+      22,
+      11
+     ],
+     "9": [
+      16,
+      5
+     ],
+     "10": [
+      6,
+      -5
+     ],
+     "11": [
+      -7,
+      -17
+     ],
+     "12": [
+      -18,
+      -29
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "白桦林景区",
+     "mode": "drive",
+     "min": 50,
+     "km": 40,
+     "via": null
+    },
+    {
+     "t": "10:20",
+     "type": "see",
+     "name": "白桦林景区",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:50",
+     "type": "dep",
+     "to": "室韦 · 中俄界河",
+     "mode": "drive",
+     "min": 130,
+     "km": 120
+    },
+    {
+     "t": "12:45",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "14:00",
+     "type": "see",
+     "name": "室韦 · 中俄界河",
+     "dur": 150,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "16:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 5,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "室韦 · 木刻楞",
+     "name": "室韦 · 木刻楞",
+     "engine_price": 380
+    }
+   ],
+   "stay": {
+    "city": "室韦 · 木刻楞",
+    "engine": [
+     {
+      "city": "室韦 · 木刻楞",
+      "price": 380,
+      "why": "俄式木屋 · 界河边"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "一整片白桦，风一吹叶子哗哗响，随手一拍都是明信片。 额尔古纳河对岸就是俄罗斯村庄，晚上住木刻楞，吃列巴蘸蓝莓酱。",
+    "manners": [
+     "栈道深处人少 · 别刻字",
+     "界河边走一段 · 木刻楞家庭旅馆的晚餐"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 3,
+   "title": "室韦 → 莫尔道嘎",
+   "sub": "110 km · 大兴安岭 · 轻",
+   "place": "莫尔道嘎",
+   "lat": 51.2657434,
+   "lng": 120.7715894,
+   "facts": {
+    "depart": "09:30",
+    "drive": "2.5 h",
+    "altitude_m": 688,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      -17,
+      -28
+     ],
+     "2": [
+      -12,
+      -25
+     ],
+     "3": [
+      -2,
+      -15
+     ],
+     "4": [
+      7,
+      -4
+     ],
+     "5": [
+      15,
+      3
+     ],
+     "6": [
+      22,
+      10
+     ],
+     "7": [
+      24,
+      15
+     ],
+     "8": [
+      21,
+      12
+     ],
+     "9": [
+      15,
+      6
+     ],
+     "10": [
+      5,
+      -4
+     ],
+     "11": [
+      -7,
+      -16
+     ],
+     "12": [
+      -17,
+      -27
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "莫尔道嘎森林公园 · 龙岩山",
+     "mode": "drive",
+     "min": 150,
+     "km": 110,
+     "via": "沿途 · 临江神仙坡日出可起早 · 老鹰嘴random停"
+    },
+    {
+     "t": "12:00",
+     "type": "see",
+     "name": "莫尔道嘎森林公园 · 龙岩山",
+     "dur": 150,
+     "cost": 80,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "14:30",
+     "type": "see",
+     "name": "莫尔道嘎镇 · 晚市",
+     "dur": 330,
+     "cost": 55,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "20:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 5,
+     "km": null
+    },
+    {
+     "t": "20:15",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "莫尔道嘎镇",
+     "name": "莫尔道嘎镇",
+     "engine_price": 300
+    }
+   ],
+   "stay": {
+    "city": "莫尔道嘎镇",
+    "engine": [
+     {
+      "city": "莫尔道嘎镇",
+      "price": 300,
+      "why": "林区小镇 · 明早进园近"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "中国最后一片寒温带原始林，落叶松一直铺到天边。 林区人实在，铁锅炖江鱼分量吓人。",
+    "manners": [
+     "龙岩山顶看林海 · 9 月中下旬变金色",
+     "铁锅炖 · 蓝莓汁"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 临江神仙坡日出可起早 · 老鹰嘴random停"
+   ]
+  },
+  {
+   "n": 4,
+   "title": "莫尔道嘎 → 黑山头",
+   "sub": "230 km · 骑马与日落 · 中",
+   "place": "黑山头",
+   "lat": 50.2136097,
+   "lng": 119.5711421,
+   "facts": {
+    "depart": "09:00",
+    "drive": "4 h",
+    "altitude_m": 535,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      -18,
+      -28
+     ],
+     "2": [
+      -11,
+      -24
+     ],
+     "3": [
+      0,
+      -13
+     ],
+     "4": [
+      10,
+      -3
+     ],
+     "5": [
+      18,
+      4
+     ],
+     "6": [
+      24,
+      11
+     ],
+     "7": [
+      27,
+      16
+     ],
+     "8": [
+      23,
+      13
+     ],
+     "9": [
+      17,
+      6
+     ],
+     "10": [
+      6,
+      -4
+     ],
+     "11": [
+      -6,
+      -14
+     ],
+     "12": [
+      -17,
+      -26
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "黑山头 · 草原骑马",
+     "mode": "drive",
+     "min": 240,
+     "km": 230,
+     "via": "沿途 · 卡线草原段随停 · 额尔古纳加满油"
+    },
+    {
+     "t": "11:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "13:00",
+     "type": "see",
+     "name": "黑山头 · 草原骑马",
+     "dur": 120,
+     "cost": 150,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "15:00",
+     "type": "see",
+     "name": "黑山头 · 日落山",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "16:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 5,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "黑山头 · 星空蒙古包",
+     "name": "黑山头 · 星空蒙古包",
+     "engine_price": 420
+    }
+   ],
+   "stay": {
+    "city": "黑山头 · 星空蒙古包",
+    "engine": [
+     {
+      "city": "黑山头 · 星空蒙古包",
+      "price": 420,
+      "why": "躺着看银河"
+     },
+     {
+      "city": "黑山头 · 标准间",
+      "price": 300,
+      "why": "省 ¥60/人 · 怕冷选这个"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "跟着马倌小跑起来，草原才真正属于你。 太阳沉进草原尽头，整片天从金烧到紫。",
+    "manners": [
+     "选正规马场 · 头盔护具都要",
+     "提前 40 分钟占机位"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 卡线草原段随停 · 额尔古纳加满油"
+   ]
+  },
+  {
+   "n": 5,
+   "title": "黑山头 → 满洲里还车",
+   "sub": "190 km · 边境收官 · 轻",
+   "place": "海拉尔",
+   "lat": 49.21,
+   "lng": 119.74,
+   "facts": {
+    "depart": "09:00",
+    "drive": "3 h",
+    "altitude_m": 614,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      -17,
+      -27
+     ],
+     "2": [
+      -11,
+      -24
+     ],
+     "3": [
+      0,
+      -13
+     ],
+     "4": [
+      10,
+      -3
+     ],
+     "5": [
+      18,
+      4
+     ],
+     "6": [
+      24,
+      12
+     ],
+     "7": [
+      27,
+      16
+     ],
+     "8": [
+      23,
+      13
+     ],
+     "9": [
+      18,
+      7
+     ],
+     "10": [
+      7,
+      -3
+     ],
+     "11": [
+      -5,
+      -14
+     ],
+     "12": [
+      -16,
+      -24
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "呼伦湖 · 金海岸",
+     "mode": "drive",
+     "min": 180,
+     "km": 190,
+     "via": "沿途 · 边防公路草原段 · 呼伦湖金海岸"
+    },
+    {
+     "t": "12:00",
+     "type": "see",
+     "name": "呼伦湖 · 金海岸",
+     "dur": 75,
+     "cost": 30,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:15",
+     "type": "dep",
+     "to": "满洲里 · 还车",
+     "mode": "drive",
+     "min": 40,
+     "km": 40
+    },
+    {
+     "t": "13:55",
+     "type": "see",
+     "name": "满洲里 · 还车",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "草原上的海，风大浪也大。 套娃广场和国门就在城边，还完车打车去转一圈。",
+    "manners": [
+     "湖边走走就好 · 别下水",
+     "异地还车费提前确认 · 满油交车"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 边防公路草原段 · 呼伦湖金海岸"
+   ]
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

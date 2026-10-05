@@ -1,0 +1,535 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "xm3",
+ "fam": "xm",
+ "title": "🏝 厦门 3 天 · 鼓浪屿与环岛路",
+ "dest": "福建 · 厦门",
+ "days_count": 3,
+ "seasons": [
+  {
+   "name": "厦大预约",
+   "why": "需提前 3 天官微预约入校"
+  },
+  {
+   "name": "台风季",
+   "why": "7-9 月轮渡可能停航 · 出发前查公告"
+  }
+ ],
+ "transport": {
+  "mode": "transit",
+  "rent": 0,
+  "perCar": false,
+  "roadfood": 0,
+  "label": "轮渡 · 公交 · 单车（每人实付）"
+ },
+ "prep": [
+  "游客须从东渡码头进岛 · 提前网上订轮渡票",
+  "厦门大学提前 3 天官微预约入校",
+  "7-9 月台风季 · 出发前查轮渡停航公告",
+  "环岛路无遮阴 · 防晒和水必备"
+ ],
+ "weather_note": "厦门 8 月 · 昼 28–34℃ · 海风大 · 需防台风",
+ "days": [
+  {
+   "n": 1,
+   "title": "鼓浪屿一整天",
+   "sub": "轮渡进岛 · 全程步行 · 中",
+   "place": "中山路·轮渡",
+   "lat": 39.161347,
+   "lng": 117.1989711,
+   "facts": {
+    "depart": "08:30",
+    "drive": "0 h",
+    "altitude_m": 5,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      2,
+      -7
+     ],
+     "2": [
+      6,
+      -4
+     ],
+     "3": [
+      15,
+      2
+     ],
+     "4": [
+      22,
+      9
+     ],
+     "5": [
+      27,
+      15
+     ],
+     "6": [
+      32,
+      21
+     ],
+     "7": [
+      32,
+      24
+     ],
+     "8": [
+      30,
+      23
+     ],
+     "9": [
+      27,
+      18
+     ],
+     "10": [
+      19,
+      9
+     ],
+     "11": [
+      11,
+      2
+     ],
+     "12": [
+      3,
+      -5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "日光岩",
+     "mode": "transit",
+     "min": 20,
+     "km": null,
+     "via": "游客须从东渡码头进岛 · 提前网上买票"
+    },
+    {
+     "t": "08:50",
+     "type": "see",
+     "name": "日光岩",
+     "dur": 90,
+     "cost": 50,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "10:20",
+     "type": "dep",
+     "to": "菽庄花园 · 钢琴博物馆",
+     "mode": "walk",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "10:35",
+     "type": "see",
+     "name": "菽庄花园 · 钢琴博物馆",
+     "dur": 80,
+     "cost": 30,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:55",
+     "type": "see",
+     "name": "龙头路 · 老别墅巷",
+     "dur": 100,
+     "cost": 60,
+     "ticket": "food",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:35",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 35,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "中山路 · 轮渡旁",
+     "name": "中山路 · 轮渡旁",
+     "engine_price": 420
+    }
+   ],
+   "stay": {
+    "city": "中山路 · 轮渡旁",
+    "engine": [
+     {
+      "city": "中山路 · 轮渡旁",
+      "price": 420,
+      "why": "走到轮渡码头 5 分 · 老城步行圈"
+     },
+     {
+      "city": "曾厝垵 · 民宿",
+      "price": 300,
+      "why": "省 ¥60/人 · 环岛路就在门口"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "爬到顶能看见整座岛的红屋顶铺在海里，对岸就是厦门岛的高楼。 把海圈进园子里的四十四桥，涨潮时浪能拍到栏杆上。 钻进主街后面的小巷，殖民时期的老别墅一栋接一栋，人一下就少了。",
+    "manners": [
+     "早上进岛先冲日光岩 · 十点后排队",
+     "四十四桥 · 钢琴博物馆含在票内",
+     "往泉州路笔山路走 · 沙茶面和土笋冻"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "游客须从东渡码头进岛 · 提前网上买票"
+   ]
+  },
+  {
+   "n": 2,
+   "title": "环岛路 · 曾厝垵 · 沙坡尾",
+   "sub": "骑行看海 · 轻",
+   "place": "中山路·轮渡",
+   "lat": 39.161347,
+   "lng": 117.1989711,
+   "facts": {
+    "depart": "09:00",
+    "drive": "0 h",
+    "altitude_m": 5,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      2,
+      -7
+     ],
+     "2": [
+      6,
+      -4
+     ],
+     "3": [
+      15,
+      2
+     ],
+     "4": [
+      22,
+      9
+     ],
+     "5": [
+      27,
+      15
+     ],
+     "6": [
+      32,
+      21
+     ],
+     "7": [
+      32,
+      24
+     ],
+     "8": [
+      30,
+      23
+     ],
+     "9": [
+      27,
+      18
+     ],
+     "10": [
+      19,
+      9
+     ],
+     "11": [
+      11,
+      2
+     ],
+     "12": [
+      3,
+      -5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "环岛路 · 骑行看海",
+     "mode": "transit",
+     "min": 30,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:30",
+     "type": "see",
+     "name": "环岛路 · 骑行看海",
+     "dur": 150,
+     "cost": 30,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:00",
+     "type": "see",
+     "name": "曾厝垵 · 渔村小巷",
+     "dur": 80,
+     "cost": 50,
+     "ticket": "food",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:20",
+     "type": "see",
+     "name": "沙坡尾 · 避风坞",
+     "dur": 70,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 25,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "中山路 · 连住",
+     "name": "中山路 · 连住",
+     "engine_price": 420
+    }
+   ],
+   "stay": {
+    "city": "中山路 · 连住",
+    "engine": [
+     {
+      "city": "中山路 · 连住",
+      "price": 420,
+      "why": "不挪窝 · 行李不动"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "一边是海一边是木棉，骑到椰风寨那段能看见对岸的金门。 巷子窄得只容两人过，海蛎煎和芒果沙冰的招牌一路挂到底。 退潮时渔船斜靠在坞里，旁边就是艺术西区的旧仓库。",
+    "manners": [
+     "租单车 ¥30/天 · 骑到椰风寨折返",
+     "海蛎煎 · 芒果沙冰 · 往里巷走",
+     "避风坞看船 · 艺术西区逛店"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 3,
+   "title": "南普陀 · 厦大收官",
+   "sub": "寺庙与校园 · 下午离开 · 轻",
+   "place": "中山路·轮渡",
+   "lat": 39.161347,
+   "lng": 117.1989711,
+   "facts": {
+    "depart": "09:00",
+    "drive": "0 h",
+    "altitude_m": 5,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      2,
+      -7
+     ],
+     "2": [
+      6,
+      -4
+     ],
+     "3": [
+      15,
+      2
+     ],
+     "4": [
+      22,
+      9
+     ],
+     "5": [
+      27,
+      15
+     ],
+     "6": [
+      32,
+      21
+     ],
+     "7": [
+      32,
+      24
+     ],
+     "8": [
+      30,
+      23
+     ],
+     "9": [
+      27,
+      18
+     ],
+     "10": [
+      19,
+      9
+     ],
+     "11": [
+      11,
+      2
+     ],
+     "12": [
+      3,
+      -5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "南普陀寺",
+     "mode": "transit",
+     "min": 25,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:25",
+     "type": "see",
+     "name": "南普陀寺",
+     "dur": 100,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:05",
+     "type": "dep",
+     "to": "厦门大学 · 芙蓉隧道",
+     "mode": "walk",
+     "min": 8,
+     "km": null
+    },
+    {
+     "t": "11:13",
+     "type": "see",
+     "name": "厦门大学 · 芙蓉隧道",
+     "dur": 80,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "12:33",
+     "type": "see",
+     "name": "走之前 · 沙茶面",
+     "dur": 60,
+     "cost": 35,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "13:33",
+     "type": "dep",
+     "to": "回程",
+     "mode": "transit",
+     "min": 45,
+     "km": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "背靠五老峰，殿前放生池的莲花开得满满当当，香火从早烧到晚。 嘉庚风格的红砖楼配棕榈树，芙蓉隧道两壁全是学生涂鸦。 花生酱和沙茶熬成的汤底浇在碱面上，加一份猪心和油条。",
+    "manners": [
+     "大悲殿 · 后山五老峰可登顶",
+     "需提前预约入校 · 芙蓉湖与隧道",
+     "沙茶面加料 · 配一碗四果汤"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "todo",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

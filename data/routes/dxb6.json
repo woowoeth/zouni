@@ -1,0 +1,1088 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "dxb6",
+ "fam": "dxb",
+ "title": "🚗 滇西北 6 天 · 洱海到雪山门口",
+ "dest": "云南 · 滇西北",
+ "days_count": 6,
+ "seasons": [
+  {
+   "name": "普达措班次票",
+   "why": "区间车按班次 · 提前一天订"
+  },
+  {
+   "name": "雨崩徒步",
+   "why": "需另加 3 天 · 本次装不下"
+  }
+ ],
+ "transport": {
+  "mode": "drive",
+  "rent": 2400,
+  "perCar": true,
+  "roadfood": 300,
+  "label": "租车 · 油费 · 路桥"
+ },
+ "prep": [
+  "高原紫外线 · 防晒帽墨镜人手一套",
+  "确认石子 / 玻璃单独险",
+  "上虎跳台阶 800 级 · 护膝建议带",
+  "D4–D5 连住 独克宗古城客栈 · 已订",
+  "午后阵雨 · 车里备伞"
+ ],
+ "weather_note": "滇西北 8 月 · 昼 15–26°C · 紫外线强 · 午后阵雨带伞",
+ "days": [
+  {
+   "n": 1,
+   "title": "大理",
+   "sub": "提车 · 古城＋才村 · 轻",
+   "place": "大理",
+   "lat": 25.6,
+   "lng": 100.27,
+   "facts": {
+    "depart": "10:45",
+    "drive": "0.5 h",
+    "altitude_m": 1977,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      15,
+      4
+     ],
+     "2": [
+      17,
+      5
+     ],
+     "3": [
+      21,
+      8
+     ],
+     "4": [
+      23,
+      11
+     ],
+     "5": [
+      25,
+      14
+     ],
+     "6": [
+      26,
+      17
+     ],
+     "7": [
+      24,
+      17
+     ],
+     "8": [
+      24,
+      17
+     ],
+     "9": [
+      23,
+      16
+     ],
+     "10": [
+      21,
+      14
+     ],
+     "11": [
+      19,
+      9
+     ],
+     "12": [
+      16,
+      6
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "10:00",
+     "type": "see",
+     "name": "大理提车 · 验车",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "10:45",
+     "type": "dep",
+     "to": "大理古城 · 慢逛",
+     "mode": "drive",
+     "min": 25,
+     "km": 14
+    },
+    {
+     "t": "11:10",
+     "type": "see",
+     "name": "大理古城 · 慢逛",
+     "dur": 180,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "14:10",
+     "type": "dep",
+     "to": "才村码头 · 日落",
+     "mode": "drive",
+     "min": 12,
+     "km": 5
+    },
+    {
+     "t": "14:22",
+     "type": "see",
+     "name": "才村码头 · 日落",
+     "dur": 398,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "21:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 10,
+     "km": 3
+    },
+    {
+     "t": "21:15",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "大理古城边",
+     "name": "大理古城边",
+     "engine_price": 300
+    }
+   ],
+   "stay": {
+    "city": "大理古城边",
+    "engine": [
+     {
+      "city": "大理古城边",
+      "price": 300,
+      "why": "南门步行 5 分"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "环洱海前把车验清爽。 先把节奏降到洱海的速度。 苍山在背后，海在脚下。",
+    "manners": [
+     "绕车拍视频 · 记油位",
+     "人民路一路往下 · 洋人街喝一杯",
+     "栈道尽头的落日"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "环洱海 → 双廊",
+   "sub": "环湖 132 km · 中",
+   "place": "双廊",
+   "lat": 25.9183476,
+   "lng": 100.1913857,
+   "facts": {
+    "depart": "09:30",
+    "drive": "3 h",
+    "altitude_m": 1976,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      15,
+      6
+     ],
+     "2": [
+      17,
+      7
+     ],
+     "3": [
+      21,
+      10
+     ],
+     "4": [
+      23,
+      13
+     ],
+     "5": [
+      25,
+      15
+     ],
+     "6": [
+      26,
+      18
+     ],
+     "7": [
+      25,
+      18
+     ],
+     "8": [
+      24,
+      18
+     ],
+     "9": [
+      23,
+      17
+     ],
+     "10": [
+      21,
+      15
+     ],
+     "11": [
+      19,
+      10
+     ],
+     "12": [
+      16,
+      7
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "环洱海 · 顺时针",
+     "mode": "drive",
+     "min": 15,
+     "km": 8,
+     "via": null
+    },
+    {
+     "t": "09:45",
+     "type": "see",
+     "name": "环洱海 · 顺时针",
+     "dur": 240,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:45",
+     "type": "dep",
+     "to": "双廊 · 海边躺平",
+     "mode": "drive",
+     "min": 20,
+     "km": 12
+    },
+    {
+     "t": "14:05",
+     "type": "see",
+     "name": "双廊 · 海边躺平",
+     "dur": 230,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "17:55",
+     "type": "dep",
+     "to": "海景酸辣鱼",
+     "mode": "walk",
+     "min": 5,
+     "km": null
+    },
+    {
+     "t": "18:00",
+     "type": "see",
+     "name": "海景酸辣鱼",
+     "dur": 90,
+     "cost": 128,
+     "ticket": "food",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "19:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 8,
+     "km": null
+    },
+    {
+     "t": "19:45",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "双廊 · 海景房",
+     "name": "双廊 · 海景房",
+     "engine_price": 420
+    }
+   ],
+   "stay": {
+    "city": "双廊 · 海景房",
+    "engine": [
+     {
+      "city": "双廊 · 海景房",
+      "price": 420,
+      "why": "床头就是洱海日出"
+     },
+     {
+      "city": "双廊 · 巷内房",
+      "price": 300,
+      "why": "省 ¥60/人 · 步行 3 分到海边"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "喜洲、海舌、小普陀，想停就停。 下午的洱海只干一件事：什么都不干。 洱海鱼配洱海日落。",
+    "manners": [
+     "海舌公园步道 · 小普陀回望",
+     "找个临水位晒背",
+     "酸辣鱼 · 海菜芋头汤"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 3,
+   "title": "丽江",
+   "sub": "180 km · 驾驶约 3 h · 轻",
+   "place": "丽江",
+   "lat": 26.87,
+   "lng": 100.23,
+   "facts": {
+    "depart": "10:00",
+    "drive": "3 h",
+    "altitude_m": 2399,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      13,
+      -1
+     ],
+     "2": [
+      15,
+      0
+     ],
+     "3": [
+      18,
+      3
+     ],
+     "4": [
+      21,
+      7
+     ],
+     "5": [
+      23,
+      10
+     ],
+     "6": [
+      24,
+      13
+     ],
+     "7": [
+      23,
+      14
+     ],
+     "8": [
+      22,
+      14
+     ],
+     "9": [
+      21,
+      13
+     ],
+     "10": [
+      19,
+      10
+     ],
+     "11": [
+      17,
+      4
+     ],
+     "12": [
+      15,
+      0
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "10:00",
+     "type": "dep",
+     "to": "丽江古城 · 四方街",
+     "mode": "drive",
+     "min": 180,
+     "km": 180,
+     "via": "沿途 · 大丽高速 · 上关服务区加油"
+    },
+    {
+     "t": "11:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "13:00",
+     "type": "see",
+     "name": "丽江古城 · 四方街",
+     "dur": 180,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "16:00",
+     "type": "dep",
+     "to": "狮子山 · 万古楼日落",
+     "mode": "walk",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "16:15",
+     "type": "see",
+     "name": "狮子山 · 万古楼日落",
+     "dur": 90,
+     "cost": 50,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "17:45",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 10,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "丽江古城客栈",
+     "name": "丽江古城客栈",
+     "engine_price": 340
+    }
+   ],
+   "stay": {
+    "city": "丽江古城客栈",
+    "engine": [
+     {
+      "city": "丽江古城客栈",
+      "price": 340,
+      "why": "四方街步行圈"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "顺着水声走就不会迷路。 整片灰瓦屋顶被落日点亮。",
+    "manners": [
+     "大石桥 · 现打铜器铺",
+     "顶层西侧栏杆位 · 等亮灯"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 大丽高速 · 上关服务区加油"
+   ]
+  },
+  {
+   "n": 4,
+   "title": "虎跳峡 → 香格里拉",
+   "sub": "193 km · 驾驶约 3.7 h · 中",
+   "place": "香格里拉",
+   "lat": 27.8140311,
+   "lng": 99.6888689,
+   "facts": {
+    "depart": "09:30",
+    "drive": "3.7 h",
+    "altitude_m": 3274,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      4,
+      -8
+     ],
+     "2": [
+      5,
+      -6
+     ],
+     "3": [
+      8,
+      -3
+     ],
+     "4": [
+      12,
+      1
+     ],
+     "5": [
+      15,
+      5
+     ],
+     "6": [
+      18,
+      9
+     ],
+     "7": [
+      18,
+      10
+     ],
+     "8": [
+      19,
+      10
+     ],
+     "9": [
+      17,
+      9
+     ],
+     "10": [
+      14,
+      4
+     ],
+     "11": [
+      10,
+      -2
+     ],
+     "12": [
+      7,
+      -5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "上虎跳 · 峡谷栈道",
+     "mode": "drive",
+     "min": 100,
+     "km": 80,
+     "via": "沿途 · 长江第一湾观景台停 15 分"
+    },
+    {
+     "t": "11:10",
+     "type": "see",
+     "name": "上虎跳 · 峡谷栈道",
+     "dur": 100,
+     "cost": 45,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:50",
+     "type": "dep",
+     "to": "独克宗古城 · 转经",
+     "mode": "drive",
+     "min": 120,
+     "km": 110
+    },
+    {
+     "t": "13:45",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "14:50",
+     "type": "see",
+     "name": "独克宗古城 · 转经",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "16:50",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 10,
+     "km": null
+    },
+    {
+     "t": "18:10",
+     "type": "dep",
+     "to": "顺顺小吃（独克宗古城店）",
+     "mode": "drive",
+     "min": 20
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "牦牛火锅、松茸鸡、青稞饼",
+     "place": "顺顺小吃（独克宗古城店）",
+     "price": 80,
+     "poi": "顺顺小吃 独克宗古城店",
+     "src": "携程美食林",
+     "priceText": null
+    },
+    {
+     "t": "20:10",
+     "type": "dep",
+     "to": "四方街跳锅庄",
+     "mode": "drive",
+     "min": 20
+    },
+    {
+     "t": "20:30",
+     "type": "fun",
+     "name": "四方街跳锅庄",
+     "detail": "每晚本地人围圈跳，游客可以一起",
+     "poi": "独克宗古城四方街",
+     "src": "新浪旅游 2026-06"
+    },
+    {
+     "t": "22:10",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 20
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "独克宗古城客栈",
+     "name": "迪庆月光城英迪格酒店",
+     "engine_price": 360
+    }
+   ],
+   "stay": {
+    "city": "独克宗古城客栈",
+    "engine": [
+     {
+      "city": "独克宗古城客栈",
+      "price": 360,
+      "why": "转经筒脚下 · 有供氧"
+     }
+    ],
+    "tiers": {
+     "luxury": {
+      "name": "迪庆月光城英迪格酒店",
+      "sell": "落地窗俯瞰独克宗古城",
+      "price": null,
+      "src": "携程"
+     },
+     "upscale": {
+      "name": "叁季·柳庐度假民宿（独克宗古城店）",
+      "sell": "住在古城里",
+      "price": null,
+      "src": "携程"
+     },
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "江水在虎跳石上炸开。 把世界最大的转经筒推一圈。",
+    "manners": [
+     "栈道下到江边平台 · 水声里喊一嗓",
+     "龟山公园大转经筒 · 三人才推得动"
+    ],
+    "verified": false
+   },
+   "experiences": [
+    {
+     "t": "20:30",
+     "name": "四方街跳锅庄",
+     "detail": "每晚本地人围圈跳，游客可以一起",
+     "poi": "独克宗古城四方街",
+     "src": "新浪旅游 2026-06"
+    }
+   ],
+   "notes": [
+    "沿途 · 长江第一湾观景台停 15 分"
+   ]
+  },
+  {
+   "n": 5,
+   "title": "普达措 · 松赞林",
+   "sub": "区间车进园 · 轻",
+   "place": "香格里拉",
+   "lat": 27.8140311,
+   "lng": 99.6888689,
+   "facts": {
+    "depart": "09:30",
+    "drive": "1.5 h",
+    "altitude_m": 3274,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      4,
+      -8
+     ],
+     "2": [
+      5,
+      -6
+     ],
+     "3": [
+      8,
+      -3
+     ],
+     "4": [
+      12,
+      1
+     ],
+     "5": [
+      15,
+      5
+     ],
+     "6": [
+      18,
+      9
+     ],
+     "7": [
+      18,
+      10
+     ],
+     "8": [
+      19,
+      10
+     ],
+     "9": [
+      17,
+      9
+     ],
+     "10": [
+      14,
+      4
+     ],
+     "11": [
+      10,
+      -2
+     ],
+     "12": [
+      7,
+      -5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "普达措 · 属都湖线",
+     "mode": "drive",
+     "min": 40,
+     "km": 25,
+     "via": null
+    },
+    {
+     "t": "10:30",
+     "type": "see",
+     "name": "普达措 · 属都湖线",
+     "dur": 240,
+     "cost": 138,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "牦牛肉汤锅",
+     "place": "圣宴特色牦牛肉汤锅",
+     "price": 45,
+     "poi": "圣宴特色牦牛肉汤锅",
+     "src": "携程美食林",
+     "priceText": null
+    },
+    {
+     "t": "14:30",
+     "type": "dep",
+     "to": "松赞林寺",
+     "mode": "drive",
+     "min": 30,
+     "km": 18
+    },
+    {
+     "t": "15:00",
+     "type": "see",
+     "name": "松赞林寺",
+     "dur": 100,
+     "cost": 90,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "16:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 40,
+     "km": 25
+    },
+    {
+     "t": "18:10",
+     "type": "dep",
+     "to": "宏宏无烟石板烧烤",
+     "mode": "drive",
+     "min": 20
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "石板烤藏香猪",
+     "place": "宏宏无烟石板烧烤",
+     "price": 73,
+     "poi": "宏宏无烟石板烧烤",
+     "src": "携程美食林",
+     "priceText": null
+    },
+    {
+     "t": "19:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 20
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "独克宗 · 连住",
+     "name": "迪庆月光城英迪格酒店",
+     "engine_price": 360
+    }
+   ],
+   "stay": {
+    "city": "独克宗 · 连住",
+    "engine": [
+     {
+      "city": "独克宗 · 连住",
+      "price": 360,
+      "why": "不挪窝 · 行李不动"
+     }
+    ],
+    "tiers": {
+     "luxury": {
+      "name": "迪庆月光城英迪格酒店",
+      "sell": "落地窗俯瞰独克宗古城",
+      "price": null,
+      "src": "携程"
+     },
+     "upscale": {
+      "name": "叁季·柳庐度假民宿（独克宗古城店）",
+      "sell": "住在古城里",
+      "price": null,
+      "src": "携程"
+     },
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "木栈道贴着湖走，松萝挂满冷杉。 金顶在高原光里晃眼。",
+    "manners": [
+     "属都湖环湖栈道走全 · 留意小松鼠",
+     "拉姆央措湖倒影位"
+    ],
+    "verified": false
+   },
+   "experiences": [
+    {
+     "t": "20:30",
+     "name": "四方街跳锅庄",
+     "detail": "每晚本地人围圈跳，游客可以一起",
+     "poi": "独克宗古城四方街",
+     "src": "新浪旅游 2026-06"
+    }
+   ],
+   "notes": []
+  },
+  {
+   "n": 6,
+   "title": "回丽江 · 还车",
+   "sub": "175 km · 驾驶约 3 h · 轻",
+   "place": "大理",
+   "lat": 25.6,
+   "lng": 100.27,
+   "facts": {
+    "depart": "10:00",
+    "drive": "3 h",
+    "altitude_m": 1977,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      15,
+      4
+     ],
+     "2": [
+      17,
+      5
+     ],
+     "3": [
+      21,
+      8
+     ],
+     "4": [
+      23,
+      11
+     ],
+     "5": [
+      25,
+      14
+     ],
+     "6": [
+      26,
+      17
+     ],
+     "7": [
+      24,
+      17
+     ],
+     "8": [
+      24,
+      17
+     ],
+     "9": [
+      23,
+      16
+     ],
+     "10": [
+      21,
+      14
+     ],
+     "11": [
+      19,
+      9
+     ],
+     "12": [
+      16,
+      6
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "10:00",
+     "type": "dep",
+     "to": "还车 · 丽江",
+     "mode": "drive",
+     "min": 170,
+     "km": 175,
+     "via": "沿途 · 金沙江沿线 · 拉市海口加油"
+    },
+    {
+     "t": "11:15",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "12:50",
+     "type": "see",
+     "name": "还车 · 丽江",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "滇西北一线画完。",
+    "manners": [
+     "满油 · 对公里数 · 验车拍视频"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 金沙江沿线 · 拉市海口加油"
+   ]
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

@@ -1,0 +1,677 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "bj4",
+ "fam": "bj",
+ "title": "🏛 北京 4 天 · 中轴线与长城",
+ "dest": "北京",
+ "days_count": 4,
+ "seasons": [
+  {
+   "name": "故宫放票",
+   "why": "官网提前 7 天 20:00 放票 · 秒光"
+  },
+  {
+   "name": "景山日落",
+   "why": "紫禁城全景唯一机位 · 日落前占位"
+  },
+  {
+   "name": "香山红叶",
+   "why": "10 月下旬至 11 月中 · 本次未到季"
+  }
+ ],
+ "transport": {
+  "mode": "transit",
+  "rent": 0,
+  "perCar": false,
+  "roadfood": 0,
+  "label": "地铁 · 公交（每人实付）"
+ },
+ "prep": [
+  "故宫官网提前 7 天 20:00 放票 · 定闹钟",
+  "天安门广场需提前一天预约 · 带身份证",
+  "亿通行或云闪付扫码 · 地铁公交通用",
+  "长城段风大 · 防晒和外套都要"
+ ],
+ "weather_note": "北京 8 月 · 昼 26–33℃ · 午后偶雷阵雨 · 长城段风大",
+ "days": [
+  {
+   "n": 1,
+   "title": "故宫中轴线 · 景山",
+   "sub": "一天走完六百年 · 中",
+   "place": "前门·天安门",
+   "lat": 39.8986819,
+   "lng": 116.3925008,
+   "facts": {
+    "depart": "08:00",
+    "drive": "0 h",
+    "altitude_m": 45,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      2,
+      -7
+     ],
+     "2": [
+      6,
+      -5
+     ],
+     "3": [
+      15,
+      1
+     ],
+     "4": [
+      22,
+      9
+     ],
+     "5": [
+      28,
+      15
+     ],
+     "6": [
+      33,
+      20
+     ],
+     "7": [
+      32,
+      23
+     ],
+     "8": [
+      30,
+      22
+     ],
+     "9": [
+      27,
+      17
+     ],
+     "10": [
+      18,
+      8
+     ],
+     "11": [
+      10,
+      0
+     ],
+     "12": [
+      3,
+      -6
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:00",
+     "type": "dep",
+     "to": "天安门广场 · 正阳门",
+     "mode": "transit",
+     "min": 15,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "08:15",
+     "type": "see",
+     "name": "天安门广场 · 正阳门",
+     "dur": 60,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "09:15",
+     "type": "dep",
+     "to": "故宫 · 中轴线",
+     "mode": "walk",
+     "min": 5,
+     "km": null
+    },
+    {
+     "t": "09:20",
+     "type": "see",
+     "name": "故宫 · 中轴线",
+     "dur": 210,
+     "cost": 60,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "12:50",
+     "type": "see",
+     "name": "景山 · 万春亭俯瞰",
+     "dur": 70,
+     "cost": 2,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 25,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "前门 · 胡同酒店",
+     "name": "前门 · 胡同酒店",
+     "engine_price": 480
+    }
+   ],
+   "stay": {
+    "city": "前门 · 胡同酒店",
+    "engine": [
+     {
+      "city": "前门 · 胡同酒店",
+      "price": 480,
+      "why": "地铁枢纽 · 步行到天安门"
+     },
+     {
+      "city": "南锣鼓巷 · 青旅",
+      "price": 280,
+      "why": "省 ¥100/人 · 胡同里"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "从正阳门往北望过去，一条中轴线笔直插进城市中心，六百年没歪过。 三大殿一路往北，越走越安静，走到御花园时腿已经不是自己的了。 爬十分钟上万春亭，整座紫禁城的金顶铺在脚下，日落时全是金的。",
+    "manners": [
+     "需提前预约进广场 · 带身份证",
+     "午门进神武门出 · 珍宝馆钟表馆各 ¥10 值得加",
+     "日落前 40 分上山占位"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "慕田峪长城",
+   "sub": "北郊往返 · 缆车上滑道下 · 中",
+   "place": "前门·天安门",
+   "lat": 39.8986819,
+   "lng": 116.3925008,
+   "facts": {
+    "depart": "07:00",
+    "drive": "0 h",
+    "altitude_m": 45,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      2,
+      -7
+     ],
+     "2": [
+      6,
+      -5
+     ],
+     "3": [
+      15,
+      1
+     ],
+     "4": [
+      22,
+      9
+     ],
+     "5": [
+      28,
+      15
+     ],
+     "6": [
+      33,
+      20
+     ],
+     "7": [
+      32,
+      23
+     ],
+     "8": [
+      30,
+      22
+     ],
+     "9": [
+      27,
+      17
+     ],
+     "10": [
+      18,
+      8
+     ],
+     "11": [
+      10,
+      0
+     ],
+     "12": [
+      3,
+      -6
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:00",
+     "type": "dep",
+     "to": "慕田峪长城",
+     "mode": "transit",
+     "min": 120,
+     "km": null,
+     "via": "东直门枢纽发车 · 或坐旅游专线直达"
+    },
+    {
+     "t": "09:00",
+     "type": "see",
+     "name": "慕田峪长城",
+     "dur": 210,
+     "cost": 100,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 120,
+     "km": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "前门 · 连住",
+     "name": "前门 · 连住",
+     "engine_price": 480
+    }
+   ],
+   "stay": {
+    "city": "前门 · 连住",
+    "engine": [
+     {
+      "city": "前门 · 连住",
+      "price": 480,
+      "why": "不挪窝 · 行李不动"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "比八达岭安静得多，从 14 号敌楼往西那段没修过，砖缝里长着草。",
+    "manners": [
+     "缆车上 → 走到 20 号敌楼 → 滑道下山"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "东直门枢纽发车 · 或坐旅游专线直达"
+   ]
+  },
+  {
+   "n": 3,
+   "title": "颐和园 · 什刹海",
+   "sub": "皇家园林 + 胡同 · 轻",
+   "place": "前门·天安门",
+   "lat": 39.8986819,
+   "lng": 116.3925008,
+   "facts": {
+    "depart": "08:30",
+    "drive": "0 h",
+    "altitude_m": 45,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      2,
+      -7
+     ],
+     "2": [
+      6,
+      -5
+     ],
+     "3": [
+      15,
+      1
+     ],
+     "4": [
+      22,
+      9
+     ],
+     "5": [
+      28,
+      15
+     ],
+     "6": [
+      33,
+      20
+     ],
+     "7": [
+      32,
+      23
+     ],
+     "8": [
+      30,
+      22
+     ],
+     "9": [
+      27,
+      17
+     ],
+     "10": [
+      18,
+      8
+     ],
+     "11": [
+      10,
+      0
+     ],
+     "12": [
+      3,
+      -6
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "颐和园 · 长廊昆明湖",
+     "mode": "transit",
+     "min": 40,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:10",
+     "type": "see",
+     "name": "颐和园 · 长廊昆明湖",
+     "dur": 180,
+     "cost": 60,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:10",
+     "type": "dep",
+     "to": "什刹海 · 胡同",
+     "mode": "transit",
+     "min": 45,
+     "km": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "12:55",
+     "type": "see",
+     "name": "什刹海 · 胡同",
+     "dur": 100,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:35",
+     "type": "see",
+     "name": "本地馆子 · 不排队",
+     "dur": 80,
+     "cost": 130,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "15:55",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 20,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "前门 · 连住",
+     "name": "前门 · 连住",
+     "engine_price": 480
+    }
+   ],
+   "stay": {
+    "city": "前门 · 连住",
+    "engine": [
+     {
+      "city": "前门 · 连住",
+      "price": 480,
+      "why": "不挪窝 · 明早去天坛近"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "长廊七百多米，每根梁上都有画，走到尽头昆明湖一下子铺开。 银锭桥边坐着钓鱼的大爷，后海的酒吧还没开门，胡同里飘着炸酱面味。 胡同里的小店，鸭子一样酥，价格便宜三分之一。",
+    "manners": [
+     "北宫门进 · 佛香阁登高 · 十七孔桥",
+     "银锭桥观景 · 烟袋斜街 · 钟鼓楼",
+     "片皮蘸白糖 · 荷叶饼卷葱丝甜面酱"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 4,
+   "title": "天坛 · 前门收官",
+   "sub": "祈年殿与老街 · 下午离开 · 轻",
+   "place": "前门·天安门",
+   "lat": 39.8986819,
+   "lng": 116.3925008,
+   "facts": {
+    "depart": "08:30",
+    "drive": "0 h",
+    "altitude_m": 45,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      2,
+      -7
+     ],
+     "2": [
+      6,
+      -5
+     ],
+     "3": [
+      15,
+      1
+     ],
+     "4": [
+      22,
+      9
+     ],
+     "5": [
+      28,
+      15
+     ],
+     "6": [
+      33,
+      20
+     ],
+     "7": [
+      32,
+      23
+     ],
+     "8": [
+      30,
+      22
+     ],
+     "9": [
+      27,
+      17
+     ],
+     "10": [
+      18,
+      8
+     ],
+     "11": [
+      10,
+      0
+     ],
+     "12": [
+      3,
+      -6
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "天坛 · 祈年殿",
+     "mode": "transit",
+     "min": 20,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "08:50",
+     "type": "see",
+     "name": "天坛 · 祈年殿",
+     "dur": 120,
+     "cost": 34,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "10:50",
+     "type": "dep",
+     "to": "前门大街 · 大栅栏",
+     "mode": "transit",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "11:05",
+     "type": "see",
+     "name": "前门大街 · 大栅栏",
+     "dur": 80,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:25",
+     "type": "dep",
+     "to": "回程",
+     "mode": "transit",
+     "min": 60,
+     "km": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "三层蓝琉璃圆顶立在汉白玉台基上，回音壁贴着墙说话对面能听见。 铛铛车在青石路上开过，两边老字号招牌一块挨一块。",
+    "manners": [
+     "祈年殿 · 回音壁 · 圜丘",
+     "大栅栏老字号 · 带茯苓饼与稻香村"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "todo",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

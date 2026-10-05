@@ -1,0 +1,242 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "title": "走你 · 目的地与线路目录",
+ "$defs": {
+  "mmdd": {
+   "type": "string",
+   "pattern": "^(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$"
+  },
+  "destination": {
+   "type": "object",
+   "required": [
+    "id",
+    "name",
+    "scope",
+    "kind",
+    "region",
+    "base",
+    "months",
+    "see",
+    "eat",
+    "entry",
+    "status",
+    "climate",
+    "trips"
+   ],
+   "properties": {
+    "id": {
+     "type": "string",
+     "pattern": "^[a-z0-9]+$"
+    },
+    "name": {
+     "type": "string"
+    },
+    "scope": {
+     "enum": [
+      "domestic",
+      "asia"
+     ]
+    },
+    "kind": {
+     "enum": [
+      "province",
+      "autonomous",
+      "municipality",
+      "sar",
+      "country"
+     ]
+    },
+    "region": {
+     "type": "string"
+    },
+    "base": {
+     "type": "object",
+     "required": [
+      "name",
+      "lat",
+      "lng",
+      "elev"
+     ],
+     "properties": {
+      "lat": {
+       "type": "number",
+       "minimum": -90,
+       "maximum": 90
+      },
+      "lng": {
+       "type": "number",
+       "minimum": -180,
+       "maximum": 180
+      },
+      "elev": {
+       "type": "integer",
+       "minimum": -100,
+       "maximum": 6000
+      }
+     }
+    },
+    "months": {
+     "type": "object",
+     "required": [
+      "best"
+     ],
+     "properties": {
+      "best": {
+       "type": "array",
+       "items": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 12
+       },
+       "minItems": 1
+      }
+     }
+    },
+    "days": {
+     "type": [
+      "object",
+      "null"
+     ],
+     "properties": {
+      "min": {
+       "type": "integer"
+      },
+      "max": {
+       "type": "integer"
+      }
+     }
+    },
+    "see": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "minItems": 1
+    },
+    "eat": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     },
+     "minItems": 1
+    },
+    "entry": {
+     "type": [
+      "string",
+      "null"
+     ],
+     "description": "入境要求（大陆居民）"
+    },
+    "status": {
+     "enum": [
+      "ok",
+      "blocked"
+     ]
+    },
+    "climate": {
+     "type": "object",
+     "description": "1–12 月：[白天平均最高, 夜里平均最低] ℃"
+    },
+    "trips": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  "trip": {
+   "type": "object",
+   "required": [
+    "id",
+    "dest",
+    "name",
+    "region",
+    "days",
+    "price",
+    "tags",
+    "anytime",
+    "status"
+   ],
+   "properties": {
+    "id": {
+     "type": "string"
+    },
+    "dest": {
+     "type": "string"
+    },
+    "days": {
+     "type": "integer",
+     "minimum": 1,
+     "maximum": 30
+    },
+    "price": {
+     "type": "object",
+     "required": [
+      "lo",
+      "hi",
+      "currency"
+     ],
+     "properties": {
+      "lo": {
+       "type": "integer"
+      },
+      "hi": {
+       "type": "integer"
+      },
+      "currency": {
+       "const": "CNY"
+      }
+     }
+    },
+    "season": {
+     "type": [
+      "object",
+      "null"
+     ],
+     "properties": {
+      "ok": {
+       "type": "array",
+       "items": {
+        "$ref": "#/$defs/mmdd"
+       }
+      },
+      "best": {
+       "type": "array",
+       "items": {
+        "$ref": "#/$defs/mmdd"
+       }
+      }
+     }
+    },
+    "anytime": {
+     "type": "boolean"
+    },
+    "status": {
+     "enum": [
+      "ok",
+      "blocked"
+     ]
+    },
+    "page": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "engineRoute": {
+     "type": [
+      "string",
+      "null"
+     ]
+    },
+    "poster": {
+     "type": [
+      "string",
+      "null"
+     ]
+    }
+   }
+  }
+ }
+}

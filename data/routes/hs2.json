@@ -1,0 +1,388 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "hs2",
+ "fam": "hs",
+ "title": "🏔 黄山·宏村 2 天 · 直接上山",
+ "dest": "安徽 · 黄山",
+ "days_count": 2,
+ "seasons": [
+  {
+   "name": "黄山云海",
+   "why": "雨后第二天出现概率最高"
+  },
+  {
+   "name": "徽州古城 · 屯溪老街",
+   "why": "需多住一晚山下 · 3 天版才排得下"
+  }
+ ],
+ "transport": {
+  "mode": "drive",
+  "rent": 600,
+  "perCar": true,
+  "roadfood": 110,
+  "label": "租车 · 油费 · 路桥"
+ },
+ "prep": [
+  "黄山限流 · 官网提前 3 天预约 · 山上住宿同步订",
+  "宏村旺季周末可以提前买好门票",
+  "杭州周末租车提前一周预订 · 长假前后难租",
+  "山上比山下低 8-10°C · 抓绒+雨衣必备"
+ ],
+ "weather_note": "黄山 8 月 · 山顶昼 18°C 夜 12°C · 云海概率高 · 带雨衣",
+ "days": [
+  {
+   "n": 1,
+   "title": "杭州 → 黄山 · 直接上山",
+   "sub": "300 km + 索道 · 中",
+   "place": "黄山市",
+   "lat": 29.7172627,
+   "lng": 118.3324811,
+   "facts": {
+    "depart": "08:10",
+    "drive": "4 h",
+    "altitude_m": 130,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      11,
+      2
+     ],
+     "2": [
+      12,
+      3
+     ],
+     "3": [
+      18,
+      8
+     ],
+     "4": [
+      23,
+      13
+     ],
+     "5": [
+      27,
+      17
+     ],
+     "6": [
+      29,
+      21
+     ],
+     "7": [
+      33,
+      25
+     ],
+     "8": [
+      34,
+      25
+     ],
+     "9": [
+      30,
+      21
+     ],
+     "10": [
+      24,
+      15
+     ],
+     "11": [
+      19,
+      9
+     ],
+     "12": [
+      12,
+      3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:30",
+     "type": "see",
+     "name": "杭州提车 · 验车",
+     "dur": 40,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "08:10",
+     "type": "dep",
+     "to": "黄山 · 云谷索道上山",
+     "mode": "drive",
+     "min": 245,
+     "km": 300
+    },
+    {
+     "t": "10:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "12:15",
+     "type": "see",
+     "name": "黄山 · 云谷索道上山",
+     "dur": 30,
+     "cost": 270,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:45",
+     "type": "see",
+     "name": "西海大峡谷 · 地轨列车",
+     "dur": 180,
+     "cost": 80,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "15:45",
+     "type": "see",
+     "name": "光明顶 · 日落",
+     "dur": 60,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "16:45",
+     "type": "see",
+     "name": "山上住宿 · 等明日日出",
+     "dur": 60,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "黄山山上 · 北海宾馆",
+     "name": "黄山山上 · 北海宾馆",
+     "engine_price": 800
+    }
+   ],
+   "stay": {
+    "city": "黄山山上 · 北海宾馆",
+    "engine": [
+     {
+      "city": "黄山山上 · 北海宾馆",
+      "price": 800,
+      "why": "日出最佳机位 50 m · 提前预订"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "高速为主，小车够用。 缆车一出树线，整片花岗岩峰林铺开。 栈道贴着崖壁绕进谷底，云从脚下涌上来。 一天里最后的光把莲花峰烧红。 山上房间小而贵，但明早不用赶路。",
+    "manners": [
+     "绕车拍视频 · 查胎压",
+     "门票+索道当日现场 · 旺季提前网购",
+     "一环二环走到底 · 地轨¥80 省 1.5 h 腿力",
+     "日落前 40 分占位",
+     "问清日出时间 · 借军大衣"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "宏村 · 返程",
+   "sub": "下山 + 宏村 + 还车 · 轻",
+   "place": "杭州",
+   "lat": 30.27,
+   "lng": 120.15,
+   "facts": {
+    "depart": "08:00",
+    "drive": "3 h",
+    "altitude_m": 13,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      10,
+      2
+     ],
+     "2": [
+      12,
+      3
+     ],
+     "3": [
+      17,
+      8
+     ],
+     "4": [
+      23,
+      13
+     ],
+     "5": [
+      27,
+      18
+     ],
+     "6": [
+      29,
+      22
+     ],
+     "7": [
+      33,
+      26
+     ],
+     "8": [
+      34,
+      26
+     ],
+     "9": [
+      29,
+      22
+     ],
+     "10": [
+      23,
+      16
+     ],
+     "11": [
+      18,
+      10
+     ],
+     "12": [
+      12,
+      3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "06:30",
+     "type": "see",
+     "name": "黄山 · 日出",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "08:00",
+     "type": "dep",
+     "to": "宏村 · 徽派古村",
+     "mode": "walk",
+     "min": 50,
+     "km": null
+    },
+    {
+     "t": "08:50",
+     "type": "see",
+     "name": "宏村 · 徽派古村",
+     "dur": 150,
+     "cost": 104,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:20",
+     "type": "dep",
+     "to": "还车 · 杭州",
+     "mode": "drive",
+     "min": 30,
+     "km": 25
+    },
+    {
+     "t": "11:50",
+     "type": "see",
+     "name": "还车 · 杭州",
+     "dur": 40,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "dep",
+     "to": "回程",
+     "mode": "drive",
+     "min": 210,
+     "km": 270
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "片儿川",
+     "place": "附近面馆",
+     "price": 25,
+     "poi": "片儿川",
+     "src": "携程",
+     "priceText": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": {
+      "name": "杭州西子湖四季酒店",
+      "sell": "在西湖边的园林里",
+      "price": null,
+      "src": "四季官网"
+     },
+     "upscale": {
+      "name": "杭州新新饭店",
+      "sell": "北山路，百年老饭店，看得到湖",
+      "price": "约 ¥699",
+      "src": "新浪 2026-07"
+     },
+     "budget": {
+      "name": "如家neo（断桥残雪店）",
+      "sell": "走到断桥",
+      "price": "¥316 起",
+      "src": "新浪 2026-08"
+     }
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "排好了，日出从莲花峰后面出来，整片云海一下亮了。 牛形村落，月沼是它的胃，南湖是它的肚子。南屏比宏村更安静。 三天，黄山在身上的松香还没散。",
+    "manners": [
+     "清凉台·始信峰选一 · 太热门早到",
+     "月沼倒影 · 承志堂木雕 · 走到村后山坡",
+     "满油 · 对公里数"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

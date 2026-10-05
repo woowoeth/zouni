@@ -1,0 +1,651 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "gl4",
+ "fam": "gl",
+ "title": "🚢 桂林·阳朔 4 天 · 山水打底",
+ "dest": "广西 · 桂林阳朔",
+ "days_count": 4,
+ "seasons": [
+  {
+   "name": "漓江丰水期",
+   "why": "6-8 月水量足 · 竹筏全线开"
+  },
+  {
+   "name": "龙脊灌水季",
+   "why": "5-6 月梯田注水如镜 · 本次已过"
+  }
+ ],
+ "transport": {
+  "mode": "drive",
+  "rent": 800,
+  "perCar": true,
+  "roadfood": 220,
+  "label": "租车 · 油费 · 路桥"
+ },
+ "prep": [
+  "遇龙河竹筏旺季提前 1 天订 · 早班人少",
+  "8 月桂林 35°C · 竹筏段备防晒和水",
+  "龙脊最后 20 km 盘山 · 会车鸣笛慢行",
+  "阳朔租电动车押金身份证 · 选新车电足的"
+ ],
+ "weather_note": "桂林 8 月 · 昼 27–35°C · 午后雷阵雨 · 防晒防雨都要",
+ "days": [
+  {
+   "n": 1,
+   "title": "桂林 → 龙脊梯田",
+   "sub": "90 km 山路 · 轻",
+   "place": "龙脊",
+   "lat": 25.7352577,
+   "lng": 110.0666047,
+   "facts": {
+    "depart": "10:10",
+    "drive": "2.5 h",
+    "altitude_m": 286,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      14,
+      7
+     ],
+     "2": [
+      15,
+      9
+     ],
+     "3": [
+      20,
+      13
+     ],
+     "4": [
+      24,
+      17
+     ],
+     "5": [
+      27,
+      20
+     ],
+     "6": [
+      29,
+      24
+     ],
+     "7": [
+      31,
+      25
+     ],
+     "8": [
+      31,
+      25
+     ],
+     "9": [
+      30,
+      23
+     ],
+     "10": [
+      25,
+      18
+     ],
+     "11": [
+      21,
+      13
+     ],
+     "12": [
+      16,
+      8
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "see",
+     "name": "桂林提车 · 验车",
+     "dur": 40,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "10:10",
+     "type": "dep",
+     "to": "龙脊梯田 · 金坑大寨",
+     "mode": "drive",
+     "min": 150,
+     "km": 90
+    },
+    {
+     "t": "11:15",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "12:40",
+     "type": "see",
+     "name": "龙脊梯田 · 金坑大寨",
+     "dur": 180,
+     "cost": 80,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "15:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 30,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "龙脊 · 梯田景观房",
+     "name": "龙脊 · 梯田景观房",
+     "engine_price": 380
+    }
+   ],
+   "stay": {
+    "city": "龙脊 · 梯田景观房",
+    "engine": [
+     {
+      "city": "龙脊 · 梯田景观房",
+      "price": 380,
+      "why": "推窗就是梯田 · 日出不用赶路"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "南方山路多弯，小车灵活。 梯田一层层盘到云里，灌水季是镜子，秋收季是金子。",
+    "manners": [
+     "绕车拍视频 · 山路备晕车药",
+     "西山韶乐观景点走上去 · 日落前光最斜"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "龙脊 → 兴坪 → 阳朔",
+   "sub": "170 km · 漓江精华 · 中",
+   "place": "阳朔",
+   "lat": 24.78,
+   "lng": 110.49,
+   "facts": {
+    "depart": "09:00",
+    "drive": "3.5 h",
+    "altitude_m": 119,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      15,
+      7
+     ],
+     "2": [
+      16,
+      8
+     ],
+     "3": [
+      21,
+      13
+     ],
+     "4": [
+      25,
+      17
+     ],
+     "5": [
+      28,
+      21
+     ],
+     "6": [
+      30,
+      24
+     ],
+     "7": [
+      32,
+      25
+     ],
+     "8": [
+      32,
+      25
+     ],
+     "9": [
+      32,
+      23
+     ],
+     "10": [
+      27,
+      18
+     ],
+     "11": [
+      22,
+      13
+     ],
+     "12": [
+      17,
+      8
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "兴坪 · 20 元人民币机位",
+     "mode": "drive",
+     "min": 180,
+     "km": 150,
+     "via": "沿途 · 桂林绕城 · 兴坪沿江路窄慢行"
+    },
+    {
+     "t": "12:00",
+     "type": "see",
+     "name": "兴坪 · 20 元人民币机位",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "14:00",
+     "type": "see",
+     "name": "啤酒鱼 · 兴坪老店",
+     "dur": 75,
+     "cost": 60,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "15:15",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 40,
+     "km": 25
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "阳朔 · 江景房",
+     "name": "阳朔 · 江景房",
+     "engine_price": 400
+    }
+   ],
+   "stay": {
+    "city": "阳朔 · 江景房",
+    "engine": [
+     {
+      "city": "阳朔 · 江景房",
+      "price": 400,
+      "why": "漓江边 · 阳台看峰林"
+     },
+     {
+      "city": "阳朔 · 西街巷内",
+      "price": 280,
+      "why": "省 ¥60/人 · 热闹就在楼下"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "掏出一张 20 块对着江面比一比，你就站在人民币里。 漓江剑骨鱼配啤酒焖，皮脆汁浓。",
+    "manners": [
+     "码头边比对机位 · 老寨山可登顶（往返 1.5 h）",
+     "啤酒鱼 · 田螺酿"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 桂林绕城 · 兴坪沿江路窄慢行"
+   ]
+  },
+  {
+   "n": 3,
+   "title": "阳朔 · 遇龙河一整天",
+   "sub": "骑行+竹筏 · 轻",
+   "place": "阳朔",
+   "lat": 24.78,
+   "lng": 110.49,
+   "facts": {
+    "depart": "09:00",
+    "drive": "0.5 h",
+    "altitude_m": 119,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      15,
+      7
+     ],
+     "2": [
+      16,
+      8
+     ],
+     "3": [
+      21,
+      13
+     ],
+     "4": [
+      25,
+      17
+     ],
+     "5": [
+      28,
+      21
+     ],
+     "6": [
+      30,
+      24
+     ],
+     "7": [
+      32,
+      25
+     ],
+     "8": [
+      32,
+      25
+     ],
+     "9": [
+      32,
+      23
+     ],
+     "10": [
+      27,
+      18
+     ],
+     "11": [
+      22,
+      13
+     ],
+     "12": [
+      17,
+      8
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "遇龙河 · 竹筏漂流",
+     "mode": "walk",
+     "min": 10,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:10",
+     "type": "see",
+     "name": "遇龙河 · 竹筏漂流",
+     "dur": 120,
+     "cost": 120,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:10",
+     "type": "dep",
+     "to": "十里画廊 · 骑行",
+     "mode": "walk",
+     "min": 40,
+     "km": null
+    },
+    {
+     "t": "11:50",
+     "type": "see",
+     "name": "十里画廊 · 骑行",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:50",
+     "type": "see",
+     "name": "西街 · 夜",
+     "dur": 460,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "21:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 20,
+     "km": null
+    },
+    {
+     "t": "22:00",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "阳朔 · 连住",
+     "name": "阳朔 · 连住",
+     "engine_price": 280
+    }
+   ],
+   "stay": {
+    "city": "阳朔 · 连住",
+    "engine": [
+     {
+      "city": "阳朔 · 连住",
+      "price": 280,
+      "why": "不挪窝 · 行李不动"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "人工竹筏慢慢撑，两岸峰林倒在水里，比漓江更安静。 电动车慢慢晃，大榕树、月亮山一路排开。 酒吧声、糖画摊、背包客，热闹但不吵到江边。",
+    "manners": [
+     "金龙桥-旧县段最美 · 早班人少",
+     "月亮山观景台 · 傍晚逆光最好",
+     "江边段安静 · 主街段热闹 · 各取所需"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 4,
+   "title": "阳朔 → 桂林还车",
+   "sub": "70 km · 收官 · 轻",
+   "place": "桂林",
+   "lat": 25.27,
+   "lng": 110.29,
+   "facts": {
+    "depart": "09:30",
+    "drive": "1.5 h",
+    "altitude_m": 158,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      13,
+      6
+     ],
+     "2": [
+      15,
+      7
+     ],
+     "3": [
+      20,
+      12
+     ],
+     "4": [
+      24,
+      16
+     ],
+     "5": [
+      27,
+      20
+     ],
+     "6": [
+      30,
+      23
+     ],
+     "7": [
+      32,
+      25
+     ],
+     "8": [
+      32,
+      25
+     ],
+     "9": [
+      31,
+      23
+     ],
+     "10": [
+      26,
+      18
+     ],
+     "11": [
+      21,
+      13
+     ],
+     "12": [
+      15,
+      7
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "象鼻山 · 江对岸机位",
+     "mode": "drive",
+     "min": 80,
+     "km": 70,
+     "via": "沿途 · 高速直达 · 雨天桥面慢行"
+    },
+    {
+     "t": "10:50",
+     "type": "see",
+     "name": "象鼻山 · 江对岸机位",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:35",
+     "type": "see",
+     "name": "还车 · 桂林",
+     "dur": 40,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "不用进园，訾洲对岸就能拍到完整的象鼻。 四天山水，够回味半年。",
+    "manners": [
+     "滨江路对岸免费机位",
+     "满油 · 对公里数"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 高速直达 · 雨天桥面慢行"
+   ]
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

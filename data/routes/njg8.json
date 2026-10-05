@@ -1,0 +1,1217 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "njg8",
+ "fam": "njg",
+ "title": "🕌 南疆 8 天 · 喀什与帕米尔",
+ "dest": "新疆 · 南疆环线",
+ "days_count": 8,
+ "seasons": [
+  {
+   "name": "边境通行证",
+   "why": "去塔县需办理 · 喀什边防支队当天可出"
+  },
+  {
+   "name": "金草滩秋色",
+   "why": "9-10 月草滩最金 · 其余月份偏绿"
+  },
+  {
+   "name": "红其拉甫口岸",
+   "why": "需另办证件 · 海拔 4700m"
+  }
+ ],
+ "transport": {
+  "mode": "drive",
+  "rent": 5600,
+  "perCar": true,
+  "roadfood": 560,
+  "label": "租车 · 油费路桥（按车均摊）"
+ },
+ "prep": [
+  "去塔县需边境通行证 · 喀什边防支队当天可办 · 带身份证",
+  "帕米尔海拔 3100–3600m · 备高反药与红景天",
+  "沙漠公路五百公里无补给 · 进沙漠前加满油备足水",
+  "长途建议 SUV · 确认异地还车与备胎",
+  "大峡谷雨天禁入 · 有山洪风险"
+ ],
+ "weather_note": "南疆 8 月 · 昼 25–38℃ · 干热 · 帕米尔昼夜温差 20℃",
+ "days": [
+  {
+   "n": 1,
+   "title": "喀什老城 · 艾提尕尔",
+   "sub": "落地就是另一个国度 · 轻",
+   "place": "喀什",
+   "lat": 39.47,
+   "lng": 75.99,
+   "facts": {
+    "depart": "11:00",
+    "drive": "0 h",
+    "altitude_m": 1301,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      0,
+      -9
+     ],
+     "2": [
+      6,
+      -4
+     ],
+     "3": [
+      16,
+      3
+     ],
+     "4": [
+      23,
+      10
+     ],
+     "5": [
+      28,
+      15
+     ],
+     "6": [
+      32,
+      19
+     ],
+     "7": [
+      34,
+      22
+     ],
+     "8": [
+      31,
+      20
+     ],
+     "9": [
+      27,
+      15
+     ],
+     "10": [
+      19,
+      8
+     ],
+     "11": [
+      10,
+      0
+     ],
+     "12": [
+      1,
+      -7
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "11:00",
+     "type": "dep",
+     "to": "喀什噶尔老城",
+     "mode": "transit",
+     "min": 30,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "11:30",
+     "type": "see",
+     "name": "喀什噶尔老城",
+     "dur": 180,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "14:30",
+     "type": "see",
+     "name": "艾提尕尔清真寺",
+     "dur": 70,
+     "cost": 45,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "15:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 10,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "喀什老城 · 民宿",
+     "name": "喀什老城 · 民宿",
+     "engine_price": 320
+    }
+   ],
+   "stay": {
+    "city": "喀什老城 · 民宿",
+    "engine": [
+     {
+      "city": "喀什老城 · 民宿",
+      "price": 320,
+      "why": "走进老城 2 分 · 早上看开城仪式"
+     },
+     {
+      "city": "喀什市区 · 快捷",
+      "price": 220,
+      "why": "省 ¥50/人 · 停车方便"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "土黄色的巷子拐来拐去，门口坐着打馕的、修铜壶的，小孩在巷子里追着跑。 新疆最大的清真寺，黄砖拱门前的广场永远有人在晒太阳。",
+    "manners": [
+     "早上 10 点开城仪式 · 往深巷走 · 百年老茶馆",
+     "外观免费 · 入内需着装得体"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "喀什 → 塔县",
+   "sub": "中巴公路 · 白沙湖 · 中",
+   "place": "塔县·帕米尔",
+   "lat": 37.77,
+   "lng": 75.23,
+   "facts": {
+    "depart": "08:00",
+    "drive": "5 h",
+    "altitude_m": 3088,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      -5,
+      -14
+     ],
+     "2": [
+      -3,
+      -13
+     ],
+     "3": [
+      2,
+      -7
+     ],
+     "4": [
+      7,
+      -2
+     ],
+     "5": [
+      13,
+      3
+     ],
+     "6": [
+      16,
+      6
+     ],
+     "7": [
+      20,
+      10
+     ],
+     "8": [
+      18,
+      9
+     ],
+     "9": [
+      15,
+      5
+     ],
+     "10": [
+      7,
+      -1
+     ],
+     "11": [
+      1,
+      -8
+     ],
+     "12": [
+      -3,
+      -13
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:00",
+     "type": "dep",
+     "to": "白沙湖 · 白沙山",
+     "mode": "drive",
+     "min": 300,
+     "km": 290,
+     "via": "沿途 · 中巴公路 G314 · 需边境通行证"
+    },
+    {
+     "t": "10:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "13:00",
+     "type": "see",
+     "name": "白沙湖 · 白沙山",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:30",
+     "type": "see",
+     "name": "卡拉库里湖 · 慕士塔格",
+     "dur": 100,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "16:10",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 15,
+     "km": 10
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "塔县 · 县城酒店",
+     "name": "塔县 · 县城酒店",
+     "engine_price": 380
+    }
+   ],
+   "stay": {
+    "city": "塔县 · 县城酒店",
+    "engine": [
+     {
+      "city": "塔县 · 县城酒店",
+      "price": 380,
+      "why": "海拔 3100m · 有供氧房"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "一整座山是白沙堆的，湖水绿得发蓝，两个颜色贴在一起假得像画。 7546 米的慕士塔格峰整个倒在湖里，天气好的时候连雪线都照得清清楚楚。",
+    "manners": [
+     "公路边观景台 · 逆光更蓝",
+     "湖边看倒影 · 柯尔克孜毡房喝奶茶"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 中巴公路 G314 · 需边境通行证"
+   ]
+  },
+  {
+   "n": 3,
+   "title": "塔县 · 石头城",
+   "sub": "金草滩与边境 · 轻",
+   "place": "塔县·帕米尔",
+   "lat": 37.77,
+   "lng": 75.23,
+   "facts": {
+    "depart": "09:00",
+    "drive": "1 h",
+    "altitude_m": 3088,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      -5,
+      -14
+     ],
+     "2": [
+      -3,
+      -13
+     ],
+     "3": [
+      2,
+      -7
+     ],
+     "4": [
+      7,
+      -2
+     ],
+     "5": [
+      13,
+      3
+     ],
+     "6": [
+      16,
+      6
+     ],
+     "7": [
+      20,
+      10
+     ],
+     "8": [
+      18,
+      9
+     ],
+     "9": [
+      15,
+      5
+     ],
+     "10": [
+      7,
+      -1
+     ],
+     "11": [
+      1,
+      -8
+     ],
+     "12": [
+      -3,
+      -13
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "石头城 · 金草滩",
+     "mode": "drive",
+     "min": 10,
+     "km": 5,
+     "via": null
+    },
+    {
+     "t": "09:10",
+     "type": "see",
+     "name": "石头城 · 金草滩",
+     "dur": 150,
+     "cost": 30,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:40",
+     "type": "see",
+     "name": "盘龙古道",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 15,
+     "km": 8
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "塔县 · 连住",
+     "name": "塔县 · 连住",
+     "engine_price": 380
+    }
+   ],
+   "stay": {
+    "city": "塔县 · 连住",
+    "engine": [
+     {
+      "city": "塔县 · 连住",
+      "price": 380,
+      "why": "不挪窝 · 明早走盘龙古道"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "土黄的城墙残垣立在高处，脚下是一整片金黄草滩，远处一圈全是雪山。 柏油路在山上盘成一条龙，从高处看下去像有人用笔画上去的。",
+    "manners": [
+     "日落时草滩最金 · 城墙上看全景",
+     "往返约 2 小时 · 山顶看全貌"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 4,
+   "title": "塔县 → 和田",
+   "sub": "长途转场 · 中",
+   "place": "和田",
+   "lat": 37.11,
+   "lng": 79.92,
+   "facts": {
+    "depart": "07:00",
+    "drive": "8 h",
+    "altitude_m": 1377,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      1,
+      -8
+     ],
+     "2": [
+      7,
+      -4
+     ],
+     "3": [
+      18,
+      4
+     ],
+     "4": [
+      24,
+      11
+     ],
+     "5": [
+      28,
+      16
+     ],
+     "6": [
+      31,
+      19
+     ],
+     "7": [
+      34,
+      22
+     ],
+     "8": [
+      31,
+      20
+     ],
+     "9": [
+      28,
+      16
+     ],
+     "10": [
+      20,
+      8
+     ],
+     "11": [
+      11,
+      0
+     ],
+     "12": [
+      3,
+      -6
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:00",
+     "type": "dep",
+     "to": "叶城 · 零公里碑",
+     "mode": "drive",
+     "min": 480,
+     "km": 590,
+     "via": "沿途 · 经莎车叶城 · 全天赶路 · 备干粮"
+    },
+    {
+     "t": "11:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "15:00",
+     "type": "see",
+     "name": "叶城 · 零公里碑",
+     "dur": 40,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "15:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 15,
+     "km": 8
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "和田市区",
+     "name": "和田市区",
+     "engine_price": 300
+    }
+   ],
+   "stay": {
+    "city": "和田市区",
+    "engine": [
+     {
+      "city": "和田市区",
+      "price": 300,
+      "why": "夜市走得到"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "新藏公路从这里往南一直通到阿里，碑前停满了要进藏的越野车。",
+    "manners": [
+     "零公里碑 · 加满油"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 经莎车叶城 · 全天赶路 · 备干粮"
+   ]
+  },
+  {
+   "n": 5,
+   "title": "和田 · 玉龙喀什河",
+   "sub": "夜市与捡玉 · 轻",
+   "place": "和田",
+   "lat": 37.11,
+   "lng": 79.92,
+   "facts": {
+    "depart": "10:00",
+    "drive": "0 h",
+    "altitude_m": 1377,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      1,
+      -8
+     ],
+     "2": [
+      7,
+      -4
+     ],
+     "3": [
+      18,
+      4
+     ],
+     "4": [
+      24,
+      11
+     ],
+     "5": [
+      28,
+      16
+     ],
+     "6": [
+      31,
+      19
+     ],
+     "7": [
+      34,
+      22
+     ],
+     "8": [
+      31,
+      20
+     ],
+     "9": [
+      28,
+      16
+     ],
+     "10": [
+      20,
+      8
+     ],
+     "11": [
+      11,
+      0
+     ],
+     "12": [
+      3,
+      -6
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "10:00",
+     "type": "dep",
+     "to": "玉龙喀什河 · 捡玉",
+     "mode": "drive",
+     "min": 15,
+     "km": 6,
+     "via": null
+    },
+    {
+     "t": "10:15",
+     "type": "see",
+     "name": "玉龙喀什河 · 捡玉",
+     "dur": 100,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:55",
+     "type": "see",
+     "name": "和田夜市",
+     "dur": 120,
+     "cost": 70,
+     "ticket": "food",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:55",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 12,
+     "km": 5
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "和田 · 连住",
+     "name": "和田 · 连住",
+     "engine_price": 300
+    }
+   ],
+   "stay": {
+    "city": "和田 · 连住",
+    "engine": [
+     {
+      "city": "和田 · 连住",
+      "price": 300,
+      "why": "不挪窝 · 明早穿沙漠"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "河滩上全是弯腰翻石头的人，捡到的概率极低，但那个氛围值得看一眼。 烤全羊在门口转，玫瑰花酱酸奶粽子甜得刚好，人多得挪不动。",
+    "manners": [
+     "河滩看当地人捡玉 · 别买路边玉",
+     "烤羊 · 玫瑰花酱酸奶 · 缸子肉"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 6,
+   "title": "和田 → 库车",
+   "sub": "穿塔克拉玛干 · 中",
+   "place": "库车·天山",
+   "lat": 41.8196873,
+   "lng": 83.4531594,
+   "facts": {
+    "depart": "07:00",
+    "drive": "8 h",
+    "altitude_m": 1162,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      -3,
+      -10
+     ],
+     "2": [
+      4,
+      -5
+     ],
+     "3": [
+      14,
+      3
+     ],
+     "4": [
+      21,
+      9
+     ],
+     "5": [
+      26,
+      15
+     ],
+     "6": [
+      30,
+      19
+     ],
+     "7": [
+      33,
+      22
+     ],
+     "8": [
+      30,
+      20
+     ],
+     "9": [
+      26,
+      15
+     ],
+     "10": [
+      16,
+      7
+     ],
+     "11": [
+      7,
+      -1
+     ],
+     "12": [
+      -2,
+      -8
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:00",
+     "type": "dep",
+     "to": "塔克拉玛干沙漠公路",
+     "mode": "drive",
+     "min": 480,
+     "km": 620,
+     "via": "沿途 · 穿越沙漠公路 · 两侧全是草方格"
+    },
+    {
+     "t": "11:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "15:00",
+     "type": "see",
+     "name": "塔克拉玛干沙漠公路",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "17:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 20,
+     "km": 10
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "库车 · 市区",
+     "name": "库车 · 市区",
+     "engine_price": 280
+    }
+   ],
+   "stay": {
+    "city": "库车 · 市区",
+    "engine": [
+     {
+      "city": "库车 · 市区",
+      "price": 280,
+      "why": "明早去大峡谷近"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "五百公里全是沙，路两边的草方格是人一格一格扎出来挡沙的。",
+    "manners": [
+     "中途观景台停车 · 加满油再进"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 穿越沙漠公路 · 两侧全是草方格"
+   ]
+  },
+  {
+   "n": 7,
+   "title": "库车 · 天山神秘大峡谷",
+   "sub": "红色峡谷 · 中",
+   "place": "库车·天山",
+   "lat": 41.8196873,
+   "lng": 83.4531594,
+   "facts": {
+    "depart": "08:30",
+    "drive": "2 h",
+    "altitude_m": 1162,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      -3,
+      -10
+     ],
+     "2": [
+      4,
+      -5
+     ],
+     "3": [
+      14,
+      3
+     ],
+     "4": [
+      21,
+      9
+     ],
+     "5": [
+      26,
+      15
+     ],
+     "6": [
+      30,
+      19
+     ],
+     "7": [
+      33,
+      22
+     ],
+     "8": [
+      30,
+      20
+     ],
+     "9": [
+      26,
+      15
+     ],
+     "10": [
+      16,
+      7
+     ],
+     "11": [
+      7,
+      -1
+     ],
+     "12": [
+      -2,
+      -8
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "天山神秘大峡谷",
+     "mode": "drive",
+     "min": 80,
+     "km": 70,
+     "via": null
+    },
+    {
+     "t": "09:50",
+     "type": "see",
+     "name": "天山神秘大峡谷",
+     "dur": 180,
+     "cost": 45,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:50",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 80,
+     "km": 70
+    },
+    {
+     "t": "13:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "库车 · 连住",
+     "name": "库车 · 连住",
+     "engine_price": 280
+    }
+   ],
+   "stay": {
+    "city": "库车 · 连住",
+    "engine": [
+     {
+      "city": "库车 · 连住",
+      "price": 280,
+      "why": "不挪窝 · 明早返程"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "峡谷窄到两人并排走都费劲，抬头是一线天，岩壁红得像烧过。",
+    "manners": [
+     "走到底约 5 km · 阿艾石窟"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 8,
+   "title": "库车 → 乌鲁木齐 · 返程",
+   "sub": "独库南段收尾 · 中",
+   "place": "喀什",
+   "lat": 39.47,
+   "lng": 75.99,
+   "facts": {
+    "depart": "07:30",
+    "drive": "7 h",
+    "altitude_m": 1301,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      0,
+      -9
+     ],
+     "2": [
+      6,
+      -4
+     ],
+     "3": [
+      16,
+      3
+     ],
+     "4": [
+      23,
+      10
+     ],
+     "5": [
+      28,
+      15
+     ],
+     "6": [
+      32,
+      19
+     ],
+     "7": [
+      34,
+      22
+     ],
+     "8": [
+      31,
+      20
+     ],
+     "9": [
+      27,
+      15
+     ],
+     "10": [
+      19,
+      8
+     ],
+     "11": [
+      10,
+      0
+     ],
+     "12": [
+      1,
+      -7
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:30",
+     "type": "dep",
+     "to": "还车 · 返程",
+     "mode": "drive",
+     "min": 420,
+     "km": 750,
+     "via": "沿途 · 走独库南段或吐和高速"
+    },
+    {
+     "t": "11:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "14:30",
+     "type": "see",
+     "name": "还车 · 返程",
+     "dur": 60,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "15:30",
+     "type": "dep",
+     "to": "回程",
+     "mode": "transit",
+     "min": 40,
+     "km": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "八天两千七百公里，从土城到雪山到沙漠，一趟走完南疆的骨架。",
+    "manners": [
+     "还车前加满油 · 检查车况"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 走独库南段或吐和高速"
+   ]
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

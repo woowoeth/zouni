@@ -1,0 +1,762 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "kansai4",
+ "fam": "kan",
+ "title": "🇯🇵 日本·关西 4 天 · 大阪京都",
+ "dest": "日本 · 大阪京都奈良",
+ "days_count": 4,
+ "seasons": [
+  {
+   "name": "京都红叶",
+   "why": "11 月中下旬 · 清水寺夜间特别拜观"
+  },
+  {
+   "name": "奈良喂鹿",
+   "why": "需多半天 · 5 天版才排得下"
+  }
+ ],
+ "transport": {
+  "mode": "transit",
+  "rent": 0,
+  "perCar": false,
+  "roadfood": 0,
+  "label": "电车 · 地铁 · ICOCA（每人实付）"
+ },
+ "prep": [
+  "日本旅游签提前 2-3 周办 · 护照有效期 6 个月以上",
+  "eSIM 出发前装好 · 或机场租随身 WiFi",
+  "ICOCA 卡手机可开（Apple Pay）· 充 ¥2,000 起",
+  "备 2 万日元现金 · 小店和神社不刷卡",
+  "往返机票另计 · 提前 1 个月订约 ¥2,500",
+  "单店满 ¥250 可退税 · 护照随身带"
+ ],
+ "weather_note": "关西 8 月 · 昼 28–36°C 湿热 · 午后雷阵雨 · 室内冷气足",
+ "days": [
+  {
+   "n": 1,
+   "title": "关西机场 → 大阪",
+   "sub": "南海电车 · 道顿堀夜 · 轻",
+   "place": "大阪",
+   "lat": 34.6937569,
+   "lng": 135.5014539,
+   "facts": {
+    "depart": "14:00",
+    "drive": "— h",
+    "altitude_m": 5,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      9,
+      1
+     ],
+     "2": [
+      10,
+      1
+     ],
+     "3": [
+      14,
+      5
+     ],
+     "4": [
+      19,
+      10
+     ],
+     "5": [
+      23,
+      14
+     ],
+     "6": [
+      27,
+      19
+     ],
+     "7": [
+      31,
+      24
+     ],
+     "8": [
+      33,
+      26
+     ],
+     "9": [
+      29,
+      22
+     ],
+     "10": [
+      23,
+      15
+     ],
+     "11": [
+      17,
+      8
+     ],
+     "12": [
+      12,
+      3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "14:00",
+     "type": "dep",
+     "to": "难波 · 放行李",
+     "mode": "train",
+     "min": 60,
+     "km": null,
+     "via": "落地先领 eSIM 信号 · 南海线跟着蓝色指示走"
+    },
+    {
+     "t": "15:00",
+     "type": "see",
+     "name": "难波 · 放行李",
+     "dur": 40,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "15:40",
+     "type": "dep",
+     "to": "道顿堀 · 格力高打卡",
+     "mode": "walk",
+     "min": 6,
+     "km": null
+    },
+    {
+     "t": "15:46",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "章鱼烧",
+     "place": "道顿堀くくる",
+     "price": 0,
+     "from_engine": "道顿堀 · 格力高打卡",
+     "poi": "道顿堀 くくる",
+     "src": "haveagood-holiday 2026",
+     "priceText": "8 个约 800–960 日元"
+    },
+    {
+     "t": "18:10",
+     "type": "dep",
+     "to": "美津の（道顿堀）",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "大阪烧",
+     "place": "美津の（道顿堀）",
+     "price": 0,
+     "poi": "美津の 道顿堀",
+     "src": "bring-you 2026",
+     "priceText": "超人气大阪烧"
+    },
+    {
+     "t": "19:40",
+     "type": "dep",
+     "to": "道顿堀看霓虹",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "20:00",
+     "type": "fun",
+     "name": "道顿堀看霓虹",
+     "detail": "格力高广告牌和运河两岸的灯",
+     "poi": "道顿堀",
+     "src": "airbnb 页面"
+    },
+    {
+     "t": "21:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "难波 · 商务酒店",
+     "name": "难波 · 商务酒店",
+     "engine_price": 520
+    }
+   ],
+   "stay": {
+    "city": "难波 · 商务酒店",
+    "engine": [
+     {
+      "city": "难波 · 商务酒店",
+      "price": 520,
+      "why": "电车枢纽楼上 · 四天不挪窝"
+     },
+     {
+      "city": "难波 · 胶囊旅馆",
+      "price": 360,
+      "why": "省 ¥80/人 · 洗浴公用"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "住难波，四天不挪窝，去哪都是电车直达。 霓虹倒在运河里，章鱼烧在铁板上翻面，大阪的夜从这里开始。",
+    "manners": [
+     "ICOCA 卡充值 ¥2,000 起步（手机可开）",
+     "章鱼烧 · 一兰拉面深夜场排队短"
+    ],
+    "verified": false
+   },
+   "experiences": [
+    {
+     "t": "20:00",
+     "name": "道顿堀看霓虹",
+     "detail": "格力高广告牌和运河两岸的灯",
+     "poi": "道顿堀",
+     "src": "airbnb 页面"
+    }
+   ],
+   "notes": [
+    "落地先领 eSIM 信号 · 南海线跟着蓝色指示走"
+   ]
+  },
+  {
+   "n": 2,
+   "title": "大阪 · 城与市场",
+   "sub": "大阪城+黑门+梅田 · 轻",
+   "place": "大阪",
+   "lat": 34.6937569,
+   "lng": 135.5014539,
+   "facts": {
+    "depart": "09:00",
+    "drive": "— h",
+    "altitude_m": 5,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      9,
+      1
+     ],
+     "2": [
+      10,
+      1
+     ],
+     "3": [
+      14,
+      5
+     ],
+     "4": [
+      19,
+      10
+     ],
+     "5": [
+      23,
+      14
+     ],
+     "6": [
+      27,
+      19
+     ],
+     "7": [
+      31,
+      24
+     ],
+     "8": [
+      33,
+      26
+     ],
+     "9": [
+      29,
+      22
+     ],
+     "10": [
+      23,
+      15
+     ],
+     "11": [
+      17,
+      8
+     ],
+     "12": [
+      12,
+      3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "大阪城 · 天守阁",
+     "mode": "metro",
+     "min": 25,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:25",
+     "type": "see",
+     "name": "大阪城 · 天守阁",
+     "dur": 150,
+     "cost": 30,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:55",
+     "type": "dep",
+     "to": "黑门市场 · 边走边吃",
+     "mode": "metro",
+     "min": 20,
+     "km": null
+    },
+    {
+     "t": "12:15",
+     "type": "see",
+     "name": "黑门市场 · 边走边吃",
+     "dur": 90,
+     "cost": 90,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "13:45",
+     "type": "dep",
+     "to": "梅田蓝天大厦 · 空中庭园",
+     "mode": "metro",
+     "min": 25,
+     "km": null
+    },
+    {
+     "t": "14:10",
+     "type": "see",
+     "name": "梅田蓝天大厦 · 空中庭园",
+     "dur": 90,
+     "cost": 75,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "15:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "metro",
+     "min": 20,
+     "km": null
+    },
+    {
+     "t": "18:10",
+     "type": "dep",
+     "to": "串炸 だるま",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "串炸（酱汁只能蘸一次）",
+     "place": "串炸 だるま",
+     "price": 0,
+     "poi": "だるま 串炸 道顿堀",
+     "src": "travelarbitrage 2026",
+     "priceText": "大阪的老规矩：公用酱汁只蘸一次"
+    },
+    {
+     "t": "19:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "难波 · 连住",
+     "name": "难波 · 连住",
+     "engine_price": 520
+    }
+   ],
+   "stay": {
+    "city": "难波 · 连住",
+    "engine": [
+     {
+      "city": "难波 · 连住",
+      "price": 520,
+      "why": "不挪窝 · 行李不动"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "金鯱在天守顶上晒太阳，护城河一圈走下来就懂了什么叫城。 现开的海胆、现烤的和牛串，这条街是用嘴逛的。 日落时分上去，大阪的灯一盏盏亮起来，淀川像条光带。",
+    "manners": [
+     "天守阁 8 层展望台 · 西之丸庭园看全景",
+     "金枪鱼中落 · 玉子烧 · 现切和牛串",
+     "日落前 40 分钟到 · 露天回廊走一整圈"
+    ],
+    "verified": false
+   },
+   "experiences": [
+    {
+     "t": "20:00",
+     "name": "道顿堀看霓虹",
+     "detail": "格力高广告牌和运河两岸的灯",
+     "poi": "道顿堀",
+     "src": "airbnb 页面"
+    }
+   ],
+   "notes": []
+  },
+  {
+   "n": 3,
+   "title": "京都 · 一日",
+   "sub": "伏见稻荷+清水寺+祇园 · 中",
+   "place": "大阪",
+   "lat": 34.6937569,
+   "lng": 135.5014539,
+   "facts": {
+    "depart": "08:00",
+    "drive": "— h",
+    "altitude_m": 5,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      9,
+      1
+     ],
+     "2": [
+      10,
+      1
+     ],
+     "3": [
+      14,
+      5
+     ],
+     "4": [
+      19,
+      10
+     ],
+     "5": [
+      23,
+      14
+     ],
+     "6": [
+      27,
+      19
+     ],
+     "7": [
+      31,
+      24
+     ],
+     "8": [
+      33,
+      26
+     ],
+     "9": [
+      29,
+      22
+     ],
+     "10": [
+      23,
+      15
+     ],
+     "11": [
+      17,
+      8
+     ],
+     "12": [
+      12,
+      3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:00",
+     "type": "dep",
+     "to": "伏见稻荷 · 千本鸟居",
+     "mode": "train",
+     "min": 70,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:10",
+     "type": "see",
+     "name": "伏见稻荷 · 千本鸟居",
+     "dur": 150,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:40",
+     "type": "dep",
+     "to": "清水寺 · 舞台",
+     "mode": "train",
+     "min": 30,
+     "km": null
+    },
+    {
+     "t": "12:10",
+     "type": "see",
+     "name": "清水寺 · 舞台",
+     "dur": 120,
+     "cost": 20,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:10",
+     "type": "dep",
+     "to": "祇园 · 花见小路",
+     "mode": "walk",
+     "min": 25,
+     "km": null
+    },
+    {
+     "t": "14:35",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "花见小路",
+     "place": "祇园",
+     "price": 80,
+     "poi": "祇园",
+     "from_engine": "祇园 · 花见小路"
+    },
+    {
+     "t": "16:05",
+     "type": "dep",
+     "to": "住处",
+     "mode": "train",
+     "min": 75,
+     "km": null
+    },
+    {
+     "t": "18:10",
+     "type": "dep",
+     "to": "道顿堀くくる",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "章鱼烧",
+     "place": "道顿堀くくる",
+     "price": 0,
+     "poi": "道顿堀 くくる",
+     "src": "haveagood-holiday 2026",
+     "priceText": "8 个约 800–960 日元"
+    },
+    {
+     "t": "19:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "难波 · 连住",
+     "name": "难波 · 连住",
+     "engine_price": 520
+    }
+   ],
+   "stay": {
+    "city": "难波 · 连住",
+    "engine": [
+     {
+      "city": "难波 · 连住",
+      "price": 520,
+      "why": "京都当日往返 · 还住这"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "橙红色的鸟居一座接一座爬满山，越早来越安静。 悬空的木舞台伸向山谷，京都在脚下铺开。 木格子门里透出暖光，运气好能遇见赶场的艺伎。",
+    "manners": [
+     "走到四辻展望点即可折返 · 全山 2 小时",
+     "清水舞台 · 音羽瀑布三选一 · 二三年坂顺路",
+     "白川巽桥拍一张 · 晚饭在先斗町解决"
+    ],
+    "verified": false
+   },
+   "experiences": [
+    {
+     "t": "20:00",
+     "name": "道顿堀看霓虹",
+     "detail": "格力高广告牌和运河两岸的灯",
+     "poi": "道顿堀",
+     "src": "airbnb 页面"
+    }
+   ],
+   "notes": []
+  },
+  {
+   "n": 4,
+   "title": "心斋桥 → 机场",
+   "sub": "扫货+返程 · 轻",
+   "place": "关西机场",
+   "lat": 34.4342045,
+   "lng": 135.222523,
+   "facts": {
+    "depart": "09:30",
+    "drive": "— h",
+    "altitude_m": 7,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      9,
+      3
+     ],
+     "2": [
+      10,
+      3
+     ],
+     "3": [
+      14,
+      6
+     ],
+     "4": [
+      18,
+      11
+     ],
+     "5": [
+      22,
+      15
+     ],
+     "6": [
+      26,
+      19
+     ],
+     "7": [
+      30,
+      24
+     ],
+     "8": [
+      31,
+      25
+     ],
+     "9": [
+      28,
+      22
+     ],
+     "10": [
+      22,
+      17
+     ],
+     "11": [
+      17,
+      11
+     ],
+     "12": [
+      12,
+      6
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "心斋桥筋 · 补货",
+     "mode": "walk",
+     "min": 10,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:40",
+     "type": "see",
+     "name": "心斋桥筋 · 补货",
+     "dur": 150,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "12:10",
+     "type": "see",
+     "name": "关西机场 · 返程",
+     "dur": 60,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:10",
+     "type": "dep",
+     "to": "回程",
+     "mode": "train",
+     "min": 60,
+     "km": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "药妆、球鞋、大丸百货一条直线，预算在这里蒸发。 ICOCA 里剩的钱，留着下次来花。",
+    "manners": [
+     "药妆比价再下手 · 护照退税满 ¥250",
+     "eSIM 关漫游 · 保安检查液体"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

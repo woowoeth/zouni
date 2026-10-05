@@ -1,0 +1,265 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "djy1",
+ "fam": "djy",
+ "title": "⛲ 都江堰·青城山 1 日 · 拜水问道",
+ "dest": "四川 · 成都周边",
+ "days_count": 1,
+ "seasons": [
+  {
+   "name": "夏日避暑",
+   "why": "青城山比市区低 5°C · 雨后最幽"
+  },
+  {
+   "name": "放水节",
+   "why": "清明节都江堰放水大典 · 本季未到"
+  }
+ ],
+ "transport": {
+  "mode": "transit",
+  "rent": 0,
+  "perCar": false,
+  "roadfood": 0,
+  "label": "动车 · 摆渡（每人实付）"
+ },
+ "prep": [
+  "动车票 12306 提前 1 天买 · 节假日提前 3 天",
+  "青城山石阶多 · 防滑鞋 · 带把伞",
+  "18:30 前到青城山站 · 末班动车别赌"
+ ],
+ "weather_note": "成都平原 8 月 · 昼 26–34°C · 山中凉 4°C · 午后阵雨",
+ "days": [
+  {
+   "n": 1,
+   "title": "都江堰 → 青城山 · 一日",
+   "sub": "动车往返 · 拜水问道 · 中",
+   "place": "成都",
+   "lat": 30.66,
+   "lng": 104.06,
+   "facts": {
+    "depart": "07:20",
+    "drive": "— h",
+    "altitude_m": 496,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      10,
+      3
+     ],
+     "2": [
+      13,
+      5
+     ],
+     "3": [
+      18,
+      10
+     ],
+     "4": [
+      24,
+      14
+     ],
+     "5": [
+      27,
+      18
+     ],
+     "6": [
+      30,
+      21
+     ],
+     "7": [
+      31,
+      23
+     ],
+     "8": [
+      31,
+      23
+     ],
+     "9": [
+      26,
+      20
+     ],
+     "10": [
+      21,
+      15
+     ],
+     "11": [
+      16,
+      10
+     ],
+     "12": [
+      11,
+      4
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:20",
+     "type": "dep",
+     "to": "都江堰 · 鱼嘴分水",
+     "mode": "train",
+     "min": 55,
+     "km": null,
+     "via": "犀浦/成都西均可上车 · 刷身份证进站"
+    },
+    {
+     "t": "08:35",
+     "type": "see",
+     "name": "都江堰 · 鱼嘴分水",
+     "dur": 180,
+     "cost": 80,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:35",
+     "type": "dep",
+     "to": "南桥 · 尤兔头或冷锅鱼",
+     "mode": "walk",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "11:50",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "尤兔头或冷锅鱼",
+     "place": "南桥",
+     "price": 55,
+     "poi": "南桥",
+     "from_engine": "南桥 · 尤兔头或冷锅鱼"
+    },
+    {
+     "t": "13:00",
+     "type": "dep",
+     "to": "青城山前山 · 索道上步行下",
+     "mode": "train",
+     "min": 45,
+     "km": null
+    },
+    {
+     "t": "13:45",
+     "type": "see",
+     "name": "青城山前山 · 索道上步行下",
+     "dur": 180,
+     "cost": 115,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "16:45",
+     "type": "dep",
+     "to": "回程",
+     "mode": "train",
+     "min": 60,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "宫保茄香虾球、川菜",
+     "place": "马旺子·川小馆（太古里）",
+     "price": 117,
+     "poi": "马旺子川小馆 太古里",
+     "src": "携程美食林",
+     "priceText": null
+    },
+    {
+     "t": "19:40",
+     "type": "dep",
+     "to": "看川剧变脸",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "20:00",
+     "type": "fun",
+     "name": "看川剧变脸（蜀风雅韵）",
+     "detail": "琴台路文化公园里，每晚 20:00，约 90 分钟，提前订票",
+     "poi": "蜀风雅韵",
+     "src": "旅行社票务页"
+    },
+    {
+     "t": "21:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "taxi",
+     "min": 20
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": {
+      "name": "成都博舍",
+      "sell": "太古里，挨着大慈寺；有米其林餐厅和水疗",
+      "price": null,
+      "src": "spachina 访谈"
+     },
+     "upscale": {
+      "name": "成都太古里春熙美居酒店",
+      "sell": "走 10 分钟到太古里",
+      "price": "约 ¥459",
+      "src": "eastchinatrip"
+     },
+     "budget": {
+      "name": "文殊院一带的青旅",
+      "sell": "平价，周边本地小吃多",
+      "price": null,
+      "src": "wanderinchina 住宿指南"
+     }
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "两千多年前的水利工程今天还在上班，鱼嘴把岷江一分为二。 桥下就是奔腾的岷江水，夏天坐桥边风都是凉的。 索道直上上清宫一线，省两小时脚程，把力气留给殿宇。",
+    "manners": [
+     "鱼嘴 → 飞沙堰 → 宝瓶口顺序走 · 安澜索桥来回",
+     "冷锅鱼 · 或麻辣兔头配冰粉",
+     "上清宫 · 老君阁登顶 · 天然图画牌坊"
+    ],
+    "verified": false
+   },
+   "experiences": [
+    {
+     "t": "15:00",
+     "name": "人民公园鹤鸣茶社喝盖碗茶",
+     "detail": "最低消费 16 元/人，傍晚 18 元；可以掏耳朵",
+     "poi": "鹤鸣茶社",
+     "src": "携程点评 2026-04"
+    },
+    {
+     "t": "20:00",
+     "name": "看川剧变脸（蜀风雅韵）",
+     "detail": "琴台路文化公园里，每晚 20:00，约 90 分钟，提前订票",
+     "poi": "蜀风雅韵",
+     "src": "旅行社票务页"
+    },
+    {
+     "t": "07:30",
+     "name": "大熊猫基地趁早去",
+     "detail": "早上 7:30–10:00 最活跃",
+     "poi": "成都大熊猫繁育研究基地",
+     "src": "引擎季节提示"
+    }
+   ],
+   "notes": [
+    "犀浦/成都西均可上车 · 刷身份证进站"
+   ]
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

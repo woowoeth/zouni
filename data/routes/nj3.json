@@ -1,0 +1,519 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "nj3",
+ "fam": "nj",
+ "title": "🏛 南京 3 天 · 六朝与民国",
+ "dest": "江苏 · 南京",
+ "days_count": 3,
+ "seasons": [
+  {
+   "name": "中山陵预约",
+   "why": "免费但需提前预约 · 周一维护闭馆"
+  },
+  {
+   "name": "石象路落叶季",
+   "why": "11 月中下旬满地梧桐叶 · 本次未到季"
+  }
+ ],
+ "transport": {
+  "mode": "transit",
+  "rent": 0,
+  "perCar": false,
+  "roadfood": 0,
+  "label": "地铁 · 观光车（每人实付）"
+ },
+ "prep": [
+  "中山陵需提前预约 · 周一维护闭馆",
+  "总统府周一闭馆 · 提前查开放时间",
+  "南京地铁支付宝乘车码 · 全线通用",
+  "中山陵 392 级台阶 · 穿好走的鞋"
+ ],
+ "weather_note": "南京 8 月 · 昼 29–36℃ · 火炉之一 · 钟山有荫",
+ "days": [
+  {
+   "n": 1,
+   "title": "中山陵 · 明孝陵",
+   "sub": "钟山一整天 · 台阶多 · 中",
+   "place": "新街口·夫子庙",
+   "lat": 32.0438326,
+   "lng": 118.7786931,
+   "facts": {
+    "depart": "08:30",
+    "drive": "0 h",
+    "altitude_m": 11,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      8,
+      0
+     ],
+     "2": [
+      11,
+      1
+     ],
+     "3": [
+      17,
+      7
+     ],
+     "4": [
+      22,
+      12
+     ],
+     "5": [
+      26,
+      17
+     ],
+     "6": [
+      29,
+      21
+     ],
+     "7": [
+      32,
+      25
+     ],
+     "8": [
+      33,
+      25
+     ],
+     "9": [
+      28,
+      21
+     ],
+     "10": [
+      22,
+      14
+     ],
+     "11": [
+      17,
+      8
+     ],
+     "12": [
+      10,
+      1
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "中山陵",
+     "mode": "transit",
+     "min": 40,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:10",
+     "type": "see",
+     "name": "中山陵",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:10",
+     "type": "dep",
+     "to": "明孝陵 · 石象路",
+     "mode": "transit",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "11:25",
+     "type": "see",
+     "name": "明孝陵 · 石象路",
+     "dur": 120,
+     "cost": 70,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:25",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 35,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "新街口 · 地铁枢纽",
+     "name": "新街口 · 地铁枢纽",
+     "engine_price": 420
+    }
+   ],
+   "stay": {
+    "city": "新街口 · 地铁枢纽",
+    "engine": [
+     {
+      "city": "新街口 · 地铁枢纽",
+      "price": 420,
+      "why": "四线换乘 · 去哪都两站"
+     },
+     {
+      "city": "夫子庙 · 老城南",
+      "price": 300,
+      "why": "省 ¥60/人 · 夜里逛秦淮河"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "392 级台阶一路往上，走到顶回头看，整个钟山铺在脚下。 石象路那段神道两侧全是六百年的石兽，秋天满地梧桐叶。",
+    "manners": [
+     "需提前预约 · 台阶陡量力而行",
+     "石象路神道 · 十一月落叶最美"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "夫子庙 · 老门东",
+   "sub": "秦淮河与老城南 · 轻",
+   "place": "新街口·夫子庙",
+   "lat": 32.0438326,
+   "lng": 118.7786931,
+   "facts": {
+    "depart": "09:30",
+    "drive": "0 h",
+    "altitude_m": 11,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      8,
+      0
+     ],
+     "2": [
+      11,
+      1
+     ],
+     "3": [
+      17,
+      7
+     ],
+     "4": [
+      22,
+      12
+     ],
+     "5": [
+      26,
+      17
+     ],
+     "6": [
+      29,
+      21
+     ],
+     "7": [
+      32,
+      25
+     ],
+     "8": [
+      33,
+      25
+     ],
+     "9": [
+      28,
+      21
+     ],
+     "10": [
+      22,
+      14
+     ],
+     "11": [
+      17,
+      8
+     ],
+     "12": [
+      10,
+      1
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "夫子庙 · 秦淮河",
+     "mode": "transit",
+     "min": 15,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:45",
+     "type": "see",
+     "name": "夫子庙 · 秦淮河",
+     "dur": 100,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:25",
+     "type": "dep",
+     "to": "老门东 · 城墙根",
+     "mode": "walk",
+     "min": 12,
+     "km": null
+    },
+    {
+     "t": "11:37",
+     "type": "see",
+     "name": "老门东 · 城墙根",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:07",
+     "type": "see",
+     "name": "盐水鸭 · 晚饭",
+     "dur": 80,
+     "cost": 90,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "14:27",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 20,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "新街口 · 连住",
+     "name": "新街口 · 连住",
+     "engine_price": 420
+    }
+   ],
+   "stay": {
+    "city": "新街口 · 连住",
+    "engine": [
+     {
+      "city": "新街口 · 连住",
+      "price": 420,
+      "why": "不挪窝 · 行李不动"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "画舫在秦淮河上划过，两岸的灯把水面照得发红。 比夫子庙安静，青砖巷子里有先锋书店和评话馆。 皮白肉嫩，配一碗鸭血粉丝汤，这一顿才算到过南京。",
+    "manners": [
+     "夜里灯亮最好 · 乌衣巷 · 江南贡院",
+     "先锋书店 · 城墙上走一段",
+     "盐水鸭 · 鸭血粉丝汤 · 皮肚面"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 3,
+   "title": "颐和路 · 总统府收官",
+   "sub": "民国建筑群 · 下午离开 · 轻",
+   "place": "新街口·夫子庙",
+   "lat": 32.0438326,
+   "lng": 118.7786931,
+   "facts": {
+    "depart": "09:00",
+    "drive": "0 h",
+    "altitude_m": 11,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      8,
+      0
+     ],
+     "2": [
+      11,
+      1
+     ],
+     "3": [
+      17,
+      7
+     ],
+     "4": [
+      22,
+      12
+     ],
+     "5": [
+      26,
+      17
+     ],
+     "6": [
+      29,
+      21
+     ],
+     "7": [
+      32,
+      25
+     ],
+     "8": [
+      33,
+      25
+     ],
+     "9": [
+      28,
+      21
+     ],
+     "10": [
+      22,
+      14
+     ],
+     "11": [
+      17,
+      8
+     ],
+     "12": [
+      10,
+      1
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "颐和路 · 民国公馆区",
+     "mode": "transit",
+     "min": 18,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:18",
+     "type": "see",
+     "name": "颐和路 · 民国公馆区",
+     "dur": 80,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "10:38",
+     "type": "dep",
+     "to": "总统府",
+     "mode": "transit",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "10:53",
+     "type": "see",
+     "name": "总统府",
+     "dur": 110,
+     "cost": 40,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:43",
+     "type": "dep",
+     "to": "回程",
+     "mode": "transit",
+     "min": 30,
+     "km": null
+    },
+    {
+     "t": "13:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "梧桐树盖住整条路，两边全是爬满藤蔓的民国小楼。 一座院子装了六百年：明代王府、太平天国王宫、民国总统府叠在一起。",
+    "manners": [
+     "颐和路到宁海路那段 · 大多不对外开放",
+     "大堂 · 煦园水榭 · 孙中山办公室"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "todo",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

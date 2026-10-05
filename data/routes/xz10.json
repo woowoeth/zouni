@@ -1,0 +1,1574 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "xz10",
+ "fam": "xz",
+ "title": "🏔 西藏 10 天 · 拉萨 + 林芝 + 纳木错",
+ "dest": "西藏 · 拉萨入藏",
+ "days_count": 10,
+ "seasons": [
+  {
+   "name": "布达拉宫限流",
+   "why": "旺季每日限流 · 提前 3 天预约"
+  },
+  {
+   "name": "南迦巴瓦露脸",
+   "why": "秋季晴天概率最高 · 清晨最清"
+  },
+  {
+   "name": "林芝桃花",
+   "why": "花期 3 月下旬至 4 月中 · 本次未到季"
+  }
+ ],
+ "transport": {
+  "mode": "drive",
+  "rent": 6000,
+  "perCar": true,
+  "roadfood": 580,
+  "label": "租车 · 油费（向导费¥2,000 含组内）"
+ },
+ "prep": [
+  "西藏旅游证（藏旅证）· 提前 10 天在藏旅互联网预约",
+  "布达拉宫限流票 · 提前 10 天官网预约（potalapalace.cn）",
+  "进藏自驾须有持证向导同行（法规要求）· 导游费约 ¥2,000/车",
+  "前 24h 最严重 · 高反药+氧气罐 · 头痛立刻下山",
+  "拉萨当地 SUV 租车 · 验车时确认备胎防冻液",
+  "日喀则至额济纳加满油 · 高原燃油消耗比平原高 15%"
+ ],
+ "weather_note": "西藏 8 月 · 拉萨昼 22°C 夜 10°C · 雨季午后多阵雨 · 高原紫外线极强",
+ "days": [
+  {
+   "n": 1,
+   "title": "拉萨 · 抵达适应",
+   "sub": "高反缓冲日 · 步行为主 · 极轻",
+   "place": "拉萨",
+   "lat": 29.65,
+   "lng": 91.13,
+   "facts": {
+    "depart": "11:00",
+    "drive": "— h",
+    "altitude_m": 3650,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      6,
+      -6
+     ],
+     "2": [
+      8,
+      -4
+     ],
+     "3": [
+      11,
+      -1
+     ],
+     "4": [
+      15,
+      2
+     ],
+     "5": [
+      18,
+      5
+     ],
+     "6": [
+      22,
+      10
+     ],
+     "7": [
+      21,
+      12
+     ],
+     "8": [
+      21,
+      11
+     ],
+     "9": [
+      20,
+      9
+     ],
+     "10": [
+      16,
+      5
+     ],
+     "11": [
+      12,
+      0
+     ],
+     "12": [
+      9,
+      -2
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "10:00",
+     "type": "see",
+     "name": "拉萨到达 · 不抢行程",
+     "dur": 60,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "11:00",
+     "type": "dep",
+     "to": "八廓街 · 转经道",
+     "mode": "walk",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "11:15",
+     "type": "see",
+     "name": "八廓街 · 转经道",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "12:45",
+     "type": "dep",
+     "to": "大昭寺 · 傍晚广场",
+     "mode": "walk",
+     "min": 5,
+     "km": null
+    },
+    {
+     "t": "12:50",
+     "type": "see",
+     "name": "大昭寺 · 傍晚广场",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "13:35",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 10,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "拉萨八廓街区",
+     "name": "拉萨八廓街区",
+     "engine_price": 500
+    }
+   ],
+   "stay": {
+    "city": "拉萨八廓街区",
+    "engine": [
+     {
+      "city": "拉萨八廓街区",
+      "price": 500,
+      "why": "转经道步行 3 分"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "到了先睡觉，下午轻轻走，不要洗澡蒸桑拿，不要跑步。 磕长头的朝圣者，转经筒的铃声，下午光最好。 外广场不用票，松赞干布的结婚礼堂。傍晚的光最厚。",
+    "manners": [
+     "睡够·多喝水·不剧烈运动",
+     "顺时针方向走 · 大昭寺金顶就在头顶",
+     "广场上的磕头者 · 把人放进来"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "布达拉宫 · 色拉寺",
+   "sub": "步行为主 · 轻",
+   "place": "拉萨",
+   "lat": 29.65,
+   "lng": 91.13,
+   "facts": {
+    "depart": "12:00",
+    "drive": "— h",
+    "altitude_m": 3656,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      6,
+      -6
+     ],
+     "2": [
+      8,
+      -4
+     ],
+     "3": [
+      11,
+      -1
+     ],
+     "4": [
+      15,
+      2
+     ],
+     "5": [
+      18,
+      5
+     ],
+     "6": [
+      22,
+      10
+     ],
+     "7": [
+      21,
+      12
+     ],
+     "8": [
+      21,
+      11
+     ],
+     "9": [
+      20,
+      9
+     ],
+     "10": [
+      16,
+      5
+     ],
+     "11": [
+      12,
+      0
+     ],
+     "12": [
+      9,
+      -2
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "see",
+     "name": "布达拉宫",
+     "dur": 150,
+     "cost": 240,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "12:00",
+     "type": "dep",
+     "to": "龙王潭 · 布宫倒影",
+     "mode": "walk",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "12:15",
+     "type": "see",
+     "name": "龙王潭 · 布宫倒影",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "13:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "14:10",
+     "type": "dep",
+     "to": "色拉寺 · 辩经院",
+     "mode": "walk",
+     "min": 20,
+     "km": null
+    },
+    {
+     "t": "14:30",
+     "type": "see",
+     "name": "色拉寺 · 辩经院",
+     "dur": 90,
+     "cost": 50,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "16:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 20,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "拉萨 · 连住",
+     "name": "拉萨 · 连住",
+     "engine_price": 500
+    }
+   ],
+   "stay": {
+    "city": "拉萨 · 连住",
+    "engine": [
+     {
+      "city": "拉萨 · 连住",
+      "price": 500,
+      "why": "不挪窝 · 行李不动"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "一千个台阶，十三层，世界最高的宫殿。进去是另一个宇宙。 水里的那座布达拉，和天上那座一样大。 14:30–17:00 辩经，僧侣击掌拍手声震天，可以围观。",
+    "manners": [
+     "松赞干布法王洞 · 五世达赖灵塔 · 从不同角度看布宫体量",
+     "荷花池边最正位",
+     "14:30 准时到辩经院 · 别打扰"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 3,
+   "title": "拉萨 → 巴松措 → 林芝",
+   "sub": "500 km · 下降 600 m 助适应 · 中",
+   "place": "林芝",
+   "lat": 29.65,
+   "lng": 94.36,
+   "facts": {
+    "depart": "07:30",
+    "drive": "7 h",
+    "altitude_m": 3480,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      2,
+      -7
+     ],
+     "2": [
+      3,
+      -4
+     ],
+     "3": [
+      7,
+      -1
+     ],
+     "4": [
+      10,
+      3
+     ],
+     "5": [
+      14,
+      7
+     ],
+     "6": [
+      19,
+      12
+     ],
+     "7": [
+      21,
+      13
+     ],
+     "8": [
+      21,
+      13
+     ],
+     "9": [
+      19,
+      12
+     ],
+     "10": [
+      14,
+      7
+     ],
+     "11": [
+      8,
+      0
+     ],
+     "12": [
+      5,
+      -5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:30",
+     "type": "dep",
+     "to": "巴松措 · 湖心岛",
+     "mode": "drive",
+     "min": 300,
+     "km": 380,
+     "via": "沿途 · 米拉山隧道已通 · 不再翻 5013 m 山口"
+    },
+    {
+     "t": "10:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "12:30",
+     "type": "see",
+     "name": "巴松措 · 湖心岛",
+     "dur": 150,
+     "cost": 120,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "15:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 120,
+     "km": 120
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "林芝八一镇",
+     "name": "林芝八一镇",
+     "engine_price": 380
+    }
+   ],
+   "stay": {
+    "city": "林芝八一镇",
+    "engine": [
+     {
+      "city": "林芝八一镇",
+      "price": 380,
+      "why": "镇上吃住方便 · 明早进峡谷近"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "雪山围着一池碧水，湖心岛上那座错宗工巴寺比湖还老。",
+    "manners": [
+     "走过木桥上湖心岛 · 寺后看生殖崇拜壁画"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 米拉山隧道已通 · 不再翻 5013 m 山口"
+   ]
+  },
+  {
+   "n": 4,
+   "title": "雅鲁藏布大峡谷 · 南迦巴瓦",
+   "sub": "160 km 往返 · 等金山 · 中",
+   "place": "大峡谷",
+   "lat": 29.5070357,
+   "lng": 94.850198,
+   "facts": {
+    "depart": "07:00",
+    "drive": "3 h",
+    "altitude_m": 2947,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      3,
+      -7
+     ],
+     "2": [
+      4,
+      -4
+     ],
+     "3": [
+      8,
+      0
+     ],
+     "4": [
+      11,
+      3
+     ],
+     "5": [
+      15,
+      6
+     ],
+     "6": [
+      20,
+      12
+     ],
+     "7": [
+      21,
+      13
+     ],
+     "8": [
+      22,
+      13
+     ],
+     "9": [
+      20,
+      12
+     ],
+     "10": [
+      15,
+      7
+     ],
+     "11": [
+      10,
+      0
+     ],
+     "12": [
+      7,
+      -4
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:00",
+     "type": "dep",
+     "to": "雅鲁藏布大峡谷",
+     "mode": "drive",
+     "min": 90,
+     "km": 80,
+     "via": null
+    },
+    {
+     "t": "08:30",
+     "type": "see",
+     "name": "雅鲁藏布大峡谷",
+     "dur": 240,
+     "cost": 290,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "see",
+     "name": "索松村 · 日照金山",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "14:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 40,
+     "km": 20
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "索松村 · 正对南迦巴瓦",
+     "name": "索松村 · 正对南迦巴瓦",
+     "engine_price": 420
+    }
+   ],
+   "stay": {
+    "city": "索松村 · 正对南迦巴瓦",
+    "engine": [
+     {
+      "city": "索松村 · 正对南迦巴瓦",
+      "price": 420,
+      "why": "开窗就是雪山 · 等金山不用赶路"
+     },
+     {
+      "city": "林芝八一镇 · 回镇住",
+      "price": 380,
+      "why": "土路不好走 · 回镇更稳"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "江水在脚下拐出一个大湾，抬头就是南迦巴瓦的锥形雪顶。 桃花村的田埂上支起脚架，等最后一线光爬上那座羞女峰。",
+    "manners": [
+     "大渡卡到直白村四个观景台 · 观光车含在票内",
+     "日落前 40 分到位 · 云开就有金山"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 5,
+   "title": "林芝 → 拉萨",
+   "sub": "430 km · 尼洋河一路 · 中",
+   "place": "拉萨",
+   "lat": 29.65,
+   "lng": 91.13,
+   "facts": {
+    "depart": "07:00",
+    "drive": "6 h",
+    "altitude_m": 3656,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      6,
+      -6
+     ],
+     "2": [
+      8,
+      -4
+     ],
+     "3": [
+      11,
+      -1
+     ],
+     "4": [
+      15,
+      2
+     ],
+     "5": [
+      18,
+      5
+     ],
+     "6": [
+      22,
+      10
+     ],
+     "7": [
+      21,
+      12
+     ],
+     "8": [
+      21,
+      11
+     ],
+     "9": [
+      20,
+      9
+     ],
+     "10": [
+      16,
+      5
+     ],
+     "11": [
+      12,
+      0
+     ],
+     "12": [
+      9,
+      -2
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:00",
+     "type": "dep",
+     "to": "卡定沟 · 天佛瀑布",
+     "mode": "drive",
+     "min": 120,
+     "km": 100,
+     "via": null
+    },
+    {
+     "t": "09:00",
+     "type": "see",
+     "name": "卡定沟 · 天佛瀑布",
+     "dur": 90,
+     "cost": 60,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "10:30",
+     "type": "see",
+     "name": "尼洋河风光带",
+     "dur": 60,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 270,
+     "km": 330
+    },
+    {
+     "t": "11:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "拉萨 · 连住",
+     "name": "拉萨 · 连住",
+     "engine_price": 500
+    }
+   ],
+   "stay": {
+    "city": "拉萨 · 连住",
+    "engine": [
+     {
+      "city": "拉萨 · 连住",
+      "price": 500,
+      "why": "林芝回来仍住拉萨"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "水从崖顶砸下来，水汽里能看出一尊天然佛影，看不出也凉快。 河水是奶蓝色的，河滩上白石头堆成一片，随便停车就是照片。",
+    "manners": [
+     "栈道走到瀑布正下方 · 备雨衣",
+     "中流砥柱观景台 · 河滩边慢走"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 6,
+   "title": "羊卓雍错",
+   "sub": "130 km 往返 · 中",
+   "place": "拉萨",
+   "lat": 29.65,
+   "lng": 91.13,
+   "facts": {
+    "depart": "09:30",
+    "drive": "3 h",
+    "altitude_m": 3656,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      6,
+      -6
+     ],
+     "2": [
+      8,
+      -4
+     ],
+     "3": [
+      11,
+      -1
+     ],
+     "4": [
+      15,
+      2
+     ],
+     "5": [
+      18,
+      5
+     ],
+     "6": [
+      22,
+      10
+     ],
+     "7": [
+      21,
+      12
+     ],
+     "8": [
+      21,
+      11
+     ],
+     "9": [
+      20,
+      9
+     ],
+     "10": [
+      16,
+      5
+     ],
+     "11": [
+      12,
+      0
+     ],
+     "12": [
+      9,
+      -2
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "羊卓雍错",
+     "mode": "drive",
+     "min": 90,
+     "km": 65,
+     "via": "沿途 · 甘巴拉垭口 5,030 m · 一翻垭口湖就出现了"
+    },
+    {
+     "t": "11:00",
+     "type": "see",
+     "name": "羊卓雍错",
+     "dur": 180,
+     "cost": 30,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "14:00",
+     "type": "dep",
+     "to": "白居寺 · 菊扎神变殿",
+     "mode": "drive",
+     "min": 50,
+     "km": 60
+    },
+    {
+     "t": "14:50",
+     "type": "see",
+     "name": "白居寺 · 菊扎神变殿",
+     "dur": 90,
+     "cost": 40,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "16:20",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 80,
+     "km": 65
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "拉萨 · 连住",
+     "name": "拉萨 · 连住",
+     "engine_price": 500
+    }
+   ],
+   "stay": {
+    "city": "拉萨 · 连住",
+    "engine": [
+     {
+      "city": "拉萨 · 连住",
+      "price": 500,
+      "why": "D3 返回仍住拉萨"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "蓝到不真实，海拔 4441 米的镜面，四周是雪山。 唯一融合了萨迦、噶举、格鲁三派的寺，菊扎佛塔在里面。",
+    "manners": [
+     "垭口俯瞰全湖 · 湖边捡石头走走",
+     "菊扎塔9层· 77 个佛殿层层绕"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 甘巴拉垭口 5,030 m · 一翻垭口湖就出现了"
+   ]
+  },
+  {
+   "n": 7,
+   "title": "拉萨 → 日喀则",
+   "sub": "280 km · 约 4 小时 · 中",
+   "place": "日喀则",
+   "lat": 29.27,
+   "lng": 88.88,
+   "facts": {
+    "depart": "09:30",
+    "drive": "4 h",
+    "altitude_m": 3846,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      6,
+      -7
+     ],
+     "2": [
+      8,
+      -5
+     ],
+     "3": [
+      12,
+      -3
+     ],
+     "4": [
+      16,
+      1
+     ],
+     "5": [
+      19,
+      4
+     ],
+     "6": [
+      23,
+      9
+     ],
+     "7": [
+      21,
+      10
+     ],
+     "8": [
+      21,
+      10
+     ],
+     "9": [
+      20,
+      8
+     ],
+     "10": [
+      17,
+      2
+     ],
+     "11": [
+      12,
+      -2
+     ],
+     "12": [
+      8,
+      -5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "扎什伦布寺",
+     "mode": "drive",
+     "min": 240,
+     "km": 280,
+     "via": "沿途 · 318 国道雅鲁藏布江谷地 · 里孜服务区补给"
+    },
+    {
+     "t": "11:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "13:30",
+     "type": "see",
+     "name": "扎什伦布寺",
+     "dur": 150,
+     "cost": 85,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "16:00",
+     "type": "dep",
+     "to": "日喀则市集 · 藏族手工区",
+     "mode": "walk",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "16:15",
+     "type": "see",
+     "name": "日喀则市集 · 藏族手工区",
+     "dur": 225,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "20:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 10,
+     "km": null
+    },
+    {
+     "t": "20:15",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "日喀则古城区",
+     "name": "日喀则古城区",
+     "engine_price": 450
+    }
+   ],
+   "stay": {
+    "city": "日喀则古城区",
+    "engine": [
+     {
+      "city": "日喀则古城区",
+      "price": 450,
+      "why": "扎什伦布寺步行 20 分"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "世界最大的弥勒佛像在这里，26.2 米。光线充足的上午最好。 磕金属的工匠，卖风马旗的老店，大量真品唐卡。",
+    "manners": [
+     "未来佛殿内巨型弥勒 · 历代班禅灵塔",
+     "酥油花茶暖一碗"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 318 国道雅鲁藏布江谷地 · 里孜服务区补给"
+   ]
+  },
+  {
+   "n": 8,
+   "title": "日喀则 → 纳木错",
+   "sub": "480 km · 约 7 小时 · 重",
+   "place": "纳木错",
+   "lat": 30.77,
+   "lng": 90.85,
+   "facts": {
+    "depart": "08:30",
+    "drive": "7 h",
+    "altitude_m": 4718,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      -6,
+      -16
+     ],
+     "2": [
+      -4,
+      -15
+     ],
+     "3": [
+      -1,
+      -10
+     ],
+     "4": [
+      3,
+      -6
+     ],
+     "5": [
+      6,
+      -3
+     ],
+     "6": [
+      12,
+      3
+     ],
+     "7": [
+      13,
+      5
+     ],
+     "8": [
+      13,
+      5
+     ],
+     "9": [
+      11,
+      3
+     ],
+     "10": [
+      6,
+      -3
+     ],
+     "11": [
+      0,
+      -8
+     ],
+     "12": [
+      -2,
+      -13
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "纳木错 · 扎西岛日落",
+     "mode": "drive",
+     "min": 420,
+     "km": 480,
+     "via": "沿途 · 拉萨换加油 · 那根拉垭口 5,190 m（湖面正视角）"
+    },
+    {
+     "t": "12:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "15:30",
+     "type": "see",
+     "name": "纳木错 · 扎西岛日落",
+     "dur": 120,
+     "cost": 80,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "17:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 5,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "纳木错湖边营地",
+     "name": "纳木错湖边营地",
+     "engine_price": 480
+    }
+   ],
+   "stay": {
+    "city": "纳木错湖边营地",
+    "engine": [
+     {
+      "city": "纳木错湖边营地",
+      "price": 480,
+      "why": "扎西岛上 · 银河无遮挡"
+     },
+     {
+      "city": "纳木错旗政府区",
+      "price": 340,
+      "why": "省¥70/人 · 上午进湖"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "世界海拔最高的湖，扎西岛上扎营过夜看银河。",
+    "manners": [
+     "扎西岛东面看日落·夜晚银河不遮光"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 拉萨换加油 · 那根拉垭口 5,190 m（湖面正视角）"
+   ]
+  },
+  {
+   "n": 9,
+   "title": "纳木错 · 全天",
+   "sub": "湖边 · 日出日落银河 · 轻",
+   "place": "纳木错",
+   "lat": 30.77,
+   "lng": 90.85,
+   "facts": {
+    "depart": "09:30",
+    "drive": "0 h",
+    "altitude_m": 4726,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      -6,
+      -16
+     ],
+     "2": [
+      -4,
+      -15
+     ],
+     "3": [
+      -1,
+      -10
+     ],
+     "4": [
+      3,
+      -6
+     ],
+     "5": [
+      6,
+      -3
+     ],
+     "6": [
+      12,
+      3
+     ],
+     "7": [
+      13,
+      5
+     ],
+     "8": [
+      13,
+      5
+     ],
+     "9": [
+      11,
+      3
+     ],
+     "10": [
+      6,
+      -3
+     ],
+     "11": [
+      0,
+      -8
+     ],
+     "12": [
+      -2,
+      -13
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "05:00",
+     "type": "see",
+     "name": "纳木错 · 日出",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "07:00",
+     "type": "see",
+     "name": "纳木错 · 扎西岛绕岛",
+     "dur": 150,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 10,
+     "km": null
+    },
+    {
+     "t": "11:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "纳木错 · 连住",
+     "name": "纳木错 · 连住",
+     "engine_price": 480
+    }
+   ],
+   "stay": {
+    "city": "纳木错 · 连住",
+    "engine": [
+     {
+      "city": "纳木错 · 连住",
+      "price": 480,
+      "why": "D6 全天留在湖边（与D5同住）"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "5 点就要站在湖边等，雪山先亮，然后湖面铺金。 绕岛2小时，神山在背后，脚下是圣湖。",
+    "manners": [
+     "扎西岛东面 · 裹最厚的衣服",
+     "玛尼石堆 · 经幡林 · 喇嘛庙"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 10,
+   "title": "纳木错 → 拉萨出发",
+   "sub": "200 km · 约 3 小时 · 轻",
+   "place": "拉萨",
+   "lat": 29.65,
+   "lng": 91.13,
+   "facts": {
+    "depart": "09:00",
+    "drive": "3 h",
+    "altitude_m": 3656,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      6,
+      -6
+     ],
+     "2": [
+      8,
+      -4
+     ],
+     "3": [
+      11,
+      -1
+     ],
+     "4": [
+      15,
+      2
+     ],
+     "5": [
+      18,
+      5
+     ],
+     "6": [
+      22,
+      10
+     ],
+     "7": [
+      21,
+      12
+     ],
+     "8": [
+      21,
+      11
+     ],
+     "9": [
+      20,
+      9
+     ],
+     "10": [
+      16,
+      5
+     ],
+     "11": [
+      12,
+      0
+     ],
+     "12": [
+      9,
+      -2
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "拉萨·还车·出发",
+     "mode": "drive",
+     "min": 180,
+     "km": 200,
+     "via": "沿途 · 念青唐古拉山口 · 拉萨河谷"
+    },
+    {
+     "t": "12:00",
+     "type": "see",
+     "name": "拉萨·还车·出发",
+     "dur": 60,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "13:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "七天画圆，世界屋脊的意义，只有来过才懂。",
+    "manners": [
+     "还车·满油·对公里数"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 念青唐古拉山口 · 拉萨河谷"
+   ]
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

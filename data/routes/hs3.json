@@ -1,0 +1,564 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "hs3",
+ "fam": "hs",
+ "title": "🏔 黄山·宏村 3 天 · 华东最强周末",
+ "dest": "安徽 · 黄山",
+ "days_count": 3,
+ "seasons": [
+  {
+   "name": "黄山云海",
+   "why": "雨后第二天出现概率最高"
+  },
+  {
+   "name": "黄山冬雪",
+   "why": "12-2 月雾凇雪景 · 本季未到"
+  }
+ ],
+ "transport": {
+  "mode": "drive",
+  "rent": 900,
+  "perCar": true,
+  "roadfood": 160,
+  "label": "租车 · 油费 · 路桥"
+ },
+ "prep": [
+  "黄山限流 · 官网提前 3 天预约 · 山上住宿同步订",
+  "宏村旺季周末可以提前买好门票",
+  "杭州周末租车提前一周预订 · 长假前后难租",
+  "山上比山下低 8-10°C · 抓绒+雨衣必备"
+ ],
+ "weather_note": "黄山 8 月 · 山顶昼 18°C 夜 12°C · 云海概率高 · 带雨衣",
+ "days": [
+  {
+   "n": 1,
+   "title": "杭州 → 黄山市 · 徽州古城",
+   "sub": "260 km · 约 3.5 h · 轻",
+   "place": "黄山市",
+   "lat": 29.7172627,
+   "lng": 118.3324811,
+   "facts": {
+    "depart": "10:10",
+    "drive": "3.5 h",
+    "altitude_m": 130,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      11,
+      2
+     ],
+     "2": [
+      12,
+      3
+     ],
+     "3": [
+      18,
+      8
+     ],
+     "4": [
+      23,
+      13
+     ],
+     "5": [
+      27,
+      17
+     ],
+     "6": [
+      29,
+      21
+     ],
+     "7": [
+      33,
+      25
+     ],
+     "8": [
+      34,
+      25
+     ],
+     "9": [
+      30,
+      21
+     ],
+     "10": [
+      24,
+      15
+     ],
+     "11": [
+      19,
+      9
+     ],
+     "12": [
+      12,
+      3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "see",
+     "name": "杭州提车 · 验车",
+     "dur": 40,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "10:10",
+     "type": "dep",
+     "to": "徽州古城 · 许国石坊",
+     "mode": "drive",
+     "min": 210,
+     "km": 260
+    },
+    {
+     "t": "11:45",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "13:40",
+     "type": "see",
+     "name": "徽州古城 · 许国石坊",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "15:10",
+     "type": "dep",
+     "to": "黄山毛豆腐 · 老字号",
+     "mode": "walk",
+     "min": 5,
+     "km": null
+    },
+    {
+     "t": "15:15",
+     "type": "see",
+     "name": "黄山毛豆腐 · 老字号",
+     "dur": 75,
+     "cost": 68,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "16:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 10,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "黄山市屯溪老街",
+     "name": "黄山市屯溪老街",
+     "engine_price": 280
+    }
+   ],
+   "stay": {
+    "city": "黄山市屯溪老街",
+    "engine": [
+     {
+      "city": "黄山市屯溪老街",
+      "price": 280,
+      "why": "古城步行圈 · 明早出发顺"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "沪杭一带租车很方便，中午出发下午到。 唯一的八脚石坊，明代的宰相刚好经过正门。 霉豆腐煎到酥脆，这是安徽人的臭豆腐。",
+    "manners": [
+     "绕车拍视频 · 检验车况",
+     "从南门进 · 石坊前找光影",
+     "毛豆腐 · 火腿炖甲鱼汤"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "黄山全天",
+   "sub": "索道上山 · 山上住宿 · 中",
+   "place": "黄山市",
+   "lat": 29.7172627,
+   "lng": 118.3324811,
+   "facts": {
+    "depart": "09:00",
+    "drive": "0.5 h",
+    "altitude_m": 1864,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      11,
+      2
+     ],
+     "2": [
+      12,
+      3
+     ],
+     "3": [
+      18,
+      8
+     ],
+     "4": [
+      23,
+      13
+     ],
+     "5": [
+      27,
+      17
+     ],
+     "6": [
+      29,
+      21
+     ],
+     "7": [
+      33,
+      25
+     ],
+     "8": [
+      34,
+      25
+     ],
+     "9": [
+      30,
+      21
+     ],
+     "10": [
+      24,
+      15
+     ],
+     "11": [
+      19,
+      9
+     ],
+     "12": [
+      12,
+      3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "黄山 · 云谷索道上山",
+     "mode": "drive",
+     "min": 35,
+     "km": 25,
+     "via": null
+    },
+    {
+     "t": "09:40",
+     "type": "see",
+     "name": "黄山 · 云谷索道上山",
+     "dur": 30,
+     "cost": 270,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "10:10",
+     "type": "dep",
+     "to": "西海大峡谷 · 地轨列车",
+     "mode": "walk",
+     "min": 60,
+     "km": null
+    },
+    {
+     "t": "11:10",
+     "type": "see",
+     "name": "西海大峡谷 · 地轨列车",
+     "dur": 180,
+     "cost": 80,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "14:10",
+     "type": "dep",
+     "to": "光明顶 · 日落",
+     "mode": "walk",
+     "min": 40,
+     "km": null
+    },
+    {
+     "t": "14:50",
+     "type": "see",
+     "name": "光明顶 · 日落",
+     "dur": 60,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "15:50",
+     "type": "see",
+     "name": "山上住宿 · 等明日日出",
+     "dur": 60,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "黄山山上 · 北海宾馆",
+     "name": "黄山山上 · 北海宾馆",
+     "engine_price": 800
+    }
+   ],
+   "stay": {
+    "city": "黄山山上 · 北海宾馆",
+    "engine": [
+     {
+      "city": "黄山山上 · 北海宾馆",
+      "price": 800,
+      "why": "日出最佳机位 50 m · 提前预订"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "8:30 上山，赶在云海散前到达白鹅岭。 峰从脚下往下长，云从峰里往上走。 黄山第二高峰，日落时光整个山头变成铁锈色。 黄山最值钱的体验：一觉睡到云海里。",
+    "manners": [
+     "云谷→北海·先去北海再南走迎客松",
+     "地轨列车到谷底 · 步道走 S 形",
+     "18 点后的长影子",
+     "带保暖层 · 日出前 1 小时到观景台排位"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 3,
+   "title": "宏村 · 返程",
+   "sub": "下山 + 宏村 + 还车 · 轻",
+   "place": "杭州",
+   "lat": 30.27,
+   "lng": 120.15,
+   "facts": {
+    "depart": "08:00",
+    "drive": "3 h",
+    "altitude_m": 13,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      10,
+      2
+     ],
+     "2": [
+      12,
+      3
+     ],
+     "3": [
+      17,
+      8
+     ],
+     "4": [
+      23,
+      13
+     ],
+     "5": [
+      27,
+      18
+     ],
+     "6": [
+      29,
+      22
+     ],
+     "7": [
+      33,
+      26
+     ],
+     "8": [
+      34,
+      26
+     ],
+     "9": [
+      29,
+      22
+     ],
+     "10": [
+      23,
+      16
+     ],
+     "11": [
+      18,
+      10
+     ],
+     "12": [
+      12,
+      3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "06:30",
+     "type": "see",
+     "name": "黄山 · 日出",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "08:00",
+     "type": "dep",
+     "to": "宏村 · 徽派古村",
+     "mode": "walk",
+     "min": 50,
+     "km": null
+    },
+    {
+     "t": "08:50",
+     "type": "see",
+     "name": "宏村 · 徽派古村",
+     "dur": 150,
+     "cost": 104,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:20",
+     "type": "dep",
+     "to": "还车 · 杭州",
+     "mode": "drive",
+     "min": 30,
+     "km": 25
+    },
+    {
+     "t": "11:50",
+     "type": "see",
+     "name": "还车 · 杭州",
+     "dur": 40,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "dep",
+     "to": "回程",
+     "mode": "drive",
+     "min": 210,
+     "km": 270
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "片儿川",
+     "place": "附近面馆",
+     "price": 25,
+     "poi": "片儿川",
+     "src": "携程",
+     "priceText": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": {
+      "name": "杭州西子湖四季酒店",
+      "sell": "在西湖边的园林里",
+      "price": null,
+      "src": "四季官网"
+     },
+     "upscale": {
+      "name": "杭州新新饭店",
+      "sell": "北山路，百年老饭店，看得到湖",
+      "price": "约 ¥699",
+      "src": "新浪 2026-07"
+     },
+     "budget": {
+      "name": "如家neo（断桥残雪店）",
+      "sell": "走到断桥",
+      "price": "¥316 起",
+      "src": "新浪 2026-08"
+     }
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "排好了，日出从莲花峰后面出来，整片云海一下亮了。 牛形村落，月沼是它的胃，南湖是它的肚子。南屏比宏村更安静。 三天，黄山在身上的松香还没散。",
+    "manners": [
+     "清凉台·始信峰选一 · 太热门早到",
+     "月沼倒影 · 承志堂木雕 · 走到村后山坡",
+     "满油 · 对公里数"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

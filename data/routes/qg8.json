@@ -1,0 +1,1336 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "qg8",
+ "fam": "qg",
+ "title": "🚗 青甘大环线 8 天 · 从湖到窟",
+ "dest": "青甘 · 大环线",
+ "days_count": 8,
+ "seasons": [
+  {
+   "name": "莫高窟 A 类票",
+   "why": "旺季常售罄 · 提前 7 天官网抢"
+  },
+  {
+   "name": "门源油菜花",
+   "why": "花期 7 月 · 本次已过季"
+  },
+  {
+   "name": "额济纳胡杨",
+   "why": "10 月上旬金黄 · 另一条线"
+  }
+ ],
+ "transport": {
+  "mode": "drive",
+  "rent": 3000,
+  "perCar": true,
+  "roadfood": 400,
+  "label": "租车 · 油费 · 路桥"
+ },
+ "prep": [
+  "莫高窟 A 类票 · 提前 7 天官网抢（对护照/身份证）",
+  "确认石子 / 玻璃单独险 · 备胎工具齐",
+  "区间测速全程 · 车机/手机开提醒",
+  "橡皮山/当金山垭口 3,800 m · 高反药备一份",
+  "大柴旦—敦煌段站距 120 km · 低于半箱就加",
+  "D2 住 黑马河 · 湖景房 · 已订"
+ ],
+ "weather_note": "河西走廊 8 月 · 昼 20–33°C 夜 10–16°C · 日落约 20:40",
+ "days": [
+  {
+   "n": 1,
+   "title": "西宁",
+   "sub": "提车 · 塔尔寺 55 km",
+   "place": "西宁",
+   "lat": 36.62,
+   "lng": 101.78,
+   "facts": {
+    "depart": "10:45",
+    "drive": "1.5 h",
+    "altitude_m": 2261,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      1,
+      -12
+     ],
+     "2": [
+      4,
+      -9
+     ],
+     "3": [
+      10,
+      -4
+     ],
+     "4": [
+      15,
+      1
+     ],
+     "5": [
+      20,
+      6
+     ],
+     "6": [
+      23,
+      10
+     ],
+     "7": [
+      25,
+      13
+     ],
+     "8": [
+      24,
+      13
+     ],
+     "9": [
+      19,
+      9
+     ],
+     "10": [
+      13,
+      2
+     ],
+     "11": [
+      7,
+      -5
+     ],
+     "12": [
+      2,
+      -10
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "10:00",
+     "type": "see",
+     "name": "西宁提车 · 验车",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "10:45",
+     "type": "dep",
+     "to": "塔尔寺",
+     "mode": "drive",
+     "min": 45,
+     "km": 28
+    },
+    {
+     "t": "11:30",
+     "type": "see",
+     "name": "塔尔寺",
+     "dur": 120,
+     "cost": 70,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:30",
+     "type": "dep",
+     "to": "莫家街夜市",
+     "mode": "drive",
+     "min": 40,
+     "km": 26
+    },
+    {
+     "t": "14:10",
+     "type": "see",
+     "name": "莫家街夜市",
+     "dur": 150,
+     "cost": 68,
+     "ticket": "food",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "16:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 10,
+     "km": 3
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "西宁 · 力盟街区",
+     "name": "西宁 · 力盟街区",
+     "engine_price": 280
+    }
+   ],
+   "stay": {
+    "city": "西宁 · 力盟街区",
+    "engine": [
+     {
+      "city": "西宁 · 力盟街区",
+      "price": 280,
+      "why": "夜市步行圈 · 明早出城顺"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "大环线的钥匙，先拿稳。 酥油花、壁画与堆绣，先把心放慢。 酿皮、老酸奶、羊肠面，一条街吃到饱。",
+    "manners": [
+     "绕车拍视频 · 查备胎 · 记油位",
+     "大金瓦殿 · 全程顺时针走",
+     "马忠酿皮 · 老酸奶"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "青海湖",
+   "sub": "220 km · 驾驶约 3.7 h · 轻",
+   "place": "黑马河",
+   "lat": 36.7296869,
+   "lng": 99.7773963,
+   "facts": {
+    "depart": "10:00",
+    "drive": "3.7 h",
+    "altitude_m": 3208,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      -5,
+      -13
+     ],
+     "2": [
+      -3,
+      -11
+     ],
+     "3": [
+      2,
+      -6
+     ],
+     "4": [
+      6,
+      -3
+     ],
+     "5": [
+      9,
+      1
+     ],
+     "6": [
+      13,
+      6
+     ],
+     "7": [
+      17,
+      10
+     ],
+     "8": [
+      17,
+      10
+     ],
+     "9": [
+      13,
+      6
+     ],
+     "10": [
+      7,
+      0
+     ],
+     "11": [
+      2,
+      -5
+     ],
+     "12": [
+      -3,
+      -11
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "10:00",
+     "type": "dep",
+     "to": "青海湖 · 湖边牧场",
+     "mode": "drive",
+     "min": 150,
+     "km": 150,
+     "via": "沿途 · 日月山垭口停 15 分 · 倒淌河加油"
+    },
+    {
+     "t": "11:15",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "12:30",
+     "type": "see",
+     "name": "青海湖 · 湖边牧场",
+     "dur": 150,
+     "cost": 20,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "15:00",
+     "type": "dep",
+     "to": "黑马河 · 日落",
+     "mode": "drive",
+     "min": 70,
+     "km": 70
+    },
+    {
+     "t": "16:10",
+     "type": "see",
+     "name": "黑马河 · 日落",
+     "dur": 290,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "21:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 10,
+     "km": 4
+    },
+    {
+     "t": "21:15",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "黑马河 · 湖景房",
+     "name": "黑马河 · 湖景房",
+     "engine_price": 320
+    }
+   ],
+   "stay": {
+    "city": "黑马河 · 湖景房",
+    "engine": [
+     {
+      "city": "黑马河 · 湖景房",
+      "price": 320,
+      "why": "开窗就是日出位"
+     },
+     {
+      "city": "黑马河 · 院子房",
+      "price": 240,
+      "why": "省 ¥40/人 · 步行 5 分到湖"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "不进景区，找一段牧民的湖岸走到水边。 整片湖替太阳收场。",
+    "manners": [
+     "湖水和油菜花田的分界线",
+     "日落后 20 分钟的紫色湖面"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 日月山垭口停 15 分 · 倒淌河加油"
+   ]
+  },
+  {
+   "n": 3,
+   "title": "茶卡 · 大柴旦",
+   "sub": "426 km · 驾驶约 5.8 h · 重",
+   "place": "大柴旦",
+   "lat": 37.8549636,
+   "lng": 95.3539794,
+   "facts": {
+    "depart": "09:30",
+    "drive": "5.8 h",
+    "altitude_m": 3181,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      -4,
+      -14
+     ],
+     "2": [
+      -2,
+      -12
+     ],
+     "3": [
+      5,
+      -7
+     ],
+     "4": [
+      10,
+      -1
+     ],
+     "5": [
+      15,
+      3
+     ],
+     "6": [
+      19,
+      8
+     ],
+     "7": [
+      22,
+      11
+     ],
+     "8": [
+      21,
+      11
+     ],
+     "9": [
+      16,
+      6
+     ],
+     "10": [
+      9,
+      0
+     ],
+     "11": [
+      2,
+      -7
+     ],
+     "12": [
+      -3,
+      -11
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "茶卡盐湖",
+     "mode": "drive",
+     "min": 80,
+     "km": 80,
+     "via": "沿途 · 橡皮山垭口 3,817 m 缓行"
+    },
+    {
+     "t": "10:50",
+     "type": "see",
+     "name": "茶卡盐湖",
+     "dur": 150,
+     "cost": 94,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:20",
+     "type": "dep",
+     "to": "翡翠湖 · 黄昏",
+     "mode": "drive",
+     "min": 260,
+     "km": 340
+    },
+    {
+     "t": "17:40",
+     "type": "see",
+     "name": "翡翠湖 · 黄昏",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "19:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 12,
+     "km": 6
+    },
+    {
+     "t": "20:00",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "大柴旦镇",
+     "name": "大柴旦镇",
+     "engine_price": 300
+    }
+   ],
+   "stay": {
+    "city": "大柴旦镇",
+    "engine": [
+     {
+      "city": "大柴旦镇",
+      "price": 300,
+      "why": "镇上补给最全的一家"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "白到发蓝的一面镜子，赤脚下盐滩。 一格一格的绿宝石色盐池。",
+    "manners": [
+     "小火车坐到湖心 · 备拖鞋擦脚布",
+     "高处俯拍色块分界"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 橡皮山垭口 3,817 m 缓行"
+   ]
+  },
+  {
+   "n": 4,
+   "title": "敦煌",
+   "sub": "357 km · 驾驶约 5.2 h · 重",
+   "place": "敦煌",
+   "lat": 40.14,
+   "lng": 94.66,
+   "facts": {
+    "depart": "09:30",
+    "drive": "5.2 h",
+    "altitude_m": 1143,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      -2,
+      -11
+     ],
+     "2": [
+      4,
+      -7
+     ],
+     "3": [
+      14,
+      0
+     ],
+     "4": [
+      21,
+      7
+     ],
+     "5": [
+      27,
+      14
+     ],
+     "6": [
+      32,
+      19
+     ],
+     "7": [
+      34,
+      22
+     ],
+     "8": [
+      32,
+      20
+     ],
+     "9": [
+      27,
+      14
+     ],
+     "10": [
+      17,
+      5
+     ],
+     "11": [
+      7,
+      -3
+     ],
+     "12": [
+      -1,
+      -9
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "敦煌 · 进店休整",
+     "mode": "drive",
+     "min": 300,
+     "km": 340,
+     "via": "沿途 · 当金山垭口 · 阿克塞加油"
+    },
+    {
+     "t": "12:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "14:30",
+     "type": "see",
+     "name": "敦煌 · 进店休整",
+     "dur": 130,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "16:45",
+     "type": "dep",
+     "to": "鸣沙山月牙泉 · 黄昏场",
+     "mode": "drive",
+     "min": 15,
+     "km": 6
+    },
+    {
+     "t": "17:00",
+     "type": "see",
+     "name": "鸣沙山月牙泉 · 黄昏场",
+     "dur": 180,
+     "cost": 110,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "20:00",
+     "type": "dep",
+     "to": "沙洲夜市 · 烤肉套",
+     "mode": "drive",
+     "min": 12,
+     "km": 5
+    },
+    {
+     "t": "20:12",
+     "type": "see",
+     "name": "沙洲夜市 · 烤肉套",
+     "dur": 90,
+     "cost": 98,
+     "ticket": "food",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "21:42",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 15,
+     "km": 6
+    },
+    {
+     "t": "22:00",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "敦煌 · 沙洲夜市旁",
+     "name": "敦煌 · 沙洲夜市旁",
+     "engine_price": 380
+    }
+   ],
+   "stay": {
+    "city": "敦煌 · 沙洲夜市旁",
+    "engine": [
+     {
+      "city": "敦煌 · 沙洲夜市旁",
+      "price": 380,
+      "why": "夜市步行 3 分 · 鸣沙山 15 分车程"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "把正午交给房间，鸣沙山属于黄昏。 爬上沙脊看月牙泉点灯。 红柳枝烤肉配杏皮水。",
+    "manners": [
+     "补水补电 · 17 点前别进沙漠",
+     "东沙梁看日落 · 光脚下山最快",
+     "红柳烤肉 · 杏皮水"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 当金山垭口 · 阿克塞加油"
+   ]
+  },
+  {
+   "n": 5,
+   "title": "莫高窟 · 嘉峪关",
+   "sub": "399 km · 驾驶约 5.2 h · 重",
+   "place": "嘉峪关",
+   "lat": 39.7722294,
+   "lng": 98.2885388,
+   "facts": {
+    "depart": "09:00",
+    "drive": "5.2 h",
+    "altitude_m": 1662,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      -3,
+      -13
+     ],
+     "2": [
+      1,
+      -9
+     ],
+     "3": [
+      10,
+      -2
+     ],
+     "4": [
+      16,
+      4
+     ],
+     "5": [
+      22,
+      10
+     ],
+     "6": [
+      27,
+      15
+     ],
+     "7": [
+      29,
+      18
+     ],
+     "8": [
+      27,
+      16
+     ],
+     "9": [
+      22,
+      11
+     ],
+     "10": [
+      13,
+      3
+     ],
+     "11": [
+      5,
+      -4
+     ],
+     "12": [
+      -2,
+      -12
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "莫高窟 · A 类票",
+     "mode": "drive",
+     "min": 30,
+     "km": 25,
+     "via": "沿途 · 提前 30 分到场检票"
+    },
+    {
+     "t": "09:45",
+     "type": "see",
+     "name": "莫高窟 · A 类票",
+     "dur": 180,
+     "cost": 238,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "12:45",
+     "type": "dep",
+     "to": "嘉峪关关城",
+     "mode": "drive",
+     "min": 280,
+     "km": 370
+    },
+    {
+     "t": "15:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "17:25",
+     "type": "see",
+     "name": "嘉峪关关城",
+     "dur": 90,
+     "cost": 110,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "18:55",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 10,
+     "km": 4
+    },
+    {
+     "t": "19:15",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "嘉峪关关城边",
+     "name": "嘉峪关关城边",
+     "engine_price": 300
+    }
+   ],
+   "stay": {
+    "city": "嘉峪关关城边",
+    "engine": [
+     {
+      "city": "嘉峪关关城边",
+      "price": 300,
+      "why": "明早出发直上高速"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "两部球幕电影之后，走进真正的洞窟。 城楼后面就是雪山和戈壁。",
+    "manners": [
+     "跟紧讲解员 · 窟内禁拍",
+     "角楼上看祁连雪线"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 提前 30 分到场检票"
+   ]
+  },
+  {
+   "n": 6,
+   "title": "张掖",
+   "sub": "275 km · 驾驶约 3.8 h · 中",
+   "place": "张掖",
+   "lat": 38.93,
+   "lng": 100.45,
+   "facts": {
+    "depart": "10:00",
+    "drive": "3.8 h",
+    "altitude_m": 1479,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      1,
+      -12
+     ],
+     "2": [
+      5,
+      -9
+     ],
+     "3": [
+      13,
+      -3
+     ],
+     "4": [
+      19,
+      3
+     ],
+     "5": [
+      24,
+      9
+     ],
+     "6": [
+      29,
+      14
+     ],
+     "7": [
+      31,
+      17
+     ],
+     "8": [
+      29,
+      16
+     ],
+     "9": [
+      25,
+      11
+     ],
+     "10": [
+      17,
+      3
+     ],
+     "11": [
+      8,
+      -4
+     ],
+     "12": [
+      1,
+      -11
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "10:00",
+     "type": "dep",
+     "to": "张掖 · 搓鱼子午饭",
+     "mode": "drive",
+     "min": 180,
+     "km": 230,
+     "via": "沿途 · 清水服务区加油"
+    },
+    {
+     "t": "11:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "13:00",
+     "type": "see",
+     "name": "张掖 · 搓鱼子午饭",
+     "dur": 60,
+     "cost": 38,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "16:45",
+     "type": "dep",
+     "to": "七彩丹霞 · 黄昏场",
+     "mode": "drive",
+     "min": 45,
+     "km": 40
+    },
+    {
+     "t": "17:30",
+     "type": "see",
+     "name": "七彩丹霞 · 黄昏场",
+     "dur": 150,
+     "cost": 75,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "20:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 10,
+     "km": 5
+    },
+    {
+     "t": "20:15",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "张掖 · 丹霞口",
+     "name": "张掖 · 丹霞口",
+     "engine_price": 320
+    }
+   ],
+   "stay": {
+    "city": "张掖 · 丹霞口",
+    "engine": [
+     {
+      "city": "张掖 · 丹霞口",
+      "price": 320,
+      "why": "看完日落 10 分钟到床"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "一碗搓鱼子垫底，下午留给丹霞。 太阳越低，山越红。",
+    "manners": [
+     "搓鱼子 · 灰豆汤",
+     "4 号观景台收官 · 区间车末班 21:00"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 清水服务区加油"
+   ]
+  },
+  {
+   "n": 7,
+   "title": "祁连",
+   "sub": "208 km · 驾驶约 3.5 h · 中",
+   "place": "祁连",
+   "lat": 38.18,
+   "lng": 100.25,
+   "facts": {
+    "depart": "10:00",
+    "drive": "3.5 h",
+    "altitude_m": 2721,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      -2,
+      -13
+     ],
+     "2": [
+      1,
+      -12
+     ],
+     "3": [
+      6,
+      -6
+     ],
+     "4": [
+      11,
+      -1
+     ],
+     "5": [
+      15,
+      3
+     ],
+     "6": [
+      18,
+      8
+     ],
+     "7": [
+      21,
+      11
+     ],
+     "8": [
+      20,
+      11
+     ],
+     "9": [
+      17,
+      6
+     ],
+     "10": [
+      10,
+      0
+     ],
+     "11": [
+      4,
+      -7
+     ],
+     "12": [
+      0,
+      -12
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "10:00",
+     "type": "dep",
+     "to": "卓尔山",
+     "mode": "drive",
+     "min": 200,
+     "km": 200,
+     "via": "沿途 · 扁都口风光带随停随走"
+    },
+    {
+     "t": "11:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "13:20",
+     "type": "see",
+     "name": "卓尔山",
+     "dur": 150,
+     "cost": 60,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "15:50",
+     "type": "dep",
+     "to": "祁连 · 牦牛肉汤锅",
+     "mode": "drive",
+     "min": 10,
+     "km": 5
+    },
+    {
+     "t": "16:00",
+     "type": "see",
+     "name": "祁连 · 牦牛肉汤锅",
+     "dur": 80,
+     "cost": 88,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "17:20",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 8,
+     "km": 3
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "祁连县城",
+     "name": "祁连县城",
+     "engine_price": 280
+    }
+   ],
+   "stay": {
+    "city": "祁连县城",
+    "engine": [
+     {
+      "city": "祁连县城",
+      "price": 280,
+      "why": "牦牛汤锅楼下"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "红色丹霞顶着绿草甸，对面是牛心山雪顶。 高原的晚上要一锅热的。",
+    "manners": [
+     "西观景台看祁连县全景",
+     "牦牛肉汤锅 · 青稞饼"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 扁都口风光带随停随走"
+   ]
+  },
+  {
+   "n": 8,
+   "title": "回西宁 · 还车",
+   "sub": "280 km · 驾驶约 4.3 h · 中",
+   "place": "西宁",
+   "lat": 36.62,
+   "lng": 101.78,
+   "facts": {
+    "depart": "09:30",
+    "drive": "4.3 h",
+    "altitude_m": 2261,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      1,
+      -12
+     ],
+     "2": [
+      4,
+      -9
+     ],
+     "3": [
+      10,
+      -4
+     ],
+     "4": [
+      15,
+      1
+     ],
+     "5": [
+      20,
+      6
+     ],
+     "6": [
+      23,
+      10
+     ],
+     "7": [
+      25,
+      13
+     ],
+     "8": [
+      24,
+      13
+     ],
+     "9": [
+      19,
+      9
+     ],
+     "10": [
+      13,
+      2
+     ],
+     "11": [
+      7,
+      -5
+     ],
+     "12": [
+      2,
+      -10
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "还车 · 西宁",
+     "mode": "drive",
+     "min": 260,
+     "km": 280,
+     "via": "沿途 · 门源观景台停 20 分 · 达坂山隧道"
+    },
+    {
+     "t": "11:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "13:50",
+     "type": "see",
+     "name": "还车 · 西宁",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "大环画圆。",
+    "manners": [
+     "满油 · 对公里数 · 验车拍视频"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 门源观景台停 20 分 · 达坂山隧道"
+   ]
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

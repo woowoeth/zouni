@@ -1,0 +1,473 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "tl3",
+ "fam": "tl",
+ "title": "🏘 福建土楼 3 天 · 客家围屋",
+ "dest": "福建 · 龙岩漳州",
+ "days_count": 3,
+ "seasons": [
+  {
+   "name": "土楼间需包车",
+   "why": "南靖永定之间公交不便 · 建议整段包车"
+  },
+  {
+   "name": "土楼夜景灯",
+   "why": "部分景区周末开灯 · 需当地确认"
+  }
+ ],
+ "transport": {
+  "mode": "transit",
+  "rent": 0,
+  "perCar": false,
+  "roadfood": 0,
+  "label": "动车 · 包车（每人实付）"
+ },
+ "prep": [
+  "土楼之间公交不便 · 建议包车按天算 · 提前谈价",
+  "厦门至南靖动车 50 分 · 提前订往返",
+  "土楼民宿条件简单 · 图的是体验不是舒适",
+  "闽西山区午后有雨 · 带伞"
+ ],
+ "weather_note": "闽西 8 月 · 昼 26–34℃ · 山区午后有雨",
+ "days": [
+  {
+   "n": 1,
+   "title": "南靖 · 田螺坑四菜一汤",
+   "sub": "高铁转包车 · 中",
+   "place": "南靖田螺坑",
+   "lat": 24.586866,
+   "lng": 117.0558286,
+   "facts": {
+    "depart": "08:00",
+    "drive": "2 h",
+    "altitude_m": 758,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      16,
+      7
+     ],
+     "2": [
+      16,
+      8
+     ],
+     "3": [
+      19,
+      10
+     ],
+     "4": [
+      22,
+      14
+     ],
+     "5": [
+      25,
+      18
+     ],
+     "6": [
+      26,
+      20
+     ],
+     "7": [
+      28,
+      21
+     ],
+     "8": [
+      28,
+      21
+     ],
+     "9": [
+      27,
+      20
+     ],
+     "10": [
+      24,
+      16
+     ],
+     "11": [
+      21,
+      12
+     ],
+     "12": [
+      17,
+      8
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:00",
+     "type": "dep",
+     "to": "田螺坑土楼群",
+     "mode": "transit",
+     "min": 140,
+     "km": null,
+     "via": "南靖站有直达土楼的旅游专线"
+    },
+    {
+     "t": "10:20",
+     "type": "see",
+     "name": "田螺坑土楼群",
+     "dur": 150,
+     "cost": 100,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "12:50",
+     "type": "see",
+     "name": "云水谣古镇",
+     "dur": 120,
+     "cost": 90,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:50",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 40,
+     "km": 25
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "云水谣 · 溪边客栈",
+     "name": "云水谣 · 溪边客栈",
+     "engine_price": 280
+    }
+   ],
+   "stay": {
+    "city": "云水谣 · 溪边客栈",
+    "engine": [
+     {
+      "city": "云水谣 · 溪边客栈",
+      "price": 280,
+      "why": "古榕就在门口 · 夜里安静"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "四个圆楼围着一个方楼，从山上观景台看下去，当地人叫它四菜一汤。 一条溪穿过村子，岸边十几棵百年老榕，水车吱呀吱呀转。",
+    "manners": [
+     "上观景台看全景 · 下到楼里看天井",
+     "千年古榕 · 和贵楼 · 溪边走一圈"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "南靖站有直达土楼的旅游专线"
+   ]
+  },
+  {
+   "n": 2,
+   "title": "永定 · 洪坑土楼群",
+   "sub": "振成楼与客家生活 · 中",
+   "place": "永定洪坑",
+   "lat": 24.6657944,
+   "lng": 116.9727178,
+   "facts": {
+    "depart": "08:30",
+    "drive": "2.5 h",
+    "altitude_m": 395,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      19,
+      8
+     ],
+     "2": [
+      20,
+      9
+     ],
+     "3": [
+      22,
+      12
+     ],
+     "4": [
+      26,
+      16
+     ],
+     "5": [
+      28,
+      20
+     ],
+     "6": [
+      30,
+      22
+     ],
+     "7": [
+      32,
+      23
+     ],
+     "8": [
+      31,
+      23
+     ],
+     "9": [
+      31,
+      22
+     ],
+     "10": [
+      28,
+      18
+     ],
+     "11": [
+      24,
+      14
+     ],
+     "12": [
+      20,
+      9
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "振成楼 · 土楼王子",
+     "mode": "drive",
+     "min": 120,
+     "km": 90,
+     "via": "沿途 · 山路多弯 · 包车按天算"
+    },
+    {
+     "t": "10:30",
+     "type": "see",
+     "name": "振成楼 · 土楼王子",
+     "dur": 150,
+     "cost": 90,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:00",
+     "type": "see",
+     "name": "客家土楼人家 · 午饭",
+     "dur": 90,
+     "cost": 60,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "14:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 8,
+     "km": 3
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "洪坑 · 土楼民宿",
+     "name": "洪坑 · 土楼民宿",
+     "engine_price": 300
+    }
+   ],
+   "stay": {
+    "city": "洪坑 · 土楼民宿",
+    "engine": [
+     {
+      "city": "洪坑 · 土楼民宿",
+      "price": 300,
+      "why": "住在土楼里 · 天井看星星"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "外圈是客家夯土，内圈却是西洋柱廊，一栋楼里住过四百多人。 在土楼的天井里吃饭，头顶是一圈天，桌上是芋子包和梅菜扣肉。",
+    "manners": [
+     "振成楼 · 奎聚楼 · 福裕楼",
+     "芋子包 · 梅菜扣肉 · 土楼米酒"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 山路多弯 · 包车按天算"
+   ]
+  },
+  {
+   "n": 3,
+   "title": "初溪土楼群 · 返程",
+   "sub": "最原始的一片 · 下午回厦门 · 中",
+   "place": "厦门·龙岩",
+   "lat": 24.48,
+   "lng": 118.09,
+   "facts": {
+    "depart": "08:30",
+    "drive": "4 h",
+    "altitude_m": 2,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      19,
+      11
+     ],
+     "2": [
+      19,
+      11
+     ],
+     "3": [
+      21,
+      14
+     ],
+     "4": [
+      25,
+      18
+     ],
+     "5": [
+      28,
+      22
+     ],
+     "6": [
+      30,
+      25
+     ],
+     "7": [
+      33,
+      27
+     ],
+     "8": [
+      32,
+      26
+     ],
+     "9": [
+      32,
+      25
+     ],
+     "10": [
+      30,
+      22
+     ],
+     "11": [
+      25,
+      18
+     ],
+     "12": [
+      21,
+      13
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "初溪土楼群",
+     "mode": "drive",
+     "min": 80,
+     "km": 50,
+     "via": null
+    },
+    {
+     "t": "09:50",
+     "type": "see",
+     "name": "初溪土楼群",
+     "dur": 150,
+     "cost": 70,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:20",
+     "type": "dep",
+     "to": "回程",
+     "mode": "transit",
+     "min": 180,
+     "km": null
+    },
+    {
+     "t": "13:45",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "比田螺坑安静得多，集庆楼里 72 道楼梯各自独立，六百年没塌。",
+    "manners": [
+     "集庆楼 72 道楼梯 · 观景台看全群"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

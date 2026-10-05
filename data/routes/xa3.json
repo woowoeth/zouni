@@ -1,0 +1,538 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "xa3",
+ "fam": "xa",
+ "title": "🏯 西安 3 天 · 城墙兵马俑与碳水",
+ "dest": "陕西 · 西安",
+ "days_count": 3,
+ "seasons": [
+  {
+   "name": "陕历博预约",
+   "why": "基本陈列免费 · 提前 3 天官微放票"
+  },
+  {
+   "name": "城墙落日",
+   "why": "傍晚骑行不晒 · 日落打在砖上"
+  },
+  {
+   "name": "华清池·长恨歌",
+   "why": "需另加半天与夜场票"
+  }
+ ],
+ "transport": {
+  "mode": "transit",
+  "rent": 0,
+  "perCar": false,
+  "roadfood": 0,
+  "label": "地铁 · 公交（每人实付）"
+ },
+ "prep": [
+  "陕历博提前 3 天官微抢票 · 放票即秒光",
+  "兵马俑旺季提前 3 天实名预约",
+  "长安通乘车码或云闪付 · 地铁全线通用",
+  "城墙上无遮阳 · 帽子和水必备"
+ ],
+ "weather_note": "西安 8 月 · 昼 27–36℃ · 干热少雨 · 城墙上无遮阳",
+ "days": [
+  {
+   "n": 1,
+   "title": "城墙骑行 · 回民街",
+   "sub": "市中心 · 骑一圈城墙 · 轻",
+   "place": "钟楼·回民街",
+   "lat": 34.2629447,
+   "lng": 108.9424921,
+   "facts": {
+    "depart": "12:00",
+    "drive": "0 h",
+    "altitude_m": 407,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      6,
+      -4
+     ],
+     "2": [
+      10,
+      -1
+     ],
+     "3": [
+      18,
+      5
+     ],
+     "4": [
+      24,
+      11
+     ],
+     "5": [
+      28,
+      15
+     ],
+     "6": [
+      32,
+      20
+     ],
+     "7": [
+      33,
+      23
+     ],
+     "8": [
+      33,
+      23
+     ],
+     "9": [
+      26,
+      17
+     ],
+     "10": [
+      19,
+      10
+     ],
+     "11": [
+      13,
+      4
+     ],
+     "12": [
+      7,
+      -3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "see",
+     "name": "西安城墙 · 骑行一圈",
+     "dur": 150,
+     "cost": 99,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:00",
+     "type": "dep",
+     "to": "回民街 · 北院门",
+     "mode": "walk",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "12:15",
+     "type": "see",
+     "name": "回民街 · 北院门",
+     "dur": 90,
+     "cost": 65,
+     "ticket": "food",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:45",
+     "type": "dep",
+     "to": "钟鼓楼 · 夜灯",
+     "mode": "walk",
+     "min": 5,
+     "km": null
+    },
+    {
+     "t": "13:50",
+     "type": "see",
+     "name": "钟鼓楼 · 夜灯",
+     "dur": 60,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:50",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 10,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "钟楼 · 回民街旁",
+     "name": "钟楼 · 回民街旁",
+     "engine_price": 380
+    }
+   ],
+   "stay": {
+    "city": "钟楼 · 回民街旁",
+    "engine": [
+     {
+      "city": "钟楼 · 回民街旁",
+      "price": 380,
+      "why": "地铁枢纽 · 夜里逛街走回来"
+     },
+     {
+      "city": "小寨 · 地铁口",
+      "price": 260,
+      "why": "省 ¥60/人 · 去陕历博两站"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "骑上城墙那一刻，脚下是六百年的砖，两边是活着的城市。 羊肉泡馍要自己掰，肉夹馍的腊汁流下来，甑糕的枣泥堆得冒尖。 灯一亮，钟楼整个浮在车流上面，绕一圈广场就能拍够。",
+    "manners": [
+     "南门上墙租车 · 顺时针一圈约 100 分钟",
+     "老孙家泡馍 · 贾三灌汤包 · 红红酸菜炒米",
+     "夜里外观免费 · 登楼需另购票"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "兵马俑 · 大唐不夜城",
+   "sub": "东郊往返 · 夜游长街 · 中",
+   "place": "钟楼·回民街",
+   "lat": 34.2629447,
+   "lng": 108.9424921,
+   "facts": {
+    "depart": "08:00",
+    "drive": "0 h",
+    "altitude_m": 407,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      6,
+      -4
+     ],
+     "2": [
+      10,
+      -1
+     ],
+     "3": [
+      18,
+      5
+     ],
+     "4": [
+      24,
+      11
+     ],
+     "5": [
+      28,
+      15
+     ],
+     "6": [
+      32,
+      20
+     ],
+     "7": [
+      33,
+      23
+     ],
+     "8": [
+      33,
+      23
+     ],
+     "9": [
+      26,
+      17
+     ],
+     "10": [
+      19,
+      10
+     ],
+     "11": [
+      13,
+      4
+     ],
+     "12": [
+      7,
+      -3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:00",
+     "type": "dep",
+     "to": "秦始皇兵马俑",
+     "mode": "transit",
+     "min": 80,
+     "km": null,
+     "via": "华清池站换 613 路 · 或坐游 5 专线直达"
+    },
+    {
+     "t": "09:20",
+     "type": "see",
+     "name": "秦始皇兵马俑",
+     "dur": 180,
+     "cost": 120,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "12:20",
+     "type": "see",
+     "name": "大唐不夜城 · 夜游",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "14:20",
+     "type": "see",
+     "name": "永兴坊 · 摔碗酒",
+     "dur": 70,
+     "cost": 55,
+     "ticket": "food",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "15:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 75,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "钟楼 · 连住",
+     "name": "钟楼 · 连住",
+     "engine_price": 380
+    }
+   ],
+   "stay": {
+    "city": "钟楼 · 连住",
+    "engine": [
+     {
+      "city": "钟楼 · 连住",
+      "price": 380,
+      "why": "不挪窝 · 行李不动"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "一号坑门一推开，几千个真人大小的兵俑列在土沟里，两千两百年没散过队。 整条街的唐风建筑亮起来，不倒翁小姐姐和飞天在人群里穿，热闹得不像博物馆城市。 一碗稠酒五块钱，喝完把碗往地上摔，一晚上碎碗堆成小山。",
+    "manners": [
+     "按 一号坑 → 三号坑 → 二号坑 顺序 · 请讲解或租语音",
+     "19:30 后灯全开 · 大雁塔北广场喷泉",
+     "摔碗酒 ¥5 · 子长煎饼 · 蓼花糖"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "华清池站换 613 路 · 或坐游 5 专线直达"
+   ]
+  },
+  {
+   "n": 3,
+   "title": "陕历博 · 大雁塔收官",
+   "sub": "博物馆一上午 · 下午离开 · 轻",
+   "place": "钟楼·回民街",
+   "lat": 34.2629447,
+   "lng": 108.9424921,
+   "facts": {
+    "depart": "08:30",
+    "drive": "0 h",
+    "altitude_m": 407,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      6,
+      -4
+     ],
+     "2": [
+      10,
+      -1
+     ],
+     "3": [
+      18,
+      5
+     ],
+     "4": [
+      24,
+      11
+     ],
+     "5": [
+      28,
+      15
+     ],
+     "6": [
+      32,
+      20
+     ],
+     "7": [
+      33,
+      23
+     ],
+     "8": [
+      33,
+      23
+     ],
+     "9": [
+      26,
+      17
+     ],
+     "10": [
+      19,
+      10
+     ],
+     "11": [
+      13,
+      4
+     ],
+     "12": [
+      7,
+      -3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "陕西历史博物馆",
+     "mode": "transit",
+     "min": 20,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "08:50",
+     "type": "see",
+     "name": "陕西历史博物馆",
+     "dur": 150,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "11:20",
+     "type": "dep",
+     "to": "大雁塔 · 大慈恩寺",
+     "mode": "walk",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "11:35",
+     "type": "see",
+     "name": "大雁塔 · 大慈恩寺",
+     "dur": 90,
+     "cost": 40,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:05",
+     "type": "see",
+     "name": "裤带面 · 油泼辣子",
+     "dur": 60,
+     "cost": 35,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "14:05",
+     "type": "dep",
+     "to": "回程",
+     "mode": "transit",
+     "min": 50,
+     "km": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "一层走完就是从周到唐，何家村那批金银器隔着玻璃还在发光。 玄奘从印度带回来的经书就存在这座塔里，塔身一千三百年没倒。 一根面裤带宽，热油往辣子面上一泼，香得整条街都知道。",
+    "manners": [
+     "基本陈列免费需预约 · 何家村特展¥30 值得加",
+     "大慈恩寺¥40 · 登塔另¥20 可俯瞰南城",
+     "葫芦头配糖蒜 · 或裤带面加荷包蛋"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "todo",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

@@ -1,0 +1,1003 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "sc6",
+ "fam": "sc",
+ "title": "🏔 稻城·亚丁 6天 · 含康定版",
+ "dest": "四川 · 稻城·亚丁",
+ "days_count": 6,
+ "seasons": [
+  {
+   "name": "亚丁限流 1000 人/天",
+   "why": "旺季常售罄 · 提前 10 天官网抢"
+  },
+  {
+   "name": "洛绒牛场秋色",
+   "why": "红叶约 10 月初 · 本次未到季"
+  }
+ ],
+ "transport": {
+  "mode": "drive",
+  "rent": 2600,
+  "perCar": true,
+  "roadfood": 320,
+  "label": "租车 · 油费 · 路桥"
+ },
+ "prep": [
+  "亚丁限流票 · 提前 10 天官网预约（www.yadingpark.com）",
+  "4,000 m+ 全程 · 高反药+氧气罐人手一份 · 头痛即下撤",
+  "SUV 必须 · 确认石子/玻璃险 · 查备胎防冻液",
+  "折多山/雅康高速区间测速 · 全程开提醒",
+  "成都满箱出发 · 稻城二次满箱 · D5 出发前检查",
+  "亚丁村住宿旺季必须提前订"
+ ],
+ "weather_note": "高原 8 月 · 昼 14–22°C 夜 3–8°C · 午后雷阵雨 · 紫外线极强",
+ "days": [
+  {
+   "n": 1,
+   "title": "成都 → 新都桥",
+   "sub": "220 km 成都→康定 · 中",
+   "place": "康定",
+   "lat": 30.0002558,
+   "lng": 101.9545581,
+   "facts": {
+    "depart": "09:45",
+    "drive": "6 h",
+    "altitude_m": 2812,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      4,
+      -7
+     ],
+     "2": [
+      4,
+      -6
+     ],
+     "3": [
+      7,
+      -2
+     ],
+     "4": [
+      11,
+      2
+     ],
+     "5": [
+      14,
+      6
+     ],
+     "6": [
+      16,
+      10
+     ],
+     "7": [
+      19,
+      12
+     ],
+     "8": [
+      19,
+      12
+     ],
+     "9": [
+      15,
+      10
+     ],
+     "10": [
+      11,
+      4
+     ],
+     "11": [
+      8,
+      -1
+     ],
+     "12": [
+      4,
+      -5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "see",
+     "name": "成都提车 · 验车",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "09:45",
+     "type": "dep",
+     "to": "木雅圣地 · 转经筒",
+     "mode": "drive",
+     "min": 210,
+     "km": 220
+    },
+    {
+     "t": "11:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "13:15",
+     "type": "see",
+     "name": "木雅圣地 · 转经筒",
+     "dur": 60,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:15",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 8,
+     "km": 3
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "康定城",
+     "name": "康定城",
+     "engine_price": 380
+    }
+   ],
+   "stay": {
+    "city": "康定城",
+    "engine": [
+     {
+      "city": "康定城",
+      "price": 380,
+      "why": "城里最热闹 · 转经筒步行圈"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "高原线必须 SUV，满箱出发。 世界最大转经筒城里，跑马溜溜的那个地方。",
+    "manners": [
+     "绕车拍视频 · 查备胎防冻液",
+     "大转经筒推三圈 · 城边跑马山远眺"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "康定 → 折多山 → 新都桥",
+   "sub": "170 km 康定→折多山→新都桥 · 中",
+   "place": "新都桥",
+   "lat": 30.046713,
+   "lng": 101.4918038,
+   "facts": {
+    "depart": "09:00",
+    "drive": "6 h",
+    "altitude_m": 3469,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      5,
+      -8
+     ],
+     "2": [
+      5,
+      -7
+     ],
+     "3": [
+      8,
+      -4
+     ],
+     "4": [
+      11,
+      -1
+     ],
+     "5": [
+      15,
+      3
+     ],
+     "6": [
+      18,
+      7
+     ],
+     "7": [
+      19,
+      9
+     ],
+     "8": [
+      19,
+      9
+     ],
+     "9": [
+      17,
+      7
+     ],
+     "10": [
+      14,
+      3
+     ],
+     "11": [
+      9,
+      -2
+     ],
+     "12": [
+      7,
+      -5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "折多山垭口",
+     "mode": "drive",
+     "min": 180,
+     "km": 170,
+     "via": "沿途 · 折多山垭口 · 雪山出来就是草甸"
+    },
+    {
+     "t": "12:00",
+     "type": "see",
+     "name": "折多山垭口",
+     "dur": 20,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:20",
+     "type": "dep",
+     "to": "新都桥 · 光影长廊",
+     "mode": "drive",
+     "min": 50,
+     "km": 40
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:10",
+     "type": "see",
+     "name": "新都桥 · 光影长廊",
+     "dur": 470,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "21:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 8,
+     "km": 3
+    },
+    {
+     "t": "21:15",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "新都桥 · 观景房",
+     "name": "新都桥 · 观景房",
+     "engine_price": 420
+    }
+   ],
+   "stay": {
+    "city": "新都桥 · 观景房",
+    "engine": [
+     {
+      "city": "新都桥 · 观景房",
+      "price": 420,
+      "why": "窗外就是光影长廊"
+     },
+     {
+      "city": "新都桥 · 普通房",
+      "price": 300,
+      "why": "省 ¥60/人 · 步行 5 分到机位"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "翻越这道坎，就进了高原世界。 白杨、溪流、藏房，等光把它们镀一遍金。",
+    "manners": [
+     "垭口远眺贡嘎雪线",
+     "日落前斜射光"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 折多山垭口 · 雪山出来就是草甸"
+   ]
+  },
+  {
+   "n": 3,
+   "title": "新都桥 → 理塘",
+   "sub": "170 km · 驾驶约 3 h · 中",
+   "place": "理塘",
+   "lat": 29.9939782,
+   "lng": 100.2674294,
+   "facts": {
+    "depart": "09:30",
+    "drive": "3 h",
+    "altitude_m": 3954,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      3,
+      -9
+     ],
+     "2": [
+      3,
+      -8
+     ],
+     "3": [
+      6,
+      -6
+     ],
+     "4": [
+      9,
+      -3
+     ],
+     "5": [
+      13,
+      1
+     ],
+     "6": [
+      16,
+      6
+     ],
+     "7": [
+      16,
+      7
+     ],
+     "8": [
+      17,
+      7
+     ],
+     "9": [
+      15,
+      5
+     ],
+     "10": [
+      11,
+      1
+     ],
+     "11": [
+      7,
+      -4
+     ],
+     "12": [
+      5,
+      -6
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "勒通古镇",
+     "mode": "drive",
+     "min": 180,
+     "km": 170,
+     "via": "沿途 · 雅江峡谷 · 剪子弯山口 4,659 m 缓行"
+    },
+    {
+     "t": "11:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "12:30",
+     "type": "see",
+     "name": "勒通古镇",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:30",
+     "type": "dep",
+     "to": "牦牛肉火锅 · 县城",
+     "mode": "walk",
+     "min": 5,
+     "km": null
+    },
+    {
+     "t": "14:35",
+     "type": "see",
+     "name": "牦牛肉火锅 · 县城",
+     "dur": 75,
+     "cost": 68,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "15:50",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 10,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "理塘县城",
+     "name": "理塘县城",
+     "engine_price": 300
+    }
+   ],
+   "stay": {
+    "city": "理塘县城",
+    "engine": [
+     {
+      "city": "理塘县城",
+      "price": 300,
+      "why": "长青春科尔寺步行 10 分"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "全世界最高的城，空气薄，光线却异常干净。 高原暖一暖，不要空腹早睡。",
+    "manners": [
+     "长青春科尔寺 · 广场上的牧人",
+     "牦牛肉火锅 · 青稞酒小份"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 雅江峡谷 · 剪子弯山口 4,659 m 缓行"
+   ]
+  },
+  {
+   "n": 4,
+   "title": "理塘 → 亚丁村",
+   "sub": "130 km · 驾驶约 3 h · 中",
+   "place": "亚丁",
+   "lat": 28.4,
+   "lng": 100.35,
+   "facts": {
+    "depart": "09:30",
+    "drive": "3 h",
+    "altitude_m": 5060,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      -8,
+      -17
+     ],
+     "2": [
+      -7,
+      -17
+     ],
+     "3": [
+      -4,
+      -14
+     ],
+     "4": [
+      -1,
+      -10
+     ],
+     "5": [
+      3,
+      -6
+     ],
+     "6": [
+      6,
+      -1
+     ],
+     "7": [
+      7,
+      1
+     ],
+     "8": [
+      7,
+      1
+     ],
+     "9": [
+      6,
+      -1
+     ],
+     "10": [
+      3,
+      -5
+     ],
+     "11": [
+      -2,
+      -11
+     ],
+     "12": [
+      -4,
+      -14
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "亚丁景区 · 购票进场",
+     "mode": "drive",
+     "min": 180,
+     "km": 130,
+     "via": "沿途 · 稻城县城加满油 · G318/G227 景观段"
+    },
+    {
+     "t": "11:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "12:30",
+     "type": "see",
+     "name": "亚丁景区 · 购票进场",
+     "dur": 60,
+     "cost": 220,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "13:30",
+     "type": "dep",
+     "to": "冲古寺 · 仙乃日近照",
+     "mode": "shuttle",
+     "min": 30,
+     "km": null
+    },
+    {
+     "t": "14:00",
+     "type": "see",
+     "name": "冲古寺 · 仙乃日近照",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "16:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "shuttle",
+     "min": 30,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "亚丁村 · 神山脚",
+     "name": "亚丁村 · 神山脚",
+     "engine_price": 500
+    }
+   ],
+   "stay": {
+    "city": "亚丁村 · 神山脚",
+    "engine": [
+     {
+      "city": "亚丁村 · 神山脚",
+      "price": 500,
+      "why": "明早第一班区间车不用赶路"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "检票进去，把时间留给神山。票含2天进场+全程区间车。 第一面仙乃日，雪峰倒进冲古湖里。",
+    "manners": [
+     "刷身份证 · 核对 2 天有效期",
+     "冲古寺湖倒影 · 黄昏侧光"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 稻城县城加满油 · G318/G227 景观段"
+   ]
+  },
+  {
+   "n": 5,
+   "title": "亚丁 · 全天",
+   "sub": "央迈勇·夏诺多吉·三神山 · 重",
+   "place": "亚丁",
+   "lat": 28.4,
+   "lng": 100.35,
+   "facts": {
+    "depart": "09:00",
+    "drive": "0 h",
+    "altitude_m": 4600,
+    "high_altitude": true,
+    "temp_by_month": {
+     "1": [
+      -8,
+      -17
+     ],
+     "2": [
+      -7,
+      -17
+     ],
+     "3": [
+      -4,
+      -14
+     ],
+     "4": [
+      -1,
+      -10
+     ],
+     "5": [
+      3,
+      -6
+     ],
+     "6": [
+      6,
+      -1
+     ],
+     "7": [
+      7,
+      1
+     ],
+     "8": [
+      7,
+      1
+     ],
+     "9": [
+      6,
+      -1
+     ],
+     "10": [
+      3,
+      -5
+     ],
+     "11": [
+      -2,
+      -11
+     ],
+     "12": [
+      -4,
+      -14
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "洛绒牛场 · 央迈勇近照",
+     "mode": "shuttle",
+     "min": 40,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:40",
+     "type": "see",
+     "name": "洛绒牛场 · 央迈勇近照",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:40",
+     "type": "dep",
+     "to": "珍珠海 · 夏诺多吉脚",
+     "mode": "walk",
+     "min": 90,
+     "km": null
+    },
+    {
+     "t": "12:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:10",
+     "type": "see",
+     "name": "珍珠海 · 夏诺多吉脚",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:40",
+     "type": "dep",
+     "to": "住处",
+     "mode": "shuttle",
+     "min": 45,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "亚丁村 · 连住",
+     "name": "亚丁村 · 连住",
+     "engine_price": 500
+    }
+   ],
+   "stay": {
+    "city": "亚丁村 · 连住",
+    "engine": [
+     {
+      "city": "亚丁村 · 连住",
+      "price": 500,
+      "why": "不挪窝 · 行李不动"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "最标准的三神山合影位，早到等上午光。 碧绿的高原湖，夏诺多吉的雪裙正正挂在后面。",
+    "manners": [
+     "央迈勇倒三角形雪峰 · 牦牛散场的清晨",
+     "别贪高 · 感觉胸闷立刻下撤"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 6,
+   "title": "亚丁 → 成都还车",
+   "sub": "410 km · 驾驶约 7 h · 重",
+   "place": "成都",
+   "lat": 30.66,
+   "lng": 104.06,
+   "facts": {
+    "depart": "08:30",
+    "drive": "7 h",
+    "altitude_m": 496,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      10,
+      3
+     ],
+     "2": [
+      13,
+      5
+     ],
+     "3": [
+      18,
+      10
+     ],
+     "4": [
+      24,
+      14
+     ],
+     "5": [
+      27,
+      18
+     ],
+     "6": [
+      30,
+      21
+     ],
+     "7": [
+      31,
+      23
+     ],
+     "8": [
+      31,
+      23
+     ],
+     "9": [
+      26,
+      20
+     ],
+     "10": [
+      21,
+      15
+     ],
+     "11": [
+      16,
+      10
+     ],
+     "12": [
+      11,
+      4
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "还车 · 成都",
+     "mode": "drive",
+     "min": 420,
+     "km": 410,
+     "via": "沿途 · 稻城加满油 · 雅康高速隧道 · 泸定服务区补给"
+    },
+    {
+     "t": "12:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "15:30",
+     "type": "see",
+     "name": "还车 · 成都",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": {
+      "name": "成都博舍",
+      "sell": "太古里，挨着大慈寺；有米其林餐厅和水疗",
+      "price": null,
+      "src": "spachina 访谈"
+     },
+     "upscale": {
+      "name": "成都太古里春熙美居酒店",
+      "sell": "走 10 分钟到太古里",
+      "price": "约 ¥459",
+      "src": "eastchinatrip"
+     },
+     "budget": {
+      "name": "文殊院一带的青旅",
+      "sell": "平价，周边本地小吃多",
+      "price": null,
+      "src": "wanderinchina 住宿指南"
+     }
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "五天画圆，三神山住进记忆里。",
+    "manners": [
+     "满油 · 对公里数 · 拍视频"
+    ],
+    "verified": false
+   },
+   "experiences": [
+    {
+     "t": "15:00",
+     "name": "人民公园鹤鸣茶社喝盖碗茶",
+     "detail": "最低消费 16 元/人，傍晚 18 元；可以掏耳朵",
+     "poi": "鹤鸣茶社",
+     "src": "携程点评 2026-04"
+    },
+    {
+     "t": "20:00",
+     "name": "看川剧变脸（蜀风雅韵）",
+     "detail": "琴台路文化公园里，每晚 20:00，约 90 分钟，提前订票",
+     "poi": "蜀风雅韵",
+     "src": "旅行社票务页"
+    },
+    {
+     "t": "07:30",
+     "name": "大熊猫基地趁早去",
+     "detail": "早上 7:30–10:00 最活跃",
+     "poi": "成都大熊猫繁育研究基地",
+     "src": "引擎季节提示"
+    }
+   ],
+   "notes": [
+    "沿途 · 稻城加满油 · 雅康高速隧道 · 泸定服务区补给"
+   ]
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

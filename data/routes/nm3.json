@@ -1,0 +1,479 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "nm3",
+ "fam": "nm",
+ "title": "🌾 额济纳 3 天 · 胡杨速通",
+ "dest": "内蒙古 · 额济纳",
+ "days_count": 3,
+ "seasons": [
+  {
+   "name": "胡杨金黄期",
+   "why": "10 月上旬约一周 · 过期只剩枯枝"
+  },
+  {
+   "name": "怪树林日落",
+   "why": "需多住一晚 · 4 天版才排得下"
+  }
+ ],
+ "transport": {
+  "mode": "drive",
+  "rent": 1600,
+  "perCar": true,
+  "roadfood": 180,
+  "label": "租车 · 油费"
+ },
+ "prep": [
+  "提前查当年胡杨黄叶进度 · 颜色到80%时出发",
+  "额济纳胡杨林联票 · 旺季网上抢购",
+  "酒泉满箱出发 · 旗里加油补满 · 无高速无油站",
+  "夜里 0°C+ · 抓绒+羽绒人手一件"
+ ],
+ "weather_note": "额济纳 10 月 · 昼 18–25°C 夜 0–5°C · 昼夜温差大 · 晴天多",
+ "days": [
+  {
+   "n": 1,
+   "title": "酒泉 → 额济纳",
+   "sub": "350 km · 约 4.5 h · 中",
+   "place": "额济纳",
+   "lat": 41.95,
+   "lng": 101.07,
+   "facts": {
+    "depart": "10:15",
+    "drive": "4.5 h",
+    "altitude_m": 940,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      -4,
+      -14
+     ],
+     "2": [
+      2,
+      -10
+     ],
+     "3": [
+      12,
+      -1
+     ],
+     "4": [
+      20,
+      7
+     ],
+     "5": [
+      26,
+      14
+     ],
+     "6": [
+      32,
+      20
+     ],
+     "7": [
+      35,
+      23
+     ],
+     "8": [
+      32,
+      21
+     ],
+     "9": [
+      26,
+      14
+     ],
+     "10": [
+      15,
+      4
+     ],
+     "11": [
+      5,
+      -5
+     ],
+     "12": [
+      -4,
+      -13
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "see",
+     "name": "酒泉提车 · 验车",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "10:15",
+     "type": "dep",
+     "to": "达来呼布镇 · 傍晚",
+     "mode": "drive",
+     "min": 270,
+     "km": 350
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "14:45",
+     "type": "see",
+     "name": "达来呼布镇 · 傍晚",
+     "dur": 345,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "20:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 10,
+     "km": 5
+    },
+    {
+     "t": "20:45",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "随意",
+     "place": "住的地方附近",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "额济纳旗中心",
+     "name": "额济纳旗中心",
+     "engine_price": 360
+    }
+   ],
+   "stay": {
+    "city": "额济纳旗中心",
+    "engine": [
+     {
+      "city": "额济纳旗中心",
+      "price": 360,
+      "why": "景区穿梭车起点步行圈"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "这段路没有加油站，出发前满箱。 进沙漠之前先把小镇摸清，明天一早进林区。",
+    "manners": [
+     "满油出发 · 带备胎工具 · 信号极差",
+     "买景区联票·打听今年黄叶情况"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "一二三道桥 · 黑城",
+   "sub": "区间车全天 · 中",
+   "place": "额济纳",
+   "lat": 41.95,
+   "lng": 101.07,
+   "facts": {
+    "depart": "09:00",
+    "drive": "0.5 h",
+    "altitude_m": 940,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      -4,
+      -14
+     ],
+     "2": [
+      2,
+      -10
+     ],
+     "3": [
+      12,
+      -1
+     ],
+     "4": [
+      20,
+      7
+     ],
+     "5": [
+      26,
+      14
+     ],
+     "6": [
+      32,
+      20
+     ],
+     "7": [
+      35,
+      23
+     ],
+     "8": [
+      32,
+      21
+     ],
+     "9": [
+      26,
+      14
+     ],
+     "10": [
+      15,
+      4
+     ],
+     "11": [
+      5,
+      -5
+     ],
+     "12": [
+      -4,
+      -13
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "胡杨林 · 一二三道桥",
+     "mode": "drive",
+     "min": 25,
+     "km": 20,
+     "via": null
+    },
+    {
+     "t": "09:30",
+     "type": "see",
+     "name": "胡杨林 · 一二三道桥",
+     "dur": 240,
+     "cost": 100,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "五道桥一带的民俗摊",
+     "price": 0,
+     "poi": "额济纳胡杨林 五道桥",
+     "src": "欣欣旅游（旅行社文章）",
+     "priceText": null
+    },
+    {
+     "t": "13:30",
+     "type": "dep",
+     "to": "黑城·西夏遗址",
+     "mode": "drive",
+     "min": 30,
+     "km": 25
+    },
+    {
+     "t": "14:00",
+     "type": "see",
+     "name": "黑城·西夏遗址",
+     "dur": 90,
+     "cost": 20,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "15:30",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 15,
+     "km": 8
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "随意",
+     "place": "住的地方附近",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "胡杨林区民宿",
+     "name": "胡杨林区民宿",
+     "engine_price": 420
+    }
+   ],
+   "stay": {
+    "city": "胡杨林区民宿",
+    "engine": [
+     {
+      "city": "胡杨林区民宿",
+      "price": 420,
+      "why": "骑车 5 分直进林区"
+     },
+     {
+      "city": "旗中心标准房",
+      "price": 280,
+      "why": "省 ¥70/人 · 班车 20 分到林区"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "10 月的一道桥，每一棵树都是一面金镜。拍不完的光。 沙漠里的西夏土城，马可波罗来过，赫定挖过。",
+    "manners": [
+     "二道桥主拍位 · 三道桥林中小路",
+     "黄昏侧光下的夯土墙"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 3,
+   "title": "额济纳 → 酒泉",
+   "sub": "350 km · 约 4.5 h · 中",
+   "place": "酒泉",
+   "lat": 39.578504,
+   "lng": 98.812274,
+   "facts": {
+    "depart": "09:00",
+    "drive": "4.5 h",
+    "altitude_m": 1460,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      -3,
+      -13
+     ],
+     "2": [
+      2,
+      -8
+     ],
+     "3": [
+      11,
+      -1
+     ],
+     "4": [
+      18,
+      5
+     ],
+     "5": [
+      23,
+      11
+     ],
+     "6": [
+      28,
+      16
+     ],
+     "7": [
+      30,
+      19
+     ],
+     "8": [
+      28,
+      18
+     ],
+     "9": [
+      24,
+      12
+     ],
+     "10": [
+      14,
+      4
+     ],
+     "11": [
+      6,
+      -4
+     ],
+     "12": [
+      -2,
+      -12
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "还车 · 酒泉",
+     "mode": "drive",
+     "min": 270,
+     "km": 350,
+     "via": "沿途 · G7 · 返程注意侧风"
+    },
+    {
+     "t": "11:15",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "随意",
+     "place": "路上找个镇子吃",
+     "price": null,
+     "in_drive": true
+    },
+    {
+     "t": "13:30",
+     "type": "see",
+     "name": "还车 · 酒泉",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "胡杨的金黄收进记忆里。",
+    "manners": [
+     "满油 · 验车 · 拍视频"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · G7 · 返程注意侧风"
+   ]
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

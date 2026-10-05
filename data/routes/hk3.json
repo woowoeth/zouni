@@ -1,0 +1,610 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "hk3",
+ "fam": "hk",
+ "title": "🚢 香港周末 3 天 · 美术馆与渡轮",
+ "dest": "香港 · 周末",
+ "days_count": 3,
+ "seasons": [
+  {
+   "name": "M+ 特展档期",
+   "why": "常设免费预约 · 特展看当期"
+  },
+  {
+   "name": "大澳渔村半日",
+   "why": "东涌转巴士 · 顺返程线可加"
+  }
+ ],
+ "transport": {
+  "mode": "transit",
+  "rent": 0,
+  "perCar": false,
+  "roadfood": 0,
+  "label": "地铁 · 渡轮（每人实付）"
+ },
+ "prep": [
+  "港澳签注有效期先查 · 高铁票候补开着",
+  "AlipayHK 或八达通 App 先开好",
+  "M+ 周一闭馆 · 常设免费票提前约",
+  "山顶缆车按班次 · 09:30 前到少排一半"
+ ],
+ "weather_note": "香港 8 月 · 28–33°C 湿热 · 场馆冷气 22°C 带薄外套 · 日落约 19:00",
+ "days": [
+  {
+   "n": 1,
+   "title": "中环 · 上环",
+   "sub": "地铁＋叮叮车＋渡轮 · 轻",
+   "place": "佐敦 · 住这",
+   "lat": 22.30481,
+   "lng": 114.1717074,
+   "facts": {
+    "depart": "10:00",
+    "drive": "—",
+    "altitude_m": 23,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      19,
+      13
+     ],
+     "2": [
+      19,
+      14
+     ],
+     "3": [
+      22,
+      17
+     ],
+     "4": [
+      25,
+      20
+     ],
+     "5": [
+      27,
+      24
+     ],
+     "6": [
+      29,
+      26
+     ],
+     "7": [
+      30,
+      26
+     ],
+     "8": [
+      29,
+      26
+     ],
+     "9": [
+      29,
+      25
+     ],
+     "10": [
+      27,
+      22
+     ],
+     "11": [
+      24,
+      19
+     ],
+     "12": [
+      20,
+      14
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "10:00",
+     "type": "dep",
+     "to": "大馆",
+     "mode": "metro",
+     "min": 14,
+     "km": null,
+     "via": "沿途 · 荃湾线过海"
+    },
+    {
+     "t": "10:14",
+     "type": "see",
+     "name": "大馆",
+     "dur": 100,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "11:54",
+     "type": "dep",
+     "to": "文武庙",
+     "mode": "walk",
+     "min": 8,
+     "km": null
+    },
+    {
+     "t": "12:02",
+     "type": "see",
+     "name": "文武庙",
+     "dur": 30,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "12:32",
+     "type": "dep",
+     "to": "陆羽茶室 · 港式饮茶",
+     "mode": "walk",
+     "min": 6,
+     "km": null
+    },
+    {
+     "t": "12:38",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "港式饮茶",
+     "place": "陆羽茶室",
+     "price": 130,
+     "poi": "陆羽茶室",
+     "from_engine": "陆羽茶室 · 港式饮茶"
+    },
+    {
+     "t": "14:08",
+     "type": "dep",
+     "to": "中环码头 · 黄昏",
+     "mode": "tram",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "14:23",
+     "type": "see",
+     "name": "中环码头 · 黄昏",
+     "dur": 337,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "19:55",
+     "type": "dep",
+     "to": "庙街夜市",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "20:15",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "煲仔饭、鱼蛋",
+     "place": "庙街夜市",
+     "price": 0,
+     "poi": "庙街夜市",
+     "src": "bring-you 2026",
+     "priceText": "摊档 16:00 到 24:00"
+    },
+    {
+     "t": "21:25",
+     "type": "dep",
+     "to": "住处",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "佐敦 · 高层房",
+     "name": "香港半岛酒店",
+     "engine_price": 880
+    }
+   ],
+   "stay": {
+    "city": "佐敦 · 高层房",
+    "engine": [
+     {
+      "city": "佐敦 · 高层房",
+      "price": 880,
+      "why": "窗缝里有维港一角"
+     },
+     {
+      "city": "佐敦 · 标准房",
+      "price": 680,
+      "why": "省 ¥100/人 · 地铁口 2 分"
+     }
+    ],
+    "tiers": {
+     "luxury": {
+      "name": "香港半岛酒店",
+      "sell": "尖沙咀，1928 年开业的老酒店",
+      "price": null,
+      "src": "常识"
+     },
+     "upscale": {
+      "name": "弥敦酒店",
+      "sell": "佐敦弥敦道，走到佐敦站和庙街",
+      "price": null,
+      "src": "Agoda 2025"
+     },
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "监狱操场改成了美术馆院子。 塔香从房梁垂下来，光柱里全是烟。 老侍应、铜壶与虾饺，慢慢叹。 渡轮进进出出，对岸灯一盏盏亮。",
+    "manners": [
+     "B 仓监仓复原 · 检阅广场",
+     "门口回望摩天楼夹古庙",
+     "虾饺 · 叉烧包 · 普洱",
+     "7 号码头天台"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 荃湾线过海"
+   ]
+  },
+  {
+   "n": 2,
+   "title": "西九文化区",
+   "sub": "地铁直达 · 轻",
+   "place": "佐敦 · 住这",
+   "lat": 22.30481,
+   "lng": 114.1717074,
+   "facts": {
+    "depart": "10:00",
+    "drive": "—",
+    "altitude_m": 23,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      19,
+      13
+     ],
+     "2": [
+      19,
+      14
+     ],
+     "3": [
+      22,
+      17
+     ],
+     "4": [
+      25,
+      20
+     ],
+     "5": [
+      27,
+      24
+     ],
+     "6": [
+      29,
+      26
+     ],
+     "7": [
+      30,
+      26
+     ],
+     "8": [
+      29,
+      26
+     ],
+     "9": [
+      29,
+      25
+     ],
+     "10": [
+      27,
+      22
+     ],
+     "11": [
+      24,
+      19
+     ],
+     "12": [
+      20,
+      14
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "10:00",
+     "type": "dep",
+     "to": "M+ 博物馆",
+     "mode": "metro",
+     "min": 8,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "10:08",
+     "type": "see",
+     "name": "M+ 博物馆",
+     "dur": 180,
+     "cost": 110,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "炒蛋、燉奶",
+     "place": "澳洲牛奶公司（佐敦）",
+     "price": 0,
+     "poi": "澳洲牛奶公司 佐敦",
+     "src": "bring-you 2025",
+     "priceText": "港式早餐 · 7:30 开门"
+    },
+    {
+     "t": "13:08",
+     "type": "dep",
+     "to": "艺术公园 · 草坪",
+     "mode": "walk",
+     "min": 10,
+     "km": null
+    },
+    {
+     "t": "13:18",
+     "type": "see",
+     "name": "艺术公园 · 草坪",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "18:54",
+     "type": "dep",
+     "to": "庙街夜市",
+     "mode": "metro",
+     "min": 6,
+     "km": null
+    },
+    {
+     "t": "19:00",
+     "type": "see",
+     "name": "庙街夜市",
+     "dur": 90,
+     "cost": 88,
+     "ticket": "food",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "20:25",
+     "type": "dep",
+     "to": "庙街夜市",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "20:45",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "煲仔饭、鱼蛋",
+     "place": "庙街夜市",
+     "price": 0,
+     "poi": "庙街夜市",
+     "src": "bring-you 2026",
+     "priceText": "摊档 16:00 到 24:00"
+    },
+    {
+     "t": "21:55",
+     "type": "dep",
+     "to": "住处",
+     "mode": "taxi",
+     "min": 20
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "佐敦 · 高层房",
+     "name": "香港半岛酒店",
+     "engine_price": 880
+    }
+   ],
+   "stay": {
+    "city": "佐敦 · 高层房",
+    "engine": [
+     {
+      "city": "佐敦 · 高层房",
+      "price": 880,
+      "why": "窗缝里有维港一角"
+     },
+     {
+      "city": "佐敦 · 标准房",
+      "price": 680,
+      "why": "省 ¥100/人 · 地铁口 2 分"
+     }
+    ],
+    "tiers": {
+     "luxury": {
+      "name": "香港半岛酒店",
+      "sell": "尖沙咀，1928 年开业的老酒店",
+      "price": null,
+      "src": "常识"
+     },
+     "upscale": {
+      "name": "弥敦酒店",
+      "sell": "佐敦弥敦道，走到佐敦站和庙街",
+      "price": null,
+      "src": "Agoda 2025"
+     },
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "一整面希克藏品墙，看到腿软。 草坪尽头就是海，海对面就是岛。 塑料凳、煲仔饭与霓虹灯管。",
+    "manners": [
+     "希克展厅 · 天台海景",
+     "买杯咖啡坐防波堤",
+     "煲仔饭加腊肠 · 冻柠茶"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 3,
+   "title": "太平山 · 返程",
+   "sub": "缆车＋高铁 · 轻",
+   "place": "佐敦 · 住这",
+   "lat": 22.30481,
+   "lng": 114.1717074,
+   "facts": {
+    "depart": "09:30",
+    "drive": "—",
+    "altitude_m": 23,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      19,
+      13
+     ],
+     "2": [
+      19,
+      14
+     ],
+     "3": [
+      22,
+      17
+     ],
+     "4": [
+      25,
+      20
+     ],
+     "5": [
+      27,
+      24
+     ],
+     "6": [
+      29,
+      26
+     ],
+     "7": [
+      30,
+      26
+     ],
+     "8": [
+      29,
+      26
+     ],
+     "9": [
+      29,
+      25
+     ],
+     "10": [
+      27,
+      22
+     ],
+     "11": [
+      24,
+      19
+     ],
+     "12": [
+      20,
+      14
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "太平山 · 山顶缆车",
+     "mode": "metro",
+     "min": 14,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:45",
+     "type": "see",
+     "name": "太平山 · 山顶缆车",
+     "dur": 150,
+     "cost": 118,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:15",
+     "type": "dep",
+     "to": "西九龙站 · 高铁返程",
+     "mode": "metro",
+     "min": 18,
+     "km": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "炒蛋、燉奶",
+     "place": "澳洲牛奶公司（佐敦）",
+     "price": 0,
+     "poi": "澳洲牛奶公司 佐敦",
+     "src": "bring-you 2025",
+     "priceText": "港式早餐 · 7:30 开门"
+    },
+    {
+     "t": "12:33",
+     "type": "see",
+     "name": "西九龙站 · 高铁返程",
+     "dur": 45,
+     "cost": 0,
+     "ticket": "tix",
+     "indoor": true,
+     "lock": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": {
+      "name": "香港半岛酒店",
+      "sell": "尖沙咀，1928 年开业的老酒店",
+      "price": null,
+      "src": "常识"
+     },
+     "upscale": {
+      "name": "弥敦酒店",
+      "sell": "佐敦弥敦道，走到佐敦站和庙街",
+      "price": null,
+      "src": "Agoda 2025"
+     },
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "车厢以 27 度仰角把整座城市放倒。 一地两检，留足 45 分。",
+    "manners": [
+     "右侧座位看楼群倾斜 · 卢吉道走 20 分",
+     "先过港方后过内地 · 别卡饭点"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "partial",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

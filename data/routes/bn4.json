@@ -1,0 +1,638 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "bn4",
+ "fam": "bn",
+ "title": "🌴 西双版纳 4 天 · 雨林与傣味",
+ "dest": "云南 · 西双版纳",
+ "days_count": 4,
+ "seasons": [
+  {
+   "name": "傣族园泼水",
+   "why": "每天 14:00 与 16:00 两场 · 不用等四月"
+  },
+  {
+   "name": "泼水节",
+   "why": "4 月 13–15 日全城泼水 · 需提前半年订房"
+  }
+ ],
+ "transport": {
+  "mode": "transit",
+  "rent": 0,
+  "perCar": false,
+  "roadfood": 0,
+  "label": "打车 · 景区专线（每人实付）"
+ },
+ "prep": [
+  "雨林蚊虫多 · 防蚊液与长裤必备",
+  "傣族园泼水必湿身 · 带换洗与手机防水袋",
+  "景点分散建议打车 · 高德叫车比景区车便宜",
+  "5–10 月雨季 · 午后阵雨随身带伞"
+ ],
+ "weather_note": "版纳 8 月 · 昼 24–32℃ · 雨季闷热 · 全年短袖",
+ "days": [
+  {
+   "n": 1,
+   "title": "抵达 · 告庄西双景",
+   "sub": "落地就热 · 夜市开场 · 极轻",
+   "place": "景洪·告庄",
+   "lat": 22.0147814,
+   "lng": 100.7983916,
+   "facts": {
+    "depart": "12:00",
+    "drive": "0 h",
+    "altitude_m": 562,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      24,
+      12
+     ],
+     "2": [
+      27,
+      13
+     ],
+     "3": [
+      31,
+      16
+     ],
+     "4": [
+      33,
+      19
+     ],
+     "5": [
+      33,
+      22
+     ],
+     "6": [
+      31,
+      23
+     ],
+     "7": [
+      31,
+      23
+     ],
+     "8": [
+      30,
+      23
+     ],
+     "9": [
+      30,
+      22
+     ],
+     "10": [
+      29,
+      20
+     ],
+     "11": [
+      27,
+      17
+     ],
+     "12": [
+      24,
+      14
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "11:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "12:00",
+     "type": "dep",
+     "to": "放行李 · 换短袖",
+     "mode": "transit",
+     "min": 30,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "12:30",
+     "type": "see",
+     "name": "放行李 · 换短袖",
+     "dur": 30,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "13:00",
+     "type": "see",
+     "name": "告庄 · 大金塔",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:30",
+     "type": "see",
+     "name": "星光夜市 · 傣味",
+     "dur": 100,
+     "cost": 80,
+     "ticket": "food",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "16:10",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 8,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "告庄 · 江景房",
+     "name": "告庄 · 江景房",
+     "engine_price": 380
+    }
+   ],
+   "stay": {
+    "city": "告庄 · 江景房",
+    "engine": [
+     {
+      "city": "告庄 · 江景房",
+      "price": 380,
+      "why": "夜市就在楼下 · 推窗看大金塔"
+     },
+     {
+      "city": "景洪市区",
+      "price": 260,
+      "why": "省 ¥60/人 · 打车哪都近"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "一下飞机就是热带的湿热，长袖收起来吧。 金塔一亮，整片湄公河边的仿古建筑都镀了一层金。 烤五花肉、菠萝饭、舂鸡脚，配一杯手打柠檬茶。",
+    "manners": [
+     "防蚊液 · 防晒 · 雨伞",
+     "日落后金塔亮灯 · 江边散步",
+     "包烧 · 舂鸡脚 · 菠萝饭 · 手抓饭"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "野象谷 · 基诺山寨",
+   "sub": "雨林一整天 · 中",
+   "place": "景洪·告庄",
+   "lat": 22.0147814,
+   "lng": 100.7983916,
+   "facts": {
+    "depart": "08:30",
+    "drive": "0 h",
+    "altitude_m": 562,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      24,
+      12
+     ],
+     "2": [
+      27,
+      13
+     ],
+     "3": [
+      31,
+      16
+     ],
+     "4": [
+      33,
+      19
+     ],
+     "5": [
+      33,
+      22
+     ],
+     "6": [
+      31,
+      23
+     ],
+     "7": [
+      31,
+      23
+     ],
+     "8": [
+      30,
+      23
+     ],
+     "9": [
+      30,
+      22
+     ],
+     "10": [
+      29,
+      20
+     ],
+     "11": [
+      27,
+      17
+     ],
+     "12": [
+      24,
+      14
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "野象谷 · 空中走廊",
+     "mode": "transit",
+     "min": 50,
+     "km": null,
+     "via": "昆磨高速 · 或坐景区专线大巴"
+    },
+    {
+     "t": "09:20",
+     "type": "see",
+     "name": "野象谷 · 空中走廊",
+     "dur": 180,
+     "cost": 65,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:20",
+     "type": "see",
+     "name": "基诺山寨",
+     "dur": 120,
+     "cost": 100,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "14:20",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 60,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "告庄 · 连住",
+     "name": "告庄 · 连住",
+     "engine_price": 380
+    }
+   ],
+   "stay": {
+    "city": "告庄 · 连住",
+    "engine": [
+     {
+      "city": "告庄 · 连住",
+      "price": 380,
+      "why": "不挪窝 · 行李不动"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "走在树冠层的钢索桥上，运气好能看见野象群从下面的沟谷经过。 基诺族 1979 年才被确认为独立民族，寨子里还在用最老的方式做茶。",
+    "manners": [
+     "空中走廊 · 大象学校 · 索道¥50 自选",
+     "大鼓舞 · 手工制茶 · 卓巴长老家"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "昆磨高速 · 或坐景区专线大巴"
+   ]
+  },
+  {
+   "n": 3,
+   "title": "橄榄坝 · 傣族园",
+   "sub": "泼水与佛寺 · 轻",
+   "place": "景洪·告庄",
+   "lat": 22.0147814,
+   "lng": 100.7983916,
+   "facts": {
+    "depart": "09:00",
+    "drive": "0 h",
+    "altitude_m": 562,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      24,
+      12
+     ],
+     "2": [
+      27,
+      13
+     ],
+     "3": [
+      31,
+      16
+     ],
+     "4": [
+      33,
+      19
+     ],
+     "5": [
+      33,
+      22
+     ],
+     "6": [
+      31,
+      23
+     ],
+     "7": [
+      31,
+      23
+     ],
+     "8": [
+      30,
+      23
+     ],
+     "9": [
+      30,
+      22
+     ],
+     "10": [
+      29,
+      20
+     ],
+     "11": [
+      27,
+      17
+     ],
+     "12": [
+      24,
+      14
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "傣族园 · 天天泼水",
+     "mode": "transit",
+     "min": 45,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:45",
+     "type": "see",
+     "name": "傣族园 · 天天泼水",
+     "dur": 180,
+     "cost": 55,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "12:45",
+     "type": "see",
+     "name": "曼听公园 · 总佛寺",
+     "dur": 90,
+     "cost": 40,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "14:15",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 45,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "告庄 · 连住",
+     "name": "告庄 · 连住",
+     "engine_price": 380
+    }
+   ],
+   "stay": {
+    "city": "告庄 · 连住",
+    "engine": [
+     {
+      "city": "告庄 · 连住",
+      "price": 380,
+      "why": "不挪窝 · 明早去植物园"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "不用等四月，园里每天下午两场泼水，全身湿透是标配。 一千三百年的御花园，旁边就是南传佛教的总佛寺，僧人在树下诵经。",
+    "manners": [
+     "14:00 与 16:00 泼水场 · 带换洗",
+     "总佛寺 · 白塔 · 孔雀放飞"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 4,
+   "title": "中科院植物园 · 返程",
+   "sub": "热带植物园 · 下午飞走 · 轻",
+   "place": "景洪·告庄",
+   "lat": 22.0147814,
+   "lng": 100.7983916,
+   "facts": {
+    "depart": "08:30",
+    "drive": "0 h",
+    "altitude_m": 562,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      24,
+      12
+     ],
+     "2": [
+      27,
+      13
+     ],
+     "3": [
+      31,
+      16
+     ],
+     "4": [
+      33,
+      19
+     ],
+     "5": [
+      33,
+      22
+     ],
+     "6": [
+      31,
+      23
+     ],
+     "7": [
+      31,
+      23
+     ],
+     "8": [
+      30,
+      23
+     ],
+     "9": [
+      30,
+      22
+     ],
+     "10": [
+      29,
+      20
+     ],
+     "11": [
+      27,
+      17
+     ],
+     "12": [
+      24,
+      14
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "中科院热带植物园",
+     "mode": "transit",
+     "min": 80,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:50",
+     "type": "see",
+     "name": "中科院热带植物园",
+     "dur": 200,
+     "cost": 80,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:10",
+     "type": "dep",
+     "to": "回程",
+     "mode": "transit",
+     "min": 90,
+     "km": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "一万三千种热带植物，望天树高到要仰头看，绞杀榕把宿主整个吞掉。",
+    "manners": [
+     "望天树 · 绞杀榕 · 王莲 · 电瓶车¥40"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "todo",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

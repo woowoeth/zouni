@@ -1,0 +1,492 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "cs3",
+ "fam": "cs",
+ "title": "🌶 长沙 3 天 · 橘子洲与夜宵",
+ "dest": "湖南 · 长沙",
+ "days_count": 3,
+ "seasons": [
+  {
+   "name": "省博预约",
+   "why": "免费但需提前 7 天预约 · 周一闭馆"
+  },
+  {
+   "name": "岳麓山红叶",
+   "why": "11 月中下旬爱晚亭最好 · 本次未到季"
+  }
+ ],
+ "transport": {
+  "mode": "transit",
+  "rent": 0,
+  "perCar": false,
+  "roadfood": 0,
+  "label": "地铁 · 步行（每人实付）"
+ },
+ "prep": [
+  "湖南博物院提前 7 天预约 · 周一闭馆",
+  "文和友周末排队 2 小时 · 提前线上取号",
+  "长沙地铁支付宝乘车码 · 全线通用",
+  "长沙的微辣≈别处的中辣 · 点单说清楚"
+ ],
+ "weather_note": "长沙 8 月 · 昼 30–37℃ · 闷热 · 夜里街上凉快",
+ "days": [
+  {
+   "n": 1,
+   "title": "橘子洲 · 岳麓山",
+   "sub": "江心洲与山顶 · 中",
+   "place": "五一广场·太平街",
+   "lat": 28.1985991,
+   "lng": 112.9709227,
+   "facts": {
+    "depart": "09:00",
+    "drive": "0 h",
+    "altitude_m": 42,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      10,
+      3
+     ],
+     "2": [
+      12,
+      4
+     ],
+     "3": [
+      18,
+      10
+     ],
+     "4": [
+      23,
+      15
+     ],
+     "5": [
+      27,
+      19
+     ],
+     "6": [
+      30,
+      23
+     ],
+     "7": [
+      33,
+      26
+     ],
+     "8": [
+      34,
+      26
+     ],
+     "9": [
+      30,
+      23
+     ],
+     "10": [
+      23,
+      16
+     ],
+     "11": [
+      19,
+      11
+     ],
+     "12": [
+      12,
+      5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "橘子洲 · 青年毛泽东像",
+     "mode": "transit",
+     "min": 15,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:15",
+     "type": "see",
+     "name": "橘子洲 · 青年毛泽东像",
+     "dur": 100,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "10:55",
+     "type": "dep",
+     "to": "岳麓书院 · 爱晚亭",
+     "mode": "transit",
+     "min": 12,
+     "km": null
+    },
+    {
+     "t": "11:07",
+     "type": "see",
+     "name": "岳麓书院 · 爱晚亭",
+     "dur": 140,
+     "cost": 60,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:27",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 25,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "五一广场 · 地铁枢纽",
+     "name": "五一广场 · 地铁枢纽",
+     "engine_price": 340
+    }
+   ],
+   "stay": {
+    "city": "五一广场 · 地铁枢纽",
+    "engine": [
+     {
+      "city": "五一广场 · 地铁枢纽",
+      "price": 340,
+      "why": "三线换乘 · 走到太平街 10 分"
+     },
+     {
+      "city": "岳麓区 · 大学城",
+      "price": 240,
+      "why": "省 ¥50/人 · 去岳麓山近"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "五公里长的江心洲，站在头像下面往北看，湘江从两边流过去。 书院讲堂那块\"实事求是\"的匾挂了一百年，后面上山就是爱晚亭。",
+    "manners": [
+     "观光车¥20 绕全洲 · 周六烟花",
+     "岳麓书院 · 爱晚亭 · 山顶看湘江"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "太平街 · 文和友",
+   "sub": "老街与夜宵 · 轻",
+   "place": "五一广场·太平街",
+   "lat": 28.1985991,
+   "lng": 112.9709227,
+   "facts": {
+    "depart": "10:00",
+    "drive": "0 h",
+    "altitude_m": 42,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      10,
+      3
+     ],
+     "2": [
+      12,
+      4
+     ],
+     "3": [
+      18,
+      10
+     ],
+     "4": [
+      23,
+      15
+     ],
+     "5": [
+      27,
+      19
+     ],
+     "6": [
+      30,
+      23
+     ],
+     "7": [
+      33,
+      26
+     ],
+     "8": [
+      34,
+      26
+     ],
+     "9": [
+      30,
+      23
+     ],
+     "10": [
+      23,
+      16
+     ],
+     "11": [
+      19,
+      11
+     ],
+     "12": [
+      12,
+      5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "10:00",
+     "type": "dep",
+     "to": "太平街 · 贾谊故居",
+     "mode": "transit",
+     "min": 10,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "10:10",
+     "type": "see",
+     "name": "太平街 · 贾谊故居",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:40",
+     "type": "see",
+     "name": "超级文和友",
+     "dur": 100,
+     "cost": 90,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:20",
+     "type": "see",
+     "name": "糖油粑粑 + 甜酒",
+     "dur": 40,
+     "cost": 25,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "14:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 12,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "五一广场 · 连住",
+     "name": "五一广场 · 连住",
+     "engine_price": 340
+    }
+   ],
+   "stay": {
+    "city": "五一广场 · 连住",
+    "engine": [
+     {
+      "city": "五一广场 · 连住",
+      "price": 340,
+      "why": "不挪窝 · 行李不动"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "青石板路两边全是小吃摊，贾谊故居夹在中间安静得像另一个世界。 一整栋楼复刻了老长沙的筒子楼，霓虹招牌和晾衣杆全是真的。 刚炸好的糖油粑粑外脆里糯，五块钱能吃饱。",
+    "manners": [
+     "臭豆腐 · 糖油粑粑 · 贾谊故居免费",
+     "小龙虾 · 臭豆腐 · 提前取号",
+     "口味虾 · 糖油粑粑 · 茶颜悦色"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 3,
+   "title": "湖南省博 · 收官",
+   "sub": "马王堆一上午 · 下午离开 · 轻",
+   "place": "五一广场·太平街",
+   "lat": 28.1985991,
+   "lng": 112.9709227,
+   "facts": {
+    "depart": "09:00",
+    "drive": "0 h",
+    "altitude_m": 42,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      10,
+      3
+     ],
+     "2": [
+      12,
+      4
+     ],
+     "3": [
+      18,
+      10
+     ],
+     "4": [
+      23,
+      15
+     ],
+     "5": [
+      27,
+      19
+     ],
+     "6": [
+      30,
+      23
+     ],
+     "7": [
+      33,
+      26
+     ],
+     "8": [
+      34,
+      26
+     ],
+     "9": [
+      30,
+      23
+     ],
+     "10": [
+      23,
+      16
+     ],
+     "11": [
+      19,
+      11
+     ],
+     "12": [
+      12,
+      5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "湖南省博物馆 · 马王堆",
+     "mode": "transit",
+     "min": 20,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:20",
+     "type": "see",
+     "name": "湖南省博物馆 · 马王堆",
+     "dur": 160,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "12:00",
+     "type": "dep",
+     "to": "回程",
+     "mode": "transit",
+     "min": 40,
+     "km": null
+    },
+    {
+     "t": "12:00",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "那件素纱襌衣只有 49 克，两千年前的织工水平至今复刻不出。",
+    "manners": [
+     "素纱襌衣 · T 形帛画 · 辛追墓复原"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "todo",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

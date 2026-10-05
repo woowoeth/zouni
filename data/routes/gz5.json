@@ -1,0 +1,754 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "gz5",
+ "fam": "gz",
+ "title": "🪘 贵州 5 天 · 苗寨与瀑布",
+ "dest": "贵州 · 黔东南环线",
+ "days_count": 5,
+ "seasons": [
+  {
+   "name": "苗寨夜景",
+   "why": "天黑后吊脚楼灯全开 · 需住寨内或晚走"
+  },
+  {
+   "name": "黄果树丰水期",
+   "why": "6-9 月水量最大 · 水帘洞必湿身"
+  },
+  {
+   "name": "加榜梯田",
+   "why": "从江方向 · 需另加两天"
+  }
+ ],
+ "transport": {
+  "mode": "drive",
+  "rent": 2800,
+  "perCar": true,
+  "roadfood": 320,
+  "label": "包车 · 油费路桥（按车均摊）"
+ },
+ "prep": [
+  "山路多弯建议包车 · 提前谈好每日里程上限",
+  "贵州十天九雨 · 雨衣防滑鞋必备",
+  "想看夜景须住寨内或晚走 · 观景房提前订",
+  "黄果树水帘洞必湿身 · 备换洗与防水袋"
+ ],
+ "weather_note": "贵州 8 月 · 昼 22–30℃ · 十天九雨 · 山路多弯",
+ "days": [
+  {
+   "n": 1,
+   "title": "贵阳抵达 · 青岩古镇",
+   "sub": "落地不赶 · 半日古镇 · 极轻",
+   "place": "贵阳",
+   "lat": 26.5878031,
+   "lng": 106.7086936,
+   "facts": {
+    "depart": "11:00",
+    "drive": "1 h",
+    "altitude_m": 1069,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      10,
+      3
+     ],
+     "2": [
+      12,
+      4
+     ],
+     "3": [
+      17,
+      8
+     ],
+     "4": [
+      21,
+      12
+     ],
+     "5": [
+      23,
+      15
+     ],
+     "6": [
+      26,
+      18
+     ],
+     "7": [
+      28,
+      20
+     ],
+     "8": [
+      28,
+      20
+     ],
+     "9": [
+      25,
+      18
+     ],
+     "10": [
+      20,
+      13
+     ],
+     "11": [
+      16,
+      8
+     ],
+     "12": [
+      10,
+      3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "11:00",
+     "type": "dep",
+     "to": "放行李 · 换鞋",
+     "mode": "transit",
+     "min": 35,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "11:35",
+     "type": "see",
+     "name": "放行李 · 换鞋",
+     "dur": 30,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "12:05",
+     "type": "see",
+     "name": "青岩古镇",
+     "dur": 150,
+     "cost": 80,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "14:35",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 50,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "贵阳 · 市区",
+     "name": "贵阳 · 市区",
+     "engine_price": 320
+    }
+   ],
+   "stay": {
+    "city": "贵阳 · 市区",
+    "engine": [
+     {
+      "city": "贵阳 · 市区",
+      "price": 320,
+      "why": "机场地铁直达 · 明早出发方便"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "接下来几天都在山里走，先把防滑鞋和雨具备好。 城墙用石头垒的，巷子也是石板，卖状元蹄的铺子排到街尾。",
+    "manners": [
+     "贵州十天九雨 · 雨具随身",
+     "状元蹄 · 玫瑰糖 · 北门城墙"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "西江千户苗寨",
+   "sub": "包车进山 · 看夜景 · 中",
+   "place": "西江千户苗寨",
+   "lat": 26.4955484,
+   "lng": 108.1702247,
+   "facts": {
+    "depart": "08:00",
+    "drive": "3 h",
+    "altitude_m": 852,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      10,
+      3
+     ],
+     "2": [
+      11,
+      4
+     ],
+     "3": [
+      17,
+      9
+     ],
+     "4": [
+      21,
+      14
+     ],
+     "5": [
+      24,
+      17
+     ],
+     "6": [
+      27,
+      21
+     ],
+     "7": [
+      29,
+      23
+     ],
+     "8": [
+      29,
+      22
+     ],
+     "9": [
+      27,
+      20
+     ],
+     "10": [
+      21,
+      14
+     ],
+     "11": [
+      17,
+      9
+     ],
+     "12": [
+      11,
+      4
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:00",
+     "type": "dep",
+     "to": "西江千户苗寨",
+     "mode": "drive",
+     "min": 180,
+     "km": 200,
+     "via": "沿途 · 凯里下高速 · 后半段盘山"
+    },
+    {
+     "t": "11:00",
+     "type": "see",
+     "name": "西江千户苗寨",
+     "dur": 300,
+     "cost": 110,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "16:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "西江苗寨 · 观景吊脚楼",
+     "name": "西江苗寨 · 观景吊脚楼",
+     "engine_price": 520
+    }
+   ],
+   "stay": {
+    "city": "西江苗寨 · 观景吊脚楼",
+    "engine": [
+     {
+      "city": "西江苗寨 · 观景吊脚楼",
+      "price": 520,
+      "why": "推窗看整面山的灯"
+     },
+     {
+      "city": "西江 · 寨口民宿",
+      "price": 300,
+      "why": "省 ¥110/人 · 走进寨子 10 分"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "天一黑，整面山坡的吊脚楼灯全亮，像把星空翻过来铺在山上。",
+    "manners": [
+     "观景台看全景 · 长桌宴 · 夜里灯全开"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 凯里下高速 · 后半段盘山"
+   ]
+  },
+  {
+   "n": 3,
+   "title": "荔波小七孔",
+   "sub": "水上森林 · 长途转场 · 中",
+   "place": "荔波小七孔",
+   "lat": 25.4198035,
+   "lng": 107.6736178,
+   "facts": {
+    "depart": "07:30",
+    "drive": "4.5 h",
+    "altitude_m": 841,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      11,
+      4
+     ],
+     "2": [
+      12,
+      5
+     ],
+     "3": [
+      17,
+      10
+     ],
+     "4": [
+      22,
+      14
+     ],
+     "5": [
+      24,
+      17
+     ],
+     "6": [
+      26,
+      20
+     ],
+     "7": [
+      28,
+      21
+     ],
+     "8": [
+      28,
+      21
+     ],
+     "9": [
+      26,
+      19
+     ],
+     "10": [
+      21,
+      14
+     ],
+     "11": [
+      17,
+      10
+     ],
+     "12": [
+      12,
+      5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:30",
+     "type": "dep",
+     "to": "小七孔 · 水上森林",
+     "mode": "drive",
+     "min": 270,
+     "km": 280,
+     "via": "沿途 · 山路多弯 · 中途服务区休整"
+    },
+    {
+     "t": "12:00",
+     "type": "see",
+     "name": "小七孔 · 水上森林",
+     "dur": 240,
+     "cost": 130,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "16:00",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 40,
+     "km": 30
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "荔波县城",
+     "name": "荔波县城",
+     "engine_price": 300
+    }
+   ],
+   "stay": {
+    "city": "荔波县城",
+    "engine": [
+     {
+      "city": "荔波县城",
+      "price": 300,
+      "why": "小七孔景区外 · 比景区内便宜"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "水从树根之间流过去，人可以踩着石头在林子里蹚水走。",
+    "manners": [
+     "水上森林蹚水 · 68 级瀑布 · 卧龙潭"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 山路多弯 · 中途服务区休整"
+   ]
+  },
+  {
+   "n": 4,
+   "title": "黄果树瀑布",
+   "sub": "跨省转场 · 看大瀑布 · 中",
+   "place": "黄果树",
+   "lat": 26.019352,
+   "lng": 105.6730286,
+   "facts": {
+    "depart": "07:30",
+    "drive": "4 h",
+    "altitude_m": 1065,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      11,
+      5
+     ],
+     "2": [
+      13,
+      6
+     ],
+     "3": [
+      18,
+      10
+     ],
+     "4": [
+      23,
+      13
+     ],
+     "5": [
+      25,
+      16
+     ],
+     "6": [
+      26,
+      19
+     ],
+     "7": [
+      27,
+      20
+     ],
+     "8": [
+      27,
+      20
+     ],
+     "9": [
+      25,
+      18
+     ],
+     "10": [
+      21,
+      14
+     ],
+     "11": [
+      17,
+      10
+     ],
+     "12": [
+      12,
+      5
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "07:30",
+     "type": "dep",
+     "to": "黄果树瀑布 · 水帘洞",
+     "mode": "drive",
+     "min": 240,
+     "km": 280,
+     "via": "沿途 · 兰海高速 · 中途安顺午饭"
+    },
+    {
+     "t": "11:30",
+     "type": "see",
+     "name": "黄果树瀑布 · 水帘洞",
+     "dur": 220,
+     "cost": 180,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "15:10",
+     "type": "dep",
+     "to": "住处",
+     "mode": "drive",
+     "min": 50,
+     "km": 45
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "安顺 · 黄果树附近",
+     "name": "安顺 · 黄果树附近",
+     "engine_price": 340
+    }
+   ],
+   "stay": {
+    "city": "安顺 · 黄果树附近",
+    "engine": [
+     {
+      "city": "安顺 · 黄果树附近",
+      "price": 340,
+      "why": "明早第一批进瀑布"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "水从七十多米高砸下来，走进水帘洞能从瀑布背面看出去，浑身湿透。",
+    "manners": [
+     "水帘洞穿瀑布 · 备雨衣 · 陡坡电梯¥50"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": [
+    "沿途 · 兰海高速 · 中途安顺午饭"
+   ]
+  },
+  {
+   "n": 5,
+   "title": "返程",
+   "sub": "安顺回贵阳 · 中午离开 · 轻",
+   "place": "贵阳",
+   "lat": 26.5878031,
+   "lng": 106.7086936,
+   "facts": {
+    "depart": "08:30",
+    "drive": "1.5 h",
+    "altitude_m": 1069,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      10,
+      3
+     ],
+     "2": [
+      12,
+      4
+     ],
+     "3": [
+      17,
+      8
+     ],
+     "4": [
+      21,
+      12
+     ],
+     "5": [
+      23,
+      15
+     ],
+     "6": [
+      26,
+      18
+     ],
+     "7": [
+      28,
+      20
+     ],
+     "8": [
+      28,
+      20
+     ],
+     "9": [
+      25,
+      18
+     ],
+     "10": [
+      20,
+      13
+     ],
+     "11": [
+      16,
+      8
+     ],
+     "12": [
+      10,
+      3
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "08:30",
+     "type": "dep",
+     "to": "走之前 · 酸汤鱼",
+     "mode": "drive",
+     "min": 90,
+     "km": 110,
+     "via": null
+    },
+    {
+     "t": "10:00",
+     "type": "see",
+     "name": "走之前 · 酸汤鱼",
+     "dur": 80,
+     "cost": 90,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "11:20",
+     "type": "dep",
+     "to": "回程",
+     "mode": "transit",
+     "min": 30,
+     "km": null
+    },
+    {
+     "t": "11:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "红酸汤煮江团，酸得开胃，配一碟糊辣椒蘸水。",
+    "manners": [
+     "红酸汤鱼 · 折耳根蘸水 · 丝娃娃"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "todo",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

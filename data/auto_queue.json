@@ -1,0 +1,246 @@
+{
+ "cities": [
+  {
+   "key": "moganshan",
+   "name": "莫干山",
+   "dest": "zhejiang",
+   "lat": 30.6,
+   "lng": 119.87,
+   "note": "德清，竹林和民宿"
+  },
+  {
+   "key": "luguhu",
+   "name": "泸沽湖",
+   "dest": "yunnan",
+   "lat": 27.72,
+   "lng": 100.78,
+   "note": "宁蒗县，摩梭人村落和湖"
+  },
+  {
+   "key": "shaxi",
+   "name": "沙溪古镇",
+   "dest": "yunnan",
+   "lat": 26.32,
+   "lng": 99.85,
+   "note": "剑川县，茶马古道上的古镇"
+  },
+  {
+   "key": "chaozhou",
+   "name": "潮州",
+   "dest": "guangdong",
+   "lat": 23.66,
+   "lng": 116.62,
+   "note": "古城、广济桥和潮州菜"
+  },
+  {
+   "key": "nanao",
+   "name": "汕头南澳岛",
+   "dest": "guangdong",
+   "lat": 23.42,
+   "lng": 117.02,
+   "note": "汕头的海岛"
+  },
+  {
+   "key": "zhuhai",
+   "name": "珠海",
+   "dest": "guangdong",
+   "lat": 22.27,
+   "lng": 113.58,
+   "note": "情侣路和海岛"
+  },
+  {
+   "key": "chongli",
+   "name": "张家口崇礼",
+   "dest": "hebei",
+   "lat": 40.97,
+   "lng": 115.28,
+   "note": "冬天滑雪、夏天草原"
+  },
+  {
+   "key": "zigong",
+   "name": "自贡",
+   "dest": "sichuan",
+   "lat": 29.34,
+   "lng": 104.78,
+   "note": "恐龙博物馆、盐业和灯会"
+  },
+  {
+   "key": "shunan",
+   "name": "宜宾蜀南竹海",
+   "dest": "sichuan",
+   "lat": 28.47,
+   "lng": 105.07,
+   "note": "竹海和李庄古镇"
+  },
+  {
+   "key": "panzhihua",
+   "name": "攀枝花",
+   "dest": "sichuan",
+   "lat": 26.58,
+   "lng": 101.72,
+   "note": "冬天晒太阳"
+  },
+  {
+   "key": "xichang",
+   "name": "西昌邛海",
+   "dest": "sichuan",
+   "lat": 27.89,
+   "lng": 102.27,
+   "note": "邛海和泸山"
+  },
+  {
+   "key": "hanzhong",
+   "name": "汉中",
+   "dest": "shaanxi",
+   "lat": 33.07,
+   "lng": 107.03,
+   "note": "油菜花、武侯祠和石门栈道"
+  },
+  {
+   "key": "ruili",
+   "name": "芒市瑞丽",
+   "dest": "yunnan",
+   "lat": 24.43,
+   "lng": 98.58,
+   "note": "边境小城和傣族寺庙"
+  },
+  {
+   "key": "dongxing",
+   "name": "防城港东兴",
+   "dest": "guangxi",
+   "lat": 21.55,
+   "lng": 107.97,
+   "note": "中越边境和京族三岛"
+  },
+  {
+   "key": "haikou",
+   "name": "海口",
+   "dest": "hainan",
+   "lat": 20.04,
+   "lng": 110.32,
+   "note": "骑楼老街和火山口"
+  },
+  {
+   "key": "wanning",
+   "name": "万宁",
+   "dest": "hainan",
+   "lat": 18.8,
+   "lng": 110.39,
+   "note": "日月湾冲浪和兴隆"
+  },
+  {
+   "key": "dandong",
+   "name": "丹东",
+   "dest": "liaoning",
+   "lat": 40.12,
+   "lng": 124.38,
+   "note": "鸭绿江和虎山长城"
+  },
+  {
+   "key": "xingcheng",
+   "name": "葫芦岛兴城",
+   "dest": "liaoning",
+   "lat": 40.61,
+   "lng": 120.73,
+   "note": "兴城古城和海滨"
+  },
+  {
+   "key": "yanji",
+   "name": "延吉",
+   "dest": "jilin",
+   "lat": 42.9,
+   "lng": 129.51,
+   "note": "朝鲜族美食和帽儿山"
+  },
+  {
+   "key": "heihe",
+   "name": "黑河",
+   "dest": "heilongjiang",
+   "lat": 50.25,
+   "lng": 127.49,
+   "note": "中俄边境城市"
+  },
+  {
+   "key": "baotou",
+   "name": "包头",
+   "dest": "neimenggu",
+   "lat": 40.66,
+   "lng": 109.84,
+   "note": "五当召和黄河"
+  },
+  {
+   "key": "wuwei",
+   "name": "武威",
+   "dest": "gansu",
+   "lat": 37.93,
+   "lng": 102.64,
+   "note": "铜奔马和天梯山石窟"
+  },
+  {
+   "key": "hami",
+   "name": "哈密",
+   "dest": "xinjiang",
+   "lat": 42.82,
+   "lng": 93.51,
+   "note": "大海道和巴里坤"
+  },
+  {
+   "key": "wuerhe",
+   "name": "乌尔禾魔鬼城",
+   "dest": "xinjiang",
+   "lat": 46.1,
+   "lng": 85.7,
+   "note": "雅丹地貌和日落"
+  },
+  {
+   "key": "tacheng",
+   "name": "塔城",
+   "dest": "xinjiang",
+   "lat": 46.75,
+   "lng": 82.98,
+   "note": "边境小城和巴尔鲁克山"
+  },
+  {
+   "key": "shannan",
+   "name": "山南",
+   "dest": "xizang",
+   "lat": 29.24,
+   "lng": 91.77,
+   "note": "雍布拉康和桑耶寺"
+  },
+  {
+   "key": "anqing2",
+   "name": "黄山宏村西递",
+   "dest": "anhui",
+   "lat": 30.0,
+   "lng": 117.98,
+   "note": "徽州古村落"
+  },
+  {
+   "key": "xiamen2",
+   "name": "厦门周边漳州",
+   "dest": "fujian",
+   "lat": 24.51,
+   "lng": 117.65,
+   "note": "漳州古城和火山岛"
+  },
+  {
+   "key": "qingdao2",
+   "name": "日照",
+   "dest": "shandong",
+   "lat": 35.42,
+   "lng": 119.53,
+   "note": "海边小城"
+  },
+  {
+   "key": "weifang",
+   "name": "潍坊",
+   "dest": "shandong",
+   "lat": 36.71,
+   "lng": 119.16,
+   "note": "风筝和青州"
+  }
+ ],
+ "done": [],
+ "failed": []
+}

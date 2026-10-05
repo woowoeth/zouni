@@ -1,0 +1,522 @@
+{
+ "schema": "zouni.route.v2",
+ "id": "cq3",
+ "fam": "cq",
+ "title": "🌉 重庆 3 天 · 山城立体",
+ "dest": "重庆",
+ "days_count": 3,
+ "seasons": [
+  {
+   "name": "洪崖洞灯光",
+   "why": "19:00 后全开 · 周末人流管制"
+  },
+  {
+   "name": "武隆天生三桥",
+   "why": "需另加两天 · 车程 3 小时"
+  }
+ ],
+ "transport": {
+  "mode": "transit",
+  "rent": 0,
+  "perCar": false,
+  "roadfood": 0,
+  "label": "轻轨 · 索道 · 步行（每人实付）"
+ },
+ "prep": [
+  "长江索道旺季排队 40 分 · 网上买票走快速通道",
+  "渝畅行或云闪付扫码 · 轻轨全线通用",
+  "重庆导航会骗人 · 认楼层不认平面距离",
+  "台阶多坡度大 · 穿好走的鞋"
+ ],
+ "weather_note": "重庆 8 月 · 昼 30–38℃ · 火炉城市 · 夜里才凉",
+ "days": [
+  {
+   "n": 1,
+   "title": "解放碑 · 洪崖洞夜景",
+   "sub": "市中心 · 过江索道 · 轻",
+   "place": "解放碑·洪崖洞",
+   "lat": 29.5601078,
+   "lng": 106.5733671,
+   "facts": {
+    "depart": "10:00",
+    "drive": "0 h",
+    "altitude_m": 261,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      11,
+      6
+     ],
+     "2": [
+      14,
+      7
+     ],
+     "3": [
+      19,
+      11
+     ],
+     "4": [
+      23,
+      15
+     ],
+     "5": [
+      26,
+      19
+     ],
+     "6": [
+      29,
+      22
+     ],
+     "7": [
+      33,
+      25
+     ],
+     "8": [
+      34,
+      26
+     ],
+     "9": [
+      29,
+      22
+     ],
+     "10": [
+      22,
+      17
+     ],
+     "11": [
+      17,
+      12
+     ],
+     "12": [
+      12,
+      7
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "10:00",
+     "type": "dep",
+     "to": "解放碑 · 八一路",
+     "mode": "transit",
+     "min": 15,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "10:15",
+     "type": "see",
+     "name": "解放碑 · 八一路",
+     "dur": 70,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:25",
+     "type": "see",
+     "name": "长江索道",
+     "dur": 50,
+     "cost": 30,
+     "ticket": "tix",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:15",
+     "type": "see",
+     "name": "洪崖洞 · 夜景",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:45",
+     "type": "see",
+     "name": "本地连锁 · 不排队",
+     "dur": 80,
+     "cost": 100,
+     "ticket": "food",
+     "indoor": true,
+     "lock": null
+    },
+    {
+     "t": "15:05",
+     "type": "dep",
+     "to": "住处",
+     "mode": "walk",
+     "min": 12,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "解放碑 · 江景房",
+     "name": "解放碑 · 江景房",
+     "engine_price": 460
+    }
+   ],
+   "stay": {
+    "city": "解放碑 · 江景房",
+    "engine": [
+     {
+      "city": "解放碑 · 江景房",
+      "price": 460,
+      "why": "走到洪崖洞 10 分 · 轻轨枢纽"
+     },
+     {
+      "city": "观音桥 · 地铁口",
+      "price": 320,
+      "why": "省 ¥70/人 · 三站到解放碑"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "一座碑被玻璃楼围在中间，好吃街的酸辣粉香气飘出两条街。 缆车贴着江面过去，两岸的楼像从水里长出来。 十一层吊脚楼从江边一路堆到马路上，灯全亮的时候像动画里那座城。 味道稳定不用等位，微辣也能调。",
+    "manners": [
+     "八一路好吃街 · 山城小汤圆",
+     "单程¥30 · 建议下午过江傍晚回",
+     "19:00 后灯全开 · 千厮门大桥上拍全景",
+     "毛肚 · 鸭肠 · 黄喉 · 冰粉解辣"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 2,
+   "title": "磁器口 · 鹅岭二厂",
+   "sub": "古镇加旧厂房 · 轻",
+   "place": "解放碑·洪崖洞",
+   "lat": 29.5601078,
+   "lng": 106.5733671,
+   "facts": {
+    "depart": "09:00",
+    "drive": "0 h",
+    "altitude_m": 261,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      11,
+      6
+     ],
+     "2": [
+      14,
+      7
+     ],
+     "3": [
+      19,
+      11
+     ],
+     "4": [
+      23,
+      15
+     ],
+     "5": [
+      26,
+      19
+     ],
+     "6": [
+      29,
+      22
+     ],
+     "7": [
+      33,
+      25
+     ],
+     "8": [
+      34,
+      26
+     ],
+     "9": [
+      29,
+      22
+     ],
+     "10": [
+      22,
+      17
+     ],
+     "11": [
+      17,
+      12
+     ],
+     "12": [
+      12,
+      7
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:00",
+     "type": "dep",
+     "to": "磁器口古镇",
+     "mode": "transit",
+     "min": 30,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:30",
+     "type": "see",
+     "name": "磁器口古镇",
+     "dur": 120,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "11:30",
+     "type": "dep",
+     "to": "鹅岭二厂 · 天台",
+     "mode": "transit",
+     "min": 25,
+     "km": null
+    },
+    {
+     "t": "11:55",
+     "type": "see",
+     "name": "鹅岭二厂 · 天台",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "13:25",
+     "type": "dep",
+     "to": "住处",
+     "mode": "transit",
+     "min": 25,
+     "km": null
+    },
+    {
+     "t": "18:30",
+     "type": "eat",
+     "slot": "晚饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    },
+    {
+     "t": "晚上",
+     "type": "stay",
+     "city": "解放碑 · 连住",
+     "name": "解放碑 · 连住",
+     "engine_price": 460
+    }
+   ],
+   "stay": {
+    "city": "解放碑 · 连住",
+    "engine": [
+     {
+      "city": "解放碑 · 连住",
+      "price": 460,
+      "why": "不挪窝 · 行李不动"
+     }
+    ],
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "石板路从山门一直斜到嘉陵江边，陈麻花的队伍能排出半条街。 旧厂房里塞满小店，天台正对渝中半岛，日落时整片楼群染成橘色。",
+    "manners": [
+     "陈麻花 · 毛血旺 · 往江边走人少",
+     "天台看渝中半岛 · 日落前到"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  },
+  {
+   "n": 3,
+   "title": "李子坝 · 山城步道收官",
+   "sub": "轻轨穿楼 · 下午离开 · 轻",
+   "place": "解放碑·洪崖洞",
+   "lat": 29.5601078,
+   "lng": 106.5733671,
+   "facts": {
+    "depart": "09:30",
+    "drive": "0 h",
+    "altitude_m": 261,
+    "high_altitude": false,
+    "temp_by_month": {
+     "1": [
+      11,
+      6
+     ],
+     "2": [
+      14,
+      7
+     ],
+     "3": [
+      19,
+      11
+     ],
+     "4": [
+      23,
+      15
+     ],
+     "5": [
+      26,
+      19
+     ],
+     "6": [
+      29,
+      22
+     ],
+     "7": [
+      33,
+      25
+     ],
+     "8": [
+      34,
+      26
+     ],
+     "9": [
+      29,
+      22
+     ],
+     "10": [
+      22,
+      17
+     ],
+     "11": [
+      17,
+      12
+     ],
+     "12": [
+      12,
+      7
+     ]
+    }
+   },
+   "timeline": [
+    {
+     "t": "09:30",
+     "type": "dep",
+     "to": "李子坝 · 轻轨穿楼",
+     "mode": "transit",
+     "min": 12,
+     "km": null,
+     "via": null
+    },
+    {
+     "t": "09:42",
+     "type": "see",
+     "name": "李子坝 · 轻轨穿楼",
+     "dur": 60,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "10:42",
+     "type": "dep",
+     "to": "山城第三步道",
+     "mode": "walk",
+     "min": 15,
+     "km": null
+    },
+    {
+     "t": "10:57",
+     "type": "see",
+     "name": "山城第三步道",
+     "dur": 90,
+     "cost": 0,
+     "ticket": "free",
+     "indoor": false,
+     "lock": null
+    },
+    {
+     "t": "12:27",
+     "type": "dep",
+     "to": "回程",
+     "mode": "transit",
+     "min": 45,
+     "km": null
+    },
+    {
+     "t": "12:30",
+     "type": "eat",
+     "slot": "午饭",
+     "dish": "待补",
+     "place": "待补",
+     "price": null
+    }
+   ],
+   "stay": {
+    "city": null,
+    "engine": null,
+    "tiers": {
+     "luxury": null,
+     "upscale": null,
+     "budget": null
+    },
+    "default": "luxury"
+   },
+   "story": {
+    "text": "列车从八楼直接钻进居民楼，站在观景台上等两分钟就来一趟。 一条挂在崖壁上的老街，防空洞、吊脚楼和晾衣绳全在一条道上。",
+    "manners": [
+     "观景台在马路对面 · 高峰期每 3 分一趟",
+     "从领事巷进 · 看得见长江"
+    ],
+    "verified": false
+   },
+   "experiences": [],
+   "notes": []
+  }
+ ],
+ "status": {
+  "timeline": "engine",
+  "departures": "engine",
+  "meals": "todo",
+  "stay_tiers": "todo",
+  "story": "draft",
+  "experiences": "todo",
+  "temp": "computed",
+  "light": "computable"
+ }
+}

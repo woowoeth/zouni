@@ -1,0 +1,28 @@
+{
+ "$schema": "https://json-schema.org/draft/2020-12/schema",
+ "title": "走你 · 地点（景点 / 饭馆 / 住宿 / 体验 / 当地菜）",
+ "type": "object",
+ "required": ["id", "name", "type", "dest", "links", "sources"],
+ "properties": {
+  "id": {"type": "string", "description": "目的地-城市-名称 的短 id，全库唯一"},
+  "name": {"type": "string"},
+  "type": {"enum": ["sight", "food", "stay", "fun", "dish"]},
+  "dest": {"type": "string", "description": "destinations.json 里的目的地 id，如 sichuan / japan"},
+  "country": {"type": "string", "description": "ISO 国家码，CN / JP / HK ..."},
+  "city": {"type": ["string", "null"]},
+  "area": {"type": ["string", "null"], "description": "片区，如 春熙路、平江路"},
+  "price": {"type": ["object", "null"], "properties": {"amount": {"type": ["number", "null"]}, "currency": {"type": "string"}, "per": {"enum": ["person", "night", "item"]}, "text": {"type": ["string", "null"]}}},
+  "tier": {"enum": ["luxury", "upscale", "budget", null]},
+  "dishes": {"type": "array", "items": {"type": "string"}},
+  "hours": {"type": ["object", "null"], "properties": {"open": {"type": "string"}, "close": {"type": "string"}}},
+  "slots": {"type": "array", "items": {"enum": ["午饭", "晚饭"]}},
+  "rating": {"type": ["object", "null"], "properties": {"score": {"type": ["number", "null"]}, "count": {"type": ["integer", "null"]}, "source": {"type": "string"}, "asOf": {"type": "string"}}},
+  "rank": {"type": ["string", "null"]},
+  "signature": {"type": "array", "items": {"type": "string"}},
+  "highlights": {"type": "array", "items": {"type": "string"}, "description": "自己的话概括，不复制用户评价原文"},
+  "links": {"type": "object", "properties": {"dianping": {"type": "string"}, "map": {"type": "string"}, "ctrip": {"type": "string"}}},
+  "usedIn": {"type": "array", "items": {"type": "string"}, "description": "出现在哪些线路"},
+  "sources": {"type": "array", "items": {"type": "string"}},
+  "verified": {"type": ["string", "null"]}
+ }
+}
