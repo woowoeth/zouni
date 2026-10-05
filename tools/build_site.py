@@ -43,6 +43,19 @@ FAMOUS = {  # 只写有把握的老字号 / 名店
     '桂林': {'桂林米粉': ['崇善米粉']}, '开封': {'灌汤包': ['第一楼']}, '洛阳': {'水席': ['真不同']}, '扬州': {'早茶': ['富春茶社']},
     '无锡': {'小笼包': ['王兴记']}, '哈尔滨': {'锅包肉': ['老厨家'], '马迭尔冰棍': ['马迭尔']}, '沈阳': {'老边饺子': ['老边饺子馆']},
     '澳门': {'葡挞': ['安德鲁饼店'], '猪扒包': ['大利来记']}, '香港': {'云吞面': ['麦奀记'], '烧腊': ['甘牌烧鹅']}}
+BOOK = {  # 有把握要提前预约 / 实名购票的地方
+    '故宫': '故宫要提前在官方渠道实名预约', '中国国家博物馆': '国家博物馆要提前预约', '天安门': '天安门广场要提前预约', '毛主席纪念堂': '毛主席纪念堂要提前预约',
+    '八达岭长城': '八达岭长城要提前实名预约', '陕西历史博物馆': '陕西历史博物馆要提前预约', '秦始皇帝陵博物院': '兵马俑要提前买票', '兵马俑': '兵马俑要提前买票',
+    '莫高窟': '莫高窟要提前一到两周预约', '布达拉宫': '布达拉宫要提前预约', '三星堆博物馆': '三星堆要提前预约', '苏州博物馆': '苏州博物馆要提前预约',
+    '南京博物院': '南京博物院要提前预约', '湖北省博物馆': '湖北省博物馆要提前预约', '河南博物院': '河南博物院要提前预约', '湖南博物院': '湖南博物院要提前预约',
+    '上海博物馆': '上海博物馆要提前预约', '拙政园': '拙政园要提前实名预约', '九寨沟': '九寨沟限流，要提前实名预约', '鼓浪屿': '去鼓浪屿的船票要提前买'}
+
+
+def book_of(text):
+    t = text or ''
+    return next(((k, v) for k, v in BOOK.items() if k in t), None)
+
+
 STATUS = {'open': '可以去', 'restricted': '有条件', 'paused': '暂停开放', 'check': '出发前查'}
 TRIP_OF_ROUTE = {}
 for t in TRIPS:
@@ -110,8 +123,8 @@ def dpurl(kw, city=''):
 def icons(kw, city, app, dp=None, nav=None):
     if not kw: return ''
     q = ((city + ' ') if city else '') + kw
-    return (f'<a class="ic" href="{E(nav or mapurl(kw, city, app))}" rel="nofollow noopener" target="_blank" aria-label="{"导航去 " if nav else "地图上看 "}{E(kw)}">{ICON_PIN}</a>'
-            f'<a class="ic dp" href="{E(dp or dpurl(kw, city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote(q))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上看 {E(kw)}">{ICON_DP}</a>')
+    return (f'<span class="icg"><a class="ic" href="{E(nav or mapurl(kw, city, app))}" rel="nofollow noopener" target="_blank" aria-label="{"导航去 " if nav else "地图上看 "}{E(kw)}">{ICON_PIN}</a>'
+            f'<a class="ic dp" href="{E(dp or dpurl(kw, city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote(q))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上看 {E(kw)}">{ICON_DP}</a></span>')
 
 
 def md(s):  # "10-25" → "10 月 25 日"
@@ -276,6 +289,7 @@ def row_html(w, city, app):
     else:
         main = E(w.get('name')); sub = ' · '.join(x for x in [E(w.get('d')), E(w.get('kb'))] if x); kw = w.get('poi')
         mu = museum_of(w.get('name')) or museum_of(w.get('poi'))
+        if book_of(w.get('name')): main += '<span class="gb bk2">要预约</span>'
         if mu and mu['treasures']:
             main += '<span class="gb">国宝</span>'
             sub = (sub + '</p><p class="s tre">' if sub else '') + '<b>镇馆之宝</b>' + E('、'.join(mu['treasures'])) + (('，' + E(mu['note'])) if mu.get('note') else '')
@@ -331,7 +345,12 @@ def trip_page(rid):
               f'<div><b class="price" data-cost=\'{E(json.dumps(cost)) if has_cost else ""}\'>{E(price)}</b>{sub3}</div></div>')
     if has_cost:
         glance += f'<div class="ppl" hidden><span>{"租车按车分摊，两人一间" if cost.get("perCar") else "两人一间，一个人单独一间"}</span><div><button type="button" data-d="-1" aria-label="少一个人">−</button><b>2 人</b><button type="button" data-d="1" aria-label="多一个人">+</button></div></div>'
-    prep = ''.join(f'<li><label><input type="checkbox" data-k="{i}"><span>{E(x)}</span></label></li>' for i, x in enumerate(r.get('prep') or [])) + ''.join(f'<li class="fit">{E(x)}</li>' for x in r.get('fit') or [])
+    prep_items = list(r.get('prep') or [])
+    for dd in r['days']:
+        for w in dd['rows']:
+            bk = book_of(w.get('name')) if w['type'] in ('see', 'fun') else None
+            if bk and not any(bk[0] in x for x in prep_items): prep_items.append(bk[1])
+    prep = ''.join(f'<li><label><input type="checkbox" data-k="{i}"><span>{E(x)}</span></label></li>' for i, x in enumerate(prep_items)) + ''.join(f'<li class="fit">{E(x)}</li>' for x in r.get('fit') or [])
     def firstdep(d):
         w = next((w for w in d['rows'] if w['type'] == 'dep'), None); return w['t'] if w else ''
     over = ''.join(f'<li><a href="#d{i + 1}"><b>{i + 1:02d}</b><i>{md(dates[i])}</i><span class="ot"><strong>{E(d["title"])}</strong><small>{"回家" if i == n - 1 else "住" + E(d.get("navCity") or d.get("city"))}</small></span><em>{E(firstdep(d))} 走</em></a></li>' for i, d in enumerate(r['days']))
@@ -555,6 +574,7 @@ def home_page():
             f'<div class="mast"><div><h1>走你</h1><small>{TODAY.year} · {mname}</small></div><a href="#mine"><span>我的行程</span></a></div>'
             f'<div class="datebar"><button type="button" class="hdt" aria-label="改出发日期"><b>{TODAY.month}/{TODAY.day} 周{"一二三四五六日"[TODAY.weekday()]} 出发</b><i>改</i></button><input type="hidden" class="hdpk" data-min="{TODAY.isoformat()}" value="{TODAY.isoformat()}"></div>'
             f'<div class="cv"><span class="kick">封面故事 · 正当季{(" · 还剩 " + str(dl0) + " 天") if dl0 is not None else ""}</span><h2>{E(r["title"])}</h2><div class="chips"><span>{len(r["days"])} 天 · 人均 {E(r.get("price"))}</span><span>{m} 月 {c0[0]}°C / {c0[1]}°C</span></div><a class="go" href="/trip/{cover}/">翻开 →</a></div></div>'
+            f'<form class="hsearch" action="/where/" method="get" role="search"><input type="search" name="q" placeholder="搜地名或景点，比如 婺源、兵马俑" aria-label="搜地名或景点"><button type="submit">搜</button></form>'
             f'<section class="mine" id="mine" hidden><h2>我的行程</h2><ul class="list" data-k="fav"></ul></section>'
             f'<section class="mine" hidden><h2>最近看过</h2><ul class="list" data-k="seen"></ul></section>'
             f'<section class="toc now" id="now"><h2><span class="nt">现在去正好</span><small class="ns">{len(order) + 1} 条，快过季的先看</small></h2>{chips}<ol class="items">{toc}</ol>'
