@@ -35,6 +35,14 @@ def museum_of(text):
     return next((x for x in sorted(MUS, key=lambda x: -len(x['name'])) if x['name'] in t or x['name'].replace('博物馆', '博') in t or (len(x['name']) > 4 and t and t in x['name'] and len(t) >= 4) or any(a and a in t for a in x.get('alias', []))), None)
 
 
+FAMOUS = {  # 只写有把握的老字号 / 名店
+    '北京': {'烤鸭': ['四季民福', '全聚德'], '涮羊肉': ['东来顺']}, '西安': {'羊肉泡馍': ['老孙家', '同盛祥'], '肉夹馍': ['樊记肉夹馍']},
+    '兰州': {'牛肉面': ['马子禄']}, '武汉': {'热干面': ['蔡林记'], '豆皮': ['老通城']}, '长沙': {'臭豆腐': ['火宫殿']},
+    '杭州': {'西湖醋鱼': ['楼外楼'], '片儿川': ['奎元馆']}, '苏州': {'苏式汤面': ['同得兴'], '松鼠鳜鱼': ['松鹤楼']},
+    '上海': {'生煎': ['小杨生煎']}, '天津': {'狗不理包子': ['狗不理'], '耳朵眼炸糕': ['耳朵眼']}, '广州': {'早茶': ['陶陶居', '广州酒家']},
+    '桂林': {'桂林米粉': ['崇善米粉']}, '开封': {'灌汤包': ['第一楼']}, '洛阳': {'水席': ['真不同']}, '扬州': {'早茶': ['富春茶社']},
+    '无锡': {'小笼包': ['王兴记']}, '哈尔滨': {'锅包肉': ['老厨家'], '马迭尔冰棍': ['马迭尔']}, '沈阳': {'老边饺子': ['老边饺子馆']},
+    '澳门': {'葡挞': ['安德鲁饼店'], '猪扒包': ['大利来记']}, '香港': {'云吞面': ['麦奀记'], '烧腊': ['甘牌烧鹅']}}
 STATUS = {'open': '可以去', 'restricted': '有条件', 'paused': '暂停开放', 'check': '出发前查'}
 TRIP_OF_ROUTE = {}
 for t in TRIPS:
@@ -99,10 +107,10 @@ def dpurl(kw, city=''):
     return 'https://www.dianping.com/ai-search?keyword=' + urllib.parse.quote((city + ' ' if city else '') + kw)
 
 
-def icons(kw, city, app, dp=None):
+def icons(kw, city, app, dp=None, nav=None):
     if not kw: return ''
     q = ((city + ' ') if city else '') + kw
-    return (f'<a class="ic" href="{E(mapurl(kw, city, app))}" rel="nofollow noopener" target="_blank" aria-label="地图上看 {E(kw)}">{ICON_PIN}</a>'
+    return (f'<a class="ic" href="{E(nav or mapurl(kw, city, app))}" rel="nofollow noopener" target="_blank" aria-label="{"导航去 " if nav else "地图上看 "}{E(kw)}">{ICON_PIN}</a>'
             f'<a class="ic dp" href="{E(dp or dpurl(kw, city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote(q))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上看 {E(kw)}">{ICON_DP}</a>')
 
 
@@ -247,14 +255,13 @@ def row_html(w, city, app):
     t = w['type']
     if t == 'dep':
         sub = E(w.get('how')) if w.get('how') else ''
-        if w.get('nav'):
-            return (f'<li class="r dep"><time>{E(w["t"])}</time><span class="dot"></span><a class="rb nav" href="{E(w["nav"])}" rel="nofollow noopener" target="_blank" aria-label="导航到 {E(w.get("to"))}">'
-                    f'<p class="m">出发 → {E(w.get("to"))}</p><p class="s">{sub}{" · " if sub else ""}<em>导航</em></p></a></li>')
         return f'<li class="r dep"><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">出发 → {E(w.get("to"))}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
     if t == 'eat':
         place = w.get('place') if w.get('place') not in ('随意', '住的地方附近', '附近', '车站或机场里吃', '沿途', '路上') else ''
         main = f'{E(w.get("slot"))} · {E(w.get("dish"))}'
-        sub = ' · '.join(x for x in [E(place), E(w.get('d')), E(w.get('kb'))] if x)
+        rec = [x for d_ in re.split(r'[、，]', w.get('dish') or '') for x in FAMOUS.get(city or '', {}).get(d_.strip(), [])]
+        tip = ('老店：' + '、'.join(rec)) if rec else ('点评上找附近评分高的店' if w.get('dish') not in ('简单吃一点', '随意') else '')
+        sub = ' · '.join(x for x in [E(place), E(w.get('d')), E(w.get('kb')), E(tip)] if x)
         kw = w.get('poi') or place
     elif t == 'stay':
         main = '住 · ' + E(w.get('name')); sub = E(w.get('d')); kw = w.get('poi')
@@ -267,7 +274,9 @@ def row_html(w, city, app):
         if mu and mu['treasures']:
             main += '<span class="gb">国宝</span>'
             sub = (sub + '</p><p class="s tre">' if sub else '') + '<b>镇馆之宝</b>' + E('、'.join(mu['treasures'])) + (('，' + E(mu['note'])) if mu.get('note') else '')
-    ic = icons(kw, city, app, w.get('dp')) if kw else ''
+    ic = icons(kw, city, app, w.get('dp'), w.get('nav')) if kw else ''
+    if t == 'eat' and not kw:   # 没有具体地方的饭：只放点评，按“城市 + 菜名”找
+        ic = f'<a class="ic dp" href="{E(dpurl(w.get("dish") or "", city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote((city or "") + " " + (w.get("dish") or "")))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上找 {E(w.get("dish"))}">{ICON_DP}</a>'
     return f'<li class="r {t}"><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">{main}{ic}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
 
 
@@ -321,6 +330,17 @@ def trip_page(rid):
             stays = (f'<div class="stays"><div class="sh"><span class="lbl">今晚住</span><span>{"连住 " + str(run) + " 晚" if run > 1 else ""}</span></div><ul>{lis}</ul>'
                      + (f'<button type="button" class="tog">看另外两档</button>' if len(d['stay']) > 1 else '')
                      + f'<div class="bk"><a class="btn" rel="nofollow noopener" target="_blank" href="https://m.ctrip.com/webapp/hotels/list?keyword={urllib.parse.quote(d["stay"][0]["name"])}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpu)}" aria-label="在大众点评看这家酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
+        if not stays and not d.get('stay') and i < n - 1 and (d.get('stayName') or d.get('stayNote')) and not (i > 0 and r['days'][i - 1].get('stayName') == d.get('stayName') and r['days'][i - 1].get('city') == d.get('city')):
+            area = d.get('stayName') or city; run = 1
+            while i + run < n - 1 and r['days'][i + run].get('stayName') == d.get('stayName'): run += 1
+            BIG = {'北京', '上海', '广州', '深圳', '杭州', '成都', '西安', '南京', '苏州', '重庆', '武汉', '长沙', '厦门', '三亚', '香港', '澳门', '青岛', '大连', '天津', '东京', '首尔', '新加坡', '迪拜', '伊斯坦布尔', '大阪', '京都'}
+            hi = (d.get('elev') or 0) >= 2500
+            pr = (('¥600 起', '¥300–500', '¥120–250') if hi else ('¥1,500 起', '¥600–1,000', '¥250–400') if city in BIG else ('¥900 起', '¥400–700', '¥150–300'))
+            q_ = lambda w_: 'https://m.ctrip.com/webapp/hotels/list?keyword=' + urllib.parse.quote(f'{city} {area if area != city else ""} {w_}'.replace('  ', ' ').strip())
+            tiers = [('奢华', '五星或高端度假酒店' if not hi else '当地最好的酒店', pr[0], q_('五星酒店' if not hi else '酒店')), ('高级', '四星或品牌连锁', pr[1], q_('四星酒店')), ('中低', '经济连锁或干净的客栈', pr[2], q_('经济型酒店'))]
+            lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{tn}</span><div><b>{E(area)} · {desc}</b><small>参考价 {pp}/晚</small><a class="tl2" rel="nofollow noopener" target="_blank" href="{E(u)}">携程上按这档看 ›</a></div></li>' for k, (tn, desc, pp, u) in enumerate(tiers))
+            stays = (f'<div class="stays"><div class="sh"><span class="lbl">今晚住</span><span>{"连住 " + str(run) + " 晚" if run > 1 else "按档位挑"}</span></div><ul>{lis}</ul><button type="button" class="tog">看另外两档</button>'
+                     f'<div class="bk"><a class="btn" rel="nofollow noopener" target="_blank" href="{E(tiers[0][3])}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpurl(area + " 酒店", city))}" aria-label="在大众点评看附近酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
         story = f'<aside class="story"><span class="lbl">懂一点</span><p>{E(d["story"])}</p></aside>' if d.get('story') else ''
         mlist = (CULT.get('manners') or {}).get(t.get('dest'), []) if i == 0 else []
         if mlist: story = f'<div class="mn"><span class="lbl">当地讲究</span><ul>' + ''.join(f'<li>{E(x)}</li>' for x in mlist) + '</ul></div>' + story
@@ -331,7 +351,8 @@ def trip_page(rid):
                 nxt = next((x for x in rows[k + 1:] if x['type'] != 'dep' and x.get('poi')), None)
                 b_ = coord(nxt['poi'], city) if nxt else None
                 u_ = navurl(lastpt, b_, w.get('how'), app, (nxt.get('name') or nxt.get('place') or nxt.get('dish') or '') if nxt else '') if nxt else None
-                if u_: rows[k] = dict(w, nav=u_)
+                if u_:
+                    j_ = rows.index(nxt); rows[j_] = dict(nxt, nav=u_)
             elif w.get('poi'):
                 c_ = coord(w['poi'], city)
                 if c_: lastpt = c_
@@ -350,7 +371,8 @@ def trip_page(rid):
     dock = f'<div class="dock"><div><b>{md(dates[0])} 出发 · {n} 天</b><small>2 人 · 每人 {E(price.replace("约 ", ""))}</small></div><button type="button" class="fav" data-id="{rid}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">收进行程</button></div>'
     body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-start="{dates[0].isoformat()}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
             f'<section class="pre"><h2>出发前</h2><ul>{prep or "<li class=fit>没有特别要提前办的</li>"}</ul></section>'
-            f'<section class="overview"><h2>{n} 天，怎么排</h2><ol>{over}</ol>{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{"".join(days)}<div class="acts"><button type="button" class="copy">复制整条行程，发到微信</button></div>{dest_link}{dock}</article>')
+            f'<script type="application/json" id="cands">{json.dumps([{"rid": o, "label": ROUTES[o].get("label"), "i": k, "title": dd["title"]} for o in DEST_ROUTES.get(t.get("dest"), []) if o != rid for k, dd in enumerate(ROUTES[o]["days"])][:40], ensure_ascii=False).replace("</", "<\\/")}</script>'
+            f'<section class="overview"><h2>{n} 天，怎么排</h2><ol>{over}</ol>{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{"".join(days)}<div class="addday"><button type="button" class="add">＋ 加一天</button><small>想多玩一天：可以自由活动，也可以从附近线路挑一天接上</small></div><div class="acts"><button type="button" class="copy">复制整条行程，发到微信</button></div>{dest_link}{dock}</article>')
     crumbs = [('首页', '/'), ('去哪儿', '/where/')] + ([(d0['name'], f'/d/{t["dest"]}/')] if d0 else []) + [(r.get('label') or r['title'], f'/trip/{rid}/')]
     img = '/img/' + (r.get('img') or '').replace('/_blob/', '') + '.svg' if r.get('img') else None
     write(f'/trip/{rid}/', page(f'/trip/{rid}/', f'{r.get("label") or r["title"]}行程：{r["title"]} | 走你', desc, body, [ld], img, crumbs))

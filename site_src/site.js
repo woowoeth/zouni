@@ -83,7 +83,39 @@
         var db=document.querySelector('.dock b');if(db)db.textContent=fmt(d0)+' 出发 · '+n+' 天'}
       dtb.addEventListener('click',function(){var b0=dtb.dataset.best?dtb.dataset.best.split(','):null;openPicker({value:dk.value,min:dk.dataset.min||dk.getAttribute('min'),best:b0&&b0.length===2?b0:null,onPick:function(v){dk.value=v;dk.dispatchEvent(new Event('change'))}})});
       dk.addEventListener('change',function(){if(!dk.value)return;try{localStorage.setItem(sk,dk.value)}catch(e){}applyStart(dk.value);var d=new Date(dk.value+'T12:00:00');toast('改成 '+fmt(d)+' 出发了')});
-      var mn=dk.dataset.min||dk.min;try{var s0=localStorage.getItem(sk)||localStorage.getItem('zouni_home_date');if(s0&&s0>=mn&&s0!==dk.value){dk.value=s0;applyStart(s0)}}catch(e){}}
+      var mn=dk.dataset.min||dk.min;try{var s0=localStorage.getItem(sk)||localStorage.getItem('zouni_home_date');if(s0&&s0>=mn&&s0!==dk.value){dk.value=s0;applyStart(s0)}}catch(e){}
+      // ——— 加一天：自由活动，或从同一目的地的其他线路挑一天接上；记在本机，可以去掉 ———
+      var addB=document.querySelector('.addday .add');
+      if(addB){var ek='zouni_extra_'+me.id,cands=[];try{cands=JSON.parse(document.getElementById('cands').textContent)}catch(e){}
+        var CN='一二三四五六七八九十';function cnDay(i){return'第'+(i<10?CN[i]:(i+1))+'天'}
+        function renum(){var secs=[].slice.call(document.querySelectorAll('.day'));
+          secs.forEach(function(sec,i){sec.id='d'+(i+1);var no=sec.querySelector('.no');if(no)no.textContent=('0'+(i+1)).slice(-2);var sm=sec.querySelector('header small');if(sm){var p=sm.textContent.split(' · ');sm.textContent=cnDay(i)+(p.length>1?' · '+p.slice(1).join(' · '):'')}});
+          var nv=document.querySelector('.daynav');if(nv){var a=nv.querySelectorAll('a');for(var k=a.length;k<secs.length;k++)nv.insertAdjacentHTML('beforeend','<a href="#d'+(k+1)+'">'+(k+1)+'</a>');for(var k2=a.length-1;k2>=secs.length;k2--)a[k2].remove()}
+          var ol=document.querySelector('.overview ol'),lis=ol?ol.children:[];
+          secs.forEach(function(sec,i){if(!sec.dataset.extra)return;var li=ol.querySelector('li[data-x="'+sec.dataset.extra+'"]');if(!li){li=document.createElement('li');li.dataset.x=sec.dataset.extra;ol.appendChild(li)}
+            li.innerHTML='<a href="#d'+(i+1)+'"><b>'+('0'+(i+1)).slice(-2)+'</b><i></i><span class="ot"><strong>'+sec.querySelector('h2').childNodes[0].textContent+'</strong><small>加的一天</small></span><em></em></a>'});
+          [].slice.call(ol.querySelectorAll('li[data-x]')).forEach(function(li){if(!document.querySelector('.day[data-extra="'+li.dataset.x+'"]'))li.remove()});
+          var h=document.querySelector('.overview h2');if(h)h.textContent=secs.length+' 天，怎么排';
+          applyStart(dk.value);setTimeout(todayBar,0)}
+        function dayShell(x,title,body){var sec=document.createElement('section');sec.className='day xday';sec.dataset.extra=x;
+          sec.innerHTML='<header><span class="no"></span><div><small>第几天 · </small><h2>'+title+'</h2></div></header>'+body+'<button type="button" class="rmday">去掉这天</button>';return sec}
+        function place(sec){var ad=document.querySelector('.addday');ad.parentNode.insertBefore(sec,ad);
+          sec.querySelector('.rmday').addEventListener('click',function(){var xs=ld(ek).filter(function(e){return e.x!==sec.dataset.extra});sv(ek,xs);sec.remove();renum();toast('去掉了')})}
+        function build(e){if(e.k==='free'){place(dayShell(e.x,'自由活动','<p class="lead">这天不排行程：睡到自然醒，在住的地方附近走走，补补觉，或者把前几天没逛够的地方再去一次。</p>'));return Promise.resolve()}
+          return fetch('/trip/'+e.rid+'/').then(function(r){return r.text()}).then(function(h){var doc=new DOMParser().parseFromString(h,'text/html'),src=doc.getElementById('d'+(e.i+1));if(!src)return;
+            var sec=dayShell(e.x,src.querySelector('h2').textContent,'');[].slice.call(src.children).forEach(function(c){if(c.tagName!=='HEADER')sec.insertBefore(c.cloneNode(true),sec.querySelector('.rmday'))});
+            sec.querySelector('h2').insertAdjacentHTML('beforeend','<span class="xt">接「'+e.label+'」第 '+(e.i+1)+' 天</span>');place(sec)}).catch(function(){})}
+        var chain=Promise.resolve();ld(ek).forEach(function(e){chain=chain.then(function(){return build(e)})});chain.then(renum);
+        addB.addEventListener('click',function(){var mask=document.createElement('div');mask.className='pk-mask';var sh=document.createElement('div');sh.className='pk';
+          var groups={};cands.forEach(function(c){(groups[c.label]=groups[c.label]||[]).push(c)});
+          sh.innerHTML='<div class="pk-h"><b>加一天</b><button type="button" class="pk-x">关上</button></div><div class="xd"><button type="button" data-free="1"><b>自由活动一天</b><small>住原地，不排行程</small></button>'+
+            Object.keys(groups).map(function(g){return'<p class="xg">从「'+g+'」挑一天</p>'+groups[g].map(function(c){return'<button type="button" data-rid="'+c.rid+'" data-i="'+c.i+'" data-l="'+g+'"><b>第 '+(c.i+1)+' 天 · '+c.title+'</b></button>'}).join('')}).join('')+'</div>';
+          function close(){mask.remove();sh.remove();document.body.classList.remove('pk-open')}
+          sh.addEventListener('click',function(ev){var b=ev.target.closest('button');if(!b)return;if(b.classList.contains('pk-x'))return close();
+            var e=b.dataset.free?{k:'free',x:'f'+Date.now()}:{k:'r',x:'r'+Date.now(),rid:b.dataset.rid,i:+b.dataset.i,label:b.dataset.l};var xs=ld(ek);xs.push(e);sv(ek,xs);close();
+            build(e).then(function(){renum();var s=document.querySelector('.day[data-extra="'+e.x+'"]');if(s)s.scrollIntoView();toast('加好了，日期和底栏都跟着变了')})});
+          mask.addEventListener('click',close);document.body.appendChild(mask);document.body.appendChild(sh);document.body.classList.add('pk-open')})}
+}
     // 旅途中：出发日到了，就在底部提示“今天第几天、下一站”
     function todayBar(){var old=document.querySelector('.today');if(old)old.remove();
       var st0=(dk&&dk.value)||art.dataset.start;if(!st0)return;var d0=new Date(st0+'T00:00:00'),nw=new Date(),idx=Math.floor((new Date(nw.getFullYear(),nw.getMonth(),nw.getDate())-d0)/864e5),secs=document.querySelectorAll('.day');
@@ -101,7 +133,7 @@
     // 今晚住：看另外两档
     document.querySelectorAll('.stays .tog').forEach(function(b){b.addEventListener('click',function(){var s=b.parentElement;s.classList.toggle('open');b.textContent=s.classList.contains('open')?'收起另外两档':'看另外两档'})});
     // 天数条高亮
-    var nav=document.querySelector('.daynav');if(nav){var as=[].slice.call(nav.querySelectorAll('a'));window.addEventListener('scroll',function(){var cur=0;as.forEach(function(a,i){var s=document.getElementById('d'+(i+1));if(s&&s.getBoundingClientRect().top<140)cur=i+1});as.forEach(function(a,i){a.classList.toggle('on',i+1===cur)})},{passive:true})}
+    var nav=document.querySelector('.daynav');if(nav){window.addEventListener('scroll',function(){var as=[].slice.call(nav.querySelectorAll('a')),cur=0;as.forEach(function(a,i){var s=document.getElementById('d'+(i+1));if(s&&s.getBoundingClientRect().top<140)cur=i+1});as.forEach(function(a,i){a.classList.toggle('on',i+1===cur)})},{passive:true})}
   }
 
   // ——— 点评：手机上先试 App，打不开（或在微信里）再去网页 ———

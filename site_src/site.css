@@ -279,3 +279,12 @@ a,button{-webkit-tap-highlight-color:transparent}
 .hz-b{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;display:flex;align-items:center}.hz-b svg{display:block;width:220vw;max-width:none;height:auto;margin:auto;flex:none}
 @media (min-width:600px){.hz-b svg{width:min(1100px,95vw)}}
 .mine .list small{display:block;font-size:12px;color:var(--red);font-weight:700}
+.addday{padding:32px 20px 0;display:flex;flex-direction:column;gap:6px}
+.addday .add{height:48px;border:1px dashed rgba(28,29,26,.4);background:transparent;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer}
+.addday small{font-size:12px;color:var(--sub)}
+.xday h2 .xt{display:block;margin-top:4px;font:600 12px var(--sans);color:var(--sub)}
+.rmday{margin-top:14px;height:40px;padding:0 14px;border:0;background:var(--card);font-size:13px;font-weight:700;color:var(--red);cursor:pointer}
+.xd{display:flex;flex-direction:column;gap:6px;margin-top:12px;max-height:60vh;overflow:auto}
+.xd button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:48px;padding:8px 12px;border:0;background:var(--card);text-align:left;cursor:pointer;color:var(--ink)}
+.xd button b{font-size:14px}.xd button small{font-size:12px;color:var(--sub)}.xd .xg{margin:8px 0 0;font-size:12px;font-weight:700;color:var(--red);letter-spacing:.1em}
+.stays .tl2{display:inline-flex;align-items:center;min-height:32px;font-size:12px;font-weight:700;color:var(--red)}
