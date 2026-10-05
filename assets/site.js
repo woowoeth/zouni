@@ -17,4 +17,26 @@
       var v=c.dataset.no==='1'?'暂不排':best.indexOf(m)>=0?'正好':best.some(function(x){return Math.abs((x-m+12)%12)===1||Math.abs((m-x+12)%12)===1})?'也行':'不建议';
       f.textContent=v;f.className='fit'+(v==='也行'?' ok':v==='正好'?'':' no');c.querySelector('.cl').textContent=m+' 月：白天 '+cl[0]+'℃，夜里 '+cl[1]+'℃'})});
     document.querySelectorAll('.card .fit').forEach(function(f){var v=f.textContent;f.className='fit'+(v==='也行'?' ok':v==='正好'?'':' no')})}
+  // 去哪儿：搜索和筛选（只看合适的、天数、避开高原）
+  var flt=document.querySelector('.flt');
+  if(flt){var st={fit:true,d:'',low:false,q:''},inp=flt.querySelector('input'),cnt=flt.querySelector('.cnt');
+    function curM(){var b=document.querySelector('.mon button.on');return b?+b.dataset.m:new Date().getMonth()+1}
+    function apply(){var m=curM(),n=0;
+      document.querySelectorAll('.card').forEach(function(c){var best=c.dataset.best.split(',').map(Number),days=c.dataset.days.split(',').map(Number),ok=true;
+        var near=best.some(function(x){return Math.abs((x-m+12)%12)===1||Math.abs((m-x+12)%12)===1});
+        if(st.fit&&(c.dataset.no==='1'||(best.indexOf(m)<0&&!near)))ok=false;
+        if(st.d==='d1'&&!days.some(function(d){return d>=1&&d<=3}))ok=false;
+        if(st.d==='d2'&&!days.some(function(d){return d>=4&&d<=5}))ok=false;
+        if(st.d==='d3'&&!days.some(function(d){return d>=6}))ok=false;
+        if(st.low&&c.dataset.high==='1')ok=false;
+        if(st.q&&c.dataset.q.toLowerCase().indexOf(st.q)<0)ok=false;
+        c.hidden=!ok;if(ok)n++});
+      document.querySelectorAll('.reg').forEach(function(r){r.hidden=!r.querySelector('.card:not([hidden])')});
+      cnt.textContent=n?('符合的 '+n+' 个'):'没有符合的，去掉一个条件再看看'}
+    inp.addEventListener('input',function(){st.q=inp.value.trim().toLowerCase();apply()});
+    flt.querySelectorAll('.chips button').forEach(function(b){b.addEventListener('click',function(){var f=b.dataset.f;
+      if(f==='fit'){st.fit=!st.fit;b.classList.toggle('on',st.fit)}else if(f==='low'){st.low=!st.low;b.classList.toggle('on',st.low)}
+      else{st.d=st.d===f?'':f;flt.querySelectorAll('[data-f^="d"]').forEach(function(x){x.classList.toggle('on',x.dataset.f===st.d)})}apply()})});
+    if(mon)mon.addEventListener('click',function(){setTimeout(apply,0)});
+    apply()}
 })();
