@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
+<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5dcb4"/><stop offset="1" stop-color="#e3a46e"/></linearGradient><linearGradient id="wt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a8735c"/><stop offset="1" stop-color="#2a1f1a"/></linearGradient><filter id="gr"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="16"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .07 0"/><feComposite in2="SourceGraphic" operator="in"/></filter></defs>
+<rect width="600" height="800" fill="url(#sk)"/>
+<circle cx="316" cy="224" r="51" fill="#fbe9c8" opacity=".9"/>
+<ellipse cx="493" cy="131" rx="129" ry="21" fill="#fff" opacity=".35"/><ellipse cx="532" cy="123" rx="65" ry="18" fill="#fff" opacity=".3"/>
+<ellipse cx="532" cy="171" rx="122" ry="19" fill="#fff" opacity=".35"/><ellipse cx="569" cy="163" rx="61" ry="17" fill="#fff" opacity=".3"/>
+<ellipse cx="56" cy="209" rx="134" ry="22" fill="#fff" opacity=".35"/><ellipse cx="96" cy="201" rx="67" ry="19" fill="#fff" opacity=".3"/>
+<path d="M434,170 q5,-5 11,0 q5,-5 11,0" fill="none" stroke="#2a1f1a" stroke-width="2" opacity=".55"/>
+<path d="M115,125 q6,-6 12,0 q6,-6 12,0" fill="none" stroke="#2a1f1a" stroke-width="2" opacity=".55"/>
+<path d="M-20,800 L-20,374 L20,362 L60,360 L100,358 L140,349 L180,363 L220,367 L260,369 L300,363 L340,358 L380,357 L420,351 L460,362 L500,352 L540,361 L580,362 L620,348 L640,800 Z" fill="#c98d6e" opacity=".55"/>
+<path d="M-20,470 L1,470 L93,284 L143,204 L186,279 L285,470 L88,470 L161,351 L201,300 L235,348 L314,470 L114,470 L177,283 L211,203 L240,278 L308,470 L620,470 L620,800 L-20,800 Z" fill="#a8735c"/>
+<path d="M-20,800 L-20,300 L120,330 L160,480 L230,620 L250,800 Z" fill="#8a4a32"/><path d="M620,800 L620,280 L470,320 L430,470 L370,620 L350,800 Z" fill="#9a5a3a"/>
+<path d="M250,800 L300,560 L350,800 Z" fill="#a8735c" opacity=".8"/>
+<path d="M-20,800 L-20,601 Q300.0,593 620,606 L620,800 Z" fill="#2a1f1a"/>
+<rect x="4" y="640" width="98" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="292" y="664" width="123" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="10" y="688" width="115" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="230" y="712" width="161" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="197" y="736" width="129" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="215" y="760" width="91" height="1.5" fill="#fff" opacity=".05"/>
+<rect width="600" height="800" filter="url(#gr)" opacity=".9"/></svg>

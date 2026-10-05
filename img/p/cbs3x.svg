@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
+<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e6ebf0"/><stop offset="1" stop-color="#bccadb"/></linearGradient><linearGradient id="wt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6f86a8"/><stop offset="1" stop-color="#1e2430"/></linearGradient><filter id="gr"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="14"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .07 0"/><feComposite in2="SourceGraphic" operator="in"/></filter></defs>
+<rect width="600" height="800" fill="url(#sk)"/>
+<circle cx="262" cy="155" r="47" fill="#f7f9fb" opacity=".9"/>
+<ellipse cx="492" cy="163" rx="82" ry="13" fill="#fff" opacity=".35"/><ellipse cx="516" cy="155" rx="41" ry="11" fill="#fff" opacity=".3"/>
+<ellipse cx="232" cy="176" rx="140" ry="22" fill="#fff" opacity=".35"/><ellipse cx="274" cy="168" rx="70" ry="20" fill="#fff" opacity=".3"/>
+<ellipse cx="305" cy="160" rx="87" ry="14" fill="#fff" opacity=".35"/><ellipse cx="331" cy="152" rx="44" ry="12" fill="#fff" opacity=".3"/>
+<ellipse cx="258" cy="288" rx="141" ry="22" fill="#fff" opacity=".35"/><ellipse cx="300" cy="280" rx="70" ry="20" fill="#fff" opacity=".3"/>
+<path d="M323,172 q6,-6 13,0 q6,-6 13,0" fill="none" stroke="#1e2430" stroke-width="2" opacity=".55"/>
+<path d="M440,201 q5,-5 10,0 q5,-5 10,0" fill="none" stroke="#1e2430" stroke-width="2" opacity=".55"/>
+<path d="M422,218 q5,-5 10,0 q5,-5 10,0" fill="none" stroke="#1e2430" stroke-width="2" opacity=".55"/>
+<path d="M393,268 q5,-5 10,0 q5,-5 10,0" fill="none" stroke="#1e2430" stroke-width="2" opacity=".55"/>
+<path d="M-20,800 L-20,346 L20,356 L60,362 L100,353 L140,350 L180,355 L220,341 L260,355 L300,356 L340,344 L380,350 L420,346 L460,347 L500,350 L540,362 L580,377 L620,379 L640,800 Z" fill="#a7b6c8" opacity=".55"/>
+<path d="M-20,470 L180,470 L246,292 L282,216 L312,287 L383,470 L329,470 L416,287 L463,209 L503,282 L597,470 L620,470 L620,800 L-20,800 Z" fill="#6f86a8"/>
+<path d="M264,275 L282,216 L296,277 L292,262 L282,282 L269,260 Z" fill="#f4f6f8" opacity=".95"/>
+<path d="M440,269 L463,209 L482,271 L476,256 L463,277 L447,253 Z" fill="#f4f6f8" opacity=".95"/>
+<rect x="0" y="520" width="600" height="280" fill="url(#wt)"/>
+<rect x="246" y="538" width="39" height="2" fill="#f7f9fb" opacity=".55"/>
+<rect x="253" y="552" width="72" height="2" fill="#f7f9fb" opacity=".55"/>
+<rect x="211" y="566" width="44" height="2" fill="#f7f9fb" opacity=".55"/>
+<rect x="259" y="580" width="67" height="2" fill="#f7f9fb" opacity=".55"/>
+<rect x="258" y="594" width="36" height="2" fill="#f7f9fb" opacity=".55"/>
+<rect x="243" y="608" width="37" height="2" fill="#f7f9fb" opacity=".55"/>
+<rect x="257" y="622" width="26" height="2" fill="#f7f9fb" opacity=".55"/>
+<rect x="242" y="636" width="48" height="2" fill="#f7f9fb" opacity=".55"/>
+<rect x="261" y="650" width="19" height="2" fill="#f7f9fb" opacity=".55"/>
+<rect x="244" y="664" width="18" height="2" fill="#f7f9fb" opacity=".55"/>
+<rect x="261" y="678" width="33" height="2" fill="#f7f9fb" opacity=".55"/>
+<rect x="279" y="692" width="20" height="2" fill="#f7f9fb" opacity=".55"/>
+<rect x="268" y="706" width="12" height="2" fill="#f7f9fb" opacity=".55"/>
+<rect x="255" y="720" width="23" height="2" fill="#f7f9fb" opacity=".55"/>
+<path d="M0,520 L600,520 L600,523 L0,523 Z" fill="#f7f9fb" opacity=".4"/>
+<path d="M-20,800 L-20,592 Q300.0,567 620,613 L620,800 Z" fill="#1e2430"/>
+<rect x="208" y="640" width="164" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="87" y="664" width="175" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="64" y="688" width="80" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="239" y="712" width="118" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="343" y="736" width="147" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="65" y="760" width="164" height="1.5" fill="#fff" opacity=".05"/>
+<rect width="600" height="800" filter="url(#gr)" opacity=".9"/></svg>
