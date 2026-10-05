@@ -6,7 +6,7 @@
   // 几个人去：租车按车分摊，两人一间
   var p=document.querySelector('.price[data-cost]');
   if(p&&p.dataset.cost){var C=JSON.parse(p.dataset.cost),box=document.querySelector('.ppl'),N=2;
-    function upd(){var rooms=Math.ceil(N/2),car=C.perCar?C.carTotal/N:C.tollsPP,lodge=C.lodgeRoom*rooms/N,loc=C.tixPP+C.foodPP+car+lodge,r=function(v){return(Math.round(v/100)*100).toLocaleString('en-US')};p.textContent='¥'+r(loc+C.trans[0])+'–'+r(loc+C.trans[1]);box.querySelector('b').textContent=N+' 人';p.nextElementSibling.textContent='每人 · '+N+' 人同行 · 含往返'}
+    function upd(){var rooms=Math.ceil(N/2),car=C.perCar?C.carTotal/N:C.tollsPP,lodge=C.lodgeRoom*rooms/N,loc=C.tixPP+C.foodPP+car+lodge,r=function(v){return(Math.round(v/100)*100).toLocaleString('en-US')};p.textContent='¥'+r(loc+C.trans[0])+'–'+r(loc+C.trans[1]);box.querySelector('b').textContent=N+' 人';p.nextElementSibling.textContent='每人，'+N+' 人同行，含往返'}
     p.title='点这里改人数';p.addEventListener('click',function(){box.hidden=!box.hidden});
     box.querySelectorAll('button').forEach(function(x){x.addEventListener('click',function(){N=Math.max(1,Math.min(6,N+(+x.dataset.d)));upd()})})}
   // 去哪儿：换月份
@@ -15,7 +15,7 @@
     mon.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var m=+b.dataset.m;mon.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});
     document.querySelectorAll('.card').forEach(function(c){var best=c.dataset.best.split(',').map(Number),f=c.querySelector('.fit'),cl=JSON.parse(c.dataset.clim)[m]||['',''];
       var v=c.dataset.no==='1'?'暂不排':best.indexOf(m)>=0?'正好':best.some(function(x){return Math.abs((x-m+12)%12)===1||Math.abs((m-x+12)%12)===1})?'也行':'不建议';
-      f.textContent=v;f.className='fit'+(v==='也行'?' ok':v==='正好'?'':' no');c.querySelector('.cl').textContent=m+' 月：白天 '+cl[0]+'℃，夜里 '+cl[1]+'℃'})});
+      f.textContent=v;f.className='fit'+(v==='也行'?' ok':v==='正好'?'':' no');c.querySelector('.cl').textContent=m+' 月白天 '+cl[0]+'°，夜里 '+cl[1]+'°'})});
     document.querySelectorAll('.card .fit').forEach(function(f){var v=f.textContent;f.className='fit'+(v==='也行'?' ok':v==='正好'?'':' no')})}
   // 去哪儿：搜索和筛选（只看合适的、天数、避开高原）
   var flt=document.querySelector('.flt');
@@ -42,7 +42,7 @@
     function km(a,b){var r=Math.PI/180,dl=(b[1]-a[1])*r,p1=a[0]*r,p2=b[0]*r,h=Math.sin((p2-p1)/2)*Math.sin((p2-p1)/2)+Math.cos(p1)*Math.cos(p2)*Math.sin(dl/2)*Math.sin(dl/2);return Math.round(2*6371*Math.asin(Math.sqrt(h)))}
     var sel=flt.querySelector('select'),nearB=flt.querySelector('[data-f="near"]');
     function origin(o){try{localStorage.setItem('zouni_org',o)}catch(e){}nearB.hidden=!o;if(!o){st.near=false;nearB.classList.remove('on')}
-      document.querySelectorAll('.cards').forEach(function(ul){var cs=[].slice.call(ul.children);cs.forEach(function(c){var d=o?km(ORG[o],[+c.dataset.lat,+c.dataset.lng]):null,p=c.querySelector('.dist');c.dataset.km=d==null?'':d;p.hidden=d==null;if(d!=null)p.textContent=d<30?'就在'+o:'离'+o+' '+d.toLocaleString('en-US')+' 公里'+(d<=500?' · 周末能去':'')});
+      document.querySelectorAll('.cards').forEach(function(ul){var cs=[].slice.call(ul.children);cs.forEach(function(c){var d=o?km(ORG[o],[+c.dataset.lat,+c.dataset.lng]):null,p=c.querySelector('.dist');c.dataset.km=d==null?'':d;p.hidden=d==null;if(d!=null)p.textContent=d<30?'就在'+o:'离'+o+' '+d.toLocaleString('en-US')+' 公里'+(d<=500?'，周末能去':'')});
         if(o){cs.sort(function(a,b){return(+a.dataset.km)-(+b.dataset.km)}).forEach(function(c){ul.appendChild(c)})}});
       // 地区也按最近的那个排：选了上海，华东排在最前
       document.querySelectorAll('.scope').forEach(function(sc){var regs=[].slice.call(sc.querySelectorAll('.reg'));
