@@ -378,7 +378,7 @@ def dest_page(d):
             f'<p class="lead">最好的月份：{"、".join(str(m) + " 月" for m in sorted(best))}。</p>{entry}{tip}</div>'
             f'<section><h2>每个月白天 / 夜里平均气温（℃）</h2><ol class="months">{months}</ol>{f"<p class=hint style=margin-top:8px>落脚城市海拔 {d[chr(98)+chr(97)+chr(115)+chr(101)][chr(101)+chr(108)+chr(101)+chr(118)]:,} 米</p>" if (d["base"].get("elev") or 0) >= 1500 else ""}</section>'
             f'<section class="se"><div><h2>看</h2><p>{E(see)}</p></div><div><h2>吃</h2><p>{E(eat)}</p></div></section>'
-            + (f'<section><h2>排好的行程</h2><ul class="trips">{trips}</ul></section>' if trips else '')
+            + (f'<section><h2>排好的行程</h2>' + (f'<figure class="hmap dmap">{dm_}</figure>' if (dm_ := dest_map(did, d)) else '') + f'<ul class="trips">{trips}</ul></section>' if trips else '')
             + (f'<section id="q"><h2>5A 和世界遗产 <span class="ct">{len(ql)} 处</span></h2><ul class="qual">{qhtml}</ul></section>' if ql else '')
             + (f'<section><h2>博物馆 <span class="ct">{len([x for x in MUS if x["dest"] == did])} 家</span></h2><ul class="qual mus">' + ''.join(f'<li><span><b>{E(x["name"])}</b>{("<small class=gt>镇馆之宝：" + E("、".join(x["treasures"])) + "</small>") if x["treasures"] else ""}</span>{"<em class=gb>国宝</em>" if x["treasures"] else ""}{icons(x["name"], x["city"], app)}</li>' for x in MUS if x['dest'] == did) + '</ul></section>' if any(x['dest'] == did for x in MUS) else '')
             + (f'<section><h2>人文体验</h2><ul class="niche">' + ''.join(f'<li><div class="nh"><b>{E(x["name"])}</b><span class="st open">{E(x["kind"])}</span>{icons(x["name"], x["city"], app)}</div><p>{E(x["note"])}</p></li>' for x in CULT['experiences'] if x['dest'] == did) + '</ul></section>' if any(x['dest'] == did for x in CULT['experiences']) else '')
@@ -623,6 +623,49 @@ def hand_map(r):
         out.append('<p class="hlegend">' + '　'.join(f'<b>{n_}</b>{E(nm_)}' for n_, nm_ in legend) + '</p>')
     return ''.join(out)
 
+
+
+def dest_map(did, d):
+    """目的地页的线路分布手绘图：每条线路画在它经过地点的中间，点名字直接进行程；小黑点是 5A 和世界遗产"""
+    import math as _m
+    pts = []
+    for rid in DEST_ROUTES.get(did, []):
+        r = ROUTES[rid]; cs = []
+        for dd in r['days']:
+            city = dd.get('navCity') or dd.get('city')
+            for w in dd['rows']:
+                if w['type'] in ('see', 'fun') and w.get('poi'):
+                    c = coord(w['poi'], city)
+                    if c: cs.append(c)
+        if cs:
+            pts.append((sum(c[0] for c in cs) / len(cs), sum(c[1] for c in cs) / len(cs), re.sub(r'\s*\d+\s*天$', '', r.get('label') or ''), rid))
+    dots = [(q['lat'], q['lng']) for q in QUAL_BY_PROV.get(d['name'], []) if q.get('lat')] if d['scope'] == 'domestic' else []
+    allp = [(p_[0], p_[1]) for p_ in pts] + dots
+    if len(pts) < 2: return ''
+    lats = [a for a, _ in allp]; lngs = [b for _, b in allp]
+    clat = (max(lats) + min(lats)) / 2; kx = _m.cos(_m.radians(clat))
+    spx = max((max(lngs) - min(lngs)) * kx, .2); spy = max(max(lats) - min(lats), .2)
+    Wm, Hm, pad = 390, 300, 40
+    sc = min((Wm - 2 * pad) / spx, (Hm - 2 * pad) / spy); cx0 = (max(lngs) + min(lngs)) / 2
+    P = lambda la, lo: (Wm / 2 + (lo - cx0) * kx * sc, Hm / 2 - (la - clat) * sc)
+    o = [f'<svg viewBox="0 0 {Wm} {Hm}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{E(d["name"])}的线路分布">',
+         f'<rect x="1" y="1" width="{Wm - 2}" height="{Hm - 2}" fill="#efe9dc"/><rect x="6" y="6" width="{Wm - 12}" height="{Hm - 12}" fill="none" stroke="#1c1d1a" stroke-width="1.2" opacity=".55"/>']
+    for la, lo in dots:
+        x, y = P(la, lo); o.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2" fill="#1c1d1a" opacity=".35"/>')
+    boxes = []
+    for la, lo, nm, rid in sorted(pts, key=lambda p_: -len(ROUTES[p_[3]]['days'])):
+        x, y = P(la, lo); w = len(nm) * 12 + 10
+        o.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="#f4f2ec" stroke="#a63d27" stroke-width="2"/>')
+        for (lx, ly, anc) in ((x + 9, y + 4, 'start'), (x - 9, y + 4, 'end'), (x, y - 10, 'middle'), (x, y + 18, 'middle')):
+            bx0 = lx if anc == 'start' else lx - w if anc == 'end' else lx - w / 2; bx1 = bx0 + w
+            if bx0 < 10 or bx1 > Wm - 10 or ly - 12 < 10 or ly + 3 > Hm - 10: continue
+            if any(not (bx1 < a or bx0 > c or ly + 3 < b or ly - 12 > d_) for a, b, c, d_ in boxes): continue
+            boxes.append((bx0, ly - 12, bx1, ly + 3))
+            o.append(f'<a href="/trip/{rid}/" aria-label="{E(nm)}"><rect x="{bx0 - 2:.1f}" y="{ly - 26:.1f}" width="{w + 6:.1f}" height="40" fill="#efe9dc" fill-opacity="0"/><text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anc}" font-family="Noto Serif SC,serif" font-size="12" font-weight="900" fill="#a63d27" paint-order="stroke" stroke="#efe9dc" stroke-width="3">{E(nm)}</text></a>')
+            break
+    o.append(f'<g transform="translate({Wm - 28},32)" opacity=".75"><path d="M0,-12 L4,3 L0,0 L-4,3 Z" fill="#1c1d1a"/><text x="0" y="-15" text-anchor="middle" font-family="Noto Serif SC,serif" font-size="10" font-weight="900" fill="#1c1d1a">北</text></g>')
+    o.append(f'<text x="14" y="{Hm - 14}" font-family="Noto Sans SC,sans-serif" font-size="10" fill="#5d5f59">红圈是排好的线路（点名字进去），小黑点是 5A 和世界遗产</text></svg>')
+    return ''.join(o)
 
 if __name__ == '__main__':
     if os.path.exists(OUT): shutil.rmtree(OUT)
