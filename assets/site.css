@@ -266,11 +266,11 @@ a,button{-webkit-tap-highlight-color:transparent}
 .pk-q{display:flex;gap:6px;margin-top:10px}.pk-q button{flex:1;min-width:0;height:48px;border:0;background:var(--card);font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
 .pk-q small{font-size:11px;font-weight:500;color:var(--sub)}.pk-q button:disabled{opacity:.4}
 .pk-m{display:flex;justify-content:space-between;align-items:center;margin-top:14px}.pk-m b{font:900 16px var(--serif)}
-.pk-m button{width:44px;height:40px;border:0;background:var(--card);font-size:18px;font-weight:700;cursor:pointer}.pk-m button:disabled{opacity:.3}
+.pk-m button{width:44px;height:40px;border:0;background:var(--card);font-size:18px;font-weight:700;color:var(--ink);cursor:pointer}.pk-m button:disabled{opacity:.3}
 .pk-w,.pk-g{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.pk-w{margin-top:10px}
 .pk-w span{text-align:center;font-size:12px;color:var(--sub)}
 .pk-g{margin-top:6px}.pk-g button{height:42px;border:0;background:transparent;font:700 15px var(--serif);color:var(--ink);cursor:pointer;font-variant-numeric:tabular-nums}
-.pk-g button.we{color:var(--red)}.pk-g button.best{background:#e4e9d8}.pk-g button.today{box-shadow:inset 0 0 0 1px var(--ink)}
+.pk-g button.we{color:var(--red)}.pk-g button.best{background:#e4e9d8}.pk-g button.td0{box-shadow:inset 0 0 0 1px var(--ink)}
 .pk-g button.on{background:var(--ink);color:var(--bg)}.pk-g button.off{color:#c5c3bc;cursor:default}
 .pk-tip{display:flex;align-items:center;gap:6px;margin:10px 0 0;font-size:12px;color:var(--sub)}.pk-tip i{width:14px;height:10px;background:#e4e9d8}
 .hmap{cursor:zoom-in}.dmap{margin:0 0 6px}
@@ -314,3 +314,6 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .xd a.mr{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:48px;padding:8px 12px;background:var(--card);color:var(--ink)}
 .xd a.mr b{font-size:14px}.xd a.mr span{font-size:12px;color:var(--sub)}.xd .mw{font-size:12px;font-weight:700;color:var(--red)}
 .mempty{margin:4px 0;font-size:14px;line-height:1.7;color:var(--sub)}
+.pk-g button{margin:0;padding:0;width:100%;min-width:0;-webkit-appearance:none;appearance:none;border-radius:0;color:var(--ink)}
+.pk-g button.on{color:var(--bg)}.pk-g button.off{color:#c5c3bc}.pk-g button.we:not(.on):not(.off){color:var(--red)}
+.pk-q button,.pk-x,.xd button{-webkit-appearance:none;appearance:none;border-radius:0;color:var(--ink)}
