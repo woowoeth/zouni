@@ -24,11 +24,15 @@
 <ellipse cx="174" cy="553" rx="9" ry="5" fill="#f4efe6" opacity=".9"/>
 <ellipse cx="147" cy="558" rx="9" ry="5" fill="#f4efe6" opacity=".9"/>
 <ellipse cx="212" cy="553" rx="9" ry="5" fill="#f4efe6" opacity=".9"/>
-<path d="M-20,800 L-20,602 Q300.0,577 620,599 L620,800 Z" fill="#2a1f1a"/>
-<rect x="315" y="640" width="188" height="1.5" fill="#fff" opacity=".05"/>
-<rect x="21" y="664" width="192" height="1.5" fill="#fff" opacity=".05"/>
-<rect x="85" y="688" width="175" height="1.5" fill="#fff" opacity=".05"/>
-<rect x="284" y="712" width="78" height="1.5" fill="#fff" opacity=".05"/>
-<rect x="176" y="736" width="129" height="1.5" fill="#fff" opacity=".05"/>
-<rect x="320" y="760" width="131" height="1.5" fill="#fff" opacity=".05"/>
+<g transform="translate(470,564) scale(1,1)" fill="#2a1f1a"><path d="M-14,-10 h22 q6,0 8,-6 l6,-8 4,2 -5,10 q-1,4 -6,6 v16 h-3 v-12 h-16 v12 h-3 v-14 q-6,-2 -7,-6 z"/></g>
+<g transform="translate(426,575) scale(1,1)" fill="#2a1f1a"><path d="M-14,-10 h22 q6,0 8,-6 l6,-8 4,2 -5,10 q-1,4 -6,6 v16 h-3 v-12 h-16 v12 h-3 v-14 q-6,-2 -7,-6 z"/></g>
+<g transform="translate(175,566) scale(-1,1)" fill="#2a1f1a"><path d="M-14,-10 h22 q6,0 8,-6 l6,-8 4,2 -5,10 q-1,4 -6,6 v16 h-3 v-12 h-16 v12 h-3 v-14 q-6,-2 -7,-6 z"/></g>
+<g transform="translate(441,571) scale(1,1)" fill="#2a1f1a"><path d="M-14,-10 h22 q6,0 8,-6 l6,-8 4,2 -5,10 q-1,4 -6,6 v16 h-3 v-12 h-16 v12 h-3 v-14 q-6,-2 -7,-6 z"/></g>
+<path d="M-20,800 L-20,608 Q300.0,570 620,601 L620,800 Z" fill="#2a1f1a"/>
+<rect x="241" y="640" width="139" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="179" y="664" width="74" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="277" y="688" width="128" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="186" y="712" width="197" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="399" y="736" width="137" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="273" y="760" width="116" height="1.5" fill="#fff" opacity=".05"/>
 <rect width="600" height="800" filter="url(#gr)" opacity=".9"/></svg>

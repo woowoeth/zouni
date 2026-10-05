@@ -22,11 +22,14 @@
 <ellipse cx="248" cy="550" rx="9" ry="5" fill="#f4efe6" opacity=".9"/>
 <ellipse cx="260" cy="555" rx="9" ry="5" fill="#f4efe6" opacity=".9"/>
 <ellipse cx="282" cy="542" rx="9" ry="5" fill="#f4efe6" opacity=".9"/>
-<path d="M-20,800 L-20,607 Q300.0,588 620,609 L620,800 Z" fill="#1f2b2e"/>
-<rect x="171" y="640" width="170" height="1.5" fill="#fff" opacity=".05"/>
-<rect x="229" y="664" width="162" height="1.5" fill="#fff" opacity=".05"/>
-<rect x="15" y="688" width="157" height="1.5" fill="#fff" opacity=".05"/>
-<rect x="16" y="712" width="155" height="1.5" fill="#fff" opacity=".05"/>
-<rect x="258" y="736" width="169" height="1.5" fill="#fff" opacity=".05"/>
-<rect x="267" y="760" width="139" height="1.5" fill="#fff" opacity=".05"/>
+<g transform="translate(362,566) scale(1,1)" fill="#1f2b2e"><path d="M-14,-10 h22 q6,0 8,-6 l6,-8 4,2 -5,10 q-1,4 -6,6 v16 h-3 v-12 h-16 v12 h-3 v-14 q-6,-2 -7,-6 z"/></g>
+<g transform="translate(276,559) scale(-1,1)" fill="#1f2b2e"><path d="M-14,-10 h22 q6,0 8,-6 l6,-8 4,2 -5,10 q-1,4 -6,6 v16 h-3 v-12 h-16 v12 h-3 v-14 q-6,-2 -7,-6 z"/></g>
+<g transform="translate(378,570) scale(1,1)" fill="#1f2b2e"><path d="M-14,-10 h22 q6,0 8,-6 l6,-8 4,2 -5,10 q-1,4 -6,6 v16 h-3 v-12 h-16 v12 h-3 v-14 q-6,-2 -7,-6 z"/></g>
+<path d="M-20,800 L-20,601 Q300.0,591 620,601 L620,800 Z" fill="#1f2b2e"/>
+<rect x="371" y="640" width="129" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="185" y="664" width="167" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="390" y="688" width="111" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="304" y="712" width="198" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="230" y="736" width="163" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="169" y="760" width="99" height="1.5" fill="#fff" opacity=".05"/>
 <rect width="600" height="800" filter="url(#gr)" opacity=".9"/></svg>

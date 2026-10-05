@@ -23,11 +23,13 @@
 <ellipse cx="220" cy="536" rx="9" ry="5" fill="#f4efe6" opacity=".9"/>
 <ellipse cx="340" cy="536" rx="9" ry="5" fill="#f4efe6" opacity=".9"/>
 <ellipse cx="141" cy="537" rx="9" ry="5" fill="#f4efe6" opacity=".9"/>
-<path d="M-20,800 L-20,607 Q300.0,576 620,606 L620,800 Z" fill="#1d1a24"/>
-<rect x="375" y="640" width="84" height="1.5" fill="#fff" opacity=".05"/>
-<rect x="43" y="664" width="89" height="1.5" fill="#fff" opacity=".05"/>
-<rect x="23" y="688" width="160" height="1.5" fill="#fff" opacity=".05"/>
-<rect x="350" y="712" width="116" height="1.5" fill="#fff" opacity=".05"/>
-<rect x="49" y="736" width="97" height="1.5" fill="#fff" opacity=".05"/>
-<rect x="358" y="760" width="177" height="1.5" fill="#fff" opacity=".05"/>
+<g transform="translate(241,567) scale(-1,1)" fill="#1d1a24"><path d="M-14,-10 h22 q6,0 8,-6 l6,-8 4,2 -5,10 q-1,4 -6,6 v16 h-3 v-12 h-16 v12 h-3 v-14 q-6,-2 -7,-6 z"/></g>
+<g transform="translate(156,559) scale(1,1)" fill="#1d1a24"><path d="M-14,-10 h22 q6,0 8,-6 l6,-8 4,2 -5,10 q-1,4 -6,6 v16 h-3 v-12 h-16 v12 h-3 v-14 q-6,-2 -7,-6 z"/></g>
+<path d="M-20,800 L-20,590 Q300.0,587 620,602 L620,800 Z" fill="#1d1a24"/>
+<rect x="314" y="640" width="153" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="151" y="664" width="153" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="335" y="688" width="155" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="305" y="712" width="161" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="64" y="736" width="81" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="339" y="760" width="82" height="1.5" fill="#fff" opacity=".05"/>
 <rect width="600" height="800" filter="url(#gr)" opacity=".9"/></svg>
