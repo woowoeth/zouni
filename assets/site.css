@@ -229,3 +229,9 @@ a,button{-webkit-tap-highlight-color:transparent}
 .months li.now{box-shadow:inset 0 -3px 0 var(--red)}.months li.on.now{box-shadow:inset 0 -3px 0 var(--pink)}
 .mine .empty{padding:14px 0;font-size:14px;line-height:1.7;color:var(--sub)}
 .flt .clr{align-self:flex-start;height:32px;padding:0;border:0;background:transparent;font-size:13px;font-weight:700;color:var(--red);cursor:pointer}
+.glance .g1{position:relative}
+.glance .dt{align-self:flex-start;height:32px;margin:-6px 0 -8px -2px;padding:0 2px;border:0;background:transparent;font:13px var(--sans);color:var(--sub);cursor:pointer;text-align:left}
+.glance .dt i{font-style:normal;font-weight:700;color:var(--red);margin-left:2px}
+.dpk{position:absolute;left:0;bottom:0;width:1px;height:1px;opacity:0;pointer-events:none;border:0;padding:0}
+.stays .bk{grid-template-columns:minmax(0,1.3fr) 52px minmax(0,1fr)}
+.mk{height:44px;border:0;background:var(--bg);font-size:13px;font-weight:700;color:var(--ink);cursor:pointer}.mk.on{background:var(--green);color:var(--bg)}
