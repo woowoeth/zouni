@@ -369,7 +369,9 @@ def extras(trip_desc, dest_desc):
              '每条行程都是按天、按时间排的：出发时间、交通方式和时长、饭点、住宿片区或三档酒店；每个地点带地图和大众点评链接。目的地页给出最好的月份、12 个月平均气温、看什么吃什么，以及该省全部国家 5A 级旅游景区和世界遗产。', '',
              '## 主要页面', f'- [去哪儿]({BASE}/where/)：按月份看国内和亚洲目的地哪儿正好去', '', '## 目的地']
     lines += [f'- [{d["name"]}]({BASE}/d/{d["id"]}/)：{dest_desc[d["id"]]}' for d in CAT['destinations']]
-    lines += ['', '## 行程'] + [f'- [{ROUTES[rid].get("label")}]({BASE}/trip/{rid}/)：{trip_desc[rid]}' for rid in ROUTE_IDS]
+    _drv = [r_ for r_ in ROUTE_IDS if ROUTES[r_].get('drive')]
+    lines += ['', '## 长途和自驾（环线、跨省长线、全国环线）'] + [f'- [{ROUTES[r_].get("label")}]({BASE}/trip/{r_}/)：{len(ROUTES[r_]["days"])} 天，{day_line(ROUTES[r_])}' for r_ in _drv]
+    lines += ['', '## 行程'] + [f'- [{ROUTES[rid].get("label")}]({BASE}/trip/{rid}/)：{len(ROUTES[rid]["days"])} 天，{day_line(ROUTES[rid])}。{trip_desc[rid]}' for rid in ROUTE_IDS if rid not in _drv]
     open(os.path.join(OUT, 'llms.txt'), 'w', encoding='utf-8').write('\n'.join(lines) + '\n')
     open(os.path.join(OUT, 'CNAME'), 'w').write('zouni.app\n')
     for f in glob.glob('site_src/*.txt'):   # indexnow 密钥文件（公开的，按协议要放在站点根目录）
@@ -628,6 +630,18 @@ def hotel_pick(city, area):
 def ctrip_detail(hid): return f'https://m.ctrip.com/html5/hotel/hoteldetail/{hid}.html'
 
 
+def kfmt(v):
+    v = round(v / 100) / 10
+    return (f'{v:.1f}'.rstrip('0').rstrip('.')) if v < 100 else f'{v:.0f}'
+
+
+def price_k(p):
+    """¥2,800–3,800 → ¥2.8–3.8K（短，放得下）"""
+    ns = [int(x.replace(',', '')) for x in re.findall(r'\d[\d,]*', p or '')]
+    if not ns: return p or ''
+    return '¥' + (kfmt(ns[0]) + '–' + kfmt(ns[1]) if len(ns) > 1 else kfmt(ns[0])) + 'K'
+
+
 def trip_page(rid):
     r = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}; d0 = DEST.get(t.get('dest'), {})
     sd = start_date(r); dates = [sd + datetime.timedelta(days=i) for i in range(len(r['days']))]
@@ -640,7 +654,7 @@ def trip_page(rid):
     sub3 = ('<button type="button" class="pp">2 人 · 每人 ›</button>' if has_cost else f'<small>{"每人 · 含往返" + (" · 参考价" if price.startswith("约") else "") if "¥" in price else "价格另算"}</small>')
     glance = (f'<div class="glance"><div class="g1"><b class="big">{n}<small> 天</small></b><button type="button" class="dtw dt" data-best="{",".join(s0) if s0 else ""}" aria-label="改出发日期">{md(dates[0])}–{md(dates[-1])} <i>改</i></button><input type="hidden" class="dpk" data-min="{TODAY.isoformat()}" value="{dates[0].isoformat()}"></div>'
               f'<div><b>{E(r.get("driveTop"))}</b><small>{E(r.get("driveSub"))}</small></div>'
-              f'<div><b class="price" data-cost=\'{E(json.dumps(cost)) if has_cost else ""}\'>{E(re.sub(r"^约\s*", "", (price)))}</b>{sub3}</div></div>')
+              f'<div><b class="price" data-cost=\'{E(json.dumps(cost)) if has_cost else ""}\'>{E(price_k(price))}</b>{sub3}</div></div>')
     if has_cost:
         glance += f'<div class="ppl" hidden><span>{"租车按车分摊，两人一间" if cost.get("perCar") else "两人一间，一个人单独一间"}</span><div><button type="button" data-d="-1" aria-label="少一个人">−</button><b>2 人</b><button type="button" data-d="1" aria-label="多一个人">+</button></div></div>'
     prep_items = list(r.get('prep') or [])
@@ -736,7 +750,7 @@ def trip_page(rid):
     lo, hi = (t.get('price') or {}).get('lo'), (t.get('price') or {}).get('hi')
     if lo and hi: ld['offers'] = {'@type': 'AggregateOffer', 'priceCurrency': 'CNY', 'lowPrice': lo, 'highPrice': hi, 'description': '每人，2 人同行，含往返大交通'}
     dest_link = f'<p class="morelink"><a href="/d/{E(t["dest"])}/">{E(d0.get("name", ""))}的其他去处 ›</a></p>' if t.get('dest') in DEST else ''
-    dock = f'<div class="dock"><div><b>{md(dates[0])} 出发 · {n} 天</b><small>2 人 · 每人 {E(price.replace("约 ", ""))}</small></div><button type="button" class="fav" data-id="{rid}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{FAV_ICON}<span>收进行程</span></button></div>'
+    dock = f'<div class="dock"><div><b>{md(dates[0])} 出发 · {n} 天</b><small>2 人 · 每人 {E(price_k(price))}</small></div><button type="button" class="fav" data-id="{rid}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{FAV_ICON}<span>收进行程</span></button></div>'
     body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-start="{dates[0].isoformat()}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
             f'<section class="pre"><h2>出发前</h2><ul>{prep or "<li class=fit>没有特别要提前办的</li>"}</ul></section>'
             f'<script type="application/json" id="cands">{json.dumps(add_cands(rid, r), ensure_ascii=False).replace("</", "<\\/")}</script>'
@@ -777,7 +791,14 @@ def dest_page(d):
     attractions = [{'@type': 'TouristAttraction', 'name': q['short']} for q in ql] or [{'@type': 'TouristAttraction', 'name': x} for x in d['see']]
     ld = {'@context': 'https://schema.org', '@type': 'TouristDestination', 'name': d['name'], 'description': desc, 'url': BASE + f'/d/{did}/',
           'geo': {'@type': 'GeoCoordinates', 'latitude': d['base']['lat'], 'longitude': d['base']['lng']}, 'includesAttraction': attractions[:60]}
-    write(f'/d/{did}/', page(f'/d/{did}/', f'{d["name"]}旅行攻略：什么时候去、玩几天、看什么吃什么 | 走你', desc, body, [ld], None, [('首页', '/'), ('去哪儿', '/where/'), (d['name'], f'/d/{did}/')]))
+    _bm = '、'.join(f'{m} 月' for m in d['months']['best']); _rl = DEST_ROUTES.get(did, [])
+    faq = {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [q_ for q_ in [
+        {'@type': 'Question', 'name': f'{d["name"]}什么时候去最好？', 'acceptedAnswer': {'@type': 'Answer', 'text': f'最好的月份是 {_bm}。' if _bm else '一年四季都能去。'}},
+        {'@type': 'Question', 'name': f'{d["name"]}玩几天合适？', 'acceptedAnswer': {'@type': 'Answer', 'text': f'建议 {d.get("days")} 天。' if d.get('days') else f'排好的行程从 {min(len(ROUTES[x]["days"]) for x in _rl)} 天到 {max(len(ROUTES[x]["days"]) for x in _rl)} 天。' if _rl else '按自己的时间安排。'}},
+        {'@type': 'Question', 'name': f'{d["name"]}有什么值得看？', 'acceptedAnswer': {'@type': 'Answer', 'text': '、'.join(d.get('see') or [])}} if d.get('see') else None,
+        {'@type': 'Question', 'name': f'{d["name"]}吃什么？', 'acceptedAnswer': {'@type': 'Answer', 'text': '、'.join(d.get('eat') or [])}} if d.get('eat') else None,
+        {'@type': 'Question', 'name': f'去{d["name"]}有哪些排好的行程？', 'acceptedAnswer': {'@type': 'Answer', 'text': '；'.join(f'{ROUTES[x].get("label")}：{day_line(ROUTES[x])}' for x in _rl[:12])}} if _rl else None] if q_]}
+    write(f'/d/{did}/', page(f'/d/{did}/', f'{d["name"]}旅行攻略：什么时候去、玩几天、看什么吃什么 | 走你', desc, body, [ld, faq], None, [('首页', '/'), ('去哪儿', '/where/'), (d['name'], f'/d/{did}/')]))
     return desc
 
 
@@ -923,166 +944,50 @@ def home_page():
 
 
 def hand_map(r):
-    """手绘路线图：按每天经过的地点画（纸面、手抖的红线、天数圆章、主要地名、指北针）"""
-    import random as _r, hashlib as _h, math as _m
+    """路线示意图：真实省界 / 国界做底图（tools/mapdraw.py）"""
+    import mapdraw
     days = []
-    for i, d in enumerate(r['days']):
+    for d in r['days']:
         city = d.get('navCity') or d.get('city'); pts = []
+        cc = GEO.get((city or '') + '|' + (city or ''))
         for w in d['rows']:
             if w['type'] in ('see', 'fun', 'eat', 'stay') and w.get('poi'):
                 c = coord(w['poi'], city)
-                if c and (not pts or abs(pts[-1][0] - c[0]) + abs(pts[-1][1] - c[1]) > 1e-4):
-                    nm = re.sub(r'\s*·.*$', '', w.get('name') or w.get('place') or '')
-                    pts.append((c[0], c[1], nm if w['type'] in ('see', 'fun') else '', w['type']))
-        if not pts:
-            g0 = GEO.get((city or '') + '|' + (city or ''))
-            if g0: pts.append((g0['lat'], g0['lng'], city or '', 'see'))
+                if not c: continue
+                if cc and _km(c, (cc['lat'], cc['lng'])) > 250: continue          # 按名字查到外地同名的点不画
+                if pts and abs(pts[-1][0] - c[0]) + abs(pts[-1][1] - c[1]) < 1e-4: continue
+                nm = re.sub(r'\s*·.*$', '', w.get('name') or w.get('place') or '')
+                pts.append((c[0], c[1], nm if w['type'] in ('see', 'fun') else '', w['type']))
+        if not pts and cc: pts.append((cc['lat'], cc['lng'], '', 'see'))
         days.append(pts)
-    allp = [p for d in days for p in d]
-    if len(allp) < 2: return ''
-    lats = [p[0] for p in allp]; lngs = [p[1] for p in allp]
-    clat = (max(lats) + min(lats)) / 2; kx = _m.cos(_m.radians(clat))
-    spanx = max((max(lngs) - min(lngs)) * kx, .03); spany = max(max(lats) - min(lats), .03)
-    Wm, Hm, pad = 390, 260, 34
-    sc = min((Wm - 2 * pad) / spanx, (Hm - 2 * pad - 10) / spany)
-    cx0 = (max(lngs) + min(lngs)) / 2; cy0 = clat
-    P = lambda la, lo: (Wm / 2 + (lo - cx0) * kx * sc, Hm / 2 + 6 - (la - cy0) * sc)
-    rnd = _r.Random(int(_h.md5(r['title'].encode()).hexdigest()[:6], 16))
-    out = [f'<svg viewBox="0 0 {Wm} {Hm}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{E(r["title"])} 路线手绘图">',
-           '<defs><filter id="pp"><feTurbulence type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="7"/><feColorMatrix values="0 0 0 0 .45  0 0 0 0 .38  0 0 0 0 .28  0 0 0 .06 0"/><feComposite in2="SourceGraphic" operator="in"/></filter></defs>',
-           f'<rect x="1" y="1" width="{Wm - 2}" height="{Hm - 2}" fill="#efe9dc"/><rect x="1" y="1" width="{Wm - 2}" height="{Hm - 2}" filter="url(#pp)"/>',
-           f'<rect x="6" y="6" width="{Wm - 12}" height="{Hm - 12}" fill="none" stroke="#1c1d1a" stroke-width="1.2" opacity=".55"/><rect x="9" y="9" width="{Wm - 18}" height="{Hm - 18}" fill="none" stroke="#1c1d1a" stroke-width=".6" opacity=".35"/>']
-    # 手抖的线：每段用略微偏移的二次曲线画两遍
-    prev = None; dots = []; labels = []; legend = []
-    boxes = [(12, Hm - 30, 230, Hm - 8), (Wm - 44, 12, Wm - 12, 50)]   # 左下角说明、右上角指北针先占住
-    for di, pts in enumerate(days):
-        for k, (la, lo, nm, tp) in enumerate(pts):
-            x, y = P(la, lo)
-            if prev:
-                px, py = prev; mx, my = (px + x) / 2, (py + y) / 2; dx, dy = x - px, y - py; L = max(1, _m.hypot(dx, dy))
-                off = rnd.uniform(-.18, .18) * L; qx, qy = mx - dy / L * off, my + dx / L * off
-                dash = ' stroke-dasharray="5 4"' if (k == 0 and di > 0 and L > 120) else ''
-                out.append(f'<path d="M{px:.1f},{py:.1f} Q{qx:.1f},{qy:.1f} {x:.1f},{y:.1f}" fill="none" stroke="#a63d27" stroke-width="2.2" stroke-linecap="round"{dash}/>')
-                out.append(f'<path d="M{px + .8:.1f},{py - .6:.1f} Q{qx + 1.2:.1f},{qy + .8:.1f} {x - .6:.1f},{y + .7:.1f}" fill="none" stroke="#a63d27" stroke-width=".8" opacity=".5"/>')
-            prev = (x, y)
-            if k == 0: dots.append((x, y, di + 1))
-            elif tp in ('see', 'fun'): out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2.6" fill="#1c1d1a"/>')
-            if nm and tp in ('see', 'fun') and nm not in [l_[1] for l_ in legend]:
-                legend.append((len(legend) + 1, nm)); out.append(f'<text x="{x + 4:.1f}" y="{y - 4:.1f}" font-family="Noto Sans SC,sans-serif" font-size="8" font-weight="700" fill="#a63d27">{len(legend)}</text>') if len(pts) > 1 or di > 0 else None
-            for (qx_, qy_, _n) in labels:
-                if abs(qx_ - x) < 3 and abs(qy_ - y) < 3: x += 5; y -= 4
-            if nm and len(labels) < 20: labels.append((x, y, nm[:7]))
-    for x, y, n in dots:
-        out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="9" fill="#f4f2ec" stroke="#a63d27" stroke-width="1.8"/><text x="{x:.1f}" y="{y + 4:.1f}" text-anchor="middle" font-family="Noto Serif SC,serif" font-weight="900" font-size="11" fill="#a63d27">{n}</text>')
-        boxes.append((x - 10, y - 10, x + 10, y + 10))
-    for x, y, nm in labels:
-        w = len(nm) * 11 + 4
-        for (lx, ly, anc) in ((x + 12, y + 4, 'start'), (x - 12, y + 4, 'end'), (x + 8, y - 12, 'start'), (x - 8, y + 20, 'end'), (x + 8, y + 20, 'start'), (x - 8, y - 12, 'end')):
-            bx0 = lx if anc == 'start' else lx - w; bx1 = bx0 + w; by0, by1 = ly - 11, ly + 3
-            if bx0 < 12 or bx1 > Wm - 12 or by0 < 12 or by1 > Hm - 12: continue
-            if any(not (bx1 < a or bx0 > c or by1 < b or by0 > d) for a, b, c, d in boxes): continue
-            boxes.append((bx0, by0, bx1, by1))
-            out.append(f'<text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anc}" font-family="Noto Serif SC,serif" font-size="11" font-weight="700" fill="#1c1d1a" paint-order="stroke" stroke="#efe9dc" stroke-width="3">{E(nm)}</text>')
-            break
-        else:
-            nm2 = nm[:5]; w2 = len(nm2) * 9 + 2
-            for (lx, ly, anc) in ((x + 6, y - 5, 'start'), (x - 6, y - 5, 'end'), (x + 6, y + 12, 'start'), (x - 6, y + 12, 'end')):
-                bx0 = lx if anc == 'start' else lx - w2; bx1 = bx0 + w2; by0, by1 = ly - 9, ly + 2
-                if bx0 < 12 or bx1 > Wm - 12 or by0 < 12 or by1 > Hm - 12: continue
-                if any(not (bx1 < a or bx0 > c or by1 < b or by0 > d) for a, b, c, d in boxes): continue
-                boxes.append((bx0, by0, bx1, by1))
-                out.append(f'<text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anc}" font-family="Noto Serif SC,serif" font-size="9" font-weight="700" fill="#3d3f3a" paint-order="stroke" stroke="#efe9dc" stroke-width="2.5">{E(nm2)}</text>')
-                break
-    # 景点扎堆的城市：右下角放一块放大图（西安城里那一堆，主图上挤在一起看不清）
-    seq = [(la, lo, nm, tp) for d_ in days for (la, lo, nm, tp) in d_]
-    kmp = [((lo - cx0) * kx * 111, (la - cy0) * 111) for la, lo, _, _ in seq]
-    span_km = max(spanx, spany) * 111
-    if span_km > 25 and len(seq) >= 6:
-        R_ = max(2.5, span_km * .06); best = None
-        for i_, (ax, ay) in enumerate(kmp):
-            mem = [j_ for j_, (bx, by) in enumerate(kmp) if _m.hypot(ax - bx, ay - by) <= R_]
-            if not best or len(mem) > len(best): best = mem
-        if best and len(best) >= 4 and len(best) >= .4 * len(seq):
-            cl = [seq[j_] for j_ in best]
-            clat = [c[0] for c in cl]; clng = [c[1] for c in cl]
-            ix0, iy0, iw, ih = Wm - 152, Hm - 112, 138, 96
-            sx_ = max((max(clng) - min(clng)) * kx, .005); sy_ = max(max(clat) - min(clat), .005)
-            isc = min((iw - 24) / sx_, (ih - 24) / sy_); icx = (max(clng) + min(clng)) / 2; icy = (max(clat) + min(clat)) / 2
-            IP = lambda la, lo: (ix0 + iw / 2 + (lo - icx) * kx * isc, iy0 + ih / 2 - (la - icy) * isc)
-            bx0, by1 = P(min(clat), min(clng)); bx1, by0 = P(max(clat), max(clng))
-            out.append(f'<rect x="{bx0 - 5:.1f}" y="{by0 - 5:.1f}" width="{bx1 - bx0 + 10:.1f}" height="{by1 - by0 + 10:.1f}" fill="none" stroke="#1c1d1a" stroke-width=".8" stroke-dasharray="3 2" opacity=".6"/>')
-            out.append(f'<rect x="{ix0}" y="{iy0}" width="{iw}" height="{ih}" fill="#f6f1e6" stroke="#1c1d1a" stroke-width="1"/><text x="{ix0 + 6}" y="{iy0 + 12}" font-family="Noto Sans SC,sans-serif" font-size="9" fill="#5d5f59">城里放大</text>')
-            numof = {nm_: n_ for n_, nm_ in legend}
-            pp = None
-            for la, lo, nm, tp in cl:
-                x_, y_ = IP(la, lo)
-                if pp: out.append(f'<path d="M{pp[0]:.1f},{pp[1]:.1f} L{x_:.1f},{y_:.1f}" stroke="#a63d27" stroke-width="1.4" fill="none" opacity=".8"/>')
-                pp = (x_, y_)
-            for la, lo, nm, tp in cl:
-                x_, y_ = IP(la, lo)
-                out.append(f'<circle cx="{x_:.1f}" cy="{y_:.1f}" r="2.4" fill="#1c1d1a"/>')
-                if nm in numof: out.append(f'<text x="{x_ + 4:.1f}" y="{y_ - 3:.1f}" font-family="Noto Sans SC,sans-serif" font-size="9" font-weight="700" fill="#a63d27">{numof[nm]}</text>')
-    out.append(f'<g transform="translate({Wm - 30},34)" opacity=".75"><path d="M0,-14 L5,4 L0,0 L-5,4 Z" fill="#1c1d1a"/><text x="0" y="-17" text-anchor="middle" font-family="Noto Serif SC,serif" font-size="10" font-weight="900" fill="#1c1d1a">北</text></g>')
-    km_w = spanx * 111
-    out.append(f'<text x="16" y="{Hm - 16}" font-family="Noto Sans SC,sans-serif" font-size="10" fill="#5d5f59">东西约 {round(km_w) if km_w >= 10 else round(km_w, 1)} 公里 · 示意，不按比例</text></svg>')
-    if legend:
-        out.append('<p class="hlegend">' + ''.join(f'<span><b>{n_}</b>{E(nm_)}</span>' for n_, nm_ in legend) + '</p>')
-    return ''.join(out)
-
+    t = TRIP_OF_ROUTE.get(r.get('id') or '') or {}
+    home = (DEST.get(t.get('dest'), {}) or {}).get('name')
+    svg, legend = mapdraw.render(days, r['title'], home=home, uid=re.sub(r'\W', '', r.get('id') or 'm'))
+    if not svg: return ''
+    return svg + ('<p class="hlegend">' + ''.join(f'<span><b>{k + 1}</b>{E("、".join(ns))}</span>' for k, ns in enumerate(legend) if ns) + '</p>' if any(legend) else '')
 
 
 def dest_map(did, d):
-    """目的地页的线路分布手绘图：每条线路画在它经过地点的中间，点名字直接进行程；小黑点是 5A 和世界遗产"""
-    import math as _m
+    """目的地页线路分布图：真实底图（tools/mapdraw.py）"""
+    import mapdraw
     pts = []
     for rid in DEST_ROUTES.get(did, []):
-        r = ROUTES[rid]; cs = []
-        for dd in r['days']:
-            city = dd.get('navCity') or dd.get('city')
-            for w in dd['rows']:
-                if w['type'] in ('see', 'fun') and w.get('poi'):
-                    c = coord(w['poi'], city)
-                    if c: cs.append(c)
-        if cs:
-            pts.append((sum(c[0] for c in cs) / len(cs), sum(c[1] for c in cs) / len(cs), re.sub(r'\s*\d+\s*天$', '', r.get('label') or ''), rid))
+        rr = ROUTES[rid]; cs = []
+        if set(TRIP_OF_ROUTE.get(rid, {}).get('tags') or []) & {'跨省', '全国'}: continue      # 跨省、全国的长线不放进本省分布图
+        for k in range(len(rr['days'])):
+            p_ = day_point(rr, k)
+            if p_: cs.append(p_)
+        if cs: pts.append((sum(c[0] for c in cs) / len(cs), sum(c[1] for c in cs) / len(cs), re.sub(r'\s*\d+\s*天$', '', rr.get('label') or ''), f'/trip/{rid}/'))
     dots = [(q['lat'], q['lng']) for q in QUAL_BY_PROV.get(d['name'], []) if q.get('lat')] if d['scope'] == 'domestic' else []
-    if pts:   # 坐标落到省外的 5A 点不画，免得把图撑大、线路挤在角落
+    if pts:
         ml = sorted(p_[0] for p_ in pts)[len(pts) // 2]; mg = sorted(p_[1] for p_ in pts)[len(pts) // 2]
+        ds = sorted(_km((ml, mg), (p_[0], p_[1])) for p_ in pts); lim = max(450, 3 * ds[len(ds) // 2])
+        pts = [p_ for p_ in pts if _km((ml, mg), (p_[0], p_[1])) <= lim]                     # 坐标明显跑偏的线路不画
         far = max(_km((ml, mg), (p_[0], p_[1])) for p_ in pts) + 150
         dots = [q for q in dots if _km((ml, mg), q) <= far]
-    allp = [(p_[0], p_[1]) for p_ in pts] + dots
-    if len(pts) < 2: return ''
-    lats = [a for a, _ in allp]; lngs = [b for _, b in allp]
-    clat = (max(lats) + min(lats)) / 2; kx = _m.cos(_m.radians(clat))
-    spx = max((max(lngs) - min(lngs)) * kx, .2); spy = max(max(lats) - min(lats), .2)
-    Wm, Hm, pad = 390, 300, 40
-    sc = min((Wm - 2 * pad) / spx, (Hm - 2 * pad) / spy); cx0 = (max(lngs) + min(lngs)) / 2
-    P = lambda la, lo: (Wm / 2 + (lo - cx0) * kx * sc, Hm / 2 - (la - clat) * sc)
-    o = [f'<svg viewBox="0 0 {Wm} {Hm}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{E(d["name"])}的线路分布">',
-         f'<rect x="1" y="1" width="{Wm - 2}" height="{Hm - 2}" fill="#efe9dc"/><rect x="6" y="6" width="{Wm - 12}" height="{Hm - 12}" fill="none" stroke="#1c1d1a" stroke-width="1.2" opacity=".55"/>']
-    for la, lo in dots:
-        x, y = P(la, lo); o.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2" fill="#1c1d1a" opacity=".35"/>')
-    boxes = [(10, Hm - 28, 360, Hm - 8), (Wm - 44, 10, Wm - 10, 48)]; unl = []
-    for la, lo, nm, rid in sorted(pts, key=lambda p_: -len(ROUTES[p_[3]]['days'])):
-        x, y = P(la, lo); w = len(nm) * 12 + 10
-        o.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="#f4f2ec" stroke="#a63d27" stroke-width="2"/>')
-        done_ = False
-        for fs_ in (12, 10):
-            if done_: break
-            w = len(nm) * fs_ + 10
-            for (lx, ly, anc) in ((x + 9, y + 4, 'start'), (x - 9, y + 4, 'end'), (x, y - 10, 'middle'), (x, y + fs_ + 6, 'middle'), (x + 7, y - 8, 'start'), (x - 7, y - 8, 'end'), (x + 7, y + fs_ + 4, 'start'), (x - 7, y + fs_ + 4, 'end')):
-                bx0 = lx if anc == 'start' else lx - w if anc == 'end' else lx - w / 2; bx1 = bx0 + w
-                if bx0 < 10 or bx1 > Wm - 10 or ly - fs_ < 10 or ly + 3 > Hm - 10: continue
-                if any(not (bx1 < a or bx0 > c or ly + 3 < b or ly - fs_ > d_) for a, b, c, d_ in boxes): continue
-                boxes.append((bx0, ly - fs_, bx1, ly + 3)); done_ = True
-                o.append(f'<a href="/trip/{rid}/" aria-label="{E(nm)}"><rect x="{min(bx0 - 2, (bx0 + bx1) / 2 - 24):.1f}" y="{ly - 30:.1f}" width="{max(w + 6, 48):.1f}" height="46" fill="#efe9dc" fill-opacity="0"/><text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anc}" font-family="Noto Serif SC,serif" font-size="{fs_}" font-weight="900" fill="#a63d27" paint-order="stroke" stroke="#efe9dc" stroke-width="3">{E(nm)}</text></a>')
-                break
-        if not done_:
-            unl.append((rid, nm)); o.append(f'<text x="{x + 6:.1f}" y="{y - 5:.1f}" font-family="Noto Sans SC,sans-serif" font-size="9" font-weight="700" fill="#a63d27">{len(unl)}</text>')
-    o.append(f'<g transform="translate({Wm - 28},32)" opacity=".75"><path d="M0,-12 L4,3 L0,0 L-4,3 Z" fill="#1c1d1a"/><text x="0" y="-15" text-anchor="middle" font-family="Noto Serif SC,serif" font-size="10" font-weight="900" fill="#1c1d1a">北</text></g>')
-    o.append(f'<text x="14" y="{Hm - 14}" font-family="Noto Sans SC,sans-serif" font-size="10" fill="#5d5f59">红圈是排好的线路（点名字进去），小黑点是 5A 和世界遗产</text></svg>')
-    if unl: o.append('<p class="hlegend">' + ''.join(f'<span><a href="/trip/{r_}/"><b>{k_ + 1}</b>{E(n_)}</a></span>' for k_, (r_, n_) in enumerate(unl)) + '</p>')
-    return ''.join(o)
+    svg, unl = mapdraw.render_points(pts, d['name'] + '的线路分布', home=d['name'], dots=dots, uid=re.sub(r'\W', '', did))
+    if not svg: return ''
+    return svg + ('<p class="hlegend">' + ''.join(f'<span><a href="{h}">{E(n)}</a></span>' for h, n in unl) + '</p>' if unl else '')
 
 if __name__ == '__main__':
     if os.path.exists(OUT): shutil.rmtree(OUT)

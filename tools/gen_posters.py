@@ -112,10 +112,15 @@ def poster(rid, it):
     g = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">',
          f'<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{P["s1"]}"/><stop offset="1" stop-color="{P["s2"]}"/></linearGradient>'
          f'<linearGradient id="wt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{P["mid"]}"/><stop offset="1" stop-color="{P["gnd"]}"/></linearGradient>'
+         f'<radialGradient id="sg" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="{P["sun"]}" stop-opacity=".55"/><stop offset="1" stop-color="{P["sun"]}" stop-opacity="0"/></radialGradient>'
+         f'<linearGradient id="hz" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="{P["s2"]}" stop-opacity="0"/><stop offset=".6" stop-color="{P["s2"]}" stop-opacity=".55"/><stop offset="1" stop-color="{P["s2"]}" stop-opacity="0"/></linearGradient>'
+         f'<radialGradient id="vg" cx=".5" cy=".42" r=".75"><stop offset=".6" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></radialGradient>'
          f'<filter id="gr"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="{seed % 97}"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .07 0"/><feComposite in2="SourceGraphic" operator="in"/></filter></defs>',
          f'<rect width="{W}" height="{H}" fill="url(#sk)"/>']
     sx, sy = rnd.uniform(120, 480), rnd.uniform(110, 230)
-    g.append(f'<circle cx="{sx:.0f}" cy="{sy:.0f}" r="{rnd.uniform(34, 56):.0f}" fill="{P["sun"]}" opacity=".9"/>')
+    sr = rnd.uniform(34, 56)
+    g.append(f'<circle cx="{sx:.0f}" cy="{sy:.0f}" r="{sr * 3.2:.0f}" fill="url(#sg)"/>')
+    g.append(f'<circle cx="{sx:.0f}" cy="{sy:.0f}" r="{sr:.0f}" fill="{P["sun"]}" opacity=".92"/>')
     horizon = 520
     for k in range(rnd.randint(2, 4)):
         cx, cy, w_ = rnd.uniform(0, W), rnd.uniform(70, 300), rnd.uniform(80, 160)
@@ -124,6 +129,7 @@ def poster(rid, it):
         bx, by, bw = rnd.uniform(80, 520), rnd.uniform(120, 320), rnd.uniform(8, 14)
         g.append(f'<path d="M{bx - bw:.0f},{by:.0f} q{bw / 2:.0f},-{bw / 2:.0f} {bw:.0f},0 q{bw / 2:.0f},-{bw / 2:.0f} {bw:.0f},0" fill="none" stroke="{PAL[se]["gnd"]}" stroke-width="2" opacity=".55"/>')
     g.append(f'<path d="{ridge(rnd, 360, 30, 40)}" fill="{P["far"]}" opacity=".55"/>')
+    g.append(f'<rect x="0" y="330" width="{W}" height="120" fill="url(#hz)"/>')
     if cat in ('mountain', 'snow', 'lake', 'canyon', 'forest', 'temple'):
         d, tops = peaks(rnd, 470, rnd.randint(2, 3), 160, 290)
         g.append(f'<path d="{d}" fill="{P["mid"]}"/>')
@@ -347,6 +353,11 @@ def poster(rid, it):
     for k in range(6):
         y = 640 + k * 24
         g.append(f'<rect x="{rnd.uniform(0, 400):.0f}" y="{y}" width="{rnd.uniform(60, 200):.0f}" height="1.5" fill="#fff" opacity=".05"/>')
+    gy = 600
+    for k in range(70):   # 前景草叶
+        x = rnd.uniform(-10, W + 10); h_ = rnd.uniform(8, 26); lean = rnd.uniform(-6, 6)
+        g.append(f'<path d="M{x:.0f},{gy + rnd.uniform(0, 14):.0f} q{lean / 2:.1f},-{h_ / 2:.0f} {lean:.1f},-{h_:.0f}" fill="none" stroke="{P["gnd"]}" stroke-width="{rnd.uniform(1.2, 2.4):.1f}" stroke-linecap="round"/>')
+    g.append(f'<rect width="{W}" height="{H}" fill="url(#vg)"/>')
     g.append(f'<rect width="{W}" height="{H}" filter="url(#gr)" opacity=".9"/></svg>')
     return '\n'.join(g), cat, se
 

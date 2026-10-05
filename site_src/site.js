@@ -58,7 +58,7 @@
     // 几个人去
     var p=document.querySelector('.price[data-cost]'),pp=document.querySelector('.pp'),box=document.querySelector('.ppl');
     if(p&&p.dataset.cost&&box){var C=JSON.parse(p.dataset.cost),N=2;
-      function upd(){var rooms=Math.ceil(N/2),car=C.perCar?C.carTotal/N:C.tollsPP,lodge=C.lodgeRoom*rooms/N,loc=C.tixPP+C.foodPP+car+lodge,r=function(v){return(Math.round(v/100)*100).toLocaleString('en-US')};p.textContent='¥'+r(loc+C.trans[0])+'–'+r(loc+C.trans[1]);box.querySelector('b').textContent=N+' 人';pp.textContent=N+' 人 · 每人 '+(box.hidden?'›':'▴');var ds=document.querySelector('.dock small');if(ds)ds.textContent=N+' 人 · 每人 '+p.textContent}
+      function upd(){var rooms=Math.ceil(N/2),car=C.perCar?C.carTotal/N:C.tollsPP,lodge=C.lodgeRoom*rooms/N,loc=C.tixPP+C.foodPP+car+lodge,r=function(v){var k=Math.round(v/100)/10;return(k<100?(+k.toFixed(1)).toString():Math.round(k).toString())};p.textContent='¥'+r(loc+C.trans[0])+'–'+r(loc+C.trans[1])+'K';box.querySelector('b').textContent=N+' 人';pp.textContent=N+' 人 · 每人 '+(box.hidden?'›':'▴');var ds=document.querySelector('.dock small');if(ds)ds.textContent=N+' 人 · 每人 '+p.textContent}
       function tog(){box.hidden=!box.hidden;upd()}
       pp.addEventListener('click',tog);p.addEventListener('click',tog);
       box.querySelectorAll('button').forEach(function(x){x.addEventListener('click',function(){N=Math.max(1,Math.min(6,N+(+x.dataset.d)));upd()})})}
@@ -114,17 +114,21 @@
           sec.querySelector('.rmday').addEventListener('click',function(){var xs=ld(ek).filter(function(e){return e.x!==sec.dataset.extra});sv(ek,xs);sec.remove();renum();toast('去掉了')})}
         function build(e){if(e.k==='free'){place(dayShell(e.x,'自由活动','<p class="lead">这天不排行程：睡到自然醒，在住的地方附近走走，补补觉，或者把前几天没逛够的地方再去一次。</p>'));return Promise.resolve()}
           return fetch('/trip/'+e.rid+'/').then(function(r){return r.text()}).then(function(h){var doc=new DOMParser().parseFromString(h,'text/html'),src=doc.getElementById('d'+(e.i+1));if(!src)return;
-            var sec=dayShell(e.x,src.querySelector('h2').textContent,'');[].slice.call(src.children).forEach(function(c){if(c.tagName!=='HEADER')sec.insertBefore(c.cloneNode(true),sec.querySelector('.rmday'))});
+            var sec=dayShell(e.x,src.querySelector('h2').textContent,'');[].slice.call(src.children).forEach(function(c){if(c.tagName!=='HEADER'&&!c.classList.contains('stays'))sec.insertBefore(c.cloneNode(true),sec.querySelector('.rmday'))});
+            var stc=(document.querySelector('.addday')||{dataset:{}}).dataset.city||'住处',tl=sec.querySelector('.tl');
+            if(tl){[].slice.call(tl.querySelectorAll('.r.stay')).forEach(function(r){r.remove()});var rs=[].slice.call(tl.querySelectorAll('.r.dep'));if(rs.length){var lastDep=rs[rs.length-1];if(/住处/.test(lastDep.innerText))lastDep.remove()}
+              var firstDep=tl.querySelector('.r.dep');if(firstDep){var fm=firstDep.querySelector('.m');if(fm)fm.firstChild.textContent=fm.firstChild.textContent.replace(/^出发/,'从'+stc+'出发');var fs=firstDep.querySelector('.s');var kmt='单程约 '+(e.km||'')+' 公里';if(fs)fs.textContent=kmt;else firstDep.querySelector('.rb').insertAdjacentHTML('beforeend','<p class="s">'+kmt+'</p>')}
+              tl.insertAdjacentHTML('beforeend','<li class="r dep"><time>傍晚</time><span class="dot"></span><div class="rb"><p class="m">回'+stc+'</p><p class="s">约 '+(e.km||'')+' 公里，回到原来的住处</p></div></li><li class="r stay"><time>晚上</time><span class="dot"></span><div class="rb"><p class="m">住 · '+stc+'</p><p class="s">接着住原来那家，第二天照原计划走</p></div></li>')}
             sec.querySelector('h2').insertAdjacentHTML('beforeend','<span class="xt">接「'+e.label+'」第 '+(e.i+1)+' 天</span>');place(sec)}).catch(function(){})}
         var chain=Promise.resolve();ld(ek).forEach(function(e){chain=chain.then(function(){return build(e)})});chain.then(renum);
         addB.addEventListener('click',function(){var mask=document.createElement('div');mask.className='pk-mask';var sh=document.createElement('div');sh.className='pk';
           var groups={};cands.forEach(function(c){(groups[c.label]=groups[c.label]||[]).push(c)});
           var stc=document.querySelector('.addday').dataset.city||'这里';
           sh.innerHTML='<div class="pk-h"><b>加一天</b><button type="button" class="pk-x">关上</button></div><p class="xnote">加的一天放在最后一天（回程）前面</p><div class="xd"><button type="button" data-free="1"><b>在'+stc+'多留一天</b><small>自由活动，不排行程</small></button>'+
-            (cands.length?'<p class="xg">附近 100 公里内可以接上的一天</p>'+cands.map(function(c){return'<button type="button" data-rid="'+c.rid+'" data-i="'+c.i+'" data-l="'+c.label+'"><b>'+c.title+'</b><small>来自「'+c.label+'」第 '+(c.i+1)+' 天 · 离住处约 '+c.km+' 公里</small></button>'}).join(''):'<p class="xg">附近没有合适的线路可以接，可以先选多留一天</p>')+'</div>';
+            (cands.length?'<p class="xg">附近 100 公里内可以接上的一天</p>'+cands.map(function(c){return'<button type="button" data-rid="'+c.rid+'" data-i="'+c.i+'" data-l="'+c.label+'" data-km="'+c.km+'"><b>'+c.title+'</b><small>来自「'+c.label+'」第 '+(c.i+1)+' 天 · 离住处约 '+c.km+' 公里</small></button>'}).join(''):'<p class="xg">附近没有合适的线路可以接，可以先选多留一天</p>')+'</div>';
           function close(){mask.remove();sh.remove();document.body.classList.remove('pk-open')}
           sh.addEventListener('click',function(ev){var b=ev.target.closest('button');if(!b)return;if(b.classList.contains('pk-x'))return close();
-            var e=b.dataset.free?{k:'free',x:'f'+Date.now()}:{k:'r',x:'r'+Date.now(),rid:b.dataset.rid,i:+b.dataset.i,label:b.dataset.l};var xs=ld(ek);xs.push(e);sv(ek,xs);close();
+            var e=b.dataset.free?{k:'free',x:'f'+Date.now()}:{k:'r',x:'r'+Date.now(),rid:b.dataset.rid,i:+b.dataset.i,label:b.dataset.l,km:+(b.dataset.km||0)};var xs=ld(ek);xs.push(e);sv(ek,xs);close();
             build(e).then(function(){renum();var s=document.querySelector('.day[data-extra="'+e.x+'"]');if(s)s.scrollIntoView();toast('加好了，日期和底栏都跟着变了')})});
           mask.addEventListener('click',close);document.body.appendChild(mask);document.body.appendChild(sh);document.body.classList.add('pk-open')})}
 }
