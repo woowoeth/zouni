@@ -11,6 +11,7 @@ permissions:
   contents: write
   models: read
   pages: write
+  id-token: write
 concurrency:
   group: autogrow
   cancel-in-progress: false
@@ -18,6 +19,8 @@ jobs:
   grow:
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    env:
+      HAS_CLAUDE: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN != '' }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -30,11 +33,31 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: 起草新行程（GitHub Models），核坐标，重建网站
+      - name: 列出这次的目标（给 Claude）
+        if: env.HAS_CLAUDE == 'true'
+        working-directory: src
+        run: python3 tools/auto_grow.py --targets "${{ github.event.inputs.n || '3' }}"
+      - name: Claude 起草行程（用 Claude 订阅）
+        if: env.HAS_CLAUDE == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          prompt: |
+            读 src/data/auto_targets.json。对 targets 里的每一个目标，按 rules 写一条 days 天的行程，格式照 format，
+            存成 src/data/auto_drafts/<key>.json（key 用目标的 key）。只写 JSON 文件，不改别的文件，不提交。
+            只用真实、地图上搜得到的地名；不写历史典故和数字；拿不准的地方宁可不写。
+          claude_args: "--max-turns 40"
+      - name: 收 Claude 的草稿
+        if: env.HAS_CLAUDE == 'true'
+        working-directory: src
+        run: python3 tools/auto_grow.py --ingest
+      - name: 起草新行程（API 或 GitHub Models），核坐标，重建网站
         working-directory: src
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
           python3 tools/auto_grow.py "${{ github.event.inputs.n || '3' }}"
           sh tools/ci_build.sh ../out
