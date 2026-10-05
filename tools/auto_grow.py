@@ -3,7 +3,7 @@
 # 规矩：只写真实地名；不写史实故事；每个站点必须查得到坐标且在目标附近；查不到超过四分之一整条丢弃
 import json, os, re, sys, time, math, urllib.request, urllib.parse, calendar
 
-N_MAX = int(sys.argv[1]) if len(sys.argv) > 1 else 3
+N_MAX = int(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1].isdigit() else 3
 TOKEN = os.environ.get('GITHUB_TOKEN', '')
 MODELS = ['openai/gpt-4.1-mini', 'openai/gpt-4o-mini', 'deepseek/DeepSeek-V3-0324']
 UA = {'User-Agent': 'zouni-autogrow/1.0 (zouni.app)'}
@@ -58,11 +58,27 @@ JSON 格式：{{"label":"X N 天","title":"N 天，……","prep":["…"],"days"
 
 
 DSK = os.environ.get('DEEPSEEK_API_KEY', '')
+AKEY = os.environ.get('ANTHROPIC_API_KEY', '')
 ENDPOINTS = ([('https://api.deepseek.com/chat/completions', ['deepseek-chat'])] if DSK else []) + [('https://models.github.ai/inference/chat/completions', ['openai/gpt-4.1-mini', 'openai/gpt-4o-mini', 'deepseek/DeepSeek-V3-0324']),
              ('https://models.inference.ai.azure.com/chat/completions', ['gpt-4o-mini', 'DeepSeek-V3-0324'])]
 
 
+def ask_claude(prompt):
+    body = json.dumps({'model': 'claude-sonnet-5-5', 'max_tokens': 2500, 'messages': [{'role': 'user', 'content': prompt}]}).encode()
+    req = urllib.request.Request('https://api.anthropic.com/v1/messages', data=body, method='POST',
+                                 headers={'x-api-key': AKEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json'})
+    try:
+        j = json.loads(urllib.request.urlopen(req, timeout=180).read())
+        txt = ''.join(b.get('text', '') for b in j.get('content', []) if b.get('type') == 'text')
+        return json.loads(txt[txt.find('{'): txt.rfind('}') + 1]), 'claude-sonnet-5-5'
+    except Exception as e:
+        LOG.append(f'Claude API 失败：{str(e)[:100]}'); return None, None
+
+
 def ask(prompt):
+    if AKEY:
+        r = ask_claude(prompt)
+        if r[0]: return r
     for url, models in ENDPOINTS:
         for m in models:
             body = json.dumps({'model': m, 'messages': [{'role': 'user', 'content': prompt}], 'temperature': 0.3, 'max_tokens': 2200}).encode()
@@ -121,7 +137,7 @@ def validate(it, tg):
 
 
 def main():
-    if not TOKEN and not DSK: print('没有可用的模型令牌，跳过'); return
+    if not TOKEN and not DSK and not AKEY and not os.listdir('data/auto_drafts') if os.path.isdir('data/auto_drafts') else (not TOKEN and not DSK and not AKEY): print('没有可用的模型，跳过'); return
     added = []
     for tg in targets()[:N_MAX]:
         d0 = CAT[tg['dest']]; tg['city'] = tg.get('city') or d0['base']['name']
@@ -151,5 +167,32 @@ def main():
     open(os.environ.get('GITHUB_STEP_SUMMARY', '/dev/null'), 'a').write('\n'.join(['## 本次自动新增'] + LOG) + '\n')
 
 
+def write_targets(n):
+    os.makedirs('data/auto_drafts', exist_ok=True)
+    tg = targets()[:n]
+    for t in tg: t['city'] = t.get('city') or CAT[t['dest']]['base']['name']; t['prov'] = CAT[t['dest']]['name']; t['days'] = 4 if t['kind'] == 'asia' else 3
+    json.dump({'rules': PROMPT.split('要求：')[1].split('JSON 格式')[0].strip(), 'format': PROMPT.split('JSON 格式：')[1].replace('{{', '{').replace('}}', '}'), 'targets': tg},
+              open('data/auto_targets.json', 'w'), ensure_ascii=False, indent=1)
+    print('写出目标', [t['key'] for t in tg])
+
+
+def ingest():
+    """收 Claude Code 写的草稿（data/auto_drafts/<key>.json），走同样的坐标检查"""
+    tg_all = {t['key']: t for t in json.load(open('data/auto_targets.json'))['targets']} if os.path.exists('data/auto_targets.json') else {}
+    real_ask = globals()['ask']
+    for f in sorted(os.listdir('data/auto_drafts')) if os.path.isdir('data/auto_drafts') else []:
+        key = f[:-5]
+        try: draft = json.load(open('data/auto_drafts/' + f))
+        except Exception: LOG.append(f'{f}：草稿不是 JSON'); os.remove('data/auto_drafts/' + f); continue
+        if key in tg_all:
+            globals()['ask'] = lambda p, d=draft: (d, 'claude-code')
+            globals()['targets'] = lambda k=key: [tg_all[k]]
+            main()
+        os.remove('data/auto_drafts/' + f)
+    globals()['ask'] = real_ask
+
+
 if __name__ == '__main__':
-    main()
+    if '--targets' in sys.argv: write_targets(int(sys.argv[sys.argv.index('--targets') + 1]))
+    elif '--ingest' in sys.argv: ingest()
+    else: main()
