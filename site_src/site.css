@@ -321,3 +321,21 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .daynav.long{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}.daynav.long::-webkit-scrollbar{display:none}.daynav.long a{flex:0 0 auto;min-width:44px;padding:0 6px}
 .overview.folded ol li:nth-child(n+11){display:none}.overview.folded.open ol li{display:block}
 .ovmore{display:block;width:100%;height:44px;margin-top:4px;border:0;background:var(--card);font-size:14px;font-weight:700;color:var(--ink);cursor:pointer}
+.xnote{margin:6px 0 0;font-size:12px;color:var(--sub)}
+.r .s a.bkl{margin-right:6px;font-weight:700;color:var(--blue)}.r .s .bkh{margin-right:6px;color:var(--blue)}
+.pre li{display:flex;flex-wrap:wrap;align-items:center;gap:0 8px}.pre li a.bkl{display:inline-flex;align-items:center;min-height:32px;margin-left:30px;font-size:13px;font-weight:700;color:var(--blue)}.pre li .bkh{margin-left:30px;font-size:12px;color:var(--blue)}
+
+/* 行程页顶部三格：三项同一种字号和行高，第一行、第二行各自对齐 */
+.glance{grid-template-columns:minmax(0,.9fr) minmax(0,1fr) minmax(0,1.35fr);gap:10px;align-items:start}
+.glance>div{gap:0}
+.glance b,.glance b.big,.glance b.price{display:block;height:28px;font:900 20px/28px var(--serif);white-space:nowrap;overflow:hidden;text-overflow:clip}
+.glance b.big small{font:700 13px/28px var(--sans);margin-left:2px}
+.glance small,.glance>div>small{display:block;margin-top:4px;font:400 12px/18px var(--sans);color:var(--sub)}
+.glance .dtw.dt,.glance .dt{position:relative;display:block;height:18px;margin:4px 0 0;padding:0;font:400 12px/18px var(--sans);color:var(--sub);text-align:left;align-self:flex-start}
+.glance .dt:after{content:"";position:absolute;left:-8px;right:-8px;top:-12px;bottom:-12px}
+.glance .dt i{font-weight:700;color:var(--red);margin-left:3px}
+/* 收藏：书签图标 */
+.dock .fav{display:inline-flex;align-items:center;gap:6px}.dock .fav .fi{flex:none}
+.dock .fav.on .fi path{fill:currentColor}
+.minebtn{display:inline-flex;align-items:center;gap:5px}.minebtn .fi{width:16px;height:16px;color:var(--red)}
+.glance b.big small{display:inline;margin:0 0 0 2px;font:700 13px/28px var(--sans);color:var(--ink)}
