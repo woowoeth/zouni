@@ -1,0 +1,440 @@
+{
+ "note": "博物馆：treasures 只写公认的镇馆之宝；experiences：了解当地人文历史的体验",
+ "museums": [
+  {
+   "name": "故宫博物院",
+   "city": "北京",
+   "dest": "beijing",
+   "treasures": [
+    "清明上河图",
+    "千里江山图"
+   ],
+   "note": "书画国宝轮流展出，不是天天能看到"
+  },
+  {
+   "name": "中国国家博物馆",
+   "city": "北京",
+   "dest": "beijing",
+   "treasures": [
+    "后母戊鼎",
+    "四羊方尊"
+   ],
+   "note": "免费，要提前在官方渠道预约"
+  },
+  {
+   "name": "首都博物馆",
+   "city": "北京",
+   "dest": "beijing",
+   "treasures": [
+    "伯矩鬲"
+   ],
+   "note": ""
+  },
+  {
+   "name": "陕西历史博物馆",
+   "city": "西安",
+   "dest": "shaanxi",
+   "treasures": [
+    "鎏金舞马衔杯纹银壶",
+    "唐墓壁画"
+   ],
+   "note": "要提前预约"
+  },
+  {
+   "name": "秦始皇帝陵博物院",
+   "city": "西安",
+   "dest": "shaanxi",
+   "treasures": [
+    "兵马俑",
+    "铜车马"
+   ],
+   "note": ""
+  },
+  {
+   "name": "西安碑林博物馆",
+   "city": "西安",
+   "dest": "shaanxi",
+   "treasures": [
+    "昭陵六骏（四骏）",
+    "开成石经"
+   ],
+   "note": ""
+  },
+  {
+   "name": "河南博物院",
+   "city": "郑州",
+   "dest": "henan",
+   "treasures": [
+    "贾湖骨笛",
+    "妇好鸮尊",
+    "莲鹤方壶"
+   ],
+   "note": "要提前预约"
+  },
+  {
+   "name": "湖北省博物馆",
+   "city": "武汉",
+   "dest": "hubei",
+   "treasures": [
+    "曾侯乙编钟",
+    "越王勾践剑"
+   ],
+   "note": "周一闭馆，要预约"
+  },
+  {
+   "name": "湖南博物院",
+   "city": "长沙",
+   "dest": "hunan",
+   "treasures": [
+    "素纱襌衣",
+    "马王堆 T 形帛画"
+   ],
+   "note": "要预约"
+  },
+  {
+   "name": "上海博物馆",
+   "city": "上海",
+   "dest": "shanghai",
+   "treasures": [
+    "大克鼎"
+   ],
+   "note": ""
+  },
+  {
+   "name": "南京博物院",
+   "city": "南京",
+   "dest": "jiangsu",
+   "treasures": [
+    "金兽",
+    "竹林七贤与荣启期砖画"
+   ],
+   "note": "周一闭馆"
+  },
+  {
+   "name": "浙江省博物馆",
+   "city": "杭州",
+   "dest": "zhejiang",
+   "treasures": [
+    "玉琮王",
+    "富春山居图·剩山图"
+   ],
+   "note": ""
+  },
+  {
+   "name": "苏州博物馆",
+   "city": "苏州",
+   "dest": "jiangsu",
+   "treasures": [
+    "秘色瓷莲花碗"
+   ],
+   "note": "贝聿铭设计，要预约"
+  },
+  {
+   "name": "三星堆博物馆",
+   "city": "广汉",
+   "dest": "sichuan",
+   "treasures": [
+    "青铜神树",
+    "青铜大立人",
+    "青铜纵目面具"
+   ],
+   "note": "要预约，离成都一个小时"
+  },
+  {
+   "name": "金沙遗址博物馆",
+   "city": "成都",
+   "dest": "sichuan",
+   "treasures": [
+    "太阳神鸟金饰"
+   ],
+   "note": ""
+  },
+  {
+   "name": "山西博物院",
+   "city": "太原",
+   "dest": "shanxi",
+   "treasures": [
+    "晋侯鸟尊"
+   ],
+   "note": ""
+  },
+  {
+   "name": "甘肃省博物馆",
+   "city": "兰州",
+   "dest": "gansu",
+   "treasures": [
+    "铜奔马"
+   ],
+   "note": ""
+  },
+  {
+   "name": "辽宁省博物馆",
+   "city": "沈阳",
+   "dest": "liaoning",
+   "treasures": [
+    "簪花仕女图"
+   ],
+   "note": "书画轮流展出"
+  },
+  {
+   "name": "天津博物馆",
+   "city": "天津",
+   "dest": "tianjin",
+   "treasures": [
+    "雪景寒林图"
+   ],
+   "note": "书画轮流展出"
+  },
+  {
+   "name": "山东博物馆",
+   "city": "济南",
+   "dest": "shandong",
+   "treasures": [
+    "亚丑钺"
+   ],
+   "note": ""
+  },
+  {
+   "name": "安徽博物院",
+   "city": "合肥",
+   "dest": "anhui",
+   "treasures": [
+    "铸客大鼎"
+   ],
+   "note": ""
+  },
+  {
+   "name": "南昌汉代海昏侯国遗址博物馆",
+   "city": "南昌",
+   "dest": "jiangxi",
+   "treasures": [
+    "海昏侯墓金器"
+   ],
+   "note": ""
+  },
+  {
+   "name": "南越王博物院",
+   "city": "广州",
+   "dest": "guangdong",
+   "treasures": [
+    "丝缕玉衣",
+    "文帝行玺金印"
+   ],
+   "note": ""
+  },
+  {
+   "name": "广西壮族自治区博物馆",
+   "city": "南宁",
+   "dest": "guangxi",
+   "treasures": [
+    "翔鹭纹铜鼓"
+   ],
+   "note": ""
+  },
+  {
+   "name": "云南省博物馆",
+   "city": "昆明",
+   "dest": "yunnan",
+   "treasures": [
+    "牛虎铜案"
+   ],
+   "note": ""
+  },
+  {
+   "name": "新疆维吾尔自治区博物馆",
+   "city": "乌鲁木齐",
+   "dest": "xinjiang",
+   "treasures": [
+    "楼兰美女",
+    "伏羲女娲图"
+   ],
+   "note": ""
+  },
+  {
+   "name": "宁夏博物馆",
+   "city": "银川",
+   "dest": "ningxia",
+   "treasures": [
+    "鎏金铜牛"
+   ],
+   "note": ""
+  },
+  {
+   "name": "河北博物院",
+   "city": "石家庄",
+   "dest": "hebei",
+   "treasures": [
+    "长信宫灯",
+    "金缕玉衣"
+   ],
+   "note": ""
+  },
+  {
+   "name": "徐州博物馆",
+   "city": "徐州",
+   "dest": "jiangsu",
+   "treasures": [
+    "金缕玉衣"
+   ],
+   "note": ""
+  },
+  {
+   "name": "洛阳博物馆",
+   "city": "洛阳",
+   "dest": "henan",
+   "treasures": [
+    "唐三彩"
+   ],
+   "note": ""
+  },
+  {
+   "name": "殷墟博物馆",
+   "city": "安阳",
+   "dest": "henan",
+   "treasures": [
+    "甲骨",
+    "商代青铜器"
+   ],
+   "note": ""
+  },
+  {
+   "name": "良渚博物院",
+   "city": "杭州",
+   "dest": "zhejiang",
+   "treasures": [
+    "良渚玉器"
+   ],
+   "note": ""
+  },
+  {
+   "name": "中国文字博物馆",
+   "city": "安阳",
+   "dest": "henan",
+   "treasures": [],
+   "note": ""
+  },
+  {
+   "name": "敦煌市博物馆",
+   "city": "敦煌",
+   "dest": "gansu",
+   "treasures": [],
+   "note": ""
+  },
+  {
+   "name": "青海省博物馆",
+   "city": "西宁",
+   "dest": "qinghai",
+   "treasures": [],
+   "note": ""
+  },
+  {
+   "name": "青州博物馆",
+   "city": "青州",
+   "dest": "shandong",
+   "treasures": [
+    "龙兴寺北朝佛像"
+   ],
+   "note": ""
+  },
+  {
+   "name": "南京云锦博物馆",
+   "city": "南京",
+   "dest": "jiangsu",
+   "treasures": [],
+   "note": ""
+  },
+  {
+   "name": "粤剧艺术博物馆",
+   "city": "广州",
+   "dest": "guangdong",
+   "treasures": [],
+   "note": ""
+  }
+ ],
+ "experiences": [
+  {
+   "name": "湖广会馆大戏楼",
+   "city": "北京",
+   "dest": "beijing",
+   "kind": "戏曲",
+   "note": "晚上有京剧演出"
+  },
+  {
+   "name": "易俗社",
+   "city": "西安",
+   "dest": "shaanxi",
+   "kind": "戏曲",
+   "note": "百年秦腔剧社，晚上有演出"
+  },
+  {
+   "name": "高家大院",
+   "city": "西安",
+   "dest": "shaanxi",
+   "kind": "戏曲",
+   "note": "回民街里的老宅，有皮影戏演出"
+  },
+  {
+   "name": "名流茶馆",
+   "city": "天津",
+   "dest": "tianjin",
+   "kind": "曲艺",
+   "note": "听一场相声"
+  },
+  {
+   "name": "龙井村",
+   "city": "杭州",
+   "dest": "zhejiang",
+   "kind": "茶",
+   "note": "在茶农家喝一杯龙井"
+  },
+  {
+   "name": "潮州工夫茶",
+   "city": "潮州",
+   "dest": "guangdong",
+   "kind": "茶",
+   "note": "在老城茶铺喝工夫茶"
+  },
+  {
+   "name": "武夷岩茶",
+   "city": "武夷山",
+   "dest": "fujian",
+   "kind": "茶",
+   "note": "找一家茶室喝大红袍"
+  },
+  {
+   "name": "拉坯体验",
+   "city": "景德镇",
+   "dest": "jiangxi",
+   "kind": "手艺",
+   "note": "在陶溪川的作坊里拉一次坯"
+  },
+  {
+   "name": "纳西古乐",
+   "city": "丽江",
+   "dest": "yunnan",
+   "kind": "音乐",
+   "note": "晚上在古城听纳西古乐"
+  },
+  {
+   "name": "白族三道茶",
+   "city": "大理",
+   "dest": "yunnan",
+   "kind": "茶",
+   "note": "在喜洲喝白族三道茶"
+  },
+  {
+   "name": "大宋东京梦华",
+   "city": "开封",
+   "dest": "henan",
+   "kind": "演出",
+   "note": "清明上河园晚上的大型演出"
+  },
+  {
+   "name": "苏州昆曲",
+   "city": "苏州",
+   "dest": "jiangsu",
+   "kind": "戏曲",
+   "note": "看一折昆曲"
+  }
+ ]
+}

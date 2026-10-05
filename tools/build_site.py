@@ -26,6 +26,15 @@ QUAL = json.load(open('data/catalog/cn_quality.json'))['items']
 NICHE = json.load(open('data/catalog/niche.json'))['items']
 NICHE_BY_DEST = {}
 for _n in NICHE: NICHE_BY_DEST.setdefault(_n['dest'], []).append(_n)
+CULT = json.load(open('data/catalog/culture.json')) if os.path.exists('data/catalog/culture.json') else {'museums': [], 'experiences': []}
+MUS = CULT['museums']
+
+
+def museum_of(text):
+    t = text or ''
+    return next((x for x in sorted(MUS, key=lambda x: -len(x['name'])) if x['name'] in t or x['name'].replace('博物馆', '博') in t or (len(x['name']) > 4 and t and t in x['name'] and len(t) >= 4)), None)
+
+
 STATUS = {'open': '可以去', 'restricted': '有条件', 'paused': '暂停开放', 'check': '出发前查'}
 TRIP_OF_ROUTE = {}
 for t in TRIPS:
@@ -426,6 +435,10 @@ def row_html(w, city, app):
             return f'<li class="r stay"><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">{main}{ic}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
     else:
         main = E(w.get('name')); sub = ' · '.join(x for x in [E(w.get('d')), E(w.get('kb'))] if x); kw = w.get('poi')
+        mu = museum_of(w.get('name')) or museum_of(w.get('poi'))
+        if mu and mu['treasures']:
+            main += '<span class="gb">国宝</span>'
+            sub = (sub + '</p><p class="s tre">' if sub else '') + '<b>镇馆之宝</b>' + E('、'.join(mu['treasures'])) + (('，' + E(mu['note'])) if mu.get('note') else '')
     ic = icons(kw, city, app, w.get('dp')) if kw else ''
     return f'<li class="r {t}"><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">{main}{ic}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
 
@@ -525,6 +538,8 @@ def dest_page(d):
             f'<section class="se"><div><h2>看</h2><p>{E(see)}</p></div><div><h2>吃</h2><p>{E(eat)}</p></div></section>'
             + (f'<section><h2>排好的行程</h2><ul class="trips">{trips}</ul></section>' if trips else '')
             + (f'<section id="q"><h2>5A 和世界遗产 <span class="ct">{len(ql)} 处</span></h2><ul class="qual">{qhtml}</ul></section>' if ql else '')
+            + (f'<section><h2>博物馆 <span class="ct">{len([x for x in MUS if x["dest"] == did])} 家</span></h2><ul class="qual mus">' + ''.join(f'<li><span><b>{E(x["name"])}</b>{("<small class=gt>镇馆之宝：" + E("、".join(x["treasures"])) + "</small>") if x["treasures"] else ""}</span>{"<em class=gb>国宝</em>" if x["treasures"] else ""}{icons(x["name"], x["city"], app)}</li>' for x in MUS if x['dest'] == did) + '</ul></section>' if any(x['dest'] == did for x in MUS) else '')
+            + (f'<section><h2>人文体验</h2><ul class="niche">' + ''.join(f'<li><div class="nh"><b>{E(x["name"])}</b><span class="st open">{E(x["kind"])}</span>{icons(x["name"], x["city"], app)}</div><p>{E(x["note"])}</p></li>' for x in CULT['experiences'] if x['dest'] == did) + '</ul></section>' if any(x['dest'] == did for x in CULT['experiences']) else '')
             + (f'<section><h2>小众 <span class="ct">{len(nl)} 处</span></h2><ul class="niche">{nhtml}</ul></section>' if nhtml else '') + '</article>')
     attractions = [{'@type': 'TouristAttraction', 'name': q['short']} for q in ql] or [{'@type': 'TouristAttraction', 'name': x} for x in d['see']]
     ld = {'@context': 'https://schema.org', '@type': 'TouristDestination', 'name': d['name'], 'description': desc, 'url': BASE + f'/d/{did}/',
