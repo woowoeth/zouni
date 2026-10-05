@@ -77,7 +77,7 @@ for rid, it in IT.items():
     dest = CAT[it['dest']]; city = it['city']; CUR_CC[0] = CC.get(it['dest'], 'cn')
     base = (dest['base']['lat'], dest['base']['lng'])
     cg = geocode(city, city, None)                      # 以行程所在城市为中心，不用省会
-    if cg and km(base, (cg['lat'], cg['lng'])) < 800: base = (cg['lat'], cg['lng'])
+    if cg and km(base, (cg['lat'], cg['lng'])) < 2500: base = (cg['lat'], cg['lng'])   # 离省会远的城市（喀什、札幌、天水）也认
     eat_pool = list(dest['eat']); days = []; n = len(it['days']); drive_tot = 0; longest = 0; carry = None
     for di, d in enumerate(it['days']):
         last = di == n - 1
@@ -88,6 +88,7 @@ for rid, it in IT.items():
             if cg2: dbase = (cg2['lat'], cg2['lng'])
         sc = geo_city(d['stay']) if d.get('stay') and 'geo_city' in globals() else None
         stay_pt = (sc['lat'], sc['lng']) if sc and km(dbase, (sc['lat'], sc['lng'])) < 150 else dbase
+        far = lambda p: p and km(p, dbase) > 60   # 当天已经到了另一座城：回住处就留在当地
         t = mm(d.get('start', '09:00')); prev = carry or dbase; rows = []; lunched = t >= 13 * 60; dined = False; drive = 0
         meal_i = di
 
@@ -103,7 +104,7 @@ for rid, it in IT.items():
             dine_there = bool(st.get('at') and mm(st['at']) >= 18 * 60 and (d.get('dinner') or {}).get('place') and (d['dinner']['place'] in st['name'] or d['dinner']['place'] in (st.get('q') or '')))
             if st.get('at') and mm(st['at']) >= 18 * 60 and not dined and not last and not dine_there:
                 if t < 17 * 60 + 30:
-                    rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '回去歇一下'}); t = 18 * 60 + 10; prev = stay_pt
+                    rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '回去歇一下'}); t = 18 * 60 + 10; prev = prev if far(prev) else stay_pt
                 rows.append(meal('晚饭', d.get('dinner'), max(t, 18 * 60))); t = max(t, 18 * 60) + 75; dined = True
             # 到了饭点先吃午饭
             if not lunched and t >= 11 * 60 + 40 and st['type'] != 'food':
@@ -111,7 +112,7 @@ for rid, it in IT.items():
             how, mins, dist = leg(prev, pt, st.get('via'))
             if dine_there and not dined:
                 at0 = max(t + mins, 18 * 60)
-                if at0 - mins - t >= 60: rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '回去歇一下'}); prev = stay_pt
+                if at0 - mins - t >= 60: rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '回去歇一下'}); prev = prev if far(prev) else stay_pt
                 t = at0 - mins
             elif st.get('at'):
                 gap = mm(st['at']) - mins - t
@@ -145,7 +146,7 @@ for rid, it in IT.items():
         else:
             if not dined:
                 if t < 17 * 60 + 30:
-                    rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '回去歇一下'}); t = 18 * 60 + 10; prev = stay_pt
+                    rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '回去歇一下'}); t = 18 * 60 + 10; prev = prev if far(prev) else stay_pt
                 rows.append({'t': hm(max(t, 18 * 60 + 10)), 'type': 'dep', 'to': '吃晚饭', 'how': '打车或步行'})
                 rows.append(meal('晚饭', d.get('dinner'), max(t, 18 * 60 + 10) + 20)); t = max(t, 18 * 60 + 10) + 95
             rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '打车或步行'})
@@ -157,6 +158,9 @@ for rid, it in IT.items():
         drive_tot += drive; longest = max(longest, drive)
         lastg = next((GEO.get(dcity + '|' + (x.get('q') or x['name'])) for x in reversed(d['stops']) if GEO.get(dcity + '|' + (x.get('q') or x['name']))), None)
         carry = (lastg['lat'], lastg['lng']) if lastg else carry
+        if d.get('stay'):   # 第二天从住的地方出发：住处查得到就用住处
+            sg = GEO.get(d['stay'] + '|' + d['stay']) if 'GEO' in globals() else None
+            if sg and carry and km((sg['lat'], sg['lng']), carry) <= 400: carry = (sg['lat'], sg['lng'])  # stay_carry：只认核对过的城市中心
         days.append({'title': d['title'], 'text': d['text'], 'lat': round(lat, 2), 'lng': round(lng, 2), 'elev': d.get('elev', dest['base']['elev']),
                      'clim': {m: dest['climate'][str(m)] for m in (9, 10, 11)}, 'city': dcity, 'navCity': dcity, 'rows': rows, 'stay': [],
                      'driveMin': drive, 'stayName': '' if last else d.get('stay', dcity), 'stayNote': '', 'story': d.get('story'), 'manners': [], 'notes': []})

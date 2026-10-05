@@ -517,7 +517,7 @@ def trip_page(rid):
 
 def dest_page(d):
     did = d['id']; cl = d.get('climate') or {}; best = set(d['months']['best'])
-    months = ''.join(f'<li class="{"on" if m in best else ""}"><b>{m} 月</b><small>{cl.get(str(m), ["", ""])[0]}° / {cl.get(str(m), ["", ""])[1]}°</small></li>' for m in range(1, 13))
+    months = ''.join(f'<li class="{"on" if m in best else ""}{" now" if m == TODAY.month else ""}"><b>{m} 月{"·本月" if m == TODAY.month else ""}</b><small>{cl.get(str(m), ["", ""])[0]}° / {cl.get(str(m), ["", ""])[1]}°</small></li>' for m in range(1, 13))
     trips = ''.join(f'<li><a href="/trip/{rid}/"><b>{E(ROUTES[rid].get("label"))} ›</b><span>{E(ROUTES[rid]["title"])}</span><small>{E(ROUTES[rid].get("price"))}</small></a></li>' for rid in DEST_ROUTES.get(did, []))
     other = [t for t in TRIPS if t['dest'] == did and not any(TRIP_OF_ROUTE.get(r) is t for r in DEST_ROUTES.get(did, []))]
     trips += ''.join(f'<li><span><b>{E(t["title"])}</b> · {"暂不排" if t["status"] == "blocked" else "整理中"}</span></li>' for t in other)
@@ -590,7 +590,7 @@ def where_page():
             f'<div class="row"><span>出发</span><select class="org" aria-label="从哪出发"><option value="">不限</option>{"".join(f"<option value={o}>{o}</option>" for o in ORIGINS)}</select><button type="button" data-f="near" hidden>500 公里内</button></div>'
             f'<div class="row"><span>天数</span><button type="button" data-f="d1">2–3 天</button><button type="button" data-f="d2">4–5 天</button><button type="button" data-f="d3">6 天以上</button></div>'
             f'<div class="row"><span>预算</span><select class="bud" aria-label="每人预算"><option value="">不限</option><option value="2000">2,000 以内</option><option value="5000">5,000 以内</option><option value="10000">1 万以内</option></select></div>'
-            f'<div class="row"><span>其他</span><button type="button" data-f="fit" class="on">只看合适的</button><button type="button" data-f="low">避开高原</button><button type="button" data-f="niche">有小众</button></div></div>'
+            f'<div class="row"><span>其他</span><button type="button" data-f="fit" class="on">只看合适的</button><button type="button" data-f="low">避开高原</button><button type="button" data-f="niche">有小众</button></div><button type="button" class="clr" hidden>清空筛选</button></div>'
             f'<span class="cnt" aria-live="polite"></span></div>{"".join(scopes)}</article>')
     write('/where/', page('/where/', '去哪儿：国内 34 个省级行政区和亚洲 22 国，按月份挑目的地 | 走你', '每个目的地按月份标出正好去、也行、不建议，附每月平均气温、看什么吃什么和排好的行程。', body, [], None, [('首页', '/'), ('去哪儿', '/where/')]))
 
