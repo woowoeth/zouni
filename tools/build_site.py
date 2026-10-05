@@ -404,6 +404,46 @@ def hotel_url(keyword, city, app='amap', base=None):
     return 'https://uri.amap.com/search?keyword=' + urllib.parse.quote(keyword) + '&city=' + urllib.parse.quote(city or '') + '&src=zouni&callnative=1'
 
 
+GENERIC_STAY = re.compile(r'(附近|市区|县城|老城|古城|市中心|城里|边上|一带|营地|客栈|民宿)$')
+
+
+def _km(a, b):
+    import math as _m
+    r = _m.pi / 180; dl = (b[1] - a[1]) * r; p1, p2 = a[0] * r, b[0] * r
+    return 2 * 6371 * _m.asin(_m.sqrt(_m.sin((p2 - p1) / 2) ** 2 + _m.cos(p1) * _m.cos(p2) * _m.sin(dl / 2) ** 2))
+
+
+def stay_fix(r):
+    """每天晚上实际住哪：返回 [(住处名, 回住处的交通说明或 None)]
+    只改一种明确的错：当天已经到了下一个地方（离前一天最后一站 60 公里以上、第二天也从这附近出发），住处却还写着前一天那家；
+    回住处的车程只在 30–120 公里之间、两头坐标都可信时才写"""
+    out = []; n_ = len(r['days'])
+    def pts(d):
+        c = d.get('navCity') or d.get('city')
+        return [coord(w['poi'], c) for w in d['rows'] if w['type'] in ('see', 'fun', 'eat') and w.get('poi') and coord(w['poi'], c)]
+    P = [pts(d) for d in r['days']]
+    prev_nm = None
+    for i, d in enumerate(r['days']):
+        nm = d['stay'][0]['name'] if d.get('stay') else d.get('stayName')
+        if i == n_ - 1 or not nm or d.get('stay'): out.append((nm, None)); prev_nm = nm; continue
+        city = d.get('navCity') or d.get('city'); last = P[i][-1] if P[i] else None
+        plast = P[i - 1][-1] if i > 0 and P[i - 1] else None; nf = P[i + 1][0] if P[i + 1] else None
+        if prev_nm and nm == prev_nm and last and plast and _km(last, plast) > 60 and (nf is None or _km(last, nf) < 60):
+            pcity = r['days'][i - 1].get('navCity') or r['days'][i - 1].get('city')
+            if city and city != pcity: nm = city + '附近'
+        how = None
+        cc = GEO.get((city or '') + '|' + (city or '')); ccp = (cc['lat'], cc['lng']) if cc else None
+        core = GENERIC_STAY.sub('', nm or '').strip()
+        sp = coord(core, city) or coord(nm, city) or (ccp if core in ('', city) else None)
+        if sp and ccp and _km(sp, ccp) > 80: sp = None
+        if last and sp and 30 < _km(last, sp) <= 120:
+            mins = int(_km(last, sp) * 1.3)
+            how = ('包车约 ' + (f'{mins // 60} 小时' + (f' {mins % 60} 分' if mins % 60 >= 10 else '') if mins >= 60 else f'{mins} 分钟') + f' · {round(_km(last, sp) * 1.3)} 公里')
+        if nm in ('古城', '老城', '市区', '市中心', '县城', '城里', '新城') and city: nm = city + nm
+        out.append((nm, how)); prev_nm = d['stay'][0]['name'] if d.get('stay') else d.get('stayName')
+    return out
+
+
 def trip_page(rid):
     r = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}; d0 = DEST.get(t.get('dest'), {})
     sd = start_date(r); dates = [sd + datetime.timedelta(days=i) for i in range(len(r['days']))]
@@ -431,10 +471,14 @@ def trip_page(rid):
     hm_ = hand_map(r)
     daynav = '<nav class="daynav" aria-label="跳到第几天">' + ''.join(f'<a href="#d{i + 1}">{i + 1}</a>' for i in range(n)) + '</nav>'
     days = []; sights = []; navprev = None
+    STAYFIX = stay_fix(r)
     for i, d in enumerate(r['days']):
         city = d.get('navCity') or d.get('city'); rows = list(d['rows'])
         if i < n - 1 and (d.get('stayName') or d.get('stay')):
-            nm = d['stay'][0]['name'] if d.get('stay') else d.get('stayName')
+            nm = STAYFIX[i][0] if not d.get('stay') else d['stay'][0]['name']
+            if STAYFIX[i][1]:   # 一日游跑远了：回住处那段写清楚车程
+                for w_ in reversed(rows):
+                    if w_['type'] == 'dep' and w_.get('to') == '住处': w_['how'] = STAYFIX[i][1]; break
             rows.append({'t': '晚上', 'type': 'stay', 'name': nm, 'd': d['stay'][0].get('sell', '') if d.get('stay') else d.get('stayNote', ''), 'poi': nm, 'dp': d['stay'][0].get('dp') if d.get('stay') else None})
         first = firstdep(d)
         facts = [('出发', first or '—')]
@@ -453,13 +497,13 @@ def trip_page(rid):
                      + (f'<button type="button" class="tog">看另外两档</button>' if len(d['stay']) > 1 else '')
                      + f'<div class="bk"><a class="btn" rel="nofollow noopener" target="_blank" href="{E(hotel_url(d["stay"][0]["name"], city, app, d0.get("base", {}).get("name")))}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpu)}" aria-label="在大众点评看这家酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
         if not stays and not d.get('stay') and i < n - 1 and (d.get('stayName') or d.get('stayNote')) and not (i > 0 and r['days'][i - 1].get('stayName') == d.get('stayName') and r['days'][i - 1].get('city') == d.get('city')):
-            area = d.get('stayName') or city; run = 1
+            area = STAYFIX[i][0] or d.get('stayName') or city; run = 1
             while i + run < n - 1 and r['days'][i + run].get('stayName') == d.get('stayName'): run += 1
             BIG = {'北京', '上海', '广州', '深圳', '杭州', '成都', '西安', '南京', '苏州', '重庆', '武汉', '长沙', '厦门', '三亚', '香港', '澳门', '青岛', '大连', '天津', '东京', '首尔', '新加坡', '迪拜', '伊斯坦布尔', '大阪', '京都'}
             hi = (d.get('elev') or 0) >= 2500
             vil = bool(re.search(r'(村|寨|镇|营地|客栈)$', area or ''))
             pr = (('¥600 起', '¥300–500', '¥120–250') if hi else ('¥1,500 起', '¥600–1,000', '¥250–400') if city in BIG else ('¥900 起', '¥400–700', '¥150–300'))
-            kw_ = re.sub(r'(附近|一带|边上|里|市区)$', '', area) if area != city else city
+            kw_ = re.sub(r'(附近|一带|边上|边|里|市区)$', '', area) if area != city else city
             q_ = lambda w_: hotel_url(kw_, city, app, d0.get('base', {}).get('name'))
             tiers = [('奢华', '五星或高端度假酒店' if not hi else '当地最好的酒店', pr[0], q_('')), ('高级', '四星或品牌连锁', pr[1], q_('')), ('中低', '经济连锁或干净的客栈', pr[2], q_(''))]
             if vil: tiers = [('奢华', '当地最好的精品民宿', '¥500 起', q_('')), ('高级', '评分高的客栈', '¥200–400', q_('')), ('中低', '干净的农家乐或青旅', '¥80–200', q_(''))]
