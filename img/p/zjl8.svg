@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
+<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4e6d8"/><stop offset="1" stop-color="#e8c9b6"/></linearGradient><linearGradient id="wt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8f9a7a"/><stop offset="1" stop-color="#2d3027"/></linearGradient><filter id="gr"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="34"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .07 0"/><feComposite in2="SourceGraphic" operator="in"/></filter></defs>
+<rect width="600" height="800" fill="url(#sk)"/>
+<circle cx="376" cy="169" r="55" fill="#fbefe2" opacity=".9"/>
+<ellipse cx="458" cy="228" rx="101" ry="16" fill="#fff" opacity=".35"/><ellipse cx="488" cy="220" rx="51" ry="14" fill="#fff" opacity=".3"/>
+<ellipse cx="446" cy="218" rx="142" ry="23" fill="#fff" opacity=".35"/><ellipse cx="488" cy="210" rx="71" ry="20" fill="#fff" opacity=".3"/>
+<ellipse cx="138" cy="194" rx="155" ry="25" fill="#fff" opacity=".35"/><ellipse cx="185" cy="186" rx="77" ry="22" fill="#fff" opacity=".3"/>
+<ellipse cx="504" cy="299" rx="103" ry="16" fill="#fff" opacity=".35"/><ellipse cx="534" cy="291" rx="51" ry="14" fill="#fff" opacity=".3"/>
+<path d="M112,188 q6,-6 12,0 q6,-6 12,0" fill="none" stroke="#2d3027" stroke-width="2" opacity=".55"/>
+<path d="M89,295 q7,-7 13,0 q7,-7 13,0" fill="none" stroke="#2d3027" stroke-width="2" opacity=".55"/>
+<path d="M71,174 q7,-7 13,0 q7,-7 13,0" fill="none" stroke="#2d3027" stroke-width="2" opacity=".55"/>
+<path d="M141,202 q5,-5 9,0 q5,-5 9,0" fill="none" stroke="#2d3027" stroke-width="2" opacity=".55"/>
+<path d="M-20,800 L-20,351 L20,365 L60,360 L100,359 L140,367 L180,357 L220,348 L260,336 L300,322 L340,327 L380,326 L420,337 L460,333 L500,338 L540,353 L580,360 L620,370 L640,800 Z" fill="#c9b3a8" opacity=".55"/>
+<path d="M-20,800 L-20,427 L10,431 L40,436 L70,426 L100,438 L130,427 L160,420 L190,409 L220,409 L250,414 L280,416 L310,424 L340,415 L370,410 L400,402 L430,405 L460,407 L490,408 L520,400 L550,410 L580,407 L610,400 L640,800 Z" fill="#8f9a7a"/>
+<rect x="0" y="520" width="600" height="280" fill="url(#wt)"/>
+<rect x="318" y="538" width="62" height="2" fill="#fbefe2" opacity=".55"/>
+<rect x="382" y="552" width="31" height="2" fill="#fbefe2" opacity=".55"/>
+<rect x="384" y="566" width="29" height="2" fill="#fbefe2" opacity=".55"/>
+<rect x="353" y="580" width="52" height="2" fill="#fbefe2" opacity=".55"/>
+<rect x="339" y="594" width="27" height="2" fill="#fbefe2" opacity=".55"/>
+<rect x="352" y="608" width="62" height="2" fill="#fbefe2" opacity=".55"/>
+<rect x="377" y="622" width="24" height="2" fill="#fbefe2" opacity=".55"/>
+<rect x="373" y="636" width="45" height="2" fill="#fbefe2" opacity=".55"/>
+<rect x="392" y="650" width="23" height="2" fill="#fbefe2" opacity=".55"/>
+<rect x="333" y="664" width="34" height="2" fill="#fbefe2" opacity=".55"/>
+<rect x="368" y="678" width="29" height="2" fill="#fbefe2" opacity=".55"/>
+<rect x="356" y="692" width="20" height="2" fill="#fbefe2" opacity=".55"/>
+<rect x="367" y="706" width="25" height="2" fill="#fbefe2" opacity=".55"/>
+<rect x="367" y="720" width="20" height="2" fill="#fbefe2" opacity=".55"/>
+<path d="M98.56690543482486,520 q60,-70 150,-20 q30,10 50,20 z" fill="#4f6233"/>
+<path d="M439.61658539637125,590 h44 l-8,10 h-30 z M459.61658539637125,590 v-40 l18,34 z" fill="#2d3027"/>
+<path d="M-20,800 L-20,607 Q300.0,585 620,613 L620,800 Z" fill="#2d3027"/>
+<rect x="382" y="640" width="196" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="360" y="664" width="94" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="362" y="688" width="173" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="344" y="712" width="98" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="89" y="736" width="185" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="291" y="760" width="198" height="1.5" fill="#fff" opacity=".05"/>
+<rect width="600" height="800" filter="url(#gr)" opacity=".9"/></svg>
