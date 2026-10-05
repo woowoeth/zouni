@@ -32,7 +32,7 @@ MUS = CULT['museums']
 
 def museum_of(text):
     t = text or ''
-    return next((x for x in sorted(MUS, key=lambda x: -len(x['name'])) if x['name'] in t or x['name'].replace('博物馆', '博') in t or (len(x['name']) > 4 and t and t in x['name'] and len(t) >= 4)), None)
+    return next((x for x in sorted(MUS, key=lambda x: -len(x['name'])) if x['name'] in t or x['name'].replace('博物馆', '博') in t or (len(x['name']) > 4 and t and t in x['name'] and len(t) >= 4) or any(a and a in t for a in x.get('alias', []))), None)
 
 
 STATUS = {'open': '可以去', 'restricted': '有条件', 'paused': '暂停开放', 'check': '出发前查'}
@@ -642,8 +642,11 @@ def home_page():
         return b
     def days_left(t):
         b = window(t)
-        if not b or not (b[0] <= md0 <= b[1]): return None
-        end = datetime.date(TODAY.year, int(b[1][:2]), int(b[1][3:]))
+        if not b: return None
+        wrap = b[0] > b[1]
+        inside = (md0 >= b[0] or md0 <= b[1]) if wrap else (b[0] <= md0 <= b[1])
+        if not inside: return None
+        end = datetime.date(TODAY.year + (1 if wrap and md0 >= b[0] else 0), int(b[1][:2]), int(b[1][3:]))
         return (end - TODAY).days
     inseason = [rid for rid in ROUTE_IDS if TRIP_OF_ROUTE.get(rid) and days_left(TRIP_OF_ROUTE[rid]) is not None]
     anytime = [rid for rid in ROUTE_IDS if TRIP_OF_ROUTE.get(rid) and TRIP_OF_ROUTE[rid].get('anytime')]
@@ -677,6 +680,7 @@ def home_page():
              f'<button type="button" data-b="d1">周末 2–3 天 · {counts["d1"]}</button><button type="button" data-b="d2">4–5 天 · {counts["d2"]}</button><button type="button" data-b="d3">一周以上 · {counts["d3"]}</button></div>')
     nxt = (m % 12) + 1
     nextm = [rid for rid in ROUTE_IDS if TRIP_OF_ROUTE.get(rid) and window(TRIP_OF_ROUTE[rid]) and int(window(TRIP_OF_ROUTE[rid])[0][:2]) == nxt and rid not in inseason]
+    nextm.sort(key=lambda x: (0 if ROUTES[x].get('img') else 1, 0 if not ROUTES[x].get('compiled') else 1))
     nitems = ''.join(item(i + 1, rid, f'{nxt} 月开始') for i, rid in enumerate(nextm[:5]))
     c0 = clim(dc); dl0 = days_left(tc)
     body = (f'<article class="home"><div class="cover">{f"<img src=/img/{cimg}.svg alt=>" if cimg else ""}'
