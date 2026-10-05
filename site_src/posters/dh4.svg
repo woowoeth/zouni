@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
+<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f5dcb4"/><stop offset="1" stop-color="#e3a46e"/></linearGradient><linearGradient id="wt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a8735c"/><stop offset="1" stop-color="#2a1f1a"/></linearGradient><filter id="gr"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="53"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .07 0"/><feComposite in2="SourceGraphic" operator="in"/></filter></defs>
+<rect width="600" height="800" fill="url(#sk)"/>
+<circle cx="432" cy="201" r="52" fill="#fbe9c8" opacity=".9"/>
+<ellipse cx="281" cy="173" rx="99" ry="16" fill="#fff" opacity=".35"/><ellipse cx="311" cy="165" rx="50" ry="14" fill="#fff" opacity=".3"/>
+<ellipse cx="519" cy="176" rx="102" ry="16" fill="#fff" opacity=".35"/><ellipse cx="550" cy="168" rx="51" ry="14" fill="#fff" opacity=".3"/>
+<path d="M484,317 q5,-5 11,0 q5,-5 11,0" fill="none" stroke="#2a1f1a" stroke-width="2" opacity=".55"/>
+<path d="M380,223 q4,-4 9,0 q4,-4 9,0" fill="none" stroke="#2a1f1a" stroke-width="2" opacity=".55"/>
+<path d="M301,187 q5,-5 11,0 q5,-5 11,0" fill="none" stroke="#2a1f1a" stroke-width="2" opacity=".55"/>
+<path d="M-20,800 L-20,364 L20,370 L60,383 L100,395 L140,381 L180,390 L220,381 L260,372 L300,360 L340,352 L380,344 L420,338 L460,337 L500,350 L540,356 L580,357 L620,342 L640,800 Z" fill="#c98d6e" opacity=".55"/>
+<path d="M-20,800 L-20,452 L10,464 L40,464 L70,462 L100,467 L130,467 L160,470 L190,468 L220,471 L250,471 L280,471 L310,471 L340,471 L370,461 L400,468 L430,471 L460,471 L490,471 L520,468 L550,471 L580,471 L610,469 L640,800 Z" fill="#a8735c"/>
+<path d="M-20,800 L-20,430 0,440 20,450 40,460 60,469 80,477 100,484 120,490 140,495 160,498 180,500 200,500 220,498 240,495 260,490 280,483 300,476 320,467 340,458 360,448 380,438 400,429 420,419 440,410 460,402 480,395 500,389 520,384 540,381 560,380 580,380 600,382 620,386 L640,800 Z" fill="#c98d6e"/>
+<path d="M-20,800 L-20,536 0,540 20,544 40,547 60,548 80,548 100,546 120,544 140,540 160,535 180,529 200,522 220,515 240,507 260,499 280,491 300,483 320,476 340,469 360,464 380,459 400,455 420,453 440,452 460,452 480,454 500,457 520,461 540,466 560,472 580,479 600,487 620,494 L640,800 Z" fill="#c9955e"/>
+<path d="M-20,800 L-20,595 0,593 20,590 40,586 60,582 80,576 100,571 120,565 140,559 160,553 180,547 200,542 220,537 240,533 260,529 280,527 300,525 320,524 340,524 360,525 380,528 400,531 420,535 440,539 460,544 480,550 500,556 520,562 540,568 560,573 580,579 600,584 620,588 L640,800 Z" fill="#a8733f"/>
+<path d="M180,600 C220,560 380,560 420,600 C380,580 230,585 180,600 Z" fill="#5f8a8a"/><path d="M360,560 h50 l-6,-14 h-38 z M366,560 v20 M404,560 v20" fill="#2a1f1a" stroke="#2a1f1a" stroke-width="3"/>
+<path d="M-20,800 L-20,593 Q300.0,592 620,614 L620,800 Z" fill="#2a1f1a"/>
+<rect x="326" y="640" width="91" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="163" y="664" width="80" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="291" y="688" width="194" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="378" y="712" width="76" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="215" y="736" width="182" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="68" y="760" width="108" height="1.5" fill="#fff" opacity=".05"/>
+<rect width="600" height="800" filter="url(#gr)" opacity=".9"/></svg>

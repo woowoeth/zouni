@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" width="600" height="800">
+<defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3c9b3"/><stop offset="1" stop-color="#a77a8f"/></linearGradient><linearGradient id="wt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a4a62"/><stop offset="1" stop-color="#1d1a24"/></linearGradient><filter id="gr"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="92"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .07 0"/><feComposite in2="SourceGraphic" operator="in"/></filter></defs>
+<rect width="600" height="800" fill="url(#sk)"/>
+<circle cx="125" cy="194" r="49" fill="#fde3c4" opacity=".9"/>
+<ellipse cx="146" cy="265" rx="150" ry="24" fill="#fff" opacity=".35"/><ellipse cx="191" cy="257" rx="75" ry="21" fill="#fff" opacity=".3"/>
+<ellipse cx="23" cy="106" rx="132" ry="21" fill="#fff" opacity=".35"/><ellipse cx="62" cy="98" rx="66" ry="18" fill="#fff" opacity=".3"/>
+<ellipse cx="455" cy="169" rx="154" ry="25" fill="#fff" opacity=".35"/><ellipse cx="501" cy="161" rx="77" ry="22" fill="#fff" opacity=".3"/>
+<path d="M94,239 q7,-7 14,0 q7,-7 14,0" fill="none" stroke="#1d1a24" stroke-width="2" opacity=".55"/>
+<path d="M424,145 q5,-5 10,0 q5,-5 10,0" fill="none" stroke="#1d1a24" stroke-width="2" opacity=".55"/>
+<path d="M-20,800 L-20,347 L20,350 L60,345 L100,346 L140,336 L180,335 L220,322 L260,308 L300,320 L340,310 L380,323 L420,334 L460,343 L500,344 L540,337 L580,324 L620,339 L640,800 Z" fill="#8a6a7f" opacity=".55"/>
+<path d="M-20,800 L-20,435 L10,438 L40,435 L70,444 L100,443 L130,449 L160,456 L190,466 L220,462 L250,467 L280,458 L310,446 L340,455 L370,447 L400,449 L430,459 L460,459 L490,469 L520,464 L550,463 L580,465 L610,471 L640,800 Z" fill="#5a4a62"/>
+<rect x="0" y="520" width="600" height="280" fill="url(#wt)"/><path d="M-20,610 Q300,560 620,620 L620,800 L-20,800 Z" fill="#e8d7b0"/>
+<path d="M97.57365724199344,600 q20,-120 10,-220" fill="none" stroke="#5a4030" stroke-width="10" stroke-linecap="round"/>
+<path d="M108,380 Q142,356 177,396" fill="none" stroke="#2f5a3a" stroke-width="12" stroke-linecap="round"/>
+<path d="M108,380 Q124,356 140,434" fill="none" stroke="#2f5a3a" stroke-width="12" stroke-linecap="round"/>
+<path d="M108,380 Q91,356 75,434" fill="none" stroke="#2f5a3a" stroke-width="12" stroke-linecap="round"/>
+<path d="M108,380 Q73,356 38,399" fill="none" stroke="#2f5a3a" stroke-width="12" stroke-linecap="round"/>
+<path d="M108,380 Q93,341 78,365" fill="none" stroke="#2f5a3a" stroke-width="12" stroke-linecap="round"/>
+<path d="M108,380 Q129,346 150,370" fill="none" stroke="#2f5a3a" stroke-width="12" stroke-linecap="round"/>
+<path d="M459.06730579501294,600 q-20,-120 -10,-220" fill="none" stroke="#5a4030" stroke-width="10" stroke-linecap="round"/>
+<path d="M449,380 Q484,356 519,401" fill="none" stroke="#2f5a3a" stroke-width="12" stroke-linecap="round"/>
+<path d="M449,380 Q466,356 483,434" fill="none" stroke="#2f5a3a" stroke-width="12" stroke-linecap="round"/>
+<path d="M449,380 Q432,356 416,434" fill="none" stroke="#2f5a3a" stroke-width="12" stroke-linecap="round"/>
+<path d="M449,380 Q414,356 379,396" fill="none" stroke="#2f5a3a" stroke-width="12" stroke-linecap="round"/>
+<path d="M449,380 Q436,340 424,364" fill="none" stroke="#2f5a3a" stroke-width="12" stroke-linecap="round"/>
+<path d="M449,380 Q464,341 479,365" fill="none" stroke="#2f5a3a" stroke-width="12" stroke-linecap="round"/>
+<path d="M-20,800 L-20,593 Q300.0,577 620,616 L620,800 Z" fill="#1d1a24"/>
+<rect x="287" y="640" width="78" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="382" y="664" width="150" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="280" y="688" width="156" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="347" y="712" width="85" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="31" y="736" width="182" height="1.5" fill="#fff" opacity=".05"/>
+<rect x="354" y="760" width="71" height="1.5" fill="#fff" opacity=".05"/>
+<rect width="600" height="800" filter="url(#gr)" opacity=".9"/></svg>
