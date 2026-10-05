@@ -30,6 +30,8 @@
         if(st.d==='d3'&&!days.some(function(d){return d>=6}))ok=false;
         if(st.low&&c.dataset.high==='1')ok=false;
         if(st.q&&c.dataset.q.toLowerCase().indexOf(st.q)<0)ok=false;
+        if(st.niche&&c.dataset.niche==='0')ok=false;
+        var hp=c.querySelector('.hit');if(hp){var why=st.q?c.dataset.hits.split('|').filter(function(h){return h.toLowerCase().indexOf(st.q)>=0}).slice(0,3):[];hp.hidden=!why.length;hp.textContent=why.length?'有 '+why.join('、'):''}
         if(st.near&&!(c.dataset.km!==''&&+c.dataset.km<=500))ok=false;
         c.hidden=!ok;if(ok)n++});
       document.querySelectorAll('.reg').forEach(function(r){r.hidden=!r.querySelector('.card:not([hidden])')});
@@ -51,7 +53,7 @@
     try{var o0=localStorage.getItem('zouni_org');if(o0&&ORG[o0]){sel.value=o0;origin(o0)}}catch(e){}
     inp.addEventListener('input',function(){st.q=inp.value.trim().toLowerCase();apply()});
     flt.querySelectorAll('.chips button:not([data-f="near"])').forEach(function(b){b.addEventListener('click',function(){var f=b.dataset.f;
-      if(f==='fit'){st.fit=!st.fit;b.classList.toggle('on',st.fit)}else if(f==='low'){st.low=!st.low;b.classList.toggle('on',st.low)}
+      if(f==='fit'){st.fit=!st.fit;b.classList.toggle('on',st.fit)}else if(f==='low'){st.low=!st.low;b.classList.toggle('on',st.low)}else if(f==='niche'){st.niche=!st.niche;b.classList.toggle('on',st.niche)}
       else{st.d=st.d===f?'':f;flt.querySelectorAll('[data-f^="d"]').forEach(function(x){x.classList.toggle('on',x.dataset.f===st.d)})}apply()})});
     if(mon)mon.addEventListener('click',function(){setTimeout(apply,0)});
     apply()}
@@ -60,7 +62,7 @@
   function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
   function toast(t){var d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(function(){d.remove()},1600)}
   var art=document.querySelector('article.trip');
-  if(art){var me={id:art.dataset.id,label:art.dataset.label,title:art.dataset.title},seen=ld('zouni_seen').filter(function(x){return x.id!==me.id});seen.unshift(me);sv('zouni_seen',seen.slice(0,8));
+  if(art){var pk='zouni_prep_'+art.dataset.id,done=ld(pk);document.querySelectorAll('.pre input[type=checkbox]').forEach(function(x){x.checked=done.indexOf(+x.dataset.k)>=0;x.addEventListener('change',function(){var d=ld(pk).filter(function(k){return k!==+x.dataset.k});if(x.checked)d.push(+x.dataset.k);sv(pk,d)})});var me={id:art.dataset.id,label:art.dataset.label,title:art.dataset.title},seen=ld('zouni_seen').filter(function(x){return x.id!==me.id});seen.unshift(me);sv('zouni_seen',seen.slice(0,8));
     var fb=document.querySelector('.fav');function paint(){var on=ld('zouni_fav').some(function(x){return x.id===me.id});fb.classList.toggle('on',on);fb.textContent=on?'已收藏':'收藏'}paint();
     fb.addEventListener('click',function(){var f=ld('zouni_fav'),on=f.some(function(x){return x.id===me.id});f=on?f.filter(function(x){return x.id!==me.id}):[me].concat(f);sv('zouni_fav',f);paint();toast(on?'已取消收藏':'已收藏，首页能找到')});
     document.querySelector('.share').addEventListener('click',function(){var u=location.href.split('#')[0];if(navigator.share){navigator.share({title:document.title,url:u}).catch(function(){})}else{try{navigator.clipboard.writeText(u);toast('链接已复制')}catch(e){prompt('复制这个链接',u)}}});
