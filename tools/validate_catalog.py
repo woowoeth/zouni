@@ -49,3 +49,13 @@ for t in T:
 print('错误', len(E)); [print('  ✗', e) for e in E]
 print('提醒', len(W)); [print('  ·', w) for w in W]
 sys.exit(1 if E else 0)
+
+
+# 编号撞车：目录里线路的标题和同编号行程的标题对不上（新行程误用了旧编号，会把旧行程覆盖掉）
+try:
+    _IT = json.load(open('data/itineraries.json'))['itineraries']
+    _T = json.load(open('data/catalog/trips.json'))['trips']
+    _bad = [f"{t['id']}: 目录“{t['title']}” / 行程“{_IT[t['id']]['label']}”" for t in _T if t['id'] in _IT and t['title'] != _IT[t['id']]['label']]
+    if _bad: print('编号撞车', len(_bad)); [print('  · ' + b) for b in _bad]
+    else: print('编号撞车 0')
+except Exception as _e: print('编号检查没跑成', _e)

@@ -4970,7 +4970,7 @@
   },
   {
    "id": "pzh2",
-   "dest": "sichuan",
+   "dest": "yunnan",
    "name": "普者黑",
    "region": "西南",
    "days": 2,
@@ -9977,6 +9977,39 @@
    "anytime": false,
    "status": "ok",
    "page": "Route.dc.html#kz4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "pzf2",
+   "dest": "sichuan",
+   "name": "攀枝花",
+   "region": "西南",
+   "days": 2,
+   "title": "攀枝花 2 天",
+   "headline": "两天，攀枝花晒冬阳",
+   "dek": "看中国三线建设博物馆，傍晚在金沙江边走走。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "11-01",
+     "03-31"
+    ],
+    "best": [
+     "11-01",
+     "03-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#pzf2",
    "engineRoute": null,
    "poster": null
   }
