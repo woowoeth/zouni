@@ -57,7 +57,8 @@ PROMPT = '''你是“走你”旅行网站的行程编辑。为下面这个目�
 JSON 格式：{{"label":"X N 天","title":"N 天，……","prep":["…"],"days":[{{"title":"…","text":"…","stay":"住哪一片","stops":[{{"name":"…","q":"…","type":"sight","dur":120}}]}}]}}'''
 
 
-ENDPOINTS = [('https://models.github.ai/inference/chat/completions', ['openai/gpt-4.1-mini', 'openai/gpt-4o-mini', 'deepseek/DeepSeek-V3-0324']),
+DSK = os.environ.get('DEEPSEEK_API_KEY', '')
+ENDPOINTS = ([('https://api.deepseek.com/chat/completions', ['deepseek-chat'])] if DSK else []) + [('https://models.github.ai/inference/chat/completions', ['openai/gpt-4.1-mini', 'openai/gpt-4o-mini', 'deepseek/DeepSeek-V3-0324']),
              ('https://models.inference.ai.azure.com/chat/completions', ['gpt-4o-mini', 'DeepSeek-V3-0324'])]
 
 
@@ -65,7 +66,7 @@ def ask(prompt):
     for url, models in ENDPOINTS:
         for m in models:
             body = json.dumps({'model': m, 'messages': [{'role': 'user', 'content': prompt}], 'temperature': 0.3, 'max_tokens': 2200}).encode()
-            req = urllib.request.Request(url, data=body, method='POST', headers={'Authorization': 'Bearer ' + TOKEN, 'Content-Type': 'application/json',
+            req = urllib.request.Request(url, data=body, method='POST', headers={'Authorization': 'Bearer ' + (DSK if 'deepseek.com' in url else TOKEN), 'Content-Type': 'application/json',
                                          'Accept': 'application/json', 'User-Agent': 'zouni-autogrow/1.0', 'X-GitHub-Api-Version': '2022-11-28'})
             raw = b''
             try:
@@ -120,7 +121,7 @@ def validate(it, tg):
 
 
 def main():
-    if not TOKEN: print('没有 GITHUB_TOKEN，跳过'); return
+    if not TOKEN and not DSK: print('没有可用的模型令牌，跳过'); return
     added = []
     for tg in targets()[:N_MAX]:
         d0 = CAT[tg['dest']]; tg['city'] = tg.get('city') or d0['base']['name']
