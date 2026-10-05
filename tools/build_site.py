@@ -86,6 +86,8 @@ def sight_of(text):
 TZ = {'japan': 9, 'korea': 9, 'thailand': 7, 'vietnam': 7, 'cambodia': 7, 'laos': 7, 'malaysia': 8, 'singapore': 8, 'indonesia': 8, 'philippines': 8,
       'nepal': 5.75, 'bhutan': 6, 'india': 5.5, 'srilanka': 5.5, 'maldives': 5, 'uzbekistan': 5, 'kazakhstan': 5, 'turkey': 3, 'uae': 4, 'georgia': 4,
       'jordan': 3, 'mongolia': 8}
+import hashlib as _hl
+ASSET_V = _hl.md5((open('site_src/site.css', encoding='utf-8').read() + open('site_src/site.js', encoding='utf-8').read()).encode()).hexdigest()[:8]
 STATUS = {'open': '可以去', 'restricted': '有条件', 'paused': '暂停开放', 'check': '出发前查'}
 TRIP_OF_ROUTE = {}
 for t in TRIPS:
@@ -102,7 +104,7 @@ REGION_ORDER = ATLAS['regions']['domestic'] + ATLAS['regions']['asia']
 ORIGINS = ['北京', '上海', '广州', '深圳', '杭州', '南京', '成都', '重庆', '武汉', '西安', '香港']
 
 ICON_PIN = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.8-6.5-11a6.5 6.5 0 0 1 13 0c0 5.2-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>'
-ICON_DP = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 5h15v10.5H11l-4.5 3.5v-3.5h-2z"/><path d="M12 7.7l1 2 2.2.3-1.6 1.55.38 2.2-1.98-1.05-1.98 1.05.38-2.2-1.6-1.55 2.2-.3z"/></svg>'
+ICON_DP = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.8l2.45 5.02 5.5.8-3.98 3.88.94 5.48L12 16.4l-4.91 2.58.94-5.48L4.05 9.62l5.5-.8z"/></svg>'
 
 
 GEO = json.load(open('data/geo/pois.json')) if os.path.exists('data/geo/pois.json') else {}
@@ -150,10 +152,26 @@ def dpurl(kw, city=''):
     return 'https://www.dianping.com/ai-search?keyword=' + urllib.parse.quote((city + ' ' if city else '') + kw)
 
 
-def icons(kw, city, app, dp=None, nav=None):
+def amap_app(kw, city, nav_pts=None, mode='car'):
+    """高德 App 的调起地址（iOS、安卓）；坐标统一用高德坐标（dev=0）"""
+    t = {'car': 0, 'bus': 1, 'walk': 2}.get(mode, 0); nm = urllib.parse.quote(kw)
+    if nav_pts:
+        (a, b) = nav_pts; ga, gb = wgs2gcj(*a), wgs2gcj(*b)
+        q = f'sourceApplication=zouni&slat={ga[0]}&slon={ga[1]}&sname={urllib.parse.quote("上一站")}&dlat={gb[0]}&dlon={gb[1]}&dname={nm}&dev=0&t={t}'
+        return f'iosamap://path?{q}', f'amapuri://route/plan/?{q}'
+    ll = coord(kw, city)
+    if ll:
+        g = wgs2gcj(*ll); q = f'sourceApplication=zouni&poiname={nm}&lat={g[0]}&lon={g[1]}&dev=0'
+        return f'iosamap://viewMap?{q}', f'androidamap://viewMap?{q}'
+    q = f'sourceApplication=zouni&keywords={urllib.parse.quote(((city or "") + " " + kw).strip())}&dev=0'
+    return f'iosamap://poi?{q}', f'androidamap://poi?{q}'
+
+
+def icons(kw, city, app, dp=None, nav=None, navp=None):
     if not kw: return ''
     q = ((city + ' ') if city else '') + kw
-    return (f'<span class="icg"><a class="ic" href="{E(nav or mapurl(kw, city, app))}" rel="nofollow noopener" target="_blank" aria-label="{"导航去 " if nav else "地图上看 "}{E(kw)}">{ICON_PIN}</a>'
+    ios_, and_ = amap_app(kw, city, navp[:2] if navp else None, navp[2] if navp else 'car') if app != 'google' else ('', '')
+    return (f'<span class="icg"><a class="ic map" href="{E(nav or mapurl(kw, city, app))}"{(" data-ios=\"" + E(ios_) + "\" data-and=\"" + E(and_) + "\"") if ios_ else ""} rel="nofollow noopener" target="_blank" aria-label="{"导航去 " if nav else "地图上看 "}{E(kw)}">{ICON_PIN}</a>'
             f'<a class="ic dp" href="{E(dp or dpurl(kw, city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote(q))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上看 {E(kw)}">{ICON_DP}</a></span>')
 
 
@@ -254,7 +272,7 @@ def page(path, title, desc, body, jsonld=(), image=None, crumbs=()):
 <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/img/icon-192.png">
 <link rel="stylesheet" href="/assets/fonts/sans.css"><link rel="stylesheet" href="/assets/fonts/serif.css">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/site.css?v={ASSET_V}">
 {ld}
 </head>
 <body>
@@ -262,7 +280,7 @@ def page(path, title, desc, body, jsonld=(), image=None, crumbs=()):
 {body}
 </main>
 <footer class="foot"><p>走你：按季节挑地方，按天排好每一站。</p><p><a href="/">本期</a><a href="/where/">去哪儿</a><a href="/sitemap.xml">网站地图</a></p></footer>
-<script src="/assets/site.js" defer></script>
+<script src="/assets/site.js?v={ASSET_V}" defer></script>
 </body>
 </html>
 """
@@ -326,7 +344,7 @@ def row_html(w, city, app):
             note_ = re.sub(r'，?(要提前预约|要预约)', '', mu.get('note') or '').strip('，')
             sub = (sub + '</p><p class="s tre">' if sub else '') + '<b>镇馆之宝</b>' + E('、'.join(mu['treasures'])) + (('，' + E(note_)) if note_ else '')
         if bk_: sub = '<em class="bkn">要预约</em>' + sub
-    ic = icons(kw, city, app, w.get('dp'), w.get('nav')) if kw else ''
+    ic = icons(kw, city, app, w.get('dp'), w.get('nav'), w.get('navp')) if kw else ''
     if t == 'eat' and not kw:   # 没有具体地方的饭：只放点评，按“城市 + 菜名”找
         ic = f'<a class="ic dp" href="{E(dpurl(w.get("dish") or "", city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote((city or "") + " " + (w.get("dish") or "")))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上找 {E(w.get("dish"))}">{ICON_DP}</a>'
     return f'<li class="r {t}"><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">{main}{ic}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
@@ -436,7 +454,8 @@ def trip_page(rid):
                 b_ = coord(nxt['poi'], city) if nxt else None
                 u_ = navurl(lastpt, b_, w.get('how'), app, (nxt.get('name') or nxt.get('place') or nxt.get('dish') or '') if nxt else '') if nxt else None
                 if u_:
-                    j_ = rows.index(nxt); rows[j_] = dict(nxt, nav=u_)
+                    h_ = w.get('how') or ''; md_ = 'walk' if '步行' in h_ else 'bus' if ('地铁' in h_ or '公交' in h_) else 'car'
+                    j_ = rows.index(nxt); rows[j_] = dict(nxt, nav=u_, navp=(lastpt, b_, md_))
             elif w.get('poi'):
                 c_ = coord(w['poi'], city)
                 if c_: lastpt = c_
@@ -457,7 +476,7 @@ def trip_page(rid):
     body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-start="{dates[0].isoformat()}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
             f'<section class="pre"><h2>出发前</h2><ul>{prep or "<li class=fit>没有特别要提前办的</li>"}</ul></section>'
             f'<script type="application/json" id="cands">{json.dumps([{"rid": o, "label": ROUTES[o].get("label"), "i": k, "title": dd["title"]} for o in DEST_ROUTES.get(t.get("dest"), []) if o != rid for k, dd in enumerate(ROUTES[o]["days"])][:40], ensure_ascii=False).replace("</", "<\\/")}</script>'
-            f'<section class="overview"><h2>{n} 天，怎么排</h2><ol>{over}</ol>{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{"".join(days)}<div class="addday"><button type="button" class="add">＋ 加一天</button><small>想多玩一天：可以自由活动，也可以从附近线路挑一天接上</small></div><div class="acts"><button type="button" class="copy">复制整条行程，发到微信</button><button type="button" class="shot">生成分享图</button></div>{dest_link}{dock}</article>')
+            f'<section class="overview"><h2>{n} 天，怎么排</h2><ol>{over}</ol>{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{"".join(days)}<div class="addday"><button type="button" class="add">＋ 加一天</button></div>{dest_link}{dock}</article>')
     crumbs = [('首页', '/'), ('去哪儿', '/where/')] + ([(d0['name'], f'/d/{t["dest"]}/')] if d0 else []) + [(r.get('label') or r['title'], f'/trip/{rid}/')]
     img = '/img/' + (r.get('img') or '').replace('/_blob/', '') + '.svg' if r.get('img') else None
     write(f'/trip/{rid}/', page(f'/trip/{rid}/', f'{r.get("label") or r["title"]}行程：{r["title"]} | 走你', desc, body, [ld], img, crumbs))
@@ -467,7 +486,7 @@ def trip_page(rid):
 def dest_page(d):
     did = d['id']; cl = d.get('climate') or {}; best = set(d['months']['best'])
     months = ''.join(f'<li class="{"on" if m in best else ""}{" now" if m == TODAY.month else ""}"><b>{m} 月</b><small>{cl.get(str(m), ["", ""])[0]}° / {cl.get(str(m), ["", ""])[1]}°</small></li>' for m in range(1, 13))
-    trips = ''.join(f'<li><a href="/trip/{rid}/"><b>{E(ROUTES[rid].get("label"))} ›</b><span>{E(ROUTES[rid]["title"])}</span><small>{E(ROUTES[rid].get("price"))}</small></a></li>' for rid in DEST_ROUTES.get(did, []))
+    trips = ''.join(f'<li><a href="/trip/{rid}/"><b>{E(ROUTES[rid].get("label"))} ›</b><span>{E(day_line(ROUTES[rid]))}</span><small>{E(ROUTES[rid].get("price"))}</small></a></li>' for rid in DEST_ROUTES.get(did, []))
     other = [t for t in TRIPS if t['dest'] == did and not any(TRIP_OF_ROUTE.get(r) is t for r in DEST_ROUTES.get(did, []))]
     trips += ''.join(f'<li><span><b>{E(t["title"])}</b> · {"暂不排" if t["status"] == "blocked" else "整理中"}</span></li>' for t in other)
     city = d['base']['name']; app = 'google' if d['scope'] == 'asia' else 'amap'
@@ -547,6 +566,15 @@ def where_page():
 
 
 
+def day_line(rr):
+    """每天去哪：取每天标题的第一个地方，用箭头连起来（不重复天数和线路名）"""
+    ps = []
+    for d_ in rr['days']:
+        f_ = re.sub(r'^(去|到|回)', '', re.split(r'\s*(?:·|→|，|、)\s*', d_.get('title') or '')[0].strip())
+        if f_ and f_ not in ps and f_ not in ('回程', '回家'): ps.append(f_)
+    return ' → '.join(ps[:5]) + (' …' if len(ps) > 5 else '')
+
+
 def home_page():
     """首页：先回答“现在去哪儿正好、还剩几天、我有几天”，再给下个月和小众"""
     m = TODAY.month; md0 = TODAY.strftime('%m-%d')
@@ -587,7 +615,7 @@ def home_page():
         dl = days_left(tt)
         when = (f'<span class="left{" urgent" if dl is not None and dl <= 14 else ""}">{"最后 " + str(dl) + " 天" if dl is not None and dl <= 14 else "最好 " + wtxt(tt) + (" · 还剩 " + str(dl) + " 天" if dl is not None else "")}</span>' if window(tt) else '<span class="left">一年四季都能去</span>')
         band = 'd1' if n <= 3 else 'd2' if n <= 5 else 'd3'
-        return (f'<li data-band="{band}"{extra}{" hidden" if hide else ""}><span class="num">{i:02d}</span><div class="tx"><span class="k">{kicker}</span><h3>{(E(dd.get("name", "")) + " · ") if not (rr.get("label") or "").startswith(dd.get("name", "") or "@") else ""}{E(rr.get("label"))}</h3><p>{E(rr["title"])}</p>'
+        return (f'<li data-band="{band}"{extra}{" hidden" if hide else ""}><span class="num">{i:02d}</span><div class="tx"><span class="k">{kicker}</span><h3>{(E(dd.get("name", "")) + " · ") if not (rr.get("label") or "").startswith(dd.get("name", "") or "@") else ""}{E(re.sub(r"\s*\d+\s*天$", "", rr.get("label") or ""))}</h3><p>{E(day_line(rr))}</p>'
                 f'<small>{n} 天 · 人均 {E(rr.get("price"))}</small>{when}<span class="c">{m} 月白天 {c[0]}℃，夜里 {c[1]}℃</span><a class="open" href="/trip/{rid}/">翻开 ›</a></div>{tile}</li>')
     rest = [x for x in inseason if x != cover]
     urgent = sorted([x for x in rest if days_left(TRIP_OF_ROUTE[x]) <= 14], key=lambda x: (0 if ROUTES[x].get('img') else 1, days_left(TRIP_OF_ROUTE[x])))[:3]
@@ -607,12 +635,11 @@ def home_page():
     aitems = ''.join(item(i + 1, rid, '随时') for i, rid in enumerate(anyt[:6]))
     c0 = clim(dc); dl0 = days_left(tc)
     body = (f'<article class="home"><div class="cover">{f"<img src=/img/{cimg}.svg alt=>" if cimg else ""}'
-            f'<div class="mast"><div><h1>走你</h1><small>{TODAY.year} · {mname}</small></div><a href="#mine"><span>我的行程</span></a></div>'
+            f'<div class="mast"><div><h1>走你</h1><small>{TODAY.year} · {mname}</small></div><button type="button" class="minebtn"><span>我的行程</span></button></div>'
             f'<div class="datebar"><button type="button" class="hdt" aria-label="改出发日期"><b>{TODAY.month}/{TODAY.day} 周{"一二三四五六日"[TODAY.weekday()]} 出发</b><i>改</i></button><input type="hidden" class="hdpk" data-min="{TODAY.isoformat()}" value="{TODAY.isoformat()}"></div>'
             f'<div class="cv"><span class="kick">封面故事 · 正当季{(" · 还剩 " + str(dl0) + " 天") if dl0 is not None else ""}</span><h2>{E(r["title"])}</h2><div class="chips"><span>{len(r["days"])} 天 · 人均 {E(r.get("price"))}</span><span>{m} 月 {c0[0]}°C / {c0[1]}°C</span></div><a class="go" href="/trip/{cover}/">翻开 →</a></div></div>'
             f'<form class="hsearch" action="/where/" method="get" role="search"><input type="search" name="q" placeholder="搜地名或景点，比如 婺源、兵马俑" aria-label="搜地名或景点"><button type="submit">搜</button></form>'
-            f'<section class="mine" id="mine" hidden><h2>我的行程</h2><ul class="list" data-k="fav"></ul></section>'
-            f'<section class="mine" hidden><h2>最近看过</h2><ul class="list" data-k="seen"></ul></section>'
+
             f'<section class="toc now" id="now"><h2><span class="nt">现在去正好</span><small class="ns">{len(order) + 1} 条，快过季的先看</small></h2>{chips}<ol class="items">{toc}</ol>'
             f'{("<button type=button class=moreb>再看 " + str(max(0, len(order) - 8)) + " 条</button>") if len(order) > 8 else ""}</section>'
             f'<a class="allbar" href="/where/"><span>全部目的地 · 按月份挑</span><span>›</span></a>'

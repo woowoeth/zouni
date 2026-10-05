@@ -280,7 +280,7 @@ a,button{-webkit-tap-highlight-color:transparent}
 @media (min-width:600px){.hz-b svg{width:min(1100px,95vw)}}
 .mine .list small{display:block;font-size:12px;color:var(--red);font-weight:700}
 .addday{padding:32px 20px 0;display:flex;flex-direction:column;gap:6px}
-.addday .add{height:48px;border:1px dashed rgba(28,29,26,.4);background:transparent;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer}
+.addday .add{height:44px;border:0;background:var(--card);font-size:14px;font-weight:700;color:var(--ink);cursor:pointer}
 .addday small{font-size:12px;color:var(--sub)}
 .xday h2 .xt{display:block;margin-top:4px;font:600 12px var(--sans);color:var(--sub)}
 .rmday{margin-top:14px;height:40px;padding:0 14px;border:0;background:var(--card);font-size:13px;font-weight:700;color:var(--red);cursor:pointer}
@@ -292,7 +292,7 @@ a,button{-webkit-tap-highlight-color:transparent}
 .hlegend b{display:inline;width:auto;margin-right:3px;font:700 12px var(--sans);color:var(--red)}
 .stays li b.tg{font-size:14px;font-weight:700}.stays .sh span:last-child{font-size:12px;color:var(--sub)}
 .stays .tog{height:36px}.stays .sn{padding:2px 14px 0}
-.addday .add{height:44px;font-size:14px}
+
 .hero-t.long h1{font-size:28px}.hero-t.xlong h1{font-size:24px}
 .icg{display:inline-flex;white-space:nowrap}
 .gb.bk2{color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}
@@ -309,3 +309,8 @@ a,button{-webkit-tap-highlight-color:transparent}
 .r .s em.bkn{font-style:normal;font-weight:700;color:var(--blue);margin-right:6px}
 h1,h2,h3,.items h3,.cv h2{text-wrap:balance}
 .r .s.sn2{color:#6b6d66}
+.addday{padding:28px 20px 0}
+.minebtn{height:36px;padding:0 12px;border:0;background:var(--bg);color:var(--ink);font:700 13px var(--sans);cursor:pointer}
+.xd a.mr{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:48px;padding:8px 12px;background:var(--card);color:var(--ink)}
+.xd a.mr b{font-size:14px}.xd a.mr span{font-size:12px;color:var(--sub)}.xd .mw{font-size:12px;font-weight:700;color:var(--red)}
+.mempty{margin:4px 0;font-size:14px;line-height:1.7;color:var(--sub)}
