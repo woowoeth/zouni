@@ -95,7 +95,10 @@ SIGHT = {
     '下龙湾': '一千多座石灰岩岛立在海上', '还剑湖': '河内老城中心的湖', '水上木偶戏': '越南北部的传统戏，演员在水里操纵木偶', '文庙': '供奉孔子，也是越南第一所大学',
     '圣索菲亚': '先是教堂、后是清真寺，有近一千五百年历史', '蓝色清真寺': '里面铺满蓝色瓷砖', '地下水宫': '拜占庭时期的地下蓄水池', '托普卡帕宫': '奥斯曼苏丹住了近四百年的王宫',
     '大巴扎': '世界上最古老的室内集市之一', '博斯普鲁斯': '分开欧洲和亚洲的海峡', '大通公园': '札幌市中心的长条公园，冬天办雪祭', '小樽运河': '石造仓库沿着运河，傍晚亮灯',
-    '四季彩之丘': '夏天成片的花田', '青池': '水是蓝色的，枯树立在水里', '旭山动物园': '能看企鹅散步的动物园',}
+    '四季彩之丘': '夏天成片的花田', '青池': '水是蓝色的，枯树立在水里', '旭山动物园': '能看企鹅散步的动物园',
+    '华山北峰': '北峰索道上下最省力', '华山西峰': '西峰的悬崖最陡', '华山东峰': '五岳里看日出最出名的地方之一', '避暑山庄': '清代皇帝的夏宫，比颐和园还大',
+    '普宁寺': '大乘之阁里有一尊二十多米高的木雕千手观音', '普陀宗乘之庙': '仿布达拉宫修建，被叫作小布达拉宫', '芙蓉镇': '古镇挂在瀑布边上',
+    '王屋山': '愚公移山故事里的王屋山', '八廓街': '围着大昭寺的转经道', '色拉寺': '下午常有喇嘛辩经',}
 
 
 def sight_of(text):
@@ -867,13 +870,17 @@ def dest_map(did, d):
     for la, lo, nm, rid in sorted(pts, key=lambda p_: -len(ROUTES[p_[3]]['days'])):
         x, y = P(la, lo); w = len(nm) * 12 + 10
         o.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="#f4f2ec" stroke="#a63d27" stroke-width="2"/>')
-        for (lx, ly, anc) in ((x + 9, y + 4, 'start'), (x - 9, y + 4, 'end'), (x, y - 10, 'middle'), (x, y + 18, 'middle')):
-            bx0 = lx if anc == 'start' else lx - w if anc == 'end' else lx - w / 2; bx1 = bx0 + w
-            if bx0 < 10 or bx1 > Wm - 10 or ly - 12 < 10 or ly + 3 > Hm - 10: continue
-            if any(not (bx1 < a or bx0 > c or ly + 3 < b or ly - 12 > d_) for a, b, c, d_ in boxes): continue
-            boxes.append((bx0, ly - 12, bx1, ly + 3))
-            o.append(f'<a href="/trip/{rid}/" aria-label="{E(nm)}"><rect x="{bx0 - 2:.1f}" y="{ly - 26:.1f}" width="{w + 6:.1f}" height="40" fill="#efe9dc" fill-opacity="0"/><text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anc}" font-family="Noto Serif SC,serif" font-size="12" font-weight="900" fill="#a63d27" paint-order="stroke" stroke="#efe9dc" stroke-width="3">{E(nm)}</text></a>')
-            break
+        done_ = False
+        for fs_ in (12, 10):
+            if done_: break
+            w = len(nm) * fs_ + 10
+            for (lx, ly, anc) in ((x + 9, y + 4, 'start'), (x - 9, y + 4, 'end'), (x, y - 10, 'middle'), (x, y + fs_ + 6, 'middle'), (x + 7, y - 8, 'start'), (x - 7, y - 8, 'end'), (x + 7, y + fs_ + 4, 'start'), (x - 7, y + fs_ + 4, 'end')):
+                bx0 = lx if anc == 'start' else lx - w if anc == 'end' else lx - w / 2; bx1 = bx0 + w
+                if bx0 < 10 or bx1 > Wm - 10 or ly - fs_ < 10 or ly + 3 > Hm - 10: continue
+                if any(not (bx1 < a or bx0 > c or ly + 3 < b or ly - fs_ > d_) for a, b, c, d_ in boxes): continue
+                boxes.append((bx0, ly - fs_, bx1, ly + 3)); done_ = True
+                o.append(f'<a href="/trip/{rid}/" aria-label="{E(nm)}"><rect x="{bx0 - 2:.1f}" y="{ly - 26:.1f}" width="{w + 6:.1f}" height="40" fill="#efe9dc" fill-opacity="0"/><text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anc}" font-family="Noto Serif SC,serif" font-size="{fs_}" font-weight="900" fill="#a63d27" paint-order="stroke" stroke="#efe9dc" stroke-width="3">{E(nm)}</text></a>')
+                break
     o.append(f'<g transform="translate({Wm - 28},32)" opacity=".75"><path d="M0,-12 L4,3 L0,0 L-4,3 Z" fill="#1c1d1a"/><text x="0" y="-15" text-anchor="middle" font-family="Noto Serif SC,serif" font-size="10" font-weight="900" fill="#1c1d1a">北</text></g>')
     o.append(f'<text x="14" y="{Hm - 14}" font-family="Noto Sans SC,sans-serif" font-size="10" fill="#5d5f59">红圈是排好的线路（点名字进去），小黑点是 5A 和世界遗产</text></svg>')
     return ''.join(o)
