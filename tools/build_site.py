@@ -218,7 +218,7 @@ def page(path, title, desc, body, jsonld=(), image=None, crumbs=()):
 
 
 def hero(r, back=None, share=False):
-    sq = (f'<a class="sq l" href="{E(back)}" aria-label="返回">{BACK_ICON}</a>' if back else '') + (f'<button type="button" class="sq rt share" aria-label="分享">{SHARE_ICON}</button>' if share else '')
+    sq = (f'<a class="sq l back" href="/" aria-label="返回上一页">{BACK_ICON}</a><a class="sq l2 home" href="/" aria-label="回首页"><b>走</b></a>' if back else '') + (f'<button type="button" class="sq rt share" aria-label="分享">{SHARE_ICON}</button>' if share else '')
     kick = E(r.get('kicker'))
     img = (r.get('img') or '').replace('/_blob/', '')
     gen = os.path.join('site_src', 'posters', (r.get('id') or '') + '.svg')
@@ -289,7 +289,7 @@ def trip_page(rid):
     when = '一年四季都能去' if t.get('anytime') else (f'{int(s0[0][:2])}/{int(s0[0][3:])}–{int(s0[1][:2])}/{int(s0[1][3:])} 最好' if s0 else '')
     has_cost = bool(cost and cost.get('trans'))
     sub3 = ('<button type="button" class="pp">2 人 · 每人 ›</button>' if has_cost else f'<small>{"每人 · 含往返" + (" · 参考价" if price.startswith("约") else "") if "¥" in price else "价格另算"}</small>')
-    glance = (f'<div class="glance"><div class="g1"><b class="big">{n}<small> 天</small></b><button type="button" class="dt" aria-label="改出发日期">{md(dates[0])}–{md(dates[-1])} <i>改</i></button><input type="date" class="dpk" min="{TODAY.isoformat()}" value="{dates[0].isoformat()}" tabindex="-1" aria-hidden="true"></div>'
+    glance = (f'<div class="glance"><div class="g1"><b class="big">{n}<small> 天</small></b><label class="dtw"><span class="dt">{md(dates[0])}–{md(dates[-1])} <i>改</i></span><input type="date" class="dpk" min="{TODAY.isoformat()}" value="{dates[0].isoformat()}" aria-label="改出发日期"></label></div>'
               f'<div><b>{E(r.get("driveTop"))}</b><small>{E(r.get("driveSub"))}</small></div>'
               f'<div><b class="price" data-cost=\'{E(json.dumps(cost)) if has_cost else ""}\'>{E(price)}</b>{sub3}</div></div>')
     if has_cost:
@@ -374,7 +374,7 @@ def dest_page(d):
     entry = f'<p class="entry"><b>入境</b>{E(d["entry"])}</p>' if d.get('entry') else ''
     tip = f'<p class="tip"><b>提示</b>{E(d["tip"])}</p>' if d.get('tip') else ''
     days_txt = (str(dd.get('min')) + ('–' + str(dd['max']) if dd.get('max') and dd.get('max') != dd.get('min') else '')) if dd else '—'
-    body = (f'<article class="dest"><div class="pagehead"><a href="/where/">{BACK_ICON}去哪儿</a></div><div class="dh"><h1>{E(d["name"])}</h1><small>{E(d["region"])} · 落脚 {E(city)} · 建议 {days_txt} 天</small>'
+    body = (f'<article class="dest"><div class="pagehead"><a class="back" href="/where/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><div class="dh"><h1>{E(d["name"])}</h1><small>{E(d["region"])} · 落脚 {E(city)} · 建议 {days_txt} 天</small>'
             f'<p class="lead">最好的月份：{"、".join(str(m) + " 月" for m in sorted(best))}。</p>{entry}{tip}</div>'
             f'<section><h2>每个月白天 / 夜里平均气温（℃）</h2><ol class="months">{months}</ol>{f"<p class=hint style=margin-top:8px>落脚城市海拔 {d[chr(98)+chr(97)+chr(115)+chr(101)][chr(101)+chr(108)+chr(101)+chr(118)]:,} 米</p>" if (d["base"].get("elev") or 0) >= 1500 else ""}</section>'
             f'<section class="se"><div><h2>看</h2><p>{E(see)}</p></div><div><h2>吃</h2><p>{E(eat)}</p></div></section>'
@@ -424,7 +424,7 @@ def where_page():
             regs.append(f'<section class="reg"><h3 class="rh">{E(reg)}</h3><ul class="cards">{"".join(cards)}</ul></section>')
         scopes.append(f'<section class="scope" id="{scope}"{"" if scope == "domestic" else " hidden"}>{"".join(regs)}</section>')
     nd, na = len(ATLAS['domestic']), len(ATLAS['asia'])
-    body = (f'<article class="where"><div class="pagehead"><a href="/">{BACK_ICON}本期</a></div><h1>去哪儿</h1><div class="stick">'
+    body = (f'<article class="where"><div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><h1>去哪儿</h1><div class="stick">'
             f'<div class="tabs"><button type="button" data-t="domestic" class="on">国内 · {nd}</button><button type="button" data-t="asia">亚洲 · {na}</button></div>'
             f'<div class="mon" role="group" aria-label="选月份">{"".join(f"<button type=button data-m={k} class={chr(39)}{chr(111)+chr(110) if k == m else chr(32)}{chr(39)}>{k}月</button>" for k in range(1, 13))}</div>'
             f'<div class="gl"><p class="goodline"></p><button type="button" class="ftog" aria-label="筛选">筛选 ▾</button></div>'
@@ -499,7 +499,7 @@ def home_page():
     c0 = clim(dc); dl0 = days_left(tc)
     body = (f'<article class="home"><div class="cover">{f"<img src=/img/{cimg}.svg alt=>" if cimg else ""}'
             f'<div class="mast"><div><h1>走你</h1><small>{TODAY.year} · {mname}</small></div><a href="#mine"><span>我的行程</span></a></div>'
-            f'<div class="datebar"><button type="button" class="hdt" aria-label="改出发日期"><b>{TODAY.month}/{TODAY.day} 周{"一二三四五六日"[TODAY.weekday()]} 出发</b><i>改</i></button><input type="date" class="hdpk" min="{TODAY.isoformat()}" value="{TODAY.isoformat()}" tabindex="-1" aria-hidden="true"></div>'
+            f'<label class="datebar"><span class="hdt"><b>{TODAY.month}/{TODAY.day} 周{"一二三四五六日"[TODAY.weekday()]} 出发</b><i>改</i></span><input type="date" class="hdpk" min="{TODAY.isoformat()}" value="{TODAY.isoformat()}" aria-label="改出发日期"></label>'
             f'<div class="cv"><span class="kick">封面故事 · 正当季{(" · 还剩 " + str(dl0) + " 天") if dl0 is not None else ""}</span><h2>{E(r["title"])}</h2><div class="chips"><span>{len(r["days"])} 天 · 人均 {E(r.get("price"))}</span><span>{m} 月 {c0[0]}°C / {c0[1]}°C</span></div><a class="go" href="/trip/{cover}/">翻开 →</a></div></div>'
             f'<section class="mine" id="mine" hidden><h2>我的行程</h2><ul class="list" data-k="fav"></ul></section>'
             f'<section class="mine" hidden><h2>最近看过</h2><ul class="list" data-k="seen"></ul></section>'

@@ -12,8 +12,11 @@
   document.querySelectorAll('.sun').forEach(function(b){var d=b.dataset.date?new Date(b.dataset.date+'T12:00:00'):now;b.textContent=sun(+b.dataset.lat,+b.dataset.lng,d,b.dataset.k==='rise')});
 
   // ——— 返回：从本站点进来的就退回上一页（筛选和滚动位置都还在） ———
-  var bk0=document.querySelector('.sq.l,.pagehead a');
-  if(bk0)bk0.addEventListener('click',function(e){if(document.referrer.indexOf(location.origin)===0&&history.length>1){e.preventDefault();history.back()}});
+  // 返回：记住这次在站内走过的页面；有上一页就退回上一页，没有（直接打开的）就回首页
+  var H=[];try{H=JSON.parse(sessionStorage.getItem('zouni_hist')||'[]')}catch(e){}
+  var here=location.pathname;if(H.length>=2&&H[H.length-2]===here)H.pop();else if(H[H.length-1]!==here)H.push(here);H=H.slice(-30);
+  try{sessionStorage.setItem('zouni_hist',JSON.stringify(H))}catch(e){}
+  document.querySelectorAll('a.back').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();if(H.length>=2&&history.length>1){history.back()}else{location.href='/'}})});
   // ——— 行程页 ———
   var art=document.querySelector('article.trip');
   if(art){
@@ -51,7 +54,7 @@
         document.querySelectorAll('.overview i').forEach(function(x,i){x.textContent=fmt(new Date(d0.getTime()+i*864e5))});
         dtb.firstChild.textContent=fmt(d0)+'–'+fmt(new Date(d0.getTime()+(n-1)*864e5))+' ';
         var db=document.querySelector('.dock b');if(db)db.textContent=fmt(d0)+' 出发 · '+n+' 天'}
-      dtb.addEventListener('click',function(){try{dk.showPicker()}catch(e){dk.style.pointerEvents='auto';dk.focus();dk.click()}});
+      dk.addEventListener('click',function(){try{if(dk.showPicker)dk.showPicker()}catch(e){}});
       dk.addEventListener('change',function(){if(!dk.value)return;try{localStorage.setItem(sk,dk.value)}catch(e){}applyStart(dk.value);var d=new Date(dk.value+'T12:00:00');toast('改成 '+fmt(d)+' 出发了')});
       try{var s0=localStorage.getItem(sk)||localStorage.getItem('zouni_home_date');if(s0&&s0>=dk.min&&s0!==dk.value){dk.value=s0;applyStart(s0)}}catch(e){}}
     // 旅途中：出发日到了，就在底部提示“今天第几天、下一站”
@@ -103,7 +106,7 @@
       document.querySelector('.now .nt').textContent=today?'现在去正好':(f2(md(cur))+' 出发正好去');document.querySelector('.now .ns').textContent=vis+' 条，快过季的先看'}
     dc.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;band=b.dataset.b;all=false;dc.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});show()});
     if(mb)mb.addEventListener('click',function(){all=true;show()});
-    if(hk){hb.addEventListener('click',function(){try{hk.showPicker()}catch(e){hk.style.pointerEvents='auto';hk.focus();hk.click()}});
+    if(hk){hk.addEventListener('click',function(){try{if(hk.showPicker)hk.showPicker()}catch(e){}});
       hk.addEventListener('change',function(){if(!hk.value)return;cur=hk.value;all=false;try{localStorage.setItem('zouni_home_date',cur)}catch(e){}var d=new Date(cur+'T12:00:00');hb.querySelector('b').textContent=(d.getMonth()+1)+'/'+d.getDate()+' 周'+W[d.getDay()]+' 出发';show();document.getElementById('now').scrollIntoView()});
       try{var h0=localStorage.getItem('zouni_home_date');if(h0&&h0>=hk.min){hk.value=h0;cur=h0;var d0=new Date(h0+'T12:00:00');hb.querySelector('b').textContent=(d0.getMonth()+1)+'/'+d0.getDate()+' 周'+W[d0.getDay()]+' 出发'}}catch(e){}}
     show()}
