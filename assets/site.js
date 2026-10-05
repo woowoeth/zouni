@@ -31,6 +31,7 @@
         if(st.low&&c.dataset.high==='1')ok=false;
         if(st.q&&c.dataset.q.toLowerCase().indexOf(st.q)<0)ok=false;
         if(st.niche&&c.dataset.niche==='0')ok=false;
+        if(st.bud&&!(c.dataset.plo!==''&&+c.dataset.plo<=st.bud))ok=false;
         var hp=c.querySelector('.hit');if(hp){var why=st.q?c.dataset.hits.split('|').filter(function(h){return h.toLowerCase().indexOf(st.q)>=0}).slice(0,3):[];hp.hidden=!why.length;hp.textContent=why.length?'有 '+why.join('、'):''}
         if(st.near&&!(c.dataset.km!==''&&+c.dataset.km<=500))ok=false;
         c.hidden=!ok;if(ok)n++});
@@ -49,6 +50,7 @@
         regs.sort(function(a,b){return o?(+a.dataset.min)-(+b.dataset.min):(+a.dataset.i)-(+b.dataset.i)}).forEach(function(r){sc.appendChild(r)})});
       apply()}
     sel.addEventListener('change',function(){origin(sel.value)});
+    var bud=flt.querySelector('.bud');if(bud)bud.addEventListener('change',function(){st.bud=+bud.value||0;apply()});
     nearB.addEventListener('click',function(){st.near=!st.near;nearB.classList.toggle('on',st.near);apply()});
     try{var o0=localStorage.getItem('zouni_org');if(o0&&ORG[o0]){sel.value=o0;origin(o0)}}catch(e){}
     inp.addEventListener('input',function(){st.q=inp.value.trim().toLowerCase();apply()});
