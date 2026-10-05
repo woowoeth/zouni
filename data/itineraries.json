@@ -9990,7 +9990,7 @@
        "dur": 240
       }
      ],
-     "stay": "溧阳"
+     "stay": "常州"
     },
     {
      "title": "天目湖 · 回程",
@@ -10580,7 +10580,7 @@
       }
      ],
      "city": "博湖",
-     "stay": "库尔勒"
+     "stay": "博湖"
     },
     {
      "title": "回程",
@@ -13770,7 +13770,7 @@
       }
      ],
      "city": "福贡",
-     "stay": "贡山县城"
+     "stay": "福贡"
     },
     {
      "title": "丙中洛",
@@ -14874,7 +14874,7 @@
       }
      ],
      "city": "旭川",
-     "stay": "札幌"
+     "stay": "旭川"
     },
     {
      "title": "二条市场 · 回程",
@@ -20086,6 +20086,160 @@
        "q": "Tai Kwun",
        "type": "sight",
        "dur": 90
+      }
+     ]
+    }
+   ]
+  },
+  "hnhl3": {
+   "dest": "vietnam",
+   "city": "河内",
+   "label": "河内下龙湾 3 天",
+   "title": "三天，河内老城和下龙湾",
+   "kicker": "东南亚 · 3 天",
+   "start": [
+    2026,
+    10,
+    15
+   ],
+   "prep": [
+    "越南要办电子签",
+    "下龙湾游船建议提前订"
+   ],
+   "days": [
+    {
+     "title": "河内老城 · 还剑湖",
+     "text": "逛河内三十六行街和还剑湖，晚上看水上木偶戏。",
+     "stops": [
+      {
+       "name": "还剑湖",
+       "q": "Hoan Kiem Lake",
+       "type": "park",
+       "dur": 60
+      },
+      {
+       "name": "三十六行街",
+       "q": "Hanoi Old Quarter",
+       "type": "street",
+       "dur": 150
+      },
+      {
+       "name": "水上木偶戏",
+       "q": "Thang Long Water Puppet Theatre",
+       "type": "night",
+       "dur": 60,
+       "at": "18:30"
+      }
+     ],
+     "start": "13:00",
+     "stay": "河内老城"
+    },
+    {
+     "title": "下龙湾",
+     "text": "包车去下龙湾，坐船看海上石灰岩岛，住船上或下龙市。",
+     "stops": [
+      {
+       "name": "下龙湾",
+       "q": "Ha Long Bay",
+       "type": "sight",
+       "dur": 300,
+       "via": "包车约 2 小时 30 分钟"
+      }
+     ],
+     "city": "下龙",
+     "stay": "下龙",
+     "story": "下龙湾有一千多座石灰岩岛，1994 年列入世界遗产。"
+    },
+    {
+     "title": "回河内 · 回程",
+     "text": "上午回河内，看文庙，下午去机场。",
+     "stops": [
+      {
+       "name": "文庙",
+       "q": "Temple of Literature Hanoi",
+       "type": "sight",
+       "dur": 90,
+       "via": "包车约 2 小时 30 分钟"
+      }
+     ]
+    }
+   ]
+  },
+  "ist3": {
+   "dest": "turkey",
+   "city": "伊斯坦布尔",
+   "label": "伊斯坦布尔 3 天",
+   "title": "三天，伊斯坦布尔两岸",
+   "kicker": "中东 · 3 天",
+   "start": [
+    2026,
+    4,
+    15
+   ],
+   "prep": [
+    "土耳其电子签（以出发前政策为准）",
+    "进清真寺要脱鞋，女士戴头巾"
+   ],
+   "days": [
+    {
+     "title": "老城",
+     "text": "看圣索菲亚、蓝色清真寺和地下水宫。",
+     "stops": [
+      {
+       "name": "圣索菲亚",
+       "q": "Hagia Sophia",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "蓝色清真寺",
+       "q": "Blue Mosque",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "地下水宫",
+       "q": "Basilica Cistern",
+       "type": "sight",
+       "dur": 60
+      }
+     ],
+     "stay": "苏丹艾哈迈德"
+    },
+    {
+     "title": "托普卡帕宫 · 大巴扎",
+     "text": "上午看托普卡帕宫，下午逛大巴扎和香料市场。",
+     "stops": [
+      {
+       "name": "托普卡帕宫",
+       "q": "Topkapi Palace",
+       "type": "sight",
+       "dur": 150
+      },
+      {
+       "name": "大巴扎",
+       "q": "Grand Bazaar",
+       "type": "street",
+       "dur": 120
+      },
+      {
+       "name": "香料市场",
+       "q": "Spice Bazaar",
+       "type": "street",
+       "dur": 60
+      }
+     ],
+     "stay": "苏丹艾哈迈德"
+    },
+    {
+     "title": "博斯普鲁斯海峡 · 回程",
+     "text": "坐船游博斯普鲁斯海峡，下午去机场。",
+     "stops": [
+      {
+       "name": "博斯普鲁斯海峡游船",
+       "q": "Bosphorus",
+       "type": "sight",
+       "dur": 120
       }
      ]
     }

@@ -60,5 +60,18 @@ try:
     if _bad: print('编号撞车', len(_bad)); [print('  · ' + b) for b in _bad]
     else: print('编号撞车 0')
 except Exception as _e: print('编号检查没跑成', _e)
+# 住处矛盾：第二天一早要坐长途才到第一站，前一晚却写住在第二天那座城
+try:
+    import re as _re
+    _lv = _re.compile(r'(JR|高铁|火车|动车|飞机|轮渡|包车约\s*[1-9]\s*小时|大巴约\s*[1-9]|自驾约\s*[1-9])')
+    _bad = []
+    for _rid, _it in json.load(open('data/itineraries.json'))['itineraries'].items():
+        _ds = _it['days']
+        for _i in range(len(_ds) - 1):
+            _d, _nx = _ds[_i], _ds[_i + 1]; _st = _d.get('stay') or _d.get('city') or _it['city']; _dc = _d.get('city') or _it['city']
+            _fv = (_nx['stops'][0].get('via') or '') if _nx['stops'] else ''; _nc = _nx.get('city') or _it['city']
+            if _fv and _lv.search(_fv) and _st and (_st == _nc or _nc in _st) and _dc != _nc: _bad.append(f'{_rid} 第{_i + 1}天在{_dc}，住处写{_st}，第二天要{_fv}才到{_nc}')
+    print('住处矛盾', len(_bad)); [print('  · ' + b) for b in _bad]
+except Exception as _e: print('住处检查没跑成', _e)
 sys.exit(1 if E else 0)
 

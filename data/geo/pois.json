@@ -1033,22 +1033,25 @@
   "q": "Tsukiji Outer Market"
  },
  "河内|河内": {
-  "lat": 21.0283334,
-  "lng": 105.854041,
-  "hit": "河内市, 越南",
-  "q": "河内"
+  "lat": 21.028,
+  "lng": 105.834,
+  "hit": "人工核对",
+  "q": "河内",
+  "src": "curated"
  },
  "河内|Hoan Kiem Lake": {
-  "lat": 21.0288313,
-  "lng": 105.8525357,
-  "hit": "还剑湖, Phường Hoàn Kiếm, 河内市, 11024, 越南",
-  "q": "Hoan Kiem Lake"
+  "lat": 21.029,
+  "lng": 105.852,
+  "hit": "人工核对",
+  "q": "Hoan Kiem Lake",
+  "src": "curated"
  },
  "河内|Hanoi Old Quarter": {
-  "lat": 21.0353243,
-  "lng": 105.8500395,
-  "hit": "Khu phố cổ, Phường Hoàn Kiếm, 河内市, 11024, 越南",
-  "q": "Hanoi Old Quarter"
+  "lat": 21.035,
+  "lng": 105.85,
+  "hit": "人工核对",
+  "q": "Hanoi Old Quarter",
+  "src": "curated"
  },
  "河内|Ha Long Bay": {
   "lat": 20.9084384,
@@ -1057,10 +1060,11 @@
   "q": "Ha Long Bay"
  },
  "河内|Temple of Literature Hanoi": {
-  "lat": 21.0287903,
-  "lng": 105.8359533,
-  "hit": "文廟, Phường Văn Miếu - Quốc Tử Giám, 河内市, 11508, 越南",
-  "q": "Temple of Literature Hanoi"
+  "lat": 21.028,
+  "lng": 105.836,
+  "hit": "人工核对",
+  "q": "Temple of Literature Hanoi",
+  "src": "curated"
  },
  "河内|Hanoi Train Street": {
   "lat": 21.0301529,
@@ -8513,10 +8517,11 @@
   "q": "Bukhara"
  },
  "伊斯坦布尔|伊斯坦布尔": {
-  "lat": 41.006381,
-  "lng": 28.9758715,
-  "hit": "伊斯坦布尔 / 伊斯坦堡, Fatih, 伊斯坦布尔省, 马尔马拉大区, 34122, 土耳其",
-  "q": "伊斯坦布尔"
+  "lat": 41.008,
+  "lng": 28.978,
+  "hit": "人工核对",
+  "q": "伊斯坦布尔",
+  "src": "curated"
  },
  "伊斯坦布尔|Sultan Ahmed Mosque": {
   "lat": 41.0053843,
@@ -8525,28 +8530,32 @@
   "q": "Sultan Ahmed Mosque"
  },
  "伊斯坦布尔|Hagia Sophia": {
-  "lat": 41.0085046,
-  "lng": 28.9800112,
-  "hit": "阿亚索菲亚 / 阿亞索菲亞, 1, Ayasofya Meydanı, Cankurtaran Mahallesi, 伊",
-  "q": "Hagia Sophia"
+  "lat": 41.008,
+  "lng": 28.98,
+  "hit": "人工核对",
+  "q": "Hagia Sophia",
+  "src": "curated"
  },
  "伊斯坦布尔|Basilica Cistern": {
-  "lat": 41.0084795,
-  "lng": 28.9783826,
-  "hit": "地下水宮殿, 1, Yerebatan Caddesi, Alemdar Mahallesi, 伊斯坦布尔 / 伊斯坦堡",
-  "q": "Basilica Cistern"
+  "lat": 41.008,
+  "lng": 28.978,
+  "hit": "人工核对",
+  "q": "Basilica Cistern",
+  "src": "curated"
  },
  "伊斯坦布尔|Topkapi Palace": {
-  "lat": 41.011344,
-  "lng": 28.9832034,
-  "hit": "托普卡匹皇宮, Harem Ağaları Taşlığı, Cankurtaran Mahallesi, 伊斯坦布尔 ",
-  "q": "Topkapi Palace"
+  "lat": 41.011,
+  "lng": 28.983,
+  "hit": "人工核对",
+  "q": "Topkapi Palace",
+  "src": "curated"
  },
  "伊斯坦布尔|Grand Bazaar": {
-  "lat": 41.0109541,
-  "lng": 28.9680224,
-  "hit": "大巴扎市场, Beyazıt Mahallesi, 伊斯坦布尔 / 伊斯坦堡, Fatih, 伊斯坦布尔省, 马尔马拉大",
-  "q": "Grand Bazaar"
+  "lat": 41.011,
+  "lng": 28.968,
+  "hit": "人工核对",
+  "q": "Grand Bazaar",
+  "src": "curated"
  },
  "伊斯坦布尔|Eminonu": {
   "lat": 41.0179964,
@@ -11688,6 +11697,48 @@
   "lng": 114.154,
   "hit": "人工核对",
   "q": "Tai Kwun",
+  "src": "curated"
+ },
+ "下龙|下龙": {
+  "lat": 20.951,
+  "lng": 107.08,
+  "hit": "人工核对",
+  "q": "下龙",
+  "src": "curated"
+ },
+ "河内|Thang Long Water Puppet Theatre": {
+  "lat": 21.032,
+  "lng": 105.853,
+  "hit": "人工核对",
+  "q": "Thang Long Water Puppet Theatre",
+  "src": "curated"
+ },
+ "下龙|Ha Long Bay": {
+  "lat": 20.91,
+  "lng": 107.184,
+  "hit": "人工核对",
+  "q": "Ha Long Bay",
+  "src": "curated"
+ },
+ "伊斯坦布尔|Blue Mosque": {
+  "lat": 41.005,
+  "lng": 28.977,
+  "hit": "人工核对",
+  "q": "Blue Mosque",
+  "src": "curated"
+ },
+ "伊斯坦布尔|Spice Bazaar": {
+  "lat": 41.016,
+  "lng": 28.971,
+  "hit": "人工核对",
+  "q": "Spice Bazaar",
+  "src": "curated"
+ },
+ "伊斯坦布尔|Bosphorus": {
+  "lat": 41.045,
+  "lng": 29.034,
+  "hit": "人工核对",
+  "q": "Bosphorus",
   "src": "curated"
  }
 }
