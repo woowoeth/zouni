@@ -17,6 +17,8 @@ PAL = {  # 季节配色：天空上、天空下、远山、近山、主色、点
 }
 CATS = [  # 顺序即优先级
     ('museum', ('博物馆 ', '国宝', '三星堆')),
+    ('greatwall', ('长城', '嘉峪关', '山海关', '老龙头')), ('karst', ('漓江', '阳朔', '遇龙河', '喀斯特', '万峰林', '普者黑', '下龙湾', '桂林')),
+    ('tulou', ('土楼',)), ('garden', ('拙政园', '留园', '个园', '何园', '网师园', '园林')), ('wall', ('城墙', '永宁门', '古城墙')),
     ('mountain', ('雪山', '冰川', '神山', '冈仁波齐', '珠峰', '贡嘎', '梅里', '格聂', '四姑娘', '玉龙', '南迦巴瓦', '阿尼玛卿', '鱼子西', '日照金山')), ('snow', ('雪乡', '雾凇', '滑雪', '冰雪', '冰灯', '雪如意')),
     ('desert', ('沙漠', '沙坡', '鸣沙', '雅丹', '戈壁', '魔鬼城', '巴丹吉林', '沙湖', '瓦迪拉姆', '佩特拉', '死海', '迪拜')), ('terrace', ('梯田', '红土地')),
     ('canyon', ('峡谷', '嶂谷', '地缝', '大裂谷', '天坑')), ('grass', ('草原', '坝上', '牧场', '草甸', '那拉提', '呼伦贝尔', '乌兰布统')),
@@ -43,7 +45,10 @@ def category(it):
     head = ' '.join([it.get('label', ''), it.get('title', ''), it.get('kicker', '')])
     for c, kws in CATS:
         if c == 'museum':
-            if any(k.strip() in head for k in ('博物馆', '国宝', '三星堆')): cat = c; break
+            if '博物馆' in it.get('kicker', '') or '三星堆' in head: cat = c; break
+            continue
+        if c == 'garden':
+            if any(k in text.replace('植物园', '') for k in kws): cat = c; break
             continue
         if any(k in text for k in kws): cat = c; break
     hi = it['dest'] in TIBET or '高原' in it.get('kicker', '') or max((d.get('elev') or 0) for d in it['days']) >= 3000
@@ -113,7 +118,50 @@ def poster(rid, it):
     else:
         g.append(f'<path d="{ridge(rnd, 440, 26, 30)}" fill="{P["mid"]}"/>')
     main = P['main']; acc = P['acc']
-    if cat == 'desert':
+    if cat == 'greatwall':
+        g.append(f'<path d="{ridge(rnd, 470, 34, 30)}" fill="{P["mid"]}"/>')
+        pts = []; x = -20; y = 470
+        while x < W + 40:
+            pts.append((x, y)); x += 36; y = max(380, min(520, y + rnd.uniform(-28, 24)))
+        line = ' '.join(f'{a:.0f},{b:.0f}' for a, b in pts)
+        g.append(f'<polyline points="{line}" fill="none" stroke="#c9a77a" stroke-width="14" stroke-linejoin="round"/>')
+        g.append(f'<polyline points="{line}" fill="none" stroke="{P["gnd"]}" stroke-width="3" stroke-dasharray="5 6" transform="translate(0,-8)"/>')
+        for a, b in pts[2::4]: g.append(f'<rect x="{a - 14:.0f}" y="{b - 40:.0f}" width="28" height="34" fill="#b8956a"/><rect x="{a - 17:.0f}" y="{b - 46:.0f}" width="34" height="8" fill="{P["gnd"]}"/><rect x="{a - 4:.0f}" y="{b - 30:.0f}" width="8" height="12" fill="{P["gnd"]}"/>')
+    elif cat == 'karst':
+        g.append(f'<rect x="0" y="{horizon}" width="{W}" height="{H - horizon}" fill="url(#wt)"/>')
+        for layer, (col, base) in enumerate(((P['far'], 470), (P['mid'], 500), (main, 525))):
+            x = rnd.uniform(-60, 0)
+            while x < W + 40:
+                w_ = rnd.uniform(60, 110); h_ = rnd.uniform(120, 240) * (1 - layer * .18)
+                g.append(f'<path d="M{x:.0f},{base} C{x:.0f},{base - h_ * .9:.0f} {x + w_ * .25:.0f},{base - h_:.0f} {x + w_ / 2:.0f},{base - h_:.0f} C{x + w_ * .75:.0f},{base - h_:.0f} {x + w_:.0f},{base - h_ * .9:.0f} {x + w_:.0f},{base} Z" fill="{col}"/>')
+                g.append(f'<path d="M{x:.0f},{base + 6} C{x:.0f},{base + h_ * .3:.0f} {x + w_:.0f},{base + h_ * .3:.0f} {x + w_:.0f},{base + 6} Z" fill="{col}" opacity=".25"/>')
+                x += w_ * rnd.uniform(.7, 1.0)
+        bx = rnd.uniform(160, 420)
+        g.append(f'<path d="M{bx:.0f},{horizon + 60} h70 l-10,8 h-50 z" fill="{P["gnd"]}"/><rect x="{bx + 30:.0f}" y="{horizon + 40}" width="2" height="20" fill="{P["gnd"]}"/>')
+    elif cat == 'garden':
+        g.append(f'<rect x="0" y="0" width="{W}" height="{H}" fill="#e9e3d6"/>')
+        cx_, cy_, R = 300, 360, 190
+        g.append(f'<clipPath id="mg"><circle cx="{cx_}" cy="{cy_}" r="{R - 14}"/></clipPath><g clip-path="url(#mg)"><rect x="0" y="0" width="{W}" height="{H}" fill="url(#sk)"/><path d="{ridge(rnd, 400, 20, 30)}" fill="{P["mid"]}"/><path d="M{cx_ - 60},{cy_ + 40} h120 l-14,-30 h-92 z" fill="{P["gnd"]}"/><rect x="{cx_ - 50}" y="{cy_ + 40}" width="6" height="70" fill="{P["gnd"]}"/><rect x="{cx_ + 44}" y="{cy_ + 40}" width="6" height="70" fill="{P["gnd"]}"/><rect x="0" y="{cy_ + 110}" width="{W}" height="200" fill="{main}" opacity=".85"/></g>')
+        g.append(f'<circle cx="{cx_}" cy="{cy_}" r="{R}" fill="none" stroke="#9a948a" stroke-width="26"/>')
+        for k in range(6):
+            a = rnd.uniform(-.6, .9); g.append(f'<path d="M{80 + k * 30},{70 + k * 18} q40,-20 80,-6" fill="none" stroke="#3a4a32" stroke-width="3" opacity=".7"/><ellipse cx="{120 + k * 30}" cy="{70 + k * 16}" rx="16" ry="6" fill="#4f6233" opacity=".8" transform="rotate({a * 30:.0f} {120 + k * 30} {70 + k * 16})"/>')
+    elif cat == 'tulou':
+        g.append(f'<path d="{ridge(rnd, 480, 22, 30)}" fill="{main}"/>')
+        cx_, base = 300, 560
+        g.append(f'<ellipse cx="{cx_}" cy="{base}" rx="190" ry="34" fill="#8a6a4a"/><rect x="{cx_ - 190}" y="{base - 120}" width="380" height="120" fill="#c9a87a"/><ellipse cx="{cx_}" cy="{base - 120}" rx="190" ry="34" fill="#c9a87a"/>')
+        g.append(f'<ellipse cx="{cx_}" cy="{base - 128}" rx="210" ry="40" fill="none" stroke="{P["gnd"]}" stroke-width="16"/><ellipse cx="{cx_}" cy="{base - 120}" rx="150" ry="24" fill="#7a5a3e"/>')
+        for k in range(9): g.append(f'<rect x="{cx_ - 170 + k * 40}" y="{base - 90}" width="10" height="16" fill="{P["gnd"]}" opacity=".8"/>')
+        g.append(f'<path d="M{cx_ - 18},{base} v-40 q18,-16 36,0 v40 z" fill="{P["gnd"]}"/>')
+    elif cat == 'wall':
+        g.append(f'<rect x="0" y="{horizon}" width="{W}" height="{H - horizon}" fill="{P["gnd"]}"/>')
+        g.append(f'<rect x="-10" y="{horizon - 90}" width="{W + 20}" height="90" fill="#b8956a"/>')
+        for x in range(-10, W + 20, 28): g.append(f'<rect x="{x}" y="{horizon - 104}" width="16" height="14" fill="#b8956a"/>')
+        for x in range(0, W, 46): g.append(f'<rect x="{x}" y="{horizon - 60}" width="2" height="60" fill="#8a6a4a" opacity=".5"/>')
+        gx = rnd.uniform(220, 380)
+        g.append(f'<path d="M{gx - 40:.0f},{horizon} v-36 q40,-34 80,0 v36 z" fill="{P["gnd"]}"/>')
+        g.append(f'<rect x="{gx - 90:.0f}" y="{horizon - 170}" width="180" height="70" fill="#a8735c"/><path d="M{gx - 120:.0f},{horizon - 170} Q{gx:.0f},{horizon - 210} {gx + 120:.0f},{horizon - 170} L{gx + 100:.0f},{horizon - 160} L{gx - 100:.0f},{horizon - 160} Z" fill="{P["gnd"]}"/><path d="M{gx - 80:.0f},{horizon - 210} Q{gx:.0f},{horizon - 244} {gx + 80:.0f},{horizon - 210} L{gx + 64:.0f},{horizon - 202} L{gx - 64:.0f},{horizon - 202} Z" fill="{P["gnd"]}"/><rect x="{gx - 60:.0f}" y="{horizon - 210}" width="120" height="40" fill="#a8735c"/>')
+        for k in range(5): g.append(f'<rect x="{gx - 70 + k * 30:.0f}" y="{horizon - 150}" width="10" height="22" fill="{P["gnd"]}" opacity=".7"/>')
+    elif cat == 'desert':
         for k, (y, c) in enumerate(((470, P['far']), (520, P['mid']), (580, main))):
             a = rnd.uniform(40, 90); ph = rnd.uniform(0, 6)
             pts = ' '.join(f'{x},{y + a * math.sin(x / rnd.uniform(110, 150) + ph):.0f}' for x in range(-20, W + 40, 20))

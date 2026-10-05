@@ -1,4 +1,5 @@
 (function(){
+  if('serviceWorker' in navigator&&location.protocol==='https:')window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})});
   function ld(k){try{return JSON.parse(localStorage.getItem(k)||'[]')}catch(e){return[]}}
   function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
   function toast(t){var d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(function(){d.remove()},1700)}
