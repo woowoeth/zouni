@@ -195,7 +195,7 @@
       var today=hk&&cur===(hk.dataset.min||hk.min),d=new Date(cur+'T12:00:00');
       // 封面跟着日期换：挑这天正当季、有海报的第一条，封面图、标题、还剩几天、天数价格、当月气温、翻开链接都换
       var cv=cvp;
-      if(cv&&!today){var img=document.querySelector('.cover img');if(img)img.src=cv.dataset.src;document.querySelector('.cv h2').textContent=cv.dataset.t;
+      if(cv&&!today){var img=document.querySelector('.cover img');if(img)img.src=cv.dataset.src;var tt=cv.dataset.t,ci=tt.indexOf('，'),h2=document.querySelector('.cv h2');if(ci>0&&ci<tt.length-1){h2.textContent=tt.slice(0,ci+1);var sp=document.createElement('span');sp.className='nw';sp.textContent=tt.slice(ci+1);h2.appendChild(sp)}else h2.textContent=tt;
         document.querySelector('.cv .kick').textContent='封面故事 · '+f2(md(cur))+' 出发正当季 · 还剩 '+cv._l+' 天';
         var cl2=JSON.parse(cv.dataset.clim||'{}')[mo]||['',''],chs=document.querySelectorAll('.cv .chips span');if(chs[0])chs[0].textContent=cv.dataset.n+' 天 · 人均 '+cv.dataset.pr;if(chs[1])chs[1].textContent=mo+' 月 '+cl2[0]+'°C / '+cl2[1]+'°C';
         document.querySelector('.cv .go').href=cv.dataset.h}

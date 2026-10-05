@@ -19582,6 +19582,514 @@
      "story": "嵩阳书院是宋代四大书院之一，院里的“将军柏”传说有几千年。"
     }
    ]
+  },
+  "bkk3": {
+   "dest": "thailand",
+   "city": "曼谷",
+   "label": "曼谷 3 天",
+   "title": "三天，曼谷大皇宫和湄南河",
+   "kicker": "东南亚 · 3 天",
+   "start": [
+    2026,
+    11,
+    15
+   ],
+   "prep": [
+    "泰国对中国护照免签（以出发前政策为准）",
+    "大皇宫要穿长裤、有袖的上衣"
+   ],
+   "days": [
+    {
+     "title": "大皇宫 · 卧佛寺",
+     "text": "看大皇宫和玉佛寺，下午去卧佛寺，傍晚坐船到郑王庙对岸看日落。",
+     "stops": [
+      {
+       "name": "大皇宫",
+       "q": "Grand Palace Bangkok",
+       "type": "sight",
+       "dur": 180
+      },
+      {
+       "name": "卧佛寺",
+       "q": "Wat Pho",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "郑王庙",
+       "q": "Wat Arun",
+       "type": "sight",
+       "dur": 60,
+       "at": "17:30"
+      }
+     ],
+     "stay": "湄南河边"
+    },
+    {
+     "title": "水上市场 · 夜市",
+     "text": "一早去丹嫩沙多水上市场，傍晚逛乔德夜市。",
+     "stops": [
+      {
+       "name": "丹嫩沙多水上市场",
+       "q": "Damnoen Saduak Floating Market",
+       "type": "sight",
+       "dur": 150,
+       "via": "包车约 1 小时 30 分钟"
+      },
+      {
+       "name": "乔德夜市",
+       "q": "Jodd Fairs",
+       "type": "street",
+       "dur": 120,
+       "at": "18:30"
+      }
+     ],
+     "start": "07:00",
+     "stay": "湄南河边"
+    },
+    {
+     "title": "恰图恰周末市场 · 回程",
+     "text": "逛恰图恰市场（周末），下午去机场。",
+     "stops": [
+      {
+       "name": "恰图恰市场",
+       "q": "Chatuchak Weekend Market",
+       "type": "street",
+       "dur": 150
+      }
+     ]
+    }
+   ]
+  },
+  "dng4": {
+   "dest": "vietnam",
+   "city": "岘港",
+   "label": "岘港会安 4 天",
+   "title": "四天，岘港的海和会安古镇",
+   "kicker": "东南亚 · 4 天",
+   "start": [
+    2026,
+    3,
+    15
+   ],
+   "prep": [
+    "越南要办电子签"
+   ],
+   "days": [
+    {
+     "title": "美溪海滩",
+     "text": "到岘港，下午在美溪海滩游泳。",
+     "stops": [
+      {
+       "name": "美溪海滩",
+       "q": "My Khe Beach",
+       "type": "park",
+       "dur": 180
+      }
+     ],
+     "start": "13:00",
+     "stay": "美溪海滩"
+    },
+    {
+     "title": "巴拿山",
+     "text": "坐缆车上巴拿山，看金手桥。",
+     "stops": [
+      {
+       "name": "巴拿山",
+       "q": "Ba Na Hills",
+       "type": "sight",
+       "dur": 300,
+       "via": "包车约 50 分钟"
+      }
+     ],
+     "stay": "美溪海滩"
+    },
+    {
+     "title": "会安古镇",
+     "text": "去会安古镇，傍晚放河灯。",
+     "stops": [
+      {
+       "name": "会安古镇",
+       "q": "Hoi An Ancient Town",
+       "type": "street",
+       "dur": 240,
+       "via": "包车约 50 分钟",
+       "at": "15:00"
+      }
+     ],
+     "city": "会安",
+     "stay": "会安古镇",
+     "story": "会安古镇保留着日本廊桥和华人会馆，1999 年列入世界遗产。"
+    },
+    {
+     "title": "回程",
+     "text": "上午在会安骑车去安邦海滩，下午去机场。",
+     "stops": [
+      {
+       "name": "安邦海滩",
+       "q": "An Bang Beach",
+       "type": "park",
+       "dur": 120
+      }
+     ],
+     "city": "会安"
+    }
+   ]
+  },
+  "jju3": {
+   "dest": "korea",
+   "city": "济州",
+   "label": "济州岛 3 天",
+   "title": "三天，济州岛的火山和海",
+   "kicker": "东亚 · 3 天",
+   "start": [
+    2026,
+    4,
+    1
+   ],
+   "prep": [
+    "济州岛对中国护照免签（以出发前政策为准）"
+   ],
+   "days": [
+    {
+     "title": "城山日出峰",
+     "text": "看城山日出峰，下午在牛岛骑车。",
+     "stops": [
+      {
+       "name": "城山日出峰",
+       "q": "Seongsan Ilchulbong",
+       "type": "sight",
+       "dur": 120,
+       "via": "包车约 1 小时"
+      },
+      {
+       "name": "牛岛",
+       "q": "Udo Island",
+       "type": "park",
+       "dur": 150,
+       "via": "轮渡约 15 分钟"
+      }
+     ],
+     "stay": "济州市"
+    },
+    {
+     "title": "汉拿山 · 涉地可支",
+     "text": "上午走汉拿山步道，下午看涉地可支海岸。",
+     "stops": [
+      {
+       "name": "汉拿山",
+       "q": "Hallasan",
+       "type": "park",
+       "dur": 240
+      },
+      {
+       "name": "涉地可支",
+       "q": "Seopjikoji",
+       "type": "sight",
+       "dur": 90
+      }
+     ],
+     "stay": "济州市"
+    },
+    {
+     "title": "龙头岩 · 回程",
+     "text": "上午看龙头岩，去东门市场吃海鲜，下午出发。",
+     "stops": [
+      {
+       "name": "龙头岩",
+       "q": "Yongduam Rock",
+       "type": "sight",
+       "dur": 45
+      },
+      {
+       "name": "东门市场",
+       "q": "Dongmun Market",
+       "type": "street",
+       "dur": 90
+      }
+     ]
+    }
+   ]
+  },
+  "jog3": {
+   "dest": "indonesia",
+   "city": "日惹",
+   "label": "日惹 3 天",
+   "title": "三天，日惹看婆罗浮屠和普兰巴南",
+   "kicker": "东南亚 · 3 天",
+   "start": [
+    2026,
+    6,
+    15
+   ],
+   "prep": [
+    "印尼落地签",
+    "婆罗浮屠爬塔要提前买票"
+   ],
+   "days": [
+    {
+     "title": "普兰巴南",
+     "text": "到日惹，傍晚看普兰巴南神庙。",
+     "stops": [
+      {
+       "name": "普兰巴南",
+       "q": "Prambanan",
+       "type": "sight",
+       "dur": 120,
+       "via": "打车约 40 分钟",
+       "at": "15:30"
+      }
+     ],
+     "stay": "日惹",
+     "story": "普兰巴南是 9 世纪的印度教神庙群，和婆罗浮屠一样是世界遗产。"
+    },
+    {
+     "title": "婆罗浮屠",
+     "text": "清早去婆罗浮屠看日出。",
+     "stops": [
+      {
+       "name": "婆罗浮屠",
+       "q": "Borobudur",
+       "type": "sight",
+       "dur": 180,
+       "via": "包车约 1 小时 20 分钟"
+      }
+     ],
+     "start": "04:30",
+     "stay": "日惹",
+     "story": "婆罗浮屠是 8–9 世纪建的佛教建筑群，是世界上最大的佛教遗址之一。"
+    },
+    {
+     "title": "苏丹王宫 · 回程",
+     "text": "看苏丹王宫和马里奥波罗大街，下午出发。",
+     "stops": [
+      {
+       "name": "苏丹王宫",
+       "q": "Kraton Yogyakarta",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "马里奥波罗大街",
+       "q": "Malioboro Street",
+       "type": "street",
+       "dur": 90
+      }
+     ]
+    }
+   ]
+  },
+  "kul3": {
+   "dest": "malaysia",
+   "city": "吉隆坡",
+   "label": "吉隆坡 3 天",
+   "title": "三天，吉隆坡双子塔和黑风洞",
+   "kicker": "东南亚 · 3 天",
+   "start": [
+    2026,
+    6,
+    15
+   ],
+   "prep": [
+    "马来西亚对中国护照免签（以出发前政策为准）"
+   ],
+   "days": [
+    {
+     "title": "双子塔 · 阿罗街",
+     "text": "看国油双子塔，晚上去阿罗街吃大排档。",
+     "stops": [
+      {
+       "name": "国油双子塔",
+       "q": "Petronas Twin Towers",
+       "type": "sight",
+       "dur": 120,
+       "at": "16:00"
+      },
+      {
+       "name": "阿罗街",
+       "q": "Jalan Alor",
+       "type": "street",
+       "dur": 90,
+       "at": "19:00"
+      }
+     ],
+     "start": "14:00",
+     "stay": "武吉免登"
+    },
+    {
+     "title": "黑风洞 · 独立广场",
+     "text": "上午爬黑风洞的 272 级彩虹台阶，下午看独立广场和茨厂街。",
+     "stops": [
+      {
+       "name": "黑风洞",
+       "q": "Batu Caves",
+       "type": "sight",
+       "dur": 120,
+       "via": "打车约 30 分钟"
+      },
+      {
+       "name": "独立广场",
+       "q": "Merdeka Square",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "茨厂街",
+       "q": "Petaling Street",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "stay": "武吉免登"
+    },
+    {
+     "title": "布城 · 回程",
+     "text": "去布城看粉红清真寺，下午去机场。",
+     "stops": [
+      {
+       "name": "布特拉清真寺",
+       "q": "Putra Mosque",
+       "type": "sight",
+       "dur": 90,
+       "via": "包车约 40 分钟"
+      }
+     ]
+    }
+   ]
+  },
+  "hkt4": {
+   "dest": "thailand",
+   "city": "普吉岛",
+   "label": "普吉岛 4 天",
+   "title": "四天，普吉岛和皮皮岛",
+   "kicker": "海岛 · 4 天",
+   "start": [
+    2026,
+    11,
+    15
+   ],
+   "prep": [
+    "5–10 月雨季风浪大，出海看天气"
+   ],
+   "days": [
+    {
+     "title": "芭东海滩",
+     "text": "到普吉，傍晚在芭东海滩散步。",
+     "stops": [
+      {
+       "name": "芭东海滩",
+       "q": "Patong Beach",
+       "type": "park",
+       "dur": 150,
+       "at": "16:30"
+      }
+     ],
+     "start": "14:00",
+     "stay": "芭东"
+    },
+    {
+     "title": "皮皮岛",
+     "text": "坐船出海去皮皮岛和玛雅湾。",
+     "stops": [
+      {
+       "name": "皮皮岛",
+       "q": "Phi Phi Islands",
+       "type": "sight",
+       "dur": 420,
+       "via": "快艇约 1 小时"
+      }
+     ],
+     "start": "07:30",
+     "stay": "芭东"
+    },
+    {
+     "title": "普吉老城 · 神仙半岛",
+     "text": "逛普吉老城的彩色骑楼，傍晚去神仙半岛看日落。",
+     "stops": [
+      {
+       "name": "普吉老城",
+       "q": "Phuket Old Town",
+       "type": "street",
+       "dur": 150
+      },
+      {
+       "name": "神仙半岛",
+       "q": "Promthep Cape",
+       "type": "sight",
+       "dur": 60,
+       "at": "17:45"
+      }
+     ],
+     "stay": "芭东"
+    },
+    {
+     "title": "卡伦海滩 · 回程",
+     "text": "上午在卡伦海滩游泳，下午去机场。",
+     "stops": [
+      {
+       "name": "卡伦海滩",
+       "q": "Karon Beach",
+       "type": "park",
+       "dur": 120
+      }
+     ]
+    }
+   ]
+  },
+  "hkl2": {
+   "dest": "hongkong",
+   "city": "香港",
+   "label": "香港大屿山 2 天",
+   "title": "两天，大屿山和大澳",
+   "kicker": "城市 · 两天",
+   "start": [
+    2026,
+    11,
+    1
+   ],
+   "prep": [
+    "昂坪 360 缆车排队长，提前在官网买票"
+   ],
+   "days": [
+    {
+     "title": "昂坪 · 天坛大佛",
+     "text": "坐昂坪 360 缆车上山，看天坛大佛和宝莲寺，下午去大澳渔村。",
+     "stops": [
+      {
+       "name": "昂坪360",
+       "q": "Ngong Ping 360",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "天坛大佛",
+       "q": "Tian Tan Buddha",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "大澳",
+       "q": "Tai O",
+       "type": "street",
+       "dur": 120
+      }
+     ],
+     "stay": "中环",
+     "story": "大澳是香港保留最完整的水上棚屋渔村。"
+    },
+    {
+     "title": "大馆 · 回程",
+     "text": "上午看中环的大馆，下午出发。",
+     "stops": [
+      {
+       "name": "大馆",
+       "q": "Tai Kwun",
+       "type": "sight",
+       "dur": 90
+      }
+     ]
+    }
+   ]
   }
  }
 }

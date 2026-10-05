@@ -75,7 +75,23 @@ SIGHT = {
     '元阳梯田': '哈尼族开垦了一千多年的梯田', '黄果树瀑布': '可以走到瀑布后面的水帘洞', '凤凰古城': '沱江两岸的吊脚楼', '张家界国家森林公园': '石英砂岩峰林，袁家界、天子山都在里面',
     '宏村': '月沼和南湖倒影最出名', '篁岭': '秋天晒秋，屋顶晒满辣椒和稻谷', '武夷山': '九曲溪坐竹筏', '三坊七巷': '福州老城的坊巷',
     '雍布拉康': '相传是西藏最早的宫殿', '桑耶寺': '西藏第一座佛法僧三宝俱全的寺院', '佩特拉': '在红色砂岩里凿出来的古城', '狮子岩': '巨岩顶上的王宫遗址',
-    '吴哥窟': '高棉王朝的寺庙城，日出时最好看', '大象保护营': '给大象喂食、洗澡，不骑大象'}
+    '吴哥窟': '高棉王朝的寺庙城，日出时最好看', '大象保护营': '给大象喂食、洗澡，不骑大象',
+    '世界魔鬼城': '雅丹地貌，被风蚀成城堡的样子', '果子沟大桥': '架在山谷上空的斜拉桥，去伊犁的必经之路', '中央大街': '石头路面，两边是百年欧式老楼',
+    '新都桥': '秋天杨树金黄，被叫作摄影天堂', '理塘': '海拔 4,000 米以上的高城', '甲秀楼': '南明河上的明代楼阁', '大召寺': '明代修建的藏传佛教寺院',
+    '扎什伦布寺': '历代班禅驻锡的寺院', '宽窄巷子': '清代留下来的老街巷', '人民公园': '鹤鸣茶社喝盖碗茶、看老成都',
+    '川剧变脸': '川剧里最出名的绝活', '大熊猫繁育研究基地': '早上熊猫最活跃，去晚了多在睡觉', '武侯祠': '纪念诸葛亮和刘备，君臣合祀',
+    '杜甫草堂': '杜甫在成都住过将近四年的地方', '三号矿坑': '可可托海的露天大矿坑', '禾木村': '图瓦人的原木小屋，清晨有晨雾',
+    '六星街': '伊宁的俄式彩色老房子', '独山子大峡谷': '雨水冲刷出的深峡谷，傍晚颜色最好', '胡杨林': '十月胡杨叶子金黄', '黑城': '西夏、元代的古城遗址',
+    '怪树林': '一片枯死的胡杨，姿态各异', '居延海': '额济纳的湖，日出时最好看', '五花海': '九寨沟颜色最丰富的海子', '珍珠滩': '水流过浅滩溅起水花，像珍珠',
+    '树正群海': '一串相连的海子和瀑布', '松潘古城': '明代古城墙，茶马古道上的重镇', '南京路步行街': '上海最热闹的商业街', '武康路': '梧桐树下的老洋房',
+    '田子坊': '石库门里弄改成的小店和工作室', '陆家嘴': '东方明珠和三座高楼都在这里', '断桥': '白娘子和许仙传说里相遇的地方', '苏堤春晓': '春天桃柳最好看',
+    '雷峰塔': '白蛇传里的塔，现在的塔是新建的', '河坊街': '杭州老街，小吃多', '京杭大运河': '世界上最长的古运河', '狮子林': '假山像迷宫',
+    '平江路': '小河和老街并行，保留着宋代格局', '山塘街': '七里山塘，晚上沿河亮灯', '观前街': '苏州老商业街', '天门洞': '天门山上的天然穿山洞',
+    '玻璃栈道': '悬在崖壁上的玻璃步道', '袁家界': '石柱林立，电影里悬浮山的原型之一', '天子山': '看峰林全景的好地方', '十里画廊': '溪谷两边的奇峰',
+    '大馆': '旧中区警署改成的展览和艺术空间', '天坛大佛': '坐在山顶的青铜大佛', '大澳': '香港保留最完整的水上棚屋渔村', '婆罗浮屠': '世界上最大的佛教遗址之一',
+    '普兰巴南': '9 世纪的印度教神庙群', '会安古镇': '日本廊桥和华人会馆，傍晚放河灯', '城山日出峰': '海边的火山口，看日出的地方', '大皇宫': '曼谷的王宫，玉佛寺就在里面',
+    '卧佛寺': '寺里有一尊 46 米长的卧佛', '郑王庙': '湄南河边的佛塔，傍晚最好看', '黑风洞': '272 级彩虹台阶上去是溶洞神庙', '国油双子塔': '吉隆坡的地标双塔',
+    '皮皮岛': '石灰岩小岛和清澈海水', '巴拿山': '金手桥就在山上',}
 
 
 def sight_of(text):
@@ -286,6 +302,13 @@ def page(path, title, desc, body, jsonld=(), image=None, crumbs=()):
 """
 
 
+def tsplit(t):
+    t = t or ''
+    i = t.find('，')
+    if 0 < i < len(t) - 1: return E(t[:i + 1]) + '<span class="nw">' + E(t[i + 1:]) + '</span>'
+    return E(t)
+
+
 def tcls(t):
     n_ = len(t or '')
     return ' xlong' if n_ > 17 else ' long' if n_ > 12 else ''
@@ -297,12 +320,12 @@ def hero(r, back=None, share=False):
     img = (r.get('img') or '').replace('/_blob/', '')
     gen = os.path.join('site_src', 'posters', (r.get('id') or '') + '.svg')
     if not (img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg'))) and os.path.exists(gen):
-        return f'<div class="hero"><img src="/img/p/{E(r.get("id"))}.svg" alt="{E(r.get("alt") or r["title"])}" width="430" height="380">{sq}<div class="hero-t{tcls(r["title"])}"><span class="kick">{kick}</span><h1>{E(r["title"])}</h1></div></div>'
+        return f'<div class="hero"><img src="/img/p/{E(r.get("id"))}.svg" alt="{E(r.get("alt") or r["title"])}" width="430" height="380">{sq}<div class="hero-t{tcls(r["title"])}"><span class="kick">{kick}</span><h1>{tsplit(r["title"])}</h1></div></div>'
     if img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg')):
-        return f'<div class="hero"><img src="/img/{E(img)}.svg" alt="{E(r.get("alt") or r["title"])}" width="430" height="380">{sq}<div class="hero-t{tcls(r["title"])}"><span class="kick">{kick}</span><h1>{E(r["title"])}</h1></div></div>'
+        return f'<div class="hero"><img src="/img/{E(img)}.svg" alt="{E(r.get("alt") or r["title"])}" width="430" height="380">{sq}<div class="hero-t{tcls(r["title"])}"><span class="kick">{kick}</span><h1>{tsplit(r["title"])}</h1></div></div>'
     mark = re.sub(r'\s*\d+\s*天$', '', r.get('label') or '')
     bg = ['#3a302a', '#2e3a3f', '#3b3527', '#2f3830'][len(r.get('id') or '') % 4]
-    return f'<div class="hero text" style="background:{bg}"><span class="mark" aria-hidden="true">{E(mark)}</span>{sq}<div class="hero-t{tcls(r["title"])}"><span class="kick">{kick}</span><h1>{E(r["title"])}</h1></div></div>'
+    return f'<div class="hero text" style="background:{bg}"><span class="mark" aria-hidden="true">{E(mark)}</span>{sq}<div class="hero-t{tcls(r["title"])}"><span class="kick">{kick}</span><h1>{tsplit(r["title"])}</h1></div></div>'
 
 
 def navurl(a, b, how, app, name):
@@ -637,7 +660,7 @@ def home_page():
     body = (f'<article class="home"><div class="cover">{f"<img src=/img/{cimg}.svg alt=>" if cimg else ""}'
             f'<div class="mast"><div><h1>走你</h1><small>{TODAY.year} · {mname}</small></div><button type="button" class="minebtn"><span>我的行程</span></button></div>'
             f'<div class="datebar"><button type="button" class="hdt" aria-label="改出发日期"><b>{TODAY.month}/{TODAY.day} 周{"一二三四五六日"[TODAY.weekday()]} 出发</b><i>改</i></button><input type="hidden" class="hdpk" data-min="{TODAY.isoformat()}" value="{TODAY.isoformat()}"></div>'
-            f'<div class="cv"><span class="kick">封面故事 · 正当季{(" · 还剩 " + str(dl0) + " 天") if dl0 is not None else ""}</span><h2>{E(r["title"])}</h2><div class="chips"><span>{len(r["days"])} 天 · 人均 {E(r.get("price"))}</span><span>{m} 月 {c0[0]}°C / {c0[1]}°C</span></div><a class="go" href="/trip/{cover}/">翻开 →</a></div></div>'
+            f'<div class="cv"><span class="kick">封面故事 · 正当季{(" · 还剩 " + str(dl0) + " 天") if dl0 is not None else ""}</span><h2>{tsplit(r["title"])}</h2><div class="chips"><span>{len(r["days"])} 天 · 人均 {E(r.get("price"))}</span><span>{m} 月 {c0[0]}°C / {c0[1]}°C</span></div><a class="go" href="/trip/{cover}/">翻开 →</a></div></div>'
             f'<form class="hsearch" action="/where/" method="get" role="search"><input type="search" name="q" placeholder="搜地名或景点，比如 婺源、兵马俑" aria-label="搜地名或景点"><button type="submit">搜</button></form>'
 
             f'<section class="toc now" id="now"><h2><span class="nt">现在去正好</span><small class="ns">{len(order) + 1} 条，快过季的先看</small></h2>{chips}<ol class="items">{toc}</ol>'
