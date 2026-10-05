@@ -288,3 +288,9 @@ a,button{-webkit-tap-highlight-color:transparent}
 .xd button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-height:48px;padding:8px 12px;border:0;background:var(--card);text-align:left;cursor:pointer;color:var(--ink)}
 .xd button b{font-size:14px}.xd button small{font-size:12px;color:var(--sub)}.xd .xg{margin:8px 0 0;font-size:12px;font-weight:700;color:var(--red);letter-spacing:.1em}
 .stays .tl2{display:inline-flex;align-items:center;min-height:32px;font-size:12px;font-weight:700;color:var(--red)}
+.stays .sn{margin:0;padding:8px 14px 0;font-size:12px;color:var(--sub)}
+.hlegend b{display:inline;width:auto;margin-right:3px;font:700 12px var(--sans);color:var(--red)}
+.stays li b.tg{font-size:14px;font-weight:700}.stays .sh span:last-child{font-size:12px;color:var(--sub)}
+.stays .tog{height:36px}.stays .sn{padding:2px 14px 0}
+.addday .add{height:44px;font-size:14px}
+.hero-t.long h1{font-size:28px}.hero-t.xlong h1{font-size:24px}
