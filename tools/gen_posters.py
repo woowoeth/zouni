@@ -89,6 +89,19 @@ def pagoda(cx, base, tiers, w0, col, acc):
     return s
 
 
+
+def stupa(cx, base, w0, col, acc):
+    """东南亚、南亚的佛塔：几层方台、钟形塔身、细长的塔尖"""
+    s = ''; y = base; w = w0
+    for k in range(3):
+        h = 22; s += f'<rect x="{cx - w / 2:.0f}" y="{y - h:.0f}" width="{w:.0f}" height="{h}" fill="{col}"/>'; y -= h; w *= .8
+    bw = w * 1.05; bh = w * .95
+    s += f'<path d="M{cx - bw / 2:.0f},{y:.0f} C{cx - bw / 2:.0f},{y - bh * .9:.0f} {cx - bw * .18:.0f},{y - bh:.0f} {cx:.0f},{y - bh:.0f} C{cx + bw * .18:.0f},{y - bh:.0f} {cx + bw / 2:.0f},{y - bh * .9:.0f} {cx + bw / 2:.0f},{y:.0f} Z" fill="{col}"/>'
+    y -= bh
+    for k in range(5): s += f'<rect x="{cx - 9 + k * 1.6:.0f}" y="{y - 14 - k * 14:.0f}" width="{18 - k * 3.2:.0f}" height="12" fill="{col}"/>'
+    s += f'<rect x="{cx - 1.5:.0f}" y="{y - 120:.0f}" width="3" height="44" fill="{acc}"/>'
+    return s
+
 def poster(rid, it):
     t = TR.get(rid, {}); seed = int(hashlib.md5(rid.encode()).hexdigest()[:8], 16); rnd = random.Random(seed)
     se = season_of(t); cat = category(it)
@@ -302,7 +315,10 @@ def poster(rid, it):
         g.append(f'<rect x="0" y="{horizon}" width="{W}" height="{H - horizon}" fill="url(#wt)"/>')
     elif cat == 'temple':
         g.append(f'<path d="M60,580 Q300,430 540,580 Z" fill="{main}"/>')
-        g.append(pagoda(300, 490, rnd.randint(5, 7), 176, P['gnd'], acc))
+        if it['dest'] in ('thailand', 'cambodia', 'laos', 'myanmar', 'srilanka', 'nepal', 'bhutan', 'indonesia', 'india', 'mongolia'):
+            g.append(stupa(300, 500, 200, P['gnd'], acc))
+        else:
+            g.append(pagoda(300, 490, rnd.randint(5, 7), 176, P['gnd'], acc))
     elif cat == 'forest' or cat == 'flower':
         g.append(f'<path d="{ridge(rnd, 520, 20, 30)}" fill="{main}"/>')
         for k in range(rnd.randint(7, 11)):

@@ -265,7 +265,7 @@ def row_html(w, city, app):
         place = w.get('place') if w.get('place') not in ('随意', '住的地方附近', '附近', '车站或机场里吃', '沿途', '路上') else ''
         main = f'{E(w.get("slot"))} · {E(w.get("dish"))}'
         rec = [x for d_ in re.split(r'[、，]', w.get('dish') or '') for x in FAMOUS.get(city or '', {}).get(d_.strip(), [])]
-        tip = ('老店：' + '、'.join(rec)) if rec else ('点评上找附近评分高的店' if w.get('dish') not in ('简单吃一点', '随意') else '')
+        tip = ('老店：' + '、'.join(rec)) if rec else ''
         sub = ' · '.join(x for x in [E(place), E(w.get('d')), E(w.get('kb')), E(tip)] if x)
         kw = w.get('poi') or place
     elif t == 'stay':
@@ -386,6 +386,7 @@ def trip_page(rid):
                 c_ = coord(w['poi'], city)
                 if c_: lastpt = c_
         navprev = lastpt
+        rows = [w for k_, w in enumerate(rows) if not (w['type'] == 'dep' and w.get('to') == '吃晚饭' and (w.get('how') or '') in ('打车或步行', ''))]
         days.append(f'<section class="day" id="d{i + 1}"><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
                     f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (d.get("clim") or {}).get(str(dates[i].month)) else ""}</p>{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
         sights += [w['name'] for w in d['rows'] if w['type'] == 'see' and w.get('poi')]
