@@ -8,6 +8,33 @@
   function toast(t){var d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(function(){d.remove()},1700)}
   // 日出日落：按今天的月份和每天的坐标算
   function sun(lat,lon,dt,rise){var n=Math.round((dt-new Date(dt.getFullYear(),0,0))/864e5),r=Math.PI/180,lh=lon/15,t=n+((rise?6:18)-lh)/24,M=.9856*t-3.289,L=(M+1.916*Math.sin(M*r)+.02*Math.sin(2*M*r)+282.634)%360,RA=(Math.atan(.91764*Math.tan(L*r))/r+360)%360;RA=(RA+(Math.floor(L/90)*90-Math.floor(RA/90)*90))/15;var sd=.39782*Math.sin(L*r),cd=Math.cos(Math.asin(sd)),cH=(Math.cos(90.833*r)-sd*Math.sin(lat*r))/(cd*Math.cos(lat*r));if(cH>1||cH<-1)return'—';var H=(rise?360-Math.acos(cH)/r:Math.acos(cH)/r)/15,T=H+RA-.06571*t-6.622,lo=((T-lh)%24+24+8)%24,h=Math.floor(lo),m=Math.round((lo-h)*60);if(m==60){h++;m=0}return(h<10?'0':'')+h+':'+(m<10?'0':'')+m}
+
+  // ——— 站内日期面板（不用系统控件）：月历、过去的日子不能选、标出最好的日子、几个常用日子一点就选 ———
+  function openPicker(o){var W='一二三四五六日',val=o.value,min=o.min,best=o.best;var cur=new Date(val+'T12:00:00');var vy=cur.getFullYear(),vm=cur.getMonth();
+    function iso(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+    function inBest(d){if(!best)return false;var m=('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);return best[0]<=best[1]?(m>=best[0]&&m<=best[1]):(m>=best[0]||m<=best[1])}
+    var mask=document.createElement('div');mask.className='pk-mask';var sh=document.createElement('div');sh.className='pk';sh.setAttribute('role','dialog');sh.setAttribute('aria-label','选出发日期');
+    function sat(k){var d=new Date();d.setHours(12);var add=(6-d.getDay()+7)%7;d.setDate(d.getDate()+add+7*k);return d}
+    function nm1(){var d=new Date();d.setHours(12);d.setMonth(d.getMonth()+1,1);return d}
+    var quick=[['这周六',sat(0)],['下周六',sat(1)],['下个月 1 号',nm1()]];
+    function render(){var first=new Date(vy,vm,1,12),start=(first.getDay()+6)%7,days=new Date(vy,vm+1,0).getDate(),h='';
+      h+='<div class="pk-h"><b>选出发日期</b><button type="button" class="pk-x" aria-label="关上">关上</button></div>';
+      h+='<div class="pk-q">'+quick.map(function(q,i){return'<button type="button" data-q="'+i+'" '+(iso(q[1])<min?'disabled':'')+'>'+q[0]+'<small>'+(q[1].getMonth()+1)+'/'+q[1].getDate()+'</small></button>'}).join('')+'</div>';
+      h+='<div class="pk-m"><button type="button" class="pk-p" aria-label="上个月">‹</button><b>'+vy+' 年 '+(vm+1)+' 月</b><button type="button" class="pk-n" aria-label="下个月">›</button></div>';
+      h+='<div class="pk-w">'+W.split('').map(function(x){return'<span>'+x+'</span>'}).join('')+'</div><div class="pk-g">';
+      for(var i=0;i<start;i++)h+='<span></span>';
+      for(var dd=1;dd<=days;dd++){var d=new Date(vy,vm,dd,12),v=iso(d),cls=[];if(v<min)cls.push('off');if(v===val)cls.push('on');if(v===min)cls.push('today');if(inBest(d))cls.push('best');if(d.getDay()===0||d.getDay()===6)cls.push('we');
+        h+='<button type="button" data-v="'+v+'" class="'+cls.join(' ')+'" '+(v<min?'disabled':'')+'>'+dd+'</button>'}
+      h+='</div>'+(best?'<p class="pk-tip"><i></i>绿色是这条线最好的日子</p>':'<p class="pk-tip">选好就关上，页面会跟着这天重新排</p>');
+      sh.innerHTML=h;
+      sh.querySelector('.pk-p').disabled=(vy*12+vm)<=(+min.slice(0,4)*12+(+min.slice(5,7)-1))}
+    function close(){mask.remove();sh.remove();document.body.classList.remove('pk-open')}
+    function pick(v){close();o.onPick(v)}
+    sh.addEventListener('click',function(e){var b=e.target.closest('button');if(!b||b.disabled)return;
+      if(b.classList.contains('pk-x'))return close();if(b.classList.contains('pk-p')){vm--;if(vm<0){vm=11;vy--}return render()}if(b.classList.contains('pk-n')){vm++;if(vm>11){vm=0;vy++}return render()}
+      if(b.dataset.v)return pick(b.dataset.v);if(b.dataset.q)return pick(iso(quick[+b.dataset.q][1]))});
+    mask.addEventListener('click',close);document.addEventListener('keydown',function k(e){if(e.key==='Escape'){close();document.removeEventListener('keydown',k)}});
+    render();document.body.appendChild(mask);document.body.appendChild(sh);document.body.classList.add('pk-open');var f=sh.querySelector('.pk-g .on')||sh.querySelector('.pk-g button:not([disabled])');if(f)f.focus()}
   var now=new Date();
   document.querySelectorAll('.sun').forEach(function(b){var d=b.dataset.date?new Date(b.dataset.date+'T12:00:00'):now;b.textContent=sun(+b.dataset.lat,+b.dataset.lng,d,b.dataset.k==='rise')});
 
@@ -54,9 +81,9 @@
         document.querySelectorAll('.overview i').forEach(function(x,i){x.textContent=fmt(new Date(d0.getTime()+i*864e5))});
         dtb.firstChild.textContent=fmt(d0)+'–'+fmt(new Date(d0.getTime()+(n-1)*864e5))+' ';
         var db=document.querySelector('.dock b');if(db)db.textContent=fmt(d0)+' 出发 · '+n+' 天'}
-      dk.addEventListener('click',function(){try{if(dk.showPicker)dk.showPicker()}catch(e){}});
+      dtb.addEventListener('click',function(){var b0=dtb.dataset.best?dtb.dataset.best.split(','):null;openPicker({value:dk.value,min:dk.dataset.min||dk.getAttribute('min'),best:b0&&b0.length===2?b0:null,onPick:function(v){dk.value=v;dk.dispatchEvent(new Event('change'))}})});
       dk.addEventListener('change',function(){if(!dk.value)return;try{localStorage.setItem(sk,dk.value)}catch(e){}applyStart(dk.value);var d=new Date(dk.value+'T12:00:00');toast('改成 '+fmt(d)+' 出发了')});
-      try{var s0=localStorage.getItem(sk)||localStorage.getItem('zouni_home_date');if(s0&&s0>=dk.min&&s0!==dk.value){dk.value=s0;applyStart(s0)}}catch(e){}}
+      var mn=dk.dataset.min||dk.min;try{var s0=localStorage.getItem(sk)||localStorage.getItem('zouni_home_date');if(s0&&s0>=mn&&s0!==dk.value){dk.value=s0;applyStart(s0)}}catch(e){}}
     // 旅途中：出发日到了，就在底部提示“今天第几天、下一站”
     function todayBar(){var old=document.querySelector('.today');if(old)old.remove();
       var st0=(dk&&dk.value)||art.dataset.start;if(!st0)return;var d0=new Date(st0+'T00:00:00'),nw=new Date(),idx=Math.floor((new Date(nw.getFullYear(),nw.getMonth(),nw.getDate())-d0)/864e5),secs=document.querySelectorAll('.day');
@@ -94,7 +121,10 @@
       pool.forEach(function(li){li._l=left(li,cur)});
       var urg=pool.filter(function(li){return li._l<=14}).sort(function(a,b){return(b.dataset.img-a.dataset.img)||(a._l-b._l)}).slice(0,3);
       var rest=pool.filter(function(li){return urg.indexOf(li)<0}).sort(function(a,b){return(b.dataset.img-a.dataset.img)||(a.dataset.comp-b.dataset.comp)||(a._l-b._l)});
-      var ord=urg.concat(rest),cnt={'':ord.length,d1:0,d2:0,d3:0};ord.forEach(function(li){cnt[li.dataset.band]++});
+      var ord=urg.concat(rest),isToday=hk&&cur===(hk.dataset.min||hk.min),cvp=null;
+      lis.forEach(function(li){if(li.dataset.cv)delete li.dataset.cv});
+      if(!isToday){cvp=ord.filter(function(li){return li.dataset.src&&li.dataset.img==='1'&&li._l>=7})[0]||ord.filter(function(li){return li.dataset.src&&li._l>=7})[0]||ord.filter(function(li){return li.dataset.src})[0];if(cvp){cvp.dataset.cv='1';ord=ord.filter(function(li){return li!==cvp})}}
+      var cnt={'':ord.length,d1:0,d2:0,d3:0};ord.forEach(function(li){cnt[li.dataset.band]++});
       dc.querySelectorAll('button').forEach(function(x){x.textContent=x.textContent.replace(/\s*·?\s*\d+$/,'').replace(/\s+\d+$/,'')+(x.dataset.b?' · ':' ')+cnt[x.dataset.b]});
       var k=0,mo=+m.slice(0,2);lis.forEach(function(li){li.hidden=true});
       ord.forEach(function(li){ol.appendChild(li);var ok=!band||li.dataset.band===band;if(!ok)return;k++;li.hidden=!all&&k>8;li.querySelector('.num').textContent=('0'+(k+1)).slice(-2);
@@ -102,13 +132,19 @@
         var c=li.querySelector('.c');if(c&&li.dataset.clim){var cl=JSON.parse(li.dataset.clim)[mo];if(cl)c.textContent=mo+' 月白天 '+cl[0]+'℃，夜里 '+cl[1]+'℃'}});
       var vis=ord.filter(function(li){return!band||li.dataset.band===band}).length;
       if(mb){mb.hidden=all||vis<=8;mb.textContent='再看 '+Math.max(0,vis-8)+' 条'}
-      var today=hk&&cur===hk.min,d=new Date(cur+'T12:00:00');
+      var today=hk&&cur===(hk.dataset.min||hk.min),d=new Date(cur+'T12:00:00');
+      // 封面跟着日期换：挑这天正当季、有海报的第一条，封面图、标题、还剩几天、天数价格、当月气温、翻开链接都换
+      var cv=cvp;
+      if(cv&&!today){var img=document.querySelector('.cover img');if(img)img.src=cv.dataset.src;document.querySelector('.cv h2').textContent=cv.dataset.t;
+        document.querySelector('.cv .kick').textContent='封面故事 · '+f2(md(cur))+' 出发正当季 · 还剩 '+cv._l+' 天';
+        var cl2=JSON.parse(cv.dataset.clim||'{}')[mo]||['',''],chs=document.querySelectorAll('.cv .chips span');if(chs[0])chs[0].textContent=cv.dataset.n+' 天 · 人均 '+cv.dataset.pr;if(chs[1])chs[1].textContent=mo+' 月 '+cl2[0]+'°C / '+cl2[1]+'°C';
+        document.querySelector('.cv .go').href=cv.dataset.h}
       document.querySelector('.now .nt').textContent=today?'现在去正好':(f2(md(cur))+' 出发正好去');document.querySelector('.now .ns').textContent=vis+' 条，快过季的先看'}
     dc.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;band=b.dataset.b;all=false;dc.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});show()});
     if(mb)mb.addEventListener('click',function(){all=true;show()});
-    if(hk){hk.addEventListener('click',function(){try{if(hk.showPicker)hk.showPicker()}catch(e){}});
+    if(hk){hb.addEventListener('click',function(){openPicker({value:hk.value,min:hk.dataset.min||hk.min,best:null,onPick:function(v){hk.value=v;hk.dispatchEvent(new Event('change'))}})});
       hk.addEventListener('change',function(){if(!hk.value)return;cur=hk.value;all=false;try{localStorage.setItem('zouni_home_date',cur)}catch(e){}var d=new Date(cur+'T12:00:00');hb.querySelector('b').textContent=(d.getMonth()+1)+'/'+d.getDate()+' 周'+W[d.getDay()]+' 出发';show();document.getElementById('now').scrollIntoView()});
-      try{var h0=localStorage.getItem('zouni_home_date');if(h0&&h0>=hk.min){hk.value=h0;cur=h0;var d0=new Date(h0+'T12:00:00');hb.querySelector('b').textContent=(d0.getMonth()+1)+'/'+d0.getDate()+' 周'+W[d0.getDay()]+' 出发'}}catch(e){}}
+      try{var h0=localStorage.getItem('zouni_home_date');if(h0&&h0>=(hk.dataset.min||hk.min)){hk.value=h0;cur=h0;var d0=new Date(h0+'T12:00:00');hb.querySelector('b').textContent=(d0.getMonth()+1)+'/'+d0.getDate()+' 周'+W[d0.getDay()]+' 出发'}}catch(e){}}
     show()}
   // ——— 本期：我的行程、最近看过 ———
   function mineEmpty(){var sec=document.getElementById('mine');if(sec&&location.hash==='#mine'&&!ld('zouni_fav').length){sec.hidden=false;sec.querySelector('ul').innerHTML='<li class=empty>还没有收进的行程。打开任意一条行程，点底部“收进行程”，就会出现在这里。</li>'}}
