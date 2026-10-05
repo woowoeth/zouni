@@ -221,8 +221,10 @@
     show()}
   // ——— 路线图点一下放大看（手机上可以拖着看） ———
   document.querySelectorAll('.hmap').forEach(function(f){var svg=f.querySelector('svg');if(!svg)return;f.setAttribute('role','button');f.setAttribute('tabindex','0');f.title='点一下放大看';
-    function open(e){if(e.target.closest('a'))return;var m=document.createElement('div');m.className='hmap-zoom';m.innerHTML='<button type="button" class="hz-x">关上</button><div class="hz-b"></div>';m.querySelector('.hz-b').appendChild(svg.cloneNode(true));
-      document.body.appendChild(m);document.body.classList.add('pk-open');var b=m.querySelector('.hz-b');b.scrollLeft=(b.scrollWidth-b.clientWidth)/2;
+    function open(e){if(e.target.closest('a'))return;var m=document.createElement('div');m.className='hmap-zoom';m.innerHTML='<div class="hz-t"><button type="button" class="hz-m" aria-label="缩小">－</button><button type="button" class="hz-p" aria-label="放大">＋</button><button type="button" class="hz-x">关上</button></div><div class="hz-b"></div>';m.querySelector('.hz-b').appendChild(svg.cloneNode(true));
+      document.body.appendChild(m);document.body.classList.add('pk-open');var b=m.querySelector('.hz-b'),sv=b.querySelector('svg'),z=2;
+      function zoom(nz){var cxr=(b.scrollLeft+b.clientWidth/2)/b.scrollWidth,cyr=(b.scrollTop+b.clientHeight/2)/b.scrollHeight;z=Math.max(1,Math.min(4,nz));sv.style.width=(z*100)+'vw';b.scrollLeft=cxr*b.scrollWidth-b.clientWidth/2;b.scrollTop=cyr*b.scrollHeight-b.clientHeight/2;m.querySelector('.hz-m').disabled=z<=1;m.querySelector('.hz-p').disabled=z>=4}
+      zoom(2);b.scrollLeft=(b.scrollWidth-b.clientWidth)/2;m.querySelector('.hz-p').addEventListener('click',function(){zoom(z+1)});m.querySelector('.hz-m').addEventListener('click',function(){zoom(z-1)});
       function cl(){m.remove();document.body.classList.remove('pk-open')}m.querySelector('.hz-x').addEventListener('click',cl);m.addEventListener('click',function(e){if(e.target===m)cl()})}
     f.addEventListener('click',open);f.addEventListener('keydown',function(e){if(e.key==='Enter')open(e)})});
   // ——— 首页“长途和自驾”：再看全部 ———
