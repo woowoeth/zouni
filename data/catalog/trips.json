@@ -498,9 +498,9 @@
   },
   {
    "id": "cb4",
-   "dest": "sichuan",
+   "dest": "hebei",
    "name": "塞罕坝",
-   "region": "西南",
+   "region": "华北",
    "days": 4,
    "title": "河北 · 塞罕坝与避暑山庄",
    "headline": "坝上的秋只有半个月",
@@ -528,7 +528,7 @@
    },
    "anytime": false,
    "status": "ok",
-   "page": "Route.dc.html#cb4",
+   "page": null,
    "engineRoute": null,
    "poster": null
   },
@@ -10010,6 +10010,39 @@
    "anytime": false,
    "status": "ok",
    "page": "Route.dc.html#pzf2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jmgw4",
+   "dest": "sichuan",
+   "name": "阆中剑门光雾山",
+   "region": "西南",
+   "days": 4,
+   "title": "阆中剑门光雾山 4 天",
+   "headline": "四天，川北古城、剑门和红叶",
+   "dek": "逛阆中古城，看张飞庙和贡院，晚上吃张飞牛肉。 包车去剑门关，走剑门关栈道。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-15",
+     "11-10"
+    ],
+    "best": [
+     "10-15",
+     "11-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jmgw4",
    "engineRoute": null,
    "poster": null
   }
