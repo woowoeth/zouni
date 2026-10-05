@@ -7,6 +7,9 @@
   var now=new Date();
   document.querySelectorAll('.sun').forEach(function(b){var d=b.dataset.date?new Date(b.dataset.date+'T12:00:00'):now;b.textContent=sun(+b.dataset.lat,+b.dataset.lng,d,b.dataset.k==='rise')});
 
+  // ——— 返回：从本站点进来的就退回上一页（筛选和滚动位置都还在） ———
+  var bk0=document.querySelector('.sq.l,.pagehead a');
+  if(bk0)bk0.addEventListener('click',function(e){if(document.referrer.indexOf(location.origin)===0&&history.length>1){e.preventDefault();history.back()}});
   // ——— 行程页 ———
   var art=document.querySelector('article.trip');
   if(art){
@@ -102,7 +105,8 @@
     var on=mon.querySelector('button.on');if(on)mon.scrollLeft=on.offsetLeft-(mon.clientWidth-on.offsetWidth)/2;
     function curM(){var b=mon.querySelector('button.on');return b?+b.dataset.m:new Date().getMonth()+1}
     function near(best,m){return best.some(function(x){return Math.abs((x-m+12)%12)===1||Math.abs((m-x+12)%12)===1})}
-    function apply(){var m=curM(),n=0,good=[];
+    function save(){try{sessionStorage.setItem('zouni_where',JSON.stringify({st:st,m:curM(),open:!flt.hidden}))}catch(e){}}
+    function apply(){var m=curM(),n=0,good=[];setTimeout(save,0);
       document.querySelectorAll('.scope').forEach(function(sc){sc.hidden=sc.id!==st.tab});
       document.querySelectorAll('.card').forEach(function(c){var best=c.dataset.best.split(',').map(Number),days=c.dataset.days.split(',').map(Number),ok=true,f=c.querySelector('.fit');
         var v=c.dataset.no==='1'?'暂不排':best.indexOf(m)>=0?'正好':near(best,m)?'也行':'不建议';
@@ -132,6 +136,11 @@
       if(f==='fit'||f==='low'||f==='niche'||f==='near'){st[f]=!st[f];b.classList.toggle('on',st[f])}
       else{st.d=st.d===f?'':f;flt.querySelectorAll('[data-f^="d"]').forEach(function(x){x.classList.toggle('on',x.dataset.f===st.d)})}apply()})});
     var bud=flt.querySelector('.bud');bud.addEventListener('change',function(){st.bud=+bud.value||0;apply()});
+    try{var sv0=JSON.parse(sessionStorage.getItem('zouni_where')||'null');if(sv0){Object.keys(sv0.st).forEach(function(k){st[k]=sv0.st[k]});
+      mon.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',+x.dataset.m===sv0.m)});
+      document.querySelectorAll('.tabs button').forEach(function(x){x.classList.toggle('on',x.dataset.t===st.tab)});
+      inp.value=st.q||'';bud.value=st.bud?String(st.bud):'';flt.hidden=!sv0.open;
+      flt.querySelectorAll('.row button[data-f]').forEach(function(b){var f=b.dataset.f;b.classList.toggle('on',(f==='fit'||f==='low'||f==='niche'||f==='near')?!!st[f]:st.d===f)})}}catch(e){}
     var ORG={'北京':[39.9,116.4],'上海':[31.23,121.47],'广州':[23.13,113.26],'深圳':[22.54,114.06],'杭州':[30.27,120.16],'南京':[32.06,118.8],'成都':[30.66,104.06],'重庆':[29.56,106.55],'武汉':[30.59,114.3],'西安':[34.34,108.94],'香港':[22.3,114.17]};
     function km(a,b){var r=Math.PI/180,dl=(b[1]-a[1])*r,p1=a[0]*r,p2=b[0]*r,h=Math.sin((p2-p1)/2)*Math.sin((p2-p1)/2)+Math.cos(p1)*Math.cos(p2)*Math.sin(dl/2)*Math.sin(dl/2);return Math.round(2*6371*Math.asin(Math.sqrt(h)))}
     var sel=flt.querySelector('select.org'),nearB=flt.querySelector('[data-f="near"]');
