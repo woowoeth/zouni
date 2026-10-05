@@ -324,10 +324,250 @@ def extras(trip_desc, dest_desc):
     open(os.path.join(OUT, '404.html'), 'w', encoding='utf-8').write(nf.replace('<link rel="canonical" href="https://zouni.app/404.html">', '<meta name="robots" content="noindex">'))
 
 
+# ======== 按画布设计稿重写的页面（覆盖上面的同名函数） ========
+CN_NUM = '一二三四五六七八九十'
+def cn_day(i): return '第' + (CN_NUM[i] if i < 10 else str(i + 1)) + '天'
+SHARE_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="M7 8l5-5 5 5"/><path d="M5 12v8h14v-8"/></svg>'
+BACK_ICON = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>'
+
+
+def page(path, title, desc, body, jsonld=(), image=None, crumbs=()):
+    url = BASE + path
+    ld = ''.join(f'<script type="application/ld+json">{json.dumps(j, ensure_ascii=False)}</script>' for j in jsonld)
+    if crumbs:
+        ld += '<script type="application/ld+json">' + json.dumps({'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
+            {'@type': 'ListItem', 'position': i + 1, 'name': n, 'item': BASE + p} for i, (n, p) in enumerate(crumbs)]}, ensure_ascii=False) + '</script>'
+    og = image or '/img/og.png'
+    return f"""<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{E(title)}</title>
+<meta name="description" content="{E(desc)}">
+<link rel="canonical" href="{E(url)}">
+<meta property="og:type" content="website"><meta property="og:site_name" content="{SITE}"><meta property="og:locale" content="zh_CN">
+<meta property="og:title" content="{E(title)}"><meta property="og:description" content="{E(desc)}"><meta property="og:url" content="{E(url)}"><meta property="og:image" content="{E(BASE + og)}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#f4f2ec">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/fonts/serif.css">
+<link rel="stylesheet" href="/assets/site.css">
+{ld}
+</head>
+<body>
+<main>
+{body}
+</main>
+<footer class="foot"><p>走你：按季节挑地方，按天排好每一站。</p><p><a href="/">本期</a><a href="/where/">去哪儿</a><a href="/sitemap.xml">网站地图</a></p></footer>
+<script src="/assets/site.js" defer></script>
+</body>
+</html>
+"""
+
+
+def hero(r, back=None, share=False):
+    sq = (f'<a class="sq l" href="{E(back)}" aria-label="返回">{BACK_ICON}</a>' if back else '') + (f'<button type="button" class="sq rt share" aria-label="分享">{SHARE_ICON}</button>' if share else '')
+    kick = E(r.get('kicker'))
+    img = (r.get('img') or '').replace('/_blob/', '')
+    if img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg')):
+        return f'<div class="hero"><img src="/img/{E(img)}.svg" alt="{E(r.get("alt") or r["title"])}" width="430" height="380">{sq}<div class="hero-t"><span class="kick">{kick}</span><h1>{E(r["title"])}</h1></div></div>'
+    mark = re.sub(r'\s*\d+\s*天$', '', r.get('label') or '')
+    bg = ['#3a302a', '#2e3a3f', '#3b3527', '#2f3830'][len(r.get('id') or '') % 4]
+    return f'<div class="hero text" style="background:{bg}"><span class="mark" aria-hidden="true">{E(mark)}</span>{sq}<div class="hero-t"><span class="kick">{kick}</span><h1>{E(r["title"])}</h1></div></div>'
+
+
+def row_html(w, city, app):
+    t = w['type']
+    if t == 'dep':
+        return f'<li class="r dep"><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">出发 → {E(w.get("to"))}</p>{f"<p class=s>{E(w.get(chr(104)+chr(111)+chr(119)))}</p>" if w.get("how") else ""}</div></li>'
+    if t == 'eat':
+        place = w.get('place') if w.get('place') not in ('随意', '住的地方附近', '附近', '车站或机场里吃', '沿途', '路上') else ''
+        main = f'{E(w.get("slot"))} · {E(w.get("dish"))}'
+        sub = ' · '.join(x for x in [E(place), E(w.get('d')), E(w.get('kb'))] if x)
+        kw = w.get('poi') or place
+    elif t == 'stay':
+        main = '住 · ' + E(w.get('name')); sub = E(w.get('d')); kw = w.get('poi')
+    else:
+        main = E(w.get('name')); sub = ' · '.join(x for x in [E(w.get('d')), E(w.get('kb'))] if x); kw = w.get('poi')
+    ic = icons(kw, city, app, w.get('dp')) if kw else ''
+    return f'<li class="r {t}"><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">{main}{ic}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
+
+
+def trip_page(rid):
+    r = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}; d0 = DEST.get(t.get('dest'), {})
+    app = r.get('navApp') or 'amap'; n = len(r['days']); price = r.get('price') or ''; cost = r.get('cost')
+    back = f'/d/{t["dest"]}/' if t.get('dest') in DEST else '/where/'
+    s0 = (t.get('season') or {}).get('best')
+    when = '一年四季都能去' if t.get('anytime') else (f'{int(s0[0][:2])}/{int(s0[0][3:])}–{int(s0[1][:2])}/{int(s0[1][3:])} 最好' if s0 else '')
+    has_cost = bool(cost and cost.get('trans'))
+    sub3 = ('<button type="button" class="pp">2 人 · 每人 ›</button>' if has_cost else f'<small>{"每人 · 含往返" + (" · 参考价" if price.startswith("约") else "") if "¥" in price else "价格另算"}</small>')
+    glance = (f'<div class="glance"><div><b class="big">{n}<small> 天</small></b><small>{E(when)}</small></div>'
+              f'<div><b>{E(r.get("driveTop"))}</b><small>{E(r.get("driveSub"))}</small></div>'
+              f'<div><b class="price" data-cost=\'{E(json.dumps(cost)) if has_cost else ""}\'>{E(price)}</b>{sub3}</div></div>')
+    if has_cost:
+        glance += f'<div class="ppl" hidden><span>{"租车按车分摊，两人一间" if cost.get("perCar") else "两人一间，一个人单独一间"}</span><div><button type="button" data-d="-1" aria-label="少一个人">−</button><b>2 人</b><button type="button" data-d="1" aria-label="多一个人">+</button></div></div>'
+    prep = ''.join(f'<li><label><input type="checkbox" data-k="{i}"><span>{E(x)}</span></label></li>' for i, x in enumerate(r.get('prep') or [])) + ''.join(f'<li class="fit">{E(x)}</li>' for x in r.get('fit') or [])
+    def firstdep(d):
+        w = next((w for w in d['rows'] if w['type'] == 'dep'), None); return w['t'] if w else ''
+    over = ''.join(f'<li><a href="#d{i + 1}"><b>{i + 1:02d}</b><span class="ot"><strong>{E(d["title"])}</strong><small>{"回家" if i == n - 1 else "住" + E(d.get("navCity") or d.get("city"))}</small></span><em>{E(firstdep(d))} 走</em></a></li>' for i, d in enumerate(r['days']))
+    daynav = '<nav class="daynav" aria-label="跳到第几天">' + ''.join(f'<a href="#d{i + 1}">{i + 1}</a>' for i in range(n)) + '</nav>'
+    days = []; sights = []
+    for i, d in enumerate(r['days']):
+        city = d.get('navCity') or d.get('city'); rows = list(d['rows'])
+        if i < n - 1 and (d.get('stayName') or d.get('stay')):
+            nm = d['stay'][0]['name'] if d.get('stay') else d.get('stayName')
+            rows.append({'t': '晚上', 'type': 'stay', 'name': nm, 'd': d['stay'][0].get('sell', '') if d.get('stay') else d.get('stayNote', ''), 'poi': nm, 'dp': d['stay'][0].get('dp') if d.get('stay') else None})
+        first = firstdep(d)
+        facts = [('出发', first or '—')]
+        if d.get('driveMin'): facts.append(('开车', hrs(d['driveMin'])))
+        if (d.get('elev') or 0) >= 1500: facts.append(('高海拔' if d['elev'] >= 3000 else '海拔', f'{d["elev"]:,}'))
+        fx = ''.join(f'<div class="fx"><small>{k}</small><b>{E(v)}</b></div>' for k, v in facts)
+        fx += f'<div class="fx"><small>日出</small><b class="sun" data-lat="{d["lat"]}" data-lng="{d["lng"]}" data-k="rise">—</b></div><div class="fx"><small>日落</small><b class="sun" data-lat="{d["lat"]}" data-lng="{d["lng"]}" data-k="set">—</b></div>'
+        stays = ''
+        if d.get('stay') and i < n - 1 and not (i > 0 and r['days'][i - 1].get('city') == d.get('city') and r['days'][i - 1].get('stay')):
+            run = 1
+            while i + run < n - 1 and r['days'][i + run].get('city') == d.get('city'): run += 1
+            lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{E(o["tier"])}</span><div><b>{E(o["name"])}</b><small>{E(o.get("sell"))}{(" · " + E(o.get("price"))) if o.get("price") else ""}</small>{f"<small>{E(o.get(chr(107)+chr(98)))}</small>" if o.get("kb") else ""}</div></li>' for k, o in enumerate(d['stay']))
+            dpu = d['stay'][0].get('dp') or dpurl(d['stay'][0]['name'], city)
+            stays = (f'<div class="stays"><div class="sh"><span class="lbl">今晚住</span><span>{"连住 " + str(run) + " 晚" if run > 1 else ""}</span></div><ul>{lis}</ul>'
+                     + (f'<button type="button" class="tog">看另外两档</button>' if len(d['stay']) > 1 else '')
+                     + f'<div class="bk"><a class="btn" rel="nofollow noopener" target="_blank" href="https://hotels.ctrip.com/hotels/list?keyword={urllib.parse.quote(d["stay"][0]["name"])}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpu)}" aria-label="在大众点评看这家酒店">{ICON_DP}</a></div></div>')
+        story = f'<aside class="story"><span class="lbl">懂一点</span><p>{E(d["story"])}</p></aside>' if d.get('story') else ''
+        notes = ''.join(f'<p class="note"><b>路上</b>{E(x)}</p>' for x in d.get('notes') or [])
+        days.append(f'<section class="day" id="d{i + 1}"><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)}</small><h2>{E(d["title"])}</h2></div></header>'
+                    f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps(d.get("clim") or {}))}\'></p>{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
+        sights += [w['name'] for w in d['rows'] if w['type'] == 'see' and w.get('poi')]
+    desc = f'{r["title"]}：{n} 天按天排好，' + '、'.join(dict.fromkeys(re.split(r'\s*·\s*', ' · '.join(x['title'] for x in r['days']))))[:70] + '。' + season_text(t)
+    ld = {'@context': 'https://schema.org', '@type': 'TouristTrip', 'name': r['title'], 'description': desc, 'url': BASE + f'/trip/{rid}/', 'inLanguage': 'zh-CN',
+          'itinerary': {'@type': 'ItemList', 'numberOfItems': len(dict.fromkeys(sights)), 'itemListElement': [
+              {'@type': 'ListItem', 'position': i + 1, 'item': {'@type': 'TouristAttraction', 'name': x}} for i, x in enumerate(dict.fromkeys(sights))]},
+          'provider': {'@type': 'Organization', 'name': SITE, 'url': BASE}}
+    lo, hi = (t.get('price') or {}).get('lo'), (t.get('price') or {}).get('hi')
+    if lo and hi: ld['offers'] = {'@type': 'AggregateOffer', 'priceCurrency': 'CNY', 'lowPrice': lo, 'highPrice': hi, 'description': '每人，2 人同行，含往返大交通'}
+    dest_link = f'<p class="back"><a href="/d/{E(t["dest"])}/">{E(d0.get("name", ""))}的其他去处 ›</a></p>' if t.get('dest') in DEST else ''
+    dock = f'<div class="dock"><div><b>{n} 天 · {E(price)}</b><small>每人 · 含往返</small></div><button type="button" class="fav" data-id="{rid}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">收进行程</button></div>'
+    body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
+            f'<div class="acts"><button type="button" class="copy">复制行程</button></div>'
+            f'<section class="pre"><h2>出发前</h2><ul>{prep or "<li class=fit>没有特别要提前办的</li>"}</ul></section>'
+            f'<section class="overview"><h2>{n} 天，怎么排</h2><ol>{over}</ol></section>{daynav}{"".join(days)}{dest_link}{dock}</article>')
+    crumbs = [('首页', '/'), ('去哪儿', '/where/')] + ([(d0['name'], f'/d/{t["dest"]}/')] if d0 else []) + [(r.get('label') or r['title'], f'/trip/{rid}/')]
+    img = '/img/' + (r.get('img') or '').replace('/_blob/', '') + '.svg' if r.get('img') else None
+    write(f'/trip/{rid}/', page(f'/trip/{rid}/', f'{r.get("label") or r["title"]}行程：{r["title"]} | 走你', desc, body, [ld], img, crumbs))
+    return desc
+
+
+def dest_page(d):
+    did = d['id']; cl = d.get('climate') or {}; best = set(d['months']['best'])
+    months = ''.join(f'<li class="{"on" if m in best else ""}"><b>{m} 月</b><small>{cl.get(str(m), ["", ""])[0]}° / {cl.get(str(m), ["", ""])[1]}°</small></li>' for m in range(1, 13))
+    trips = ''.join(f'<li><a href="/trip/{rid}/"><b>{E(ROUTES[rid].get("label"))} ›</b><span>{E(ROUTES[rid]["title"])}</span><small>{E(ROUTES[rid].get("price"))}</small></a></li>' for rid in DEST_ROUTES.get(did, []))
+    other = [t for t in TRIPS if t['dest'] == did and not any(TRIP_OF_ROUTE.get(r) is t for r in DEST_ROUTES.get(did, []))]
+    trips += ''.join(f'<li><span><b>{E(t["title"])}</b> · {"暂不排" if t["status"] == "blocked" else "整理中"}</span></li>' for t in other)
+    city = d['base']['name']; app = 'google' if d['scope'] == 'asia' else 'amap'
+    ql = sorted(QUAL_BY_PROV.get(d['name'], []) if d['scope'] == 'domestic' else [], key=lambda q: (0 if '世界遗产' in q['tags'] else 1, q['short']))
+    qhtml = ''.join(f'<li><span>{E(q["short"])}</span><small>{"世界遗产" if "世界遗产" in q["tags"] else "5A"}</small>{icons(q["short"], d["name"], app)}</li>' for q in ql)
+    nl = NICHE_BY_DEST.get(did, [])
+    nhtml = ''.join(f'<li><div class="nh"><b>{E(x["name"])}</b><span class="st {x["status"]}">{STATUS[x["status"]]}</span>{icons(x["name"].split("（")[0].replace(" · ", " "), d["name"], app)}</div><p>{E(x["note"])}</p>' + (f'<a href="/trip/{x["trip"]}/">看排好的行程 ›</a>' if x.get('trip') and x['trip'] in ROUTES else '') + '</li>' for x in nl)
+    see = '、'.join(d['see']); eat = '、'.join(d['eat'])
+    dd = d.get('days') or {}
+    desc = f'{d["name"]}旅行：最好的月份是 {"、".join(str(m) for m in sorted(best))} 月，建议 {dd.get("min", "")}–{dd.get("max", "")} 天；看{see}，吃{eat}。' + (f'共 {len(ql)} 处 5A 和世界遗产。' if ql else '')
+    entry = f'<p class="entry"><b>入境</b>{E(d["entry"])}</p>' if d.get('entry') else ''
+    tip = f'<p class="tip"><b>提示</b>{E(d["tip"])}</p>' if d.get('tip') else ''
+    days_txt = (str(dd.get('min')) + ('–' + str(dd['max']) if dd.get('max') and dd.get('max') != dd.get('min') else '')) if dd else '—'
+    body = (f'<article class="dest"><div class="pagehead"><a href="/where/">{BACK_ICON}去哪儿</a></div><div class="dh"><h1>{E(d["name"])}</h1><small>{E(d["region"])} · 落脚 {E(city)} · 建议 {days_txt} 天</small>'
+            f'<p class="lead">最好的月份：{"、".join(str(m) + " 月" for m in sorted(best))}。</p>{entry}{tip}</div>'
+            f'<section><h2>每个月白天 / 夜里平均气温（℃）</h2><ol class="months">{months}</ol>{f"<p class=hint style=margin-top:8px>落脚城市海拔 {d[chr(98)+chr(97)+chr(115)+chr(101)][chr(101)+chr(108)+chr(101)+chr(118)]:,} 米</p>" if (d["base"].get("elev") or 0) >= 1500 else ""}</section>'
+            f'<section class="se"><div><h2>看</h2><p>{E(see)}</p></div><div><h2>吃</h2><p>{E(eat)}</p></div></section>'
+            + (f'<section><h2>排好的行程</h2><ul class="trips">{trips}</ul></section>' if trips else '')
+            + (f'<section><h2>5A 和世界遗产 <span class="ct">{len(ql)} 处</span></h2><ul class="qual">{qhtml}</ul></section>' if ql else '')
+            + (f'<section><h2>小众 <span class="ct">{len(nl)} 处</span></h2><ul class="niche">{nhtml}</ul></section>' if nhtml else '') + '</article>')
+    attractions = [{'@type': 'TouristAttraction', 'name': q['short']} for q in ql] or [{'@type': 'TouristAttraction', 'name': x} for x in d['see']]
+    ld = {'@context': 'https://schema.org', '@type': 'TouristDestination', 'name': d['name'], 'description': desc, 'url': BASE + f'/d/{did}/',
+          'geo': {'@type': 'GeoCoordinates', 'latitude': d['base']['lat'], 'longitude': d['base']['lng']}, 'includesAttraction': attractions[:60]}
+    write(f'/d/{did}/', page(f'/d/{did}/', f'{d["name"]}旅行攻略：什么时候去、玩几天、看什么吃什么 | 走你', desc, body, [ld], None, [('首页', '/'), ('去哪儿', '/where/'), (d['name'], f'/d/{did}/')]))
+    return desc
+
+
+def where_page():
+    m = TODAY.month; scopes = []
+    for scope, title in (('domestic', '国内'), ('asia', '亚洲')):
+        regs = []
+        for reg in ATLAS['regions'][scope]:
+            cards = []
+            for x in [x for x in ATLAS[scope] if x['region'] == reg]:
+                f = '暂不排' if x['noTrip'] else fit_label(x['best'], m)
+                cl = x['clim'].get(str(m)) or ['', '']
+                n_tr = len(DEST_ROUTES.get(x['id'], [])); nn = len(NICHE_BY_DEST.get(x['id'], []))
+                days = sorted({len(ROUTES[r]['days']) for r in DEST_ROUTES.get(x['id'], [])}) or ([int(z) for z in re.findall(r'\d+', x['days'])[:1]] or [0])
+                qn = ' '.join([x['name'], x['base']] + x['see'] + x['eat'] + [q['short'] for q in QUAL_BY_PROV.get(x['name'], [])] + [ROUTES[r].get('label', '') for r in DEST_ROUTES.get(x['id'], [])] + [z['name'] for z in NICHE_BY_DEST.get(x['id'], [])])
+                hits = '|'.join([q['short'] for q in QUAL_BY_PROV.get(x['name'], [])] + [z['name'] for z in NICHE_BY_DEST.get(x['id'], [])] + x['see'] + x['eat'])
+                los = [t['price']['lo'] for t in TRIPS if t['dest'] == x['id'] and (t.get('price') or {}).get('lo') and t.get('status') != 'blocked']
+                base = (x['base'] + ' · ' if x['base'] and x['base'] != x['name'] else '') + x['days']
+                cnt = '　'.join(z for z in [f'{n_tr} 条排好的行程' if n_tr else '', f'{nn} 处小众' if nn else ''] if z)
+                fcls = 'fit' + ('' if f == '正好' else ' ok' if f == '也行' else ' no')
+                cards.append(f'<li class="card" data-best="{",".join(map(str, x["best"]))}" data-clim=\'{E(json.dumps(x["clim"]))}\' data-no="{1 if x["noTrip"] else 0}" data-days="{",".join(map(str, days))}" '
+                             f'data-high="{1 if (x.get("elev") or 0) >= 2200 else 0}" data-lat="{x["lat"]}" data-lng="{x["lng"]}" data-niche="{nn}" data-plo="{min(los) if los else ""}" data-hits="{E(hits)}" data-q="{E(qn)}" data-name="{E(x["name"])}">'
+                             f'<a href="/d/{x["id"]}/"><div class="ch"><div><h3>{E(x["name"])}</h3><span class="base">{E(base)}</span></div><span class="{fcls}">{f}</span></div>'
+                             f'<p class="cl">{m} 月：白天 {cl[0]}℃，夜里 {cl[1]}℃</p><p class="hit" hidden></p><p class="dist" hidden></p>'
+                             f'<p class="kv"><b>看</b>{E("、".join(x["see"]))}</p><p class="kv"><b>吃</b>{E("、".join(x["eat"]))}</p><p class="n">{E(cnt)}</p></a></li>')
+            regs.append(f'<section class="reg"><h3 class="rh">{E(reg)}</h3><ul class="cards">{"".join(cards)}</ul></section>')
+        scopes.append(f'<section class="scope" id="{scope}"{"" if scope == "domestic" else " hidden"}>{"".join(regs)}</section>')
+    nd, na = len(ATLAS['domestic']), len(ATLAS['asia'])
+    body = (f'<article class="where"><div class="pagehead"><a href="/">{BACK_ICON}本期</a></div><h1>去哪儿</h1><div class="stick">'
+            f'<div class="tabs"><button type="button" data-t="domestic" class="on">国内 · {nd}</button><button type="button" data-t="asia">亚洲 · {na}</button></div>'
+            f'<div class="mon" role="group" aria-label="选月份">{"".join(f"<button type=button data-m={k} class={chr(39)}{chr(111)+chr(110) if k == m else chr(32)}{chr(39)}>{k}月</button>" for k in range(1, 13))}</div>'
+            f'<div class="gl"><p class="goodline"></p><button type="button" class="ftog" aria-label="筛选">筛选 ▾</button></div>'
+            f'<div class="flt" hidden><input type="search" placeholder="搜地名或景点，比如 婺源、兵马俑" aria-label="搜地名或景点">'
+            f'<div class="row"><span>出发</span><select class="org" aria-label="从哪出发"><option value="">不限</option>{"".join(f"<option value={o}>{o}</option>" for o in ORIGINS)}</select><button type="button" data-f="near" hidden>500 公里内</button></div>'
+            f'<div class="row"><span>天数</span><button type="button" data-f="d1">2–3 天</button><button type="button" data-f="d2">4–5 天</button><button type="button" data-f="d3">6 天以上</button></div>'
+            f'<div class="row"><span>预算</span><select class="bud" aria-label="每人预算"><option value="">不限</option><option value="2000">2,000 以内</option><option value="5000">5,000 以内</option><option value="10000">1 万以内</option></select></div>'
+            f'<div class="row"><span>其他</span><button type="button" data-f="fit" class="on">只看合适的</button><button type="button" data-f="low">避开高原</button><button type="button" data-f="niche">有小众</button></div></div>'
+            f'<span class="cnt" aria-live="polite"></span></div>{"".join(scopes)}</article>')
+    write('/where/', page('/where/', '去哪儿：国内 34 个省级行政区和亚洲 22 国，按月份挑目的地 | 走你', '每个目的地按月份标出正好去、也行、不建议，附每月平均气温、看什么吃什么和排好的行程。', body, [], None, [('首页', '/'), ('去哪儿', '/where/')]))
+
+
+def home_page():
+    m = TODAY.month; md0 = TODAY.strftime('%m-%d')
+    def in_season(t):
+        if t.get('anytime'): return 1
+        b = (t.get('season') or {}).get('best')
+        return 2 if b and b[0] <= md0 <= b[1] else 0
+    picks = sorted([rid for rid in ROUTE_IDS if TRIP_OF_ROUTE.get(rid)], key=lambda rid: (-in_season(TRIP_OF_ROUTE[rid]), 0 if ROUTES[rid].get('img') else 1))
+    cover = picks[0]; r = ROUTES[cover]; tc = TRIP_OF_ROUTE[cover]; dc = DEST.get(tc['dest'], {})
+    clim = lambda d: (d.get('climate') or {}).get(str(m)) or ['', '']
+    cimg = (r.get('img') or '').replace('/_blob/', '')
+    mnames = '一二三四五六七八九十'
+    mname = (mnames[m - 1] if m <= 10 else '十' + mnames[m - 11]) + '月'
+    def item(i, rid, kicker):
+        rr = ROUTES[rid]; tt = TRIP_OF_ROUTE[rid]; dd = DEST.get(tt['dest'], {}); c = clim(dd)
+        img = (rr.get('img') or '').replace('/_blob/', '')
+        tile = (f'<a class="tile img" href="/trip/{rid}/"><img src="/img/{img}.svg" alt="" loading="lazy"></a>' if img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg'))
+                else f'<a class="tile" href="/trip/{rid}/" style="background:{["#7b4b3a", "#2e5b6b", "#4f6233", "#5a4a6b", "#8a5a2b"][i % 5]}">{E(re.sub(r"\s*\d+\s*天$", "", rr.get("label") or ""))}</a>')
+        tags = ' · '.join((tt.get('tags') or [])[:2])
+        return (f'<li><span class="num">{i:02d}</span><div class="tx"><span class="k">{kicker}</span><h3>{E(dd.get("name", ""))} · {E(rr.get("label"))}</h3><p>{E(rr["title"])}</p>'
+                f'<small>{len(rr["days"])} 天 · 人均 {E(rr.get("price"))}{(" · " + E(tags)) if tags else ""}</small><span class="c">{m} 月白天 {c[0]}℃，夜里 {c[1]}℃</span><a class="open" href="/trip/{rid}/">翻开 ›</a></div>{tile}</li>')
+    toc = ''.join(item(i + 2, rid, '正当季' if in_season(TRIP_OF_ROUTE[rid]) == 2 else '随时') for i, rid in enumerate(picks[1:7]))
+    nrids = [rid for rid in ROUTE_IDS if '小众' in ((TRIP_OF_ROUTE.get(rid) or {}).get('tags') or [])]
+    nitems = ''.join(item(i + 1, rid, '小众') for i, rid in enumerate(sorted(nrids, key=lambda x: -in_season(TRIP_OF_ROUTE[x]))[:6]))
+    c0 = clim(dc)
+    body = (f'<article class="home"><div class="cover">{f"<img src=/img/{cimg}.svg alt=>" if cimg else ""}'
+            f'<div class="mast"><div><h1>走你</h1><small>{TODAY.year} · {mname}</small></div><a href="#mine"><span>我的行程</span></a></div>'
+            f'<div class="cv"><span class="kick">封面故事 · 正当季</span><h2>{E(r["title"])}</h2><div class="chips"><span>{len(r["days"])} 天 · 人均 {E(r.get("price"))}</span><span>{m} 月 {c0[0]}°C / {c0[1]}°C</span></div><a class="go" href="/trip/{cover}/">翻开 →</a></div></div>'
+            f'<section class="mine" id="mine" hidden><h2>我的行程</h2><ul class="list" data-k="fav"></ul></section>'
+            f'<section class="mine" hidden><h2>最近看过</h2><ul class="list" data-k="seen"></ul></section>'
+            f'<section class="toc"><h2>目录<small>{m} 月正当季</small></h2><ol class="items">{toc}</ol></section>'
+            f'<a class="allbar" href="/where/"><span>全部目的地 · 按月份挑</span><span>›</span></a>'
+            f'<section class="toc"><h2>去的人少</h2><ol class="items">{nitems}</ol></section></article>'
+            '<script>(function(){var m=location.hash.match(/#trip=(\\w+)/);if(m){location.replace("/trip/"+m[1]+"/");}})();</script>')
+    ld = {'@context': 'https://schema.org', '@type': 'WebSite', 'name': SITE, 'url': BASE + '/', 'inLanguage': 'zh-CN', 'description': '按季节挑目的地，按天排好每一站：几点出发、怎么去、吃什么、住哪。'}
+    write('/', page('/', '走你：按季节挑目的地，按天排好每一站', f'{len(ROUTE_IDS)} 条按天排好的行程，国内 34 个省级行政区和亚洲 22 国的目的地，按月份看哪儿正好去。', body, [ld], '/img/' + cimg + '.svg' if cimg else None))
+
+
 if __name__ == '__main__':
     if os.path.exists(OUT): shutil.rmtree(OUT)
     os.makedirs(os.path.join(OUT, 'img')); os.makedirs(os.path.join(OUT, 'assets'))
     for f in glob.glob(os.path.join(POSTER_SRC, '*.svg')): shutil.copy(f, os.path.join(OUT, 'img'))
+    if os.path.isdir('site_src/fonts'): shutil.copytree('site_src/fonts', os.path.join(OUT, 'assets', 'fonts'))
     for f in ('site.css', 'site.js', 'favicon.svg', 'og.png'):
         src = os.path.join('site_src', f)
         if os.path.exists(src): shutil.copy(src, os.path.join(OUT, 'img' if f in ('favicon.svg', 'og.png') else 'assets', f))
