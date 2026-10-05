@@ -64,11 +64,16 @@
     function paint(){var on=ld('zouni_fav').some(function(x){return x.id===me.id});fb.classList.toggle('on',on);fb.textContent=on?'已收进':'收进行程'}
     if(fb){paint();fb.addEventListener('click',function(){var f=ld('zouni_fav'),on=f.some(function(x){return x.id===me.id});f=on?f.filter(function(x){return x.id!==me.id}):[me].concat(f);sv('zouni_fav',f);paint();toast(on?'已从我的行程里拿掉':'已收进，本期页“我的行程”里能找到')})}
     // 分享、复制
-    var sh=document.querySelector('.share');if(sh)sh.addEventListener('click',function(){var u=location.href.split('#')[0];if(navigator.share){navigator.share({title:document.title,url:u}).catch(function(){})}else{try{navigator.clipboard.writeText(u);toast('链接已复制')}catch(e){prompt('复制这个链接',u)}}});
-    var cp=document.querySelector('.copy');if(cp)cp.addEventListener('click',function(){var out=[document.querySelector('.hero h1').innerText,location.href.split('#')[0],''];
+    function shareLink(){var u=location.href.split('#')[0];if(navigator.share){navigator.share({title:document.title,url:u}).catch(function(){})}else{try{navigator.clipboard.writeText(u);toast('链接已复制')}catch(e){prompt('复制这个链接',u)}}}
+    var sh=document.querySelector('.share');if(sh)sh.addEventListener('click',function(){var mask=document.createElement('div');mask.className='pk-mask';var s2=document.createElement('div');s2.className='pk';
+      s2.innerHTML='<div class="pk-h"><b>分享</b><button type="button" class="pk-x">关上</button></div><div class="xd"><button type="button" data-a="link"><b>发链接给朋友</b></button><button type="button" data-a="copy"><b>复制整条行程</b><small>按天的时间和地点，可以直接粘贴到微信</small></button><button type="button" data-a="shot"><b>生成分享图</b><small>长按保存，发朋友圈</small></button></div>';
+      function cl(){mask.remove();s2.remove();document.body.classList.remove('pk-open')}
+      s2.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;if(b.classList.contains('pk-x'))return cl();cl();if(b.dataset.a==='link')shareLink();if(b.dataset.a==='copy')copyTrip();if(b.dataset.a==='shot')shotTrip()});
+      mask.addEventListener('click',cl);document.body.appendChild(mask);document.body.appendChild(s2);document.body.classList.add('pk-open')});
+    function copyTrip(){var out=[document.querySelector('.hero h1').innerText,location.href.split('#')[0],''];
       document.querySelectorAll('.day').forEach(function(d){out.push(d.querySelector('header small').innerText+' · '+d.querySelector('h2').innerText);
         d.querySelectorAll('.tl .r').forEach(function(r){if(r.classList.contains('dep'))return;out.push('  '+r.querySelector('time').innerText+'  '+r.querySelector('.m').innerText.replace(/\s+/g,' ').trim())});out.push('')});
-      var txt=out.join('\n');try{navigator.clipboard.writeText(txt).then(function(){toast('行程已复制，可以直接粘贴到微信')},function(){prompt('复制下面的行程',txt)})}catch(e){prompt('复制下面的行程',txt)}});
+      var txt=out.join('\n');try{navigator.clipboard.writeText(txt).then(function(){toast('行程已复制，可以直接粘贴到微信')},function(){prompt('复制下面的行程',txt)})}catch(e){prompt('复制下面的行程',txt)}}
     // 改出发日期：日期、星期、日出日落、往年气温、底栏一起变；记在本机
     var dk=document.querySelector('.dpk'),dtb=document.querySelector('.dt');
     if(dk&&dtb){var sk='zouni_start_'+me.id,W='日一二三四五六';
@@ -132,8 +137,7 @@
       b.addEventListener('click',function(){var i=bk.indexOf(b.dataset.k);if(i>=0)bk.splice(i,1);else bk.push(b.dataset.k);sv('zouni_booked',bk);pt()})});
 
     // ——— 生成分享图：封面画 + 标题 + 天数价格出发日 + 前几天安排 + 网址，长按保存发朋友圈 ———
-    var shb=document.querySelector('.shot');
-    if(shb)shb.addEventListener('click',function(){var W_=1080,H_=1500,cv=document.createElement('canvas');cv.width=W_;cv.height=H_;var x=cv.getContext('2d');
+    function shotTrip(){var W_=1080,H_=1500,cv=document.createElement('canvas');cv.width=W_;cv.height=H_;var x=cv.getContext('2d');
       var BG='#f4f2ec',INK='#1c1d1a',RED='#a63d27',SERIF='"Noto Serif SC",serif',SANS='"Noto Sans SC",sans-serif';
       x.fillStyle=BG;x.fillRect(0,0,W_,H_);
       var im=document.querySelector('.hero img'),title=document.querySelector('.hero h1').innerText,kick=document.querySelector('.hero .kick').innerText;
@@ -149,13 +153,17 @@
         var url=cv.toDataURL('image/png'),m=document.createElement('div');m.className='hmap-zoom shotv';
         m.innerHTML='<button type="button" class="hz-x">关上</button><div class="hz-b"><img alt="分享图" src="'+url+'"></div><p class="shotp">手机上长按图片保存；电脑上 <a download="走你-'+me.label+'.png" href="'+url+'">点这里下载</a></p>';
         document.body.appendChild(m);document.body.classList.add('pk-open');function cl(){m.remove();document.body.classList.remove('pk-open')}m.querySelector('.hz-x').addEventListener('click',cl)}
-      if(im){var I=new Image();I.onload=function(){var s=Math.max(W_/I.width,980/I.height),w=I.width*s,h=I.height*s;x.drawImage(I,(W_-w)/2,980-h,w,h);finish()};I.onerror=finish;I.src=im.getAttribute('src')}else{x.fillStyle='#2e3a3f';x.fillRect(0,0,W_,980);finish()}});
+      if(im){var I=new Image();I.onload=function(){var s=Math.max(W_/I.width,980/I.height),w=I.width*s,h=I.height*s;x.drawImage(I,(W_-w)/2,980-h,w,h);finish()};I.onerror=finish;I.src=im.getAttribute('src')}else{x.fillStyle='#2e3a3f';x.fillRect(0,0,W_,980);finish()}}
     // 今晚住：看另外两档
     document.querySelectorAll('.stays .tog').forEach(function(b){b.addEventListener('click',function(){var s=b.parentElement;s.classList.toggle('open');b.textContent=s.classList.contains('open')?'收起另外两档':'看另外两档'})});
     // 天数条高亮
     var nav=document.querySelector('.daynav');if(nav){window.addEventListener('scroll',function(){var as=[].slice.call(nav.querySelectorAll('a')),cur=0;as.forEach(function(a,i){var s=document.getElementById('d'+(i+1));if(s&&s.getBoundingClientRect().top<140)cur=i+1});as.forEach(function(a,i){a.classList.toggle('on',i+1===cur)})},{passive:true})}
   }
 
+  // ——— 地图图标：手机上直接调起高德 App（iOS / 安卓），打不开或在微信里就走网页 ———
+  document.addEventListener('click',function(e){var a=e.target.closest('a.ic.map[data-ios]');if(!a)return;var ua=navigator.userAgent,ios=/iPhone|iPad|iPod/i.test(ua),and=/Android/i.test(ua);if((!ios&&!and)||/MicroMessenger/i.test(ua))return;
+    e.preventDefault();var web=a.href,gone=false,t0=Date.now();function hid(){if(document.hidden)gone=true}document.addEventListener('visibilitychange',hid);
+    location.href=ios?a.dataset.ios:a.dataset.and;setTimeout(function(){document.removeEventListener('visibilitychange',hid);if(!gone&&!document.hidden&&Date.now()-t0<3000)location.href=web},1500)});
   // ——— 点评：手机上先试 App，打不开（或在微信里）再去网页 ———
   document.addEventListener('click',function(e){var a=e.target.closest('a.dp[data-app]');if(!a)return;
     var mobile=/iPhone|iPad|Android/i.test(navigator.userAgent),wx=/MicroMessenger/i.test(navigator.userAgent);if(!mobile||wx)return;
@@ -204,6 +212,17 @@
       document.body.appendChild(m);document.body.classList.add('pk-open');var b=m.querySelector('.hz-b');b.scrollLeft=(b.scrollWidth-b.clientWidth)/2;
       function cl(){m.remove();document.body.classList.remove('pk-open')}m.querySelector('.hz-x').addEventListener('click',cl);m.addEventListener('click',function(e){if(e.target===m)cl()})}
     f.addEventListener('click',open);f.addEventListener('keydown',function(e){if(e.key==='Enter')open(e)})});
+  // ——— 本期：刊头“我的行程”打开面板，不占首页 ———
+  var mb0=document.querySelector('.minebtn');
+  if(mb0){var fv0=ld('zouni_fav');if(fv0.length)mb0.querySelector('span').textContent='我的行程 · '+fv0.length;
+    mb0.addEventListener('click',function(){var fv=ld('zouni_fav'),sn=ld('zouni_seen').filter(function(x){return!fv.some(function(f){return f.id===x.id})}).slice(0,5);
+      function esc(t){return String(t).replace(/</g,'&lt;')}
+      function row(x,withDate){var when='';if(withDate){var s0='';try{s0=localStorage.getItem('zouni_start_'+x.id)||''}catch(e){}if(s0){var d=new Date(s0+'T12:00:00'),nn=new Date();nn.setHours(12,0,0,0);var lf=Math.round((d-nn)/864e5);when='<small class="mw">'+(d.getMonth()+1)+'/'+d.getDate()+' 出发 · '+(lf>0?'还有 '+lf+' 天':lf===0?'就是今天':'已出发')+'</small>'}}
+        return'<a class="mr" href="/trip/'+encodeURIComponent(x.id)+'/"><b>'+esc(x.label)+'</b><span>'+esc(x.title)+'</span>'+when+'</a>'}
+      var mask=document.createElement('div');mask.className='pk-mask';var s3=document.createElement('div');s3.className='pk';
+      s3.innerHTML='<div class="pk-h"><b>我的行程</b><button type="button" class="pk-x">关上</button></div><div class="xd">'+(fv.length?fv.map(function(x){return row(x,true)}).join(''):'<p class="mempty">还没有收进的行程。打开一条行程，点底部“收进行程”就会出现在这里。</p>')+(sn.length?'<p class="xg">最近看过</p>'+sn.map(function(x){return row(x,false)}).join(''):'')+'</div>';
+      function cl(){mask.remove();s3.remove();document.body.classList.remove('pk-open')}
+      s3.querySelector('.pk-x').addEventListener('click',cl);mask.addEventListener('click',cl);document.body.appendChild(mask);document.body.appendChild(s3);document.body.classList.add('pk-open')})}
   // ——— 本期：我的行程、最近看过 ———
   function mineEmpty(){var sec=document.getElementById('mine');if(sec&&location.hash==='#mine'&&!ld('zouni_fav').length){sec.hidden=false;sec.querySelector('ul').innerHTML='<li class=empty>还没有收进的行程。打开任意一条行程，点底部“收进行程”，就会出现在这里。</li>'}}
   window.addEventListener('hashchange',mineEmpty);mineEmpty();
