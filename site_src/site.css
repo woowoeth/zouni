@@ -298,3 +298,6 @@ a,button{-webkit-tap-highlight-color:transparent}
 .gb.bk2{color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}
 .hsearch{display:flex;gap:6px;margin:16px 20px 0}.hsearch input{flex:1;min-width:0;height:44px;padding:0 12px;border:0;border-radius:0;background:var(--card);font:16px var(--sans);color:var(--ink);-webkit-appearance:none}
 .hsearch button{flex:none;width:56px;height:44px;border:0;background:var(--ink);color:var(--bg);font-size:15px;font-weight:700;cursor:pointer}
+.acts{flex-wrap:wrap}.wmap{margin:12px 20px 0}.wmap svg{display:block;width:100%;height:auto}.scope.maphide{display:none}
+.gl .mtog{flex:none;height:36px;padding:0 12px;border:0;background:var(--card);font-size:13px;font-weight:700;color:var(--ink);cursor:pointer}.gl .mtog.on{background:var(--ink);color:var(--bg)}
+.shotv .hz-b img{display:block;width:min(86vw,420px);height:auto;margin:auto;box-shadow:0 4px 30px rgba(0,0,0,.3)}.shotp{margin:10px 0 calc(16px + env(safe-area-inset-bottom,0));text-align:center;color:#f4f2ec;font-size:13px}.shotp a{color:#f2c9bf;font-weight:700}

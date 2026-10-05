@@ -48,7 +48,8 @@ BOOK = {  # 有把握要提前预约 / 实名购票的地方
     '八达岭长城': '八达岭长城要提前实名预约', '陕西历史博物馆': '陕西历史博物馆要提前预约', '秦始皇帝陵博物院': '兵马俑要提前买票', '兵马俑': '兵马俑要提前买票',
     '莫高窟': '莫高窟要提前一到两周预约', '布达拉宫': '布达拉宫要提前预约', '三星堆博物馆': '三星堆要提前预约', '苏州博物馆': '苏州博物馆要提前预约',
     '南京博物院': '南京博物院要提前预约', '湖北省博物馆': '湖北省博物馆要提前预约', '河南博物院': '河南博物院要提前预约', '湖南博物院': '湖南博物院要提前预约',
-    '上海博物馆': '上海博物馆要提前预约', '拙政园': '拙政园要提前实名预约', '九寨沟': '九寨沟限流，要提前实名预约', '鼓浪屿': '去鼓浪屿的船票要提前买'}
+    '上海博物馆': '上海博物馆要提前预约', '拙政园': '拙政园要提前实名预约', '九寨沟': '九寨沟限流，要提前实名预约', '鼓浪屿': '去鼓浪屿的船票要提前买',
+    '大熊猫繁育研究基地': '熊猫基地要提前实名买票', '熊猫基地': '熊猫基地要提前实名买票'}
 
 
 def book_of(text):
@@ -421,7 +422,7 @@ def trip_page(rid):
     body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-start="{dates[0].isoformat()}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
             f'<section class="pre"><h2>出发前</h2><ul>{prep or "<li class=fit>没有特别要提前办的</li>"}</ul></section>'
             f'<script type="application/json" id="cands">{json.dumps([{"rid": o, "label": ROUTES[o].get("label"), "i": k, "title": dd["title"]} for o in DEST_ROUTES.get(t.get("dest"), []) if o != rid for k, dd in enumerate(ROUTES[o]["days"])][:40], ensure_ascii=False).replace("</", "<\\/")}</script>'
-            f'<section class="overview"><h2>{n} 天，怎么排</h2><ol>{over}</ol>{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{"".join(days)}<div class="addday"><button type="button" class="add">＋ 加一天</button><small>想多玩一天：可以自由活动，也可以从附近线路挑一天接上</small></div><div class="acts"><button type="button" class="copy">复制整条行程，发到微信</button></div>{dest_link}{dock}</article>')
+            f'<section class="overview"><h2>{n} 天，怎么排</h2><ol>{over}</ol>{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{"".join(days)}<div class="addday"><button type="button" class="add">＋ 加一天</button><small>想多玩一天：可以自由活动，也可以从附近线路挑一天接上</small></div><div class="acts"><button type="button" class="copy">复制整条行程，发到微信</button><button type="button" class="shot">生成分享图</button></div>{dest_link}{dock}</article>')
     crumbs = [('首页', '/'), ('去哪儿', '/where/')] + ([(d0['name'], f'/d/{t["dest"]}/')] if d0 else []) + [(r.get('label') or r['title'], f'/trip/{rid}/')]
     img = '/img/' + (r.get('img') or '').replace('/_blob/', '') + '.svg' if r.get('img') else None
     write(f'/trip/{rid}/', page(f'/trip/{rid}/', f'{r.get("label") or r["title"]}行程：{r["title"]} | 走你', desc, body, [ld], img, crumbs))
@@ -498,7 +499,7 @@ def where_page():
     body = (f'<article class="where"><div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><h1>去哪儿</h1><div class="stick">'
             f'<div class="tabs"><button type="button" data-t="domestic" class="on">国内 · {nd}</button><button type="button" data-t="asia">亚洲 · {na}</button></div>'
             f'<div class="mon" role="group" aria-label="选月份">{"".join(f"<button type=button data-m={k} class={chr(39)}{chr(111)+chr(110) if k == m else chr(32)}{chr(39)}>{k}月</button>" for k in range(1, 13))}</div>'
-            f'<div class="gl"><p class="goodline"></p><button type="button" class="ftog" aria-label="筛选">筛选 ▾</button></div>'
+            f'<div class="gl"><p class="goodline"></p><button type="button" class="mtog" aria-label="地图看">地图看</button><button type="button" class="ftog" aria-label="筛选">筛选 ▾</button></div>'
             f'<div class="flt" hidden><input type="search" placeholder="搜地名或景点，比如 婺源、兵马俑" aria-label="搜地名或景点">'
             f'<div class="row"><span>出发</span><select class="org" aria-label="从哪出发"><option value="">不限</option>{"".join(f"<option value={o}>{o}</option>" for o in ORIGINS)}</select><button type="button" data-f="near" hidden>500 公里内</button></div>'
             f'<div class="row"><span>天数</span><button type="button" data-f="d1">2–3 天</button><button type="button" data-f="d2">4–5 天</button><button type="button" data-f="d3">6 天以上</button></div>'
