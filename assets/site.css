@@ -21,7 +21,7 @@ main{max-width:430px;margin:0 auto;background:var(--bg);min-height:100vh;positio
 .kick{font:700 12px var(--sans);letter-spacing:.2em;color:var(--pink)}
 .hero-t h1{font-size:34px;line-height:1.15}
 .sq{position:absolute;top:14px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--ink);border:0;cursor:pointer;z-index:2}
-.sq.l{left:14px}.sq.rt{right:14px}
+.sq.l{left:14px}.sq.l2{left:64px}.sq.rt{right:14px}.sq.home b{font:900 18px var(--serif)}
 .glance{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:16px 20px 0}
 .glance>div{display:flex;flex-direction:column;gap:4px;min-width:0}
 .glance b{font:900 20px/1.4 var(--serif);white-space:nowrap}
@@ -106,7 +106,7 @@ main{max-width:430px;margin:0 auto;background:var(--bg);min-height:100vh;positio
 
 /* ——— 去哪儿、目的地 ——— */
 .pagehead{display:flex;justify-content:space-between;align-items:center;padding:12px 20px 0}
-.pagehead a{height:44px;display:flex;align-items:center;gap:4px;margin-left:-8px;padding:0 8px;font-size:14px;font-weight:700}
+.pagehead a{height:44px;display:flex;align-items:center;gap:4px;padding:0 8px;font-size:14px;font-weight:700}.pagehead a.back{margin-left:-8px}.pagehead a.home{margin-right:-8px;color:var(--red)}
 .pagehead span{font-size:13px;color:var(--sub)}
 .where h1,.dest h1,.nf h1{font-size:32px;line-height:1.2;padding:2px 20px 0}
 .where .stick{position:sticky;top:0;z-index:10;background:var(--bg);padding:12px 20px 10px;box-shadow:0 1px 0 var(--line)}
@@ -249,3 +249,8 @@ a,button{-webkit-tap-highlight-color:transparent}
 .r.flash{background:rgba(166,61,39,.12);transition:background .4s}
 .offline{position:fixed;left:0;right:0;top:0;z-index:40;padding:8px 16px;background:var(--red);color:var(--bg);font-size:13px;text-align:center}
 .hlegend{margin:8px 0 0;font-size:12px;line-height:1.9;color:#3d3f3a}.hlegend b{margin-right:3px;color:var(--red);font-weight:700}
+.dtw{position:relative;align-self:flex-start;display:inline-flex;align-items:center;min-height:40px;margin:-10px 0 -10px -4px;padding:0 4px;cursor:pointer}
+.dtw .dt{display:inline-flex;align-items:center;height:40px;padding:0;font:13px var(--sans);color:var(--sub)}
+.dtw .dt i{font-style:normal;font-weight:700;color:var(--red);margin-left:2px}
+.dtw .dpk,.datebar .hdpk{position:absolute;left:0;top:0;width:100%;height:100%;margin:0;padding:0;border:0;opacity:0;font-size:16px;cursor:pointer;-webkit-appearance:none;appearance:none;pointer-events:auto}
+.datebar{display:block}.datebar .hdt{width:100%;height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:var(--bg);color:var(--ink)}
