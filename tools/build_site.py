@@ -225,18 +225,23 @@ def page(path, title, desc, body, jsonld=(), image=None, crumbs=()):
 """
 
 
+def tcls(t):
+    n_ = len(t or '')
+    return ' xlong' if n_ > 17 else ' long' if n_ > 12 else ''
+
+
 def hero(r, back=None, share=False):
     sq = (f'<a class="sq l back" href="/" aria-label="返回上一页">{BACK_ICON}</a><a class="sq l2 home" href="/" aria-label="回首页"><b>走</b></a>' if back else '') + (f'<button type="button" class="sq rt share" aria-label="分享">{SHARE_ICON}</button>' if share else '')
     kick = E(r.get('kicker'))
     img = (r.get('img') or '').replace('/_blob/', '')
     gen = os.path.join('site_src', 'posters', (r.get('id') or '') + '.svg')
     if not (img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg'))) and os.path.exists(gen):
-        return f'<div class="hero"><img src="/img/p/{E(r.get("id"))}.svg" alt="{E(r.get("alt") or r["title"])}" width="430" height="380">{sq}<div class="hero-t"><span class="kick">{kick}</span><h1>{E(r["title"])}</h1></div></div>'
+        return f'<div class="hero"><img src="/img/p/{E(r.get("id"))}.svg" alt="{E(r.get("alt") or r["title"])}" width="430" height="380">{sq}<div class="hero-t{tcls(r["title"])}"><span class="kick">{kick}</span><h1>{E(r["title"])}</h1></div></div>'
     if img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg')):
-        return f'<div class="hero"><img src="/img/{E(img)}.svg" alt="{E(r.get("alt") or r["title"])}" width="430" height="380">{sq}<div class="hero-t"><span class="kick">{kick}</span><h1>{E(r["title"])}</h1></div></div>'
+        return f'<div class="hero"><img src="/img/{E(img)}.svg" alt="{E(r.get("alt") or r["title"])}" width="430" height="380">{sq}<div class="hero-t{tcls(r["title"])}"><span class="kick">{kick}</span><h1>{E(r["title"])}</h1></div></div>'
     mark = re.sub(r'\s*\d+\s*天$', '', r.get('label') or '')
     bg = ['#3a302a', '#2e3a3f', '#3b3527', '#2f3830'][len(r.get('id') or '') % 4]
-    return f'<div class="hero text" style="background:{bg}"><span class="mark" aria-hidden="true">{E(mark)}</span>{sq}<div class="hero-t"><span class="kick">{kick}</span><h1>{E(r["title"])}</h1></div></div>'
+    return f'<div class="hero text" style="background:{bg}"><span class="mark" aria-hidden="true">{E(mark)}</span>{sq}<div class="hero-t{tcls(r["title"])}"><span class="kick">{kick}</span><h1>{E(r["title"])}</h1></div></div>'
 
 
 def navurl(a, b, how, app, name):
@@ -288,6 +293,29 @@ def start_date(r):
     return d
 
 
+CT = json.load(open('data/ctrip_city.json')) if os.path.exists('data/ctrip_city.json') else {'city': {}, 'district': {}}
+CT_ALIAS = {'万盛': '重庆', '南川': '重庆', '大足': '重庆', '江津': '重庆', '涪陵': '重庆', '武隆': '重庆', '黔江': '重庆', '东川': '昆明', '乃东': '山南', '扎囊': '山南',
+            '九华山': '池州', '二道白河': '延边', '五台山': '忻州', '克什克腾': '赤峰', '冷湖': '海西', '大柴旦': '海西', '勐仑': '西双版纳', '南岳': '衡阳', '唐克': '阿坝',
+            '大丰': '盐城', '奉化': '宁波', '崇礼': '张家口', '昌平': '北京', '横店': '金华', '武功山': '萍乡', '武当山': '十堰', '永年': '邯郸', '沱沱河': '格尔木', '海拉尔': '呼伦贝尔',
+            '淮阳': '周口', '磨西': '康定', '蓟州': '天津', '蓬莱': '烟台', '虎头': '鸡西', '顺德': '佛山', '黄陂': '武汉', '龙虎山': '鹰潭', '东极': '舟山', '乌布': '巴厘岛', '美瑛': '旭川'}
+
+
+def ctrip_city(c):
+    for k in (c, (c or '') + '市', (c or '') + '县', (c or '') + '地区', (c or '').rstrip('市县')):
+        if k in CT['city']: return CT['city'][k]
+    for k in (c, (c or '') + '县', (c or '') + '市', (c or '') + '镇'):
+        if k in CT['district']: return CT['district'][k]
+    return None
+
+
+def hotel_url(keyword, city, app='amap', base=None):
+    """订酒店链接：携程手机版要带城市编号才按关键词搜（不带会默认显示上海）；携程查不到这个城市就用地图搜酒店"""
+    cid = ctrip_city(city) or ctrip_city(CT_ALIAS.get(city, '')) or (ctrip_city(base) if base else None)
+    if cid: return f'https://m.ctrip.com/webapp/hotels/list?city={cid}&keyword={urllib.parse.quote(keyword)}'
+    if app == 'google': return 'https://www.google.com/maps/search/?api=1&query=' + urllib.parse.quote(keyword + ' hotel')
+    return 'https://uri.amap.com/search?keyword=' + urllib.parse.quote(keyword) + '&city=' + urllib.parse.quote(city or '') + '&src=zouni&callnative=1'
+
+
 def trip_page(rid):
     r = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}; d0 = DEST.get(t.get('dest'), {})
     sd = start_date(r); dates = [sd + datetime.timedelta(days=i) for i in range(len(r['days']))]
@@ -329,17 +357,18 @@ def trip_page(rid):
             dpu = d['stay'][0].get('dp') or dpurl(d['stay'][0]['name'], city)
             stays = (f'<div class="stays"><div class="sh"><span class="lbl">今晚住</span><span>{"连住 " + str(run) + " 晚" if run > 1 else ""}</span></div><ul>{lis}</ul>'
                      + (f'<button type="button" class="tog">看另外两档</button>' if len(d['stay']) > 1 else '')
-                     + f'<div class="bk"><a class="btn" rel="nofollow noopener" target="_blank" href="https://m.ctrip.com/webapp/hotels/list?keyword={urllib.parse.quote(d["stay"][0]["name"])}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpu)}" aria-label="在大众点评看这家酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
+                     + f'<div class="bk"><a class="btn" rel="nofollow noopener" target="_blank" href="{E(hotel_url(d["stay"][0]["name"], city, app, d0.get("base", {}).get("name")))}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpu)}" aria-label="在大众点评看这家酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
         if not stays and not d.get('stay') and i < n - 1 and (d.get('stayName') or d.get('stayNote')) and not (i > 0 and r['days'][i - 1].get('stayName') == d.get('stayName') and r['days'][i - 1].get('city') == d.get('city')):
             area = d.get('stayName') or city; run = 1
             while i + run < n - 1 and r['days'][i + run].get('stayName') == d.get('stayName'): run += 1
             BIG = {'北京', '上海', '广州', '深圳', '杭州', '成都', '西安', '南京', '苏州', '重庆', '武汉', '长沙', '厦门', '三亚', '香港', '澳门', '青岛', '大连', '天津', '东京', '首尔', '新加坡', '迪拜', '伊斯坦布尔', '大阪', '京都'}
             hi = (d.get('elev') or 0) >= 2500
             pr = (('¥600 起', '¥300–500', '¥120–250') if hi else ('¥1,500 起', '¥600–1,000', '¥250–400') if city in BIG else ('¥900 起', '¥400–700', '¥150–300'))
-            q_ = lambda w_: 'https://m.ctrip.com/webapp/hotels/list?keyword=' + urllib.parse.quote(f'{city} {area if area != city else ""} {w_}'.replace('  ', ' ').strip())
+            kw_ = re.sub(r'(附近|一带|边上|里|市区)$', '', area) if area != city else city
+            q_ = lambda w_: hotel_url(kw_, city, app, d0.get('base', {}).get('name'))
             tiers = [('奢华', '五星或高端度假酒店' if not hi else '当地最好的酒店', pr[0], q_('五星酒店' if not hi else '酒店')), ('高级', '四星或品牌连锁', pr[1], q_('四星酒店')), ('中低', '经济连锁或干净的客栈', pr[2], q_('经济型酒店'))]
-            lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{tn}</span><div><b>{E(area)} · {desc}</b><small>参考价 {pp}/晚</small><a class="tl2" rel="nofollow noopener" target="_blank" href="{E(u)}">携程上按这档看 ›</a></div></li>' for k, (tn, desc, pp, u) in enumerate(tiers))
-            stays = (f'<div class="stays"><div class="sh"><span class="lbl">今晚住</span><span>{"连住 " + str(run) + " 晚" if run > 1 else "按档位挑"}</span></div><ul>{lis}</ul><button type="button" class="tog">看另外两档</button>'
+            lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{tn}</span><div><b class="tg">{desc}</b><small>参考价 {pp}/晚</small></div></li>' for k, (tn, desc, pp, u) in enumerate(tiers))
+            stays = (f'<div class="stays"><div class="sh"><span class="lbl">今晚住</span><span>{E(area)}{" · 连住 " + str(run) + " 晚" if run > 1 else ""}</span></div><ul>{lis}</ul><button type="button" class="tog">看另外两档</button><p class="sn">到携程后用「价格/星级」筛档位</p>'
                      f'<div class="bk"><a class="btn" rel="nofollow noopener" target="_blank" href="{E(tiers[0][3])}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpurl(area + " 酒店", city))}" aria-label="在大众点评看附近酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
         story = f'<aside class="story"><span class="lbl">懂一点</span><p>{E(d["story"])}</p></aside>' if d.get('story') else ''
         mlist = (CULT.get('manners') or {}).get(t.get('dest'), []) if i == 0 else []
