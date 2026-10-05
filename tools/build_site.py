@@ -945,7 +945,7 @@ def dest_map(did, d):
                 if bx0 < 10 or bx1 > Wm - 10 or ly - fs_ < 10 or ly + 3 > Hm - 10: continue
                 if any(not (bx1 < a or bx0 > c or ly + 3 < b or ly - fs_ > d_) for a, b, c, d_ in boxes): continue
                 boxes.append((bx0, ly - fs_, bx1, ly + 3)); done_ = True
-                o.append(f'<a href="/trip/{rid}/" aria-label="{E(nm)}"><rect x="{bx0 - 2:.1f}" y="{ly - 26:.1f}" width="{w + 6:.1f}" height="40" fill="#efe9dc" fill-opacity="0"/><text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anc}" font-family="Noto Serif SC,serif" font-size="{fs_}" font-weight="900" fill="#a63d27" paint-order="stroke" stroke="#efe9dc" stroke-width="3">{E(nm)}</text></a>')
+                o.append(f'<a href="/trip/{rid}/" aria-label="{E(nm)}"><rect x="{min(bx0 - 2, (bx0 + bx1) / 2 - 24):.1f}" y="{ly - 30:.1f}" width="{max(w + 6, 48):.1f}" height="46" fill="#efe9dc" fill-opacity="0"/><text x="{lx:.1f}" y="{ly:.1f}" text-anchor="{anc}" font-family="Noto Serif SC,serif" font-size="{fs_}" font-weight="900" fill="#a63d27" paint-order="stroke" stroke="#efe9dc" stroke-width="3">{E(nm)}</text></a>')
                 break
         if not done_:
             unl.append((rid, nm)); o.append(f'<text x="{x + 6:.1f}" y="{y - 5:.1f}" font-family="Noto Sans SC,sans-serif" font-size="9" font-weight="700" fill="#a63d27">{len(unl)}</text>')
