@@ -9,7 +9,8 @@ BASE = 'https://zouni.app'
 TODAY = datetime.date.today()
 SITE = '走你'
 POSTER_SRC = os.environ.get('POSTER_SRC') or ('assets/blob' if os.path.isdir('assets/blob') else '/tmp/dc-test/_blob')
-E = lambda s: html.escape(str(s if s is not None else ''), quote=True)
+_NB = re.compile(r'(\d) (天|晚|月|日|处|条|家|个|人)')
+E = lambda s: _NB.sub('\\1\u00a0\\2', html.escape(str(s if s is not None else ''), quote=True))
 
 
 def jsvar(path, name):
@@ -290,10 +291,12 @@ def row_html(w, city, app):
     else:
         main = E(w.get('name')); sub = ' · '.join(x for x in [E(w.get('d')), E(w.get('kb'))] if x); kw = w.get('poi')
         mu = museum_of(w.get('name')) or museum_of(w.get('poi'))
-        if book_of(w.get('name')): main += '<span class="gb bk2">要预约</span>'
+        bk_ = book_of(w.get('name'))
         if mu and mu['treasures']:
             main += '<span class="gb">国宝</span>'
-            sub = (sub + '</p><p class="s tre">' if sub else '') + '<b>镇馆之宝</b>' + E('、'.join(mu['treasures'])) + (('，' + E(mu['note'])) if mu.get('note') else '')
+            note_ = re.sub(r'，?(要提前预约|要预约)', '', mu.get('note') or '').strip('，')
+            sub = (sub + '</p><p class="s tre">' if sub else '') + '<b>镇馆之宝</b>' + E('、'.join(mu['treasures'])) + (('，' + E(note_)) if note_ else '')
+        if bk_: sub = '<em class="bkn">要预约</em>' + sub
     ic = icons(kw, city, app, w.get('dp'), w.get('nav')) if kw else ''
     if t == 'eat' and not kw:   # 没有具体地方的饭：只放点评，按“城市 + 菜名”找
         ic = f'<a class="ic dp" href="{E(dpurl(w.get("dish") or "", city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote((city or "") + " " + (w.get("dish") or "")))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上找 {E(w.get("dish"))}">{ICON_DP}</a>'
@@ -417,7 +420,7 @@ def trip_page(rid):
           'provider': {'@type': 'Organization', 'name': SITE, 'url': BASE}}
     lo, hi = (t.get('price') or {}).get('lo'), (t.get('price') or {}).get('hi')
     if lo and hi: ld['offers'] = {'@type': 'AggregateOffer', 'priceCurrency': 'CNY', 'lowPrice': lo, 'highPrice': hi, 'description': '每人，2 人同行，含往返大交通'}
-    dest_link = f'<p class="back"><a href="/d/{E(t["dest"])}/">{E(d0.get("name", ""))}的其他去处 ›</a></p>' if t.get('dest') in DEST else ''
+    dest_link = f'<p class="morelink"><a href="/d/{E(t["dest"])}/">{E(d0.get("name", ""))}的其他去处 ›</a></p>' if t.get('dest') in DEST else ''
     dock = f'<div class="dock"><div><b>{md(dates[0])} 出发 · {n} 天</b><small>2 人 · 每人 {E(price.replace("约 ", ""))}</small></div><button type="button" class="fav" data-id="{rid}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">收进行程</button></div>'
     body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-start="{dates[0].isoformat()}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
             f'<section class="pre"><h2>出发前</h2><ul>{prep or "<li class=fit>没有特别要提前办的</li>"}</ul></section>'
@@ -431,7 +434,7 @@ def trip_page(rid):
 
 def dest_page(d):
     did = d['id']; cl = d.get('climate') or {}; best = set(d['months']['best'])
-    months = ''.join(f'<li class="{"on" if m in best else ""}{" now" if m == TODAY.month else ""}"><b>{m} 月{"·本月" if m == TODAY.month else ""}</b><small>{cl.get(str(m), ["", ""])[0]}° / {cl.get(str(m), ["", ""])[1]}°</small></li>' for m in range(1, 13))
+    months = ''.join(f'<li class="{"on" if m in best else ""}{" now" if m == TODAY.month else ""}"><b>{m} 月</b><small>{cl.get(str(m), ["", ""])[0]}° / {cl.get(str(m), ["", ""])[1]}°</small></li>' for m in range(1, 13))
     trips = ''.join(f'<li><a href="/trip/{rid}/"><b>{E(ROUTES[rid].get("label"))} ›</b><span>{E(ROUTES[rid]["title"])}</span><small>{E(ROUTES[rid].get("price"))}</small></a></li>' for rid in DEST_ROUTES.get(did, []))
     other = [t for t in TRIPS if t['dest'] == did and not any(TRIP_OF_ROUTE.get(r) is t for r in DEST_ROUTES.get(did, []))]
     trips += ''.join(f'<li><span><b>{E(t["title"])}</b> · {"暂不排" if t["status"] == "blocked" else "整理中"}</span></li>' for t in other)
@@ -499,13 +502,13 @@ def where_page():
     body = (f'<article class="where"><div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><h1>去哪儿</h1><div class="stick">'
             f'<div class="tabs"><button type="button" data-t="domestic" class="on">国内 · {nd}</button><button type="button" data-t="asia">亚洲 · {na}</button></div>'
             f'<div class="mon" role="group" aria-label="选月份">{"".join(f"<button type=button data-m={k} class={chr(39)}{chr(111)+chr(110) if k == m else chr(32)}{chr(39)}>{k}月</button>" for k in range(1, 13))}</div>'
-            f'<div class="gl"><p class="goodline"></p><button type="button" class="mtog" aria-label="地图看">地图看</button><button type="button" class="ftog" aria-label="筛选">筛选 ▾</button></div>'
+            f'</div><div class="wbar"><p class="goodline"></p><div class="gl"><span class="cnt" aria-live="polite"></span><button type="button" class="mtog" aria-label="地图看">地图看</button><button type="button" class="ftog" aria-label="筛选">筛选 ▾</button></div>'
             f'<div class="flt" hidden><input type="search" placeholder="搜地名或景点，比如 婺源、兵马俑" aria-label="搜地名或景点">'
             f'<div class="row"><span>出发</span><select class="org" aria-label="从哪出发"><option value="">不限</option>{"".join(f"<option value={o}>{o}</option>" for o in ORIGINS)}</select><button type="button" data-f="near" hidden>500 公里内</button></div>'
             f'<div class="row"><span>天数</span><button type="button" data-f="d1">2–3 天</button><button type="button" data-f="d2">4–5 天</button><button type="button" data-f="d3">6 天以上</button></div>'
             f'<div class="row"><span>预算</span><select class="bud" aria-label="每人预算"><option value="">不限</option><option value="2000">2,000 以内</option><option value="5000">5,000 以内</option><option value="10000">1 万以内</option></select></div>'
             f'<div class="row"><span>其他</span><button type="button" data-f="fit" class="on">只看合适的</button><button type="button" data-f="low">避开高原</button><button type="button" data-f="niche">有小众</button></div><button type="button" class="clr" hidden>清空筛选</button></div>'
-            f'<span class="cnt" aria-live="polite"></span></div>{"".join(scopes)}</article>')
+            f'</div>{"".join(scopes)}</article>')
     write('/where/', page('/where/', '去哪儿：国内 34 个省级行政区和亚洲 22 国，按月份挑目的地 | 走你', '每个目的地按月份标出正好去、也行、不建议，附每月平均气温、看什么吃什么和排好的行程。', body, [], None, [('首页', '/'), ('去哪儿', '/where/')]))
 
 
@@ -552,7 +555,7 @@ def home_page():
         dl = days_left(tt)
         when = (f'<span class="left{" urgent" if dl is not None and dl <= 14 else ""}">{"最后 " + str(dl) + " 天" if dl is not None and dl <= 14 else "最好 " + wtxt(tt) + (" · 还剩 " + str(dl) + " 天" if dl is not None else "")}</span>' if window(tt) else '<span class="left">一年四季都能去</span>')
         band = 'd1' if n <= 3 else 'd2' if n <= 5 else 'd3'
-        return (f'<li data-band="{band}"{extra}{" hidden" if hide else ""}><span class="num">{i:02d}</span><div class="tx"><span class="k">{kicker}</span><h3>{E(dd.get("name", ""))} · {E(rr.get("label"))}</h3><p>{E(rr["title"])}</p>'
+        return (f'<li data-band="{band}"{extra}{" hidden" if hide else ""}><span class="num">{i:02d}</span><div class="tx"><span class="k">{kicker}</span><h3>{(E(dd.get("name", "")) + " · ") if not (rr.get("label") or "").startswith(dd.get("name", "") or "@") else ""}{E(rr.get("label"))}</h3><p>{E(rr["title"])}</p>'
                 f'<small>{n} 天 · 人均 {E(rr.get("price"))}</small>{when}<span class="c">{m} 月白天 {c[0]}℃，夜里 {c[1]}℃</span><a class="open" href="/trip/{rid}/">翻开 ›</a></div>{tile}</li>')
     rest = [x for x in inseason if x != cover]
     urgent = sorted([x for x in rest if days_left(TRIP_OF_ROUTE[x]) <= 14], key=lambda x: (0 if ROUTES[x].get('img') else 1, days_left(TRIP_OF_ROUTE[x])))[:3]
@@ -621,7 +624,8 @@ def hand_map(r):
            f'<rect x="1" y="1" width="{Wm - 2}" height="{Hm - 2}" fill="#efe9dc"/><rect x="1" y="1" width="{Wm - 2}" height="{Hm - 2}" filter="url(#pp)"/>',
            f'<rect x="6" y="6" width="{Wm - 12}" height="{Hm - 12}" fill="none" stroke="#1c1d1a" stroke-width="1.2" opacity=".55"/><rect x="9" y="9" width="{Wm - 18}" height="{Hm - 18}" fill="none" stroke="#1c1d1a" stroke-width=".6" opacity=".35"/>']
     # 手抖的线：每段用略微偏移的二次曲线画两遍
-    prev = None; dots = []; labels = []; boxes = []; legend = []
+    prev = None; dots = []; labels = []; legend = []
+    boxes = [(12, Hm - 30, 230, Hm - 8), (Wm - 44, 12, Wm - 12, 50)]   # 左下角说明、右上角指北针先占住
     for di, pts in enumerate(days):
         for k, (la, lo, nm, tp) in enumerate(pts):
             x, y = P(la, lo)
@@ -693,7 +697,7 @@ def hand_map(r):
     km_w = spanx * 111
     out.append(f'<text x="16" y="{Hm - 16}" font-family="Noto Sans SC,sans-serif" font-size="10" fill="#5d5f59">东西约 {round(km_w) if km_w >= 10 else round(km_w, 1)} 公里 · 示意，不按比例</text></svg>')
     if legend:
-        out.append('<p class="hlegend">' + '　'.join(f'<b>{n_}</b>{E(nm_)}' for n_, nm_ in legend) + '</p>')
+        out.append('<p class="hlegend">' + ''.join(f'<span><b>{n_}</b>{E(nm_)}</span>' for n_, nm_ in legend) + '</p>')
     return ''.join(out)
 
 
@@ -725,7 +729,7 @@ def dest_map(did, d):
          f'<rect x="1" y="1" width="{Wm - 2}" height="{Hm - 2}" fill="#efe9dc"/><rect x="6" y="6" width="{Wm - 12}" height="{Hm - 12}" fill="none" stroke="#1c1d1a" stroke-width="1.2" opacity=".55"/>']
     for la, lo in dots:
         x, y = P(la, lo); o.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2" fill="#1c1d1a" opacity=".35"/>')
-    boxes = []
+    boxes = [(10, Hm - 28, 360, Hm - 8), (Wm - 44, 10, Wm - 10, 48)]
     for la, lo, nm, rid in sorted(pts, key=lambda p_: -len(ROUTES[p_[3]]['days'])):
         x, y = P(la, lo); w = len(nm) * 12 + 10
         o.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="5" fill="#f4f2ec" stroke="#a63d27" stroke-width="2"/>')
