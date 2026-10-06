@@ -958,7 +958,22 @@ def sj_for_trip(rid, r):
             if not cross and x['prov'] != prov and not (x['prov'] in ('香港', '澳门') and prov in ('香港', '澳门', '广东')): continue
             if any(kk and kk in txt for kk in x['keys']):
                 out.setdefault(k, [])
-                if len(out[k]) < 2: out[k].append(x); used.add(i)
+                sh_ = [y.get('show') for y in out[k]]
+                if (x.get('show') in sh_ and sh_.count(x.get('show')) < 4) or len(set(sh_)) < 2: out[k].append(x); used.add(i)   # 一天最多两部片子，同一部片子的并成一行
+    return out
+
+
+def sj_lines(xs):
+    """同一部片子并成一行：“风味原产地 推荐腐乳饼、潮柑、鱼生（潮州）”"""
+    out = ''; shows = []
+    for x in xs:
+        sh = x.get('show') or '舌尖上的中国'
+        if sh not in shows: shows.append(sh)
+    for sh in shows:
+        ys = [x for x in xs if (x.get('show') or '舌尖上的中国') == sh]
+        places = {y['place'] for y in ys}
+        body = '、'.join(y['food'] for y in ys) + '（' + '、'.join(sorted(places, key=lambda z: [y['place'] for y in ys].index(z))) + '）'   # 吃的连着写，地方合在括号里
+        out += f'<p class="sjn"><b>{E(sh)}</b>{SHOW_VERB.get(sh, "推荐")}{E(body)}</p>'
     return out
 
 
@@ -1076,7 +1091,7 @@ def trip_page(rid):
         navprev = lastpt
         rows = [w for k_, w in enumerate(rows) if not (w['type'] == 'dep' and w.get('to') == '吃晚饭' and (w.get('how') or '') in ('打车或步行', ''))]
         days.append(f'<section class="day" id="d{i + 1}"><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
-                    f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (d.get("clim") or {}).get(str(dates[i].month)) else ""}</p>' + (''.join(f'<p class="sjn"><b>{E(x.get("show") or "舌尖上的中国")}</b>{SHOW_VERB.get(x.get("show") or "舌尖上的中国", "推荐")}{E(x["food"])}（{E(x["place"])}）</p>' for x in _sj.get(i, []))) + f'{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
+                    f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (d.get("clim") or {}).get(str(dates[i].month)) else ""}</p>' + sj_lines(_sj.get(i, [])) + f'{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
         sights += [w['name'] for w in d['rows'] if w['type'] == 'see' and w.get('poi')]
     desc = f'{r["title"]}：{n} 天按天排好，' + '、'.join(dict.fromkeys(re.split(r'\s*·\s*', ' · '.join(x['title'] for x in r['days']))))[:70] + '。' + season_text(t)
     ld = {'@context': 'https://schema.org', '@type': 'TouristTrip', 'name': r['title'], 'description': desc, 'url': BASE + f'/trip/{rid}/', 'inLanguage': 'zh-CN',
