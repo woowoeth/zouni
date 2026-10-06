@@ -125,7 +125,7 @@
           sec.querySelectorAll('.sun').forEach(function(b){b.dataset.date=iso(di);b.textContent=sun(+b.dataset.lat,+b.dataset.lng,di,b.dataset.k==='rise',parseFloat(b.dataset.tz))});
           var cl=sec.querySelector('.cl');if(cl&&cl.dataset.clim){var c=JSON.parse(cl.dataset.clim)[di.getMonth()+1];cl.textContent=c?('往年 '+(di.getMonth()+1)+' 月平均：白天 '+c[0]+'℃，夜里 '+c[1]+'℃'):''}});
         document.querySelectorAll('.overview i').forEach(function(x,i){x.textContent=fmt(new Date(d0.getTime()+i*864e5))});
-        dtb.firstChild.textContent=fmt(d0)+'–'+fmt(new Date(d0.getTime()+(n-1)*864e5))+' ';
+        var dN=new Date(d0.getTime()+(n-1)*864e5);dtb.firstChild.textContent=fmt(d0)+'–'+(dN.getMonth()===d0.getMonth()?dN.getDate():fmt(dN))+' ';   // 同一个月写 10/15–17，窄屏不挤
         var db=document.querySelector('.dock b');if(db)db.textContent=fmt(d0)+' 出发 · '+n+' 天'}
       dtb.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();dtb.click()}});
       dtb.addEventListener('click',function(){var b0=dtb.dataset.best?dtb.dataset.best.split(','):null;openPicker({value:dk.value,min:dk.dataset.min||dk.getAttribute('min'),best:b0&&b0.length===2?b0:null,onPick:function(v){dk.value=v;dk.dispatchEvent(new Event('change'))}})});
