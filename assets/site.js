@@ -68,7 +68,7 @@
         gone.push({oi:+s.dataset.oi,t:(s.querySelector('h2').childNodes[0]||{textContent:''}).textContent.trim()});s.remove()});
       // “连住 N 晚”按剩下的天重算
       var lf=[].slice.call(document.querySelectorAll('.day'));lf.forEach(function(s,i){var st=s.querySelector('.stays');if(!st)return;var sp=st.querySelector('.sh span:last-child');if(!sp)return;var me0=stayOf(s),k=i,nn=0;
-        while(k<lf.length-1&&stayOf(lf[k])===me0&&me0){nn++;k++}sp.textContent=sp.textContent.replace(/\s*·\s*连住\s*\d+\s*晚/,'')+(nn>1?' · 连住 '+nn+' 晚':'')});
+        while(k<lf.length-1&&stayOf(lf[k])===me0&&me0){nn++;k++}var base0=sp.textContent.replace(/(^|\s*·\s*)连住\s*\d+\s*晚/g,'').trim();sp.textContent=base0+(nn>1?(base0?' · ':'')+'连住 '+nn+' 晚':'')});
       ovl.forEach(function(li){if(RD.indexOf(+li.dataset.oi)>=0)li.remove()});
       var left=[].slice.call(document.querySelectorAll('.day')),CN='一二三四五六七八九十';
       if(gone.length){left.forEach(function(s,i){s.id='d'+(i+1);var no=s.querySelector('.no');if(no)no.textContent=('0'+(i+1)).slice(-2);var sm=s.querySelector('header small');if(sm){var p=sm.textContent.split(' · ');sm.textContent='第'+(i<10?CN[i]:(i+1))+'天'+(p.length>1?' · '+p.slice(1).join(' · '):'')}});
@@ -398,9 +398,10 @@
         var seen={},T=getT();[].slice.call(document.querySelectorAll('.tl > .r')).forEach(function(r){if(r.hidden||!r.querySelector('.bkn'))return;var n=nm0(r);if(seen[n])return;seen[n]=1;var dd=(r.closest('.day').querySelector('header small').textContent.split(' · ')[1])||'',a=r.querySelector('.bkl'),hw0=r.querySelector('.bkn[data-how]'),hw=hw0?{textContent:hw0.dataset.how+'预约'}:r.querySelector('.bkh'),key='b:'+n;
           out.push({g:'要预约的',t:n+(dd?'（'+dd+'）':''),link:a?a.href:'',how:hw?hw.textContent:'',done:T.indexOf(key)>=0,tog:function(){var T2=getT(),i=T2.indexOf(key);if(i>=0)T2.splice(i,1);else T2.push(key);try{localStorage.setItem(TK,JSON.stringify(T2))}catch(e){}}})});
         [].slice.call(document.querySelectorAll('.stays')).forEach(function(c){var sec=c.closest('.day'),dd=(sec.querySelector('header small').textContent.split(' · ')[1])||'',area=(c.querySelector('.sh span:last-child')||{}).textContent||'',tg=c.querySelector('li:not(.more) b.tg'),lk=c.querySelector('.bk .btn'),mk=c.querySelector('.mk');if(!mk)return;
-          out.push({g:'住宿',t:dd+' 起住'+area+(tg?'：'+tg.textContent:''),link:lk?lk.href:'',done:mk.classList.contains('on'),tog:function(){mk.click()}})});return out}
+          var stm=sec.querySelector('.r.stay .m'),sn=stm?stm.textContent.replace(/^\s*住\s*·\s*/,'').trim():'',ln=/连住\s*(\d+)\s*晚/.exec(area);
+          out.push({g:'住宿',t:dd+' 起住'+(sn||area.replace(/\s*·?\s*连住\s*\d+\s*晚/,'')||'')+(ln?'，连住 '+ln[1]+' 晚':'')+(tg?'：'+tg.textContent:''),link:lk?lk.href:'',done:mk.classList.contains('on'),tog:function(){mk.click()}})});return out}
       var pre=document.querySelector('section.pre');if(!pre)return;pre.insertAdjacentHTML('beforeend','<button type="button" class="todoall"></button>');var ta=pre.querySelector('.todoall');
-      function paint(){var it=items(),dn=it.filter(function(x){return x.done}).length;ta.innerHTML='出发前要办的事 · 已办 <b>'+dn+'/'+it.length+'</b> ›'}paint();
+      function paint(){var it=items(),dn=it.filter(function(x){return x.done}).length;ta.innerHTML='<span>出发前要办的事 · 已办 <b>'+dn+'/'+it.length+'</b></span><i>›</i>'}paint();
       ta.addEventListener('click',function(){var m=document.createElement('div');m.className='tv todo';document.body.appendChild(m);document.body.classList.add('pk-open');
         function close(){m.remove();document.body.classList.remove('pk-open');paint()}
         function render(){var it=items(),dn=it.filter(function(x){return x.done}).length,gs=['要准备的','要预约的','住宿'];
