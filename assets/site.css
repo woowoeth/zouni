@@ -424,3 +424,8 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .allck{display:flex;align-items:center;gap:8px;margin:12px 0 0;font-size:14px;color:var(--ink)}.allck input{width:20px;height:20px;accent-color:var(--ink)}
 .pre li.tip{display:block;padding-left:30px;font-size:13px;color:var(--sub)}
 .tvx{display:inline-flex;align-items:center;gap:4px;min-height:44px;font-size:15px}.tvx svg{flex:none}
+
+/* 出发前：“官网预约”统一靠右，和这一条同一行（放不下时换到下一行也靠右） */
+.pre li{display:flex;flex-wrap:wrap;align-items:center;column-gap:8px}.pre li label{flex:1 1 auto;min-width:0}.pre li a.bkl,.pre li .bkh{margin-left:auto!important}
+/* 小屏底栏：收进行程只留图标，按天看缩短 */
+@media (max-width:359px){.dock .fav span{display:none}.dock .fav{padding:0 14px}.dock .tvbtn{padding:0 10px;font-size:14px}.dock small{font-size:11px}}
