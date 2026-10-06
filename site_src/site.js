@@ -162,7 +162,7 @@
           secs.forEach(function(sec,i){if(!sec.dataset.extra)return;var li=ol.querySelector('li[data-x="'+sec.dataset.extra+'"]');if(!li){li=document.createElement('li');li.dataset.x=sec.dataset.extra;ol.appendChild(li)}
             li.innerHTML='<a href="#d'+(i+1)+'"><b>'+('0'+(i+1)).slice(-2)+'</b><i></i><span class="ot"><strong>'+sec.querySelector('h2').childNodes[0].textContent+'</strong><small>加的一天</small></span><em></em></a>'});
           [].slice.call(ol.querySelectorAll('li[data-x]')).forEach(function(li){if(!document.querySelector('.day[data-extra="'+li.dataset.x+'"]'))li.remove()});
-          var h=document.querySelector('.overview h2');if(h)h.textContent=secs.length+' 天，怎么排';
+          var h=document.querySelector('.overview h2');if(h)h.textContent=secs.length+' 天，怎么排';var gb2=document.querySelector('.glance b.big');if(gb2&&gb2.firstChild)gb2.firstChild.textContent=secs.length;
           applyStart(dk.value);setTimeout(todayBar,0);redrawMap()}
         function dayShell(x,title,body){var sec=document.createElement('section');sec.className='day xday';sec.dataset.extra=x;
           sec.innerHTML='<header><span class="no"></span><div><small>第几天 · </small><h2>'+title+'</h2></div></header>'+body+'<button type="button" class="rmday">去掉这一天</button>';return sec}
@@ -487,6 +487,7 @@
     function km(a,b){var r=Math.PI/180,x=(b[1]-a[1])*r*Math.cos((a[0]+b[0])/2*r),y=(b[0]-a[0])*r;return Math.round(Math.sqrt(x*x+y*y)*6371)}
     function pick(){var all=[].slice.call(document.querySelectorAll('.toc .items li')).filter(function(li){return li.dataset.lat&&li.querySelector('a[href^="/trip/"]')}),o=C[st.o],seen={},sc=[];
       all.forEach(function(li){var href=li.querySelector('a[href^="/trip/"]').getAttribute('href');if(seen[href])return;seen[href]=1;var n=+li.dataset.n,d=km(o,[+li.dataset.lat,+li.dataset.lng]),s=0,why=[];
+        if(d<60)return;   // 就在出发地的不推荐
         if(st.d==='w'){if(n>3)return;s+=d<=600?30:d<=1200?20:d<=2000?5:-40}else if(st.d==='m'){if(n<4||n>5)return;s+=d<=2500?20:0}else{if(n<6)return;s+=10}
         if(st.w==='o'&&li.dataset.hi==='1')return;if(st.w==='o'&&li.dataset.drv==='1'&&n>8)s-=15;
         var kk=((li.querySelector('.k')||{}).textContent||'').replace(/\s+/g,' ').trim();if(/正当季|最好/.test(kk))s+=12;if(/最后/.test(kk))s+=6;if(li.closest('#drive'))s+=st.d==='l'?10:-5;if(li.dataset.img==='1')s+=3;
