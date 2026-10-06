@@ -93,8 +93,9 @@ for rid, it in IT.items():
         if dcity != city:
             cg2 = geocode(dcity, dcity, None)
             if cg2: dbase = (cg2['lat'], cg2['lng'])
-        sc = geo_city(d['stay']) if d.get('stay') and 'geo_city' in globals() else None
-        stay_pt = (sc['lat'], sc['lng']) if sc and km(dbase, (sc['lat'], sc['lng'])) < 150 else dbase
+        sc = (GEO.get(dcity + '|' + d['stay']) or GEO.get(city + '|' + d['stay'])) if d.get('stay') else None   # 住处有人工核对过的坐标就用（原来调用了一个不存在的函数，住处坐标从来没用上）
+        stay_ok = bool(sc and km(dbase, (sc['lat'], sc['lng'])) < 60)
+        stay_pt = (sc['lat'], sc['lng']) if stay_ok else dbase
         far = lambda p: p and km(p, dbase) > 60   # 当天已经到了另一座城：回住处就留在当地
         t = mm(d.get('start', '09:00')); prev = carry or dbase; rows = []; lunched = t >= 13 * 60; dined = False; drive = 0
         meal_i = di
@@ -112,15 +113,21 @@ for rid, it in IT.items():
             dine_there = bool(st.get('at') and mm(st['at']) >= 18 * 60 and (d.get('dinner') or {}).get('place') and (d['dinner']['place'] in st['name'] or d['dinner']['place'] in (st.get('q') or '')))
             if st.get('at') and mm(st['at']) >= 18 * 60 and not dined and not last and not dine_there:
                 if t < 17 * 60 + 30:
-                    rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '回去歇一下'}); t = 18 * 60 + 10; prev = prev if far(prev) else stay_pt
+                    rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '回去歇一下'}); t = 18 * 60 + 10; prev = stay_pt if stay_ok else (prev if far(prev) else stay_pt)
                 rows.append(meal('晚饭', d.get('dinner'), max(t, 18 * 60))); t = max(t, 18 * 60) + 75; dined = True
             # 到了饭点先吃午饭
             if not lunched and t >= 11 * 60 + 40 and st['type'] != 'food':
-                rows.append(meal('午饭', d.get('lunch'), t)); t += 60; lunched = True
+                if t <= 14 * 60 + 30: rows.append(meal('午饭', d.get('lunch'), t)); t += 60
+                lunched = True                                           # 过了两点半就不排“午饭”了，晚上再吃
             how, mins, dist = leg(prev, pt, st.get('via'))
             if dine_there and not dined:
                 at0 = max(t + mins, 18 * 60)
-                if at0 - mins - t >= 60: rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '回去歇一下'}); prev = prev if far(prev) else stay_pt
+                if at0 - mins - t >= 60:
+                    if not lunched and 11 * 60 <= t <= 14 * 60:          # 先吃午饭再回去歇
+                        rows.append(meal('午饭', d.get('lunch'), max(t, 11 * 60 + 30))); t = max(t, 11 * 60 + 30) + 60; lunched = True
+                    rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '回去歇一下'}); prev = stay_pt if stay_ok else (prev if far(prev) else stay_pt)
+                    how, mins, dist = leg(prev, pt, st.get('via'))     # 歇完从住处出发，路程按住处算
+                    at0 = max(t + mins, 18 * 60)
                 t = at0 - mins
             elif st.get('at'):
                 gap = mm(st['at']) - mins - t
@@ -136,7 +143,8 @@ for rid, it in IT.items():
                 rows.append(meal('晚饭', d.get('dinner'), t)); t += 75; dined = True
             # (c) 路上过了饭点：到了先吃午饭
             if not lunched and t >= 11 * 60 + 40 and st['type'] != 'food':
-                rows.append(meal('午饭', d.get('lunch'), t)); t += 60; lunched = True
+                if t <= 14 * 60 + 30: rows.append(meal('午饭', d.get('lunch'), t)); t += 60
+                lunched = True
             if st['type'] == 'food':
                 slot = '早饭' if t < 10 * 60 else ('午饭' if t < 16 * 60 else '晚饭')
                 rows.append({'t': hm(t), 'type': 'eat', 'slot': slot, 'dish': st.get('dish', '小吃'), 'place': short(st['name']), 'd': '', 'poi': st.get('q') or st['name'], 'dp': dp(dcity, short(st['name']))})
@@ -147,14 +155,14 @@ for rid, it in IT.items():
                 if not lunched and t < 12 * 60 and t + du > 13 * 60:   # 逛得久、跨过中午：在里面简单吃
                     rows.append({'t': hm(max(t + 60, 12 * 60 + 15)), 'type': 'eat', 'slot': '午饭', 'dish': '简单吃一点', 'place': short(st['name']) + '里面', 'd': '', 'poi': '', 'dp': ''}); lunched = True
             t += du; prev = pt or prev
-        if not lunched and t >= 12 * 60:
+        if not lunched and 12 * 60 <= t <= 14 * 60 + 30:
             rows.append(meal('午饭', d.get('lunch'), t)); t += 60; lunched = True
         if last:
             rows.append({'t': hm(t + 10), 'type': 'dep', 'to': '回程', 'how': '去车站或机场'})
         else:
             if not dined:
                 if t < 17 * 60 + 30:
-                    rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '回去歇一下'}); t = 18 * 60 + 10; prev = prev if far(prev) else stay_pt
+                    rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '回去歇一下'}); t = 18 * 60 + 10; prev = stay_pt if stay_ok else (prev if far(prev) else stay_pt)
                 rows.append({'t': hm(max(t, 18 * 60 + 10)), 'type': 'dep', 'to': '吃晚饭', 'how': '开车或步行' if SELF[0] else '打车或步行'})
                 rows.append(meal('晚饭', d.get('dinner'), max(t, 18 * 60 + 10) + 20)); t = max(t, 18 * 60 + 10) + 95
             rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': '开车或步行' if SELF[0] else '打车或步行'})

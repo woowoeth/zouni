@@ -268,23 +268,39 @@
         orig.forEach(function(r){if(r.dataset.sd){delete r.dataset.sd;r.hidden=!!(D[oi]&&D[oi].indexOf(+r.dataset.k)>=0)}});
         if(SL){var sights=orig.filter(function(r){return(r.classList.contains('see')||r.classList.contains('fun'))&&r.dataset.slack!=='1'&&!r.hidden});
           if(sights.length>=3){slowDrop=sights[sights.length-1];slowDrop.hidden=true;slowDrop.dataset.sd='1';var pv=slowDrop.previousElementSibling;if(pv&&pv.classList.contains('dep')&&!pv.hidden){pv.hidden=true;pv.dataset.sd='1'}}}
-        function run(order){t=start;late=[];order.forEach(function(r){if(r.hidden&&r.dataset.slack!=='1')return;var k=timed.indexOf(r),span=k<timed.length-1?Math.max(0,t0[k+1]-t0[k]):60,at=hm2m(r.dataset.at),ml=r.dataset.meal;
-            if(A[r.dataset.k])span=Math.max(15,span+A[r.dataset.k]);
+        // 按差值平移：每一行 = 原来的时间 + 累计的变化；什么都没改时每一行原样不动
+        //  改出发时间 → 整体平移；晚了先吃掉“回去歇一下 / 沿途慢慢走”这些空当；去掉的站把后面往前拉；多待少待把后面往后推 / 往前拉
+        //  饭点、定点只在“原来就满足、平移后不满足”时才顶住，不会把原来的安排改掉
+        var LSPAN=60,moveL=null,shift=0;
+        function spanOf(r){var k=timed.indexOf(r);return k<timed.length-1?Math.max(0,t0[k+1]-t0[k]):60}
+        function run(order){shift=start-t0[0];late=[];var lastT=null,lastSpan=0;
+          if(moveL){moveL.querySelector('time').textContent=m2hm(start);moveL._t=start;shift+=LSPAN;lastT=start;lastSpan=LSPAN}
+          order.forEach(function(r){var k=timed.indexOf(r),tO=t0[k],span=spanOf(r),at=hm2m(r.dataset.at),ml=r.dataset.meal;
+            if(r===moveL){shift-=span;return}
             var sl=r.querySelector('.s');if(sl&&(r.classList.contains('see')||r.classList.contains('fun'))){var tn=[].slice.call(sl.childNodes).filter(function(x){return x.nodeType===3&&/\d+ (小时|分)/.test(x.textContent)})[0];
               if(tn){if(r.dataset.d0==null)r.dataset.d0=tn.textContent;var mh=/(\d+) 小时/.exec(r.dataset.d0),mm2=/(\d+) 分/.exec(r.dataset.d0),od=(mh?+mh[1]*60:0)+(mm2?+mm2[1]:0),nd=Math.max(15,od+(A[r.dataset.k]||0));
                 tn.textContent=A[r.dataset.k]?r.dataset.d0.replace(/\d+ 小时(\s*\d+ 分钟?)?|\d+ 分钟?/,(nd>=60?Math.floor(nd/60)+' 小时':'')+(nd%60?(nd>=60?' ':'')+(nd%60)+' 分':'')):r.dataset.d0}}
-            if(r.dataset.slack==='1'){var lag=t-t0[k];span=Math.max(0,span-Math.max(0,lag));r.hidden=span<15||!!(D[oi]&&D[oi].indexOf(+r.dataset.k)>=0);if(r.hidden)return}   // 晚出发先压缩“回去歇一下”“沿途慢慢走”这些空当
-            if(ml==='l'&&t<690)t=690;if(ml==='d'&&t<1050)t=1050;if(at!=null&&t<at)t=at;if(at!=null&&t>at+30&&t>hm2m(r.dataset.t0)+5)late.push(r);   // 只在比原来安排更晚时才提示（原来就排在定点之后的不算）
-            r.querySelector('time').textContent=m2hm(t);r._t=t;t+=span})}
-        seq=timed.slice();run(seq);
-        var lunch=seq.filter(function(r){return r.dataset.meal==='l'&&!r.hidden})[0];
-        if(lunch&&start>=660&&lunch._t>840&&seq.indexOf(lunch)>0){seq.splice(seq.indexOf(lunch),1);seq.unshift(lunch);run(seq)}   // 出发晚、午饭要拖过两点：先吃午饭再出发
+            if(r.hidden&&r.dataset.slack!=='1'){shift-=span;return}                                   // 去掉的站：后面往前挪
+            var t1=tO+shift;
+            if(r.dataset.slack==='1'){var cut=shift>0?Math.min(span,shift):0;shift-=cut;var left=span-cut;r.hidden=left<15||!!(D[oi]&&D[oi].indexOf(+r.dataset.k)>=0);if(r.hidden){shift-=left;return}   // 空当从前一站结束时开始，只是变短
+              r.querySelector('time').textContent=m2hm(t1);r._t=t1;lastT=t1;lastSpan=left;return}
+            if(ml==='l'&&tO>=690&&t1<690){shift+=690-t1;t1=690}
+            if(ml==='d'&&tO>=1050&&t1<1050){shift+=1050-t1;t1=1050}
+            if(at!=null&&tO>=at&&t1<at){shift+=at-t1;t1=at}
+            if(at!=null&&t1>at+30&&t1>tO+5)late.push(r);
+            r.querySelector('time').textContent=m2hm(t1);r._t=t1;lastT=t1;lastSpan=Math.max(15,span+(A[r.dataset.k]||0));
+            if(A[r.dataset.k])shift+=Math.max(15-span,A[r.dataset.k])});
+          t=lastT==null?start:lastT+lastSpan}
+        seq=timed.slice();var lunch=seq.filter(function(r){return r.dataset.meal==='l'&&!r.hidden})[0];
+        if(lunch&&hm2m(S[oi])!=null&&start>t0[0]&&start>=660&&seq.indexOf(lunch)>0&&t0[timed.indexOf(lunch)]+(start-t0[0])>840&&t0[timed.indexOf(lunch)]<=840){moveL=lunch}   // 只在自己改晚了出发、把原本两点前的午饭推过两点时   // 出发晚、午饭要拖过两点：先吃午饭再出发
+        run(seq);if(moveL){seq.splice(seq.indexOf(moveL),1);seq.unshift(moveL)}
+        var t0end=t0[t0.length-1]+60;
         var rest=orig.filter(function(r){return seq.indexOf(r)<0});seq.concat(rest).forEach(function(r){tl.appendChild(r)});
         var vis=seq.filter(function(r){return!r.hidden});
         var st=sec.querySelector('.st b');if(st)st.textContent=m2hm(start);
         var ov=document.querySelectorAll('.overview ol li')[[].slice.call(document.querySelectorAll('.day')).indexOf(sec)];if(ov){var em=ov.querySelector('em');if(em)em.textContent=m2hm(start)+' 走'}
         var warn=sec.querySelector('.latewarn');if(warn)warn.remove();
-        var msgs=[];if(t>22*60+30)msgs.push('按 '+m2hm(start)+' 出发，这天要到 '+m2hm(t)+' 才结束');
+        var msgs=[];if(t>22*60+30&&t>t0end+5)msgs.push('按 '+m2hm(start)+' 出发，这天要到 '+m2hm(t)+' 才结束');
         late.forEach(function(r){msgs.push('赶不上「'+r.querySelector('.m').childNodes[0].textContent.trim()+'」原定的 '+r.dataset.at)});
         var changed=(hm2m(S[oi])!=null&&hm2m(S[oi])!==t0[0])||Object.keys(A).length>0||Object.keys(F).length>0;
         var road=0,nsee=0,gapRow=null,gapLen=0;vis.forEach(function(r,i){var nx=vis[i+1],a=r._t,b=nx?nx._t:t;if(r.classList.contains('dep')&&r.dataset.slack!=='1')road+=Math.max(0,b-a);if((r.classList.contains('see')||r.classList.contains('fun'))&&r.dataset.slack!=='1')nsee++;if(r.dataset.slack==='1'&&b-a>gapLen){gapLen=b-a;gapRow=r}});
