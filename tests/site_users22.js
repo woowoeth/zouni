@@ -13,7 +13,7 @@ const B=process.argv[2]||'http://localhost:8765';
     const c=await pg.evaluate(()=>{ const f=document.querySelector('.dock .fav'); return {t:f.innerText,fill:getComputedStyle(f.querySelector('svg.fi path')).fill}; });
     R.push({u:'100 小林 · 收藏图标',ok:a.icon&&a.fill==='none'&&c.fill!=='none'&&/已收进/.test(c.t),find:`书签图标${a.icon?'有':'没有'}，没收时 ${a.fill}，收进后 ${c.fill}、按钮“${c.t}”`}); await pg.close(); }
   { const pg=await fresh(); await go(pg,'/trip/cd3/'); const cands=await pg.evaluate(()=>JSON.parse(document.getElementById('cands').textContent));
-    await pg.evaluate(()=>document.querySelector('.addday .add').scrollIntoView()); await pg.tap('.addday .add'); await sleep(300);
+    await pg.evaluate(()=>{document.documentElement.style.scrollBehavior='auto';document.querySelector('.addday .add').scrollIntoView({block:'center'})}); await sleep(300); await pg.tap('.addday .add'); await sleep(300);
     const first=await pg.evaluate(()=>{ const bt=document.querySelector('.xd button[data-rid]'); return bt?bt.innerText.replace(/\n/g,' '):''; });
     await pg.evaluate(()=>document.querySelector('.xd button[data-rid]').click()); await sleep(1500);
     const order=await pg.evaluate(()=>[...document.querySelectorAll('.day')].map(d=>(d.classList.contains('xday')?'[加]':'')+d.querySelector('h2').childNodes[0].textContent.trim()));
