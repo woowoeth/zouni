@@ -131,6 +131,7 @@ def render(days, title, home=None, W=390, H=290, uid='m'):
     for (x, y), nm, tp, di in seq:
         if not nm or tp not in ('see', 'fun') or nm in seen: continue
         seen.add(nm); legend.append(nm); num = len(legend)
+        nm = re.sub(r'[（(].*$', '', nm).strip() or nm          # 地图上只写主名：“看川剧变脸（蜀风雅韵）”写“看川剧变脸”
         placed = False
         for fs in (11, 10):
             w = len(nm[:8]) * fs + 4
