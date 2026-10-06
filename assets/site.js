@@ -109,7 +109,7 @@
     var sh=document.querySelector('.share');if(sh)sh.addEventListener('click',function(){var mask=document.createElement('div');mask.className='pk-mask';var s2=document.createElement('div');s2.className='pk';
       s2.innerHTML='<div class="pk-h"><b>分享</b><button type="button" class="pk-x">关上</button></div><div class="xd"><button type="button" data-a="link"><b>发链接给朋友</b><small>'+(myState()?'带上你改过的日期、时间和加的天':'原版行程')+'</small></button><button type="button" data-a="copy"><b>复制整条行程</b><small>按天的时间和地点，可以直接粘贴到微信</small></button><button type="button" data-a="shot"><b>生成分享图</b><small>长按保存，发朋友圈</small></button><button type="button" data-a="print"><b>打印 / 存成 PDF</b><small>一页页的行程单，给家里人或者出门带着</small></button></div>';
       function cl(){mask.remove();s2.remove();document.body.classList.remove('pk-open')}
-      s2.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;if(b.classList.contains('pk-x'))return cl();cl();if(b.dataset.a==='link')shareLink();if(b.dataset.a==='copy')copyTrip();if(b.dataset.a==='shot')shotTrip();if(b.dataset.a==='print')setTimeout(function(){window.print()},300)});
+      s2.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;if(b.classList.contains('pk-x'))return cl();cl();if(b.dataset.a==='link')shareLink();if(b.dataset.a==='copy')copyTrip();if(b.dataset.a==='shot'){if(window.qrcode)shotTrip();else{var sc=document.createElement('script');sc.src='/assets/qr.js';sc.onload=shotTrip;sc.onerror=shotTrip;document.head.appendChild(sc)}}if(b.dataset.a==='print')setTimeout(function(){window.print()},300)});
       mask.addEventListener('click',cl);document.body.appendChild(mask);document.body.appendChild(s2);document.body.classList.add('pk-open')});
     function copyTrip(){var out=[document.querySelector('.hero h1').innerText,location.href.split('#')[0],''];
       document.querySelectorAll('.day').forEach(function(d){out.push(d.querySelector('header small').innerText+' · '+d.querySelector('h2').innerText);
@@ -225,14 +225,18 @@
       x.fillStyle=BG;x.fillRect(0,0,W_,H_);
       var im=document.querySelector('.hero img'),title=document.querySelector('.hero h1').innerText,kick=document.querySelector('.hero .kick').innerText;
       function finish(){var g=x.createLinearGradient(0,600,0,980);g.addColorStop(0,'rgba(20,18,16,0)');g.addColorStop(1,'rgba(20,18,16,.85)');x.fillStyle=g;x.fillRect(0,560,W_,420);
-        x.fillStyle='#f2c9bf';x.font='700 30px '+SANS;x.fillText(kick,64,860);
         x.fillStyle=BG;var fs=title.length>12?64:80;x.font='900 '+fs+'px '+SERIF;var lines=[],ln='';title.split('').forEach(function(ch){if(x.measureText(ln+ch).width>W_-128){lines.push(ln);ln=ch}else ln+=ch});lines.push(ln);
-        lines.slice(-2).forEach(function(l,i,a){x.fillText(l,64,940-(a.length-1-i)*(fs+10))});
+        var tl2=lines.slice(-2);tl2.forEach(function(l,i,a){x.fillText(l,64,940-(a.length-1-i)*(fs+10))});
+        x.fillStyle='#f2c9bf';x.font='700 30px '+SANS;x.fillText(kick,64,940-(tl2.length-1)*(fs+10)-fs-18);
         x.fillStyle=INK;x.font='900 44px '+SERIF;var dk=document.querySelector('.dock b');x.fillText(dk?dk.innerText:'',64,1060);
         x.fillStyle='#5d5f59';x.font='30px '+SANS;var pr=document.querySelector('.glance .price');x.fillText('每人 '+(pr?pr.innerText:''),64,1110);
-        var ovs=[].slice.call(document.querySelectorAll('.overview li')).slice(0,5);
-        ovs.forEach(function(li,i){var y=1180+i*56;x.fillStyle=RED;x.font='900 34px '+SERIF;x.fillText(li.querySelector('b').innerText,64,y);x.fillStyle=INK;x.font='700 32px '+SANS;var t=li.querySelector('strong').innerText;if(t.length>18)t=t.slice(0,18)+'…';x.fillText(t,140,y)});
+        var all=[].slice.call(document.querySelectorAll('.overview ol > li')),maxRows=Math.floor((H_-96-40-1180)/56)+1,ovs=all.length>maxRows?all.slice(0,maxRows-1):all;
+        ovs.forEach(function(li,i){var y=1180+i*56;x.fillStyle=RED;x.font='900 34px '+SERIF;x.fillText(li.querySelector('b').innerText,64,y);x.fillStyle=INK;x.font='700 32px '+SANS;var t=li.querySelector('strong').innerText;if(t.length>14)t=t.slice(0,14)+'…';x.fillText(t,140,y)});
+        if(all.length>ovs.length){x.fillStyle='#5d5f59';x.font='700 30px '+SANS;x.fillText('… 共 '+all.length+' 天',140,1180+ovs.length*56)}
         x.fillStyle=INK;x.fillRect(64,H_-96,W_-128,2);x.font='700 28px '+SANS;x.fillStyle=INK;x.fillText('走你 · '+location.host+location.pathname,64,H_-48);
+        if(window.qrcode){try{var q=qrcode(0,'M');q.addData(myLink?myLink():location.href.split('#')[0]);q.make();var nM=q.getModuleCount(),sz=200,cs=sz/nM,qx=W_-64-sz,qy=H_-96-24-sz;   // 右下角二维码：扫了直接打开（带上你改过的）
+          x.fillStyle='#fff';x.fillRect(qx-12,qy-12,sz+24,sz+24);x.fillStyle=INK;for(var rr=0;rr<nM;rr++)for(var cc=0;cc<nM;cc++)if(q.isDark(rr,cc))x.fillRect(qx+cc*cs,qy+rr*cs,Math.ceil(cs),Math.ceil(cs));
+          x.font='400 22px '+SANS;x.fillStyle='#5d5f59';x.textAlign='right';x.fillText('扫一扫打开行程',W_-64,qy-24);x.textAlign='left'}catch(e){}}
         var url=cv.toDataURL('image/png'),m=document.createElement('div');m.className='hmap-zoom shotv';
         m.innerHTML='<button type="button" class="hz-x">关上</button><div class="hz-b"><img alt="分享图" src="'+url+'"></div><p class="shotp">手机上长按图片保存；电脑上 <a download="走你-'+me.label+'.png" href="'+url+'">点这里下载</a></p>';
         document.body.appendChild(m);document.body.classList.add('pk-open');function cl(){m.remove();document.body.classList.remove('pk-open')}m.querySelector('.hz-x').addEventListener('click',cl)}
@@ -270,7 +274,7 @@
               if(tn){if(r.dataset.d0==null)r.dataset.d0=tn.textContent;var mh=/(\d+) 小时/.exec(r.dataset.d0),mm2=/(\d+) 分/.exec(r.dataset.d0),od=(mh?+mh[1]*60:0)+(mm2?+mm2[1]:0),nd=Math.max(15,od+(A[r.dataset.k]||0));
                 tn.textContent=A[r.dataset.k]?r.dataset.d0.replace(/\d+ 小时(\s*\d+ 分钟?)?|\d+ 分钟?/,(nd>=60?Math.floor(nd/60)+' 小时':'')+(nd%60?(nd>=60?' ':'')+(nd%60)+' 分':'')):r.dataset.d0}}
             if(r.dataset.slack==='1'){var lag=t-t0[k];span=Math.max(0,span-Math.max(0,lag));r.hidden=span<15||!!(D[oi]&&D[oi].indexOf(+r.dataset.k)>=0);if(r.hidden)return}   // 晚出发先压缩“回去歇一下”“沿途慢慢走”这些空当
-            if(ml==='l'&&t<690)t=690;if(ml==='d'&&t<1050)t=1050;if(at!=null&&t<at)t=at;if(at!=null&&t>at+30)late.push(r);
+            if(ml==='l'&&t<690)t=690;if(ml==='d'&&t<1050)t=1050;if(at!=null&&t<at)t=at;if(at!=null&&t>at+30&&t>hm2m(r.dataset.t0)+5)late.push(r);   // 只在比原来安排更晚时才提示（原来就排在定点之后的不算）
             r.querySelector('time').textContent=m2hm(t);r._t=t;t+=span})}
         seq=timed.slice();run(seq);
         var lunch=seq.filter(function(r){return r.dataset.meal==='l'&&!r.hidden})[0];
