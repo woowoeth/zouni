@@ -691,6 +691,40 @@ def indoor_near(r):
     return out[:20]
 
 
+NEAR = []
+
+
+def near_list():
+    if NEAR: return NEAR
+    seen = set()
+    for rr in ROUTES.values():
+        for d in rr['days']:
+            c = d.get('navCity') or d.get('city')
+            for w in d['rows']:
+                nm = w.get('name') or ''
+                if w['type'] not in ('see', 'fun') or not w.get('poi') or '沿途' in nm or '提车' in nm or '还车' in nm: continue
+                core = re.split(r'\s*·\s*', nm)[0]
+                if core in seen: continue
+                pt = coord(w['poi'], c)
+                if not pt: continue
+                m_ = re.search(r'(\d+) 小时', w.get('d') or ''); m2 = re.search(r'(\d+) 分', w.get('d') or '')
+                dur = (int(m_.group(1)) * 60 if m_ else 0) + (int(m2.group(1)) if m2 else 0) or 90
+                seen.add(core); NEAR.append({'n': core, 'c': c, 'lat': round(pt[0], 4), 'lng': round(pt[1], 4), 'dur': dur})
+    return NEAR
+
+
+def near_for(r):
+    pts = [p_ for k in range(len(r['days'])) for p_ in [day_point(r, k)] if p_]
+    mine = {re.split(r'\s*·\s*', w.get('name') or '')[0] for d in r['days'] for w in d['rows']}
+    out = []
+    for x in near_list():
+        if x['n'] in mine: continue
+        dmin = min((_km((x['lat'], x['lng']), p_) for p_ in pts), default=999)
+        if dmin <= 25: out.append(x)
+    out.sort(key=lambda x: min(_km((x['lat'], x['lng']), p_) for p_ in pts))
+    return out[:30]
+
+
 def trip_page(rid):
     r = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}; d0 = DEST.get(t.get('dest'), {})
     sd = start_date(r); dates = [sd + datetime.timedelta(days=i) for i in range(len(r['days']))]
@@ -804,6 +838,7 @@ def trip_page(rid):
             f'<section class="pre"><h2>出发前</h2><ul>{prep or "<li class=fit>没有特别要提前办的</li>"}</ul></section>'
             f'<script type="application/json" id="cands">{json.dumps(add_cands(rid, r), ensure_ascii=False).replace("</", "<\\/")}</script>'
             f'<script type="application/json" id="indoor">{json.dumps(indoor_near(r), ensure_ascii=False).replace("</", "<\\/")}</script>'
+            f'<script type="application/json" id="nearby">{json.dumps(near_for(r), ensure_ascii=False).replace("</", "<\\/")}</script>'
             f'<section class="overview{" folded" if n > 10 else ""}"><h2>{n} 天，怎么排</h2><ol>{over}</ol>{f'<button type="button" class="ovmore">看全部 {n} 天</button>' if n > 10 else ''}{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{"".join(days)}<div class="addday" data-city="{E((STAYFIX[-2][0] if len(STAYFIX) > 1 and STAYFIX[-2][0] else (r['days'][-2].get('city') if len(r['days']) > 1 else r['days'][0].get('city'))) or '')}"><button type="button" class="add">＋ 加一天</button></div>{dest_link}{dock}</article>')
     crumbs = [('首页', '/'), ('去哪儿', '/where/')] + ([(d0['name'], f'/d/{t["dest"]}/')] if d0 else []) + [(r.get('label') or r['title'], f'/trip/{rid}/')]
     img = '/img/' + (r.get('img') or '').replace('/_blob/', '') + '.svg' if r.get('img') else None
@@ -942,7 +977,11 @@ def home_page():
         rr = ROUTES[rid]; tt = TRIP_OF_ROUTE[rid]; dd = DEST.get(tt['dest'], {}); c = clim(dd); n = len(rr['days'])
         wb = window(tt) or ['', '']
         _src = ('/img/' + (rr.get('img') or '').replace('/_blob/', '') + '.svg') if rr.get('img') else ('/img/p/' + rid + '.svg')
+        _pts = [p_ for k_ in range(n) for p_ in [day_point(rr, k_)] if p_]
+        _c = (sum(p_[0] for p_ in _pts) / len(_pts), sum(p_[1] for p_ in _pts) / len(_pts)) if _pts else (dd.get('lat'), dd.get('lng'))
+        _hi = 1 if max([(d_.get('elev') or 0) for d_ in rr['days']] + [0]) >= 3000 else 0
         extra = (f' data-ws="{wb[0]}" data-we="{wb[1]}" data-img="{1 if rr.get("img") else 0}" data-comp="{1 if rr.get("compiled") else 0}" data-clim=\'{E(json.dumps(dd.get("climate") or {}))}\''
+                 + (f' data-lat="{_c[0]:.3f}" data-lng="{_c[1]:.3f}"' if _c[0] else '') + f' data-hi="{_hi}" data-drv="{1 if rr.get("drive") else 0}" data-ab="{0 if dd.get("scope") == "domestic" else 1}"'
                  f' data-t="{E(rr["title"])}" data-n="{n}" data-pr="{E(rr.get("price"))}" data-src="{E(_src)}" data-h="/trip/{rid}/"')
         img = (rr.get('img') or '').replace('/_blob/', '')
         if not (img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg'))) and os.path.exists(os.path.join('site_src', 'posters', rid + '.svg')): img = 'p/' + rid
