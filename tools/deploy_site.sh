@@ -12,7 +12,7 @@ fi
 cd "$W/repo"
 find . -mindepth 1 -maxdepth 1 ! -name .git ! -name .github -exec rm -rf {} +
 cp -R "$SITE"/. .
-git add -A
+git fetch -q origin main 2>/dev/null && git reset -q --soft origin/main 2>/dev/null; git add -A
 git -c user.name="zouni-bot" -c user.email="bot@zouni.app" commit -q -m "${1:-更新网站}" || { echo "没有变化"; exit 0; }
 AP=$(printf 'x-access-token:%s' "$(cat /tmp/.zt_push)" | base64 -w0)
 git -c http.extraheader="Authorization: Basic $AP" push -q origin main
