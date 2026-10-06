@@ -475,3 +475,8 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .qual.mus small.gt{width:auto;text-align:left;align-self:stretch}.qual.mus li>span.icg{flex-direction:row;width:auto;gap:6px}
 
 .dh .sjo{margin-top:6px;font-size:13px}.dh .sjo a{margin-right:8px;font-weight:700;color:var(--red)}
+
+/* 懂一点：当天几个地方各一句 */
+.story .stk{list-style:none;margin:10px 0 0;padding:0}.story .stk li{margin-top:6px;font-size:14px;line-height:1.7;color:var(--ink)}.story .stk b{margin-right:6px;font-weight:700}
+/* 酒店：名字旁边和景点一样的图标 */
+.stays li .icg{margin-left:6px;vertical-align:middle}

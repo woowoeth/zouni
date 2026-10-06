@@ -1054,11 +1054,11 @@ def trip_page(rid):
         if d.get('stay') and i < n - 1 and not (i > 0 and r['days'][i - 1].get('city') == d.get('city') and r['days'][i - 1].get('stay')):
             run = 1
             while i + run < n - 1 and r['days'][i + run].get('city') == d.get('city'): run += 1
-            lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{E(o["tier"])}</span><div><b>{E(o["name"])}</b><small>{E(o.get("sell"))}{(" · " + E(o.get("price"))) if o.get("price") else ""}</small>{f"<small>{E(o.get(chr(107)+chr(98)))}</small>" if o.get("kb") else ""}</div></li>' for k, o in enumerate(d['stay']))
+            lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{E(o["tier"])}</span><div><b>{E(o["name"])}</b>{icons(re.sub(r"[（(].*$", "", o["name"]).strip(), city, app, xk=re.sub(r"[（(].*$", "", o["name"]).strip())}<small>{E(o.get("sell"))}{(" · " + E(o.get("price"))) if o.get("price") else ""}</small>{f"<small>{E(o.get(chr(107)+chr(98)))}</small>" if o.get("kb") else ""}</div></li>' for k, o in enumerate(d['stay']))
             dpu = d['stay'][0].get('dp') or dpurl(d['stay'][0]['name'], city)
             stays = (f'<div class="stays"><div class="sh"><span class="lbl">今晚住</span><span>{"连住 " + str(run) + " 晚" if run > 1 else ""}</span></div><ul>{lis}</ul>'
                      + (f'<button type="button" class="tog">看另外两档</button>' if len(d['stay']) > 1 else '')
-                     + f'<div class="bk"><a class="btn" rel="nofollow noopener" target="_blank" href="{E(hotel_url(d["stay"][0]["name"], city, app, d0.get("base", {}).get("name")))}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpu)}" aria-label="在大众点评看这家酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
+                     + f'<div class="bk" hidden><a class="btn" rel="nofollow noopener" target="_blank" href="{E(hotel_url(d["stay"][0]["name"], city, app, d0.get("base", {}).get("name")))}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpu)}" aria-label="在大众点评看这家酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
         if not stays and not d.get('stay') and i < n - 1 and (d.get('stayName') or d.get('stayNote')) and not (i > 0 and r['days'][i - 1].get('stayName') == d.get('stayName') and r['days'][i - 1].get('city') == d.get('city')):
             area = STAYFIX[i][0] or d.get('stayName') or city; run = 1
             while i + run < n - 1 and r['days'][i + run].get('stayName') == d.get('stayName'): run += 1
@@ -1074,7 +1074,8 @@ def trip_page(rid):
             def _hl(h, tn, desc, pp):
                 if not h: return f'<b class="tg">{desc}</b><small>参考价 {pp}/晚</small>'
                 meta = ' · '.join(x for x in [(f'{h["score"]} 分' if h.get('score') else ''), (f'{h["rev"]}点评' if h.get('rev') else ''), (f'{h["lv"]} 钻' if h.get('lv') else '')] if x)
-                return f'<b class="tg">{E(h["name"])}</b><small>{E(meta)}{" · " if meta else ""}参考价 {pp}/晚</small><a class="tl2" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(h["id"]))}">携程订这家 ›</a>'
+                _hn = re.sub(r'[（(].*$', '', h['name']).strip()
+                return f'<b class="tg">{E(h["name"])}</b>{icons(_hn, city, app, xk=(_hn if city in _hn else f"{city} {_hn}"))}<small>{E(meta)}{" · " if meta else ""}参考价 {pp}/晚</small><a class="tl2" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(h["id"]))}">携程订这家 ›</a>'
             keys_ = ('lux', 'mid', 'eco')
             if HT:
                 lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{tn}</span><div>{_hl(HT.get(keys_[k]), tn, desc, pp)}</div></li>' for k, (tn, desc, pp, u) in enumerate(tiers))
@@ -1083,9 +1084,17 @@ def trip_page(rid):
                        + ''.join(f'<li class="more"><span class="tier">推荐</span><div><b class="tg">{E(h["name"])}</b><small>{E(str(h.get("score") or ""))} 分{(" · " + E(h["rev"]) + "点评") if h.get("rev") else ""}</small><a class="tl2" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(h["id"]))}">携程订这家 ›</a></div></li>' for h in TOP[1:3]))
             else:
                 lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{tn}</span><div><b class="tg">{desc}</b><small>参考价 {pp}/晚</small></div></li>' for k, (tn, desc, pp, u) in enumerate(tiers))
-            stays = (f'<div class="stays"><div class="sh"><span class="lbl">今晚住</span><span>{E(area)}{" · 连住 " + str(run) + " 晚" if run > 1 else ""}</span></div><ul>{lis}</ul><button type="button" class="tog">{"再看两家" if (not HT and TOP) else "看另外两档"}</button><p class="sn">{"价格以携程为准" if (HT or TOP) else "到携程后用「价格/星级」筛档位"}</p>'
-                     f'<div class="bk"><a class="btn" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(((HT or {}).get("lux") or (HT or {}).get("mid") or (HT or {}).get("eco") or (TOP or [{}])[0]).get("id")) if (HT or TOP) else tiers[0][3])}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpurl(area + " 酒店", city))}" aria-label="在大众点评看附近酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
-        story = f'<aside class="story"><span class="lbl">懂一点</span><p>{E(d["story"])}</p></aside>' if d.get('story') else ''
+            stays = (f'<div class="stays"><div class="sh"><span class="lbl">今晚住</span><span>{E(area)}{" · 连住 " + str(run) + " 晚" if run > 1 else ""}</span></div><ul>{lis}</ul><button type="button" class="tog">{"再看两家" if (not HT and TOP) else "看另外两档"}</button>'
+                     f'<div class="bk" hidden><a class="btn" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(((HT or {}).get("lux") or (HT or {}).get("mid") or (HT or {}).get("eco") or (TOP or [{}])[0]).get("id")) if (HT or TOP) else tiers[0][3])}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpurl(area + " 酒店", city))}" aria-label="在大众点评看附近酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
+        _kn = []
+        for w_ in d['rows']:
+            if w_['type'] in ('see', 'fun') and '沿途' not in (w_.get('name') or ''):
+                nm_ = re.split(r'\s*·\s*', w_.get('name') or '')[0]; sg2 = sight_of(w_.get('name')); mu2 = museum_of(w_.get('name')) or museum_of(w_.get('poi'))
+                txt_ = ('镇馆之宝：' + '、'.join(mu2['treasures'])) if (mu2 and mu2.get('treasures')) else sg2
+                if txt_ and nm_ not in [x[0] for x in _kn]: _kn.append((nm_, txt_))
+        _kn = _kn[:4]
+        story = (f'<aside class="story"><span class="lbl">懂一点</span>' + (f'<p>{E(d["story"])}</p>' if d.get('story') else '')
+                 + ('<ul class="stk">' + ''.join(f'<li><b>{E(a_)}</b>{E(b_)}</li>' for a_, b_ in _kn) + '</ul>' if _kn else '') + '</aside>') if (d.get('story') or len(_kn) >= 2) else ''
         mlist = (CULT.get('manners') or {}).get(t.get('dest'), []) if i == 0 else []
         if mlist: story = f'<div class="mn"><span class="lbl">当地讲究</span><ul>' + ''.join(f'<li>{E(x)}</li>' for x in mlist) + '</ul></div>' + story
         notes = ''.join(f'<p class="note"><b>路上</b>{E(x)}</p>' for x in d.get('notes') or [])
