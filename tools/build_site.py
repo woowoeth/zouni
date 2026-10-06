@@ -340,6 +340,7 @@ for q in QUAL: QUAL_BY_PROV.setdefault(q['prov'], []).append(q)
 REGION_ORDER = ATLAS['regions']['domestic'] + ATLAS['regions']['asia']
 ORIGINS = ['北京', '上海', '广州', '深圳', '杭州', '南京', '成都', '重庆', '武汉', '西安', '香港']
 
+ICON_PHOTO = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M20.5 15.5l-4.5-4.5-8 8"/></svg>'
 ICON_PIN = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6.5-5.8-6.5-11a6.5 6.5 0 0 1 13 0c0 5.2-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg>'
 ICON_DP = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.8l2.45 5.02 5.5.8-3.98 3.88.94 5.48L12 16.4l-4.91 2.58.94-5.48L4.05 9.62l5.5-.8z"/></svg>'
 
@@ -409,7 +410,8 @@ def icons(kw, city, app, dp=None, nav=None, navp=None):
     q = ((city + ' ') if city else '') + kw
     ios_, and_ = amap_app(kw, city, navp[:2] if navp else None, navp[2] if navp else 'car') if app != 'google' else ('', '')
     return (f'<span class="icg"><a class="ic map" href="{E(nav or mapurl(kw, city, app))}"{(" data-ios=\"" + E(ios_) + "\" data-and=\"" + E(and_) + "\"") if ios_ else ""} rel="nofollow noopener" target="_blank" aria-label="{"导航去 " if nav else "地图上看 "}{E(kw)}">{ICON_PIN}</a>'
-            f'<a class="ic dp" href="{E(dp or dpurl(kw, city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote(q))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上看 {E(kw)}">{ICON_DP}</a></span>')
+            f'<a class="ic dp" href="{E(dp or dpurl(kw, city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote(q))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上看 {E(kw)}">{ICON_DP}</a>'
+            f'<a class="ic xhs" href="https://www.xiaohongshu.com/search_result?keyword={urllib.parse.quote(((city or "") + " " + kw).strip())}" rel="nofollow noopener" target="_blank" aria-label="小红书上看 {E(kw)} 的实景">{ICON_PHOTO}</a></span>')
 
 
 def md(s):  # "10-25" → "10 月 25 日"
@@ -865,8 +867,65 @@ def nearby_routes(rid, k=3):
     return res
 
 
+ORIGINS = {'北京': (39.90, 116.40), '上海': (31.23, 121.47), '广州': (23.13, 113.26), '深圳': (22.54, 114.06), '成都': (30.66, 104.07), '杭州': (30.27, 120.16), '西安': (34.26, 108.94),
+           '武汉': (30.59, 114.31), '南京': (32.06, 118.80), '重庆': (29.56, 106.55), '长沙': (28.23, 112.94), '郑州': (34.75, 113.63), '天津': (39.13, 117.20), '苏州': (31.30, 120.58),
+           '厦门': (24.48, 118.09), '昆明': (25.04, 102.71), '沈阳': (41.80, 123.43), '青岛': (36.07, 120.38), '香港': (22.32, 114.17)}
+
+
+def go_info(r, t, d0):
+    """怎么去、怎么回：离得最近的大城市出发（网页里会换成用户自己的出发地）"""
+    c = route_center(r.get('id') or '') if r.get('id') else None
+    p0 = day_point(r, 0) or c
+    if not p0: return None
+    o, dk = min(((nm, _km(xy, p0)) for nm, xy in ORIGINS.items()), key=lambda x: x[1])
+    first = next((w['t'] for w in r['days'][0]['rows'] if re.match(r'^\d\d:\d\d$', w.get('t') or '')), '')
+    last = next((w['t'] for w in reversed(r['days'][-1]['rows']) if w.get('type') == 'dep' and re.match(r'^\d\d:\d\d$', w.get('t') or '')), '')
+    return {'lat': round(p0[0], 3), 'lng': round(p0[1], 3), 'city': r['days'][0].get('city') or d0.get('name', ''), 'ab': 0 if d0.get('scope') == 'domestic' else 1,
+            'drv': 1 if r.get('drive') else 0, 'first': first, 'last': last, 'o': o, 'km': round(dk)}
+
+
+def go_text(g, o=None, km_=None):
+    o = o or g['o']; km_ = g['km'] if km_ is None else km_
+    if km_ < 60: way = f'就在{o}附近，当天过去就行'
+    elif g['ab']: way = f'从{o}坐飞机过去，飞行约 {max(1, round(km_ / 700 + 1))} 小时'
+    elif g['drv']: way = f'从{o}开过去约 {max(1, round(km_ * 1.25 / 80))} 小时；也可以坐高铁或飞机到了再租车'
+    elif km_ <= 1200: way = f'从{o}坐高铁约 {max(1, round(km_ / 230 + 0.5))} 小时'
+    else: way = f'从{o}坐飞机最省事，飞行约 {max(1, round(km_ / 700 + 1))} 小时'
+    return way
+
+
+def faq_items(r, t, d0, g):
+    """每条线答几个常见问题：都从现有数据算出来"""
+    qs = []
+    elev = max([(d.get('elev') or 0) for d in r['days']] + [0])
+    drives = [d.get('driveMin') or 0 for d in r['days']]; dmax = max(drives + [0])
+    sights = max([sum(1 for w in d['rows'] if w['type'] in ('see', 'fun') and '沿途' not in (w.get('name') or '')) for d in r['days']] + [0])
+    bits = []
+    if elev >= 3000: bits.append(f'要上海拔 {elev:,} 米的高原，老人孩子出发前最好问问医生')
+    if dmax >= 240: bits.append(f'最长一天要坐 {dmax / 60:.1f} 小时车')
+    if sights >= 4: bits.append(f'最忙的一天要去 {sights} 个地方，走路不少')
+    qs.append(('适合带老人孩子吗？', '；'.join(bits) + '。可以在每天里“调整”去掉一两站。' if bits else '节奏不紧，没有高原，适合带老人孩子。'))
+    bk = []
+    for d in r['days']:
+        for w in d['rows']:
+            nm = re.split(r'\s*·\s*', w.get('name') or '')[0]
+            if w['type'] in ('see', 'fun') and book_of(w.get('name')) and nm not in bk: bk.append(nm)
+    qs.append(('要提前订什么？', ('要预约的：' + '、'.join(bk[:6]) + '。' if bk else '没有要特别预约的景点。') + '住宿旺季早点订；往返车票和机票越早越好。'))
+    best = (t.get('season') or {}).get('best') or []
+    cl = d0.get('climate') or {}
+    if best and cl:
+        m = int(best[0][:2]); c = cl.get(str(m))
+        if c: qs.append(('什么时候去最好，冷不冷？', f'最好是 {best[0][:2].lstrip("0")} 月 {best[0][3:].lstrip("0")} 日到 {best[1][:2].lstrip("0")} 月 {best[1][3:].lstrip("0")} 日；{m} 月白天约 {c[0]}℃，夜里约 {c[1]}℃。'))
+    qs.append(('上不上高原？', f'最高到海拔 {elev:,} 米，有高原反应的可能，头两天别洗澡、别跑跳。' if elev >= 2500 else '不上高原。'))
+    if g: qs.append(('怎么去？', go_text(g) + '。'))
+    pr = r.get('price')
+    if pr: qs.append(('大概花多少钱？', f'两人同行，每人 {price_k(pr)}，含往返大交通、住、吃、门票和当地交通；在顶部“2 人 · 每人”里改人数会重算。'))
+    return qs
+
+
 def trip_page(rid):
     r = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}; d0 = DEST.get(t.get('dest'), {})
+    _g = go_info(dict(r, id=rid), t, d0)
     sd = start_date(r); dates = [sd + datetime.timedelta(days=i) for i in range(len(r['days']))]
     md = lambda x: f'{x.month}/{x.day}'
     app = r.get('navApp') or 'amap'; n = len(r['days']); price = r.get('price') or ''; cost = r.get('cost')
@@ -982,11 +1041,17 @@ def trip_page(rid):
           'provider': {'@type': 'Organization', 'name': SITE, 'url': BASE}}
     lo, hi = (t.get('price') or {}).get('lo'), (t.get('price') or {}).get('hi')
     if lo and hi: ld['offers'] = {'@type': 'AggregateOffer', 'priceCurrency': 'CNY', 'lowPrice': lo, 'highPrice': hi, 'description': '每人，2 人同行，含往返大交通'}
+    _fq = faq_items(r, t, d0, _g)
+    faq_html = '<section class="faq"><h2>常见问题</h2><dl>' + ''.join(f'<dt>{E(q)}</dt><dd>{E(a)}</dd>' for q, a in _fq) + '</dl></section>'
     _nb = nearby_routes(rid)
     near_html = ('<section class="nearr"><h2>附近还能去</h2><ul>' + ''.join(f'<li><a href="/trip/{o}/"><b>{E(ROUTES[o].get("label"))} ›</b><span>{E(day_line(ROUTES[o]))}</span><small>离这里约 {round(dk / 10) * 10 if dk >= 20 else round(dk)} 公里 · {E(price_k(ROUTES[o].get("price")))}</small></a></li>' for dk, o in _nb) + '</ul></section>') if _nb else ''
-    dest_link = near_html + (f'<p class="morelink"><a href="/d/{E(t["dest"])}/">{E(d0.get("name", ""))}的其他去处 ›</a></p>' if t.get('dest') in DEST else '')
+    dest_link = faq_html + near_html + (f'<p class="morelink"><a href="/d/{E(t["dest"])}/">{E(d0.get("name", ""))}的其他去处 ›</a></p>' if t.get('dest') in DEST else '')
     dock = f'<div class="dock"><div><b>{md(dates[0])} 出发 · {n} 天</b><small>2 人 · 每人 {E(price_k(price))}</small></div><button type="button" class="fav" data-id="{rid}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{FAV_ICON}<span>收进行程</span></button></div>'
     body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-start="{dates[0].isoformat()}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
+            + (f'<section class="pre go" data-go=\'{E(json.dumps(_g, ensure_ascii=False))}\'><h2>怎么去、怎么回</h2><ul><li class="tip gw"><span>{E(go_text(_g))}。'
+               + (f'第一天 {E(_g["first"])} 开始，按上午出发、中午前到算的。' if _g['first'] and _g['first'] >= '12:00' else (f'第一天 {E(_g["first"])} 就开始，最好头天晚上到。' if _g['first'] else '')) + '</span></li>'
+               + (f'<li class="tip gb"><span>最后一天 {E(_g["last"])} 去车站或机场，订{"下午" if _g["last"] < "14:00" else "傍晚以后"}的车或航班。</span></li>' if _g['last'] else '')
+               + '</ul></section>' if _g else '') +
             f'<section class="pre"><h2>出发前</h2><ul>{prep or "<li class=fit>没有特别要提前办的</li>"}</ul></section>'
             f'<script type="application/json" id="cands">{json.dumps(add_cands(rid, r), ensure_ascii=False).replace("</", "<\\/")}</script>'
             f'<script type="application/json" id="indoor">{json.dumps(indoor_near(r), ensure_ascii=False).replace("</", "<\\/")}</script>'
@@ -994,7 +1059,8 @@ def trip_page(rid):
             f'<section class="overview{" folded" if n > 10 else ""}"><h2>{n} 天，怎么排</h2><ol>{over}</ol>{f'<button type="button" class="ovmore">看全部 {n} 天</button>' if n > 10 else ''}{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{"".join(days)}<div class="addday" data-city="{E(addday_city(r, STAYFIX))}"><button type="button" class="add">＋ 加一天</button></div>{dest_link}{dock}</article>')
     crumbs = [('首页', '/'), ('去哪儿', '/where/')] + ([(d0['name'], f'/d/{t["dest"]}/')] if d0 else []) + [(r.get('label') or r['title'], f'/trip/{rid}/')]
     img = '/img/' + (r.get('img') or '').replace('/_blob/', '') + '.svg' if r.get('img') else None
-    write(f'/trip/{rid}/', page(f'/trip/{rid}/', f'{r.get("label") or r["title"]}行程：{r["title"]} | 走你', desc, body, [ld], img, crumbs))
+    _faq_ld = {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in _fq]}
+    write(f'/trip/{rid}/', page(f'/trip/{rid}/', f'{r.get("label") or r["title"]}行程：{r["title"]} | 走你', desc, body, [ld, _faq_ld], img, crumbs))
     return desc
 
 

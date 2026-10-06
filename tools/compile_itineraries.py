@@ -52,6 +52,10 @@ def dur_txt(m): return (f'{m // 60} 小时' + (f' {m % 60} 分' if m % 60 else '
 SELF = [False]
 
 
+BIG_CITIES = {'北京', '上海', '广州', '深圳', '杭州', '南京', '成都', '重庆', '武汉', '西安', '厦门', '苏州', '青岛', '天津', '长沙', '香港', '澳门', '佐敦', '郑州', '沈阳', '大连', '哈尔滨', '昆明', '南宁', '福州', '济南', '合肥', '南昌', '贵阳', '兰州', '乌鲁木齐', '呼和浩特', '石家庄', '太原', '宁波', '无锡', '扬州', '洛阳', '开封', '泉州', '三亚', '海口', '桂林', '拉萨'}
+RURAL = [False]   # 乡下：村子、景区之间打不到车，十几公里以上按包车写
+
+
 def leg(a, b, via=None):
     """两点之间：怎么走、多久、多远（自驾线路写开车）"""
     if via:
@@ -64,6 +68,7 @@ def leg(a, b, via=None):
     if SELF[0]:
         if d < 20: return '开车', max(10, r5(d / 30 * 60 + 5)), round(d)
         return '自驾约', r5(d / 70 * 60 + 10), round(d)
+    if RURAL[0] and d >= 12: return '包车约', r5(d / 50 * 60 + 10), round(d)
     if d < 20: return '打车', max(10, r5(d / 25 * 60 + 8)), round(d)
     if d < 60: return '打车约', r5(d / 55 * 60 + 10), round(d)
     return '包车约', r5(d / 65 * 60 + 10), round(d)
@@ -97,6 +102,7 @@ for rid, it in IT.items():
         stay_ok = bool(sc and km(dbase, (sc['lat'], sc['lng'])) < 60)
         stay_pt = (sc['lat'], sc['lng']) if stay_ok else dbase
         far = lambda p: p and km(p, dbase) > 60   # 当天已经到了另一座城：回住处就留在当地
+        RURAL[0] = it['dest'] not in ASIA_CC and dcity not in BIG_CITIES
         t = mm(d.get('start', '09:00')); prev = carry or dbase; rows = []; lunched = t >= 13 * 60; dined = False; drive = 0
         meal_i = di
 
