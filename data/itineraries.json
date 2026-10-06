@@ -30369,6 +30369,820 @@
      "city": "卢克索"
     }
    ]
+  },
+  "lsb6": {
+   "dest": "portugal",
+   "city": "里斯本",
+   "label": "里斯本波尔图 6 天",
+   "title": "六天，里斯本到波尔图",
+   "kicker": "南欧 · 6 天",
+   "start": [
+    2026,
+    4,
+    25
+   ],
+   "prep": [
+    "热罗尼莫斯修道院周一闭馆",
+    "里斯本到波尔图坐火车约 3 小时"
+   ],
+   "days": [
+    {
+     "title": "阿尔法玛",
+     "text": "到里斯本，坐 28 路电车上阿尔法玛老城，傍晚在观景台看夕阳。",
+     "stops": [
+      {
+       "name": "28 路电车",
+       "q": "Tram 28 Lisbon",
+       "type": "fun",
+       "dur": 60
+      },
+      {
+       "name": "阿尔法玛",
+       "q": "Alfama",
+       "type": "street",
+       "dur": 120
+      },
+      {
+       "name": "圣卢西亚观景台",
+       "q": "Miradouro de Santa Luzia",
+       "type": "sight",
+       "dur": 45,
+       "at": "18:30"
+      }
+     ],
+     "start": "13:00",
+     "stay": "拜沙区"
+    },
+    {
+     "title": "贝伦",
+     "text": "上午贝伦塔和热罗尼莫斯修道院，吃一口贝伦蛋挞。",
+     "stops": [
+      {
+       "name": "热罗尼莫斯修道院",
+       "q": "Mosteiro dos Jeronimos",
+       "type": "sight",
+       "dur": 120,
+       "at": "10:00"
+      },
+      {
+       "name": "贝伦塔",
+       "q": "Torre de Belem",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "发现者纪念碑",
+       "q": "Padrao dos Descobrimentos",
+       "type": "sight",
+       "dur": 30
+      }
+     ],
+     "stay": "拜沙区",
+     "lunch": {
+      "dish": "贝伦蛋挞",
+      "place": "贝伦"
+     }
+    },
+    {
+     "title": "辛特拉 · 罗卡角",
+     "text": "坐火车去辛特拉看佩纳宫，下午去欧亚大陆最西端的罗卡角。",
+     "stops": [
+      {
+       "name": "佩纳宫",
+       "q": "Palacio da Pena",
+       "type": "sight",
+       "dur": 150,
+       "via": "火车约 40 分钟"
+      },
+      {
+       "name": "罗卡角",
+       "q": "Cabo da Roca",
+       "type": "sight",
+       "dur": 60,
+       "via": "包车约 30 分钟",
+       "at": "17:30"
+      }
+     ],
+     "stay": "拜沙区"
+    },
+    {
+     "title": "去波尔图",
+     "text": "坐火车去波尔图，傍晚走路易一世大桥看杜罗河。",
+     "stops": [
+      {
+       "name": "路易一世大桥",
+       "q": "Ponte Luis I",
+       "type": "sight",
+       "dur": 90,
+       "via": "火车约 3 小时",
+       "at": "18:00"
+      }
+     ],
+     "city": "波尔图",
+     "stay": "波尔图老城"
+    },
+    {
+     "title": "莱罗书店 · 酒窖",
+     "text": "上午莱罗书店和圣本笃车站，下午过河去波特酒窖。",
+     "stops": [
+      {
+       "name": "莱罗书店",
+       "q": "Livraria Lello",
+       "type": "sight",
+       "dur": 45,
+       "at": "09:30"
+      },
+      {
+       "name": "圣本笃车站",
+       "q": "Sao Bento Station",
+       "type": "sight",
+       "dur": 30
+      },
+      {
+       "name": "波特酒窖",
+       "q": "Taylors Port Cellars",
+       "type": "fun",
+       "dur": 90
+      }
+     ],
+     "city": "波尔图",
+     "stay": "波尔图老城"
+    },
+    {
+     "title": "回程",
+     "text": "上午坐杜罗河游船看六座桥，下午去机场。",
+     "stops": [
+      {
+       "name": "杜罗河游船",
+       "q": "Douro River Cruise Porto",
+       "type": "fun",
+       "dur": 60
+      }
+     ],
+     "start": "09:30",
+     "city": "波尔图"
+    }
+   ]
+  },
+  "prg4": {
+   "dest": "czech",
+   "city": "布拉格",
+   "label": "布拉格 4 天",
+   "title": "四天，布拉格和克鲁姆洛夫",
+   "kicker": "古城 · 4 天",
+   "start": [
+    2026,
+    4,
+    25
+   ],
+   "prep": [
+    "天文钟整点有报时表演，提前几分钟去占位",
+    "克鲁姆洛夫来回坐大巴各约 3 小时"
+   ],
+   "days": [
+    {
+     "title": "老城广场",
+     "text": "到布拉格，看老城广场和天文钟，傍晚走查理大桥。",
+     "stops": [
+      {
+       "name": "老城广场",
+       "q": "Old Town Square Prague",
+       "type": "street",
+       "dur": 90
+      },
+      {
+       "name": "天文钟",
+       "q": "Prague Astronomical Clock",
+       "type": "sight",
+       "dur": 30,
+       "at": "17:00"
+      },
+      {
+       "name": "查理大桥",
+       "q": "Charles Bridge",
+       "type": "sight",
+       "dur": 60,
+       "at": "18:30"
+      }
+     ],
+     "start": "14:00",
+     "stay": "布拉格老城"
+    },
+    {
+     "title": "布拉格城堡",
+     "text": "上午布拉格城堡和圣维特大教堂，下午走小城区下山。",
+     "stops": [
+      {
+       "name": "布拉格城堡",
+       "q": "Prague Castle",
+       "type": "sight",
+       "dur": 240,
+       "at": "09:00"
+      },
+      {
+       "name": "黄金巷",
+       "q": "Golden Lane",
+       "type": "street",
+       "dur": 45
+      },
+      {
+       "name": "小城区",
+       "q": "Mala Strana",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "stay": "布拉格老城"
+    },
+    {
+     "title": "克鲁姆洛夫",
+     "text": "坐大巴去克鲁姆洛夫，看伏尔塔瓦河绕城的童话小镇，晚上回布拉格。",
+     "stops": [
+      {
+       "name": "克鲁姆洛夫",
+       "q": "Cesky Krumlov",
+       "type": "street",
+       "dur": 300,
+       "via": "大巴约 3 小时"
+      }
+     ],
+     "start": "07:30",
+     "stay": "布拉格老城"
+    },
+    {
+     "title": "回程",
+     "text": "上午去伏尔塔瓦河边的跳舞的房子，下午去机场。",
+     "stops": [
+      {
+       "name": "跳舞的房子",
+       "q": "Dancing House",
+       "type": "sight",
+       "dur": 30
+      }
+     ],
+     "start": "09:30"
+    }
+   ]
+  },
+  "vie5": {
+   "dest": "austria",
+   "city": "维也纳",
+   "label": "维也纳哈尔施塔特 5 天",
+   "title": "五天，维也纳和湖边小镇",
+   "kicker": "音乐 · 5 天",
+   "start": [
+    2026,
+    4,
+    25
+   ],
+   "prep": [
+    "美泉宫要提前在官网约时段",
+    "哈尔施塔特镇很小，人多时早点去"
+   ],
+   "days": [
+    {
+     "title": "圣斯蒂芬大教堂",
+     "text": "到维也纳，看圣斯蒂芬大教堂，晚上去金色大厅听音乐会。",
+     "stops": [
+      {
+       "name": "圣斯蒂芬大教堂",
+       "q": "Stephansdom",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "维也纳金色大厅",
+       "q": "Musikverein",
+       "type": "fun",
+       "dur": 120,
+       "at": "19:30"
+      }
+     ],
+     "start": "14:00",
+     "stay": "维也纳内城"
+    },
+    {
+     "title": "美泉宫",
+     "text": "上午美泉宫，下午霍夫堡皇宫和茜茜公主博物馆。",
+     "stops": [
+      {
+       "name": "美泉宫",
+       "q": "Schonbrunn Palace",
+       "type": "sight",
+       "dur": 180,
+       "at": "09:00"
+      },
+      {
+       "name": "霍夫堡皇宫",
+       "q": "Hofburg",
+       "type": "sight",
+       "dur": 120
+      }
+     ],
+     "stay": "维也纳内城"
+    },
+    {
+     "title": "美景宫 · 去萨尔茨堡",
+     "text": "上午美景宫看克里姆特的《吻》，下午坐火车去萨尔茨堡。",
+     "stops": [
+      {
+       "name": "美景宫",
+       "q": "Belvedere Palace",
+       "type": "museum",
+       "dur": 120,
+       "at": "09:00"
+      },
+      {
+       "name": "萨尔茨堡老城",
+       "q": "Salzburg Altstadt",
+       "type": "street",
+       "dur": 90,
+       "via": "火车约 2 小时 30 分钟"
+      }
+     ],
+     "city": "萨尔茨堡",
+     "stay": "萨尔茨堡老城"
+    },
+    {
+     "title": "哈尔施塔特",
+     "text": "坐车去哈尔施塔特，湖边小镇和盐矿，晚上回萨尔茨堡。",
+     "stops": [
+      {
+       "name": "哈尔施塔特",
+       "q": "Hallstatt",
+       "type": "street",
+       "dur": 240,
+       "via": "大巴约 2 小时"
+      }
+     ],
+     "city": "萨尔茨堡",
+     "stay": "萨尔茨堡老城"
+    },
+    {
+     "title": "回程",
+     "text": "上午米拉贝尔花园和莫扎特出生地，下午去机场。",
+     "stops": [
+      {
+       "name": "米拉贝尔花园",
+       "q": "Mirabell Gardens",
+       "type": "park",
+       "dur": 45
+      },
+      {
+       "name": "莫扎特出生地",
+       "q": "Mozarts Geburtshaus",
+       "type": "museum",
+       "dur": 60
+      }
+     ],
+     "start": "09:00",
+     "city": "萨尔茨堡"
+    }
+   ]
+  },
+  "usw7": {
+   "dest": "usa",
+   "city": "旧金山",
+   "label": "美国西海岸 7 天",
+   "title": "七天，从旧金山开到洛杉矶",
+   "kicker": "自驾 · 7 天",
+   "start": [
+    2026,
+    4,
+    25
+   ],
+   "drive": true,
+   "prep": [
+    "一号公路大苏尔一段常因塌方封路，出发前查加州交通局路况",
+    "国内驾照要配翻译件或国际驾照认证件"
+   ],
+   "days": [
+    {
+     "title": "金门大桥",
+     "text": "到旧金山，看金门大桥，傍晚去渔人码头。",
+     "stops": [
+      {
+       "name": "金门大桥",
+       "q": "Golden Gate Bridge",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "渔人码头",
+       "q": "Fishermans Wharf",
+       "type": "street",
+       "dur": 90,
+       "at": "18:00"
+      }
+     ],
+     "start": "13:00",
+     "stay": "旧金山联合广场",
+     "dinner": {
+      "dish": "酸面包蛤蜊浓汤",
+      "place": "渔人码头"
+     }
+    },
+    {
+     "title": "九曲花街 · 叮当车",
+     "text": "坐叮当车去九曲花街，下午金门公园。",
+     "stops": [
+      {
+       "name": "叮当车",
+       "q": "Cable Car San Francisco",
+       "type": "fun",
+       "dur": 45
+      },
+      {
+       "name": "九曲花街",
+       "q": "Lombard Street",
+       "type": "sight",
+       "dur": 45
+      },
+      {
+       "name": "金门公园",
+       "q": "Golden Gate Park",
+       "type": "park",
+       "dur": 150
+      }
+     ],
+     "stay": "旧金山联合广场"
+    },
+    {
+     "title": "一号公路 · 蒙特雷",
+     "text": "开一号公路南下，经过半月湾到蒙特雷和卡梅尔。",
+     "stops": [
+      {
+       "name": "17 英里海岸",
+       "q": "17-Mile Drive",
+       "type": "sight",
+       "dur": 120,
+       "via": "自驾约 2 小时 30 分钟"
+      },
+      {
+       "name": "卡梅尔",
+       "q": "Carmel-by-the-Sea",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "city": "蒙特雷",
+     "stay": "蒙特雷"
+    },
+    {
+     "title": "大苏尔",
+     "text": "沿大苏尔海岸开，看比克斯比大桥和麦克维瀑布，到圣路易斯奥比斯波。",
+     "stops": [
+      {
+       "name": "比克斯比大桥",
+       "q": "Bixby Creek Bridge",
+       "type": "sight",
+       "dur": 30,
+       "via": "自驾约 40 分钟"
+      },
+      {
+       "name": "麦克维瀑布",
+       "q": "McWay Falls",
+       "type": "sight",
+       "dur": 45
+      }
+     ],
+     "city": "圣路易斯奥比斯波",
+     "stay": "圣路易斯奥比斯波"
+    },
+    {
+     "title": "到洛杉矶 · 圣莫妮卡",
+     "text": "开到洛杉矶，傍晚去圣莫妮卡码头，66 号公路的终点。",
+     "stops": [
+      {
+       "name": "圣莫妮卡码头",
+       "q": "Santa Monica Pier",
+       "type": "street",
+       "dur": 120,
+       "via": "自驾约 3 小时 30 分钟",
+       "at": "17:30"
+      }
+     ],
+     "city": "洛杉矶",
+     "stay": "洛杉矶"
+    },
+    {
+     "title": "好莱坞 · 天文台",
+     "text": "上午好莱坞星光大道，傍晚上格里菲斯天文台看洛杉矶夜景。",
+     "stops": [
+      {
+       "name": "好莱坞星光大道",
+       "q": "Hollywood Walk of Fame",
+       "type": "street",
+       "dur": 90
+      },
+      {
+       "name": "格里菲斯天文台",
+       "q": "Griffith Observatory",
+       "type": "sight",
+       "dur": 120,
+       "at": "18:00"
+      }
+     ],
+     "city": "洛杉矶",
+     "stay": "洛杉矶"
+    },
+    {
+     "title": "回程",
+     "text": "还车，去机场。",
+     "stops": [
+      {
+       "name": "盖蒂中心",
+       "q": "Getty Center",
+       "type": "museum",
+       "dur": 120
+      }
+     ],
+     "start": "09:00",
+     "city": "洛杉矶"
+    }
+   ]
+  },
+  "syd6": {
+   "dest": "australia",
+   "city": "悉尼",
+   "label": "悉尼墨尔本 6 天",
+   "title": "六天，悉尼和大洋路",
+   "kicker": "海滨 · 6 天",
+   "start": [
+    2026,
+    9,
+    25
+   ],
+   "prep": [
+    "悉尼歌剧院有中文导览，提前订",
+    "大洋路一天来回要十个小时左右，跟团或自驾"
+   ],
+   "days": [
+    {
+     "title": "歌剧院 · 海港大桥",
+     "text": "到悉尼，看悉尼歌剧院和海港大桥，傍晚在岩石区吃饭。",
+     "stops": [
+      {
+       "name": "悉尼歌剧院",
+       "q": "Sydney Opera House",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "皇家植物园",
+       "q": "Royal Botanic Garden Sydney",
+       "type": "park",
+       "dur": 60
+      },
+      {
+       "name": "岩石区",
+       "q": "The Rocks Sydney",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "start": "13:00",
+     "stay": "悉尼环形码头"
+    },
+    {
+     "title": "邦迪海滩",
+     "text": "坐渡轮去曼利，下午邦迪海滩走海岸步道到库吉。",
+     "stops": [
+      {
+       "name": "曼利海滩",
+       "q": "Manly Beach",
+       "type": "park",
+       "dur": 120,
+       "via": "渡轮约 30 分钟"
+      },
+      {
+       "name": "邦迪海滩",
+       "q": "Bondi Beach",
+       "type": "park",
+       "dur": 150
+      }
+     ],
+     "stay": "悉尼环形码头"
+    },
+    {
+     "title": "蓝山",
+     "text": "坐火车去蓝山，看三姐妹峰，下午回悉尼。",
+     "stops": [
+      {
+       "name": "三姐妹峰",
+       "q": "Three Sisters Blue Mountains",
+       "type": "sight",
+       "dur": 240,
+       "via": "火车约 2 小时"
+      }
+     ],
+     "stay": "悉尼环形码头"
+    },
+    {
+     "title": "飞墨尔本",
+     "text": "飞到墨尔本，逛涂鸦巷和联邦广场。",
+     "stops": [
+      {
+       "name": "霍西尔涂鸦巷",
+       "q": "Hosier Lane",
+       "type": "street",
+       "dur": 60,
+       "via": "飞机约 1 小时 30 分钟"
+      },
+      {
+       "name": "联邦广场",
+       "q": "Federation Square",
+       "type": "street",
+       "dur": 60
+      }
+     ],
+     "city": "墨尔本",
+     "stay": "墨尔本市中心"
+    },
+    {
+     "title": "大洋路",
+     "text": "一天走大洋路，看十二门徒石和洛克阿德峡。",
+     "stops": [
+      {
+       "name": "十二门徒石",
+       "q": "Twelve Apostles",
+       "type": "sight",
+       "dur": 120,
+       "via": "自驾约 3 小时 30 分钟"
+      },
+      {
+       "name": "洛克阿德峡",
+       "q": "Loch Ard Gorge",
+       "type": "sight",
+       "dur": 60
+      }
+     ],
+     "start": "07:00",
+     "city": "墨尔本",
+     "stay": "墨尔本市中心"
+    },
+    {
+     "title": "回程",
+     "text": "上午维多利亚女王市场，下午去机场。",
+     "stops": [
+      {
+       "name": "维多利亚女王市场",
+       "q": "Queen Victoria Market",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "start": "09:00",
+     "city": "墨尔本"
+    }
+   ]
+  },
+  "nzs7": {
+   "dest": "newzealand",
+   "city": "基督城",
+   "label": "新西兰南岛 7 天",
+   "title": "七天，开车走新西兰南岛",
+   "kicker": "自驾 · 7 天",
+   "start": [
+    2026,
+    11,
+    20
+   ],
+   "drive": true,
+   "prep": [
+    "新西兰靠左行驶，山路窄，别排太满",
+    "米尔福德峡湾那天路长，早上七点前出发"
+   ],
+   "days": [
+    {
+     "title": "基督城",
+     "text": "到基督城，提车，逛纸板教堂和雅芳河。",
+     "stops": [
+      {
+       "name": "纸板教堂",
+       "q": "Cardboard Cathedral",
+       "type": "sight",
+       "dur": 30
+      },
+      {
+       "name": "雅芳河",
+       "q": "Avon River Christchurch",
+       "type": "park",
+       "dur": 60
+      }
+     ],
+     "start": "14:00",
+     "stay": "基督城"
+    },
+    {
+     "title": "特卡波湖",
+     "text": "开到特卡波湖，看好牧羊人教堂，晚上看星空。",
+     "stops": [
+      {
+       "name": "好牧羊人教堂",
+       "q": "Church of the Good Shepherd Tekapo",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 3 小时"
+      },
+      {
+       "name": "约翰山天文台",
+       "q": "Mount John Observatory",
+       "type": "sight",
+       "dur": 90,
+       "at": "21:00"
+      }
+     ],
+     "city": "特卡波",
+     "stay": "特卡波"
+    },
+    {
+     "title": "库克山",
+     "text": "开到库克山，走胡克谷步道到冰川湖。",
+     "stops": [
+      {
+       "name": "胡克谷步道",
+       "q": "Hooker Valley Track",
+       "type": "park",
+       "dur": 180,
+       "via": "自驾约 1 小时 30 分钟"
+      }
+     ],
+     "city": "特卡波",
+     "stay": "特卡波"
+    },
+    {
+     "title": "瓦纳卡 · 皇后镇",
+     "text": "经过瓦纳卡看那棵孤独的树，到皇后镇。",
+     "stops": [
+      {
+       "name": "瓦纳卡孤独树",
+       "q": "That Wanaka Tree",
+       "type": "sight",
+       "dur": 30,
+       "via": "自驾约 3 小时"
+      },
+      {
+       "name": "皇后镇",
+       "q": "Queenstown Mall",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "city": "皇后镇",
+     "stay": "皇后镇"
+    },
+    {
+     "title": "米尔福德峡湾",
+     "text": "早上出发去米尔福德峡湾，坐船进峡湾，晚上回皇后镇。",
+     "stops": [
+      {
+       "name": "米尔福德峡湾",
+       "q": "Milford Sound",
+       "type": "sight",
+       "dur": 150,
+       "via": "自驾约 4 小时"
+      }
+     ],
+     "start": "06:30",
+     "city": "皇后镇",
+     "stay": "皇后镇"
+    },
+    {
+     "title": "天际线缆车",
+     "text": "上午坐天际线缆车看皇后镇和瓦卡蒂普湖，下午去箭镇。",
+     "stops": [
+      {
+       "name": "天际线缆车",
+       "q": "Skyline Queenstown",
+       "type": "fun",
+       "dur": 120
+      },
+      {
+       "name": "箭镇",
+       "q": "Arrowtown",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "city": "皇后镇",
+     "stay": "皇后镇"
+    },
+    {
+     "title": "回程",
+     "text": "还车，从皇后镇机场走。",
+     "stops": [
+      {
+       "name": "瓦卡蒂普湖",
+       "q": "Lake Wakatipu",
+       "type": "park",
+       "dur": 60
+      }
+     ],
+     "start": "09:00",
+     "city": "皇后镇"
+    }
+   ]
   }
  }
 }

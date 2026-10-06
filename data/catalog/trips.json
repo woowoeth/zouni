@@ -21859,6 +21859,336 @@
    "page": "Route.dc.html#egy6",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "lsb6",
+   "dest": "portugal",
+   "name": "里斯本波尔图",
+   "region": "欧洲",
+   "days": 6,
+   "title": "里斯本波尔图 6 天",
+   "headline": "六天，里斯本到波尔图",
+   "dek": "到里斯本，坐 28 路电车上阿尔法玛老城，傍晚在观景台看夕阳。",
+   "why": null,
+   "price": {
+    "lo": 10100,
+    "hi": 18800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      270,
+      810
+     ],
+     "local": [
+      500,
+      950
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "04-20",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lsb6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "prg4",
+   "dest": "czech",
+   "name": "布拉格",
+   "region": "欧洲",
+   "days": 4,
+   "title": "布拉格 4 天",
+   "headline": "四天，布拉格和克鲁姆洛夫",
+   "dek": "到布拉格，看老城广场和天文钟，傍晚走查理大桥。",
+   "why": null,
+   "price": {
+    "lo": 7400,
+    "hi": 13800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-15"
+    ],
+    "best": [
+     "05-01",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#prg4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "vie5",
+   "dest": "austria",
+   "name": "维也纳哈尔施塔特",
+   "region": "欧洲",
+   "days": 5,
+   "title": "维也纳哈尔施塔特 5 天",
+   "headline": "五天，维也纳和湖边小镇",
+   "dek": "到维也纳，看圣斯蒂芬大教堂，晚上去金色大厅听音乐会。",
+   "why": null,
+   "price": {
+    "lo": 9500,
+    "hi": 17500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      200,
+      450
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-15"
+    ],
+    "best": [
+     "05-01",
+     "06-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#vie5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "usw7",
+   "dest": "usa",
+   "name": "美国西海岸",
+   "region": "北美",
+   "days": 7,
+   "title": "美国西海岸 7 天",
+   "headline": "七天，从旧金山开到洛杉矶",
+   "dek": "到旧金山，看金门大桥，傍晚去渔人码头。",
+   "why": null,
+   "price": {
+    "lo": 15700,
+    "hi": 29400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 4,
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      2100,
+      3500
+     ],
+     "nights": 6,
+     "n": 7,
+     "car": true
+    }
+   },
+   "tags": [
+    "自驾"
+   ],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "04-20",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#usw7",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "syd6",
+   "dest": "australia",
+   "name": "悉尼墨尔本",
+   "region": "大洋洲",
+   "days": 6,
+   "title": "悉尼墨尔本 6 天",
+   "headline": "六天，悉尼和大洋路",
+   "dek": "到悉尼，看悉尼歌剧院和海港大桥，傍晚在岩石区吃饭。",
+   "why": null,
+   "price": {
+    "lo": 11600,
+    "hi": 21600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      500,
+      950
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-01",
+     "05-15"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#syd6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "nzs7",
+   "dest": "newzealand",
+   "name": "新西兰南岛",
+   "region": "大洋洲",
+   "days": 7,
+   "title": "新西兰南岛 7 天",
+   "headline": "七天，开车走新西兰南岛",
+   "dek": "到基督城，提车，逛纸板教堂和雅芳河。",
+   "why": null,
+   "price": {
+    "lo": 14300,
+    "hi": 25700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 2,
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      1840,
+      3090
+     ],
+     "nights": 6,
+     "n": 7,
+     "car": true
+    }
+   },
+   "tags": [
+    "自驾"
+   ],
+   "season": {
+    "ok": [
+     "11-01",
+     "04-15"
+    ],
+    "best": [
+     "12-01",
+     "03-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nzs7",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
