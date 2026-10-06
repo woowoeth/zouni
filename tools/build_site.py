@@ -250,6 +250,15 @@ SIGHT = {
     '诸葛八卦村': '按八卦布局的村子，诸葛亮后人聚居', '新叶古村': '叶氏宗族的古村，有抟云塔', '荻浦村': '孝义文化的古村，有古戏台', '深澳古村': '村下有暗渠的古村', '严子陵钓台': '富春江边，东汉严光隐居钓鱼的地方',
     '杨家堂村': '山坡上的黄泥房，“金色布达拉宫”', '松阳老街': '保留着打铁铺、中药铺的老街', '河阳古民居': '朱氏聚居的千年古村', '仙都': '鼎湖峰是一根拔地而起的石柱', '冠豸山': '连城的丹霞山',
     '培田古村': '客家大宅群，被叫“民间故宫”', '明月湾古村': '太湖边的千年古村，吴王赏月的地方', '石公山': '太湖边的山，看日落', '东村古村': '西山岛上的明清古村',
+    '西岱岛': '巴黎的发源地，圣母院在岛上', '塞纳河游船': '傍晚坐船看两岸', '卢浮宫': '蒙娜丽莎、断臂维纳斯都在这', '杜乐丽花园': '卢浮宫和协和广场之间的花园', '香榭丽舍大街': '从协和广场走到凯旋门',
+    '奥赛博物馆': '火车站改的博物馆，印象派最全', '埃菲尔铁塔': '傍晚上去看日落和夜景', '凡尔赛宫': '路易十四的宫殿，镜厅和大花园', '圣心堂': '蒙马特高地上的白色教堂', '小丘广场': '画家摆摊的广场',
+    '特雷维喷泉': '背对着扔一枚硬币，许愿池', '万神殿': '两千年的穹顶，顶上开着圆洞', '纳沃纳广场': '巴洛克喷泉的广场', '罗马斗兽场': '古罗马的圆形竞技场', '古罗马广场': '古罗马的政治中心遗址',
+    '梵蒂冈博物馆': '西斯廷礼拜堂《创世纪》天顶画', '圣彼得大教堂': '世界最大的教堂之一，米开朗基罗设计穹顶', '圣母百花大教堂': '佛罗伦萨的红色穹顶', '米开朗基罗广场': '看佛罗伦萨全城和日落', '乌菲兹美术馆': '《维纳斯的诞生》在这',
+    '老桥': '桥上开满金店的中世纪老桥', '中央市场': '楼下卖菜，楼上小吃，牛肚包有名', '塞维利亚大教堂': '世界最大的哥特式教堂之一，哥伦布墓在里面', '塞维利亚王宫': '摩尔风格的王宫，《权力的游戏》取景地', '西班牙广场': '半圆形的广场，彩瓷长椅',
+    '哈武戈': '伊比利亚火腿最有名的产地', '圣尼古拉斯观景台': '傍晚看阿尔罕布拉宫的地方', '阿尔罕布拉宫': '摩尔王朝最后的宫殿', '哈尔格林姆教堂': '雷克雅未克的地标教堂', '辛格维利尔国家公园': '两大板块裂开的地方',
+    '盖歇尔间歇泉': '几分钟喷一次的间歇泉', '古佛斯瀑布': '冰岛最有名的两级大瀑布', '塞里雅兰瀑布': '能走到瀑布后面', '斯科加瀑布': '晴天常看到彩虹', '黑沙滩': '黑色玄武岩沙滩，浪大别靠近',
+    '杰古沙龙冰河湖': '冰川断下来的冰块漂在湖里', '钻石沙滩': '冰块冲上黑沙滩，像钻石', '蓝湖': '地热温泉，水是乳蓝色', '不眠广场': '白天卖果汁，晚上变成大夜市', '马约尔花园': '法国画家的蓝色花园',
+    '巴希亚宫': '十九世纪的宫殿，瓷砖和木雕', '伊姆利尔': '阿特拉斯山脚下的柏柏尔村子', '库图比亚清真寺': '马拉喀什的地标宣礼塔',
     '稻河古街区': '泰州老城沿河的街区', '望海楼': '泰州的城标，傍晚好看', '千垛景区': '垛田上开满油菜花，坐船进去看', '李中水上森林': '水杉长在水里的森林', '石浦渔港古城': '依山而建的渔港老街',
     '中国渔村': '象山海边看渔船的地方', '蛇蟠岛': '三门的海岛，有千洞之岛的说法', '遂昌金矿国家矿山公园': '千年金矿遗址，能下矿洞', '南尖岩': '看云海和梯田的山头', '诺邓古村': '千年盐井古村，诺邓火腿的产地',
     '太极图观景台': '沘江弯出一个天然太极图', '诺邓盐井': '还能看到古盐井和盐课司', '阳岭国家森林公园': '崇义城边的森林公园', '上堡梯田': '客家人开垦的梯田，世界灌溉工程遗产', '天鹅湖国家城市湿地公园': '冬天上万只白天鹅来过冬',
@@ -348,7 +357,7 @@ for rid in ROUTE_IDS:
     if t: DEST_ROUTES.setdefault(t['dest'], []).append(rid)
 QUAL_BY_PROV = {}
 for q in QUAL: QUAL_BY_PROV.setdefault(q['prov'], []).append(q)
-REGION_ORDER = ATLAS['regions']['domestic'] + ATLAS['regions']['asia']
+REGION_ORDER = ATLAS['regions']['domestic'] + ATLAS['regions']['asia'] + ATLAS['regions'].get('world', [])
 ORIGINS = ['北京', '上海', '广州', '深圳', '杭州', '南京', '成都', '重庆', '武汉', '西安', '香港']
 
 ICON_PHOTO = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M20.5 15.5l-4.5-4.5-8 8"/></svg>'
@@ -903,6 +912,7 @@ def go_info(r, t, d0, rid=None):
 def go_text(g, o=None, km_=None):
     o = o or g['o']; km_ = g['km'] if km_ is None else km_
     if km_ < 60: way = f'就在{o}附近，当天过去就行'
+    elif g['ab'] and km_ > 5000: way = f'从北京或上海坐飞机，约 {max(1, round(km_ / 750 + 1))} 小时' + ('，多数要转一次机' if km_ > 8500 else '')   # 欧美非洲：从大机场飞，远的要转机
     elif g['ab']: way = f'从{o}坐飞机过去，飞行约 {max(1, round(km_ / 700 + 1))} 小时'
     elif g['drv']: way = f'从{o}开过去约 {max(1, round(km_ * 1.25 / 80))} 小时；也可以坐高铁或飞机到了再租车'
     elif km_ <= 1200: way = f'从{o}坐高铁约 {max(1, round(km_ / 230 + 0.5))} 小时'
@@ -1167,7 +1177,7 @@ def dest_page(d):
     trips = ''.join(f'<li data-n="{len(ROUTES[rid]["days"])}" data-drv="{1 if ROUTES[rid].get("drive") else 0}"><a href="/trip/{rid}/"><b>{E(ROUTES[rid].get("label"))} ›</b><span>{E(day_line(ROUTES[rid]))}</span><small>{"自驾 · " if ROUTES[rid].get("drive") else ""}{E(price_k(ROUTES[rid].get("price")))}</small></a></li>' for rid in _dr)
     other = [t for t in TRIPS if t['dest'] == did and not any(TRIP_OF_ROUTE.get(r) is t for r in DEST_ROUTES.get(did, []))]
     trips += ''.join(f'<li><span><b>{E(t["title"])}</b> · {"暂不排" if t["status"] == "blocked" else "整理中"}</span></li>' for t in other)
-    city = d['base']['name']; app = 'google' if d['scope'] == 'asia' else 'amap'
+    city = d['base']['name']; app = 'google' if d['scope'] != 'domestic' else 'amap'
     ql = sorted(QUAL_BY_PROV.get(d['name'], []) if d['scope'] == 'domestic' else [], key=lambda q: (0 if '世界遗产' in q['tags'] else 1, q['short']))
     qhtml = ''.join(f'<li><span>{E(q["short"])}</span><small>{"世界遗产" if "世界遗产" in q["tags"] else "5A"}</small>{icons(q["short"], d["name"], app)}</li>' for q in ql)
     nl = NICHE_BY_DEST.get(did, [])
@@ -1205,7 +1215,7 @@ def dest_page(d):
 
 def where_page():
     m = TODAY.month; scopes = []
-    for scope, title in (('domestic', '国内'), ('asia', '亚洲')):
+    for scope, title in (('domestic', '国内'), ('asia', '亚洲'), ('world', '更远')):
         regs = []
         for reg in ATLAS['regions'][scope]:
             cards = []
@@ -1236,9 +1246,9 @@ def where_page():
                              f'{("<div class=tr>" + "".join(rows) + "</div>") if rows else ""}{qlink}</li>')
             regs.append(f'<section class="reg"><h3 class="rh">{E(reg)}</h3><ul class="cards">{"".join(cards)}</ul></section>')
         scopes.append(f'<section class="scope" id="{scope}"{"" if scope == "domestic" else " hidden"}>{"".join(regs)}</section>')
-    nd, na = len(ATLAS['domestic']), len(ATLAS['asia'])
+    nd, na, nw = len(ATLAS['domestic']), len(ATLAS['asia']), len(ATLAS.get('world', []))
     body = (f'<article class="where"><div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><h1>去哪儿</h1><div class="stick">'
-            f'<div class="tabs"><button type="button" data-t="domestic" class="on">国内 · {nd}</button><button type="button" data-t="asia">亚洲 · {na}</button></div>'
+            f'<div class="tabs"><button type="button" data-t="domestic" class="on">国内 · {nd}</button><button type="button" data-t="asia">亚洲 · {na}</button><button type="button" data-t="world">更远 · {nw}</button></div>'
             f'<div class="mon" role="group" aria-label="选月份">{"".join(f"<button type=button data-m={k} class={chr(39)}{chr(111)+chr(110) if k == m else chr(32)}{chr(39)}>{k}月</button>" for k in range(1, 13))}</div>'
             f'</div><div class="wbar"><p class="goodline"></p><div class="gl"><span class="cnt" aria-live="polite"></span><button type="button" class="mtog" aria-label="地图看">地图看</button><button type="button" class="ftog" aria-label="筛选">筛选 ▾</button></div>'
             f'<div class="flt" hidden><input type="search" placeholder="搜地名或景点，比如 婺源、兵马俑" aria-label="搜地名或景点">'

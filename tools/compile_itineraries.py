@@ -13,7 +13,7 @@ UA = {'User-Agent': 'zouni-travel-data/1.0 (zouni.app)'}
 
 
 CC = {'macau': 'mo', 'hongkong': 'hk'}
-ASIA_CC = {x['id']: x['cc'] for x in json.load(open('data/destinations.json'))['asia']}
+ASIA_CC = {x['id']: x['cc'] for k_ in ('asia', 'world') for x in json.load(open('data/destinations.json')).get(k_, [])}
 CC.update(ASIA_CC)
 CUR_CC = ['cn']
 

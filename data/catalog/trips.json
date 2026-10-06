@@ -21176,8 +21176,8 @@
       90
      ],
      "local": [
-      340,
-      590
+      80,
+      180
      ],
      "nights": 1,
      "n": 2,
@@ -21368,6 +21368,279 @@
    "anytime": false,
    "status": "ok",
    "page": "Route.dc.html#szxs2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "par5",
+   "dest": "france",
+   "name": "巴黎",
+   "region": "欧洲",
+   "days": 5,
+   "title": "巴黎 5 天",
+   "headline": "五天，在巴黎慢慢走",
+   "dek": "到巴黎，沿塞纳河走到西岱岛看圣母院，傍晚坐游船。",
+   "why": null,
+   "price": {
+    "lo": 9700,
+    "hi": 18200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      200,
+      450
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "06-30"
+    ],
+    "best": [
+     "05-01",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#par5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "rmfl6",
+   "dest": "italy",
+   "name": "罗马佛罗伦萨",
+   "region": "欧洲",
+   "days": 6,
+   "title": "罗马佛罗伦萨 6 天",
+   "headline": "六天，从罗马到佛罗伦萨",
+   "dek": "到罗马，逛许愿池、万神殿和纳沃纳广场。",
+   "why": null,
+   "price": {
+    "lo": 10000,
+    "hi": 19400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      300,
+      900
+     ],
+     "local": [
+      240,
+      540
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "06-15"
+    ],
+    "best": [
+     "04-15",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#rmfl6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "svl5",
+   "dest": "spain",
+   "name": "安达卢西亚",
+   "region": "欧洲",
+   "days": 5,
+   "title": "安达卢西亚 5 天",
+   "headline": "五天，安达卢西亚和火腿",
+   "dek": "到塞维利亚，看大教堂和吉拉尔达塔，晚上看弗拉门戈。",
+   "why": null,
+   "price": {
+    "lo": 9400,
+    "hi": 17200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      460,
+      860
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-01",
+     "05-31"
+    ],
+    "best": [
+     "03-15",
+     "04-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#svl5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "isl6",
+   "dest": "iceland",
+   "name": "冰岛南岸",
+   "region": "欧洲",
+   "days": 6,
+   "title": "冰岛南岸 6 天",
+   "headline": "六天，开车走冰岛南岸",
+   "dek": "到雷克雅未克，提车，逛哈尔格林姆教堂和老港。",
+   "why": null,
+   "price": {
+    "lo": 14200,
+    "hi": 25000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 1,
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      300,
+      900
+     ],
+     "local": [
+      1800,
+      3000
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": true
+    }
+   },
+   "tags": [
+    "自驾"
+   ],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-15"
+    ],
+    "best": [
+     "06-15",
+     "08-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#isl6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "mrk4",
+   "dest": "morocco",
+   "name": "马拉喀什",
+   "region": "北非",
+   "days": 4,
+   "title": "马拉喀什 4 天",
+   "headline": "四天，马拉喀什和阿特拉斯山",
+   "dek": "到马拉喀什，傍晚去不眠广场，吃塔吉锅和夜市小吃。",
+   "why": null,
+   "price": {
+    "lo": 7900,
+    "hi": 14200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      420,
+      770
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-01",
+     "05-15"
+    ],
+    "best": [
+     "03-15",
+     "04-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#mrk4",
    "engineRoute": null,
    "poster": null
   }

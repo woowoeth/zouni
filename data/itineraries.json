@@ -29234,6 +29234,620 @@
      }
     }
    ]
+  },
+  "par5": {
+   "dest": "france",
+   "city": "巴黎",
+   "label": "巴黎 5 天",
+   "title": "五天，在巴黎慢慢走",
+   "kicker": "城市 · 5 天",
+   "start": [
+    2026,
+    4,
+    20
+   ],
+   "prep": [
+    "卢浮宫、埃菲尔铁塔、凡尔赛宫都要提前在官网约时段",
+    "卢浮宫周二闭馆，凡尔赛宫周一闭馆"
+   ],
+   "days": [
+    {
+     "title": "塞纳河 · 圣母院",
+     "text": "到巴黎，沿塞纳河走到西岱岛看圣母院，傍晚坐游船。",
+     "stops": [
+      {
+       "name": "西岱岛",
+       "q": "Ile de la Cite",
+       "type": "street",
+       "dur": 90
+      },
+      {
+       "name": "塞纳河游船",
+       "q": "Bateaux Mouches",
+       "type": "fun",
+       "dur": 60,
+       "at": "19:00"
+      }
+     ],
+     "start": "13:00",
+     "stay": "玛黑区",
+     "dinner": {
+      "dish": "法式洋葱汤",
+      "place": "玛黑区"
+     }
+    },
+    {
+     "title": "卢浮宫 · 杜乐丽",
+     "text": "上午卢浮宫，下午穿过杜乐丽花园到协和广场、香榭丽舍。",
+     "stops": [
+      {
+       "name": "卢浮宫",
+       "q": "Musee du Louvre",
+       "type": "museum",
+       "dur": 240,
+       "at": "09:00"
+      },
+      {
+       "name": "杜乐丽花园",
+       "q": "Jardin des Tuileries",
+       "type": "park",
+       "dur": 60
+      },
+      {
+       "name": "香榭丽舍大街",
+       "q": "Champs-Elysees",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "start": "08:30",
+     "stay": "玛黑区"
+    },
+    {
+     "title": "奥赛 · 埃菲尔铁塔",
+     "text": "上午奥赛博物馆看印象派，傍晚上埃菲尔铁塔看夜景。",
+     "stops": [
+      {
+       "name": "奥赛博物馆",
+       "q": "Musee d Orsay",
+       "type": "museum",
+       "dur": 180,
+       "at": "09:30"
+      },
+      {
+       "name": "埃菲尔铁塔",
+       "q": "Tour Eiffel",
+       "type": "sight",
+       "dur": 120,
+       "at": "18:30"
+      }
+     ],
+     "start": "09:00",
+     "stay": "玛黑区"
+    },
+    {
+     "title": "凡尔赛宫",
+     "text": "坐火车去凡尔赛宫，看镜厅和花园，傍晚回巴黎。",
+     "stops": [
+      {
+       "name": "凡尔赛宫",
+       "q": "Chateau de Versailles",
+       "type": "sight",
+       "dur": 300,
+       "via": "火车约 40 分钟",
+       "at": "09:00"
+      }
+     ],
+     "start": "08:00",
+     "stay": "玛黑区"
+    },
+    {
+     "title": "蒙马特 · 回程",
+     "text": "上午上蒙马特高地，看圣心堂和画家广场，下午去机场。",
+     "stops": [
+      {
+       "name": "圣心堂",
+       "q": "Sacre-Coeur",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "小丘广场",
+       "q": "Place du Tertre",
+       "type": "street",
+       "dur": 60
+      }
+     ],
+     "start": "09:00"
+    }
+   ]
+  },
+  "rmfl6": {
+   "dest": "italy",
+   "city": "罗马",
+   "label": "罗马佛罗伦萨 6 天",
+   "title": "六天，从罗马到佛罗伦萨",
+   "kicker": "古城 · 6 天",
+   "start": [
+    2026,
+    4,
+    25
+   ],
+   "prep": [
+    "梵蒂冈博物馆、斗兽场、乌菲兹都要提前在官网约",
+    "罗马到佛罗伦萨坐高铁约 1 小时 30 分钟"
+   ],
+   "days": [
+    {
+     "title": "特雷维 · 万神殿",
+     "text": "到罗马，逛许愿池、万神殿和纳沃纳广场。",
+     "stops": [
+      {
+       "name": "特雷维喷泉",
+       "q": "Fontana di Trevi",
+       "type": "sight",
+       "dur": 45
+      },
+      {
+       "name": "万神殿",
+       "q": "Pantheon Roma",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "纳沃纳广场",
+       "q": "Piazza Navona",
+       "type": "street",
+       "dur": 60
+      }
+     ],
+     "start": "14:00",
+     "stay": "罗马老城"
+    },
+    {
+     "title": "斗兽场 · 古罗马广场",
+     "text": "上午斗兽场，下午古罗马广场和帕拉蒂尼山。",
+     "stops": [
+      {
+       "name": "罗马斗兽场",
+       "q": "Colosseo",
+       "type": "sight",
+       "dur": 120,
+       "at": "09:00"
+      },
+      {
+       "name": "古罗马广场",
+       "q": "Foro Romano",
+       "type": "sight",
+       "dur": 150
+      }
+     ],
+     "start": "08:30",
+     "stay": "罗马老城"
+    },
+    {
+     "title": "梵蒂冈",
+     "text": "上午梵蒂冈博物馆和西斯廷礼拜堂，下午圣彼得大教堂。",
+     "stops": [
+      {
+       "name": "梵蒂冈博物馆",
+       "q": "Musei Vaticani",
+       "type": "museum",
+       "dur": 240,
+       "at": "09:00"
+      },
+      {
+       "name": "圣彼得大教堂",
+       "q": "Basilica di San Pietro",
+       "type": "sight",
+       "dur": 90
+      }
+     ],
+     "start": "08:30",
+     "stay": "罗马老城"
+    },
+    {
+     "title": "去佛罗伦萨 · 大教堂",
+     "text": "坐高铁去佛罗伦萨，看圣母百花大教堂，傍晚米开朗基罗广场看日落。",
+     "stops": [
+      {
+       "name": "圣母百花大教堂",
+       "q": "Duomo di Firenze",
+       "type": "sight",
+       "dur": 120,
+       "via": "高铁约 1 小时 30 分钟"
+      },
+      {
+       "name": "米开朗基罗广场",
+       "q": "Piazzale Michelangelo",
+       "type": "park",
+       "dur": 60,
+       "at": "18:30"
+      }
+     ],
+     "start": "09:00",
+     "city": "佛罗伦萨",
+     "stay": "佛罗伦萨老城"
+    },
+    {
+     "title": "乌菲兹 · 老桥",
+     "text": "上午乌菲兹美术馆，下午走老桥到皮蒂宫。",
+     "stops": [
+      {
+       "name": "乌菲兹美术馆",
+       "q": "Galleria degli Uffizi",
+       "type": "museum",
+       "dur": 180,
+       "at": "09:00"
+      },
+      {
+       "name": "老桥",
+       "q": "Ponte Vecchio",
+       "type": "sight",
+       "dur": 45
+      }
+     ],
+     "start": "08:30",
+     "city": "佛罗伦萨",
+     "stay": "佛罗伦萨老城"
+    },
+    {
+     "title": "回程",
+     "text": "上午逛中央市场吃牛肚包，然后去机场。",
+     "stops": [
+      {
+       "name": "中央市场",
+       "q": "Mercato Centrale Firenze",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "start": "09:00",
+     "city": "佛罗伦萨"
+    }
+   ]
+  },
+  "svl5": {
+   "dest": "spain",
+   "city": "塞维利亚",
+   "label": "安达卢西亚 5 天",
+   "title": "五天，安达卢西亚和火腿",
+   "kicker": "南欧 · 5 天",
+   "start": [
+    2026,
+    3,
+    10
+   ],
+   "prep": [
+    "阿尔罕布拉宫票要提前一两个月在官网买",
+    "哈武戈在山里，包车或租车去"
+   ],
+   "days": [
+    {
+     "title": "塞维利亚老城",
+     "text": "到塞维利亚，看大教堂和吉拉尔达塔，晚上看弗拉门戈。",
+     "stops": [
+      {
+       "name": "塞维利亚大教堂",
+       "q": "Catedral de Sevilla",
+       "type": "sight",
+       "dur": 120
+      },
+      {
+       "name": "弗拉门戈",
+       "q": "Casa de la Memoria Sevilla",
+       "type": "fun",
+       "dur": 60,
+       "at": "19:30"
+      }
+     ],
+     "start": "13:00",
+     "stay": "塞维利亚老城"
+    },
+    {
+     "title": "王宫 · 西班牙广场",
+     "text": "上午塞维利亚王宫，下午西班牙广场。",
+     "stops": [
+      {
+       "name": "塞维利亚王宫",
+       "q": "Real Alcazar de Sevilla",
+       "type": "sight",
+       "dur": 150,
+       "at": "09:30"
+      },
+      {
+       "name": "西班牙广场",
+       "q": "Plaza de Espana Sevilla",
+       "type": "park",
+       "dur": 90
+      }
+     ],
+     "start": "09:00",
+     "stay": "塞维利亚老城"
+    },
+    {
+     "title": "哈武戈 · 火腿",
+     "text": "包车去哈武戈，看伊比利亚黑猪和火腿窖，吃火腿，晚上回塞维利亚。",
+     "stops": [
+      {
+       "name": "哈武戈",
+       "q": "Jabugo",
+       "type": "sight",
+       "dur": 240,
+       "via": "包车约 1 小时 30 分钟"
+      }
+     ],
+     "start": "09:00",
+     "stay": "塞维利亚老城"
+    },
+    {
+     "title": "去格拉纳达",
+     "text": "坐火车去格拉纳达，傍晚上阿尔拜辛看阿尔罕布拉宫夕照。",
+     "stops": [
+      {
+       "name": "圣尼古拉斯观景台",
+       "q": "Mirador de San Nicolas",
+       "type": "sight",
+       "dur": 90,
+       "via": "火车约 2 小时 30 分钟",
+       "at": "18:30"
+      }
+     ],
+     "start": "10:00",
+     "city": "格拉纳达",
+     "stay": "格拉纳达老城"
+    },
+    {
+     "title": "阿尔罕布拉宫 · 回程",
+     "text": "上午阿尔罕布拉宫，下午出发。",
+     "stops": [
+      {
+       "name": "阿尔罕布拉宫",
+       "q": "Alhambra",
+       "type": "sight",
+       "dur": 240,
+       "at": "08:30"
+      }
+     ],
+     "start": "08:00",
+     "city": "格拉纳达"
+    }
+   ]
+  },
+  "isl6": {
+   "dest": "iceland",
+   "city": "雷克雅未克",
+   "label": "冰岛南岸 6 天",
+   "title": "六天，开车走冰岛南岸",
+   "kicker": "自驾 · 6 天",
+   "start": [
+    2026,
+    6,
+    1
+   ],
+   "drive": true,
+   "prep": [
+    "租车要国际驾照，F 开头的山路要四驱",
+    "天气变得快，每天看 vedur.is 和 road.is"
+   ],
+   "days": [
+    {
+     "title": "雷克雅未克",
+     "text": "到雷克雅未克，提车，逛哈尔格林姆教堂和老港。",
+     "stops": [
+      {
+       "name": "哈尔格林姆教堂",
+       "q": "Hallgrimskirkja",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "雷克雅未克老港",
+       "q": "Reykjavik Old Harbour",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "start": "14:00",
+     "stay": "雷克雅未克"
+    },
+    {
+     "title": "黄金圈",
+     "text": "开黄金圈：辛格维利尔国家公园、盖歇尔间歇泉、古佛斯瀑布。",
+     "stops": [
+      {
+       "name": "辛格维利尔国家公园",
+       "q": "Thingvellir",
+       "type": "park",
+       "dur": 120,
+       "via": "自驾约 50 分钟"
+      },
+      {
+       "name": "盖歇尔间歇泉",
+       "q": "Geysir",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "古佛斯瀑布",
+       "q": "Gullfoss",
+       "type": "sight",
+       "dur": 60
+      }
+     ],
+     "stay": "塞尔福斯"
+    },
+    {
+     "title": "瀑布 · 黑沙滩",
+     "text": "塞里雅兰瀑布、斯科加瀑布，傍晚黑沙滩。",
+     "stops": [
+      {
+       "name": "塞里雅兰瀑布",
+       "q": "Seljalandsfoss",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 1 小时"
+      },
+      {
+       "name": "斯科加瀑布",
+       "q": "Skogafoss",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "黑沙滩",
+       "q": "Reynisfjara",
+       "type": "sight",
+       "dur": 90
+      }
+     ],
+     "stay": "维克"
+    },
+    {
+     "title": "冰河湖",
+     "text": "往东开到杰古沙龙冰河湖和钻石沙滩。",
+     "stops": [
+      {
+       "name": "杰古沙龙冰河湖",
+       "q": "Jokulsarlon",
+       "type": "sight",
+       "dur": 120,
+       "via": "自驾约 2 小时 30 分钟"
+      },
+      {
+       "name": "钻石沙滩",
+       "q": "Diamond Beach Iceland",
+       "type": "sight",
+       "dur": 60
+      }
+     ],
+     "stay": "霍芬"
+    },
+    {
+     "title": "回雷克雅未克",
+     "text": "一路开回雷克雅未克，晚上吃羊肉汤。",
+     "stops": [
+      {
+       "name": "维克教堂",
+       "q": "Vikurkirkja",
+       "type": "sight",
+       "dur": 30,
+       "via": "自驾约 2 小时 30 分钟"
+      }
+     ],
+     "stay": "雷克雅未克",
+     "dinner": {
+      "dish": "冰岛羊肉汤",
+      "place": "雷克雅未克"
+     }
+    },
+    {
+     "title": "蓝湖 · 回程",
+     "text": "去机场路上泡蓝湖，还车。",
+     "stops": [
+      {
+       "name": "蓝湖",
+       "q": "Blue Lagoon Iceland",
+       "type": "fun",
+       "dur": 150,
+       "via": "自驾约 50 分钟"
+      }
+     ],
+     "start": "09:00"
+    }
+   ]
+  },
+  "mrk4": {
+   "dest": "morocco",
+   "city": "马拉喀什",
+   "label": "马拉喀什 4 天",
+   "title": "四天，马拉喀什和阿特拉斯山",
+   "kicker": "北非 · 4 天",
+   "start": [
+    2026,
+    3,
+    15
+   ],
+   "prep": [
+    "老城里讲价是常事，先问价再拍照",
+    "进山那天带外套，山里比城里冷十度"
+   ],
+   "days": [
+    {
+     "title": "不眠广场",
+     "text": "到马拉喀什，傍晚去不眠广场，吃塔吉锅和夜市小吃。",
+     "stops": [
+      {
+       "name": "不眠广场",
+       "q": "Jemaa el-Fnaa",
+       "type": "street",
+       "dur": 150,
+       "at": "17:30"
+      }
+     ],
+     "start": "14:00",
+     "stay": "马拉喀什老城",
+     "dinner": {
+      "dish": "塔吉锅、古斯古斯",
+      "place": "不眠广场"
+     }
+    },
+    {
+     "title": "马约尔花园 · 巴希亚宫",
+     "text": "上午马约尔花园，下午巴希亚宫和老城集市。",
+     "stops": [
+      {
+       "name": "马约尔花园",
+       "q": "Jardin Majorelle",
+       "type": "park",
+       "dur": 90,
+       "at": "09:00"
+      },
+      {
+       "name": "巴希亚宫",
+       "q": "Bahia Palace",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "老城集市",
+       "q": "Souk Semmarine",
+       "type": "street",
+       "dur": 120
+      }
+     ],
+     "start": "08:30",
+     "stay": "马拉喀什老城"
+    },
+    {
+     "title": "阿特拉斯山",
+     "text": "包车进阿特拉斯山，到伊姆利尔看柏柏尔村子，晚上回城。",
+     "stops": [
+      {
+       "name": "伊姆利尔",
+       "q": "Imlil",
+       "type": "park",
+       "dur": 240,
+       "via": "包车约 1 小时 30 分钟"
+      }
+     ],
+     "start": "08:30",
+     "stay": "马拉喀什老城"
+    },
+    {
+     "title": "库图比亚清真寺 · 回程",
+     "text": "上午看库图比亚清真寺，下午去机场。",
+     "stops": [
+      {
+       "name": "库图比亚清真寺",
+       "q": "Koutoubia Mosque",
+       "type": "sight",
+       "dur": 45
+      }
+     ],
+     "start": "09:00"
+    }
+   ]
   }
  }
 }

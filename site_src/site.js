@@ -54,7 +54,7 @@
   var ZORIG={'北京':[39.90,116.40],'上海':[31.23,121.47],'广州':[23.13,113.26],'深圳':[22.54,114.06],'成都':[30.66,104.07],'杭州':[30.27,120.16],'西安':[34.26,108.94],'武汉':[30.59,114.31],'南京':[32.06,118.80],'重庆':[29.56,106.55],'长沙':[28.23,112.94],'郑州':[34.75,113.63],'天津':[39.13,117.20],'苏州':[31.30,120.58],'厦门':[24.48,118.09],'昆明':[25.04,102.71],'沈阳':[41.80,123.43],'青岛':[36.07,120.38],'香港':[22.32,114.17]};
   function zOrigin(){try{var st=JSON.parse(localStorage.getItem('zouni_pick')||'{}');if(st.o==='here'&&st.lat)return{n:'你这里',lat:st.lat,lng:st.lng};var o=st.o||localStorage.getItem('zouni_org');if(o&&ZORIG[o])return{n:o,lat:ZORIG[o][0],lng:ZORIG[o][1]}}catch(e){}return null}
   function zKm(a,b,c,d){var r=Math.PI/180,x=(d-b)*r*Math.cos((a+c)/2*r),y=(c-a)*r;return Math.round(Math.sqrt(x*x+y*y)*6371)}
-  function zGoWay(g,o,km){if(km<60)return'就在'+o+'附近，当天过去就行';if(+g.ab)return'从'+o+'坐飞机过去，飞行约 '+Math.max(1,Math.round(km/700+1))+' 小时';if(+g.drv)return'从'+o+'开过去约 '+Math.max(1,Math.round(km*1.25/80))+' 小时；也可以坐高铁或飞机到了再租车';if(km<=1200)return'从'+o+'坐高铁约 '+Math.max(1,Math.round(km/230+0.5))+' 小时';return'从'+o+'坐飞机最省事，飞行约 '+Math.max(1,Math.round(km/700+1))+' 小时'}
+  function zGoWay(g,o,km){if(km<60)return'就在'+o+'附近，当天过去就行';if(+g.ab&&km>5000)return'从'+o+'坐飞机，约 '+Math.max(1,Math.round(km/750+1))+' 小时'+(km>8500?'，多数要转一次机':'');if(+g.ab)return'从'+o+'坐飞机过去，飞行约 '+Math.max(1,Math.round(km/700+1))+' 小时';if(+g.drv)return'从'+o+'开过去约 '+Math.max(1,Math.round(km*1.25/80))+' 小时；也可以坐高铁或飞机到了再租车';if(km<=1200)return'从'+o+'坐高铁约 '+Math.max(1,Math.round(km/230+0.5))+' 小时';return'从'+o+'坐飞机最省事，飞行约 '+Math.max(1,Math.round(km/700+1))+' 小时'}
   // ——— 使用统计：只记“做了什么”（改日期、加一天、分享……），不记人；没配统计地址时什么都不发 ———
   var ZSTATS=(document.querySelector('meta[name="zouni-stats"]')||{}).content||'';
   function ztrack(ev,props){try{var d={e:ev,p:location.pathname,t:Date.now()};if(props)d.x=props;(window.__zq=window.__zq||[]).push(d);if(ZSTATS&&navigator.sendBeacon)navigator.sendBeacon(ZSTATS,JSON.stringify(d))}catch(e){}}
@@ -406,7 +406,7 @@
     // ——— 怎么去、怎么回：换成你自己的出发地 ———
     var goEl=document.querySelector('section.go'),GO=null;try{GO=goEl?JSON.parse(goEl.dataset.go):null}catch(e){}
     function goNow(){if(!GO)return null;var o=zOrigin()||{n:GO.o,lat:null},km=o.lat!=null?zKm(o.lat,o.lng,GO.lat,GO.lng):GO.km;var mode=(+GO.drv)?'drive':(km<60?'near':(+GO.ab||km>1200)?'fly':'train');return{o:o.n,km:km,mode:mode,way:zGoWay(GO,o.n,km)}}
-    if(goEl&&GO){var gn=goNow(),sp=goEl.querySelector('.gw span');if(sp)sp.textContent=sp.textContent.replace(/^[^。]*。/,gn.way+'。');
+    if(goEl&&GO&&zOrigin()){var gn=goNow(),sp=goEl.querySelector('.gw span');   // 只有知道你的出发地才改写，不然保留页面上按大城市写的if(sp)sp.textContent=sp.textContent.replace(/^[^。]*。/,gn.way+'。');
       [].slice.call(document.querySelectorAll('.faq dt')).forEach(function(dt){if(/怎么去/.test(dt.textContent)&&dt.nextElementSibling)dt.nextElementSibling.textContent=gn.way+'。'})}
     function fmtD(d){return(d.getMonth()+1)+'/'+d.getDate()}
     function tripDates(){var inp=document.querySelector('.dpk'),s0=(inp&&inp.value)||art.dataset.start,d0=new Date(s0+'T12:00:00'),n=document.querySelectorAll('.day').length;return{d0:d0,dN:new Date(d0.getTime()+(n-1)*864e5),n:n}}
@@ -635,7 +635,7 @@
       if(!cs.length){mapbox.innerHTML='<p class="hint" style="padding:16px">没有符合的目的地</p>';return}
       var pts=cs.map(function(c){return{la:+c.dataset.lat,lo:+c.dataset.lng,n:c.dataset.name,f:c.querySelector('.fit').className,h:c.querySelector('a.ch').getAttribute('href')}});
       var la=pts.map(function(p){return p.la}),lo=pts.map(function(p){return p.lo}),cl=(Math.max.apply(0,la)+Math.min.apply(0,la))/2,k=Math.cos(cl*Math.PI/180);
-      var Wm=390,Hm=st.tab==='asia'?300:340,pad=34,sx=Math.max((Math.max.apply(0,lo)-Math.min.apply(0,lo))*k,1),sy=Math.max(Math.max.apply(0,la)-Math.min.apply(0,la),1),sc=Math.min((Wm-2*pad)/sx,(Hm-2*pad)/sy),cx=(Math.max.apply(0,lo)+Math.min.apply(0,lo))/2;
+      var Wm=390,Hm=st.tab!=='domestic'?300:340,pad=34,sx=Math.max((Math.max.apply(0,lo)-Math.min.apply(0,lo))*k,1),sy=Math.max(Math.max.apply(0,la)-Math.min.apply(0,la),1),sc=Math.min((Wm-2*pad)/sx,(Hm-2*pad)/sy),cx=(Math.max.apply(0,lo)+Math.min.apply(0,lo))/2;
       function P(p){return[Wm/2+(p.lo-cx)*k*sc,Hm/2-(p.la-cl)*sc]}
       var o='<svg viewBox="0 0 '+Wm+' '+Hm+'" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="'+(Wm-2)+'" height="'+(Hm-2)+'" fill="#efe9dc"/><rect x="6" y="6" width="'+(Wm-12)+'" height="'+(Hm-12)+'" fill="none" stroke="#1c1d1a" stroke-width="1.2" opacity=".55"/>',boxes=[];
       pts.sort(function(a,b){return(a.f==='fit'?0:1)-(b.f==='fit'?0:1)}).forEach(function(p){var q=P(p),col=p.f==='fit'?'#1c1d1a':/ok/.test(p.f)?'#4f6233':'#8d8f88',w=p.n.length*12+6;

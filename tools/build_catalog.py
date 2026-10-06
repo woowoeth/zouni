@@ -7,10 +7,10 @@ KIND={'beijing':'municipality','tianjin':'municipality','shanghai':'municipality
 def days(s):
     m=re.findall(r'\d+',s or ''); return {'min':int(m[0]),'max':int(m[-1])} if m else None
 T=TR['trips']; DEST=[]
-for scope in ('domestic','asia'):
+for scope in ('domestic','asia','world'):
     for x in D0[scope]:
         g=G.get(x['id'],{})
-        DEST.append({'id':x['id'],'name':x['name'],'scope':scope,'kind':'country' if scope=='asia' else KIND.get(x['id'],'province'),'region':x['region'],
+        DEST.append({'id':x['id'],'name':x['name'],'scope':scope,'kind':'country' if scope!='domestic' else KIND.get(x['id'],'province'),'region':x['region'],
           'base':{'name':x['base'],'lat':round(g.get('lat',0),3),'lng':round(g.get('lng',0),3),'elev':g.get('elev'),'geoSource':g.get('src','nominatim')},
           'months':{'best':sorted(x['best'])},'days':days(x['days']),'see':x['see'],'eat':x['eat'],
           'entry':x.get('visa') or x.get('entry') or None,
@@ -29,10 +29,10 @@ def quality_of(d):
     xs=sorted(xs,key=lambda q:(0 if '世界遗产' in q['tags'] else 1, 0 if q.get('covered') else 1, q['short']))
     return [{'n':q['short'],'w':'世界遗产' in q['tags'],'a':'5A' in q['tags'],'c':bool(q.get('covered'))} for q in xs]
 # 2 派生：去哪儿
-REG={'domestic':['华北','东北','华东','华中','华南','西南','西北','港澳台'],'asia':['东亚','东南亚','南亚','西亚','中亚']}
+REG={'domestic':['华北','东北','华东','华中','华南','西南','西北','港澳台'],'asia':['东亚','东南亚','南亚','西亚','中亚'],'world':['欧洲','北非','北美','大洋洲','拉美']}
 fmt=lambda p: '¥{:,}–{:,}'.format(p['lo'],p['hi']) if p.get('lo') else '另算'
 def trip_card(t): return {'name':t['name'],'days':t['days'],'price':fmt(t['price']),'feel':' · '.join(t['tags']),'href':t['page'] or '','blocked':t['status']=='blocked'}
-ATLAS={'regions':REG,'domestic':[],'asia':[]}
+ATLAS={'regions':REG,'domestic':[],'asia':[],'world':[]}
 for d in DEST:
     ATLAS[d['scope']].append({'id':d['id'],'name':d['name'],'region':d['region'],'base':d['base']['name'],'best':d['months']['best'],
       'days':(f"{d['days']['min']} 天" if d['days'] and d['days']['min']==d['days']['max'] else (f"{d['days']['min']}–{d['days']['max']} 天" if d['days'] else '—')),

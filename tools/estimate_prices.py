@@ -8,11 +8,11 @@ CAT = {d['id']: d for d in json.load(open('data/catalog/destinations.json'))['de
 G = json.load(open('data/geo/pois.json'))
 HUBS = {'北京': (39.9, 116.4), '上海': (31.23, 121.47), '广州': (23.13, 113.26), '成都': (30.66, 104.06), '西安': (34.34, 108.94), '昆明': (25.04, 102.71), '乌鲁木齐': (43.83, 87.62), '哈尔滨': (45.8, 126.53)}
 BIG = {'北京', '上海', '广州', '深圳', '杭州', '南京', '成都', '重庆', '武汉', '西安', '厦门', '苏州', '青岛', '天津', '长沙', '香港', '澳门'}
-ASIA_AIR = {'japan': (2200, 4000), 'korea': (1800, 3500), 'thailand': (1800, 3200), 'vietnam': (1600, 3000), 'singapore': (2000, 3500), 'malaysia': (1800, 3200),
+ASIA_AIR = {'france': (5000, 9000), 'italy': (5000, 9000), 'spain': (5500, 9500), 'iceland': (6500, 11000), 'morocco': (6000, 10000), 'japan': (2200, 4000), 'korea': (1800, 3500), 'thailand': (1800, 3200), 'vietnam': (1600, 3000), 'singapore': (2000, 3500), 'malaysia': (1800, 3200),
             'indonesia': (2500, 4500), 'cambodia': (2000, 3500), 'laos': (1800, 3200), 'philippines': (1800, 3500), 'nepal': (3000, 5000), 'bhutan': (5000, 8000),
             'india': (3000, 5500), 'maldives': (4000, 7000), 'uzbekistan': (3500, 6000), 'turkey': (4500, 7500), 'uae': (3500, 6000), 'mongolia': (2500, 4500)}
-ASIA_STAY = {'japan': (400, 700), 'korea': (300, 550), 'singapore': (450, 750), 'maldives': (800, 2000), 'bhutan': (600, 1200), 'uae': (450, 800), 'turkey': (300, 550)}
-ASIA_FOOD = {'japan': (250, 400), 'korea': (200, 350), 'singapore': (200, 350), 'uae': (250, 400), 'maldives': (300, 600)}
+ASIA_STAY = {'france': (700, 1300), 'italy': (600, 1200), 'spain': (500, 1000), 'iceland': (900, 1600), 'morocco': (300, 700), 'japan': (400, 700), 'korea': (300, 550), 'singapore': (450, 750), 'maldives': (800, 2000), 'bhutan': (600, 1200), 'uae': (450, 800), 'turkey': (300, 550)}
+ASIA_FOOD = {'france': (300, 600), 'italy': (250, 500), 'spain': (250, 450), 'iceland': (400, 700), 'morocco': (120, 250), 'japan': (250, 400), 'korea': (200, 350), 'singapore': (200, 350), 'uae': (250, 400), 'maldives': (300, 600)}
 
 
 def km(a, b):
@@ -34,7 +34,7 @@ for t in T['trips']:
     city = it['city']
     first = next((G.get((x.get('city') or city) + '|' + (s.get('q') or s['name'])) for x in it['days'] for s in x['stops'] if G.get((x.get('city') or city) + '|' + (s.get('q') or s['name']))), None)
     pt = (first['lat'], first['lng']) if first else (d['base']['lat'], d['base']['lng'])
-    if d['scope'] == 'asia':
+    if d['scope'] != 'domestic':
         air = ASIA_AIR.get(d['id'], (2500, 4500)); stay = ASIA_STAY.get(d['id'], (180, 380)); food = ASIA_FOOD.get(d['id'], (120, 220))
     else:
         dist = min(km(pt, h) for h in HUBS.values())
