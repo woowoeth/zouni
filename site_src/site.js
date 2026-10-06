@@ -68,12 +68,15 @@
   // ——— 常见问题：默认收起，点了展开 ———
   document.addEventListener('click',function(e){var b=e.target.closest('.faqmore');if(!b)return;var dl=b.parentNode.querySelector('dl');if(!dl)return;var open=dl.hidden;dl.hidden=!open;b.textContent=open?'收起 ‹':'看 '+dl.querySelectorAll('dt').length+' 个问题 ›';ztrack('看常见问题')});
 
+
+  // 打开 App：没装的话，过一会儿页面还在前台，就提示一句（不退回网页）
+  function zOpen(u,name){var t0=Date.now();location.href=u;setTimeout(function(){if(!document.hidden&&Date.now()-t0<3000&&typeof toast==='function')toast('没打开'+name+'，可能还没装这个 App')},1600)}
   // ——— 导航、订酒店、点评、小红书只走 App：电脑上和微信里打不开 App，就不放这些入口 ———
   var MOB=/iPhone|iPad|Android/i.test(navigator.userAgent),WXB=/MicroMessenger/i.test(navigator.userAgent);
   if(!MOB||WXB)document.documentElement.classList.add('noapp');
   if(WXB){try{if(!sessionStorage.getItem('zouni_wxtip')){sessionStorage.setItem('zouni_wxtip','1');setTimeout(function(){if(typeof toast==='function')toast('微信里打不开高德、携程、点评、小红书：点右上角 ··· 选“在浏览器打开”')},1200)}}catch(e){}}
   document.addEventListener('click',function(e){var a=e.target.closest('a.tl2,.stays .bk a.btn');if(!a||!MOB||WXB)return;   // 订酒店：在携程 App 里打开这家
-    e.preventDefault();try{location.href='ctrip://wireless/h5?url='+btoa(a.href)+'&type=2'}catch(x){}});
+    e.preventDefault();try{zOpen('ctrip://wireless/h5?url='+btoa(a.href)+'&type=2','携程旅行')}catch(x){}});
   // ——— 行程页 ———
   var art=document.querySelector('article.trip');
   if(art){
@@ -490,14 +493,14 @@
   }
 
   // ——— 地图图标：手机上直接调起高德 App（iOS / 安卓），打不开或在微信里就走网页 ———
-  document.addEventListener('click',function(e){var a=e.target.closest('a.ic.map[data-ios]');if(!a)return;var ua=navigator.userAgent,ios=/iPhone|iPad|iPod/i.test(ua),and=/Android/i.test(ua);if((!ios&&!and)||/MicroMessenger/i.test(ua))return;
+  document.addEventListener('click',function(e){var a=e.target.closest('a.ic.map[data-ios],a.tvnav[data-ios]');if(!a)return;var ua=navigator.userAgent,ios=/iPhone|iPad|iPod/i.test(ua),and=/Android/i.test(ua);if((!ios&&!and)||/MicroMessenger/i.test(ua))return;
     e.preventDefault();var web=a.href,gone=false,t0=Date.now();function hid(){if(document.hidden)gone=true}document.addEventListener('visibilitychange',hid);
-    location.href=ios?a.dataset.ios:a.dataset.and});   // 只走高德 App，不退回网页
+    zOpen(ios?a.dataset.ios:a.dataset.and,'高德地图')});   // 只走高德 App，不退回网页
   // ——— 点评：手机上先试 App，打不开（或在微信里）再去网页 ———
   document.addEventListener('click',function(e){var a=e.target.closest('a.dp[data-app],a.xhs[data-app]');if(!a)return;   // 点评、小红书一样：手机上先试 App
     var mobile=/iPhone|iPad|Android/i.test(navigator.userAgent),wx=/MicroMessenger/i.test(navigator.userAgent);if(!mobile||wx)return;
     e.preventDefault();var web=a.href,t=Date.now(),gone=false;function hid(){gone=true}document.addEventListener('visibilitychange',hid,{once:true});
-    location.href=a.dataset.app});   // 只走 App，不退回网页
+    zOpen(a.dataset.app,a.classList.contains('xhs')?'小红书':'大众点评')});   // 只走 App，不退回网页
   // ——— 本期：按出发日期和“我有几天”挑；快过季的先放三条，其余有海报的精编线路在前 ———
   var dc=document.querySelector('.dchips');
   if(dc){var ol=document.querySelector('.now .items'),lis=[].slice.call(ol.children),mb=document.querySelector('.moreb'),band='',all=false,W='日一二三四五六';
