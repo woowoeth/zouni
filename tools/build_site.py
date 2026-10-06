@@ -1251,7 +1251,7 @@ if __name__ == '__main__':
         if os.path.exists('site_src/' + f): shutil.copy('site_src/' + f, os.path.join(OUT, f))
     for f in ('icon-192.png', 'icon-512.png'):
         if os.path.exists('site_src/' + f): shutil.copy('site_src/' + f, os.path.join(OUT, 'img', f))
-    for f in ('site.css', 'site.js', 'favicon.svg', 'og.png'):
+    for f in ('site.css', 'site.js', 'favicon.svg', 'og.png', 'qr.js'):
         src = os.path.join('site_src', f)
         if os.path.exists(src): shutil.copy(src, os.path.join(OUT, 'img' if f in ('favicon.svg', 'og.png') else 'assets', f))
     trip_desc = {rid: trip_page(rid) for rid in ROUTE_IDS}

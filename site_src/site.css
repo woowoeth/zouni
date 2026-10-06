@@ -444,3 +444,5 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .nearr li a{display:block;padding:12px 0;border-top:1px solid var(--line);color:var(--ink)}.nearr b{display:block;font:900 16px/1.4 var(--serif)}.nearr span{display:block;margin-top:2px;font-size:13px;color:#3d3f3a}.nearr small{display:block;margin-top:2px;font-size:12px;color:var(--sub)}
 .nearr+.morelink{padding-top:12px}
 @media print{.nearr{display:none}}
+
+@media print{body,.wrap,main,article,.trip{max-width:none!important;width:auto!important;margin:0!important}.hero-t,.glance,.pre,.overview,.day,.nearr{max-width:none!important}}
