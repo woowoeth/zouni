@@ -244,6 +244,11 @@ SIGHT = {
     '周口店北京人遗址': '北京人头盖骨出土的地方', '元上都遗址': '元朝的夏都，世界遗产', '冲古寺': '亚丁景区的入口寺院', '洛绒牛场': '看央迈勇雪山的草甸', '牛奶海': '亚丁海拔 4,600 米的冰川湖',
     '岚山竹林': '高高的竹林小径，早上人少',
     '石头城': '帕米尔高原上的古城遗址',
+    '稻河古街区': '泰州老城沿河的街区', '望海楼': '泰州的城标，傍晚好看', '千垛景区': '垛田上开满油菜花，坐船进去看', '李中水上森林': '水杉长在水里的森林', '石浦渔港古城': '依山而建的渔港老街',
+    '中国渔村': '象山海边看渔船的地方', '蛇蟠岛': '三门的海岛，有千洞之岛的说法', '遂昌金矿国家矿山公园': '千年金矿遗址，能下矿洞', '南尖岩': '看云海和梯田的山头', '诺邓古村': '千年盐井古村，诺邓火腿的产地',
+    '太极图观景台': '沘江弯出一个天然太极图', '诺邓盐井': '还能看到古盐井和盐课司', '阳岭国家森林公园': '崇义城边的森林公园', '上堡梯田': '客家人开垦的梯田，世界灌溉工程遗产', '天鹅湖国家城市湿地公园': '冬天上万只白天鹅来过冬',
+    '虢国博物馆': '虢国墓地出土的青铜器', '陕州地坑院': '挖在地下的窑洞院子，在里面吃十碗席', '新会陈皮村': '新会陈皮的集散地，能看晒陈皮', '小鸟天堂': '巴金写过的大榕树，傍晚看鸟归巢', '梁启超故居': '茶坑村，梁启超出生的地方',
+    '崖门古炮台': '宋元崖门海战的地方', '西津渡': '镇江的千年古渡口老街', '金山寺': '白娘子水漫金山的金山寺', '北固山': '“何处望神州，满眼风光北固楼”', '焦山': '江心岛，碑林里有《瘗鹤铭》',
     '黄山': '奇松怪石云海温泉，世界遗产',
     '香料市场': '伊斯坦布尔老城的香料和土耳其软糖', '骑楼老街': '海口南洋风格的骑楼街', '延边大学': '延吉网红打卡地，对面是朝鲜族小吃', '乌尔禾镇': '魔鬼城边的小镇', '藏家乐篝火晚会': '藏族人家的歌舞和锅庄',
     '大庸古城': '张家界城里的仿古夜景街区', '西九龙站': '香港高铁站', '玉屏索道': '黄山前山的索道，迎客松在附近', '中山路': '青岛最老的商业街', '汝矣岛汉江公园': '首尔汉江边，春天看樱花',
@@ -872,9 +877,9 @@ ORIGINS = {'北京': (39.90, 116.40), '上海': (31.23, 121.47), '广州': (23.1
            '厦门': (24.48, 118.09), '昆明': (25.04, 102.71), '沈阳': (41.80, 123.43), '青岛': (36.07, 120.38), '香港': (22.32, 114.17)}
 
 
-def go_info(r, t, d0):
+def go_info(r, t, d0, rid=None):
     """怎么去、怎么回：离得最近的大城市出发（网页里会换成用户自己的出发地）"""
-    c = route_center(r.get('id') or '') if r.get('id') else None
+    c = route_center(rid) if rid else None
     p0 = day_point(r, 0) or c
     if not p0: return None
     o, dk = min(((nm, _km(xy, p0)) for nm, xy in ORIGINS.items()), key=lambda x: x[1])
@@ -937,7 +942,7 @@ def sj_for_trip(rid, r):
     used = set(); out = {}
     tt = TRIP_OF_ROUTE.get(rid) or {}; prov = (DEST.get(tt.get('dest'), {}) or {}).get('name', ''); cross = bool(set(tt.get('tags') or []) & {'跨省', '全国'})
     for k, d in enumerate(r['days']):
-        txt = ' '.join(str(d.get(f) or '') for f in ('city', 'navCity', 'title', 'stayName'))
+        txt = ' '.join(str(d.get(f) or '') for f in ('city', 'navCity', 'title', 'stayName')) + ' ' + ' '.join((w.get('name') or w.get('to') or '') for w in d['rows'] if w['type'] in ('see', 'fun', 'dep'))   # 当天去的地方也算（香港那条去了大澳）
         for i, x in enumerate(SJ):
             if i in used or x['place'] in SJ_VAGUE: continue
             if not cross and x['prov'] != prov and not (x['prov'] in ('香港', '澳门') and prov in ('香港', '澳门', '广东')): continue
@@ -953,7 +958,7 @@ def sj_for_dest(name):
 
 def trip_page(rid):
     r = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}; d0 = DEST.get(t.get('dest'), {})
-    _g = go_info(dict(r, id=rid), t, d0)
+    _g = go_info(r, t, d0, rid)   # 不能传临时拷贝：day_point 按对象 id 缓存，临时对象的 id 会被别的线复用，算出别的线的坐标
     _sj = sj_for_trip(rid, r)
     sd = start_date(r); dates = [sd + datetime.timedelta(days=i) for i in range(len(r['days']))]
     md = lambda x: f'{x.month}/{x.day}'
