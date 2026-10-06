@@ -431,7 +431,10 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 @media (max-width:359px){.dock .fav span{display:none}.dock .fav{padding:0 14px}.dock .tvbtn{padding:0 10px;font-size:14px}.dock small{font-size:11px}}
 .tf{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:10px -20px 4px;padding:0 20px}.tf::-webkit-scrollbar{display:none}
 .tf button{flex:0 0 auto;height:34px;padding:0 12px;border:0;background:var(--card);font-size:13px;color:var(--ink);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}.tf button.on{background:var(--ink);color:var(--bg);font-weight:700}
-.rmorig{display:block;margin:18px auto 0;height:36px;padding:0 14px;border:0;background:none;font-size:13px;color:var(--sub);text-decoration:underline;cursor:pointer;-webkit-appearance:none;appearance:none}
+
 .rmnote{margin:8px 0 0;font-size:13px;color:var(--sub)}.rmnote .rmback{margin-left:6px;height:30px;padding:0 10px;border:0;background:var(--card);font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}
 @media print{.rmorig,.rmnote .rmback{display:none!important}}
 .tvhint{margin:18px 0 0;font-size:12px;color:var(--sub);text-align:center}
+.rmday{display:inline-flex;align-items:center;-webkit-appearance:none;appearance:none;border-radius:0}
+.xd button.had{opacity:.55;cursor:default}.hadt{margin-left:8px;padding:1px 6px;background:var(--ink);color:var(--bg);font-size:11px;font-weight:700;vertical-align:middle}
+@media print{.rmday{display:none!important}}

@@ -165,7 +165,7 @@
           var h=document.querySelector('.overview h2');if(h)h.textContent=secs.length+' 天，怎么排';
           applyStart(dk.value);setTimeout(todayBar,0);redrawMap()}
         function dayShell(x,title,body){var sec=document.createElement('section');sec.className='day xday';sec.dataset.extra=x;
-          sec.innerHTML='<header><span class="no"></span><div><small>第几天 · </small><h2>'+title+'</h2></div></header>'+body+'<button type="button" class="rmday">去掉这天</button>';return sec}
+          sec.innerHTML='<header><span class="no"></span><div><small>第几天 · </small><h2>'+title+'</h2></div></header>'+body+'<button type="button" class="rmday">去掉这一天</button>';return sec}
         function place(sec){var orig=[].slice.call(document.querySelectorAll('.day:not(.xday)')),last=orig[orig.length-1];last.parentNode.insertBefore(sec,last);
           sec.querySelector('.rmday').addEventListener('click',function(){var xs=ld(ek).filter(function(e){return e.x!==sec.dataset.extra});sv(ek,xs);sec.remove();renum();toast('去掉了')})}
         function build(e){if(e.k==='free'){place(dayShell(e.x,'自由活动','<p class="lead">这天不排行程：睡到自然醒，在住的地方附近走走，补补觉，或者把前几天没逛够的地方再去一次。</p>'));return Promise.resolve()}
@@ -195,9 +195,10 @@
           var groups={};cands.forEach(function(c){(groups[c.label]=groups[c.label]||[]).push(c)});
           var stc=document.querySelector('.addday').dataset.city||'这里';
           sh.innerHTML='<div class="pk-h"><b>加一天</b><button type="button" class="pk-x">关上</button></div><p class="xnote">加的一天放在最后一天（回程）前面</p><div class="xd"><button type="button" data-free="1"><b>在'+stc+'多留一天</b><small>自由活动，不排行程</small></button>'+
-            (cands.length?'<p class="xg">附近 100 公里内可以接上的一天</p>'+cands.map(function(c){return'<button type="button" data-rid="'+c.rid+'" data-i="'+c.i+'" data-l="'+c.label+'" data-km="'+c.km+'" data-lat="'+(c.lat||'')+'" data-lng="'+(c.lng||'')+'"><b>'+c.title+'</b><small>来自「'+c.label+'」第 '+(c.i+1)+' 天 · 离住处约 '+c.km+' 公里</small></button>'}).join(''):'<p class="xg">附近没有合适的线路可以接，可以先选多留一天</p>')+'</div>';
+            (cands.length?'<p class="xg">附近 100 公里内可以接上的一天</p>'+cands.map(function(c){var had=ld(ek).some(function(x){return x.k==='r'&&x.rid===c.rid&&+x.i===+c.i});return'<button type="button"'+(had?' disabled class="had"':'')+' data-rid="'+c.rid+'" data-i="'+c.i+'" data-l="'+c.label+'" data-km="'+c.km+'" data-lat="'+(c.lat||'')+'" data-lng="'+(c.lng||'')+'"><b>'+c.title+(had?'<span class="hadt">已加</span>':'')+'</b><small>来自「'+c.label+'」第 '+(c.i+1)+' 天 · 离住处约 '+c.km+' 公里</small></button>'}).join(''):'<p class="xg">附近没有合适的线路可以接，可以先选多留一天</p>')+'</div>';
           function close(){mask.remove();sh.remove();document.body.classList.remove('pk-open')}
-          sh.addEventListener('click',function(ev){var b=ev.target.closest('button');if(!b)return;if(b.classList.contains('pk-x'))return close();
+          sh.addEventListener('click',function(ev){var b=ev.target.closest('button');if(!b||b.disabled)return;if(b.classList.contains('pk-x'))return close();
+            if(!b.dataset.free&&ld(ek).some(function(x){return x.k==='r'&&x.rid===b.dataset.rid&&+x.i===+b.dataset.i})){toast('这一天已经加过了');return}
             var e=b.dataset.free?{k:'free',x:'f'+Date.now()}:{k:'r',x:'r'+Date.now(),rid:b.dataset.rid,i:+b.dataset.i,label:b.dataset.l,km:+(b.dataset.km||0),lat:+(b.dataset.lat||0),lng:+(b.dataset.lng||0)};var xs=ld(ek);xs.push(e);sv(ek,xs);close();
             build(e).then(function(){renum();var s=document.querySelector('.day[data-extra="'+e.x+'"]');if(s)s.scrollIntoView();toast('加好了，日期和底栏都跟着变了')})});
           mask.addEventListener('click',close);document.body.appendChild(mask);document.body.appendChild(sh);document.body.classList.add('pk-open')})}
