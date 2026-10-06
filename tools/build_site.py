@@ -494,7 +494,8 @@ def row_html(w, city, app):
     ic = icons(kw, city, app, w.get('dp'), w.get('nav'), w.get('navp')) if kw else ''
     if t == 'eat' and not kw:   # 没有具体地方的饭：只放点评，按“城市 + 菜名”找
         ic = f'<a class="ic dp" href="{E(dpurl(w.get("dish") or "", city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote((city or "") + " " + (w.get("dish") or "")))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上找 {E(w.get("dish"))}">{ICON_DP}</a>'
-    return f'<li class="r {t}"><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">{main}{ic}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
+    da = (f' data-at="{E(w["at"])}"' if w.get('at') else '') + (f' data-meal="{"l" if w.get("slot") == "午饭" else "d" if w.get("slot") == "晚饭" else "b"}"' if t == 'eat' else '')
+    return f'<li class="r {t}"{da}><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">{main}{ic}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
 
 
 WEEK = '一二三四五六日'
@@ -683,7 +684,7 @@ def trip_page(rid):
         facts = [('出发', first or '—')]
         if d.get('driveMin'): facts.append(('开车', hrs(d['driveMin'])))
         if (d.get('elev') or 0) >= 1500: facts.append(('高海拔' if d['elev'] >= 3000 else '海拔', f'{d["elev"]:,}'))
-        fx = ''.join(f'<div class="fx"><small>{k}</small><b>{E(v)}</b></div>' for k, v in facts)
+        fx = ''.join((f'<div class="fx"><small>{k}</small><span class="st" role="button" tabindex="0" data-day="{i}" aria-label="改这天的出发时间"><b>{E(v)}</b><i>改</i></span></div>' if k == '出发' and re.match(r'^\d\d:\d\d$', v or '') else f'<div class="fx"><small>{k}</small><b>{E(v)}</b></div>') for k, v in facts)
         tz_ = TZ.get(t.get('dest'), 8)
         fx += f'<div class="fx"><small>日出</small><b class="sun" data-lat="{d["lat"]}" data-lng="{d["lng"]}" data-tz="{tz_}" data-date="{dates[i].isoformat()}" data-k="rise">—</b></div><div class="fx"><small>日落</small><b class="sun" data-lat="{d["lat"]}" data-lng="{d["lng"]}" data-tz="{tz_}" data-date="{dates[i].isoformat()}" data-k="set">—</b></div>'
         stays = ''

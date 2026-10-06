@@ -143,7 +143,7 @@ for rid, it in IT.items():
                 if slot == '午饭': lunched = True
                 if slot == '晚饭': dined = True
             else:
-                rows.append({'t': hm(t), 'type': 'fun' if st['type'] == 'fun' else 'see', 'name': st['name'], 'd': dur_txt(du), 'poi': st.get('q') or st['name'], 'dp': dp(dcity, short(st['name']))})
+                rows.append({'t': hm(t), 'type': 'fun' if st['type'] == 'fun' else 'see', 'name': st['name'], 'd': dur_txt(du), 'poi': st.get('q') or st['name'], 'dp': dp(dcity, short(st['name'])), **({'at': st['at']} if st.get('at') else {})})
                 if not lunched and t < 12 * 60 and t + du > 13 * 60:   # 逛得久、跨过中午：在里面简单吃
                     rows.append({'t': hm(max(t + 60, 12 * 60 + 15)), 'type': 'eat', 'slot': '午饭', 'dish': '简单吃一点', 'place': short(st['name']) + '里面', 'd': '', 'poi': '', 'dp': ''}); lunched = True
             t += du; prev = pt or prev
