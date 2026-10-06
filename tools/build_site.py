@@ -606,7 +606,7 @@ def add_cands(rid, r):
             if dist > 100: continue
             names = [w.get('name') for w in dd['rows'] if w['type'] in ('see', 'fun')]
             if not names or sum(1 for x in names if core(x) in mine) >= max(1, len(names) // 2 + (len(names) % 2)): continue   # 一半以上已经在这条线里，就不推荐
-            out.append({'rid': o, 'label': rr.get('label'), 'i': k, 'title': ttl, 'km': round(dist)})
+            out.append({'rid': o, 'label': rr.get('label'), 'i': k, 'title': ttl, 'km': round(dist), 'lat': round(pt[0], 4), 'lng': round(pt[1], 4)})
     out.sort(key=lambda x: x['km'])
     seen = set(); res = []
     for x in out:
@@ -639,7 +639,7 @@ def price_k(p):
     """¥2,800–3,800 → ¥2.8–3.8K（短，放得下）"""
     ns = [int(x.replace(',', '')) for x in re.findall(r'\d[\d,]*', p or '')]
     if not ns: return p or ''
-    return '¥' + (kfmt(ns[0]) + '–' + kfmt(ns[1]) if len(ns) > 1 else kfmt(ns[0])) + 'K'
+    return '¥' + (kfmt(ns[0]) + 'K–' + kfmt(ns[1]) + 'K' if len(ns) > 1 else kfmt(ns[0]) + 'K')
 
 
 def trip_page(rid):
@@ -962,9 +962,12 @@ def hand_map(r):
         days.append(pts)
     t = TRIP_OF_ROUTE.get(r.get('id') or '') or {}
     home = (DEST.get(t.get('dest'), {}) or {}).get('name')
-    svg, legend = mapdraw.render(days, r['title'], home=home, uid=re.sub(r'\W', '', r.get('id') or 'm'))
+    svg, legend, pos = mapdraw.render(days, r['title'], home=home, uid=re.sub(r'\W', '', r.get('id') or 'm'))
     if not svg: return ''
-    return svg + ('<p class="hlegend">' + ''.join(f'<span><b>{k + 1}</b>{E("、".join(ns))}</span>' for k, ns in enumerate(legend) if ns) + '</p>' if any(legend) else '')
+    titles = [re.sub(r'\s*·\s*回程$|^回程$', '', d.get('title') or '').strip() or ('、'.join(ns) if ns else '') for d, ns in zip(r['days'], legend)]
+    data = json.dumps([[p_[0], p_[1], tt] if p_ else None for p_, tt in zip(pos, titles)], ensure_ascii=False)
+    svg = svg.replace('<svg ', f'<svg data-days=\'{E(data)}\' ', 1)
+    return svg + '<p class="hlegend">' + ''.join(f'<span><b>{k + 1}</b>{E(tt)}</span>' for k, tt in enumerate(titles) if tt) + '</p>'
 
 
 def dest_map(did, d):

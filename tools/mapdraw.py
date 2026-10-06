@@ -68,10 +68,25 @@ def smooth(pts):
     return d
 
 
+def day_marks(ms):
+    """天数圆章：离得近（16 像素内）的合成一个，写“1·5”"""
+    groups = []
+    for x, y, n_ in ms:
+        g = next((g for g in groups if abs(g[0] - x) < 16 and abs(g[1] - y) < 16), None)
+        if g: g[2].append(n_)
+        else: groups.append([x, y, [n_]])
+    out = []; boxes = []
+    for x, y, ns in groups:
+        t = '·'.join(str(v) for v in sorted(ns)); w = max(17, 7 + len(t) * 6.2)
+        out.append(f'<rect x="{x - w / 2:.1f}" y="{y - 8.5:.1f}" width="{w:.1f}" height="17" rx="8.5" fill="#a63d27" stroke="#fff" stroke-width="1.5"/><text x="{x:.1f}" y="{y + 3.6:.1f}" text-anchor="middle" font-family="Noto Sans SC,sans-serif" font-size="10" font-weight="700" fill="#fff">{t}</text>')
+        boxes.append((x - w / 2 - 1, y - 9, x + w / 2 + 1, y + 9))
+    return ''.join(out), boxes
+
+
 def render(days, title, home=None, W=390, H=290, uid='m'):
     """days: [[(lat, lng, 名字, 类型), ...], ...]；home: 本省 / 本国名字（底图上深一点）"""
     allp = [p for d in days for p in d]
-    if len(allp) < 2: return '', []
+    if len(allp) < 2: return '', [], []
     lats = [p[0] for p in allp]; lngs = [p[1] for p in allp]
     my0, my1 = merc(min(lats)), merc(max(lats)); x0, x1 = min(lngs), max(lngs)
     span_x = max(x1 - x0, .12); span_y = max(my1 - my0, .12)
@@ -83,6 +98,7 @@ def render(days, title, home=None, W=390, H=290, uid='m'):
     vx0 = cx - (W / 2) / sc - 1; vx1 = cx + (W / 2) / sc + 1
     o = [f'<svg viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{E(title)} 路线示意图">',
          f'<defs><clipPath id="c{uid}"><rect width="{W}" height="{H}"/></clipPath></defs><rect width="{W}" height="{H}" fill="#e5ebeb"/><g clip-path="url(#c{uid})">']
+    o[0] = o[0].replace('<svg ', f'<svg data-cx="{cx:.5f}" data-cy="{cy:.5f}" data-sc="{sc:.3f}" data-w="{W}" data-h="{H}" ', 1)
     eps = 0.9
     for nm, src, ring, (bx0, by0, bx1, by1) in load_base():
         if bx1 < vx0 or bx0 > vx1: continue
@@ -97,8 +113,10 @@ def render(days, title, home=None, W=390, H=290, uid='m'):
     # 路线
     seq = [(P(la, lo), nm, tp, di) for di, d in enumerate(days) for (la, lo, nm, tp) in d]
     xy = [s[0] for s in seq]
-    o.append(f'<path d="{smooth(xy)}" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".85" vector-effect="non-scaling-stroke"/>')
-    o.append(f'<path d="{smooth(xy)}" fill="none" stroke="#a63d27" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>')
+    line = 'M' + ' L'.join(f'{x:.1f},{y:.1f}' for x, y in xy)
+    o.append(f'<path d="{line}" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" opacity=".85" vector-effect="non-scaling-stroke"/>')
+    o.append(f'<path d="{line}" fill="none" stroke="#a63d27" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>')
+    o.append('<g class="xl"></g>')
     boxes = [(10, H - 30, 150, H - 6), (W - 36, 8, W - 6, 44)]
     legend = []; marks = []
     for (x, y), nm, tp, di in seq:
@@ -106,9 +124,8 @@ def render(days, title, home=None, W=390, H=290, uid='m'):
     firsts = {}
     for (x, y), nm, tp, di in seq:
         if di not in firsts: firsts[di] = (x, y)
-    for di, (x, y) in firsts.items():
-        o.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="8.5" fill="#a63d27" stroke="#fff" stroke-width="1.5"/><text x="{x:.1f}" y="{y + 3.6:.1f}" text-anchor="middle" font-family="Noto Sans SC,sans-serif" font-size="10" font-weight="700" fill="#fff">{di + 1}</text>')
-        boxes.append((x - 9, y - 9, x + 9, y + 9))
+    marks_svg, mboxes = day_marks([(firsts[di][0], firsts[di][1], di + 1) for di in sorted(firsts)])
+    o.append('<g class="dms">' + marks_svg + '</g>'); boxes += mboxes
     # 地名：每个景点一次，放不下的进图下列表
     seen = set()
     for (x, y), nm, tp, di in seq:
@@ -141,7 +158,8 @@ def render(days, title, home=None, W=390, H=290, uid='m'):
         for (la, lo, nm, tp) in d:
             if nm and tp in ('see', 'fun') and nm not in ns: ns.append(nm)
         byday.append(ns)
-    return ''.join(o), byday
+    pos = [[round(firsts[di][0], 1), round(firsts[di][1], 1)] if di in firsts else None for di in range(len(days))]
+    return ''.join(o), byday, pos
 
 
 def render_points(pts, title, home=None, dots=(), W=390, H=300, uid='d'):
