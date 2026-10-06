@@ -438,3 +438,4 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .rmday{display:inline-flex;align-items:center;-webkit-appearance:none;appearance:none;border-radius:0}
 .xd button.had{opacity:.55;cursor:default}.hadt{margin-left:8px;padding:1px 6px;background:var(--ink);color:var(--bg);font-size:11px;font-weight:700;vertical-align:middle}
 @media print{.rmday{display:none!important}}
+.todoall{justify-content:space-between}.todoall i{font-style:normal;font-size:18px;color:var(--sub)}

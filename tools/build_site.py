@@ -787,6 +787,14 @@ def near_for(r):
     return out[:30]
 
 
+def addday_city(r, SF):
+    """加一天时“在哪多留一天”：住处名像酒店（酒店、宾馆、民宿、客栈……）就用城市名"""
+    nm = (SF[-2][0] if len(SF) > 1 and SF[-2][0] else '') or ''
+    city = (r['days'][-2].get('navCity') or r['days'][-2].get('city')) if len(r['days']) > 1 else (r['days'][0].get('navCity') or r['days'][0].get('city'))
+    if not nm or re.search(r'酒店|宾馆|饭店|民宿|客栈|旅舍|度假村|山庄|公寓', nm): return city or nm
+    return nm
+
+
 def trip_page(rid):
     r = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}; d0 = DEST.get(t.get('dest'), {})
     sd = start_date(r); dates = [sd + datetime.timedelta(days=i) for i in range(len(r['days']))]
@@ -808,7 +816,7 @@ def trip_page(rid):
             bk = book_of(w.get('name')) if w['type'] in ('see', 'fun') else None
             if bk and not any(bk[0] in x for x in prep_items): prep_items.append(bk[1])
     _bk = lambda x: next((k for k in BOOK if k in x), None)
-    _act = lambda x: bool(re.search(r'预约|买票|门票|放票|抢票|船票|提前|订|办|签证|提车|还车|实名|查路况|看景区公告|身份证|证件|防晒|电池|外套|雨具|带伞|现金|保险', x)) and not re.search(r'带孩子|^[^办]*免签$', x)
+    _act = lambda x: bool(re.search(r'预约|买.{0,8}票|门票|放票|抢票|船票|提前|订|办|签证|提车|还车|实名|查路况|看景区公告|身份证|证件|防晒|电池|外套|雨具|带伞|现金|保险', x)) and not re.search(r'带孩子|^[^办]*免签$', x)
     prep = ''.join((f'<li><label><input type="checkbox" data-k="{i}"><span>{E(x)}</span></label>{book_link(_bk(x)) if _bk(x) else ""}</li>' if _act(x) else f'<li class="tip"><span>{E(x)}</span></li>') for i, x in enumerate(prep_items)) + ''.join(f'<li class="fit">{E(x)}</li>' for x in r.get('fit') or [])
     def firstdep(d):
         w = next((w for w in d['rows'] if w['type'] == 'dep'), None); return w['t'] if w else ''
@@ -902,7 +910,7 @@ def trip_page(rid):
             f'<script type="application/json" id="cands">{json.dumps(add_cands(rid, r), ensure_ascii=False).replace("</", "<\\/")}</script>'
             f'<script type="application/json" id="indoor">{json.dumps(indoor_near(r), ensure_ascii=False).replace("</", "<\\/")}</script>'
             f'<script type="application/json" id="nearby">{json.dumps(near_for(r), ensure_ascii=False).replace("</", "<\\/")}</script>'
-            f'<section class="overview{" folded" if n > 10 else ""}"><h2>{n} 天，怎么排</h2><ol>{over}</ol>{f'<button type="button" class="ovmore">看全部 {n} 天</button>' if n > 10 else ''}{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{"".join(days)}<div class="addday" data-city="{E((STAYFIX[-2][0] if len(STAYFIX) > 1 and STAYFIX[-2][0] else (r['days'][-2].get('city') if len(r['days']) > 1 else r['days'][0].get('city'))) or '')}"><button type="button" class="add">＋ 加一天</button></div>{dest_link}{dock}</article>')
+            f'<section class="overview{" folded" if n > 10 else ""}"><h2>{n} 天，怎么排</h2><ol>{over}</ol>{f'<button type="button" class="ovmore">看全部 {n} 天</button>' if n > 10 else ''}{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{"".join(days)}<div class="addday" data-city="{E(addday_city(r, STAYFIX))}"><button type="button" class="add">＋ 加一天</button></div>{dest_link}{dock}</article>')
     crumbs = [('首页', '/'), ('去哪儿', '/where/')] + ([(d0['name'], f'/d/{t["dest"]}/')] if d0 else []) + [(r.get('label') or r['title'], f'/trip/{rid}/')]
     img = '/img/' + (r.get('img') or '').replace('/_blob/', '') + '.svg' if r.get('img') else None
     write(f'/trip/{rid}/', page(f'/trip/{rid}/', f'{r.get("label") or r["title"]}行程：{r["title"]} | 走你', desc, body, [ld], img, crumbs))
@@ -1117,6 +1125,11 @@ def hand_map(r):
         days.append(pts)
     t = TRIP_OF_ROUTE.get(r.get('id') or '') or {}
     home = (DEST.get(t.get('dest'), {}) or {}).get('name')
+    _pts = [(a, b_) for d_ in days for (a, b_, nm_, tp_) in d_]
+    _named = {nm_ for d_ in days for (a, b_, nm_, tp_) in d_ if nm_}
+    if _pts:
+        _span = max(_km(p1, p2) for p1 in _pts for p2 in _pts) if len(_pts) > 1 else 0
+        if _span < 15 and len(_named) < 5: return ''          # 城里两三个点，画出来是一块空底色加一条线，不如不画
     svg, legend, pos = mapdraw.render(days, r['title'], home=home, uid=re.sub(r'\W', '', r.get('id') or 'm'))
     if not svg: return ''
     titles = [re.sub(r'\s*·\s*回程$|^回程$', '', d.get('title') or '').strip() or ('、'.join(ns) if ns else '') for d, ns in zip(r['days'], legend)]
