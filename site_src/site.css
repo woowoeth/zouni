@@ -455,3 +455,9 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .tvnext .tvlate{display:block;margin-top:8px;height:40px;padding:0 14px;border:0;background:var(--bg);color:var(--ink);font-size:14px;font-weight:700;cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}
 .todoall.tvcal{margin:10px 0 0;background:var(--card)}
 @media print{.faq{break-inside:avoid}.tvlate,.tvcal{display:none!important}}
+
+/* 《舌尖上的中国》：每天一行（和天气那行同一个样式）、目的地页“吃”下面一段、合集页 */
+.day .sjn{margin:4px 0 0;font-size:13px;line-height:1.6;color:var(--ink)}.day .sjn b{margin-right:6px;font-weight:700;color:var(--red)}
+.se .sjd{margin:8px 0 0;font-size:13px;line-height:1.7;color:#3d3f3a}.se .sjd b{margin-right:6px;color:var(--red)}.se .sjd a{font-weight:700;color:var(--red)}
+.sjs{padding:24px 20px 0}.sjs h2{margin:0;font:900 22px var(--serif)}.sjs h3{margin:16px 0 4px;font-size:13px;font-weight:700;color:var(--red);letter-spacing:.06em}
+.sjl{list-style:none;margin:0;padding:0}.sjl li{padding:10px 0;border-top:1px solid var(--line)}.sjl b{display:block;font:900 16px/1.4 var(--serif)}.sjl span{display:block;font-size:13px;color:#3d3f3a}.sjl small{display:block;margin-top:2px;font-size:13px}.sjl small a{margin-right:10px;font-weight:700;color:var(--red)}
