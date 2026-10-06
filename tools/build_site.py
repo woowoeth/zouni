@@ -519,13 +519,18 @@ def row_html(w, city, app):
         main = E(w.get('name')); sub = ' · '.join(x for x in [E(w.get('d')), E(w.get('kb'))] if x); kw = w.get('poi')
         mu = museum_of(w.get('name')) or museum_of(w.get('poi'))
         bk_ = book_of(w.get('name')); sg_ = sight_of(w.get('name')); tx_ = tix_of(w.get('name'))
-        if tx_: sub = (sub + '</p><p class="s tix">' if sub else '') + E(' · '.join(x for x in [('门票 ' + tx_['t']) if tx_.get('t') else '', ('开放 ' + tx_['h']) if tx_.get('h') else '', tx_.get('c', '')] if x)) + '<i>参考，以官方为准</i>'
+        if tx_:
+            _tt = re.sub(r'（要(实名)?预约）', '', tx_.get('t') or '') if bk_ else (tx_.get('t') or '')   # 上面已经写了“要预约”
+            sub = (sub + '</p><p class="s tix">' if sub else '') + E(' · '.join(x for x in [('门票 ' + _tt) if _tt else '', ('开放 ' + tx_['h']) if tx_.get('h') else '', tx_.get('c', '')] if x)) 
         if sg_ and not (mu and mu['treasures']): sub = (sub + '</p><p class="s sn2">' if sub else '') + E(sg_)
         if mu and mu['treasures']:
             main += '<span class="gb">国宝</span>'
             note_ = re.sub(r'，?(要提前预约|要预约)', '', mu.get('note') or '').strip('，')
             sub = (sub + '</p><p class="s tre">' if sub else '') + '<b>镇馆之宝</b>' + E('、'.join(mu['treasures'])) + (('，' + E(note_)) if note_ else '')
-        if bk_: sub = '<em class="bkn">要预约</em>' + book_link(bk_[0]) + (' · ' if sub else '') + sub
+        if bk_:
+            u_ = BOOK_URL.get(bk_[0]); h_ = BOOK_HOW.get(bk_[0], '')
+            tag_ = (f'<a class="bkn bkl" href="{E(u_)}" rel="nofollow noopener" target="_blank">要预约 ›</a>' if u_ else f'<em class="bkn" data-how="{E(h_)}">要预约{("（" + ("小程序" if "小程序" in h_ else "公众号") + "）") if h_ else ""}</em>')
+            sub = tag_ + (' · ' if sub else '') + sub
     ic = icons(kw, city, app, w.get('dp'), w.get('nav'), w.get('navp')) if kw else ''
     if t == 'eat' and not kw:   # 没有具体地方的饭：只放点评，按“城市 + 菜名”找
         ic = f'<a class="ic dp" href="{E(dpurl(w.get("dish") or "", city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote((city or "") + " " + (w.get("dish") or "")))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上找 {E(w.get("dish"))}">{ICON_DP}</a>'
@@ -828,11 +833,11 @@ def trip_page(rid):
             if HT:
                 lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{tn}</span><div>{_hl(HT.get(keys_[k]), tn, desc, pp)}</div></li>' for k, (tn, desc, pp, u) in enumerate(tiers))
             elif TOP:
-                lis = (f'<li><span class="tier">高分</span><div><b class="tg">{E(TOP[0]["name"])}</b><small>{E(str(TOP[0].get("score") or ""))} 分{(" · " + E(TOP[0]["rev"]) + "点评") if TOP[0].get("rev") else ""}</small><a class="tl2" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(TOP[0]["id"]))}">携程订这家 ›</a></div></li>'
-                       + ''.join(f'<li class="more"><span class="tier">高分</span><div><b class="tg">{E(h["name"])}</b><small>{E(str(h.get("score") or ""))} 分{(" · " + E(h["rev"]) + "点评") if h.get("rev") else ""}</small><a class="tl2" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(h["id"]))}">携程订这家 ›</a></div></li>' for h in TOP[1:3]))
+                lis = (f'<li><span class="tier">推荐</span><div><b class="tg">{E(TOP[0]["name"])}</b><small>{E(str(TOP[0].get("score") or ""))} 分{(" · " + E(TOP[0]["rev"]) + "点评") if TOP[0].get("rev") else ""}</small><a class="tl2" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(TOP[0]["id"]))}">携程订这家 ›</a></div></li>'
+                       + ''.join(f'<li class="more"><span class="tier">推荐</span><div><b class="tg">{E(h["name"])}</b><small>{E(str(h.get("score") or ""))} 分{(" · " + E(h["rev"]) + "点评") if h.get("rev") else ""}</small><a class="tl2" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(h["id"]))}">携程订这家 ›</a></div></li>' for h in TOP[1:3]))
             else:
                 lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{tn}</span><div><b class="tg">{desc}</b><small>参考价 {pp}/晚</small></div></li>' for k, (tn, desc, pp, u) in enumerate(tiers))
-            stays = (f'<div class="stays"><div class="sh"><span class="lbl">今晚住</span><span>{E(area)}{" · 连住 " + str(run) + " 晚" if run > 1 else ""}</span></div><ul>{lis}</ul><button type="button" class="tog">{"再看两家评分高的" if (not HT and TOP) else "看另外两档"}</button><p class="sn">{("这里按携程评分挑了三家，还没分档；" if (not HT and TOP) else "") + "酒店来自携程（" + E(str((HOTELS.get(f"{ctrip_city(city) or ctrip_city(CT_ALIAS.get(city, ''))}|{re.sub(r'(附近|一带|边上|边|里|市区)$', '', area) if area and area != city else city}") or {}).get("at") or "")) + "），价格以携程为准" if (HT or TOP) else "到携程后用「价格/星级」筛档位"}</p>'
+            stays = (f'<div class="stays"><div class="sh"><span class="lbl">今晚住</span><span>{E(area)}{" · 连住 " + str(run) + " 晚" if run > 1 else ""}</span></div><ul>{lis}</ul><button type="button" class="tog">{"再看两家" if (not HT and TOP) else "看另外两档"}</button><p class="sn">{"价格以携程为准" if (HT or TOP) else "到携程后用「价格/星级」筛档位"}</p>'
                      f'<div class="bk"><a class="btn" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(((HT or {}).get("lux") or (HT or {}).get("mid") or (HT or {}).get("eco") or (TOP or [{}])[0]).get("id")) if (HT or TOP) else tiers[0][3])}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpurl(area + " 酒店", city))}" aria-label="在大众点评看附近酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
         story = f'<aside class="story"><span class="lbl">懂一点</span><p>{E(d["story"])}</p></aside>' if d.get('story') else ''
         mlist = (CULT.get('manners') or {}).get(t.get('dest'), []) if i == 0 else []
