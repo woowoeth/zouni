@@ -834,7 +834,7 @@ def trip_page(rid):
                     'trans': [round(pp_['lo'] - loc2), round(pp_['hi'] - loc2)]}      # 2 人时正好等于原来的价格
     has_cost = bool(cost and cost.get('trans'))
     sub3 = ('<button type="button" class="pp">2 人 · 每人 ›</button>' if has_cost else f'<small>{"每人 · 含往返" + (" · 参考价" if price.startswith("约") else "") if "¥" in price else "价格另算"}</small>')
-    glance = (f'<div class="glance"><div class="g1"><b class="big">{n}<small> 天</small></b><span class="dtw dt" role="button" tabindex="0" data-best="{",".join(s0) if s0 else ""}" aria-label="改出发日期">{md(dates[0])}–{md(dates[-1])} <i>改</i></span><input type="hidden" class="dpk" data-min="{TODAY.isoformat()}" value="{dates[0].isoformat()}"></div>'
+    glance = (f'<div class="glance"><div class="g1"><b class="big">{n}<small> 天</small></b><span class="dtw dt" role="button" tabindex="0" data-best="{",".join(s0) if s0 else ""}" aria-label="改出发日期">{md(dates[0])}–{dates[-1].day if dates[-1].month == dates[0].month else md(dates[-1])} <i>改</i></span><input type="hidden" class="dpk" data-min="{TODAY.isoformat()}" value="{dates[0].isoformat()}"></div>'
               f'<div><b>{E(r.get("driveTop"))}</b><small>{E(r.get("driveSub"))}</small></div>'
               f'<div><b class="price" data-cost=\'{E(json.dumps(cost)) if has_cost else ""}\'>{E(price_k(price))}</b>{sub3}</div></div>')
     if has_cost:
