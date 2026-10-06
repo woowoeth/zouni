@@ -175,7 +175,7 @@ for rid, it in IT.items():
         lastg = next((GEO.get(dcity + '|' + (x.get('q') or x['name'])) for x in reversed(d['stops']) if GEO.get(dcity + '|' + (x.get('q') or x['name']))), None)
         carry = (lastg['lat'], lastg['lng']) if lastg else carry
         if d.get('stay'):   # 第二天从住的地方出发：住处查得到就用住处
-            sg = GEO.get(d['stay'] + '|' + d['stay']) if 'GEO' in globals() else None
+            sg = (GEO.get(d['stay'] + '|' + d['stay']) or GEO.get(dcity + '|' + d['stay'])) if 'GEO' in globals() else None   # “城市|住处”也认（北京西城、凤凰古城这类）
             if sg and carry and km((sg['lat'], sg['lng']), carry) <= 400: carry = (sg['lat'], sg['lng'])  # stay_carry：只认核对过的城市中心
         days.append({'title': d['title'], 'text': d['text'], 'lat': round(lat, 2), 'lng': round(lng, 2), 'elev': d.get('elev', dest['base']['elev']),
                      'clim': {m: dest['climate'][str(m)] for m in (9, 10, 11)}, 'city': dcity, 'navCity': dcity, 'rows': rows, 'stay': [],
