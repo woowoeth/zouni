@@ -415,3 +415,11 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 @media print{.pick{display:none}}
 .latewarn .sum{margin-top:4px;color:#3d3f3a}.latewarn .gap{margin-top:4px;color:#3d3f3a}.latewarn .gap .fill{margin-left:6px;height:30px;padding:0 10px;border:0;background:var(--ink);color:var(--bg);font-size:12px;font-weight:700;cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}
 .r.filled .m{color:var(--red)}
+
+/* 去掉的站真的不显示（.r 的 display:flex 会盖过 hidden） */
+[hidden]{display:none!important}
+/* 每天顶部：没问题时一行灰字，有问题才红 */
+.latewarn{margin:12px 0 0;padding:0;background:none;color:var(--sub);font-size:12px}.latewarn p{margin:2px 0}.latewarn.bad p:first-child{color:var(--red);font-weight:700}
+.latewarn button{height:auto;min-height:0;padding:0;border:0;background:none;font-size:12px;font-weight:700;color:var(--ink);text-decoration:underline;cursor:pointer}.latewarn .drop,.latewarn .fill{text-decoration:none;color:var(--bg);background:var(--ink);padding:3px 8px;margin-left:4px}
+.allck{display:flex;align-items:center;gap:8px;margin:12px 0 0;font-size:14px;color:var(--ink)}.allck input{width:20px;height:20px;accent-color:var(--ink)}
+.pre li.tip{display:block;padding-left:30px;font-size:13px;color:var(--sub)}
