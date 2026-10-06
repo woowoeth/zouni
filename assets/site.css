@@ -473,3 +473,5 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .qual.mus li>span{flex:1;min-width:0}.qual.mus li>span b{display:block}.qual.mus .gt{display:block;margin-top:2px;font-size:12px;font-weight:400;color:var(--sub)}.qual.mus .gb,.qual.mus .icg{flex:none}
 .qual.mus li>span{flex:none}.qual.mus li>span:first-child{flex:1 1 auto;min-width:0}.qual.mus li>span.icg{flex:none;display:inline-flex;flex-wrap:nowrap}.qual.mus small.gt{display:block;white-space:normal;word-break:normal}
 .qual.mus small.gt{width:auto;text-align:left;align-self:stretch}.qual.mus li>span.icg{flex-direction:row;width:auto;gap:6px}
+
+.dh .sjo{margin-top:6px;font-size:13px}.dh .sjo a{margin-right:8px;font-weight:700;color:var(--red)}
