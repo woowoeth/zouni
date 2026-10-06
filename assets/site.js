@@ -187,6 +187,53 @@
         m.innerHTML='<button type="button" class="hz-x">关上</button><div class="hz-b"><img alt="分享图" src="'+url+'"></div><p class="shotp">手机上长按图片保存；电脑上 <a download="走你-'+me.label+'.png" href="'+url+'">点这里下载</a></p>';
         document.body.appendChild(m);document.body.classList.add('pk-open');function cl(){m.remove();document.body.classList.remove('pk-open')}m.querySelector('.hz-x').addEventListener('click',cl)}
       if(im){var I=new Image();I.onload=function(){var s=Math.max(W_/I.width,980/I.height),w=I.width*s,h=I.height*s;x.drawImage(I,(W_-w)/2,980-h,w,h);finish()};I.onerror=finish;I.src=im.getAttribute('src')}else{x.fillStyle='#2e3a3f';x.fillRect(0,0,W_,980);finish()}}
+
+    // ——— 改某天几点出发：后面的时间跟着顺延或提前；午饭不早于 11:30、晚饭不早于 17:30；定点的站（看日落、开船）不提前；太晚了提示，可一键去掉最后一站 ———
+    (function(){var me2=me&&me.id;if(!me2)return;var SK='zouni_st_'+me2,DK='zouni_drop_'+me2;
+      function hm2m(s){var m=/^(\d\d):(\d\d)$/.exec(s||'');return m?+m[1]*60+ +m[2]:null}
+      function m2hm(v){v=Math.round(v);var h=Math.floor(v/60),m=v%60;if(h>=24)h-=24;return('0'+h).slice(-2)+':'+('0'+m).slice(-2)}
+      function getS(){try{return JSON.parse(localStorage.getItem(SK)||'{}')}catch(e){return{}}}
+      function getD(){try{return JSON.parse(localStorage.getItem(DK)||'{}')}catch(e){return{}}}
+      var secs0=[].slice.call(document.querySelectorAll('.day'));secs0.forEach(function(s,i){if(!s.dataset.extra&&s.dataset.oi==null)s.dataset.oi=i});
+      function rowsOf(sec){return[].slice.call(sec.querySelectorAll('.tl > .r'))}
+      function replan(sec){var oi=sec.dataset.oi,S=getS(),D=getD(),tl=sec.querySelector('.tl'),rows=rowsOf(sec);
+        rows.forEach(function(r,k){var tm=r.querySelector('time');if(tm&&!r.dataset.t0)r.dataset.t0=tm.textContent;if(r.dataset.k==null)r.dataset.k=k;
+          if(r.dataset.slack==null)r.dataset.slack=((r.classList.contains('dep')&&/歇一下/.test(r.innerText))||/沿途慢慢走/.test((r.querySelector('.m')||{}).textContent||''))?'1':'0'});
+        var orig=rows.slice().sort(function(a,b){return a.dataset.k-b.dataset.k});
+        orig.forEach(function(r){r.hidden=!!(D[oi]&&D[oi].indexOf(+r.dataset.k)>=0)});
+        var timed=orig.filter(function(r){return hm2m(r.dataset.t0)!=null}),t0=timed.map(function(r){return hm2m(r.dataset.t0)});if(!timed.length)return;
+        var start=hm2m(S[oi])!=null?hm2m(S[oi]):t0[0],late=[],t,seq;
+        function run(order){t=start;late=[];order.forEach(function(r){if(r.hidden&&r.dataset.slack!=='1')return;var k=timed.indexOf(r),span=k<timed.length-1?Math.max(0,t0[k+1]-t0[k]):60,at=hm2m(r.dataset.at),ml=r.dataset.meal;
+            if(r.dataset.slack==='1'){var lag=t-t0[k];span=Math.max(0,span-Math.max(0,lag));r.hidden=span<15||!!(D[oi]&&D[oi].indexOf(+r.dataset.k)>=0);if(r.hidden)return}   // 晚出发先压缩“回去歇一下”“沿途慢慢走”这些空当
+            if(ml==='l'&&t<690)t=690;if(ml==='d'&&t<1050)t=1050;if(at!=null&&t<at)t=at;if(at!=null&&t>at+30)late.push(r);
+            r.querySelector('time').textContent=m2hm(t);r._t=t;t+=span})}
+        seq=timed.slice();run(seq);
+        var lunch=seq.filter(function(r){return r.dataset.meal==='l'&&!r.hidden})[0];
+        if(lunch&&start>=660&&lunch._t>840&&seq.indexOf(lunch)>0){seq.splice(seq.indexOf(lunch),1);seq.unshift(lunch);run(seq)}   // 出发晚、午饭要拖过两点：先吃午饭再出发
+        var rest=orig.filter(function(r){return seq.indexOf(r)<0});seq.concat(rest).forEach(function(r){tl.appendChild(r)});
+        var vis=seq.filter(function(r){return!r.hidden});
+        var st=sec.querySelector('.st b');if(st)st.textContent=m2hm(start);
+        var ov=document.querySelectorAll('.overview ol li')[[].slice.call(document.querySelectorAll('.day')).indexOf(sec)];if(ov){var em=ov.querySelector('em');if(em)em.textContent=m2hm(start)+' 走'}
+        var warn=sec.querySelector('.latewarn');if(warn)warn.remove();
+        var msgs=[];if(t>22*60+30)msgs.push('按 '+m2hm(start)+' 出发，这天要到 '+m2hm(t)+' 才结束');
+        late.forEach(function(r){msgs.push('赶不上「'+r.querySelector('.m').childNodes[0].textContent.trim()+'」原定的 '+r.dataset.at)});
+        var changed=hm2m(S[oi])!=null&&hm2m(S[oi])!==t0[0];
+        if(msgs.length||changed||(D[oi]&&D[oi].length)){var lastSee=vis.filter(function(r){return r.classList.contains('see')||r.classList.contains('fun')}).pop();
+          var box=document.createElement('div');box.className='latewarn';
+          box.innerHTML=(msgs.length?'<p>'+msgs.join('；')+'。</p>':'<p>这天按 '+m2hm(start)+' 出发重新排了时间。</p>')+'<div>'+(msgs.length&&lastSee?'<button type="button" class="drop">去掉「'+lastSee.querySelector('.m').childNodes[0].textContent.trim()+'」</button>':'')+'<button type="button" class="reset">恢复原来的安排</button></div>';
+          var tl=sec.querySelector('.tl');tl.parentNode.insertBefore(box,tl);
+          var dr=box.querySelector('.drop');if(dr)dr.addEventListener('click',function(){var D2=getD(),k=+lastSee.dataset.k,prevR=lastSee.previousElementSibling;D2[oi]=(D2[oi]||[]).concat([k]);if(prevR&&prevR.classList.contains('dep')&&!prevR.hidden)D2[oi].push(+prevR.dataset.k);try{localStorage.setItem(DK,JSON.stringify(D2))}catch(e){}replan(sec);toast('去掉了，后面的时间往前挪了')});
+          box.querySelector('.reset').addEventListener('click',function(){var S2=getS(),D2=getD();delete S2[oi];delete D2[oi];try{localStorage.setItem(SK,JSON.stringify(S2));localStorage.setItem(DK,JSON.stringify(D2))}catch(e){}replan(sec);toast('恢复了原来的安排')})}}
+      [].slice.call(document.querySelectorAll('.day')).forEach(function(sec){if(sec.dataset.oi!=null)replan(sec)});
+      document.addEventListener('click',function(e){var b=e.target.closest('.st');if(!b)return;var sec=b.closest('.day');if(!sec)return;var cur=b.querySelector('b').textContent;
+        var opts=[];for(var m=390;m<=720;m+=30)opts.push(m2hm(m));
+        var mask=document.createElement('div');mask.className='pk-mask';var sh=document.createElement('div');sh.className='pk';
+        sh.innerHTML='<div class="pk-h"><b>'+sec.querySelector('header small').textContent.split(' · ')[0]+'几点出发</b><button type="button" class="pk-x">关上</button></div><p class="xnote">选了以后，这天后面的时间会跟着重排；午饭、晚饭、看日落这类定点的会照顾到</p><div class="stg">'+opts.map(function(o){return'<button type="button" data-v="'+o+'" class="'+(o===cur?'on':'')+'">'+o+'</button>'}).join('')+'</div>';
+        function cl(){mask.remove();sh.remove();document.body.classList.remove('pk-open')}
+        sh.addEventListener('click',function(ev){var x=ev.target.closest('button');if(!x)return;if(x.classList.contains('pk-x'))return cl();if(x.dataset.v){var S2=getS();S2[sec.dataset.oi]=x.dataset.v;try{localStorage.setItem(SK,JSON.stringify(S2))}catch(e){}cl();replan(sec);toast('这天改成 '+x.dataset.v+' 出发，时间都重排了')}});
+        mask.addEventListener('click',cl);document.body.appendChild(mask);document.body.appendChild(sh);document.body.classList.add('pk-open')});
+      document.addEventListener('keydown',function(e){var b=e.target.closest&&e.target.closest('.st');if(b&&(e.key==='Enter'||e.key===' ')){e.preventDefault();b.click()}});
+    })();
     // 今晚住：看另外两档
     document.querySelectorAll('.stays .tog').forEach(function(b){b.addEventListener('click',function(){var s=b.parentElement;s.classList.toggle('open');b.textContent=s.classList.contains('open')?'收起另外两档':'看另外两档'})});
     // 天数条高亮
