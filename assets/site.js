@@ -58,7 +58,7 @@
     // 几个人去
     var p=document.querySelector('.price[data-cost]'),pp=document.querySelector('.pp'),box=document.querySelector('.ppl');
     if(p&&p.dataset.cost&&box){var C=JSON.parse(p.dataset.cost),N=2;
-      function upd(){var rooms=Math.ceil(N/2),car=C.perCar?C.carTotal/N:C.tollsPP,lodge=C.lodgeRoom*rooms/N,loc=C.tixPP+C.foodPP+car+lodge,r=function(v){var k=Math.round(v/100)/10;return(k<100?(+k.toFixed(1)).toString():Math.round(k).toString())};p.textContent='¥'+r(loc+C.trans[0])+'–'+r(loc+C.trans[1])+'K';box.querySelector('b').textContent=N+' 人';pp.textContent=N+' 人 · 每人 '+(box.hidden?'›':'▴');var ds=document.querySelector('.dock small');if(ds)ds.textContent=N+' 人 · 每人 '+p.textContent}
+      function upd(){var rooms=Math.ceil(N/2),car=C.perCar?C.carTotal/N:C.tollsPP,lodge=C.lodgeRoom*rooms/N,loc=C.tixPP+C.foodPP+car+lodge,r=function(v){var k=Math.round(v/100)/10;return(k<100?(+k.toFixed(1)).toString():Math.round(k).toString())};p.textContent='¥'+r(loc+C.trans[0])+'K–'+r(loc+C.trans[1])+'K';box.querySelector('b').textContent=N+' 人';pp.textContent=N+' 人 · 每人 '+(box.hidden?'›':'▴');var ds=document.querySelector('.dock small');if(ds)ds.textContent=N+' 人 · 每人 '+p.textContent}
       function tog(){box.hidden=!box.hidden;upd()}
       pp.addEventListener('click',tog);p.addEventListener('click',tog);
       box.querySelectorAll('button').forEach(function(x){x.addEventListener('click',function(){N=Math.max(1,Math.min(6,N+(+x.dataset.d)));upd()})})}
@@ -100,6 +100,27 @@
       var addB=document.querySelector('.addday .add');
       if(addB){var ek='zouni_extra_'+me.id,cands=[];try{cands=JSON.parse(document.getElementById('cands').textContent)}catch(e){}
         var CN='一二三四五六七八九十';function cnDay(i){return'第'+(i<10?CN[i]:(i+1))+'天'}
+        [].slice.call(document.querySelectorAll('.day')).forEach(function(s,i){if(!s.dataset.extra)s.dataset.oi=i});
+        // 地图跟着重画：加的天也标上（自由活动在原住处，接别的线路的那天画到那里并用虚线连过去），位置重叠的天数合成“1·5”，图下按天重列
+        function redrawMap(){var svg=document.querySelector('.hmap svg[data-days]');if(!svg)return;var base=[];try{base=JSON.parse(svg.dataset.days)}catch(e){return}
+          var cx=+svg.dataset.cx,cy=+svg.dataset.cy,sc=+svg.dataset.sc,W=+svg.dataset.w,H=+svg.dataset.h;
+          function merc(la){la=Math.max(-85,Math.min(85,la));return Math.log(Math.tan(Math.PI/4+la*Math.PI/360))*180/Math.PI}
+          function P(la,lo){return[W/2+(lo-cx)*sc,(H-16)/2+4-(merc(la)-cy)*sc]}
+          var xs=ld(ek),list=[],prev=null;
+          [].slice.call(document.querySelectorAll('.day')).forEach(function(sec){var p=null,nm='',lineFrom=null;
+            if(!sec.dataset.extra){var b=base[+sec.dataset.oi];if(b){p=[b[0],b[1]];nm=b[2]}}
+            else{var e=xs.filter(function(z){return z.x===sec.dataset.extra})[0];
+              if(e&&e.k==='r'&&e.lat){p=P(e.lat,e.lng);nm=sec.querySelector('h2').childNodes[0].textContent.trim();lineFrom=prev;
+                var x0=14,y0=14,x1=W-14,y1=H-30;if(prev&&(p[0]<x0||p[0]>x1||p[1]<y0||p[1]>y1)){   // 在图外：标到图边上，图下写明距离
+                  var dx=p[0]-prev[0],dy=p[1]-prev[1],t=1;if(dx>0)t=Math.min(t,(x1-prev[0])/dx);if(dx<0)t=Math.min(t,(x0-prev[0])/dx);if(dy>0)t=Math.min(t,(y1-prev[1])/dy);if(dy<0)t=Math.min(t,(y0-prev[1])/dy);
+                  p=[prev[0]+dx*t,prev[1]+dy*t];nm+='（约 '+(e.km||'')+' 公里，在图外）'}}
+              else{p=prev?prev.slice():null;nm='自由活动'}}
+            list.push({p:p,nm:nm,from:lineFrom});if(p&&!lineFrom)prev=p});
+          var groups=[];list.forEach(function(it,i){if(!it.p)return;var g=groups.filter(function(g){return Math.abs(g.x-it.p[0])<16&&Math.abs(g.y-it.p[1])<16})[0];if(g)g.ns.push(i+1);else groups.push({x:it.p[0],y:it.p[1],ns:[i+1]})});
+          var h='';groups.forEach(function(g){var t=g.ns.join('·'),w=Math.max(17,7+t.length*6.2);h+='<rect x="'+(g.x-w/2).toFixed(1)+'" y="'+(g.y-8.5).toFixed(1)+'" width="'+w.toFixed(1)+'" height="17" rx="8.5" fill="#a63d27" stroke="#fff" stroke-width="1.5"/><text x="'+g.x.toFixed(1)+'" y="'+(g.y+3.6).toFixed(1)+'" text-anchor="middle" font-family="Noto Sans SC,sans-serif" font-size="10" font-weight="700" fill="#fff">'+t+'</text>'});
+          var dm=svg.querySelector('.dms');if(dm)dm.innerHTML=h;
+          var xl=svg.querySelector('.xl');if(xl)xl.innerHTML=list.filter(function(it){return it.from&&it.p}).map(function(it){return'<path d="M'+it.from[0].toFixed(1)+','+it.from[1].toFixed(1)+' L'+it.p[0].toFixed(1)+','+it.p[1].toFixed(1)+'" fill="none" stroke="#a63d27" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round"/>'}).join('');
+          var lg=svg.parentNode.querySelector('.hlegend');if(lg)lg.innerHTML=list.map(function(it,i){return it.nm?'<span><b>'+(i+1)+'</b>'+String(it.nm).replace(/</g,'&lt;')+'</span>':''}).join('')}
         function renum(){var secs=[].slice.call(document.querySelectorAll('.day'));
           secs.forEach(function(sec,i){sec.id='d'+(i+1);var no=sec.querySelector('.no');if(no)no.textContent=('0'+(i+1)).slice(-2);var sm=sec.querySelector('header small');if(sm){var p=sm.textContent.split(' · ');sm.textContent=cnDay(i)+(p.length>1?' · '+p.slice(1).join(' · '):'')}});
           var nv=document.querySelector('.daynav');if(nv){var a=nv.querySelectorAll('a');for(var k=a.length;k<secs.length;k++)nv.insertAdjacentHTML('beforeend','<a href="#d'+(k+1)+'">'+(k+1)+'</a>');for(var k2=a.length-1;k2>=secs.length;k2--)a[k2].remove()}
@@ -108,7 +129,7 @@
             li.innerHTML='<a href="#d'+(i+1)+'"><b>'+('0'+(i+1)).slice(-2)+'</b><i></i><span class="ot"><strong>'+sec.querySelector('h2').childNodes[0].textContent+'</strong><small>加的一天</small></span><em></em></a>'});
           [].slice.call(ol.querySelectorAll('li[data-x]')).forEach(function(li){if(!document.querySelector('.day[data-extra="'+li.dataset.x+'"]'))li.remove()});
           var h=document.querySelector('.overview h2');if(h)h.textContent=secs.length+' 天，怎么排';
-          applyStart(dk.value);setTimeout(todayBar,0)}
+          applyStart(dk.value);setTimeout(todayBar,0);redrawMap()}
         function dayShell(x,title,body){var sec=document.createElement('section');sec.className='day xday';sec.dataset.extra=x;
           sec.innerHTML='<header><span class="no"></span><div><small>第几天 · </small><h2>'+title+'</h2></div></header>'+body+'<button type="button" class="rmday">去掉这天</button>';return sec}
         function place(sec){var orig=[].slice.call(document.querySelectorAll('.day:not(.xday)')),last=orig[orig.length-1];last.parentNode.insertBefore(sec,last);
@@ -126,10 +147,10 @@
           var groups={};cands.forEach(function(c){(groups[c.label]=groups[c.label]||[]).push(c)});
           var stc=document.querySelector('.addday').dataset.city||'这里';
           sh.innerHTML='<div class="pk-h"><b>加一天</b><button type="button" class="pk-x">关上</button></div><p class="xnote">加的一天放在最后一天（回程）前面</p><div class="xd"><button type="button" data-free="1"><b>在'+stc+'多留一天</b><small>自由活动，不排行程</small></button>'+
-            (cands.length?'<p class="xg">附近 100 公里内可以接上的一天</p>'+cands.map(function(c){return'<button type="button" data-rid="'+c.rid+'" data-i="'+c.i+'" data-l="'+c.label+'" data-km="'+c.km+'"><b>'+c.title+'</b><small>来自「'+c.label+'」第 '+(c.i+1)+' 天 · 离住处约 '+c.km+' 公里</small></button>'}).join(''):'<p class="xg">附近没有合适的线路可以接，可以先选多留一天</p>')+'</div>';
+            (cands.length?'<p class="xg">附近 100 公里内可以接上的一天</p>'+cands.map(function(c){return'<button type="button" data-rid="'+c.rid+'" data-i="'+c.i+'" data-l="'+c.label+'" data-km="'+c.km+'" data-lat="'+(c.lat||'')+'" data-lng="'+(c.lng||'')+'"><b>'+c.title+'</b><small>来自「'+c.label+'」第 '+(c.i+1)+' 天 · 离住处约 '+c.km+' 公里</small></button>'}).join(''):'<p class="xg">附近没有合适的线路可以接，可以先选多留一天</p>')+'</div>';
           function close(){mask.remove();sh.remove();document.body.classList.remove('pk-open')}
           sh.addEventListener('click',function(ev){var b=ev.target.closest('button');if(!b)return;if(b.classList.contains('pk-x'))return close();
-            var e=b.dataset.free?{k:'free',x:'f'+Date.now()}:{k:'r',x:'r'+Date.now(),rid:b.dataset.rid,i:+b.dataset.i,label:b.dataset.l,km:+(b.dataset.km||0)};var xs=ld(ek);xs.push(e);sv(ek,xs);close();
+            var e=b.dataset.free?{k:'free',x:'f'+Date.now()}:{k:'r',x:'r'+Date.now(),rid:b.dataset.rid,i:+b.dataset.i,label:b.dataset.l,km:+(b.dataset.km||0),lat:+(b.dataset.lat||0),lng:+(b.dataset.lng||0)};var xs=ld(ek);xs.push(e);sv(ek,xs);close();
             build(e).then(function(){renum();var s=document.querySelector('.day[data-extra="'+e.x+'"]');if(s)s.scrollIntoView();toast('加好了，日期和底栏都跟着变了')})});
           mask.addEventListener('click',close);document.body.appendChild(mask);document.body.appendChild(sh);document.body.classList.add('pk-open')})}
 }
