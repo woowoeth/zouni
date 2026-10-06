@@ -92,10 +92,11 @@
     // 几个人去
     var p=document.querySelector('.price[data-cost]'),pp=document.querySelector('.pp'),box=document.querySelector('.ppl');
     if(p&&p.dataset.cost&&box){var C=JSON.parse(p.dataset.cost),N=2;try{var n0=+localStorage.getItem('zouni_n_'+me.id);if(n0>=1&&n0<=12)N=n0}catch(e){}
-      function upd(){var rooms=Math.ceil(N/2),car=C.perCar?C.carTotal/N:C.tollsPP,lodge=C.lodgeRoom*rooms/N,loc=C.tixPP+C.foodPP+car+lodge,r=function(v){var k=Math.round(v/100)/10;return(k<100?(+k.toFixed(1)).toString():Math.round(k).toString())};p.textContent='¥'+r(loc+C.trans[0])+'K–'+r(loc+C.trans[1])+'K';box.querySelector('b').textContent=N+' 人';pp.textContent=N+' 人 · 每人 '+(box.hidden?'›':'▴');var ds=document.querySelector('.dock small');if(ds)ds.textContent=N+' 人 · 每人 '+p.textContent;try{if(N!==2)localStorage.setItem('zouni_n_'+me.id,N);else localStorage.removeItem('zouni_n_'+me.id)}catch(e){}}
+      function upd(){var rooms=Math.ceil(N/2),car=C.perCar?Math.ceil(N/4)*C.carTotal/N:C.tollsPP,lodge=C.lodgeRoom*rooms/N,loc=C.tixPP+C.foodPP+car+lodge,r=function(v){var k=Math.round(v/100)/10;return(k<100?(+k.toFixed(1)).toString():Math.round(k).toString())};p.textContent='¥'+r(loc+C.trans[0])+'K–'+r(loc+C.trans[1])+'K';box.querySelector('b').textContent=N+' 人';pp.textContent=N+' 人 · 每人 '+(box.hidden?'›':'▴');var ds=document.querySelector('.dock small');if(ds)ds.textContent=N+' 人 · 每人 '+p.textContent;try{if(N!==2)localStorage.setItem('zouni_n_'+me.id,N);else localStorage.removeItem('zouni_n_'+me.id)}catch(e){}}
       function tog(){box.hidden=!box.hidden;upd()}
       pp.addEventListener('click',tog);p.addEventListener('click',tog);
-      box.querySelectorAll('button').forEach(function(x){x.addEventListener('click',function(){N=Math.max(1,Math.min(6,N+(+x.dataset.d)));upd()})})}
+      box.querySelectorAll('button').forEach(function(x){x.addEventListener('click',function(){N=Math.max(1,Math.min(6,N+(+x.dataset.d)));upd()})});
+      if(N!==2)upd()}   // 记住的人数一打开就算上（原来要点一下才更新，刷新后看起来像没记住）
     // 出发前打勾
     var pk='zouni_prep_'+me.id,done=ld(pk);
     document.querySelectorAll('.pre input[type=checkbox]').forEach(function(x){x.checked=done.indexOf(+x.dataset.k)>=0;x.addEventListener('change',function(){var d=ld(pk).filter(function(k){return k!==+x.dataset.k});if(x.checked)d.push(+x.dataset.k);sv(pk,d)})});
