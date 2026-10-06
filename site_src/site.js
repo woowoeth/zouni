@@ -476,7 +476,10 @@
   (function(){var ul=document.querySelector('.trips');if(!ul)return;var lis=[].slice.call(ul.querySelectorAll('li[data-n]'));if(lis.length<7)return;
     var F=[['all','全部',function(){return true}],['s','2–3 天',function(l){return+l.dataset.n<=3}],['m','4–5 天',function(l){var n=+l.dataset.n;return n>=4&&n<=5}],['l','6 天以上',function(l){return+l.dataset.n>=6}],['d','自驾',function(l){return l.dataset.drv==='1'}]];
     var bar=document.createElement('div');bar.className='tf';bar.innerHTML=F.map(function(f,i){var c=lis.filter(f[2]).length;return c?'<button type="button" data-f="'+f[0]+'" class="'+(i?'':'on')+'">'+f[1]+' · '+c+'</button>':''}).join('');ul.parentNode.insertBefore(bar,ul);
-    [].slice.call(bar.querySelectorAll('button')).forEach(function(b){b.addEventListener('click',function(){var f=F.filter(function(x){return x[0]===b.dataset.f})[0];lis.forEach(function(l){l.hidden=!f[2](l)});[].slice.call(bar.querySelectorAll('button')).forEach(function(x){x.classList.toggle('on',x===b)})})})})();
+    var SK2='zouni_tf_'+location.pathname;function pick(b){var f=F.filter(function(x){return x[0]===b.dataset.f})[0];lis.forEach(function(l){l.hidden=!f[2](l)});[].slice.call(bar.querySelectorAll('button')).forEach(function(x){x.classList.toggle('on',x===b)});try{sessionStorage.setItem(SK2,b.dataset.f)}catch(e){}}
+    [].slice.call(bar.querySelectorAll('button')).forEach(function(b){b.addEventListener('click',function(){pick(b)})});
+    try{var f0=sessionStorage.getItem(SK2),b0=f0&&bar.querySelector('button[data-f="'+f0+'"]');if(b0){pick(b0);b0.scrollIntoView({inline:'center',block:'nearest'})}}catch(e){}   // 进了行程再返回，筛选还在
+  })();
   // ——— 首页：替我挑三条（从哪出发、几天、和谁去 → 三条推荐和理由）———
   (function(){var cv0=document.querySelector('.cv');if(!cv0||document.querySelector('.pick'))return;var cv=cv0.closest('.cover')||cv0.closest('section')||cv0;
     var C={'北京':[39.90,116.40],'上海':[31.23,121.47],'广州':[23.13,113.26],'深圳':[22.54,114.06],'成都':[30.66,104.07],'杭州':[30.27,120.16],'西安':[34.26,108.94],'武汉':[30.59,114.31],'南京':[32.06,118.80],'重庆':[29.56,106.55],'长沙':[28.23,112.94],'郑州':[34.75,113.63],'天津':[39.13,117.20],'苏州':[31.30,120.58],'厦门':[24.48,118.09],'昆明':[25.04,102.71],'沈阳':[41.80,123.43],'青岛':[36.07,120.38],'香港':[22.32,114.17]};

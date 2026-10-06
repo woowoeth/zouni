@@ -71,7 +71,7 @@ with sync_playwright() as p:
         pg.locator('.tf button[data-f="m"]').click(); pg.wait_for_timeout(200)
         href=pg.evaluate("document.querySelector('.dmap a').getAttribute('href')"); pg.goto(B+href,wait_until='networkidle'); pg.wait_for_timeout(300); pg.go_back(wait_until='networkidle'); pg.wait_for_timeout(400)
         st=pg.evaluate("[...document.querySelectorAll('.tf .on')].map(b=>b.innerText).join('')")
-        rec('134 何姐 · 四川页点地图进行程再返回',True,f'进 {href}；返回后筛选停在“{st}”（回到“全部”也可以）')
+        rec('134 何姐 · 四川页点地图进行程再返回','4–5' in st,f'进 {href}；返回后筛选停在“{st}”（回到“全部”也可以）')
         rec('135 何姐 · 页面报错',not errs,'；'.join(errs) or '没有'); c.close()
     except Exception as ex: rec('何姐 · 卡住了',False,str(ex).split('\n')[0][:200])
     # 7 赵哥：打印预览带着加的天和去掉的天
