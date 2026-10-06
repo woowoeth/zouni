@@ -446,3 +446,12 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 @media print{.nearr{display:none}}
 
 @media print{body,.wrap,main,article,.trip{max-width:none!important;width:auto!important;margin:0!important}.hero-t,.glance,.pre,.overview,.day,.nearr{max-width:none!important}}
+
+/* 常见问题（和“附近还能去”同一个版式） */
+.faq{padding:32px 20px 0}.faq h2{margin:0 0 6px;font:900 20px var(--serif)}.faq dl{margin:0}.faq dt{padding-top:12px;border-top:1px solid var(--line);font:900 16px/1.4 var(--serif);color:var(--ink)}.faq dt:first-child{border-top:0}.faq dd{margin:4px 0 12px;font-size:14px;line-height:1.7;color:#3d3f3a}
+/* 怎么去、怎么回：沿用“出发前”卡片；两条都是说明，不打勾 */
+.pre.go{margin-bottom:12px}.pre.go li.tip{padding-left:0;font-size:14px;color:var(--ink)}
+/* 「今天」：晚了按现在重排；要办的事里“加到日历” */
+.tvnext .tvlate{display:block;margin-top:8px;height:40px;padding:0 14px;border:0;background:var(--bg);color:var(--ink);font-size:14px;font-weight:700;cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}
+.todoall.tvcal{margin:10px 0 0;background:var(--card)}
+@media print{.faq{break-inside:avoid}.tvlate,.tvcal{display:none!important}}
