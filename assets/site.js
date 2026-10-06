@@ -62,7 +62,13 @@
     (function(){var secs=[].slice.call(document.querySelectorAll('.day')),ovl=[].slice.call(document.querySelectorAll('.overview ol > li'));
       secs.forEach(function(s,i){if(s.dataset.oi==null)s.dataset.oi=i});ovl.forEach(function(li,i){if(li.dataset.oi==null)li.dataset.oi=i});
       if(RD.length>=secs.length)RD=[];var gone=[];
-      secs.forEach(function(s){if(RD.indexOf(+s.dataset.oi)>=0){gone.push({oi:+s.dataset.oi,t:(s.querySelector('h2').childNodes[0]||{textContent:''}).textContent.trim()});s.remove()}});
+      function stayOf(s){var m=s.querySelector('.r.stay .m');return m?m.textContent.replace(/\s+/g,'').replace(/^住·/,''):''}
+      secs.forEach(function(s,i){if(RD.indexOf(+s.dataset.oi)<0)return;var st=s.querySelector('.stays');
+        if(st){var nx=secs[i+1];if(nx&&RD.indexOf(+nx.dataset.oi)<0&&!nx.querySelector('.stays')&&stayOf(nx)===stayOf(s)){var tl2=nx.querySelector('.tl');if(tl2)tl2.parentNode.insertBefore(st,tl2.nextSibling)}}   // 去掉的那天带着住宿卡，而第二天还住同一处：卡片挪到第二天
+        gone.push({oi:+s.dataset.oi,t:(s.querySelector('h2').childNodes[0]||{textContent:''}).textContent.trim()});s.remove()});
+      // “连住 N 晚”按剩下的天重算
+      var lf=[].slice.call(document.querySelectorAll('.day'));lf.forEach(function(s,i){var st=s.querySelector('.stays');if(!st)return;var sp=st.querySelector('.sh span:last-child');if(!sp)return;var me0=stayOf(s),k=i,nn=0;
+        while(k<lf.length-1&&stayOf(lf[k])===me0&&me0){nn++;k++}sp.textContent=sp.textContent.replace(/\s*·\s*连住\s*\d+\s*晚/,'')+(nn>1?' · 连住 '+nn+' 晚':'')});
       ovl.forEach(function(li){if(RD.indexOf(+li.dataset.oi)>=0)li.remove()});
       var left=[].slice.call(document.querySelectorAll('.day')),CN='一二三四五六七八九十';
       if(gone.length){left.forEach(function(s,i){s.id='d'+(i+1);var no=s.querySelector('.no');if(no)no.textContent=('0'+(i+1)).slice(-2);var sm=s.querySelector('header small');if(sm){var p=sm.textContent.split(' · ');sm.textContent='第'+(i<10?CN[i]:(i+1))+'天'+(p.length>1?' · '+p.slice(1).join(' · '):'')}});
