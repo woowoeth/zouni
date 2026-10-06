@@ -489,7 +489,8 @@ def row_html(w, city, app):
     else:
         main = E(w.get('name')); sub = ' · '.join(x for x in [E(w.get('d')), E(w.get('kb'))] if x); kw = w.get('poi')
         mu = museum_of(w.get('name')) or museum_of(w.get('poi'))
-        bk_ = book_of(w.get('name')); sg_ = sight_of(w.get('name'))
+        bk_ = book_of(w.get('name')); sg_ = sight_of(w.get('name')); tx_ = tix_of(w.get('name'))
+        if tx_: sub = (sub + '</p><p class="s tix">' if sub else '') + E(' · '.join(x for x in [('门票 ' + tx_['t']) if tx_.get('t') else '', ('开放 ' + tx_['h']) if tx_.get('h') else '', tx_.get('c', '')] if x)) + '<i>参考，以官方为准</i>'
         if sg_ and not (mu and mu['treasures']): sub = (sub + '</p><p class="s sn2">' if sub else '') + E(sg_)
         if mu and mu['treasures']:
             main += '<span class="gb">国宝</span>'
@@ -499,7 +500,7 @@ def row_html(w, city, app):
     ic = icons(kw, city, app, w.get('dp'), w.get('nav'), w.get('navp')) if kw else ''
     if t == 'eat' and not kw:   # 没有具体地方的饭：只放点评，按“城市 + 菜名”找
         ic = f'<a class="ic dp" href="{E(dpurl(w.get("dish") or "", city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote((city or "") + " " + (w.get("dish") or "")))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上找 {E(w.get("dish"))}">{ICON_DP}</a>'
-    da = (f' data-at="{E(w["at"])}"' if w.get('at') else '') + (f' data-meal="{"l" if w.get("slot") == "午饭" else "d" if w.get("slot") == "晚饭" else "b"}"' if t == 'eat' else '')
+    da = (f' data-at="{E(w["at"])}"' if w.get('at') else '') + (f' data-meal="{"l" if w.get("slot") == "午饭" else "d" if w.get("slot") == "晚饭" else "b"}"' if t == 'eat' else '') + (' data-in="1"' if t in ('see', 'fun') and INDOOR_RE.search(w.get('name') or '') else '')
     return f'<li class="r {t}"{da}><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">{main}{ic}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
 
 
@@ -648,6 +649,48 @@ def price_k(p):
     return '¥' + (kfmt(ns[0]) + 'K–' + kfmt(ns[1]) + 'K' if len(ns) > 1 else kfmt(ns[0]) + 'K')
 
 
+TIX = json.load(open('data/catalog/tickets.json')) if os.path.exists('data/catalog/tickets.json') else {}
+INDOOR_RE = re.compile(r'博物馆|博物院|美术馆|纪念馆|展览馆|科技馆|陈列馆|艺术馆|天文馆|海洋馆|水族馆')
+
+
+def tix_of(name):
+    n_ = name or ''
+    k = next((k for k in sorted(TIX, key=len, reverse=True) if k in n_), None)
+    return TIX[k] if k else None
+
+
+INDOOR = []
+
+
+def indoor_list():
+    """所有行程里出现过、有坐标的室内去处（下雨时换着去）"""
+    if INDOOR: return INDOOR
+    seen = set()
+    for rr in ROUTES.values():
+        for d in rr['days']:
+            c = d.get('navCity') or d.get('city')
+            for w in d['rows']:
+                nm = w.get('name') or ''
+                if w['type'] in ('see', 'fun') and INDOOR_RE.search(nm) and w.get('poi'):
+                    core = re.split(r'\s*·\s*', nm)[0]
+                    if core in seen: continue
+                    pt = coord(w['poi'], c)
+                    if pt: seen.add(core); INDOOR.append({'n': core, 'q': w['poi'], 'c': c, 'lat': round(pt[0], 4), 'lng': round(pt[1], 4)})
+    return INDOOR
+
+
+def indoor_near(r):
+    pts = [p_ for k in range(len(r['days'])) for p_ in [day_point(r, k)] if p_]
+    mine = {re.split(r'\s*·\s*', w.get('name') or '')[0] for d in r['days'] for w in d['rows']}
+    out = []
+    for x in indoor_list():
+        if x['n'] in mine: continue
+        dmin = min((_km((x['lat'], x['lng']), p_) for p_ in pts), default=999)
+        if dmin <= 60: out.append(dict(x, km=round(dmin)))
+    out.sort(key=lambda x: x['km'])
+    return out[:20]
+
+
 def trip_page(rid):
     r = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}; d0 = DEST.get(t.get('dest'), {})
     sd = start_date(r); dates = [sd + datetime.timedelta(days=i) for i in range(len(r['days']))]
@@ -760,6 +803,7 @@ def trip_page(rid):
     body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-start="{dates[0].isoformat()}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
             f'<section class="pre"><h2>出发前</h2><ul>{prep or "<li class=fit>没有特别要提前办的</li>"}</ul></section>'
             f'<script type="application/json" id="cands">{json.dumps(add_cands(rid, r), ensure_ascii=False).replace("</", "<\\/")}</script>'
+            f'<script type="application/json" id="indoor">{json.dumps(indoor_near(r), ensure_ascii=False).replace("</", "<\\/")}</script>'
             f'<section class="overview{" folded" if n > 10 else ""}"><h2>{n} 天，怎么排</h2><ol>{over}</ol>{f'<button type="button" class="ovmore">看全部 {n} 天</button>' if n > 10 else ''}{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{"".join(days)}<div class="addday" data-city="{E((STAYFIX[-2][0] if len(STAYFIX) > 1 and STAYFIX[-2][0] else (r['days'][-2].get('city') if len(r['days']) > 1 else r['days'][0].get('city'))) or '')}"><button type="button" class="add">＋ 加一天</button></div>{dest_link}{dock}</article>')
     crumbs = [('首页', '/'), ('去哪儿', '/where/')] + ([(d0['name'], f'/d/{t["dest"]}/')] if d0 else []) + [(r.get('label') or r['title'], f'/trip/{rid}/')]
     img = '/img/' + (r.get('img') or '').replace('/_blob/', '') + '.svg' if r.get('img') else None

@@ -375,3 +375,8 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
   .story,.manners{break-inside:avoid}
   a{color:#000;text-decoration:none}
 }
+.r .s.tix{color:#4b4d47}.r .s.tix i{margin-left:6px;font-style:normal;font-size:11px;color:#8b8d86}
+.allst{display:flex;align-items:center;gap:8px;flex-wrap:wrap;width:100%;margin-top:2px}.allst span{font-size:14px;font-weight:700}.allst small{font-size:12px;color:var(--sub)}
+.allbtn{display:inline-flex;align-items:baseline;gap:3px;min-height:36px;padding:0 10px;border:0;background:var(--card);font:inherit;font-size:14px;color:var(--ink);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}.allbtn b{font:900 16px var(--serif)}.allbtn i{font-style:normal;font-weight:700;color:var(--red)}
+.fc .rn{display:block;margin-top:2px;color:#4b4d47}.fc .rn button{margin-left:6px;height:28px;padding:0 8px;border:0;background:var(--ink);color:var(--bg);font-size:12px;font-weight:700;cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}.fc .rn .rainback{background:var(--card);color:var(--ink)}
+.fc.mon b{color:var(--red)}
