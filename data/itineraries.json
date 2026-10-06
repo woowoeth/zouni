@@ -29848,6 +29848,527 @@
      "start": "09:00"
     }
    ]
+  },
+  "ldn5": {
+   "dest": "uk",
+   "city": "伦敦",
+   "label": "伦敦 5 天",
+   "title": "五天，伦敦的博物馆和老城",
+   "kicker": "城市 · 5 天",
+   "start": [
+    2026,
+    4,
+    20
+   ],
+   "prep": [
+    "大英博物馆、国家美术馆免费，热门展要提前约",
+    "伦敦交通用手机或银行卡直接刷"
+   ],
+   "days": [
+    {
+     "title": "威斯敏斯特",
+     "text": "到伦敦，看大本钟、威斯敏斯特教堂，傍晚伦敦眼。",
+     "stops": [
+      {
+       "name": "威斯敏斯特宫",
+       "q": "Palace of Westminster",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "威斯敏斯特教堂",
+       "q": "Westminster Abbey",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "伦敦眼",
+       "q": "London Eye",
+       "type": "fun",
+       "dur": 60,
+       "at": "18:00"
+      }
+     ],
+     "start": "13:00",
+     "stay": "考文特花园"
+    },
+    {
+     "title": "大英博物馆",
+     "text": "一整天大英博物馆，傍晚考文特花园。",
+     "stops": [
+      {
+       "name": "大英博物馆",
+       "q": "British Museum",
+       "type": "museum",
+       "dur": 300,
+       "at": "10:00"
+      },
+      {
+       "name": "考文特花园",
+       "q": "Covent Garden",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "start": "09:30",
+     "stay": "考文特花园"
+    },
+    {
+     "title": "伦敦塔 · 塔桥",
+     "text": "上午伦敦塔看王冠珠宝，过塔桥到博罗市场吃午饭。",
+     "stops": [
+      {
+       "name": "伦敦塔",
+       "q": "Tower of London",
+       "type": "sight",
+       "dur": 180,
+       "at": "09:00"
+      },
+      {
+       "name": "塔桥",
+       "q": "Tower Bridge",
+       "type": "sight",
+       "dur": 45
+      },
+      {
+       "name": "博罗市场",
+       "q": "Borough Market",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "start": "08:30",
+     "stay": "考文特花园"
+    },
+    {
+     "title": "国家美术馆 · 白金汉宫",
+     "text": "上午国家美术馆，中午看白金汉宫，下午海德公园。",
+     "stops": [
+      {
+       "name": "国家美术馆",
+       "q": "National Gallery London",
+       "type": "museum",
+       "dur": 150
+      },
+      {
+       "name": "白金汉宫",
+       "q": "Buckingham Palace",
+       "type": "sight",
+       "dur": 45
+      },
+      {
+       "name": "海德公园",
+       "q": "Hyde Park",
+       "type": "park",
+       "dur": 90
+      }
+     ],
+     "start": "09:30",
+     "stay": "考文特花园"
+    },
+    {
+     "title": "格林尼治 · 回程",
+     "text": "上午去格林尼治天文台，下午去机场。",
+     "stops": [
+      {
+       "name": "格林尼治天文台",
+       "q": "Royal Observatory Greenwich",
+       "type": "sight",
+       "dur": 120,
+       "via": "轻轨约 40 分钟"
+      }
+     ],
+     "start": "09:00"
+    }
+   ]
+  },
+  "sui6": {
+   "dest": "switzerland",
+   "city": "卢塞恩",
+   "label": "瑞士 6 天",
+   "title": "六天，坐火车看瑞士",
+   "kicker": "雪山 · 6 天",
+   "start": [
+    2026,
+    6,
+    20
+   ],
+   "prep": [
+    "买瑞士通票，火车、游船、部分山顶火车都能用",
+    "上少女峰前看山顶天气，阴天别上"
+   ],
+   "days": [
+    {
+     "title": "卢塞恩",
+     "text": "到卢塞恩，走卡佩尔廊桥，看狮子纪念碑。",
+     "stops": [
+      {
+       "name": "卡佩尔廊桥",
+       "q": "Kapellbrucke",
+       "type": "sight",
+       "dur": 45
+      },
+      {
+       "name": "狮子纪念碑",
+       "q": "Lowendenkmal",
+       "type": "sight",
+       "dur": 30
+      },
+      {
+       "name": "卢塞恩湖",
+       "q": "Lake Lucerne",
+       "type": "park",
+       "dur": 90
+      }
+     ],
+     "start": "14:00",
+     "stay": "卢塞恩老城"
+    },
+    {
+     "title": "铁力士山",
+     "text": "上铁力士山，坐旋转缆车看冰川。",
+     "stops": [
+      {
+       "name": "铁力士山",
+       "q": "Titlis",
+       "type": "sight",
+       "dur": 300,
+       "via": "火车约 45 分钟"
+      }
+     ],
+     "stay": "卢塞恩老城"
+    },
+    {
+     "title": "去因特拉肯",
+     "text": "坐金色山口快车到因特拉肯，傍晚哈德昆看两湖。",
+     "stops": [
+      {
+       "name": "哈德昆",
+       "q": "Harder Kulm",
+       "type": "sight",
+       "dur": 90,
+       "via": "火车约 2 小时",
+       "at": "17:30"
+      }
+     ],
+     "city": "因特拉肯",
+     "stay": "因特拉肯"
+    },
+    {
+     "title": "少女峰",
+     "text": "坐齿轮火车上少女峰，下来在格林德瓦走走。",
+     "stops": [
+      {
+       "name": "少女峰",
+       "q": "Jungfraujoch",
+       "type": "sight",
+       "dur": 300,
+       "via": "火车约 2 小时"
+      },
+      {
+       "name": "格林德瓦",
+       "q": "Grindelwald",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "start": "08:00",
+     "city": "因特拉肯",
+     "stay": "因特拉肯"
+    },
+    {
+     "title": "去采尔马特",
+     "text": "坐火车去采尔马特，傍晚看马特洪峰。",
+     "stops": [
+      {
+       "name": "采尔马特",
+       "q": "Zermatt",
+       "type": "street",
+       "dur": 120,
+       "via": "火车约 2 小时 30 分钟"
+      }
+     ],
+     "city": "采尔马特",
+     "stay": "采尔马特"
+    },
+    {
+     "title": "马特洪峰 · 回程",
+     "text": "早上上戈尔内格拉特看马特洪峰日出，下午去机场。",
+     "stops": [
+      {
+       "name": "戈尔内格拉特",
+       "q": "Gornergrat",
+       "type": "sight",
+       "dur": 180,
+       "at": "07:00"
+      }
+     ],
+     "start": "06:30",
+     "city": "采尔马特"
+    }
+   ]
+  },
+  "grc6": {
+   "dest": "greece",
+   "city": "雅典",
+   "label": "雅典圣托里尼 6 天",
+   "title": "六天，雅典卫城和圣托里尼",
+   "kicker": "海岛 · 6 天",
+   "start": [
+    2026,
+    4,
+    25
+   ],
+   "prep": [
+    "卫城早上八点开门，早去人少不晒",
+    "雅典到圣托里尼坐飞机约 45 分钟，坐船 5–8 小时"
+   ],
+   "days": [
+    {
+     "title": "普拉卡老城",
+     "text": "到雅典，逛普拉卡老城，傍晚上利卡维多斯山看卫城夜景。",
+     "stops": [
+      {
+       "name": "普拉卡",
+       "q": "Plaka",
+       "type": "street",
+       "dur": 120
+      },
+      {
+       "name": "利卡维多斯山",
+       "q": "Lycabettus Hill",
+       "type": "sight",
+       "dur": 90,
+       "at": "19:00"
+      }
+     ],
+     "start": "14:00",
+     "stay": "普拉卡"
+    },
+    {
+     "title": "卫城",
+     "text": "上午卫城，下午卫城博物馆。",
+     "stops": [
+      {
+       "name": "雅典卫城",
+       "q": "Acropolis of Athens",
+       "type": "sight",
+       "dur": 180,
+       "at": "08:00"
+      },
+      {
+       "name": "卫城博物馆",
+       "q": "Acropolis Museum",
+       "type": "museum",
+       "dur": 150
+      }
+     ],
+     "start": "07:30",
+     "stay": "普拉卡"
+    },
+    {
+     "title": "飞圣托里尼",
+     "text": "飞到圣托里尼，傍晚去伊亚看日落。",
+     "stops": [
+      {
+       "name": "伊亚",
+       "q": "Oia Santorini",
+       "type": "street",
+       "dur": 180,
+       "via": "飞机约 45 分钟",
+       "at": "17:30"
+      }
+     ],
+     "city": "圣托里尼",
+     "stay": "费拉"
+    },
+    {
+     "title": "费拉 · 火山",
+     "text": "坐船去火山岛和温泉，傍晚走费拉到伊莫洛维利的悬崖步道。",
+     "stops": [
+      {
+       "name": "火山岛",
+       "q": "Nea Kameni",
+       "type": "sight",
+       "dur": 240,
+       "at": "10:00"
+      },
+      {
+       "name": "费拉",
+       "q": "Fira",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "city": "圣托里尼",
+     "stay": "费拉"
+    },
+    {
+     "title": "红沙滩 · 阿克罗蒂里",
+     "text": "上午阿克罗蒂里古城遗址，下午红沙滩。",
+     "stops": [
+      {
+       "name": "阿克罗蒂里遗址",
+       "q": "Akrotiri Santorini",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "红沙滩",
+       "q": "Red Beach Santorini",
+       "type": "park",
+       "dur": 90
+      }
+     ],
+     "city": "圣托里尼",
+     "stay": "费拉"
+    },
+    {
+     "title": "回程",
+     "text": "上午在费拉喝杯咖啡，飞回雅典转机。",
+     "stops": [
+      {
+       "name": "费拉缆车",
+       "q": "Fira Cable Car",
+       "type": "fun",
+       "dur": 30
+      }
+     ],
+     "start": "09:00",
+     "city": "圣托里尼"
+    }
+   ]
+  },
+  "egy6": {
+   "dest": "egypt",
+   "city": "开罗",
+   "label": "开罗卢克索 6 天",
+   "title": "六天，金字塔和尼罗河",
+   "kicker": "古国 · 6 天",
+   "start": [
+    2026,
+    10,
+    15
+   ],
+   "prep": [
+    "吉萨金字塔早上开门就去，中午太晒",
+    "开罗到卢克索坐飞机约 1 小时，或者卧铺火车"
+   ],
+   "days": [
+    {
+     "title": "埃及博物馆",
+     "text": "到开罗，下午去大埃及博物馆。",
+     "stops": [
+      {
+       "name": "大埃及博物馆",
+       "q": "Grand Egyptian Museum",
+       "type": "museum",
+       "dur": 240
+      }
+     ],
+     "start": "12:00",
+     "stay": "吉萨"
+    },
+    {
+     "title": "吉萨金字塔",
+     "text": "上午吉萨金字塔和狮身人面像，下午萨卡拉阶梯金字塔。",
+     "stops": [
+      {
+       "name": "吉萨金字塔",
+       "q": "Giza Pyramids",
+       "type": "sight",
+       "dur": 180,
+       "at": "08:00"
+      },
+      {
+       "name": "萨卡拉",
+       "q": "Saqqara",
+       "type": "sight",
+       "dur": 120,
+       "via": "包车约 40 分钟"
+      }
+     ],
+     "start": "07:30",
+     "stay": "吉萨"
+    },
+    {
+     "title": "老开罗",
+     "text": "上午老开罗科普特区，下午汗哈利利市场。",
+     "stops": [
+      {
+       "name": "悬空教堂",
+       "q": "Hanging Church Cairo",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "汗哈利利市场",
+       "q": "Khan el-Khalili",
+       "type": "street",
+       "dur": 150
+      }
+     ],
+     "stay": "吉萨"
+    },
+    {
+     "title": "飞卢克索 · 卡纳克神庙",
+     "text": "飞到卢克索，下午卡纳克神庙，晚上卢克索神庙。",
+     "stops": [
+      {
+       "name": "卡纳克神庙",
+       "q": "Karnak Temple",
+       "type": "sight",
+       "dur": 150,
+       "via": "飞机约 1 小时"
+      },
+      {
+       "name": "卢克索神庙",
+       "q": "Luxor Temple",
+       "type": "sight",
+       "dur": 90,
+       "at": "19:00"
+      }
+     ],
+     "city": "卢克索",
+     "stay": "卢克索"
+    },
+    {
+     "title": "帝王谷",
+     "text": "清早坐热气球，上午帝王谷和哈特谢普苏特神庙。",
+     "stops": [
+      {
+       "name": "帝王谷",
+       "q": "Valley of the Kings",
+       "type": "sight",
+       "dur": 180,
+       "at": "08:00"
+      },
+      {
+       "name": "哈特谢普苏特神庙",
+       "q": "Temple of Hatshepsut",
+       "type": "sight",
+       "dur": 90
+      }
+     ],
+     "start": "05:30",
+     "city": "卢克索",
+     "stay": "卢克索"
+    },
+    {
+     "title": "回程",
+     "text": "上午尼罗河坐帆船，下午去机场。",
+     "stops": [
+      {
+       "name": "尼罗河帆船",
+       "q": "Felucca Luxor",
+       "type": "fun",
+       "dur": 90
+      }
+     ],
+     "start": "09:00",
+     "city": "卢克索"
+    }
+   ]
   }
  }
 }
