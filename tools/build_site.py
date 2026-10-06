@@ -470,7 +470,7 @@ def fit_label(best, m):
 
 
 def extras(trip_desc, dest_desc):
-    urls = ['/', '/where/', '/shejian/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
+    urls = ['/', '/where/', '/shejian/', '/fengwei/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
     lm = TODAY.isoformat()
     open(os.path.join(OUT, 'sitemap.xml'), 'w', encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         ''.join(f'<url><loc>{BASE}{u}</loc><lastmod>{lm}</lastmod></url>\n' for u in urls) + '</urlset>\n')
@@ -934,7 +934,7 @@ def faq_items(r, t, d0, g):
     return qs
 
 
-SJ = json.load(open('data/catalog/shejian.json')) if os.path.exists('data/catalog/shejian.json') else []
+SJ = (json.load(open('data/catalog/shejian.json')) if os.path.exists('data/catalog/shejian.json') else []) + (json.load(open('data/catalog/fengwei.json')) if os.path.exists('data/catalog/fengwei.json') else [])
 SJ_VAGUE = {'东北', '四川', '云南', '河南', '广东', '江南', '闽南', '内蒙古', '宁夏', '西藏', '台湾', '山西', '山东', '陕北', '贵州', '广东乡下', '粤东海边', '四川养蜂人', '吉林朝鲜族山村', '北部湾渔船', '客家'}
 SJ_CN = '零一二三四'
 
@@ -954,7 +954,7 @@ def sj_for_trip(rid, r):
             if not cross and x['prov'] != prov and not (x['prov'] in ('香港', '澳门') and prov in ('香港', '澳门', '广东')): continue
             if any(kk and kk in txt for kk in x['keys']):
                 out.setdefault(k, [])
-                if len(out[k]) < 2: out[k].append(x); used.add(i)
+                if len(out[k]) < 3: out[k].append(x); used.add(i)
     return out
 
 
@@ -1072,7 +1072,7 @@ def trip_page(rid):
         navprev = lastpt
         rows = [w for k_, w in enumerate(rows) if not (w['type'] == 'dep' and w.get('to') == '吃晚饭' and (w.get('how') or '') in ('打车或步行', ''))]
         days.append(f'<section class="day" id="d{i + 1}"><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
-                    f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (d.get("clim") or {}).get(str(dates[i].month)) else ""}</p>' + (''.join(f'<p class="sjn"><b>舌尖上的中国</b>{E(sj_label(x))}拍过：{E(x["food"])}（{E(x["place"])}）</p>' for x in _sj.get(i, []))) + f'{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
+                    f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (d.get("clim") or {}).get(str(dates[i].month)) else ""}</p>' + (''.join(f'<p class="sjn"><b>{E(x.get("show") or "舌尖上的中国")}</b>{E(sj_label(x))}拍过：{E(x["food"])}（{E(x["place"])}）</p>' for x in _sj.get(i, []))) + f'{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
         sights += [w['name'] for w in d['rows'] if w['type'] == 'see' and w.get('poi')]
     desc = f'{r["title"]}：{n} 天按天排好，' + '、'.join(dict.fromkeys(re.split(r'\s*·\s*', ' · '.join(x['title'] for x in r['days']))))[:70] + '。' + season_text(t)
     ld = {'@context': 'https://schema.org', '@type': 'TouristTrip', 'name': r['title'], 'description': desc, 'url': BASE + f'/trip/{rid}/', 'inLanguage': 'zh-CN',
@@ -1104,15 +1104,16 @@ def trip_page(rid):
     return desc
 
 
-def shejian_page():
+def shejian_page(show='舌尖上的中国', path='/shejian/', other=('风味人间', '/fengwei/')):
     hit = {}
     for rid in ROUTE_IDS:
         for k, xs in sj_for_trip(rid, ROUTES[rid]).items():
             for x in xs: hit.setdefault(id(x), []).append((rid, k))
     dname = {v['name']: k for k, v in DEST.items()}
     out = []
-    for sn in (1, 2, 3, 4):
-        xs = [x for x in SJ if x['s'] == sn]
+    ALL = [x for x in SJ if (x.get('show') or '舌尖上的中国') == show]
+    for sn in (1, 2, 3, 4, 5):
+        xs = [x for x in ALL if x['s'] == sn]
         if not xs: continue
         eps = []
         for x in xs:
@@ -1128,10 +1129,10 @@ def shejian_page():
                 li += f'<li><b>{E(x["food"])}</b><span>{E(x["place"])}{("，" + E(x["prov"])) if x["prov"] not in x["place"] else ""}</span>{("<small>" + go + "</small>") if go else ""}</li>'
             body += f'<h3>{("《" + E(ep) + "》") if ep else "这一季还拍过"}</h3><ul class="sjl">{li}</ul>'
         out.append(f'<section class="sjs"><h2>第{SJ_CN[sn]}季</h2>{body}</section>')
-    n_hit = sum(1 for x in SJ if hit.get(id(x)))
-    head = f'<header class="dh"><p class="crumb"><a href="/">走你</a> · 跟着舌尖去吃</p><h1>跟着《舌尖上的中国》去吃</h1><p class="sub">一到四季拍过的 {len(SJ)} 处吃的，{n_hit} 处已经排进了我们的行程，点进去就是那一天</p></header>'
-    desc = f'《舌尖上的中国》一到四季拍过的地方和美食：{len(SJ)} 处，按季按集列出，能去的直接到排好的那一天。'
-    write('/shejian/', page('/shejian/', '跟着《舌尖上的中国》去吃：一到四季拍过的地方和美食 | 走你', desc, head + ''.join(out), [], None, None))
+    n_hit = sum(1 for x in ALL if hit.get(id(x)))
+    head = f'<header class="dh"><p class="crumb"><a href="/">走你</a> · 跟着纪录片去吃</p><h1>跟着《{show}》去吃</h1><p class="sub">节目里拍过的 {len(ALL)} 处吃的，{n_hit} 处已经排进了我们的行程，点进去就是那一天 · <a href="{other[1]}">另看《{other[0]}》 ›</a></p></header>'
+    desc = f'《{show}》拍过的地方和美食：{len(ALL)} 处，按季按集列出，能去的直接到排好的那一天。'
+    write(path, page(path, f'跟着《{show}》去吃：节目里拍过的地方和美食 | 走你', desc, head + ''.join(out), [], None, None))
     return n_hit
 
 
@@ -1157,7 +1158,7 @@ def dest_page(d):
             f'<p class="lead">最好的月份：{"、".join(str(m) + " 月" for m in sorted(best))}。</p>{entry}{tip}</div>'
             f'<section><h2>每个月白天 / 夜里平均气温（℃）</h2><ol class="months">{months}</ol>{f"<p class=hint style=margin-top:8px>落脚城市海拔 {d[chr(98)+chr(97)+chr(115)+chr(101)][chr(101)+chr(108)+chr(101)+chr(118)]:,} 米</p>" if (d["base"].get("elev") or 0) >= 1500 else ""}</section>'
             f'<section class="se"><div><h2>看</h2><p>{E(see)}</p></div><div><h2>吃</h2><p>{E(eat)}</p>'
-            + (('<p class="sjd"><b>舌尖上的中国拍过</b>' + '；'.join(f'{E(x["food"])}（{E(x["place"])}，{E(sj_label(x))}）' for x in sj_for_dest(d['name'])) + ' <a href="/shejian/">全部 ›</a></p>') if sj_for_dest(d['name']) else '')
+            + ''.join(('<p class="sjd"><b>' + E(show) + '拍过</b>' + '；'.join(f'{E(x["food"])}（{E(x["place"])}，{E(sj_label(x))}）' for x in sj_for_dest(d['name']) if (x.get('show') or '舌尖上的中国') == show) + f' <a href="{path}">全部 ›</a></p>') for show, path in (('舌尖上的中国', '/shejian/'), ('风味人间', '/fengwei/')) if any((x.get('show') or '舌尖上的中国') == show for x in sj_for_dest(d['name'])))
             + '</div></section>'
             + (f'<section><h2>排好的行程</h2>' + (f'<figure class="hmap dmap">{dm_}</figure>' if (dm_ := dest_map(did, d)) else '') + f'<ul class="trips">{trips}</ul></section>' if trips else '')
             + (f'<section id="q"><h2>5A 和世界遗产 <span class="ct">{len(ql)} 处</span></h2><ul class="qual">{qhtml}</ul></section>' if ql else '')
@@ -1395,7 +1396,7 @@ if __name__ == '__main__':
         if os.path.exists(src): shutil.copy(src, os.path.join(OUT, 'img' if f in ('favicon.svg', 'og.png') else 'assets', f))
     trip_desc = {rid: trip_page(rid) for rid in ROUTE_IDS}
     dest_desc = {d['id']: dest_page(d) for d in CAT['destinations']}
-    sj_hit = shejian_page()
+    sj_hit = shejian_page(); shejian_page('风味人间', '/fengwei/', ('舌尖上的中国', '/shejian/'))
     where_page(); home_page(); extras(trip_desc, dest_desc)
     n = sum(len(fs) for _, _, fs in os.walk(OUT))
     print('网站', OUT, '· 行程页', len(ROUTE_IDS), '· 目的地页', len(CAT['destinations']), '· 文件', n)
