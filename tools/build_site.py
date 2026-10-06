@@ -823,6 +823,15 @@ def trip_page(rid):
     back = f'/d/{t["dest"]}/' if t.get('dest') in DEST else '/where/'
     s0 = (t.get('season') or {}).get('best')
     when = '一年四季都能去' if t.get('anytime') else (f'{int(s0[0][:2])}/{int(s0[0][3:])}–{int(s0[1][:2])}/{int(s0[1][3:])} 最好' if s0 else '')
+    if not (cost and cost.get('trans')):            # 没有费用明细的线：用估价分项拼一份，人数也能改
+        pp_ = (t.get('price') or {}); pa_ = pp_.get('parts')
+        if pa_ and pp_.get('lo'):
+            mid = lambda a: (a[0] + a[1]) / 2
+            lodge_room = mid(pa_['stay']) * 2 * pa_['nights']; tix_ = mid(pa_['tix']); food_ = mid(pa_['food']) * pa_['n']; loc_ = mid(pa_['local'])
+            car_total = loc_ * 2 if pa_.get('car') else 0
+            loc2 = tix_ + food_ + (car_total / 2 if pa_.get('car') else loc_) + lodge_room / 2
+            cost = {'perCar': bool(pa_.get('car')), 'carTotal': round(car_total), 'tollsPP': 0 if pa_.get('car') else round(loc_), 'lodgeRoom': round(lodge_room), 'tixPP': round(tix_), 'foodPP': round(food_),
+                    'trans': [round(pp_['lo'] - loc2), round(pp_['hi'] - loc2)]}      # 2 人时正好等于原来的价格
     has_cost = bool(cost and cost.get('trans'))
     sub3 = ('<button type="button" class="pp">2 人 · 每人 ›</button>' if has_cost else f'<small>{"每人 · 含往返" + (" · 参考价" if price.startswith("约") else "") if "¥" in price else "价格另算"}</small>')
     glance = (f'<div class="glance"><div class="g1"><b class="big">{n}<small> 天</small></b><span class="dtw dt" role="button" tabindex="0" data-best="{",".join(s0) if s0 else ""}" aria-label="改出发日期">{md(dates[0])}–{md(dates[-1])} <i>改</i></span><input type="hidden" class="dpk" data-min="{TODAY.isoformat()}" value="{dates[0].isoformat()}"></div>'
