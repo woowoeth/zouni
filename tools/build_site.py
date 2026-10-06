@@ -2,7 +2,7 @@
 # 用法：python3 tools/build_site.py <输出目录>
 # 输入：build/routes.js、build/catalog.js、data/catalog/cn_quality.json、海报 SVG
 # 输出：首页、去哪儿、56 个目的地页、全部行程页、sitemap.xml、robots.txt、llms.txt、404.html、CNAME
-import json, re, os, sys, shutil, html, datetime, glob, urllib.parse
+import json, html, re, os, sys, shutil, html, datetime, glob, urllib.parse
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else 'site'
 BASE = 'https://zouni.app'
@@ -604,6 +604,36 @@ def navurl(a, b, how, app, name):
 
 
 DEEP = {   # “懂一点”的补充段落：时间轴那一行只是一句话，这里讲来历和看点；只写核对过的
+    '塔院寺': '五台山的标志，寺里的大白塔高五十多米，是元代尼泊尔工匠阿尼哥设计的。',
+    '普宁寺': '承德外八庙之一，仿西藏桑耶寺建；大乘之阁里的千手千眼观音是世界最大的木雕佛像之一，高二十多米。',
+    '普陀宗乘之庙': '仿拉萨布达拉宫建，被叫作“小布达拉宫”，是外八庙里最大的一座。',
+    '天游峰': '武夷山第一险峰，八百多级石阶爬上去，九曲溪全景在脚下。',
+    '金顶日出': '峨眉山金顶海拔 3077 米，晴天早上看日出、云海，运气好能看到佛光；十方普贤像高 48 米。',
+    '神农顶': '华中第一峰，海拔 3106 米，是神农架的最高处。',
+    '大九湖': '神农架的高山湿地，九个湖由草甸连着，秋天芦苇金黄。',
+    '龙水峡地缝': '地缝窄的地方只有几米宽，沿着栈道往下走，头顶是一线天。',
+    '净月潭': '长春城边的人工水库和森林，林子是二十世纪三十年代种的，被叫作“亚洲第一人工林海”。',
+    '长白瀑布': '天池水从天豁峰和龙门峰之间流出，落差六十多米，是长白山的标志之一。',
+    '防洪纪念塔': '纪念 1957 年哈尔滨战胜特大洪水修的塔，在中央大街北头的松花江边。',
+    '太阳岛': '松花江北岸的岛，冬天办雪博会，郑绪岚唱的《太阳岛上》让它出了名。',
+    '吊水楼瀑布': '镜泊湖北端的瀑布，是火山熔岩堵塞形成的湖口；夏天常有人表演跳水。',
+    '天星桥': '黄果树景区里的一段，石笋、溶洞和水连在一起，有一段路是踩着刻了日期的石头过河。',
+    '蜈支洲岛': '三亚的海岛，水清，适合潜水；岛上的情人桥是看海的好地方。',
+    '星海广场': '大连的城市广场，是亚洲最大的城市广场之一，正对着星海湾。',
+    '旅顺日俄监狱旧址': '1902 年俄国人开始修、后来日本人扩建的监狱，关押过很多中国和朝鲜的抗日志士，安重根就死在这里。',
+    '金石滩': '大连的海滨，海边礁石被海浪蚀成各种形状，被叫作“神力雕塑公园”。',
+    '还剑湖': '河内市中心的湖，传说黎太祖在湖边把神龟借给他的宝剑还了回去。',
+    '文庙': '河内文庙建于 1070 年，是越南第一所大学国子监的所在地；进士碑立在石龟背上。',
+    '伏羲庙': '天水的伏羲庙是祭祀伏羲的庙，明代所建，庙里古柏多。',
+    '麦积山石窟': '山的样子像一堆麦垛，石窟开凿在悬崖上，泥塑最好，有“东方雕塑陈列馆”之称。',
+    '敦煌夜市': '沙洲夜市，吃驴肉黄面、杏皮水的地方。',
+    '玉门关': '“春风不度玉门关”的玉门关，现在只剩下一座方形的小方盘城遗址。',
+    '雅丹魔鬼城': '敦煌西边的雅丹地貌，风把土台削成舰队一样的形状，日落时最好看。',
+    '乔家大院': '晋商乔家的大宅，张艺谋的《大红灯笼高高挂》在这里拍的。',
+    '晋祠': '纪念周代晋国开国诸侯唐叔虞的祠，圣母殿里的宋代侍女彩塑很有名。',
+    '应县木塔': '辽代建的木塔，高六十多米，没用一根铁钉，是世界上现存最高最古老的木结构塔。',
+    '恒山': '五岳中的北岳，悬空寺就在恒山脚下的金龙峡里。',
+    '五台山': '文殊菩萨的道场，五座台顶环抱着台怀镇，寺庙多集中在台怀镇一带。',
     '鲁朗林海': '“鲁朗”藏语意思是“龙王谷”，高山草甸四周是云杉和松林，被叫作“不用门票的天然氧吧”；鲁朗小镇的石锅鸡有名。',
     '然乌湖': '帕隆藏布的源头湖，由山体崩塌堵塞河道形成；湖边就是 318 国道，远处是雪山和冰川。',
     '米堆冰川': '中国最美的冰川之一，冰川末端海拔只有两千多米，冰舌一直伸进森林和村庄旁边。',
@@ -1250,6 +1280,7 @@ def trip_page(rid):
                        + ''.join(f'<li class="more"><span class="tier">推荐</span><div><b class="tg">{E(h["name"])}</b><small>{E(str(h.get("score") or ""))} 分{(" · " + E(h["rev"]) + "点评") if h.get("rev") else ""}</small><a class="tl2" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(h["id"]))}">携程订这家 ›</a></div></li>' for h in TOP[1:3]))
             else:
                 lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{tn}</span><div><b class="tg">{desc}</b><small>参考价 {pp}/晚</small></div></li>' for k, (tn, desc, pp, u) in enumerate(tiers))
+            lis = re.sub(r'<b class="tg">([^<]+)</b>(?!<span class="icg">)', lambda m_: m_.group(0) + icons(re.sub(r'[（(].*$', '', html.unescape(m_.group(1))).strip(), city, app, xk=re.sub(r'[（(].*$', '', html.unescape(m_.group(1))).strip()), lis)   # 推荐三家那种也加导航、点评、小红书
             stays = (f'<div class="stays"><div class="sh"><span class="lbl">今晚住</span><span>{E(area)}{" · 连住 " + str(run) + " 晚" if run > 1 else ""}</span></div><ul>{lis}</ul><button type="button" class="tog">{"再看两家" if (not HT and TOP) else "看另外两档"}</button>'
                      f'<div class="bk" hidden><a class="btn" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(((HT or {}).get("lux") or (HT or {}).get("mid") or (HT or {}).get("eco") or (TOP or [{}])[0]).get("id")) if (HT or TOP) else tiers[0][3])}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpurl(area + " 酒店", city))}" aria-label="在大众点评看附近酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
         _base = d.get('story') or ''; _more = []; _bk = ''
