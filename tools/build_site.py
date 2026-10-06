@@ -520,7 +520,7 @@ def page(path, title, desc, body, jsonld=(), image=None, crumbs=()):
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#f4f2ec">
 <link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
-<link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/img/icon-192.png">
+<link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png"><link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <link rel="stylesheet" href="/assets/fonts/sans.css"><link rel="stylesheet" href="/assets/fonts/serif.css">
 <link rel="stylesheet" href="/assets/site.css?v={ASSET_V}">
 {ld}
@@ -595,10 +595,12 @@ def row_html(w, city, app):
         main = E(w.get('name')); sub = ' · '.join(x for x in [E(w.get('d')), E(w.get('kb'))] if x); kw = w.get('poi')
         mu = museum_of(w.get('name')) or museum_of(w.get('poi'))
         bk_ = book_of(w.get('name')); sg_ = sight_of(w.get('name')); tx_ = tix_of(w.get('name'))
-        if tx_:
+        if tx_:   # 时长、门票、一句话并成一行：门票写短（“约 100 元”），开放时间不写，只留“周一闭馆”这种
             _tt = re.sub(r'（要(实名)?预约）', '', tx_.get('t') or '') if bk_ else (tx_.get('t') or '')   # 上面已经写了“要预约”
-            sub = (sub + '</p><p class="s tix">' if sub else '') + E(' · '.join(x for x in [('门票 ' + _tt) if _tt else '', ('开放 ' + tx_['h']) if tx_.get('h') else '', tx_.get('c', '')] if x)) 
-        if sg_ and not (mu and mu['treasures']): sub = (sub + '</p><p class="s sn2">' if sub else '') + E(sg_)
+            _tt = re.sub(r'(\d[\d,]*)\s*元左右', r'约 \1 元', _tt)
+            _tx = ' · '.join(x for x in [(_tt if '免费' in _tt[:6] else '门票' + ('' if _tt.startswith(('约', '旺季')) else ' ') + _tt) if _tt else '', tx_.get('c', '')] if x)
+            if _tx: sub = (sub + ' · ' if sub else '') + '<span class="tix">' + E(_tx) + '</span>'
+        if sg_ and not (mu and mu['treasures']): sub = (sub + ' · ' if sub else '') + '<span class="sn2">' + E(sg_) + '</span>'
         if mu and mu['treasures']:
             main += '<span class="gb">国宝</span>'
             note_ = re.sub(r'，?(要提前预约|要预约)', '', mu.get('note') or '').strip('，')
@@ -1072,7 +1074,7 @@ def trip_page(rid):
         navprev = lastpt
         rows = [w for k_, w in enumerate(rows) if not (w['type'] == 'dep' and w.get('to') == '吃晚饭' and (w.get('how') or '') in ('打车或步行', ''))]
         days.append(f'<section class="day" id="d{i + 1}"><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
-                    f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (d.get("clim") or {}).get(str(dates[i].month)) else ""}</p>' + (''.join(f'<p class="sjn"><b>{E(x.get("show") or "舌尖上的中国")}</b>{E(sj_label(x))}拍过：{E(x["food"])}（{E(x["place"])}）</p>' for x in _sj.get(i, []))) + f'{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
+                    f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (d.get("clim") or {}).get(str(dates[i].month)) else ""}</p>' + (''.join(f'<p class="sjn"><b>{E(x.get("show") or "舌尖上的中国")}</b>推荐{E(x["food"])}（{E(x["place"])}）</p>' for x in _sj.get(i, []))) + f'{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
         sights += [w['name'] for w in d['rows'] if w['type'] == 'see' and w.get('poi')]
     desc = f'{r["title"]}：{n} 天按天排好，' + '、'.join(dict.fromkeys(re.split(r'\s*·\s*', ' · '.join(x['title'] for x in r['days']))))[:70] + '。' + season_text(t)
     ld = {'@context': 'https://schema.org', '@type': 'TouristTrip', 'name': r['title'], 'description': desc, 'url': BASE + f'/trip/{rid}/', 'inLanguage': 'zh-CN',
@@ -1082,7 +1084,7 @@ def trip_page(rid):
     lo, hi = (t.get('price') or {}).get('lo'), (t.get('price') or {}).get('hi')
     if lo and hi: ld['offers'] = {'@type': 'AggregateOffer', 'priceCurrency': 'CNY', 'lowPrice': lo, 'highPrice': hi, 'description': '每人，2 人同行，含往返大交通'}
     _fq = faq_items(r, t, d0, _g)
-    faq_html = (f'<section class="faq"><h2>常见问题</h2><dl hidden>' + ''.join(f'<dt>{E(q)}</dt><dd>{E(a)}</dd>' for q, a in _fq) + f'</dl><button type="button" class="ovmore faqmore">看 {len(_fq)} 个问题 ›</button></section>') if _fq else ''
+    faq_html = (f'<section class="faq"><h2>常见问题</h2><dl hidden>' + ''.join(f'<dt>{E(q)}</dt><dd>{E(a)}</dd>' for q, a in _fq) + f'</dl><button type="button" class="faqmore">看 {len(_fq)} 个问题 ›</button></section>') if _fq else ''
     _nb = nearby_routes(rid)
     near_html = ('<section class="nearr"><h2>附近还能去</h2><ul>' + ''.join(f'<li><a href="/trip/{o}/"><b>{E(ROUTES[o].get("label"))} ›</b><span>{E(day_line(ROUTES[o]))}</span><small>离这里约 {round(dk / 10) * 10 if dk >= 20 else round(dk)} 公里 · {E(price_k(ROUTES[o].get("price")))}</small></a></li>' for dk, o in _nb) + '</ul></section>') if _nb else ''
     dest_link = faq_html + near_html + (f'<p class="morelink"><a href="/d/{E(t["dest"])}/">{E(d0.get("name", ""))}的其他去处 ›</a></p>' if t.get('dest') in DEST else '')
@@ -1391,9 +1393,9 @@ if __name__ == '__main__':
         if os.path.exists('site_src/' + f): shutil.copy('site_src/' + f, os.path.join(OUT, f))
     for f in ('icon-192.png', 'icon-512.png'):
         if os.path.exists('site_src/' + f): shutil.copy('site_src/' + f, os.path.join(OUT, 'img', f))
-    for f in ('site.css', 'site.js', 'favicon.svg', 'og.png', 'qr.js'):
+    for f in ('site.css', 'site.js', 'favicon.svg', 'og.png', 'qr.js', 'apple-touch-icon.png', 'favicon-32.png'):
         src = os.path.join('site_src', f)
-        if os.path.exists(src): shutil.copy(src, os.path.join(OUT, 'img' if f in ('favicon.svg', 'og.png') else 'assets', f))
+        if os.path.exists(src): shutil.copy(src, os.path.join(OUT, 'img' if f in ('favicon.svg', 'og.png', 'apple-touch-icon.png', 'favicon-32.png') else 'assets', f))
     trip_desc = {rid: trip_page(rid) for rid in ROUTE_IDS}
     dest_desc = {d['id']: dest_page(d) for d in CAT['destinations']}
     sj_hit = shejian_page(); shejian_page('风味人间', '/fengwei/', ('舌尖上的中国', '/shejian/'))
