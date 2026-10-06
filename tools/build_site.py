@@ -247,6 +247,9 @@ SIGHT = {
     '沙县小吃文化城': '沙县小吃的大本营，晚上最热闹', '七峰叠翠': '沙县城边的山，看沙溪绕城', '坭兴陶文化创意产业园': '钦州坭兴陶，中国四大名陶之一', '刘冯故居': '刘永福和冯子材的故居', '三娘湾': '出海看中华白海豚',
     '义乌国际商贸城': '全世界最大的小商品市场', '佛堂古镇': '义乌的千年古镇，老街和码头', '陆羽故园': '茶圣陆羽的家乡', '茶经楼': '纪念《茶经》的楼', '珍湖': '嘉鱼的藕塘，九月开始挖藕', '二乔公园': '嘉鱼城里的公园，大乔小乔的传说',
     '毛泽东同志故居': '韶山冲的土屋，毛泽东出生的地方', '毛泽东同志纪念馆': '讲毛泽东生平的纪念馆', '东山书院': '毛泽东少年时读过书的书院', '水泊梁山风景区': '《水浒》里的梁山，聚义厅和宋江寨', '水浒好汉城': '郓城仿宋的水浒主题街区',
+    '诸葛八卦村': '按八卦布局的村子，诸葛亮后人聚居', '新叶古村': '叶氏宗族的古村，有抟云塔', '荻浦村': '孝义文化的古村，有古戏台', '深澳古村': '村下有暗渠的古村', '严子陵钓台': '富春江边，东汉严光隐居钓鱼的地方',
+    '杨家堂村': '山坡上的黄泥房，“金色布达拉宫”', '松阳老街': '保留着打铁铺、中药铺的老街', '河阳古民居': '朱氏聚居的千年古村', '仙都': '鼎湖峰是一根拔地而起的石柱', '冠豸山': '连城的丹霞山',
+    '培田古村': '客家大宅群，被叫“民间故宫”', '明月湾古村': '太湖边的千年古村，吴王赏月的地方', '石公山': '太湖边的山，看日落', '东村古村': '西山岛上的明清古村',
     '稻河古街区': '泰州老城沿河的街区', '望海楼': '泰州的城标，傍晚好看', '千垛景区': '垛田上开满油菜花，坐船进去看', '李中水上森林': '水杉长在水里的森林', '石浦渔港古城': '依山而建的渔港老街',
     '中国渔村': '象山海边看渔船的地方', '蛇蟠岛': '三门的海岛，有千洞之岛的说法', '遂昌金矿国家矿山公园': '千年金矿遗址，能下矿洞', '南尖岩': '看云海和梯田的山头', '诺邓古村': '千年盐井古村，诺邓火腿的产地',
     '太极图观景台': '沘江弯出一个天然太极图', '诺邓盐井': '还能看到古盐井和盐课司', '阳岭国家森林公园': '崇义城边的森林公园', '上堡梯田': '客家人开垦的梯田，世界灌溉工程遗产', '天鹅湖国家城市湿地公园': '冬天上万只白天鹅来过冬',
@@ -470,7 +473,7 @@ def fit_label(best, m):
 
 
 def extras(trip_desc, dest_desc):
-    urls = ['/', '/where/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/hangpai/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
+    urls = ['/', '/where/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/hangpai/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
     lm = TODAY.isoformat()
     open(os.path.join(OUT, 'sitemap.xml'), 'w', encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         ''.join(f'<url><loc>{BASE}{u}</loc><lastmod>{lm}</lastmod></url>\n' for u in urls) + '</urlset>\n')
@@ -937,7 +940,7 @@ def faq_items(r, t, d0, g):
 
 
 SJ = (json.load(open('data/catalog/shejian.json')) if os.path.exists('data/catalog/shejian.json') else []) + (json.load(open('data/catalog/fengwei.json')) if os.path.exists('data/catalog/fengwei.json') else []) + (json.load(open('data/catalog/docs_more.json')) if os.path.exists('data/catalog/docs_more.json') else [])
-SHOWS = [('舌尖上的中国', '/shejian/', '推荐'), ('风味人间', '/fengwei/', '推荐'), ('风味原产地', '/yuanchandi/', '推荐'), ('早餐中国', '/zaocan/', '早上吃'), ('如果国宝会说话', '/guobao/', '讲过'), ('航拍中国', '/hangpai/', '拍过')]
+SHOWS = [('舌尖上的中国', '/shejian/', '推荐'), ('风味人间', '/fengwei/', '推荐'), ('风味原产地', '/yuanchandi/', '推荐'), ('早餐中国', '/zaocan/', '早上吃'), ('如果国宝会说话', '/guobao/', '讲过'), ('记住乡愁', '/xiangchou/', '拍过'), ('航拍中国', '/hangpai/', '拍过')]
 SHOW_VERB = {a: c for a, b, c in SHOWS}
 SJ_VAGUE = {'东北', '四川', '云南', '河南', '广东', '江南', '闽南', '内蒙古', '宁夏', '西藏', '台湾', '山西', '山东', '陕北', '贵州', '广东乡下', '粤东海边', '四川养蜂人', '吉林朝鲜族山村', '北部湾渔船', '客家'}
 SJ_CN = '零一二三四'
@@ -953,13 +956,13 @@ def sj_for_trip(rid, r):
     tt = TRIP_OF_ROUTE.get(rid) or {}; prov = (DEST.get(tt.get('dest'), {}) or {}).get('name', ''); cross = bool(set(tt.get('tags') or []) & {'跨省', '全国'})
     for k, d in enumerate(r['days']):
         txt = ' '.join(str(d.get(f) or '') for f in ('city', 'navCity', 'title', 'stayName')) + ' ' + ' '.join((w.get('name') or w.get('to') or '') for w in d['rows'] if w['type'] in ('see', 'fun', 'dep'))
-        for i, x in sorted(enumerate(SJ), key=lambda ix: 0 if ix[1].get('show') == '如果国宝会说话' else 1):   # 当天去的博物馆里的国宝先说
+        for i, x in sorted(enumerate(SJ), key=lambda ix: 0 if ix[1].get('show') in ('如果国宝会说话', '记住乡愁') else 1):   # 当天去的博物馆里的国宝、当天去的村子先说
             if i in used or x['place'] in SJ_VAGUE or x.get('show') == '航拍中国': continue
             if not cross and x['prov'] != prov and not (x['prov'] in ('香港', '澳门') and prov in ('香港', '澳门', '广东')): continue
             if any(kk and kk in txt for kk in x['keys']):
                 out.setdefault(k, [])
                 sh_ = [y.get('show') for y in out[k]]
-                if (x.get('show') in sh_ and sh_.count(x.get('show')) < 4) or len(set(sh_)) < 2: out[k].append(x); used.add(i)   # 一天最多两部片子，同一部片子的并成一行
+                if (x.get('show') in sh_ and sh_.count(x.get('show')) < 3) or len(set(sh_)) < 2: out[k].append(x); used.add(i)   # 一天最多两部片子，同一部片子的并成一行
     return out
 
 
