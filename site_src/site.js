@@ -142,11 +142,25 @@
           sec.querySelector('.rmday').addEventListener('click',function(){var xs=ld(ek).filter(function(e){return e.x!==sec.dataset.extra});sv(ek,xs);sec.remove();renum();toast('去掉了')})}
         function build(e){if(e.k==='free'){place(dayShell(e.x,'自由活动','<p class="lead">这天不排行程：睡到自然醒，在住的地方附近走走，补补觉，或者把前几天没逛够的地方再去一次。</p>'));return Promise.resolve()}
           return fetch('/trip/'+e.rid+'/').then(function(r){return r.text()}).then(function(h){var doc=new DOMParser().parseFromString(h,'text/html'),src=doc.getElementById('d'+(e.i+1));if(!src)return;
-            var sec=dayShell(e.x,src.querySelector('h2').textContent,'');[].slice.call(src.children).forEach(function(c){if(c.tagName!=='HEADER'&&!c.classList.contains('stays'))sec.insertBefore(c.cloneNode(true),sec.querySelector('.rmday'))});
-            var stc=(document.querySelector('.addday')||{dataset:{}}).dataset.city||'住处',tl=sec.querySelector('.tl');
-            if(tl){[].slice.call(tl.querySelectorAll('.r.stay')).forEach(function(r){r.remove()});var rs=[].slice.call(tl.querySelectorAll('.r.dep'));if(rs.length){var lastDep=rs[rs.length-1];if(/住处/.test(lastDep.innerText))lastDep.remove()}
-              var firstDep=tl.querySelector('.r.dep');if(firstDep){var fm=firstDep.querySelector('.m');if(fm)fm.firstChild.textContent=fm.firstChild.textContent.replace(/^出发/,'从'+stc+'出发');var fs=firstDep.querySelector('.s');var kmt='单程约 '+(e.km||'')+' 公里';if(fs)fs.textContent=kmt;else firstDep.querySelector('.rb').insertAdjacentHTML('beforeend','<p class="s">'+kmt+'</p>')}
-              tl.insertAdjacentHTML('beforeend','<li class="r dep"><time>傍晚</time><span class="dot"></span><div class="rb"><p class="m">回'+stc+'</p><p class="s">约 '+(e.km||'')+' 公里，回到原来的住处</p></div></li><li class="r stay"><time>晚上</time><span class="dot"></span><div class="rb"><p class="m">住 · '+stc+'</p><p class="s">接着住原来那家，第二天照原计划走</p></div></li>')}
+            var sec=dayShell(e.x,src.querySelector('h2').textContent,'');[].slice.call(src.children).forEach(function(c){if(c.tagName!=='HEADER'&&!c.classList.contains('stays')&&!c.classList.contains('tl'))sec.insertBefore(c.cloneNode(true),sec.querySelector('.rmday'))});
+            var stc=(document.querySelector('.addday')||{dataset:{}}).dataset.city||'住处',stl=src.querySelector('.tl');
+            function hm2(s){var m=/^(\d\d):(\d\d)$/.exec(s||'');return m?+m[1]*60+ +m[2]:null}function m2(v){v=Math.round(v);return('0'+Math.floor(v/60)%24).slice(-2)+':'+('0'+v%60).slice(-2)}
+            function dur(v){return(v>=60?Math.floor(v/60)+' 小时':'')+(v%60?(v>=60?' ':'')+(v%60)+' 分钟':'')}
+            if(stl){var all=[].slice.call(stl.querySelectorAll(':scope > .r')),tm=all.map(function(r){return hm2((r.querySelector('time')||{}).textContent)}),items=[];
+              all.forEach(function(r,i){var txt=r.innerText;if(r.classList.contains('stay'))return;if(/住处|吃晚饭|歇一下|沿途慢慢走/.test(txt))return;if(r.classList.contains('eat')&&r.dataset.meal!=='l')return;
+                var nx=null;for(var j=i+1;j<all.length;j++){if(tm[j]!=null){nx=tm[j];break}}var span=(tm[i]!=null&&nx!=null)?Math.max(10,nx-tm[i]):60;items.push({r:r,span:span})});
+              while(items.length&&items[0].r.classList.contains('dep'))items.shift();while(items.length&&items[items.length-1].r.classList.contains('dep'))items.pop();
+              var km=e.km||0,drive=Math.round(km*1.3/55*60/5)*5+10,t=9*60,tl=document.createElement('ol');tl.className='tl';
+              function row(cls,time,main,sub,src2){var li=src2?src2.cloneNode(true):document.createElement('li');if(!src2){li.className='r '+cls;li.innerHTML='<time></time><span class="dot"></span><div class="rb"><p class="m"></p>'+(sub?'<p class="s"></p>':'')+'</div>';li.querySelector('.m').textContent=main;if(sub)li.querySelector('.s').textContent=sub}li.querySelector('time').textContent=time;tl.appendChild(li);return li}
+              var first=items[0]?(((items[0].r.querySelector('.m')||{}).childNodes||[])[0]||{textContent:''}).textContent.trim():'';
+              row('dep',m2(t),'从'+stc+'出发 → '+first,'开车约 '+dur(drive)+' · '+km+' 公里');t+=drive;var lunched=false;
+              items.forEach(function(it){var r=it.r;if(r.classList.contains('eat')){t=Math.max(t,690);row('','',null,null,r).querySelector('time').textContent=m2(t);t+=60;lunched=true;return}
+                if(!lunched&&t>=780&&!r.classList.contains('dep')){row('eat',m2(t),'午饭 · 附近简单吃','');t+=60;lunched=true}
+                var li=row('','',null,null,r);li.querySelector('time').textContent=m2(t);t+=it.span});
+              row('dep',m2(t),'回'+stc,'开车约 '+dur(drive)+' · '+km+' 公里');t+=drive;
+              row('eat',m2(Math.max(t,18*60)),'晚饭 · 回到'+stc+'再吃','');
+              row('stay','晚上','住 · '+stc,'接着住原来那家，第二天照原计划走');
+              sec.insertBefore(tl,sec.querySelector('.rmday'));var ld0=sec.querySelector('.lead');var note='从'+stc+'过去单程约 '+km+' 公里，来回开车约 '+dur(drive*2)+(drive*2>=240?'，这天会比较累':'')+'。晚上回'+stc+'住。';if(ld0)ld0.textContent=note;else sec.insertBefore(Object.assign(document.createElement('p'),{className:'lead',textContent:note}),tl)}
             sec.querySelector('h2').insertAdjacentHTML('beforeend','<span class="xt">接「'+e.label+'」第 '+(e.i+1)+' 天</span>');place(sec)}).catch(function(){})}
         var chain=Promise.resolve();ld(ek).forEach(function(e){chain=chain.then(function(){return build(e)})});chain.then(renum);
         addB.addEventListener('click',function(){var mask=document.createElement('div');mask.className='pk-mask';var sh=document.createElement('div');sh.className='pk';
@@ -222,6 +236,9 @@
           if(sights.length>=3){slowDrop=sights[sights.length-1];slowDrop.hidden=true;slowDrop.dataset.sd='1';var pv=slowDrop.previousElementSibling;if(pv&&pv.classList.contains('dep')&&!pv.hidden){pv.hidden=true;pv.dataset.sd='1'}}}
         function run(order){t=start;late=[];order.forEach(function(r){if(r.hidden&&r.dataset.slack!=='1')return;var k=timed.indexOf(r),span=k<timed.length-1?Math.max(0,t0[k+1]-t0[k]):60,at=hm2m(r.dataset.at),ml=r.dataset.meal;
             if(A[r.dataset.k])span=Math.max(15,span+A[r.dataset.k]);
+            var sl=r.querySelector('.s');if(sl&&(r.classList.contains('see')||r.classList.contains('fun'))){var tn=[].slice.call(sl.childNodes).filter(function(x){return x.nodeType===3&&/\d+ (小时|分)/.test(x.textContent)})[0];
+              if(tn){if(r.dataset.d0==null)r.dataset.d0=tn.textContent;var mh=/(\d+) 小时/.exec(r.dataset.d0),mm2=/(\d+) 分/.exec(r.dataset.d0),od=(mh?+mh[1]*60:0)+(mm2?+mm2[1]:0),nd=Math.max(15,od+(A[r.dataset.k]||0));
+                tn.textContent=A[r.dataset.k]?r.dataset.d0.replace(/\d+ 小时(\s*\d+ 分钟?)?|\d+ 分钟?/,(nd>=60?Math.floor(nd/60)+' 小时':'')+(nd%60?(nd>=60?' ':'')+(nd%60)+' 分':'')):r.dataset.d0}}
             if(r.dataset.slack==='1'){var lag=t-t0[k];span=Math.max(0,span-Math.max(0,lag));r.hidden=span<15||!!(D[oi]&&D[oi].indexOf(+r.dataset.k)>=0);if(r.hidden)return}   // 晚出发先压缩“回去歇一下”“沿途慢慢走”这些空当
             if(ml==='l'&&t<690)t=690;if(ml==='d'&&t<1050)t=1050;if(at!=null&&t<at)t=at;if(at!=null&&t>at+30)late.push(r);
             r.querySelector('time').textContent=m2hm(t);r._t=t;t+=span})}
@@ -329,7 +346,7 @@
         var nx=isT?rows.filter(function(r){var t=r.querySelector('time').textContent;return/^\d\d:\d\d$/.test(t)&&t>=hm}).filter(function(r){return!r.classList.contains('dep')})[0]:null;
         function esc(s){return String(s).replace(/</g,'&lt;')}
         function navOf(r){var a=r.querySelector('a.ic.map');return a?'<a class="tvnav" href="'+a.href+'"'+(a.dataset.ios?' data-ios="'+esc(a.dataset.ios)+'" data-and="'+esc(a.dataset.and)+'"':'')+' target="_blank" rel="nofollow noopener">导航</a>':''}
-        var h='<div class="tvh"><button type="button" class="tvx">‹ 回到整条行程</button></div><div class="tvtabs">'+secs.map(function(s,k){return'<button type="button" data-i="'+k+'" class="'+(k===i?'on':'')+'">'+(k===ti?'今天':(k+1))+'</button>'}).join('')+'</div>';
+        var h='<div class="tvh"><button type="button" class="tvx"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>回到整条行程</button></div><div class="tvtabs">'+secs.map(function(s,k){return'<button type="button" data-i="'+k+'" class="'+(k===i?'on':'')+'">'+(k===ti?'今天':(k+1))+'</button>'}).join('')+'</div>';
         h+='<div class="tvb"><p class="tvd">'+esc(head)+'</p><h2>'+esc(sec.querySelector('h2').childNodes[0].textContent.trim())+'</h2>';
         var fc=sec.querySelector('.fc:not(.mon)'),mon=sec.querySelector('.fc.mon');if(fc)h+='<p class="tvw">'+esc(fc.innerText.replace(/\n/g,' ').replace(/换上|换回原来的/g,''))+'</p>';if(mon)h+='<p class="tvw red">'+esc(mon.innerText.replace(/\n/g,' '))+'</p>';
         if(nx){var dep=nx.previousElementSibling&&nx.previousElementSibling.classList.contains('dep')?nx.previousElementSibling:null,lt=nx.querySelector('time').textContent,dl=(+lt.slice(0,2)*60+ +lt.slice(3))-(now.getHours()*60+now.getMinutes());
@@ -354,7 +371,7 @@
       ta.addEventListener('click',function(){var m=document.createElement('div');m.className='tv todo';document.body.appendChild(m);document.body.classList.add('pk-open');
         function close(){m.remove();document.body.classList.remove('pk-open');paint()}
         function render(){var it=items(),dn=it.filter(function(x){return x.done}).length,gs=['要准备的','要预约的','住宿'];
-          m.innerHTML='<div class="tvh"><button type="button" class="tvx">‹ 回到整条行程</button></div><div class="tvb"><h2>出发前要办的事</h2><p class="tvd">已办 '+dn+'/'+it.length+(dn===it.length&&it.length?' · 都办好了':'')+'</p>'+gs.map(function(g){var xs=it.filter(function(x){return x.g===g});if(!xs.length)return'';
+          m.innerHTML='<div class="tvh"><button type="button" class="tvx"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>回到整条行程</button></div><div class="tvb"><h2>出发前要办的事</h2><p class="tvd">已办 '+dn+'/'+it.length+(dn===it.length&&it.length?' · 都办好了':'')+'</p>'+gs.map(function(g){var xs=it.filter(function(x){return x.g===g});if(!xs.length)return'';
             return'<h3>'+g+'</h3><ul class="tdl">'+xs.map(function(x,k){return'<li class="'+(x.done?'on':'')+'"><button type="button" class="tck" data-g="'+g+'" data-k="'+k+'" aria-label="'+(x.done?'标记没办':'标记办好了')+'"></button><span>'+String(x.t).replace(/</g,'&lt;')+(x.how?'<small>'+x.how+'</small>':'')+'</span>'+(x.link?'<a href="'+x.link+'" target="_blank" rel="nofollow noopener">'+(g==='住宿'?'去订':'去办')+' ›</a>':'')+'</li>'}).join('')+'</ul>'}).join('')+'</div>';
           m.querySelector('.tvx').addEventListener('click',close);[].slice.call(m.querySelectorAll('.tck')).forEach(function(b){b.addEventListener('click',function(){var xs=items().filter(function(x){return x.g===b.dataset.g});xs[+b.dataset.k].tog();setTimeout(render,30)})})}
         render()})})();
@@ -425,6 +442,7 @@
     var C={'北京':[39.90,116.40],'上海':[31.23,121.47],'广州':[23.13,113.26],'深圳':[22.54,114.06],'成都':[30.66,104.07],'杭州':[30.27,120.16],'西安':[34.26,108.94],'武汉':[30.59,114.31],'南京':[32.06,118.80],'重庆':[29.56,106.55],'长沙':[28.23,112.94],'郑州':[34.75,113.63],'天津':[39.13,117.20],'苏州':[31.30,120.58],'厦门':[24.48,118.09],'昆明':[25.04,102.71],'沈阳':[41.80,123.43],'青岛':[36.07,120.38],'香港':[22.32,114.17]};
     var PK='zouni_pick',st={};try{st=JSON.parse(localStorage.getItem(PK)||'{}')}catch(e){}if(!st.o){try{var o0=localStorage.getItem('zouni_org');if(o0&&C[o0])st.o=o0}catch(e){}}
     var sec=document.createElement('section');sec.className='pick';cv.parentNode.insertBefore(sec,cv.nextSibling);
+    if(st.o==='here'&&st.lat)C['here']=[st.lat,st.lng];
     function chips(k,arr){return'<div class="pkr" data-k="'+k+'">'+arr.map(function(a){return'<button type="button" data-v="'+a[0]+'" class="'+(st[k]===a[0]?'on':'')+'">'+a[1]+'</button>'}).join('')+'</div>'}
     function km(a,b){var r=Math.PI/180,x=(b[1]-a[1])*r*Math.cos((a[0]+b[0])/2*r),y=(b[0]-a[0])*r;return Math.round(Math.sqrt(x*x+y*y)*6371)}
     function pick(){var all=[].slice.call(document.querySelectorAll('.toc .items li')).filter(function(li){return li.dataset.lat&&li.querySelector('a[href^="/trip/"]')}),o=C[st.o],seen={},sc=[];
@@ -432,16 +450,19 @@
         if(st.d==='w'){if(n>3)return;s+=d<=600?30:d<=1200?20:d<=2000?5:-40}else if(st.d==='m'){if(n<4||n>5)return;s+=d<=2500?20:0}else{if(n<6)return;s+=10}
         if(st.w==='o'&&li.dataset.hi==='1')return;if(st.w==='o'&&li.dataset.drv==='1'&&n>8)s-=15;
         var kk=((li.querySelector('.k')||{}).textContent||'').replace(/\s+/g,' ').trim();if(/正当季|最好/.test(kk))s+=12;if(/最后/.test(kk))s+=6;if(li.closest('#drive'))s+=st.d==='l'?10:-5;if(li.dataset.img==='1')s+=3;
-        if(li.dataset.ab==='1')why.push('从'+st.o+'飞过去约 '+Math.max(1,Math.round(d/700+1))+' 小时');else if(d<80)why.push('就在'+st.o+'附近');else if(d<=1200)why.push(st.o+'过去约 '+d+' 公里，高铁约 '+Math.max(1,Math.round(d/230))+' 小时');else why.push(st.o+'过去约 '+d+' 公里，坐飞机最省事');
+        var on2=st.o==='here'?'你这里':st.o;
+        if(li.dataset.ab==='1')why.push('从'+on2+'飞过去约 '+Math.max(1,Math.round(d/700+1))+' 小时');else if(d<80)why.push('就在'+on2+'附近');else if(d<=1200)why.push(on2+'过去约 '+d+' 公里，高铁约 '+Math.max(1,Math.round(d/230))+' 小时');else why.push(on2+'过去约 '+d+' 公里，坐飞机最省事');
         if(li.dataset.ab==='1'&&st.d==='w')s-=8;
         if(kk)why.push(kk);if(st.w==='o')why.push('不上高原');
         sc.push({s:s,li:li,href:href,why:why.join(' · ')})});
       sc.sort(function(a,b){return b.s-a.s});var top=[],dests={};sc.forEach(function(x){var t=x.li.querySelector('h3').textContent.split(' · ')[0];if(top.length<3&&!dests[t]){dests[t]=1;top.push(x)}});return top}
     function render(){var ready=st.o&&st.d&&st.w,res=ready?pick():[];
-      sec.innerHTML='<h2>替我挑三条<small>答三个问题</small></h2>'+'<p class="pkq">从哪出发</p>'+chips('o',Object.keys(C).map(function(c){return[c,c]}))+'<p class="pkq">玩几天</p>'+chips('d',[['w','周末 2–3 天'],['m','4–5 天'],['l','一周以上']])+'<p class="pkq">和谁去</p>'+chips('w',[['f','自己或朋友'],['c','两个人'],['o','带老人孩子']])+
+      sec.innerHTML='<h2>替我挑三条<small>答三个问题</small></h2>'+'<p class="pkq">从哪出发</p>'+chips('o',[['here','📍 当前位置']].concat(Object.keys(C).filter(function(c){return c!=='here'}).map(function(c){return[c,c]})))+'<p class="pkq">玩几天</p>'+chips('d',[['w','周末 2–3 天'],['m','4–5 天'],['l','一周以上']])+'<p class="pkq">和谁去</p>'+chips('w',[['f','自己或朋友'],['c','两个人'],['o','带老人孩子']])+
         (ready?(res.length?'<ol class="pkres">'+res.map(function(x,i){var img=x.li.querySelector('img');return'<li><a href="'+x.href+'"><span class="pkn">'+(i+1)+'</span><div><b>'+x.li.querySelector('h3').textContent+'</b><small>'+x.why+'</small></div>'+(img?'<img src="'+(img.getAttribute('src')||img.dataset.src||'')+'" alt="" loading="lazy">':'')+'</a></li>'}).join('')+'</ol>':'<p class="pkhint">这个时间没找到合适的，换个天数试试，或者把出发日期往后挪</p>'):'<p class="pkhint">选好三项，马上给你三条</p>');
       var on=sec.querySelector('.pkr[data-k="o"] .on');if(on)on.scrollIntoView({inline:'center',block:'nearest'});
-      [].slice.call(sec.querySelectorAll('.pkr button')).forEach(function(b){b.addEventListener('click',function(){var k=b.parentNode.dataset.k;st[k]=b.dataset.v;try{localStorage.setItem(PK,JSON.stringify(st));if(k==='o')localStorage.setItem('zouni_org',b.dataset.v)}catch(e){}var y=scrollY;render();scrollTo(0,y)})})}
+      [].slice.call(sec.querySelectorAll('.pkr button')).forEach(function(b){b.addEventListener('click',function(){var k=b.parentNode.dataset.k;
+          if(k==='o'&&b.dataset.v==='here'){if(!navigator.geolocation){toast('这个浏览器拿不到位置，选个城市吧');return}b.textContent='📍 定位中…';navigator.geolocation.getCurrentPosition(function(p){st.o='here';st.lat=+p.coords.latitude.toFixed(3);st.lng=+p.coords.longitude.toFixed(3);C['here']=[st.lat,st.lng];try{localStorage.setItem(PK,JSON.stringify(st))}catch(e){}var y=scrollY;render();scrollTo(0,y)},function(){toast('没拿到位置（可能没给定位权限），选个城市吧');b.textContent='📍 当前位置'},{timeout:8000,maximumAge:600000});return}
+          st[k]=b.dataset.v;try{localStorage.setItem(PK,JSON.stringify(st));if(k==='o')localStorage.setItem('zouni_org',b.dataset.v)}catch(e){}var y=scrollY;render();scrollTo(0,y)})})}
     render()})();
   // ——— 首页“长途和自驾”：再看全部 ———
   var dm=document.querySelector('.dmore');if(dm)dm.addEventListener('click',function(){document.querySelectorAll('#drive .items li[hidden]').forEach(function(li){li.hidden=false});dm.remove()});
