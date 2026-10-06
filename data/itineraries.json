@@ -31183,6 +31183,812 @@
      "city": "皇后镇"
     }
    ]
+  },
+  "yyzgy2": {
+   "dest": "hunan",
+   "city": "岳阳",
+   "label": "岳阳张谷英 2 天",
+   "title": "两天，岳阳楼和张谷英村",
+   "kicker": "古村 · 2 天",
+   "start": [
+    2026,
+    9,
+    20
+   ],
+   "prep": [
+    "张谷英村离岳阳市区七十多公里，包车或坐班车",
+    "岳阳楼傍晚看洞庭湖落日最好"
+   ],
+   "days": [
+    {
+     "title": "岳阳楼 · 洞庭湖",
+     "text": "到岳阳，登岳阳楼看洞庭湖，傍晚在湖边看落日。",
+     "stops": [
+      {
+       "name": "岳阳楼",
+       "q": "岳阳楼",
+       "type": "sight",
+       "dur": 120
+      },
+      {
+       "name": "洞庭湖",
+       "q": "洞庭湖 岳阳",
+       "type": "park",
+       "dur": 90,
+       "at": "17:30"
+      }
+     ],
+     "start": "13:00",
+     "stay": "岳阳市区",
+     "dinner": {
+      "dish": "洞庭湖鱼、口味虾",
+      "place": "岳阳市区"
+     }
+    },
+    {
+     "title": "张谷英村 · 回程",
+     "text": "包车去张谷英村，看明清大屋和天井，下午回。",
+     "stops": [
+      {
+       "name": "张谷英村",
+       "q": "张谷英村",
+       "type": "street",
+       "dur": 180,
+       "via": "包车约 1 小时 30 分钟"
+      }
+     ],
+     "city": "岳阳县",
+     "lunch": {
+      "dish": "张谷英豆腐、油豆腐",
+      "place": "张谷英村"
+     }
+    }
+   ]
+  },
+  "nhqt2": {
+   "dest": "zhejiang",
+   "city": "宁海",
+   "label": "宁海前童 2 天",
+   "title": "两天，前童古镇和伍山石窟",
+   "kicker": "古村 · 2 天",
+   "start": [
+    2026,
+    3,
+    25
+   ],
+   "prep": [
+    "前童古镇正月十四有元宵行会",
+    "徐霞客游记开篇就从宁海出发，5 月 19 日中国旅游日就是这么来的"
+   ],
+   "days": [
+    {
+     "title": "前童古镇",
+     "text": "到宁海，去前童古镇，看童氏宗祠和八卦水系。",
+     "stops": [
+      {
+       "name": "前童古镇",
+       "q": "前童古镇",
+       "type": "street",
+       "dur": 180
+      }
+     ],
+     "start": "13:00",
+     "stay": "前童古镇",
+     "dinner": {
+      "dish": "前童三宝（豆腐、香干、空心腐）",
+      "place": "前童古镇"
+     }
+    },
+    {
+     "title": "伍山石窟 · 回程",
+     "text": "上午去伍山石窟，看古人采石留下的洞窟，下午回。",
+     "stops": [
+      {
+       "name": "伍山石窟",
+       "q": "伍山石窟 宁海",
+       "type": "sight",
+       "dur": 120,
+       "via": "包车约 40 分钟"
+      }
+     ],
+     "city": "宁海"
+    }
+   ]
+  },
+  "fs2": {
+   "dest": "guangdong",
+   "city": "佛山",
+   "label": "佛山 2 天",
+   "title": "两天，佛山祖庙和古村",
+   "kicker": "岭南 · 2 天",
+   "start": [
+    2026,
+    10,
+    20
+   ],
+   "prep": [
+    "祖庙每天有醒狮和功夫表演，看好时间",
+    "松塘村离市区一个多小时"
+   ],
+   "days": [
+    {
+     "title": "祖庙 · 岭南天地",
+     "text": "到佛山，逛祖庙看醒狮表演，晚上岭南天地。",
+     "stops": [
+      {
+       "name": "佛山祖庙",
+       "q": "佛山祖庙",
+       "type": "sight",
+       "dur": 120
+      },
+      {
+       "name": "岭南天地",
+       "q": "岭南天地 佛山",
+       "type": "street",
+       "dur": 120,
+       "at": "18:00"
+      }
+     ],
+     "start": "13:00",
+     "stay": "禅城区",
+     "dinner": {
+      "dish": "佛山盲公饼、鱼腐",
+      "place": "岭南天地"
+     }
+    },
+    {
+     "title": "南风古灶 · 松塘村",
+     "text": "上午石湾南风古灶看五百年的龙窑，下午去松塘村。",
+     "stops": [
+      {
+       "name": "南风古灶",
+       "q": "南风古灶",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "松塘村",
+       "q": "松塘村 佛山",
+       "type": "street",
+       "dur": 120,
+       "via": "包车约 1 小时"
+      }
+     ],
+     "city": "佛山"
+    }
+   ]
+  },
+  "jxyj2": {
+   "dest": "hebei",
+   "city": "井陉",
+   "label": "井陉古村 2 天",
+   "title": "两天，于家石头村和苍岩山",
+   "kicker": "古村 · 2 天",
+   "start": [
+    2026,
+    9,
+    25
+   ],
+   "prep": [
+    "于家村是明代于谦后人建的石头村",
+    "苍岩山的桥楼殿架在两座悬崖之间"
+   ],
+   "days": [
+    {
+     "title": "于家石头村",
+     "text": "到井陉，去于家村，看石头房、石头路、石头桥。",
+     "stops": [
+      {
+       "name": "于家石头村",
+       "q": "于家村 井陉",
+       "type": "street",
+       "dur": 180
+      }
+     ],
+     "start": "13:00",
+     "stay": "井陉县城",
+     "dinner": {
+      "dish": "井陉拽面",
+      "place": "井陉县城"
+     }
+    },
+    {
+     "title": "苍岩山 · 回程",
+     "text": "上午上苍岩山看桥楼殿，下午回。",
+     "stops": [
+      {
+       "name": "苍岩山",
+       "q": "苍岩山",
+       "type": "park",
+       "dur": 180,
+       "via": "包车约 40 分钟"
+      }
+     ]
+    }
+   ]
+  },
+  "zcmz2": {
+   "dest": "shandong",
+   "city": "邹城",
+   "label": "邹城孟府 2 天",
+   "title": "两天，孟子故里",
+   "kicker": "古迹 · 2 天",
+   "start": [
+    2026,
+    9,
+    25
+   ],
+   "prep": [
+    "孟庙孟府孟林合称“三孟”",
+    "上九山村是山上的石头古村"
+   ],
+   "days": [
+    {
+     "title": "孟庙 · 孟府",
+     "text": "到邹城，看孟庙、孟府。",
+     "stops": [
+      {
+       "name": "孟庙孟府",
+       "q": "孟庙 孟府 邹城",
+       "type": "sight",
+       "dur": 180
+      }
+     ],
+     "start": "13:00",
+     "stay": "邹城市区",
+     "dinner": {
+      "dish": "邹城羊汤",
+      "place": "邹城市区"
+     }
+    },
+    {
+     "title": "上九山古村 · 回程",
+     "text": "上午去上九山古村，下午回。",
+     "stops": [
+      {
+       "name": "上九山古村",
+       "q": "上九山古村",
+       "type": "street",
+       "dur": 150,
+       "via": "包车约 40 分钟"
+      }
+     ]
+    }
+   ]
+  },
+  "gzbl2": {
+   "dest": "jiangxi",
+   "city": "赣州",
+   "label": "赣州 2 天",
+   "title": "两天，赣州古城和白鹭古村",
+   "kicker": "古城 · 2 天",
+   "start": [
+    2026,
+    10,
+    15
+   ],
+   "prep": [
+    "赣州宋城墙是中国保存最完整的宋代城墙之一",
+    "白鹭古村离市区一个多小时"
+   ],
+   "days": [
+    {
+     "title": "郁孤台 · 宋城墙",
+     "text": "到赣州，登郁孤台，沿宋代城墙走到八境台。",
+     "stops": [
+      {
+       "name": "郁孤台",
+       "q": "郁孤台",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "赣州古城墙",
+       "q": "赣州古城墙",
+       "type": "sight",
+       "dur": 120
+      },
+      {
+       "name": "八境台",
+       "q": "八境台",
+       "type": "sight",
+       "dur": 45,
+       "at": "17:00"
+      }
+     ],
+     "start": "13:00",
+     "stay": "赣州市区",
+     "dinner": {
+      "dish": "赣南小炒鱼、三杯鸡",
+      "place": "赣州市区"
+     }
+    },
+    {
+     "title": "白鹭古村 · 回程",
+     "text": "包车去白鹭古村，看钟氏宗祠和客家古民居，下午回。",
+     "stops": [
+      {
+       "name": "白鹭古村",
+       "q": "白鹭古村 赣县",
+       "type": "street",
+       "dur": 180,
+       "via": "包车约 1 小时 20 分钟"
+      }
+     ],
+     "lunch": {
+      "dish": "客家酿豆腐",
+      "place": "白鹭古村"
+     }
+    }
+   ]
+  },
+  "prv5": {
+   "dest": "france",
+   "city": "阿维尼翁",
+   "label": "普罗旺斯蔚蓝海岸 5 天",
+   "title": "五天，薰衣草和蔚蓝海岸",
+   "kicker": "南法 · 5 天",
+   "start": [
+    2026,
+    6,
+    1
+   ],
+   "drive": true,
+   "prep": [
+    "薰衣草六月底到七月中最好",
+    "蔚蓝海岸夏天人多，酒店提前订"
+   ],
+   "days": [
+    {
+     "title": "阿维尼翁",
+     "text": "到阿维尼翁，看教皇宫和断桥。",
+     "stops": [
+      {
+       "name": "教皇宫",
+       "q": "Palais des Papes",
+       "type": "sight",
+       "dur": 120
+      },
+      {
+       "name": "阿维尼翁断桥",
+       "q": "Pont Saint-Benezet",
+       "type": "sight",
+       "dur": 45
+      }
+     ],
+     "start": "13:00",
+     "stay": "阿维尼翁"
+    },
+    {
+     "title": "瓦朗索勒薰衣草",
+     "text": "开车去瓦朗索勒高原看薰衣草田，傍晚到穆斯捷圣玛丽。",
+     "stops": [
+      {
+       "name": "瓦朗索勒高原",
+       "q": "Plateau de Valensole",
+       "type": "park",
+       "dur": 150,
+       "via": "自驾约 1 小时 40 分钟"
+      },
+      {
+       "name": "穆斯捷圣玛丽",
+       "q": "Moustiers-Sainte-Marie",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "city": "瓦朗索勒",
+     "stay": "瓦朗索勒"
+    },
+    {
+     "title": "到尼斯",
+     "text": "开到尼斯，走英国人散步大道，傍晚上城堡山。",
+     "stops": [
+      {
+       "name": "英国人散步大道",
+       "q": "Promenade des Anglais",
+       "type": "street",
+       "dur": 90,
+       "via": "自驾约 2 小时 30 分钟"
+      },
+      {
+       "name": "城堡山",
+       "q": "Colline du Chateau",
+       "type": "sight",
+       "dur": 60,
+       "at": "18:30"
+      }
+     ],
+     "city": "尼斯",
+     "stay": "尼斯老城"
+    },
+    {
+     "title": "埃兹 · 摩纳哥",
+     "text": "上午山顶小镇埃兹，下午摩纳哥王宫和蒙特卡洛。",
+     "stops": [
+      {
+       "name": "埃兹",
+       "q": "Eze Village",
+       "type": "street",
+       "dur": 120,
+       "via": "自驾约 30 分钟"
+      },
+      {
+       "name": "摩纳哥王宫",
+       "q": "Palais Princier de Monaco",
+       "type": "sight",
+       "dur": 90
+      }
+     ],
+     "city": "尼斯",
+     "stay": "尼斯老城"
+    },
+    {
+     "title": "回程",
+     "text": "上午逛尼斯老城的萨雷雅市场，下午去机场还车。",
+     "stops": [
+      {
+       "name": "萨雷雅广场",
+       "q": "Cours Saleya",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "start": "09:00",
+     "city": "尼斯"
+    }
+   ]
+  },
+  "vnm4": {
+   "dest": "italy",
+   "city": "威尼斯",
+   "label": "威尼斯米兰 4 天",
+   "title": "四天，威尼斯和米兰",
+   "kicker": "水城 · 4 天",
+   "start": [
+    2026,
+    4,
+    25
+   ],
+   "prep": [
+    "威尼斯一日游客要交进城费，出发前在官网查",
+    "《最后的晚餐》要提前一两个月在官网约"
+   ],
+   "days": [
+    {
+     "title": "圣马可广场",
+     "text": "到威尼斯，看圣马可广场、大教堂和叹息桥。",
+     "stops": [
+      {
+       "name": "圣马可广场",
+       "q": "Piazza San Marco",
+       "type": "street",
+       "dur": 120
+      },
+      {
+       "name": "叹息桥",
+       "q": "Bridge of Sighs",
+       "type": "sight",
+       "dur": 30
+      },
+      {
+       "name": "里亚托桥",
+       "q": "Rialto Bridge",
+       "type": "sight",
+       "dur": 45,
+       "at": "18:00"
+      }
+     ],
+     "start": "13:00",
+     "stay": "威尼斯"
+    },
+    {
+     "title": "布拉诺 · 穆拉诺",
+     "text": "坐水上巴士去彩色岛布拉诺和玻璃岛穆拉诺。",
+     "stops": [
+      {
+       "name": "布拉诺岛",
+       "q": "Burano",
+       "type": "street",
+       "dur": 150,
+       "via": "水上巴士约 45 分钟"
+      },
+      {
+       "name": "穆拉诺岛",
+       "q": "Murano",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "stay": "威尼斯"
+    },
+    {
+     "title": "去米兰",
+     "text": "坐火车去米兰，看米兰大教堂，上屋顶。",
+     "stops": [
+      {
+       "name": "米兰大教堂",
+       "q": "Duomo di Milano",
+       "type": "sight",
+       "dur": 150,
+       "via": "火车约 2 小时 30 分钟"
+      },
+      {
+       "name": "埃马努埃莱二世长廊",
+       "q": "Galleria Vittorio Emanuele II",
+       "type": "street",
+       "dur": 60
+      }
+     ],
+     "city": "米兰",
+     "stay": "米兰"
+    },
+    {
+     "title": "最后的晚餐 · 回程",
+     "text": "上午看《最后的晚餐》，下午去机场。",
+     "stops": [
+      {
+       "name": "感恩圣母教堂",
+       "q": "Santa Maria delle Grazie",
+       "type": "sight",
+       "dur": 60,
+       "at": "09:30"
+      }
+     ],
+     "start": "09:00",
+     "city": "米兰"
+    }
+   ]
+  },
+  "bcn6": {
+   "dest": "spain",
+   "city": "巴塞罗那",
+   "label": "巴塞罗那马德里 6 天",
+   "title": "六天，高迪和普拉多",
+   "kicker": "城市 · 6 天",
+   "start": [
+    2026,
+    4,
+    20
+   ],
+   "prep": [
+    "圣家堂、桂尔公园都要提前在官网买票",
+    "巴塞罗那到马德里坐高铁约 2 小时 30 分钟"
+   ],
+   "days": [
+    {
+     "title": "兰布拉大道 · 哥特区",
+     "text": "到巴塞罗那，走兰布拉大道，逛博盖利亚市场和哥特区。",
+     "stops": [
+      {
+       "name": "兰布拉大道",
+       "q": "La Rambla",
+       "type": "street",
+       "dur": 90
+      },
+      {
+       "name": "博盖利亚市场",
+       "q": "Mercat de la Boqueria",
+       "type": "street",
+       "dur": 60
+      },
+      {
+       "name": "哥特区",
+       "q": "Barri Gotic",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "start": "13:00",
+     "stay": "扩展区"
+    },
+    {
+     "title": "圣家堂 · 桂尔公园",
+     "text": "上午圣家堂，下午桂尔公园。",
+     "stops": [
+      {
+       "name": "圣家堂",
+       "q": "Sagrada Familia",
+       "type": "sight",
+       "dur": 150,
+       "at": "09:00"
+      },
+      {
+       "name": "桂尔公园",
+       "q": "Park Guell",
+       "type": "park",
+       "dur": 120
+      }
+     ],
+     "stay": "扩展区"
+    },
+    {
+     "title": "米拉之家 · 巴特罗之家",
+     "text": "上午米拉之家和巴特罗之家，傍晚去蒙锥克山看魔幻喷泉。",
+     "stops": [
+      {
+       "name": "米拉之家",
+       "q": "Casa Mila",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "巴特罗之家",
+       "q": "Casa Batllo",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "魔幻喷泉",
+       "q": "Magic Fountain of Montjuic",
+       "type": "fun",
+       "dur": 60,
+       "at": "20:30"
+      }
+     ],
+     "stay": "扩展区"
+    },
+    {
+     "title": "去马德里",
+     "text": "坐高铁去马德里，傍晚逛太阳门和马约尔广场。",
+     "stops": [
+      {
+       "name": "太阳门",
+       "q": "Puerta del Sol",
+       "type": "street",
+       "dur": 60,
+       "via": "高铁约 2 小时 30 分钟"
+      },
+      {
+       "name": "马约尔广场",
+       "q": "Plaza Mayor Madrid",
+       "type": "street",
+       "dur": 60
+      }
+     ],
+     "city": "马德里",
+     "stay": "马德里市中心"
+    },
+    {
+     "title": "普拉多 · 王宫",
+     "text": "上午普拉多博物馆，下午马德里王宫。",
+     "stops": [
+      {
+       "name": "普拉多博物馆",
+       "q": "Museo del Prado",
+       "type": "museum",
+       "dur": 180,
+       "at": "10:00"
+      },
+      {
+       "name": "马德里王宫",
+       "q": "Palacio Real de Madrid",
+       "type": "sight",
+       "dur": 120
+      }
+     ],
+     "city": "马德里",
+     "stay": "马德里市中心"
+    },
+    {
+     "title": "托莱多 · 回程",
+     "text": "上午去托莱多古城，下午回马德里去机场。",
+     "stops": [
+      {
+       "name": "托莱多",
+       "q": "Toledo Spain",
+       "type": "street",
+       "dur": 240,
+       "via": "高铁约 30 分钟"
+      }
+     ],
+     "start": "08:30",
+     "city": "马德里"
+    }
+   ]
+  },
+  "sco5": {
+   "dest": "uk",
+   "city": "爱丁堡",
+   "label": "苏格兰 5 天",
+   "title": "五天，爱丁堡和高地",
+   "kicker": "高地 · 5 天",
+   "start": [
+    2026,
+    5,
+    20
+   ],
+   "prep": [
+    "八月爱丁堡艺术节期间住宿很贵",
+    "高地天气变得快，带防水外套"
+   ],
+   "days": [
+    {
+     "title": "皇家一英里",
+     "text": "到爱丁堡，走皇家一英里，傍晚上卡尔顿山。",
+     "stops": [
+      {
+       "name": "皇家一英里",
+       "q": "Royal Mile",
+       "type": "street",
+       "dur": 120
+      },
+      {
+       "name": "卡尔顿山",
+       "q": "Calton Hill",
+       "type": "sight",
+       "dur": 60,
+       "at": "19:00"
+      }
+     ],
+     "start": "13:00",
+     "stay": "爱丁堡老城"
+    },
+    {
+     "title": "爱丁堡城堡",
+     "text": "上午爱丁堡城堡，下午爬亚瑟王座。",
+     "stops": [
+      {
+       "name": "爱丁堡城堡",
+       "q": "Edinburgh Castle",
+       "type": "sight",
+       "dur": 150,
+       "at": "09:30"
+      },
+      {
+       "name": "亚瑟王座",
+       "q": "Arthurs Seat",
+       "type": "park",
+       "dur": 120
+      }
+     ],
+     "stay": "爱丁堡老城"
+    },
+    {
+     "title": "格伦科 · 去高地",
+     "text": "坐车往北，经过格伦科峡谷到威廉堡。",
+     "stops": [
+      {
+       "name": "格伦科",
+       "q": "Glencoe",
+       "type": "park",
+       "dur": 120,
+       "via": "包车约 2 小时 30 分钟"
+      }
+     ],
+     "city": "威廉堡",
+     "stay": "威廉堡"
+    },
+    {
+     "title": "尼斯湖",
+     "text": "去尼斯湖和厄克特城堡，晚上到因弗内斯。",
+     "stops": [
+      {
+       "name": "厄克特城堡",
+       "q": "Urquhart Castle",
+       "type": "sight",
+       "dur": 90,
+       "via": "包车约 1 小时 30 分钟"
+      }
+     ],
+     "city": "因弗内斯",
+     "stay": "因弗内斯"
+    },
+    {
+     "title": "回程",
+     "text": "从因弗内斯坐火车或飞机回。",
+     "stops": [
+      {
+       "name": "因弗内斯城堡",
+       "q": "Inverness Castle",
+       "type": "sight",
+       "dur": 30
+      }
+     ],
+     "start": "09:00",
+     "city": "因弗内斯"
+    }
+   ]
   }
  }
 }

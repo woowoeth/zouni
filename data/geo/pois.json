@@ -4008,10 +4008,11 @@
   "q": "碧峰峡"
  },
  "佛山|佛山": {
-  "lat": 23.0239788,
-  "lng": 113.1159558,
-  "hit": "佛山市, 南海区, 广东省, 中国",
-  "q": "佛山"
+  "lat": 23.022,
+  "lng": 113.121,
+  "hit": "人工核对（近似）",
+  "q": "佛山",
+  "src": "curated"
  },
  "佛山|西樵山": {
   "lat": 22.9411591,
@@ -5001,10 +5002,11 @@
   "src": "curated"
  },
  "赣州|赣州": {
-  "lat": 25.703866,
-  "lng": 115.348216,
-  "hit": "赣州市, 江西省, 中国",
-  "q": "赣州"
+  "lat": 25.831,
+  "lng": 114.935,
+  "hit": "人工核对（近似）",
+  "q": "赣州",
+  "src": "curated"
  },
  "瑞金|瑞金": {
   "lat": 25.9189329,
@@ -5915,15 +5917,16 @@
  "岳阳|岳阳": {
   "lat": 29.357,
   "lng": 113.129,
-  "hit": "人工核对",
+  "hit": "人工核对（近似）",
   "q": "岳阳",
   "src": "curated"
  },
  "岳阳|岳阳楼": {
-  "lat": 29.3846862,
-  "lng": 113.0883327,
-  "hit": "岳阳楼, 洞庭北路, 岳阳楼街道, 岳阳楼区, 岳阳市, 湖南省, 414000, 中国",
-  "q": "岳阳楼"
+  "lat": 29.38,
+  "lng": 113.088,
+  "hit": "人工核对（近似）",
+  "q": "岳阳楼",
+  "src": "curated"
  },
  "岳阳|君山岛": {
   "lat": 29.3551941,
@@ -16470,5 +16473,537 @@
   "src": "curated"
  },
  "萨尔茨堡|Belvedere Palace": null,
- "萨尔茨堡|Belvedere Palace#tried": true
+ "萨尔茨堡|Belvedere Palace#tried": true,
+ "岳阳|洞庭湖 岳阳": {
+  "lat": 29.385,
+  "lng": 113.075,
+  "hit": "人工核对（近似）",
+  "q": "洞庭湖 岳阳",
+  "src": "curated"
+ },
+ "岳阳|岳阳市区": {
+  "lat": 29.357,
+  "lng": 113.129,
+  "hit": "人工核对（近似）",
+  "q": "岳阳市区",
+  "src": "curated"
+ },
+ "岳阳县|岳阳县": {
+  "lat": 29.145,
+  "lng": 113.116,
+  "hit": "人工核对（近似）",
+  "q": "岳阳县",
+  "src": "curated"
+ },
+ "岳阳县|张谷英村": {
+  "lat": 29.17,
+  "lng": 113.6,
+  "hit": "人工核对（近似）",
+  "q": "张谷英村",
+  "src": "curated"
+ },
+ "宁海|宁海": {
+  "lat": 29.287,
+  "lng": 121.429,
+  "hit": "人工核对（近似）",
+  "q": "宁海",
+  "src": "curated"
+ },
+ "宁海|前童古镇": {
+  "lat": 29.23,
+  "lng": 121.33,
+  "hit": "人工核对（近似）",
+  "q": "前童古镇",
+  "src": "curated"
+ },
+ "宁海|伍山石窟 宁海": {
+  "lat": 29.33,
+  "lng": 121.49,
+  "hit": "人工核对（近似）",
+  "q": "伍山石窟 宁海",
+  "src": "curated"
+ },
+ "佛山|佛山祖庙": {
+  "lat": 23.033,
+  "lng": 113.112,
+  "hit": "人工核对（近似）",
+  "q": "佛山祖庙",
+  "src": "curated"
+ },
+ "佛山|岭南天地 佛山": {
+  "lat": 23.032,
+  "lng": 113.114,
+  "hit": "人工核对（近似）",
+  "q": "岭南天地 佛山",
+  "src": "curated"
+ },
+ "佛山|禅城区": {
+  "lat": 23.022,
+  "lng": 113.121,
+  "hit": "人工核对（近似）",
+  "q": "禅城区",
+  "src": "curated"
+ },
+ "佛山|南风古灶": {
+  "lat": 23.003,
+  "lng": 113.083,
+  "hit": "人工核对（近似）",
+  "q": "南风古灶",
+  "src": "curated"
+ },
+ "佛山|松塘村 佛山": {
+  "lat": 23.07,
+  "lng": 112.93,
+  "hit": "人工核对（近似）",
+  "q": "松塘村 佛山",
+  "src": "curated"
+ },
+ "井陉|井陉": {
+  "lat": 38.033,
+  "lng": 114.145,
+  "hit": "人工核对（近似）",
+  "q": "井陉",
+  "src": "curated"
+ },
+ "井陉|于家村 井陉": {
+  "lat": 37.9,
+  "lng": 114.06,
+  "hit": "人工核对（近似）",
+  "q": "于家村 井陉",
+  "src": "curated"
+ },
+ "井陉|苍岩山": {
+  "lat": 37.82,
+  "lng": 114.16,
+  "hit": "人工核对（近似）",
+  "q": "苍岩山",
+  "src": "curated"
+ },
+ "井陉|井陉县城": {
+  "lat": 38.033,
+  "lng": 114.145,
+  "hit": "人工核对（近似）",
+  "q": "井陉县城",
+  "src": "curated"
+ },
+ "邹城|邹城": {
+  "lat": 35.405,
+  "lng": 116.973,
+  "hit": "人工核对（近似）",
+  "q": "邹城",
+  "src": "curated"
+ },
+ "邹城|孟庙 孟府 邹城": {
+  "lat": 35.4,
+  "lng": 116.966,
+  "hit": "人工核对（近似）",
+  "q": "孟庙 孟府 邹城",
+  "src": "curated"
+ },
+ "邹城|上九山古村": {
+  "lat": 35.31,
+  "lng": 117.08,
+  "hit": "人工核对（近似）",
+  "q": "上九山古村",
+  "src": "curated"
+ },
+ "邹城|邹城市区": {
+  "lat": 35.405,
+  "lng": 116.973,
+  "hit": "人工核对（近似）",
+  "q": "邹城市区",
+  "src": "curated"
+ },
+ "赣州|郁孤台": {
+  "lat": 25.861,
+  "lng": 114.925,
+  "hit": "人工核对（近似）",
+  "q": "郁孤台",
+  "src": "curated"
+ },
+ "赣州|赣州古城墙": {
+  "lat": 25.865,
+  "lng": 114.931,
+  "hit": "人工核对（近似）",
+  "q": "赣州古城墙",
+  "src": "curated"
+ },
+ "赣州|八境台": {
+  "lat": 25.868,
+  "lng": 114.933,
+  "hit": "人工核对（近似）",
+  "q": "八境台",
+  "src": "curated"
+ },
+ "赣州|白鹭古村 赣县": {
+  "lat": 26.12,
+  "lng": 115.21,
+  "hit": "人工核对（近似）",
+  "q": "白鹭古村 赣县",
+  "src": "curated"
+ },
+ "赣州|赣州市区": {
+  "lat": 25.831,
+  "lng": 114.935,
+  "hit": "人工核对（近似）",
+  "q": "赣州市区",
+  "src": "curated"
+ },
+ "阿维尼翁|阿维尼翁": {
+  "lat": 43.949,
+  "lng": 4.806,
+  "hit": "人工核对（近似）",
+  "q": "阿维尼翁",
+  "src": "curated"
+ },
+ "阿维尼翁|Palais des Papes": {
+  "lat": 43.951,
+  "lng": 4.807,
+  "hit": "人工核对（近似）",
+  "q": "Palais des Papes",
+  "src": "curated"
+ },
+ "阿维尼翁|Pont Saint-Benezet": {
+  "lat": 43.954,
+  "lng": 4.804,
+  "hit": "人工核对（近似）",
+  "q": "Pont Saint-Benezet",
+  "src": "curated"
+ },
+ "瓦朗索勒|瓦朗索勒": {
+  "lat": 43.837,
+  "lng": 5.983,
+  "hit": "人工核对（近似）",
+  "q": "瓦朗索勒",
+  "src": "curated"
+ },
+ "瓦朗索勒|Plateau de Valensole": {
+  "lat": 43.83,
+  "lng": 6.02,
+  "hit": "人工核对（近似）",
+  "q": "Plateau de Valensole",
+  "src": "curated"
+ },
+ "瓦朗索勒|Moustiers-Sainte-Marie": {
+  "lat": 43.845,
+  "lng": 6.222,
+  "hit": "人工核对（近似）",
+  "q": "Moustiers-Sainte-Marie",
+  "src": "curated"
+ },
+ "尼斯|尼斯": {
+  "lat": 43.71,
+  "lng": 7.262,
+  "hit": "人工核对（近似）",
+  "q": "尼斯",
+  "src": "curated"
+ },
+ "尼斯|Promenade des Anglais": {
+  "lat": 43.695,
+  "lng": 7.265,
+  "hit": "人工核对（近似）",
+  "q": "Promenade des Anglais",
+  "src": "curated"
+ },
+ "尼斯|Colline du Chateau": {
+  "lat": 43.696,
+  "lng": 7.281,
+  "hit": "人工核对（近似）",
+  "q": "Colline du Chateau",
+  "src": "curated"
+ },
+ "尼斯|Eze Village": {
+  "lat": 43.728,
+  "lng": 7.362,
+  "hit": "人工核对（近似）",
+  "q": "Eze Village",
+  "src": "curated"
+ },
+ "尼斯|Palais Princier de Monaco": {
+  "lat": 43.731,
+  "lng": 7.42,
+  "hit": "人工核对（近似）",
+  "q": "Palais Princier de Monaco",
+  "src": "curated"
+ },
+ "尼斯|Cours Saleya": {
+  "lat": 43.696,
+  "lng": 7.275,
+  "hit": "人工核对（近似）",
+  "q": "Cours Saleya",
+  "src": "curated"
+ },
+ "尼斯|尼斯老城": {
+  "lat": 43.697,
+  "lng": 7.276,
+  "hit": "人工核对（近似）",
+  "q": "尼斯老城",
+  "src": "curated"
+ },
+ "威尼斯|威尼斯": {
+  "lat": 45.438,
+  "lng": 12.327,
+  "hit": "人工核对（近似）",
+  "q": "威尼斯",
+  "src": "curated"
+ },
+ "威尼斯|Piazza San Marco": {
+  "lat": 45.434,
+  "lng": 12.339,
+  "hit": "人工核对（近似）",
+  "q": "Piazza San Marco",
+  "src": "curated"
+ },
+ "威尼斯|Bridge of Sighs": {
+  "lat": 45.434,
+  "lng": 12.341,
+  "hit": "人工核对（近似）",
+  "q": "Bridge of Sighs",
+  "src": "curated"
+ },
+ "威尼斯|Rialto Bridge": {
+  "lat": 45.438,
+  "lng": 12.336,
+  "hit": "人工核对（近似）",
+  "q": "Rialto Bridge",
+  "src": "curated"
+ },
+ "威尼斯|Burano": {
+  "lat": 45.485,
+  "lng": 12.417,
+  "hit": "人工核对（近似）",
+  "q": "Burano",
+  "src": "curated"
+ },
+ "威尼斯|Murano": {
+  "lat": 45.458,
+  "lng": 12.353,
+  "hit": "人工核对（近似）",
+  "q": "Murano",
+  "src": "curated"
+ },
+ "米兰|米兰": {
+  "lat": 45.464,
+  "lng": 9.19,
+  "hit": "人工核对（近似）",
+  "q": "米兰",
+  "src": "curated"
+ },
+ "米兰|Duomo di Milano": {
+  "lat": 45.464,
+  "lng": 9.192,
+  "hit": "人工核对（近似）",
+  "q": "Duomo di Milano",
+  "src": "curated"
+ },
+ "米兰|Galleria Vittorio Emanuele II": {
+  "lat": 45.466,
+  "lng": 9.19,
+  "hit": "人工核对（近似）",
+  "q": "Galleria Vittorio Emanuele II",
+  "src": "curated"
+ },
+ "米兰|Santa Maria delle Grazie": {
+  "lat": 45.466,
+  "lng": 9.171,
+  "hit": "人工核对（近似）",
+  "q": "Santa Maria delle Grazie",
+  "src": "curated"
+ },
+ "巴塞罗那|巴塞罗那": {
+  "lat": 41.385,
+  "lng": 2.173,
+  "hit": "人工核对（近似）",
+  "q": "巴塞罗那",
+  "src": "curated"
+ },
+ "巴塞罗那|La Rambla": {
+  "lat": 41.381,
+  "lng": 2.173,
+  "hit": "人工核对（近似）",
+  "q": "La Rambla",
+  "src": "curated"
+ },
+ "巴塞罗那|Mercat de la Boqueria": {
+  "lat": 41.382,
+  "lng": 2.172,
+  "hit": "人工核对（近似）",
+  "q": "Mercat de la Boqueria",
+  "src": "curated"
+ },
+ "巴塞罗那|Barri Gotic": {
+  "lat": 41.383,
+  "lng": 2.177,
+  "hit": "人工核对（近似）",
+  "q": "Barri Gotic",
+  "src": "curated"
+ },
+ "巴塞罗那|Sagrada Familia": {
+  "lat": 41.404,
+  "lng": 2.174,
+  "hit": "人工核对（近似）",
+  "q": "Sagrada Familia",
+  "src": "curated"
+ },
+ "巴塞罗那|Park Guell": {
+  "lat": 41.414,
+  "lng": 2.153,
+  "hit": "人工核对（近似）",
+  "q": "Park Guell",
+  "src": "curated"
+ },
+ "巴塞罗那|Casa Mila": {
+  "lat": 41.395,
+  "lng": 2.162,
+  "hit": "人工核对（近似）",
+  "q": "Casa Mila",
+  "src": "curated"
+ },
+ "巴塞罗那|Casa Batllo": {
+  "lat": 41.392,
+  "lng": 2.165,
+  "hit": "人工核对（近似）",
+  "q": "Casa Batllo",
+  "src": "curated"
+ },
+ "巴塞罗那|Magic Fountain of Montjuic": {
+  "lat": 41.371,
+  "lng": 2.152,
+  "hit": "人工核对（近似）",
+  "q": "Magic Fountain of Montjuic",
+  "src": "curated"
+ },
+ "巴塞罗那|扩展区": {
+  "lat": 41.393,
+  "lng": 2.164,
+  "hit": "人工核对（近似）",
+  "q": "扩展区",
+  "src": "curated"
+ },
+ "马德里|马德里": {
+  "lat": 40.417,
+  "lng": -3.704,
+  "hit": "人工核对（近似）",
+  "q": "马德里",
+  "src": "curated"
+ },
+ "马德里|Puerta del Sol": {
+  "lat": 40.417,
+  "lng": -3.703,
+  "hit": "人工核对（近似）",
+  "q": "Puerta del Sol",
+  "src": "curated"
+ },
+ "马德里|Plaza Mayor Madrid": {
+  "lat": 40.415,
+  "lng": -3.707,
+  "hit": "人工核对（近似）",
+  "q": "Plaza Mayor Madrid",
+  "src": "curated"
+ },
+ "马德里|Museo del Prado": {
+  "lat": 40.414,
+  "lng": -3.692,
+  "hit": "人工核对（近似）",
+  "q": "Museo del Prado",
+  "src": "curated"
+ },
+ "马德里|Palacio Real de Madrid": {
+  "lat": 40.418,
+  "lng": -3.714,
+  "hit": "人工核对（近似）",
+  "q": "Palacio Real de Madrid",
+  "src": "curated"
+ },
+ "马德里|Toledo Spain": {
+  "lat": 39.857,
+  "lng": -4.024,
+  "hit": "人工核对（近似）",
+  "q": "Toledo Spain",
+  "src": "curated"
+ },
+ "马德里|马德里市中心": {
+  "lat": 40.417,
+  "lng": -3.704,
+  "hit": "人工核对（近似）",
+  "q": "马德里市中心",
+  "src": "curated"
+ },
+ "爱丁堡|爱丁堡": {
+  "lat": 55.953,
+  "lng": -3.189,
+  "hit": "人工核对（近似）",
+  "q": "爱丁堡",
+  "src": "curated"
+ },
+ "爱丁堡|Royal Mile": {
+  "lat": 55.95,
+  "lng": -3.188,
+  "hit": "人工核对（近似）",
+  "q": "Royal Mile",
+  "src": "curated"
+ },
+ "爱丁堡|Calton Hill": {
+  "lat": 55.955,
+  "lng": -3.183,
+  "hit": "人工核对（近似）",
+  "q": "Calton Hill",
+  "src": "curated"
+ },
+ "爱丁堡|Edinburgh Castle": {
+  "lat": 55.949,
+  "lng": -3.201,
+  "hit": "人工核对（近似）",
+  "q": "Edinburgh Castle",
+  "src": "curated"
+ },
+ "爱丁堡|Arthurs Seat": {
+  "lat": 55.944,
+  "lng": -3.162,
+  "hit": "人工核对（近似）",
+  "q": "Arthurs Seat",
+  "src": "curated"
+ },
+ "爱丁堡|爱丁堡老城": {
+  "lat": 55.95,
+  "lng": -3.19,
+  "hit": "人工核对（近似）",
+  "q": "爱丁堡老城",
+  "src": "curated"
+ },
+ "威廉堡|威廉堡": {
+  "lat": 56.82,
+  "lng": -5.105,
+  "hit": "人工核对（近似）",
+  "q": "威廉堡",
+  "src": "curated"
+ },
+ "威廉堡|Glencoe": {
+  "lat": 56.682,
+  "lng": -5.102,
+  "hit": "人工核对（近似）",
+  "q": "Glencoe",
+  "src": "curated"
+ },
+ "因弗内斯|因弗内斯": {
+  "lat": 57.478,
+  "lng": -4.225,
+  "hit": "人工核对（近似）",
+  "q": "因弗内斯",
+  "src": "curated"
+ },
+ "因弗内斯|Urquhart Castle": {
+  "lat": 57.324,
+  "lng": -4.442,
+  "hit": "人工核对（近似）",
+  "q": "Urquhart Castle",
+  "src": "curated"
+ },
+ "因弗内斯|Inverness Castle": {
+  "lat": 57.477,
+  "lng": -4.226,
+  "hit": "人工核对（近似）",
+  "q": "Inverness Castle",
+  "src": "curated"
+ }
 }
