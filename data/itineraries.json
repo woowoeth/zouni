@@ -27892,6 +27892,208 @@
    ],
    "drive": true,
    "loop": true
+  },
+  "kyt3": {
+   "dest": "japan",
+   "city": "京都",
+   "label": "京都 3 天",
+   "title": "三天，慢慢走京都",
+   "kicker": "古都 · 3 天",
+   "start": [
+    2026,
+    10,
+    10
+   ],
+   "prep": [
+    "京都公交一日券很划算",
+    "清水寺、伏见稻荷早上人少"
+   ],
+   "days": [
+    {
+     "title": "伏见稻荷 · 清水寺",
+     "text": "清早去伏见稻荷走千本鸟居，下午清水寺，沿二年坂三年坂下山到祇园。",
+     "stops": [
+      {
+       "name": "伏见稻荷",
+       "q": "Fushimi Inari Taisha",
+       "type": "sight",
+       "dur": 120
+      },
+      {
+       "name": "清水寺",
+       "q": "Kiyomizu-dera",
+       "type": "sight",
+       "dur": 90,
+       "at": "14:00"
+      },
+      {
+       "name": "二年坂三年坂",
+       "q": "Sannenzaka",
+       "type": "street",
+       "dur": 60
+      },
+      {
+       "name": "祇园",
+       "q": "Gion",
+       "type": "street",
+       "dur": 90,
+       "at": "17:30"
+      }
+     ],
+     "start": "07:30",
+     "stay": "祇园附近"
+    },
+    {
+     "title": "岚山",
+     "text": "去岚山，走竹林小径，看渡月桥，下午金阁寺。",
+     "stops": [
+      {
+       "name": "岚山竹林",
+       "q": "Arashiyama Bamboo Grove",
+       "type": "park",
+       "dur": 90
+      },
+      {
+       "name": "渡月桥",
+       "q": "Togetsukyo Bridge",
+       "type": "sight",
+       "dur": 45
+      },
+      {
+       "name": "金阁寺",
+       "q": "Kinkaku-ji",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 30 分钟"
+      }
+     ],
+     "stay": "祇园附近"
+    },
+    {
+     "title": "银阁寺 · 哲学之道 · 回程",
+     "text": "上午银阁寺，沿哲学之道走到南禅寺，下午出发。",
+     "stops": [
+      {
+       "name": "银阁寺",
+       "q": "Ginkaku-ji",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "哲学之道",
+       "q": "Philosopher's Path",
+       "type": "street",
+       "dur": 60
+      },
+      {
+       "name": "南禅寺",
+       "q": "Nanzen-ji",
+       "type": "sight",
+       "dur": 60
+      }
+     ]
+    }
+   ]
+  },
+  "oki4": {
+   "dest": "japan",
+   "city": "那霸",
+   "label": "冲绳 4 天",
+   "title": "四天，冲绳的海",
+   "kicker": "海岛 · 4 天",
+   "start": [
+    2026,
+    4,
+    15
+   ],
+   "prep": [
+    "冲绳租车自驾最方便，要带中文驾照翻译件",
+    "美丽海水族馆下午 4 点后票价便宜"
+   ],
+   "drive": true,
+   "days": [
+    {
+     "title": "那霸 · 国际通",
+     "text": "到那霸，傍晚去濑长岛看日落，晚上逛国际通。",
+     "stops": [
+      {
+       "name": "濑长岛",
+       "q": "Senagajima",
+       "type": "park",
+       "dur": 90,
+       "at": "17:30"
+      },
+      {
+       "name": "国际通",
+       "q": "Kokusai Street",
+       "type": "street",
+       "dur": 120,
+       "at": "19:00"
+      }
+     ],
+     "start": "14:00",
+     "stay": "那霸"
+    },
+    {
+     "title": "万座毛 · 美丽海水族馆",
+     "text": "开车北上，看万座毛海崖，下午去美丽海水族馆。",
+     "stops": [
+      {
+       "name": "万座毛",
+       "q": "Cape Manzamo",
+       "type": "sight",
+       "dur": 45,
+       "via": "自驾约 1 小时 10 分钟"
+      },
+      {
+       "name": "美丽海水族馆",
+       "q": "Okinawa Churaumi Aquarium",
+       "type": "sight",
+       "dur": 180,
+       "via": "自驾约 1 小时"
+      }
+     ],
+     "city": "本部町",
+     "stay": "本部"
+    },
+    {
+     "title": "古宇利岛 · 北谷",
+     "text": "上午开过古宇利大桥上古宇利岛，下午回到北谷美国村看日落。",
+     "stops": [
+      {
+       "name": "古宇利岛",
+       "q": "Kouri Island",
+       "type": "park",
+       "dur": 120,
+       "via": "自驾约 30 分钟"
+      },
+      {
+       "name": "美国村",
+       "q": "American Village Chatan",
+       "type": "street",
+       "dur": 120,
+       "via": "自驾约 1 小时 30 分钟",
+       "at": "17:00"
+      }
+     ],
+     "city": "北谷",
+     "stay": "北谷"
+    },
+    {
+     "title": "回程",
+     "text": "上午在那霸逛牧志公设市场，下午去机场还车。",
+     "stops": [
+      {
+       "name": "牧志公设市场",
+       "q": "Makishi Public Market",
+       "type": "street",
+       "dur": 90,
+       "via": "自驾约 40 分钟"
+      }
+     ],
+     "city": "那霸"
+    }
+   ]
   }
  }
 }

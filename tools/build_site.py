@@ -242,6 +242,10 @@ SIGHT = {
     '曲水亭街': '泉水从家门口流过的老街', '黑虎泉': '济南人打泉水的地方', '崂山太清宫': '崂山最大的道观', '台儿庄古城': '台儿庄大战旧址上重建的运河古城', '岳麓山': '爱晚亭在这里',
     '毛泽东同志故居': '韶山冲的土屋', '南岳大庙': '五岳中规模最大的庙之一', '祝融峰': '衡山最高峰', '赤水大瀑布': '中国最大的丹霞瀑布', '佛光岩': '赤水的丹霞绝壁和瀑布',
     '周口店北京人遗址': '北京人头盖骨出土的地方', '元上都遗址': '元朝的夏都，世界遗产', '冲古寺': '亚丁景区的入口寺院', '洛绒牛场': '看央迈勇雪山的草甸', '牛奶海': '亚丁海拔 4,600 米的冰川湖',
+    '岚山竹林': '高高的竹林小径，早上人少', '渡月桥': '岚山的标志，秋天红叶最好看', '金阁寺': '贴满金箔的舍利殿倒映在池里', '银阁寺': '没贴银箔的禅寺，枯山水庭园',
+    '哲学之道': '沿水渠的小路，春天樱花', '南禅寺': '寺里有红砖的水路阁', '二年坂三年坂': '清水寺下的石板坡老街', '祇园': '京都的花街，傍晚可能遇到艺伎',
+    '濑长岛': '机场旁边的小岛，看日落和飞机', '国际通': '那霸最热闹的街', '万座毛': '像大象鼻子的海崖', '美丽海水族馆': '有鲸鲨的大水族馆', '古宇利岛': '开车过跨海大桥上的小岛',
+    '美国村': '北谷海边的购物街，看日落', '牧志公设市场': '那霸的海鲜市场，买了可以楼上加工',
     '刘氏庄园': '大地主刘文彩的庄园', '建川博物馆': '民间收藏的抗战文物', '碧峰峡': '雅安的大熊猫基地和峡谷', '七星岩': '肇庆的喀斯特山和湖', '世界之窗': '世界著名建筑的微缩景观',}
 
 
@@ -876,7 +880,7 @@ def dest_page(d):
     did = d['id']; cl = d.get('climate') or {}; best = set(d['months']['best'])
     months = ''.join(f'<li class="{"on" if m in best else ""}{" now" if m == TODAY.month else ""}"><b>{m} 月</b><small>{cl.get(str(m), ["", ""])[0]}° / {cl.get(str(m), ["", ""])[1]}°</small></li>' for m in range(1, 13))
     _dr = sorted(DEST_ROUTES.get(did, []), key=lambda r_: 1 if ROUTES[r_].get('drive') else 0)
-    trips = ''.join(f'<li><a href="/trip/{rid}/"><b>{E(ROUTES[rid].get("label"))} ›</b><span>{E(day_line(ROUTES[rid]))}</span><small>{"自驾 · " if ROUTES[rid].get("drive") else ""}{E(ROUTES[rid].get("price"))}</small></a></li>' for rid in _dr)
+    trips = ''.join(f'<li><a href="/trip/{rid}/"><b>{E(ROUTES[rid].get("label"))} ›</b><span>{E(day_line(ROUTES[rid]))}</span><small>{"自驾 · " if ROUTES[rid].get("drive") else ""}{E(price_k(ROUTES[rid].get("price")))}</small></a></li>' for rid in _dr)
     other = [t for t in TRIPS if t['dest'] == did and not any(TRIP_OF_ROUTE.get(r) is t for r in DEST_ROUTES.get(did, []))]
     trips += ''.join(f'<li><span><b>{E(t["title"])}</b> · {"暂不排" if t["status"] == "blocked" else "整理中"}</span></li>' for t in other)
     city = d['base']['name']; app = 'google' if d['scope'] == 'asia' else 'amap'
@@ -933,7 +937,7 @@ def where_page():
                 rows = []
                 for rid in DEST_ROUTES.get(x['id'], [])[:4]:
                     tt = TRIP_OF_ROUTE[rid]; rr = ROUTES[rid]
-                    rows.append(f'<a href="/trip/{rid}/"><b>{E(rr.get("label"))} ›</b><span>{E(rr.get("price"))}{(" · " + " · ".join((tt.get("tags") or [])[:2])) if tt.get("tags") else ""}</span></a>')
+                    rows.append(f'<a href="/trip/{rid}/"><b>{E(rr.get("label"))} ›</b><span>{E(price_k(rr.get("price")))}{(" · " + " · ".join((tt.get("tags") or [])[:2])) if tt.get("tags") else ""}</span></a>')
                 more = len(DEST_ROUTES.get(x['id'], [])) - 4
                 qn_ = len(QUAL_BY_PROV.get(x['name'], [])) if scope == 'domestic' else 0
                 qlink = (f'<a class="q" href="/d/{x["id"]}/#q">{qn_} 处 5A 和世界遗产 ›</a>' if qn_ else '') + (f'<a class="q" href="/d/{x["id"]}/">还有 {more} 条行程 ›</a>' if more > 0 else '')
@@ -967,7 +971,10 @@ def day_line(rr):
     """每天去哪：取每天标题的第一个地方，用箭头连起来（不重复天数和线路名）"""
     ps = []
     for d_ in rr['days']:
-        f_ = re.sub(r'^(去|到|回)', '', re.split(r'\s*(?:·|→|，|、)\s*', d_.get('title') or '')[0].strip())
+        f0_ = re.split(r'\s*(?:·|→|，|、)\s*', d_.get('title') or '')[0].strip()
+        if f0_ in ('回程', '回家', '返程', '回'): continue
+        f_ = re.sub(r'^(去|到|回)', '', f0_)
+        if f_ in ('程', '家', ''): continue
         if f_ and f_ not in ps and f_ not in ('回程', '回家'): ps.append(f_)
     return ' → '.join(ps[:5]) + (' …' if len(ps) > 5 else '')
 
@@ -1008,7 +1015,7 @@ def home_page():
         _hi = 1 if max([(d_.get('elev') or 0) for d_ in rr['days']] + [0]) >= 3000 else 0
         extra = (f' data-ws="{wb[0]}" data-we="{wb[1]}" data-img="{1 if rr.get("img") else 0}" data-comp="{1 if rr.get("compiled") else 0}" data-clim=\'{E(json.dumps(dd.get("climate") or {}))}\''
                  + (f' data-lat="{_c[0]:.3f}" data-lng="{_c[1]:.3f}"' if _c[0] else '') + f' data-hi="{_hi}" data-drv="{1 if rr.get("drive") else 0}" data-ab="{0 if dd.get("scope") == "domestic" else 1}"'
-                 f' data-t="{E(rr["title"])}" data-n="{n}" data-pr="{E(rr.get("price"))}" data-src="{E(_src)}" data-h="/trip/{rid}/"')
+                 f' data-t="{E(rr["title"])}" data-n="{n}" data-pr="{E(price_k(rr.get("price")))}" data-src="{E(_src)}" data-h="/trip/{rid}/"')
         img = (rr.get('img') or '').replace('/_blob/', '')
         if not (img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg'))) and os.path.exists(os.path.join('site_src', 'posters', rid + '.svg')): img = 'p/' + rid
         tile = (f'<a class="tile img" href="/trip/{rid}/"><img src="/img/{img}.svg" alt="" loading="lazy"></a>' if img and (img.startswith('p/') or os.path.exists(os.path.join(POSTER_SRC, img + '.svg')))
@@ -1017,7 +1024,7 @@ def home_page():
         when = (f'<span class="left{" urgent" if dl is not None and dl <= 14 else ""}">{"最后 " + str(dl) + " 天" if dl is not None and dl <= 14 else "最好 " + wtxt(tt) + (" · 还剩 " + str(dl) + " 天" if dl is not None else "")}</span>' if window(tt) else '<span class="left">一年四季都能去</span>')
         band = 'd1' if n <= 3 else 'd2' if n <= 5 else 'd3'
         return (f'<li data-band="{band}"{extra}{" hidden" if hide else ""}><span class="num">{i:02d}</span><div class="tx"><span class="k">{kicker}</span><h3>{(E(dd.get("name", "")) + " · ") if not (rr.get("label") or "").startswith(dd.get("name", "") or "@") else ""}{E(re.sub(r"\s*\d+\s*天$", "", rr.get("label") or ""))}</h3><p>{E(day_line(rr))}</p>'
-                f'<small>{n} 天 · 人均 {E(rr.get("price"))}</small>{when}<span class="c">{m} 月白天 {c[0]}℃，夜里 {c[1]}℃</span><a class="open" href="/trip/{rid}/">翻开 ›</a></div>{tile}</li>')
+                f'<small>{n} 天 · 人均 {E(price_k(rr.get("price")))}</small>{when}<span class="c">{m} 月白天 {c[0]}℃，夜里 {c[1]}℃</span><a class="open" href="/trip/{rid}/">翻开 ›</a></div>{tile}</li>')
     TAGS = {t['id']: (t.get('tags') or []) for t in TRIPS_ALL} if 'TRIPS_ALL' in globals() else {}
     drv = [r_ for r_ in ROUTES if ROUTES[r_].get('drive') and r_ in TRIP_OF_ROUTE]
     drv.sort(key=lambda r_: (0 if '全国' in (TRIP_OF_ROUTE[r_].get('tags') or []) else 1 if '跨省' in (TRIP_OF_ROUTE[r_].get('tags') or []) else 2, -len(ROUTES[r_]['days'])))
@@ -1042,7 +1049,7 @@ def home_page():
     body = (f'<article class="home"><div class="cover">{f"<img src=/img/{cimg}.svg alt=>" if cimg else ""}'
             f'<div class="mast"><div><h1>走你</h1><small>{TODAY.year} · {mname}</small></div><button type="button" class="minebtn">{FAV_ICON}<span>我的行程</span></button></div>'
             f'<div class="datebar"><button type="button" class="hdt" aria-label="改出发日期"><b>{TODAY.month}/{TODAY.day} 周{"一二三四五六日"[TODAY.weekday()]} 出发</b><i>改</i></button><input type="hidden" class="hdpk" data-min="{TODAY.isoformat()}" value="{TODAY.isoformat()}"></div>'
-            f'<div class="cv"><span class="kick">封面故事 · 正当季{(" · 还剩 " + str(dl0) + " 天") if dl0 is not None else ""}</span><h2>{tsplit(r["title"])}</h2><div class="chips"><span>{len(r["days"])} 天 · 人均 {E(r.get("price"))}</span><span>{m} 月 {c0[0]}°C / {c0[1]}°C</span></div><a class="go" href="/trip/{cover}/">翻开 →</a></div></div>'
+            f'<div class="cv"><span class="kick">封面故事 · 正当季{(" · 还剩 " + str(dl0) + " 天") if dl0 is not None else ""}</span><h2>{tsplit(r["title"])}</h2><div class="chips"><span>{len(r["days"])} 天 · 人均 {E(price_k(r.get("price")))}</span><span>{m} 月 {c0[0]}°C / {c0[1]}°C</span></div><a class="go" href="/trip/{cover}/">翻开 →</a></div></div>'
             f'<form class="hsearch" action="/where/" method="get" role="search"><input type="search" name="q" placeholder="搜地名或景点，比如 婺源、兵马俑" aria-label="搜地名或景点"><button type="submit">搜</button></form>'
 
             f'<section class="toc now" id="now"><h2><span class="nt">现在去正好</span><small class="ns">{len(order) + 1} 条，快过季的先看</small></h2>{chips}<ol class="items">{toc}</ol>'

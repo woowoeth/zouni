@@ -12541,6 +12541,74 @@
    "page": "Route.dc.html#dbdh24",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "kyt3",
+   "dest": "japan",
+   "name": "京都",
+   "region": "东亚",
+   "days": 3,
+   "title": "京都 3 天",
+   "headline": "三天，慢慢走京都",
+   "dek": "清早去伏见稻荷走千本鸟居，下午清水寺，沿二年坂三年坂下山到祇园。",
+   "why": null,
+   "price": {
+    "lo": 4100,
+    "hi": 7500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "12-10"
+    ],
+    "best": [
+     "03-15",
+     "12-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#kyt3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "oki4",
+   "dest": "japan",
+   "name": "冲绳",
+   "region": "东亚",
+   "days": 4,
+   "title": "冲绳 4 天",
+   "headline": "四天，冲绳的海",
+   "dek": "到那霸，傍晚去濑长岛看日落，晚上逛国际通。",
+   "why": null,
+   "price": {
+    "lo": 4700,
+    "hi": 8400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通"
+   },
+   "tags": [
+    "自驾"
+   ],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "04-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#oki4",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
