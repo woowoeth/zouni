@@ -461,3 +461,15 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .se .sjd{margin:8px 0 0;font-size:13px;line-height:1.7;color:#3d3f3a}.se .sjd b{margin-right:6px;color:var(--red)}.se .sjd a{font-weight:700;color:var(--red)}
 .sjs{padding:24px 20px 0}.sjs h2{margin:0;font:900 22px var(--serif)}.sjs h3{margin:16px 0 4px;font-size:13px;font-weight:700;color:var(--red);letter-spacing:.06em}
 .sjl{list-style:none;margin:0;padding:0}.sjl li{padding:10px 0;border-top:1px solid var(--line)}.sjl b{display:block;font:900 16px/1.4 var(--serif)}.sjl span{display:block;font-size:13px;color:#3d3f3a}.sjl small{display:block;margin-top:2px;font-size:13px}.sjl small a{margin-right:10px;font-weight:700;color:var(--red)}
+
+/* 出发前：只是提示（没有打勾框）的那条不缩进 */
+.pre li.tip{padding-left:0}
+/* 常见问题按钮：和“看全部 N 天”同一个样子 */
+.faqmore{display:block;width:100%;height:44px;margin-top:4px;border:0;background:var(--card);font-size:14px;font-weight:700;color:var(--ink);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}
+.faq dl:not([hidden])+.faqmore{margin-top:8px}
+/* 底栏：收进行程、按天看两个按钮挨着放在右边 */
+.dock{justify-content:flex-start}.dock>div:first-child,.dock>a:first-child{flex:1;min-width:0}.dock .fav{margin-left:auto}.dock .tvbtn{margin-left:6px}
+/* 目的地页博物馆：名字和镇馆之宝占左边一整块，国宝和图标靠右不挤 */
+.qual.mus li>span{flex:1;min-width:0}.qual.mus li>span b{display:block}.qual.mus .gt{display:block;margin-top:2px;font-size:12px;font-weight:400;color:var(--sub)}.qual.mus .gb,.qual.mus .icg{flex:none}
+.qual.mus li>span{flex:none}.qual.mus li>span:first-child{flex:1 1 auto;min-width:0}.qual.mus li>span.icg{flex:none;display:inline-flex;flex-wrap:nowrap}.qual.mus small.gt{display:block;white-space:normal;word-break:normal}
+.qual.mus small.gt{width:auto;text-align:left;align-self:stretch}.qual.mus li>span.icg{flex-direction:row;width:auto;gap:6px}
