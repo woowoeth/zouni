@@ -64,6 +64,9 @@
     else if(a.dataset&&a.dataset.a)ev='分享·'+a.dataset.a;else if(c.indexOf('adj')>=0)ev='调整一站';else if(c.indexOf('rmgo')>=0)ev='去掉一天';else if(c.indexOf('addday')>=0||(a.closest('.addday')&&c.indexOf('add')>=0))ev='加一天';
     else if(a.closest('.pkres'))ev='替我挑·点推荐';else if(c.indexOf('xhs')>=0)ev='看实景';else if(c.indexOf('ic map')>=0||c.indexOf('tvnav')>=0)ev='导航';
     if(ev)ztrack(ev)},true);
+
+  // ——— 常见问题：默认收起，点了展开 ———
+  document.addEventListener('click',function(e){var b=e.target.closest('.faqmore');if(!b)return;var dl=b.parentNode.querySelector('dl');if(!dl)return;var open=dl.hidden;dl.hidden=!open;b.textContent=open?'收起 ‹':'看 '+dl.querySelectorAll('dt').length+' 个问题 ›';ztrack('看常见问题')});
   // ——— 行程页 ———
   var art=document.querySelector('article.trip');
   if(art){
@@ -484,7 +487,7 @@
     e.preventDefault();var web=a.href,gone=false,t0=Date.now();function hid(){if(document.hidden)gone=true}document.addEventListener('visibilitychange',hid);
     location.href=ios?a.dataset.ios:a.dataset.and;setTimeout(function(){document.removeEventListener('visibilitychange',hid);if(!gone&&!document.hidden&&Date.now()-t0<3000)location.href=web},1500)});
   // ——— 点评：手机上先试 App，打不开（或在微信里）再去网页 ———
-  document.addEventListener('click',function(e){var a=e.target.closest('a.dp[data-app]');if(!a)return;
+  document.addEventListener('click',function(e){var a=e.target.closest('a.dp[data-app],a.xhs[data-app]');if(!a)return;   // 点评、小红书一样：手机上先试 App
     var mobile=/iPhone|iPad|Android/i.test(navigator.userAgent),wx=/MicroMessenger/i.test(navigator.userAgent);if(!mobile||wx)return;
     e.preventDefault();var web=a.href,t=Date.now(),gone=false;function hid(){gone=true}document.addEventListener('visibilitychange',hid,{once:true});
     location.href=a.dataset.app;setTimeout(function(){if(!gone&&!document.hidden&&Date.now()-t<2500)location.href=web},1200)});

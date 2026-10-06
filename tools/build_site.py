@@ -244,6 +244,9 @@ SIGHT = {
     '周口店北京人遗址': '北京人头盖骨出土的地方', '元上都遗址': '元朝的夏都，世界遗产', '冲古寺': '亚丁景区的入口寺院', '洛绒牛场': '看央迈勇雪山的草甸', '牛奶海': '亚丁海拔 4,600 米的冰川湖',
     '岚山竹林': '高高的竹林小径，早上人少',
     '石头城': '帕米尔高原上的古城遗址',
+    '沙县小吃文化城': '沙县小吃的大本营，晚上最热闹', '七峰叠翠': '沙县城边的山，看沙溪绕城', '坭兴陶文化创意产业园': '钦州坭兴陶，中国四大名陶之一', '刘冯故居': '刘永福和冯子材的故居', '三娘湾': '出海看中华白海豚',
+    '义乌国际商贸城': '全世界最大的小商品市场', '佛堂古镇': '义乌的千年古镇，老街和码头', '陆羽故园': '茶圣陆羽的家乡', '茶经楼': '纪念《茶经》的楼', '珍湖': '嘉鱼的藕塘，九月开始挖藕', '二乔公园': '嘉鱼城里的公园，大乔小乔的传说',
+    '毛泽东同志故居': '韶山冲的土屋，毛泽东出生的地方', '毛泽东同志纪念馆': '讲毛泽东生平的纪念馆', '东山书院': '毛泽东少年时读过书的书院', '水泊梁山风景区': '《水浒》里的梁山，聚义厅和宋江寨', '水浒好汉城': '郓城仿宋的水浒主题街区',
     '稻河古街区': '泰州老城沿河的街区', '望海楼': '泰州的城标，傍晚好看', '千垛景区': '垛田上开满油菜花，坐船进去看', '李中水上森林': '水杉长在水里的森林', '石浦渔港古城': '依山而建的渔港老街',
     '中国渔村': '象山海边看渔船的地方', '蛇蟠岛': '三门的海岛，有千洞之岛的说法', '遂昌金矿国家矿山公园': '千年金矿遗址，能下矿洞', '南尖岩': '看云海和梯田的山头', '诺邓古村': '千年盐井古村，诺邓火腿的产地',
     '太极图观景台': '沘江弯出一个天然太极图', '诺邓盐井': '还能看到古盐井和盐课司', '阳岭国家森林公园': '崇义城边的森林公园', '上堡梯田': '客家人开垦的梯田，世界灌溉工程遗产', '天鹅湖国家城市湿地公园': '冬天上万只白天鹅来过冬',
@@ -410,13 +413,13 @@ def amap_app(kw, city, nav_pts=None, mode='car'):
     return f'iosamap://poi?{q}', f'androidamap://poi?{q}'
 
 
-def icons(kw, city, app, dp=None, nav=None, navp=None):
+def icons(kw, city, app, dp=None, nav=None, navp=None, xk=None):
     if not kw: return ''
     q = ((city + ' ') if city else '') + kw
     ios_, and_ = amap_app(kw, city, navp[:2] if navp else None, navp[2] if navp else 'car') if app != 'google' else ('', '')
     return (f'<span class="icg"><a class="ic map" href="{E(nav or mapurl(kw, city, app))}"{(" data-ios=\"" + E(ios_) + "\" data-and=\"" + E(and_) + "\"") if ios_ else ""} rel="nofollow noopener" target="_blank" aria-label="{"导航去 " if nav else "地图上看 "}{E(kw)}">{ICON_PIN}</a>'
             f'<a class="ic dp" href="{E(dp or dpurl(kw, city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote(q))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上看 {E(kw)}">{ICON_DP}</a>'
-            f'<a class="ic xhs" href="https://www.xiaohongshu.com/search_result?keyword={urllib.parse.quote(((city or "") + " " + kw).strip())}" rel="nofollow noopener" target="_blank" aria-label="小红书上看 {E(kw)} 的实景">{ICON_PHOTO}</a></span>')
+            + (f'<a class="ic xhs" href="https://www.xiaohongshu.com/search_result?keyword={urllib.parse.quote(xk)}&source=web_explore_feed" data-app="xhsdiscover://search/result?keyword={urllib.parse.quote(xk)}" rel="nofollow noopener" target="_blank" aria-label="小红书上看 {E(xk)} 的实景">{ICON_PHOTO}</a>' if xk else '') + '</span>')
 
 
 def md(s):  # "10-25" → "10 月 25 日"
@@ -604,7 +607,9 @@ def row_html(w, city, app):
             u_ = BOOK_URL.get(bk_[0]); h_ = BOOK_HOW.get(bk_[0], '')
             tag_ = (f'<a class="bkn bkl" href="{E(u_)}" rel="nofollow noopener" target="_blank">要预约 ›</a>' if u_ else f'<em class="bkn" data-how="{E(h_)}">要预约{("（" + ("小程序" if "小程序" in h_ else "公众号") + "）") if h_ else ""}</em>')
             sub = tag_ + (' · ' if sub else '') + sub
-    ic = icons(kw, city, app, w.get('dp'), w.get('nav'), w.get('navp')) if kw else ''
+    _core = re.split(r'\s*[·（(]\s*', (w.get('name') or ''))[0].strip()
+    _xk = (f'{city} {_core}' if city and city not in _core else _core) if (t in ('see', 'fun') and _core and re.search(r'[\u4e00-\u9fff]', _core) and '沿途' not in _core) else None   # 小红书按“城市 景点名”搜，用中文名，不用导航用的查询词
+    ic = icons(kw, city, app, w.get('dp'), w.get('nav'), w.get('navp'), _xk) if kw else ''
     if t == 'eat' and not kw:   # 没有具体地方的饭：只放点评，按“城市 + 菜名”找
         ic = f'<a class="ic dp" href="{E(dpurl(w.get("dish") or "", city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote((city or "") + " " + (w.get("dish") or "")))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上找 {E(w.get("dish"))}">{ICON_DP}</a>'
     da = (f' data-at="{E(w["at"])}"' if w.get('at') else '') + (f' data-meal="{"l" if w.get("slot") == "午饭" else "d" if w.get("slot") == "晚饭" else "b"}"' if t == 'eat' else '') + (' data-in="1"' if t in ('see', 'fun') and INDOOR_RE.search(w.get('name') or '') else '')
@@ -882,7 +887,8 @@ def go_info(r, t, d0, rid=None):
     c = route_center(rid) if rid else None
     p0 = day_point(r, 0) or c
     if not p0: return None
-    o, dk = min(((nm, _km(xy, p0)) for nm, xy in ORIGINS.items()), key=lambda x: x[1])
+    _hubs = ORIGINS if d0.get('scope') == 'domestic' else {k: v for k, v in ORIGINS.items() if k in ('北京', '上海', '广州', '成都', '香港')}   # 出国默认从几大国际机场算
+    o, dk = min(((nm, _km(xy, p0)) for nm, xy in _hubs.items()), key=lambda x: x[1])
     first = next((w['t'] for w in r['days'][0]['rows'] if re.match(r'^\d\d:\d\d$', w.get('t') or '')), '')
     last = next((w['t'] for w in reversed(r['days'][-1]['rows']) if w.get('type') == 'dep' and re.match(r'^\d\d:\d\d$', w.get('t') or '')), '')
     return {'lat': round(p0[0], 3), 'lng': round(p0[1], 3), 'city': r['days'][0].get('city') or d0.get('name', ''), 'ab': 0 if d0.get('scope') == 'domestic' else 1,
@@ -900,36 +906,36 @@ def go_text(g, o=None, km_=None):
 
 
 def faq_items(r, t, d0, g):
-    """每条线答几个常见问题：都从现有数据算出来"""
+    """常见问题：只答页面上别处没直接写的、能帮人拿主意的；没有实质内容的不问"""
     qs = []
     elev = max([(d.get('elev') or 0) for d in r['days']] + [0])
     drives = [d.get('driveMin') or 0 for d in r['days']]; dmax = max(drives + [0])
-    sights = max([sum(1 for w in d['rows'] if w['type'] in ('see', 'fun') and '沿途' not in (w.get('name') or '')) for d in r['days']] + [0])
+    sights = [sum(1 for w in d['rows'] if w['type'] in ('see', 'fun') and '沿途' not in (w.get('name') or '')) for d in r['days']]
     bits = []
     if elev >= 3000: bits.append(f'要上海拔 {elev:,} 米的高原，老人孩子出发前最好问问医生')
-    if dmax >= 240: bits.append(f'最长一天要坐 {dmax / 60:.1f} 小时车')
-    if sights >= 4: bits.append(f'最忙的一天要去 {sights} 个地方，走路不少')
-    qs.append(('适合带老人孩子吗？', '；'.join(bits) + '。可以在每天里“调整”去掉一两站。' if bits else '节奏不紧，没有高原，适合带老人孩子。'))
+    if dmax >= 240: bits.append(f'第 {drives.index(dmax) + 1} 天要坐 {dmax / 60:.1f} 小时车')
+    if max(sights + [0]) >= 4: bits.append(f'第 {sights.index(max(sights)) + 1} 天要去 {max(sights)} 个地方，走路多')
+    if bits: qs.append(('带老人孩子要注意什么？', '；'.join(bits) + '。可以在那天点“调整”去掉一两站，或者把出发时间改晚。'))
+    hard = max(range(len(r['days'])), key=lambda k: (drives[k], sights[k])) if r['days'] else 0
+    if len(r['days']) >= 3 and (drives[hard] >= 120 or sights[hard] >= 4):
+        qs.append(('哪天最累？', f'第 {hard + 1} 天（{r["days"][hard].get("title", "")}）：' + '，'.join(x for x in [f'路上约 {drives[hard] / 60:.1f} 小时' if drives[hard] >= 60 else '', f'去 {sights[hard]} 个地方' if sights[hard] else ''] if x) + '。前一晚早点睡。'))
+    near = [x for x in (indoor_near(r) if 'indoor_near' in globals() else [])][:3]
+    if near: qs.append(('下雨了去哪？', '附近能躲雨的：' + '、'.join(f'{x["n"]}（约 {x["km"]} 公里）' if x.get('km') else x['n'] for x in near) + '。出发前 16 天内会按天气预报提示能不能换。'))
     bk = []
     for d in r['days']:
         for w in d['rows']:
             nm = re.split(r'\s*·\s*', w.get('name') or '')[0]
             if w['type'] in ('see', 'fun') and book_of(w.get('name')) and nm not in bk: bk.append(nm)
-    qs.append(('要提前订什么？', ('要预约的：' + '、'.join(bk[:6]) + '。' if bk else '没有要特别预约的景点。') + '住宿旺季早点订；往返车票和机票越早越好。'))
-    best = (t.get('season') or {}).get('best') or []
-    cl = d0.get('climate') or {}
+    if bk: qs.append(('哪些要提前约？', '、'.join(bk[:6]) + '。“出发前要办的事”里有官网链接，能加到手机日历提醒。'))
+    best = (t.get('season') or {}).get('best') or []; cl = d0.get('climate') or {}
     if best and cl:
-        m = int(best[0][:2]); c = cl.get(str(m))
-        if c: qs.append(('什么时候去最好，冷不冷？', f'最好是 {best[0][:2].lstrip("0")} 月 {best[0][3:].lstrip("0")} 日到 {best[1][:2].lstrip("0")} 月 {best[1][3:].lstrip("0")} 日；{m} 月白天约 {c[0]}℃，夜里约 {c[1]}℃。'))
-    qs.append(('上不上高原？', f'最高到海拔 {elev:,} 米，有高原反应的可能，头两天别洗澡、别跑跳。' if elev >= 2500 else '不上高原。'))
-    if g: qs.append(('怎么去？', go_text(g) + '。'))
-    pr = r.get('price')
-    if pr: qs.append(('大概花多少钱？', f'两人同行，每人 {price_k(pr)}，含往返大交通、住、吃、门票和当地交通；在顶部“2 人 · 每人”里改人数会重算。'))
+        m1 = int(best[0][:2]); c1 = cl.get(str(m1))
+        if c1: qs.append(('什么时候去最好？', f'{best[0][:2].lstrip("0")} 月 {best[0][3:].lstrip("0")} 日到 {best[1][:2].lstrip("0")} 月 {best[1][3:].lstrip("0")} 日最好；{m1} 月白天约 {c1[0]}℃，夜里约 {c1[1]}℃' + ('，早晚要带厚外套' if c1[1] <= 5 else '') + '。'))
     return qs
 
 
 SJ = json.load(open('data/catalog/shejian.json')) if os.path.exists('data/catalog/shejian.json') else []
-SJ_VAGUE = {'东北', '四川', '云南', '河南', '广东', '江南', '闽南', '内蒙古', '宁夏', '西藏', '台湾', '山西', '山东', '陕北', '贵州', '广东乡下', '粤东海边', '四川养蜂人', '吉林朝鲜族山村', '北部湾渔船'}
+SJ_VAGUE = {'东北', '四川', '云南', '河南', '广东', '江南', '闽南', '内蒙古', '宁夏', '西藏', '台湾', '山西', '山东', '陕北', '贵州', '广东乡下', '粤东海边', '四川养蜂人', '吉林朝鲜族山村', '北部湾渔船', '客家'}
 SJ_CN = '零一二三四'
 
 
@@ -938,11 +944,11 @@ def sj_label(x):
 
 
 def sj_for_trip(rid, r):
-    """这条线每一天对得上的《舌尖》条目：每条只出现一次，一天最多两条"""
+    """这条线每一天对得上的《舌尖》条目：每条只出现一次，一天最多两条；只在同一个省的线里对，跨省全国长线不限"""
     used = set(); out = {}
     tt = TRIP_OF_ROUTE.get(rid) or {}; prov = (DEST.get(tt.get('dest'), {}) or {}).get('name', ''); cross = bool(set(tt.get('tags') or []) & {'跨省', '全国'})
     for k, d in enumerate(r['days']):
-        txt = ' '.join(str(d.get(f) or '') for f in ('city', 'navCity', 'title', 'stayName')) + ' ' + ' '.join((w.get('name') or w.get('to') or '') for w in d['rows'] if w['type'] in ('see', 'fun', 'dep'))   # 当天去的地方也算（香港那条去了大澳）
+        txt = ' '.join(str(d.get(f) or '') for f in ('city', 'navCity', 'title', 'stayName')) + ' ' + ' '.join((w.get('name') or w.get('to') or '') for w in d['rows'] if w['type'] in ('see', 'fun', 'dep'))
         for i, x in enumerate(SJ):
             if i in used or x['place'] in SJ_VAGUE: continue
             if not cross and x['prov'] != prov and not (x['prov'] in ('香港', '澳门') and prov in ('香港', '澳门', '广东')): continue
@@ -1076,15 +1082,15 @@ def trip_page(rid):
     lo, hi = (t.get('price') or {}).get('lo'), (t.get('price') or {}).get('hi')
     if lo and hi: ld['offers'] = {'@type': 'AggregateOffer', 'priceCurrency': 'CNY', 'lowPrice': lo, 'highPrice': hi, 'description': '每人，2 人同行，含往返大交通'}
     _fq = faq_items(r, t, d0, _g)
-    faq_html = '<section class="faq"><h2>常见问题</h2><dl>' + ''.join(f'<dt>{E(q)}</dt><dd>{E(a)}</dd>' for q, a in _fq) + '</dl></section>'
+    faq_html = (f'<section class="faq"><h2>常见问题</h2><dl hidden>' + ''.join(f'<dt>{E(q)}</dt><dd>{E(a)}</dd>' for q, a in _fq) + f'</dl><button type="button" class="ovmore faqmore">看 {len(_fq)} 个问题 ›</button></section>') if _fq else ''
     _nb = nearby_routes(rid)
     near_html = ('<section class="nearr"><h2>附近还能去</h2><ul>' + ''.join(f'<li><a href="/trip/{o}/"><b>{E(ROUTES[o].get("label"))} ›</b><span>{E(day_line(ROUTES[o]))}</span><small>离这里约 {round(dk / 10) * 10 if dk >= 20 else round(dk)} 公里 · {E(price_k(ROUTES[o].get("price")))}</small></a></li>' for dk, o in _nb) + '</ul></section>') if _nb else ''
     dest_link = faq_html + near_html + (f'<p class="morelink"><a href="/d/{E(t["dest"])}/">{E(d0.get("name", ""))}的其他去处 ›</a></p>' if t.get('dest') in DEST else '')
     dock = f'<div class="dock"><div><b>{md(dates[0])} 出发 · {n} 天</b><small>2 人 · 每人 {E(price_k(price))}</small></div><button type="button" class="fav" data-id="{rid}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{FAV_ICON}<span>收进行程</span></button></div>'
     body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-start="{dates[0].isoformat()}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
             + (f'<section class="pre go" data-go=\'{E(json.dumps(_g, ensure_ascii=False))}\'><h2>怎么去、怎么回</h2><ul><li class="tip gw"><span>{E(go_text(_g))}。'
-               + (f'第一天 {E(_g["first"])} 开始，按上午出发、中午前到算的。' if _g['first'] and _g['first'] >= '12:00' else (f'第一天 {E(_g["first"])} 就开始，最好头天晚上到。' if _g['first'] else '')) + '</span></li>'
-               + (f'<li class="tip gb"><span>最后一天 {E(_g["last"])} 去车站或机场，订{"下午" if _g["last"] < "14:00" else "傍晚以后"}的车或航班。</span></li>' if _g['last'] else '')
+               + (f'第一天 {E(_g["first"])} 开始，按{"中午出发、下午到" if _g["first"] >= "15:00" else "上午出发、中午前到"}算的。' if _g['first'] and _g['first'] >= '12:00' else (f'第一天 {E(_g["first"])} 就开始，最好头天晚上到。' if _g['first'] else '')) + '</span></li>'
+
                + '</ul></section>' if _g else '') +
             f'<section class="pre"><h2>出发前</h2><ul>{prep or "<li class=fit>没有特别要提前办的</li>"}</ul></section>'
             f'<script type="application/json" id="cands">{json.dumps(add_cands(rid, r), ensure_ascii=False).replace("</", "<\\/")}</script>'

@@ -20390,8 +20390,8 @@
       180
      ],
      "local": [
-      600,
-      1000
+      340,
+      590
      ],
      "nights": 1,
      "n": 2,
@@ -20751,6 +20751,342 @@
    "anytime": false,
    "status": "ok",
    "page": "Route.dc.html#zj2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sx2",
+   "dest": "fujian",
+   "name": "沙县",
+   "region": "华东",
+   "days": 2,
+   "title": "沙县 2 天",
+   "headline": "两天，回沙县吃小吃",
+   "dek": "到沙县，傍晚逛沙县小吃文化城，一路吃过去。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 2100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      30,
+      90
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [
+    "舌尖"
+   ],
+   "season": {
+    "ok": [
+     "03-01",
+     "12-15"
+    ],
+    "best": [
+     "03-01",
+     "12-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sx2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "yw2",
+   "dest": "zhejiang",
+   "name": "义乌",
+   "region": "华东",
+   "days": 2,
+   "title": "义乌 2 天",
+   "headline": "两天，逛义乌小商品城",
+   "dek": "到义乌，逛国际商贸城，晚上去吃异国菜。",
+   "why": null,
+   "price": {
+    "lo": 600,
+    "hi": 1300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      0,
+      0
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [
+    "舌尖"
+   ],
+   "season": {
+    "ok": [
+     "03-01",
+     "12-15"
+    ],
+    "best": [
+     "03-01",
+     "12-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#yw2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jhpy2",
+   "dest": "hubei",
+   "name": "天门嘉鱼",
+   "region": "华中",
+   "days": 2,
+   "title": "天门嘉鱼 2 天",
+   "headline": "两天，江汉平原吃蒸菜和莲藕",
+   "dek": "到天门，看陆羽故园和茶经楼，晚上吃蒸菜。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 2800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [
+    "舌尖"
+   ],
+   "season": {
+    "ok": [
+     "09-01",
+     "11-30"
+    ],
+    "best": [
+     "09-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jhpy2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ssx2",
+   "dest": "hunan",
+   "name": "韶山湘乡",
+   "region": "华中",
+   "days": 2,
+   "title": "韶山湘乡 2 天",
+   "headline": "两天，韶山冲和东山书院",
+   "dek": "到韶山，看毛泽东同志故居和纪念馆，晚上住韶山。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [
+    "舌尖"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "03-15",
+     "11-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ssx2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "shgl2",
+   "dest": "shandong",
+   "name": "梁山郓城",
+   "region": "华东",
+   "days": 2,
+   "title": "梁山郓城 2 天",
+   "headline": "两天，水浒故里",
+   "dek": "到梁山，爬水泊梁山，看聚义厅、宋江寨。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [
+    "舌尖"
+   ],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "04-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#shgl2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "qinz2",
+   "dest": "guangxi",
+   "name": "钦州",
+   "region": "华南",
+   "days": 2,
+   "title": "钦州 2 天",
+   "headline": "两天，三娘湾看白海豚",
+   "dek": "到钦州，看坭兴陶，逛老城，晚上吃大蚝。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [
+    "舌尖"
+   ],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "04-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#qinz2",
    "engineRoute": null,
    "poster": null
   }
