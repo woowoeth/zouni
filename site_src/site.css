@@ -483,3 +483,5 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 
 /* 电脑上、微信里打不开 App：不放导航、订酒店、点评、小红书入口 */
 .noapp .ic.map,.noapp .ic.dp,.noapp .ic.xhs,.noapp .tl2,.noapp .tvnav,.noapp .ic[href*="amap"],.noapp .ic[href*="dianping"]{display:none!important}
+
+.story p b{margin-right:6px;font-weight:700}.story p+p{margin-top:8px}
