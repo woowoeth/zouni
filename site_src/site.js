@@ -54,10 +54,32 @@
   var art=document.querySelector('article.trip');
   if(art){
     var me={id:art.dataset.id,label:art.dataset.label,title:art.dataset.title};
-    var MYKEYS=['zouni_start_','zouni_st_','zouni_drop_','zouni_adj_','zouni_extra_','zouni_slow_','zouni_n_','zouni_rain_','zouni_fill_'];
+    var MYKEYS=['zouni_start_','zouni_st_','zouni_drop_','zouni_adj_','zouni_extra_','zouni_slow_','zouni_n_','zouni_rain_','zouni_fill_','zouni_rmday_'];
     try{var hm_=/#mine=([A-Za-z0-9_\-]+)/.exec(location.hash);if(hm_){var js_=decodeURIComponent(escape(atob(hm_[1].replace(/-/g,'+').replace(/_/g,'/'))));var st_=JSON.parse(js_);
       MYKEYS.forEach(function(k){var v=st_[k];if(v==null)localStorage.removeItem(k+me.id);else localStorage.setItem(k+me.id,typeof v==='string'?v:JSON.stringify(v))});
       history.replaceState(null,'',location.pathname);setTimeout(function(){toast('打开的是朋友改过的版本')},600)}}catch(e){}
+    var RDK='zouni_rmday_'+me.id,RD=[];try{RD=JSON.parse(localStorage.getItem(RDK)||'[]')}catch(e){}
+    (function(){var secs=[].slice.call(document.querySelectorAll('.day')),ovl=[].slice.call(document.querySelectorAll('.overview ol > li'));
+      secs.forEach(function(s,i){if(s.dataset.oi==null)s.dataset.oi=i});ovl.forEach(function(li,i){if(li.dataset.oi==null)li.dataset.oi=i});
+      if(RD.length>=secs.length)RD=[];var gone=[];
+      secs.forEach(function(s){if(RD.indexOf(+s.dataset.oi)>=0){gone.push({oi:+s.dataset.oi,t:(s.querySelector('h2').childNodes[0]||{textContent:''}).textContent.trim()});s.remove()}});
+      ovl.forEach(function(li){if(RD.indexOf(+li.dataset.oi)>=0)li.remove()});
+      var left=[].slice.call(document.querySelectorAll('.day')),CN='一二三四五六七八九十';
+      if(gone.length){left.forEach(function(s,i){s.id='d'+(i+1);var no=s.querySelector('.no');if(no)no.textContent=('0'+(i+1)).slice(-2);var sm=s.querySelector('header small');if(sm){var p=sm.textContent.split(' · ');sm.textContent='第'+(i<10?CN[i]:(i+1))+'天'+(p.length>1?' · '+p.slice(1).join(' · '):'')}});
+        [].slice.call(document.querySelectorAll('.overview ol > li')).forEach(function(li,i){var a=li.querySelector('a');if(a)a.setAttribute('href','#d'+(i+1));var b=li.querySelector('b');if(b)b.textContent=('0'+(i+1)).slice(-2)});
+        var nv=document.querySelector('.daynav');if(nv){var as=nv.querySelectorAll('a');for(var k=as.length-1;k>=left.length;k--)as[k].remove();[].slice.call(nv.querySelectorAll('a')).forEach(function(a,i){a.setAttribute('href','#d'+(i+1));a.textContent=i+1})}
+        var oh=document.querySelector('.overview h2');if(oh)oh.textContent=left.length+' 天，怎么排';var gb=document.querySelector('.glance b.big');if(gb&&gb.firstChild)gb.firstChild.textContent=left.length;
+        var ov=document.querySelector('.overview ol');if(ov)ov.insertAdjacentHTML('afterend','<p class="rmnote">去掉了'+gone.map(function(g){return'「'+g.t+'」'}).join('')+' <button type="button" class="rmback">恢复</button></p>');
+        var rb=document.querySelector('.rmback');if(rb)rb.addEventListener('click',function(){try{localStorage.removeItem(RDK)}catch(e){}location.reload()})}
+      left.forEach(function(s){if(s.dataset.extra||s.querySelector('.rmorig'))return;if(left.length<2)return;s.insertAdjacentHTML('beforeend','<button type="button" class="rmday rmorig">去掉这一天</button>')});
+      document.addEventListener('click',function(e){var b=e.target.closest('.rmorig');if(!b)return;var s=b.closest('.day'),t=(s.querySelector('h2').childNodes[0]||{textContent:''}).textContent.trim();
+        var mask=document.createElement('div');mask.className='pk-mask';var sh=document.createElement('div');sh.className='pk';
+        sh.innerHTML='<div class="pk-h"><b>去掉这一天？</b><button type="button" class="pk-x">算了</button></div><p class="xnote">「'+t+'」整天不去了，后面的天往前挪一天；之后在“怎么排”下面可以恢复</p><div class="xd"><button type="button" class="rmgo"><b>去掉这一天</b></button></div>';
+        function cl(){mask.remove();sh.remove();document.body.classList.remove('pk-open')}
+        sh.querySelector('.pk-x').addEventListener('click',cl);mask.addEventListener('click',cl);
+        sh.querySelector('.rmgo').addEventListener('click',function(){var R2=[];try{R2=JSON.parse(localStorage.getItem(RDK)||'[]')}catch(e){}R2.push(+s.dataset.oi);try{localStorage.setItem(RDK,JSON.stringify(R2));sessionStorage.setItem('zouni_rm_toast',t)}catch(e){}location.reload()});
+        document.body.appendChild(mask);document.body.appendChild(sh);document.body.classList.add('pk-open')});
+      try{var tt=sessionStorage.getItem('zouni_rm_toast');if(tt){sessionStorage.removeItem('zouni_rm_toast');setTimeout(function(){toast('去掉了「'+tt+'」，后面的天往前挪了')},500)}}catch(e){}})();
     function myState(){var o={},any=false;MYKEYS.forEach(function(k){var v=null;try{v=localStorage.getItem(k+me.id)}catch(e){}if(v!=null&&v!==''&&v!=='{}'&&v!=='[]'){any=true;try{o[k]=JSON.parse(v)}catch(e){o[k]=v}}});return any?o:null}
     function myLink(){var o=myState(),u0=location.origin+location.pathname;if(!o)return u0;var b=btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');return u0+'#mine='+b}
     var seen=ld('zouni_seen').filter(function(x){return x.id!==me.id});seen.unshift(me);sv('zouni_seen',seen.slice(0,8));
@@ -106,7 +128,7 @@
       var addB=document.querySelector('.addday .add');
       if(addB){var ek='zouni_extra_'+me.id,cands=[];try{cands=JSON.parse(document.getElementById('cands').textContent)}catch(e){}
         var CN='一二三四五六七八九十';function cnDay(i){return'第'+(i<10?CN[i]:(i+1))+'天'}
-        [].slice.call(document.querySelectorAll('.day')).forEach(function(s,i){if(!s.dataset.extra)s.dataset.oi=i});
+        [].slice.call(document.querySelectorAll('.day')).forEach(function(s,i){if(!s.dataset.extra&&s.dataset.oi==null)s.dataset.oi=i});
         // 地图跟着重画：加的天也标上（自由活动在原住处，接别的线路的那天画到那里并用虚线连过去），位置重叠的天数合成“1·5”，图下按天重列
         function redrawMap(){var svg=document.querySelector('.hmap svg[data-days]');if(!svg)return;var base=[];try{base=JSON.parse(svg.dataset.days)}catch(e){return}
           var cx=+svg.dataset.cx,cy=+svg.dataset.cy,sc=+svg.dataset.sc,W=+svg.dataset.w,H=+svg.dataset.h;
