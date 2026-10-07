@@ -32575,6 +32575,309 @@
      "city": "蒙特勒"
     }
    ]
+  },
+  "snf3": {
+   "dest": "iceland",
+   "city": "雷克雅未克",
+   "label": "冰岛斯奈山半岛 3 天",
+   "title": "三天，“冰岛缩影”斯奈山半岛",
+   "kicker": "自驾 · 3 天",
+   "start": [
+    2026,
+    6,
+    10
+   ],
+   "drive": true,
+   "prep": [
+    "半岛环线约两百公里，一天开得完，但值得住一晚",
+    "草帽山傍晚光最好"
+   ],
+   "days": [
+    {
+     "title": "去半岛 · 黑教堂",
+     "text": "从雷克雅未克开过去，看布迪尔黑教堂，傍晚到格伦达菲厄泽。",
+     "stops": [
+      {
+       "name": "布迪尔黑教堂",
+       "q": "Budakirkja",
+       "type": "sight",
+       "dur": 45,
+       "via": "自驾约 2 小时 30 分钟"
+      },
+      {
+       "name": "草帽山",
+       "q": "Kirkjufell",
+       "type": "sight",
+       "dur": 90,
+       "at": "18:30"
+      }
+     ],
+     "start": "10:00",
+     "city": "格伦达菲厄泽",
+     "stay": "格伦达菲厄泽"
+    },
+    {
+     "title": "阿尔纳斯塔皮 · 黑珍珠沙滩",
+     "text": "沿海岸看阿尔纳斯塔皮的玄武岩海岸和黑珍珠沙滩。",
+     "stops": [
+      {
+       "name": "阿尔纳斯塔皮",
+       "q": "Arnarstapi",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 40 分钟"
+      },
+      {
+       "name": "黑珍珠沙滩",
+       "q": "Djupalonssandur",
+       "type": "sight",
+       "dur": 60
+      }
+     ],
+     "city": "格伦达菲厄泽",
+     "stay": "格伦达菲厄泽"
+    },
+    {
+     "title": "回雷克雅未克",
+     "text": "开回雷克雅未克，路上在博尔加内斯吃午饭。",
+     "stops": [
+      {
+       "name": "博尔加内斯",
+       "q": "Borgarnes",
+       "type": "street",
+       "dur": 60,
+       "via": "自驾约 1 小时 40 分钟"
+      }
+     ],
+     "start": "09:30",
+     "city": "雷克雅未克"
+    }
+   ]
+  },
+  "fes4": {
+   "dest": "morocco",
+   "city": "舍夫沙万",
+   "label": "舍夫沙万菲斯 4 天",
+   "title": "四天，蓝色小镇和千年古城",
+   "kicker": "北非 · 4 天",
+   "start": [
+    2026,
+    3,
+    20
+   ],
+   "prep": [
+    "菲斯老城九千多条巷子，第一次去请个官方导游",
+    "舍夫沙万到菲斯坐大巴约 4 小时"
+   ],
+   "days": [
+    {
+     "title": "舍夫沙万",
+     "text": "到舍夫沙万，走满城蓝色的老城巷子。",
+     "stops": [
+      {
+       "name": "舍夫沙万老城",
+       "q": "Chefchaouen Medina",
+       "type": "street",
+       "dur": 150
+      }
+     ],
+     "start": "13:00",
+     "stay": "舍夫沙万老城"
+    },
+    {
+     "title": "西班牙清真寺 · 去菲斯",
+     "text": "早上爬到西班牙清真寺看全城，下午坐大巴去菲斯。",
+     "stops": [
+      {
+       "name": "西班牙清真寺",
+       "q": "Spanish Mosque Chefchaouen",
+       "type": "sight",
+       "dur": 90,
+       "at": "08:00"
+      },
+      {
+       "name": "菲斯蓝门",
+       "q": "Bab Bou Jeloud",
+       "type": "sight",
+       "dur": 30,
+       "via": "大巴约 4 小时"
+      }
+     ],
+     "start": "07:30",
+     "city": "菲斯",
+     "stay": "菲斯老城"
+    },
+    {
+     "title": "菲斯老城",
+     "text": "一整天菲斯老城：布伊纳尼亚学院、舒瓦拉皮革染坊。",
+     "stops": [
+      {
+       "name": "布伊纳尼亚学院",
+       "q": "Bou Inania Madrasa",
+       "type": "sight",
+       "dur": 60,
+       "at": "09:30"
+      },
+      {
+       "name": "舒瓦拉皮革染坊",
+       "q": "Chouara Tannery",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "卡鲁因清真寺",
+       "q": "Al Quaraouiyine",
+       "type": "sight",
+       "dur": 45
+      }
+     ],
+     "city": "菲斯",
+     "stay": "菲斯老城"
+    },
+    {
+     "title": "回程",
+     "text": "上午去皇宫金门，下午去机场。",
+     "stops": [
+      {
+       "name": "菲斯皇宫",
+       "q": "Royal Palace of Fes",
+       "type": "sight",
+       "dur": 30
+      }
+     ],
+     "start": "09:00",
+     "city": "菲斯"
+    }
+   ]
+  },
+  "alg3": {
+   "dest": "portugal",
+   "city": "拉古什",
+   "label": "阿尔加维海岸 3 天",
+   "title": "三天，葡萄牙南部海岸",
+   "kicker": "海岸 · 3 天",
+   "start": [
+    2026,
+    5,
+    20
+   ],
+   "prep": [
+    "贝纳吉尔海蚀洞只能坐船或划皮划艇进，不能游进去",
+    "七八月海边人多"
+   ],
+   "days": [
+    {
+     "title": "拉古什 · 皮埃达德角",
+     "text": "到拉古什，傍晚去皮埃达德角看海蚀拱和金色悬崖。",
+     "stops": [
+      {
+       "name": "皮埃达德角",
+       "q": "Ponta da Piedade",
+       "type": "sight",
+       "dur": 90,
+       "at": "17:30"
+      }
+     ],
+     "start": "13:00",
+     "stay": "拉古什"
+    },
+    {
+     "title": "贝纳吉尔海蚀洞",
+     "text": "坐船进贝纳吉尔海蚀洞，下午玛丽尼亚海滩走悬崖步道。",
+     "stops": [
+      {
+       "name": "贝纳吉尔海蚀洞",
+       "q": "Benagil Cave",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 40 分钟",
+       "at": "10:00"
+      },
+      {
+       "name": "玛丽尼亚海滩",
+       "q": "Praia da Marinha",
+       "type": "park",
+       "dur": 120
+      }
+     ],
+     "stay": "拉古什"
+    },
+    {
+     "title": "法鲁 · 回程",
+     "text": "开到法鲁老城，下午从法鲁机场走。",
+     "stops": [
+      {
+       "name": "法鲁老城",
+       "q": "Faro Old Town",
+       "type": "street",
+       "dur": 90,
+       "via": "自驾约 1 小时"
+      }
+     ],
+     "start": "09:30",
+     "city": "法鲁"
+    }
+   ]
+  },
+  "fuji2": {
+   "dest": "japan",
+   "city": "河口湖",
+   "label": "富士山河口湖 2 天",
+   "title": "两天，在河口湖看富士山",
+   "kicker": "雪山 · 2 天",
+   "start": [
+    2026,
+    10,
+    25
+   ],
+   "prep": [
+    "富士山一年里冬天最常露脸，夏天常被云遮",
+    "新宿坐高速巴士到河口湖约 2 小时"
+   ],
+   "days": [
+    {
+     "title": "大石公园 · 天上山",
+     "text": "到河口湖，下午大石公园，傍晚坐缆车上天上山看富士山。",
+     "stops": [
+      {
+       "name": "大石公园",
+       "q": "Oishi Park",
+       "type": "park",
+       "dur": 90
+      },
+      {
+       "name": "天上山公园",
+       "q": "Kachi Kachi Ropeway",
+       "type": "sight",
+       "dur": 90,
+       "at": "16:00"
+      }
+     ],
+     "start": "12:30",
+     "stay": "河口湖"
+    },
+    {
+     "title": "新仓山浅间公园 · 回程",
+     "text": "早上去新仓山浅间公园，看五重塔和富士山同框，下午忍野八海，回东京。",
+     "stops": [
+      {
+       "name": "新仓山浅间公园",
+       "q": "Chureito Pagoda",
+       "type": "sight",
+       "dur": 90,
+       "at": "07:30"
+      },
+      {
+       "name": "忍野八海",
+       "q": "Oshino Hakkai",
+       "type": "sight",
+       "dur": 90,
+       "via": "打车约 25 分钟"
+      }
+     ],
+     "start": "07:00"
+    }
+   ]
   }
  }
 }

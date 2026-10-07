@@ -22777,12 +22777,12 @@
       720
      ],
      "local": [
-      460,
-      860
+      200,
+      450
      ],
      "nights": 4,
      "n": 5,
-     "car": true
+     "car": false
     }
    },
    "tags": [],
@@ -22886,8 +22886,8 @@
       540
      ],
      "local": [
-      1240,
-      2090
+      720,
+      1270
      ],
      "nights": 4,
      "n": 5,
@@ -23072,6 +23072,224 @@
    "anytime": false,
    "status": "ok",
    "page": "Route.dc.html#gva4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "snf3",
+   "dest": "iceland",
+   "name": "冰岛斯奈山半岛",
+   "region": "欧洲",
+   "days": 3,
+   "title": "冰岛斯奈山半岛 3 天",
+   "headline": "三天，“冰岛缩影”斯奈山半岛",
+   "dek": "从雷克雅未克开过去，看布迪尔黑教堂，傍晚到格伦达菲厄泽。",
+   "why": null,
+   "price": {
+    "lo": 9700,
+    "hi": 16900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      900,
+      1500
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [
+    "自驾"
+   ],
+   "season": {
+    "ok": [
+     "05-15",
+     "09-15"
+    ],
+    "best": [
+     "06-01",
+     "08-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#snf3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "fes4",
+   "dest": "morocco",
+   "name": "舍夫沙万菲斯",
+   "region": "北非",
+   "days": 4,
+   "title": "舍夫沙万菲斯 4 天",
+   "headline": "四天，蓝色小镇和千年古城",
+   "dek": "到舍夫沙万，走满城蓝色的老城巷子。",
+   "why": null,
+   "price": {
+    "lo": 7700,
+    "hi": 14000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-01",
+     "05-31"
+    ],
+    "best": [
+     "03-15",
+     "04-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#fes4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "alg3",
+   "dest": "portugal",
+   "name": "阿尔加维海岸",
+   "region": "欧洲",
+   "days": 3,
+   "title": "阿尔加维海岸 3 天",
+   "headline": "三天，葡萄牙南部海岸",
+   "dek": "到拉古什，傍晚去皮埃达德角看海蚀拱和金色悬崖。",
+   "why": null,
+   "price": {
+    "lo": 7400,
+    "hi": 13300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      640,
+      1090
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-15"
+    ],
+    "best": [
+     "05-01",
+     "06-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#alg3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "fuji2",
+   "dest": "japan",
+   "name": "富士山河口湖",
+   "region": "东亚",
+   "days": 2,
+   "title": "富士山河口湖 2 天",
+   "headline": "两天，在河口湖看富士山",
+   "dek": "到河口湖，下午大石公园，傍晚坐缆车上天上山看富士山。",
+   "why": null,
+   "price": {
+    "lo": 3300,
+    "hi": 6000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      400,
+      700
+     ],
+     "food": [
+      250,
+      400
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-15",
+     "03-31"
+    ],
+    "best": [
+     "11-01",
+     "02-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#fuji2",
    "engineRoute": null,
    "poster": null
   }
