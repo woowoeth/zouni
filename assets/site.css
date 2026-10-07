@@ -500,3 +500,14 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .day .fx:has(.sun[data-k="rise"]){display:none}
 .qual .icg .ic{color:var(--sub)}
 .qual .icg .ic svg{opacity:.75}
+
+/* 纪录片合集页：红色只留给一处（每条“能去”的链接前的小点），其余按层次用墨色和灰色 */
+.sjs h3{color:var(--sub);font-weight:700;letter-spacing:.04em}
+.sjl span{color:var(--sub)}
+.sjl small{margin-top:4px;color:var(--sub)}
+.sjl small a{font-weight:400;color:var(--ink);margin-right:0;text-decoration:none;border-bottom:1px solid var(--line)}
+.sjl small a+a::before{content:'·';display:inline-block;margin:0 6px;color:var(--sub);border:0}
+.sjl small a::after{content:''}
+.dh .sjo{color:var(--sub)}
+.dh .sjo a{font-weight:400;color:var(--ink);margin-right:0}
+.dh .sjo a+a::before{content:'·';margin:0 6px;color:var(--sub)}
