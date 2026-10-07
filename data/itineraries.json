@@ -35236,6 +35236,703 @@
     11,
     10
    ]
+  },
+  "ws2": {
+   "city": "巍山",
+   "label": "巍山 2 天",
+   "title": "两天，南诏故地巍山",
+   "kicker": "古城 · 2 天",
+   "prep": [
+    "巍山是南诏国的发祥地",
+    "巍山一根面、扒肉饵丝要吃"
+   ],
+   "days": [
+    {
+     "title": "巍山古城",
+     "text": "从大理去巍山古城，看拱辰楼和古街。",
+     "stops": [
+      {
+       "name": "巍山古城",
+       "q": "巍山古城",
+       "type": "street",
+       "dur": 150,
+       "via": "包车约 1 小时"
+      }
+     ],
+     "start": "10:00",
+     "stay": "巍山古城",
+     "dinner": {
+      "dish": "巍山扒肉饵丝、一根面",
+      "place": "巍山古城"
+     }
+    },
+    {
+     "title": "巍宝山 · 回程",
+     "text": "上午巍宝山道观，下午东莲花村，回大理。",
+     "stops": [
+      {
+       "name": "巍宝山",
+       "q": "巍宝山",
+       "type": "park",
+       "dur": 150,
+       "via": "包车约 30 分钟"
+      },
+      {
+       "name": "东莲花村",
+       "q": "东莲花村",
+       "type": "street",
+       "dur": 60
+      }
+     ]
+    }
+   ],
+   "dest": "yunnan",
+   "start": [
+    2026,
+    2,
+    15
+   ]
+  },
+  "ml2": {
+   "city": "弥勒",
+   "label": "弥勒 2 天",
+   "title": "两天，东风韵和温泉",
+   "kicker": "小城 · 2 天",
+   "prep": [
+    "东风韵是红砖建的艺术小镇",
+    "弥勒是阿细跳月的故乡"
+   ],
+   "days": [
+    {
+     "title": "东风韵",
+     "text": "从昆明坐高铁到弥勒，下午东风韵艺术小镇。",
+     "stops": [
+      {
+       "name": "东风韵",
+       "q": "东风韵 弥勒",
+       "type": "street",
+       "dur": 150,
+       "via": "高铁约 50 分钟"
+      }
+     ],
+     "start": "11:00",
+     "stay": "弥勒",
+     "dinner": {
+      "dish": "弥勒卤鸡",
+      "place": "弥勒"
+     }
+    },
+    {
+     "title": "湖泉 · 回程",
+     "text": "上午湖泉生态园，泡温泉，下午回昆明。",
+     "stops": [
+      {
+       "name": "湖泉生态园",
+       "q": "湖泉生态园 弥勒",
+       "type": "park",
+       "dur": 150,
+       "via": "打车约 15 分钟"
+      }
+     ]
+    }
+   ],
+   "dest": "yunnan",
+   "start": [
+    2026,
+    2,
+    15
+   ]
+  },
+  "hz2y": {
+   "city": "会泽",
+   "label": "会泽 2 天",
+   "title": "两天，会泽古城和大海草山",
+   "kicker": "古城 · 2 天",
+   "prep": [
+    "会泽是清代铜都，会馆很多",
+    "大海草山海拔三千多米，夏天野花开"
+   ],
+   "days": [
+    {
+     "title": "会泽古城",
+     "text": "从昆明去会泽，看江西会馆和古城。",
+     "stops": [
+      {
+       "name": "会泽古城",
+       "q": "会泽古城 江西会馆",
+       "type": "street",
+       "dur": 150,
+       "via": "包车约 3 小时"
+      }
+     ],
+     "start": "09:00",
+     "stay": "会泽",
+     "dinner": {
+      "dish": "会泽稀豆粉、羊肉",
+      "place": "会泽"
+     }
+    },
+    {
+     "title": "大海草山 · 回程",
+     "text": "包车上大海草山，看高山草甸，下午回昆明。",
+     "stops": [
+      {
+       "name": "大海草山",
+       "q": "大海草山",
+       "type": "park",
+       "dur": 180,
+       "via": "包车约 1 小时 30 分钟"
+      }
+     ]
+    }
+   ],
+   "dest": "yunnan",
+   "start": [
+    2026,
+    7,
+    10
+   ]
+  },
+  "ctw3": {
+   "city": "索拉哈",
+   "label": "奇特旺 3 天",
+   "title": "三天，奇特旺丛林",
+   "kicker": "丛林 · 3 天",
+   "prep": [
+    "从加德满都坐大巴约 5 小时",
+    "丛林徒步跟当地向导，别单独进林子"
+   ],
+   "days": [
+    {
+     "title": "到奇特旺",
+     "text": "坐大巴到索拉哈，傍晚拉普提河边看日落。",
+     "stops": [
+      {
+       "name": "拉普提河",
+       "q": "Rapti River Sauraha",
+       "type": "park",
+       "dur": 90,
+       "via": "大巴约 5 小时",
+       "at": "17:00"
+      }
+     ],
+     "start": "07:00",
+     "stay": "索拉哈"
+    },
+    {
+     "title": "丛林",
+     "text": "坐独木舟、丛林徒步，找犀牛和鳄鱼。",
+     "stops": [
+      {
+       "name": "奇特旺国家公园",
+       "q": "Chitwan National Park",
+       "type": "fun",
+       "dur": 360,
+       "via": "步行 10 分钟",
+       "at": "07:30"
+      }
+     ],
+     "start": "07:00",
+     "stay": "索拉哈"
+    },
+    {
+     "title": "回程",
+     "text": "上午大象繁育中心，下午回加德满都。",
+     "stops": [
+      {
+       "name": "大象繁育中心",
+       "q": "Elephant Breeding Center Chitwan",
+       "type": "sight",
+       "dur": 60,
+       "via": "吉普约 20 分钟"
+      }
+     ],
+     "start": "08:00"
+    }
+   ],
+   "dest": "nepal",
+   "start": [
+    2026,
+    10,
+    10
+   ]
+  },
+  "pmk4": {
+   "city": "代尼兹利",
+   "label": "棉花堡以弗所 4 天",
+   "title": "四天，棉花堡和以弗所古城",
+   "kicker": "古迹 · 4 天",
+   "prep": [
+    "走棉花堡的石灰华梯田要光脚",
+    "以弗所古城中午很晒，早上去"
+   ],
+   "days": [
+    {
+     "title": "棉花堡",
+     "text": "到代尼兹利，傍晚上棉花堡看日落。",
+     "stops": [
+      {
+       "name": "棉花堡",
+       "q": "Pamukkale Travertines",
+       "type": "sight",
+       "dur": 150,
+       "via": "打车约 30 分钟",
+       "at": "16:30"
+      }
+     ],
+     "start": "13:00",
+     "stay": "棉花堡"
+    },
+    {
+     "title": "希拉波利斯",
+     "text": "上午希拉波利斯古城和埃及艳后泳池，下午坐车去塞尔丘克。",
+     "stops": [
+      {
+       "name": "希拉波利斯古城",
+       "q": "Hierapolis",
+       "type": "sight",
+       "dur": 150,
+       "via": "步行 10 分钟"
+      },
+      {
+       "name": "塞尔丘克",
+       "q": "Selcuk",
+       "type": "street",
+       "dur": 60,
+       "via": "大巴约 3 小时"
+      }
+     ],
+     "city": "塞尔丘克",
+     "stay": "塞尔丘克"
+    },
+    {
+     "title": "以弗所",
+     "text": "一早去以弗所古城，看塞尔苏斯图书馆和大剧场。",
+     "stops": [
+      {
+       "name": "以弗所古城",
+       "q": "Ephesus Ancient City",
+       "type": "sight",
+       "dur": 180,
+       "via": "打车约 10 分钟",
+       "at": "08:00"
+      },
+      {
+       "name": "圣母玛利亚故居",
+       "q": "House of Virgin Mary",
+       "type": "sight",
+       "dur": 45
+      }
+     ],
+     "start": "07:30",
+     "city": "塞尔丘克",
+     "stay": "塞尔丘克"
+    },
+    {
+     "title": "回程",
+     "text": "坐车去伊兹密尔机场。",
+     "stops": [
+      {
+       "name": "圣约翰教堂遗址",
+       "q": "Basilica of St John Selcuk",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行 10 分钟"
+      }
+     ],
+     "start": "09:00",
+     "city": "塞尔丘克"
+    }
+   ],
+   "dest": "turkey",
+   "start": [
+    2026,
+    3,
+    25
+   ]
+  },
+  "kmd4": {
+   "city": "拉布安巴焦",
+   "label": "科莫多 4 天",
+   "title": "四天，科莫多龙和粉色沙滩",
+   "kicker": "海岛 · 4 天",
+   "prep": [
+    "科莫多国家公园要跟船进，看龙要跟护林员",
+    "四到十一月旱季海况好"
+   ],
+   "days": [
+    {
+     "title": "拉布安巴焦",
+     "text": "到拉布安巴焦，傍晚在山上看港湾日落。",
+     "stops": [
+      {
+       "name": "阿玛拉山观景台",
+       "q": "Amelia Sea View Labuan Bajo",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 15 分钟",
+       "at": "17:30"
+      }
+     ],
+     "start": "13:00",
+     "stay": "拉布安巴焦"
+    },
+    {
+     "title": "帕达尔岛 · 粉色沙滩",
+     "text": "坐船出海，清早爬帕达尔岛，上粉色沙滩浮潜。",
+     "stops": [
+      {
+       "name": "帕达尔岛",
+       "q": "Padar Island",
+       "type": "sight",
+       "dur": 90,
+       "via": "船约 2 小时",
+       "at": "06:30"
+      },
+      {
+       "name": "粉色沙滩",
+       "q": "Pink Beach Komodo",
+       "type": "park",
+       "dur": 120
+      }
+     ],
+     "start": "04:30",
+     "stay": "拉布安巴焦"
+    },
+    {
+     "title": "科莫多岛",
+     "text": "上科莫多岛跟护林员看科莫多龙，下午曼塔点看蝠鲼。",
+     "stops": [
+      {
+       "name": "科莫多岛",
+       "q": "Komodo Island",
+       "type": "sight",
+       "dur": 120,
+       "via": "船约 2 小时"
+      },
+      {
+       "name": "曼塔点",
+       "q": "Manta Point Komodo",
+       "type": "fun",
+       "dur": 90
+      }
+     ],
+     "start": "07:00",
+     "stay": "拉布安巴焦"
+    },
+    {
+     "title": "回程",
+     "text": "上午在镇上走走，中午去机场。",
+     "stops": [
+      {
+       "name": "拉布安巴焦港",
+       "q": "Labuan Bajo Harbour",
+       "type": "street",
+       "dur": 60,
+       "via": "步行 10 分钟"
+      }
+     ],
+     "start": "09:00"
+    }
+   ],
+   "dest": "indonesia",
+   "start": [
+    2026,
+    5,
+    10
+   ]
+  },
+  "sp3": {
+   "city": "沙坝",
+   "label": "沙坝 3 天",
+   "title": "三天，沙坝梯田和番西邦峰",
+   "kicker": "梯田 · 3 天",
+   "prep": [
+    "九月稻子黄，梯田最美",
+    "番西邦峰坐缆车上去，山顶冷"
+   ],
+   "days": [
+    {
+     "title": "到沙坝",
+     "text": "从河内坐车到沙坝，傍晚逛小镇和沙坝湖。",
+     "stops": [
+      {
+       "name": "沙坝小镇",
+       "q": "Sapa Town",
+       "type": "street",
+       "dur": 90,
+       "via": "大巴约 5 小时 30 分钟"
+      }
+     ],
+     "start": "07:00",
+     "stay": "沙坝"
+    },
+    {
+     "title": "番西邦峰 · 猫猫村",
+     "text": "上午坐缆车上番西邦峰，下午走到猫猫村。",
+     "stops": [
+      {
+       "name": "番西邦峰",
+       "q": "Fansipan Legend Cable Car",
+       "type": "sight",
+       "dur": 180,
+       "via": "小火车约 10 分钟"
+      },
+      {
+       "name": "猫猫村",
+       "q": "Cat Cat Village",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "stay": "沙坝"
+    },
+    {
+     "title": "勐花谷 · 回程",
+     "text": "上午走勐花谷梯田，下午坐车回河内。",
+     "stops": [
+      {
+       "name": "勐花谷",
+       "q": "Muong Hoa Valley",
+       "type": "park",
+       "dur": 180,
+       "via": "包车约 20 分钟"
+      }
+     ],
+     "start": "08:00"
+    }
+   ],
+   "dest": "vietnam",
+   "start": [
+    2026,
+    8,
+    20
+   ]
+  },
+  "bki4": {
+   "city": "亚庇",
+   "label": "沙巴亚庇 4 天",
+   "title": "四天，亚庇的海岛和神山",
+   "kicker": "海岛 · 4 天",
+   "prep": [
+    "神山公园早上云少",
+    "红树林萤火虫要傍晚出发"
+   ],
+   "days": [
+    {
+     "title": "丹绒亚路海滩",
+     "text": "到亚庇，傍晚丹绒亚路海滩看日落，晚上加雅街夜市。",
+     "stops": [
+      {
+       "name": "丹绒亚路海滩",
+       "q": "Tanjung Aru Beach",
+       "type": "park",
+       "dur": 90,
+       "via": "打车约 15 分钟",
+       "at": "17:30"
+      },
+      {
+       "name": "加雅街",
+       "q": "Gaya Street",
+       "type": "street",
+       "dur": 60
+      }
+     ],
+     "start": "13:00",
+     "stay": "亚庇"
+    },
+    {
+     "title": "东姑阿都拉曼公园",
+     "text": "坐船去马努干岛，浮潜、晒太阳。",
+     "stops": [
+      {
+       "name": "马努干岛",
+       "q": "Manukan Island",
+       "type": "park",
+       "dur": 300,
+       "via": "船约 20 分钟"
+      }
+     ],
+     "stay": "亚庇"
+    },
+    {
+     "title": "神山公园 · 萤火虫",
+     "text": "上午京那巴鲁神山公园，傍晚去红树林看萤火虫。",
+     "stops": [
+      {
+       "name": "京那巴鲁公园",
+       "q": "Kinabalu Park",
+       "type": "park",
+       "dur": 180,
+       "via": "包车约 2 小时"
+      },
+      {
+       "name": "红树林萤火虫",
+       "q": "Klias Mangrove Fireflies",
+       "type": "fun",
+       "dur": 120,
+       "at": "18:00"
+      }
+     ],
+     "stay": "亚庇"
+    },
+    {
+     "title": "回程",
+     "text": "上午水上清真寺，下午去机场。",
+     "stops": [
+      {
+       "name": "亚庇市立清真寺",
+       "q": "Kota Kinabalu City Mosque",
+       "type": "sight",
+       "dur": 45,
+       "via": "打车约 15 分钟"
+      }
+     ],
+     "start": "09:00"
+    }
+   ],
+   "dest": "malaysia",
+   "start": [
+    2026,
+    2,
+    15
+   ]
+  },
+  "spn4": {
+   "city": "仙本那",
+   "label": "仙本那 4 天",
+   "title": "四天，仙本那的海",
+   "kicker": "潜水 · 4 天",
+   "prep": [
+    "诗巴丹潜点每天限额，要提前订",
+    "从亚庇飞斗湖再坐车约 1 小时"
+   ],
+   "days": [
+    {
+     "title": "到仙本那",
+     "text": "飞到斗湖，坐车到仙本那，傍晚码头看日落。",
+     "stops": [
+      {
+       "name": "仙本那码头",
+       "q": "Semporna Jetty",
+       "type": "street",
+       "dur": 60,
+       "via": "包车约 1 小时 15 分钟",
+       "at": "17:30"
+      }
+     ],
+     "start": "12:00",
+     "stay": "仙本那"
+    },
+    {
+     "title": "跳岛",
+     "text": "出海跳岛：汶莱岛、马达京岛，浮潜看海龟。",
+     "stops": [
+      {
+       "name": "马达京岛",
+       "q": "Mataking Island",
+       "type": "park",
+       "dur": 360,
+       "via": "船约 1 小时",
+       "at": "08:30"
+      }
+     ],
+     "start": "08:00",
+     "stay": "仙本那"
+    },
+    {
+     "title": "卡帕莱 · 马布岛",
+     "text": "去卡帕莱水屋和马布岛，看巴瑶族的高脚屋。",
+     "stops": [
+      {
+       "name": "马布岛",
+       "q": "Mabul Island",
+       "type": "park",
+       "dur": 300,
+       "via": "船约 45 分钟"
+      }
+     ],
+     "stay": "仙本那"
+    },
+    {
+     "title": "回程",
+     "text": "坐车回斗湖机场。",
+     "stops": [
+      {
+       "name": "仙本那鱼市",
+       "q": "Semporna Fish Market",
+       "type": "street",
+       "dur": 45,
+       "via": "步行 10 分钟"
+      }
+     ],
+     "start": "08:30"
+    }
+   ],
+   "dest": "malaysia",
+   "start": [
+    2026,
+    3,
+    10
+   ]
+  },
+  "nara2": {
+   "city": "奈良",
+   "label": "奈良 2 天",
+   "title": "两天，奈良的鹿和古寺",
+   "kicker": "古都 · 2 天",
+   "prep": [
+    "奈良公园的鹿会鞠躬，鹿仙贝在公园里买",
+    "东大寺大佛殿是世界最大的木结构建筑之一"
+   ],
+   "days": [
+    {
+     "title": "奈良公园 · 东大寺",
+     "text": "从大阪或京都到奈良，喂鹿，看东大寺大佛。",
+     "stops": [
+      {
+       "name": "奈良公园",
+       "q": "Nara Park",
+       "type": "park",
+       "dur": 90,
+       "via": "电车约 45 分钟"
+      },
+      {
+       "name": "东大寺",
+       "q": "Todaiji",
+       "type": "sight",
+       "dur": 90
+      }
+     ],
+     "start": "10:00",
+     "stay": "奈良"
+    },
+    {
+     "title": "春日大社 · 兴福寺",
+     "text": "上午春日大社的石灯笼参道，下午兴福寺五重塔，回大阪。",
+     "stops": [
+      {
+       "name": "春日大社",
+       "q": "Kasuga Taisha",
+       "type": "sight",
+       "dur": 90,
+       "via": "步行 15 分钟"
+      },
+      {
+       "name": "兴福寺",
+       "q": "Kofukuji",
+       "type": "sight",
+       "dur": 60
+      }
+     ]
+    }
+   ],
+   "dest": "japan",
+   "start": [
+    2026,
+    10,
+    15
+   ]
   }
  }
 }
