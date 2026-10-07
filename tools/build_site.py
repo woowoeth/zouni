@@ -615,7 +615,7 @@ def fit_label(best, m):
 
 
 def extras(trip_desc, dest_desc):
-    urls = ['/', '/where/', '/pian/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/yichuan/', '/xiaoye/', '/hexi/', '/hangpai/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
+    urls = ['/', '/where/', '/pian/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/yichuan/', '/xiaoye/', '/hexi/', '/shuben/', '/hangpai/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
     lm = TODAY.isoformat()
     open(os.path.join(OUT, 'sitemap.xml'), 'w', encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         ''.join(f'<url><loc>{BASE}{u}</loc><lastmod>{lm}</lastmod></url>\n' for u in urls) + '</urlset>\n')
@@ -1644,7 +1644,7 @@ def faq_items(r, t, d0, g):
 
 
 SJ = (json.load(open('data/catalog/shejian.json')) if os.path.exists('data/catalog/shejian.json') else []) + (json.load(open('data/catalog/fengwei.json')) if os.path.exists('data/catalog/fengwei.json') else []) + (json.load(open('data/catalog/docs_more.json')) if os.path.exists('data/catalog/docs_more.json') else [])
-SHOWS = [('舌尖上的中国', '/shejian/', '推荐'), ('风味人间', '/fengwei/', '推荐'), ('风味原产地', '/yuanchandi/', '推荐'), ('早餐中国', '/zaocan/', '早上吃'), ('如果国宝会说话', '/guobao/', '讲过'), ('记住乡愁', '/xiangchou/', '拍过'), ('人生一串', '/yichuan/', '推荐'), ('宵夜江湖', '/xiaoye/', '拍过'), ('河西走廊', '/hexi/', '拍过'), ('航拍中国', '/hangpai/', '拍过')]
+SHOWS = [('舌尖上的中国', '/shejian/', '推荐'), ('风味人间', '/fengwei/', '推荐'), ('风味原产地', '/yuanchandi/', '推荐'), ('早餐中国', '/zaocan/', '早上吃'), ('如果国宝会说话', '/guobao/', '讲过'), ('记住乡愁', '/xiangchou/', '拍过'), ('人生一串', '/yichuan/', '推荐'), ('宵夜江湖', '/xiaoye/', '拍过'), ('河西走廊', '/hexi/', '拍过'), ('跟着书本去旅行', '/shuben/', '讲过'), ('航拍中国', '/hangpai/', '拍过')]
 SHOW_VERB = {a: c for a, b, c in SHOWS}
 SJ_VAGUE = {'东北', '四川', '云南', '河南', '广东', '江南', '闽南', '内蒙古', '宁夏', '西藏', '台湾', '山西', '山东', '陕北', '贵州', '广东乡下', '粤东海边', '四川养蜂人', '吉林朝鲜族山村', '北部湾渔船', '客家'}
 SJ_CN = '零一二三四'
@@ -1849,7 +1849,7 @@ def trip_page(rid):
 
 SHOW_NOTE = {'舌尖上的中国': '中国人的家常和手艺', '风味人间': '一样食材在世界各地的做法', '风味原产地': '一地一集，追到食材长出来的地方', '早餐中国': '一城一家早餐店',
              '如果国宝会说话': '一集一件国宝，现在在哪个馆', '记住乡愁': '一集一个古村', '人生一串': '各地的烧烤摊', '宵夜江湖': '一城一夜的宵夜',
-             '河西走廊': '从武威到敦煌的丝路历史', '航拍中国': '从天上看一个省'}
+             '河西走廊': '从武威到敦煌的丝路历史', '跟着书本去旅行': '课文里写到的地方，带着书去看', '航拍中国': '从天上看一个省'}
 
 
 def pian_page():
