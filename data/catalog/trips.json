@@ -27040,6 +27040,344 @@
    "page": "Route.dc.html#cdcq6",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "gdgt7",
+   "dest": "guangdong",
+   "name": "广东高铁",
+   "region": "华南",
+   "days": 7,
+   "title": "广东高铁 7 天",
+   "headline": "七天，广府、侨乡、潮汕",
+   "dek": "到广州，看陈家祠，逛沙面，晚上坐船游珠江。",
+   "why": null,
+   "price": {
+    "lo": 3500,
+    "hi": 6800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 1,
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      800,
+      1450
+     ],
+     "nights": 6,
+     "n": 7,
+     "car": true
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "10-15",
+     "04-30"
+    ],
+    "best": [
+     "11-01",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gdgt7",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "fjgt7",
+   "dest": "fujian",
+   "name": "福建高铁",
+   "region": "华东",
+   "days": 7,
+   "title": "福建高铁 7 天",
+   "headline": "七天，武夷山到厦门",
+   "dek": "到武夷山，傍晚逛武夷宫和宋街，喝大红袍。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 5300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      280,
+      630
+     ],
+     "nights": 6,
+     "n": 7,
+     "car": false
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "12-15"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#fjgt7",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "dbdj5",
+   "dest": "heilongjiang",
+   "name": "哈尔滨雪乡",
+   "region": "东北",
+   "days": 5,
+   "title": "哈尔滨雪乡 5 天",
+   "headline": "五天，不开车玩哈尔滨和雪乡",
+   "dek": "到哈尔滨，逛中央大街，看圣索菲亚教堂，傍晚防洪纪念塔。",
+   "why": null,
+   "price": {
+    "lo": 1600,
+    "hi": 3500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      200,
+      450
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": false
+    }
+   },
+   "tags": [
+    "冬季"
+   ],
+   "season": {
+    "ok": [
+     "12-15",
+     "02-28"
+    ],
+    "best": [
+     "12-25",
+     "02-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#dbdj5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sxgt7",
+   "dest": "shanxi",
+   "name": "山西古建",
+   "region": "华北",
+   "days": 7,
+   "title": "山西古建 7 天",
+   "headline": "七天，坐火车看山西古建",
+   "dek": "到太原，看山西博物院，下午晋祠。",
+   "why": null,
+   "price": {
+    "lo": 3400,
+    "hi": 7100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      330,
+      990
+     ],
+     "local": [
+      1060,
+      1860
+     ],
+     "nights": 6,
+     "n": 7,
+     "car": true
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "04-01",
+     "11-15"
+    ],
+    "best": [
+     "09-15",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sxgt7",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jjj6",
+   "dest": "hebei",
+   "name": "北京天津承德",
+   "region": "华北",
+   "days": 6,
+   "title": "北京天津承德 6 天",
+   "headline": "六天，京津冀一线",
+   "dek": "到北京，看故宫，傍晚登景山看中轴线。",
+   "why": null,
+   "price": {
+    "lo": 2500,
+    "hi": 5200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      240,
+      540
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": false
+    }
+   },
+   "tags": [
+    "跨省",
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "04-01",
+     "11-15"
+    ],
+    "best": [
+     "09-15",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jjj6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hnhd6",
+   "dest": "hainan",
+   "name": "海南环岛高铁",
+   "region": "华南",
+   "days": 6,
+   "title": "海南环岛高铁 6 天",
+   "headline": "六天，坐环岛高铁从海口到三亚",
+   "dek": "到海口，逛骑楼老街，吃海南粉。",
+   "why": null,
+   "price": {
+    "lo": 2200,
+    "hi": 4800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      240,
+      540
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": false
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "10-15",
+     "04-30"
+    ],
+    "best": [
+     "11-15",
+     "03-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hnhd6",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
