@@ -27971,8 +27971,8 @@
       1170
      ],
      "local": [
-      500,
-      950
+      240,
+      540
      ],
      "nights": 5,
      "n": 6,
@@ -28051,6 +28051,231 @@
    "anytime": false,
    "status": "ok",
    "page": "Route.dc.html#hngd6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "nxgt5",
+   "dest": "ningxia",
+   "name": "宁夏",
+   "region": "西北",
+   "days": 5,
+   "title": "宁夏 5 天（不开车）",
+   "headline": "五天，银川到沙坡头",
+   "dek": "到银川，下午西夏陵。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 5100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 1,
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      720,
+      1270
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nxgt5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "qhxn5",
+   "dest": "qinghai",
+   "name": "西宁青海湖茶卡",
+   "region": "西北",
+   "days": 5,
+   "title": "西宁青海湖茶卡 5 天（不开车）",
+   "headline": "五天，塔尔寺、青海湖、茶卡",
+   "dek": "到西宁，看东关清真大寺，晚上莫家街吃小吃。",
+   "why": null,
+   "price": {
+    "lo": 2500,
+    "hi": 5300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      720,
+      1270
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [
+    "不开车"
+   ],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "07-10",
+     "08-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#qhxn5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "zjgt6",
+   "dest": "zhejiang",
+   "name": "杭州绍兴宁波普陀山",
+   "region": "华东",
+   "days": 6,
+   "title": "杭州绍兴宁波普陀山 6 天",
+   "headline": "六天，浙东一线到普陀山",
+   "dek": "到杭州，走断桥、白堤、苏堤，傍晚雷峰塔。",
+   "why": null,
+   "price": {
+    "lo": 2600,
+    "hi": 5400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      300,
+      900
+     ],
+     "local": [
+      240,
+      540
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": false
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-30"
+    ],
+    "best": [
+     "04-01",
+     "05-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#zjgt6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xa5d",
+   "dest": "shaanxi",
+   "name": "西安",
+   "region": "西北",
+   "days": 5,
+   "title": "西安 5 天（深度）",
+   "headline": "五天，慢慢看西安",
+   "dek": "到西安，看钟鼓楼，晚上回民街。",
+   "why": null,
+   "price": {
+    "lo": 2100,
+    "hi": 4500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      200,
+      450
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": false
+    }
+   },
+   "tags": [
+    "城市"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "05-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xa5d",
    "engineRoute": null,
    "poster": null
   }
