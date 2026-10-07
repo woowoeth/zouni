@@ -383,6 +383,10 @@ SIGHT = {
     '栖霞山': '南京看红叶最好的地方，“春牛首，秋栖霞”', '汤山温泉': '南京东郊的老温泉', '石门国家森林公园': '广州看红叶的森林公园', '从化温泉': '岭南有名的老温泉，周恩来住过', '天平山': '苏州看红枫的山，范仲淹家族种的枫树',
     '启园': '东山太湖边的园林', '雾凇长廊': '松花江边看雾凇的步道', '北大湖滑雪场': '东北有名的滑雪场，办过亚冬会', '松花湖滑雪场': '吉林市边的滑雪场', '红螺寺': '怀柔的千年古寺，银杏和紫藤', '雁栖湖': 'APEC 会场所在的湖',
     '武汉大学樱花': '武大樱花大道和老斋舍，看樱花要预约', '东湖樱园': '东湖边的樱花园，人比武大少', '门源油菜花海': '祁连山下百里油菜花', '岗什卡雪峰': '门源北边的雪山，和油菜花同框', '吐尔根杏花沟': '新源山坡上的野杏花，花期只有十来天',
+    '南华禅寺': '禅宗六祖惠能弘法的地方，六祖真身供在这里', '珠玑古巷': '珠三角很多姓氏的祖居地', '紫霄宫': '武当山保存最完整的宫观之一', '南岩宫': '建在悬崖上的道观，龙头香伸出崖外', '武当山金顶': '金殿是明代铜铸鎏金的',
+    '三祖寺': '禅宗三祖僧璨弘法的地方', '山谷流泉摩崖石刻': '宋代以来的摩崖石刻，黄庭坚的号“山谷”就来自这里', '天柱峰': '天柱山主峰，像一根擎天的石柱', '南清园': '三清山的核心景区，巨蟒出山、东方女神', '西海岸栈道': '悬在三清山西边绝壁上的栈道',
+    '大运河森林公园': '通州的运河公园，京杭大运河北端', '三岔河口': '海河、北运河、南运河交汇处，天津的发源地', '南阳古镇': '运河穿过微山湖的水上古镇', '清江浦': '明清漕运重镇，清江浦楼在运河边', '中国大运河博物馆': '扬州运河三湾边的大运河博物馆',
+    '京杭大运河博物馆': '拱宸桥边，京杭大运河南端的博物馆', '朝天门': '嘉陵江和长江交汇处的码头', '丰都名山': '传说中的“鬼城”', '巫山小三峡': '大宁河上的峡谷，换小船进去', '神女溪': '巫峡里的支流峡谷',
     '稻河古街区': '泰州老城沿河的街区', '望海楼': '泰州的城标，傍晚好看', '千垛景区': '垛田上开满油菜花，坐船进去看', '李中水上森林': '水杉长在水里的森林', '石浦渔港古城': '依山而建的渔港老街',
     '中国渔村': '象山海边看渔船的地方', '蛇蟠岛': '三门的海岛，有千洞之岛的说法', '遂昌金矿国家矿山公园': '千年金矿遗址，能下矿洞', '南尖岩': '看云海和梯田的山头', '诺邓古村': '千年盐井古村，诺邓火腿的产地',
     '太极图观景台': '沘江弯出一个天然太极图', '诺邓盐井': '还能看到古盐井和盐课司', '阳岭国家森林公园': '崇义城边的森林公园', '上堡梯田': '客家人开垦的梯田，世界灌溉工程遗产', '天鹅湖国家城市湿地公园': '冬天上万只白天鹅来过冬',
@@ -609,7 +613,7 @@ def fit_label(best, m):
 
 
 def extras(trip_desc, dest_desc):
-    urls = ['/', '/where/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/yichuan/', '/hangpai/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
+    urls = ['/', '/where/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/yichuan/', '/xiaoye/', '/hexi/', '/hangpai/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
     lm = TODAY.isoformat()
     open(os.path.join(OUT, 'sitemap.xml'), 'w', encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         ''.join(f'<url><loc>{BASE}{u}</loc><lastmod>{lm}</lastmod></url>\n' for u in urls) + '</urlset>\n')
@@ -1638,7 +1642,7 @@ def faq_items(r, t, d0, g):
 
 
 SJ = (json.load(open('data/catalog/shejian.json')) if os.path.exists('data/catalog/shejian.json') else []) + (json.load(open('data/catalog/fengwei.json')) if os.path.exists('data/catalog/fengwei.json') else []) + (json.load(open('data/catalog/docs_more.json')) if os.path.exists('data/catalog/docs_more.json') else [])
-SHOWS = [('舌尖上的中国', '/shejian/', '推荐'), ('风味人间', '/fengwei/', '推荐'), ('风味原产地', '/yuanchandi/', '推荐'), ('早餐中国', '/zaocan/', '早上吃'), ('如果国宝会说话', '/guobao/', '讲过'), ('记住乡愁', '/xiangchou/', '拍过'), ('人生一串', '/yichuan/', '推荐'), ('航拍中国', '/hangpai/', '拍过')]
+SHOWS = [('舌尖上的中国', '/shejian/', '推荐'), ('风味人间', '/fengwei/', '推荐'), ('风味原产地', '/yuanchandi/', '推荐'), ('早餐中国', '/zaocan/', '早上吃'), ('如果国宝会说话', '/guobao/', '讲过'), ('记住乡愁', '/xiangchou/', '拍过'), ('人生一串', '/yichuan/', '推荐'), ('宵夜江湖', '/xiaoye/', '拍过'), ('河西走廊', '/hexi/', '拍过'), ('航拍中国', '/hangpai/', '拍过')]
 SHOW_VERB = {a: c for a, b, c in SHOWS}
 SJ_VAGUE = {'东北', '四川', '云南', '河南', '广东', '江南', '闽南', '内蒙古', '宁夏', '西藏', '台湾', '山西', '山东', '陕北', '贵州', '广东乡下', '粤东海边', '四川养蜂人', '吉林朝鲜族山村', '北部湾渔船', '客家'}
 SJ_CN = '零一二三四'
@@ -1867,7 +1871,7 @@ def shejian_page(show='舌尖上的中国', path='/shejian/', other=('风味人�
             body += f'<h3>{("《" + E(ep) + "》") if ep else "这一季还拍过"}</h3><ul class="sjl">{li}</ul>'
         out.append(f'<section class="sjs"><h2>第{SJ_CN[sn]}季</h2>{body}</section>')
     n_hit = sum(1 for x in ALL if hit.get(id(x)))
-    _eat = show in ('舌尖上的中国', '风味人间', '风味原产地', '早餐中国', '人生一串')
+    _eat = show in ('舌尖上的中国', '风味人间', '风味原产地', '早餐中国', '人生一串', '宵夜江湖')
     others = ''.join(f'<a href="{pp}">《{ss}》</a> ' for ss, pp, _v in SHOWS if ss != show)
     tabs = ''.join(f'<a href="{pp}"{" class=\"on\"" if ss == show else ""}>{ss}</a>' for ss, pp, _v in SHOWS)
     head = (f'<div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><p class="kick">走你 · 跟片走</p>'

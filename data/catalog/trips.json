@@ -29042,8 +29042,8 @@
       180
      ],
      "local": [
-      640,
-      1090
+      380,
+      680
      ],
      "nights": 2,
      "n": 3,
@@ -29066,6 +29066,175 @@
    "anytime": false,
    "status": "ok",
    "page": "Route.dc.html#xhg3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sgnh3",
+   "dest": "guangdong",
+   "name": "韶关",
+   "region": "华南",
+   "days": 3,
+   "title": "韶关 3 天",
+   "headline": "三天，南华寺、丹霞山、珠玑古巷",
+   "dek": "到韶关，去南华禅寺，六祖惠能弘法的地方。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      380,
+      680
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "04-30"
+    ],
+    "best": [
+     "10-15",
+     "12-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sgnh3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "dyh7",
+   "dest": "jiangsu",
+   "name": "京杭大运河",
+   "region": "华东",
+   "days": 7,
+   "title": "京杭大运河 7 天",
+   "headline": "七天，坐高铁沿大运河从北京走到杭州",
+   "dek": "到北京，下午去通州大运河森林公园，运河的北端。",
+   "why": null,
+   "price": {
+    "lo": 3200,
+    "hi": 6400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 1,
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      280,
+      630
+     ],
+     "nights": 6,
+     "n": 7,
+     "car": true
+    }
+   },
+   "tags": [
+    "跨省",
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "05-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#dyh7",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sxyl4",
+   "dest": "chongqing",
+   "name": "长江三峡游轮",
+   "region": "西南",
+   "days": 4,
+   "title": "长江三峡游轮 4 天",
+   "headline": "四天，坐游轮过三峡",
+   "dek": "到重庆，傍晚朝天门登船，看两江夜景开船。",
+   "why": null,
+   "price": {
+    "lo": 1900,
+    "hi": 3800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 1,
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [
+    "游轮"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sxyl4",
    "engineRoute": null,
    "poster": null
   }
