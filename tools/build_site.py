@@ -1861,8 +1861,8 @@ def shejian_page(show='舌尖上的中国', path='/shejian/', other=('风味人�
             li = ''
             for x in [x for x in xs if x['ep'] == ep]:
                 trips = hit.get(id(x), [])[:3]
-                go = ' '.join(f'<a href="/trip/{rid}/#d{k + 1}">{E(re.sub(r"\s*\d+\s*天$", "", ROUTES[rid].get("label") or ""))}第 {k + 1} 天 ›</a>' for rid, k in trips)
-                if not go and dname.get(x['prov']): go = f'<a href="/d/{dname[x["prov"]]}/">{E(x["prov"])} ›</a>'
+                go = ' '.join(f'<a href="/trip/{rid}/#d{k + 1}">{E(re.sub(r"\s*\d+\s*天$", "", ROUTES[rid].get("label") or ""))}第 {k + 1} 天</a>' for rid, k in trips)
+                if not go and dname.get(x['prov']): go = f'<a href="/d/{dname[x["prov"]]}/">去{E(x["prov"])}看看</a>'
                 li += f'<li><b>{E(x["food"])}</b><span>{E(x["place"])}{("，" + E(x["prov"])) if x["prov"] not in x["place"] else ""}</span>{("<small>" + go + "</small>") if go else ""}</li>'
             body += f'<h3>{("《" + E(ep) + "》") if ep else "这一季还拍过"}</h3><ul class="sjl">{li}</ul>'
         out.append(f'<section class="sjs"><h2>第{SJ_CN[sn]}季</h2>{body}</section>')
