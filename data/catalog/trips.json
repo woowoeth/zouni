@@ -29399,6 +29399,121 @@
    "page": "Route.dc.html#gobi4",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "kbbj4",
+   "dest": "beijing",
+   "name": "课本里的北京",
+   "region": "华北",
+   "days": 4,
+   "title": "课本里的北京 4 天",
+   "headline": "四天，带着课本去北京",
+   "dek": "到北京，看天安门广场，下午故宫，对照《故宫博物院》走中轴线。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [
+    "课本",
+    "带娃"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "05-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#kbbj4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "kbjn5",
+   "dest": "zhejiang",
+   "name": "课本里的江南",
+   "region": "华东",
+   "days": 5,
+   "title": "课本里的江南 5 天",
+   "headline": "五天，带着课本游江南",
+   "dek": "到苏州，看拙政园和留园，对照叶圣陶《苏州园林》看漏窗和假山。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 5000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      270,
+      810
+     ],
+     "local": [
+      460,
+      860
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [
+    "课本",
+    "带娃",
+    "跨省"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "09-01",
+     "10-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#kbjn5",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
