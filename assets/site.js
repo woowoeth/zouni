@@ -84,6 +84,7 @@
     ds.forEach(function(d,i){var n=ds[i+1];if(!n||!n.id)return;var t=(n.querySelector('h2,h3')||{}).textContent||'';var a=document.createElement('a');a.className='nextday';a.href='#'+n.id;a.textContent='下一天 · '+t.replace(/\s+/g,' ').trim().slice(0,24)+' ›';
       d.appendChild(a)})}
   if(document.querySelector('.day')){setTimeout(zNext,60);document.addEventListener('click',function(e){if(e.target.closest('.rmday,.addday,.adayok,.restore,.ovrestore,[data-addday]'))setTimeout(zNext,400)})}
+
   // ——— 行程页 ———
   var art=document.querySelector('article.trip');
   if(art){
