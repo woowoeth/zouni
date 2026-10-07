@@ -24160,6 +24160,547 @@
    "page": "Route.dc.html#lgk4",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "hkn2",
+   "dest": "japan",
+   "name": "箱根",
+   "region": "东亚",
+   "days": 2,
+   "title": "箱根 2 天",
+   "headline": "两天，箱根温泉和芦之湖",
+   "dek": "从东京坐浪漫特快到箱根，看雕刻之森美术馆，坐缆车上大涌谷吃黑鸡蛋。",
+   "why": null,
+   "price": {
+    "lo": 3300,
+    "hi": 6000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      400,
+      700
+     ],
+     "food": [
+      250,
+      400
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "12-15"
+    ],
+    "best": [
+     "10-25",
+     "11-25"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hkn2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sjg3",
+   "dest": "japan",
+   "name": "高山白川乡",
+   "region": "东亚",
+   "days": 3,
+   "title": "高山白川乡 3 天",
+   "headline": "三天，飞驒高山和白川乡合掌村",
+   "dek": "到名古屋，看名古屋城，坐特急去高山。",
+   "why": null,
+   "price": {
+    "lo": 4000,
+    "hi": 7100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      400,
+      700
+     ],
+     "food": [
+      250,
+      400
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      120,
+      270
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "01-10",
+     "11-30"
+    ],
+    "best": [
+     "01-15",
+     "02-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sjg3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hrs2",
+   "dest": "japan",
+   "name": "广岛宫岛",
+   "region": "东亚",
+   "days": 2,
+   "title": "广岛宫岛 2 天",
+   "headline": "两天，原爆圆顶和海上鸟居",
+   "dek": "到广岛，看原爆圆顶和和平纪念公园、纪念资料馆。",
+   "why": null,
+   "price": {
+    "lo": 3300,
+    "hi": 6000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      400,
+      700
+     ],
+     "food": [
+      250,
+      400
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-30"
+    ],
+    "best": [
+     "03-25",
+     "04-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hrs2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "kys3",
+   "dest": "japan",
+   "name": "九州由布院别府",
+   "region": "东亚",
+   "days": 3,
+   "title": "九州由布院别府 3 天",
+   "headline": "三天，九州的温泉小镇",
+   "dek": "到福冈，下午去太宰府天满宫，吃梅枝饼。",
+   "why": null,
+   "price": {
+    "lo": 4000,
+    "hi": 7200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      400,
+      700
+     ],
+     "food": [
+      250,
+      400
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      120,
+      270
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "12-10"
+    ],
+    "best": [
+     "11-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#kys3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "pus4",
+   "dest": "korea",
+   "name": "釜山庆州",
+   "region": "东亚",
+   "days": 4,
+   "title": "釜山庆州 4 天",
+   "headline": "四天，釜山的海和庆州的古都",
+   "dek": "到釜山，逛甘川文化村，傍晚札嘎其市场吃海鲜。",
+   "why": null,
+   "price": {
+    "lo": 3800,
+    "hi": 7400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      300,
+      550
+     ],
+     "food": [
+      200,
+      350
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "05-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#pus4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ntg5",
+   "dest": "vietnam",
+   "name": "芽庄大叻",
+   "region": "东南亚",
+   "days": 5,
+   "title": "芽庄大叻 5 天",
+   "headline": "五天，芽庄的海和大叻的山城",
+   "dek": "到芽庄，看婆那加占婆塔，傍晚海滩。",
+   "why": null,
+   "price": {
+    "lo": 3600,
+    "hi": 7000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      180,
+      380
+     ],
+     "food": [
+      120,
+      220
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      460,
+      860
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "02-01",
+     "08-31"
+    ],
+    "best": [
+     "03-01",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ntg5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cri4",
+   "dest": "thailand",
+   "name": "清莱拜县",
+   "region": "东南亚",
+   "days": 4,
+   "title": "清莱拜县 4 天",
+   "headline": "四天，白庙蓝庙和拜县",
+   "dek": "到清莱，看白庙和蓝庙，晚上清莱夜市。",
+   "why": null,
+   "price": {
+    "lo": 3100,
+    "hi": 6000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      180,
+      380
+     ],
+     "food": [
+      120,
+      220
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "11-01",
+     "03-15"
+    ],
+    "best": [
+     "11-15",
+     "02-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cri4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "kbi4",
+   "dest": "thailand",
+   "name": "甲米",
+   "region": "东南亚",
+   "days": 4,
+   "title": "甲米 4 天",
+   "headline": "四天，甲米的海和石灰岩",
+   "dek": "到甲米，在奥南海滩看日落。",
+   "why": null,
+   "price": {
+    "lo": 3100,
+    "hi": 5800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      180,
+      380
+     ],
+     "food": [
+      120,
+      220
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "11-01",
+     "04-30"
+    ],
+    "best": [
+     "12-01",
+     "03-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#kbi4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ksm4",
+   "dest": "thailand",
+   "name": "苏梅岛",
+   "region": "东南亚",
+   "days": 4,
+   "title": "苏梅岛 4 天",
+   "headline": "四天，苏梅岛和安通群岛",
+   "dek": "到苏梅岛，在查汶海滩，晚上查汶夜市。",
+   "why": null,
+   "price": {
+    "lo": 3100,
+    "hi": 5900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      180,
+      380
+     ],
+     "food": [
+      120,
+      220
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "01-01",
+     "09-15"
+    ],
+    "best": [
+     "02-01",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ksm4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "yunc2",
+   "dest": "shanxi",
+   "name": "运城",
+   "region": "华北",
+   "days": 2,
+   "title": "运城 2 天",
+   "headline": "两天，关公故里和鹳雀楼",
+   "dek": "到运城，去解州关帝庙，下午运城盐湖。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 1,
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "11-15"
+    ],
+    "best": [
+     "09-20",
+     "11-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#yunc2",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }

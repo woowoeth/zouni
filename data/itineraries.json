@@ -8468,7 +8468,7 @@
    "kicker": "世界遗产 · 两天",
    "start": [
     2026,
-    9,
+    8,
     20
    ],
    "prep": [
@@ -33896,6 +33896,834 @@
       }
      ],
      "start": "09:00"
+    }
+   ]
+  },
+  "hkn2": {
+   "dest": "japan",
+   "city": "箱根",
+   "label": "箱根 2 天",
+   "title": "两天，箱根温泉和芦之湖",
+   "kicker": "温泉 · 2 天",
+   "start": [
+    2026,
+    9,
+    25
+   ],
+   "prep": [
+    "买箱根周游券，电车、缆车、海盗船都能坐",
+    "天晴能在芦之湖看到富士山"
+   ],
+   "days": [
+    {
+     "title": "雕刻之森 · 大涌谷",
+     "text": "从东京坐浪漫特快到箱根，看雕刻之森美术馆，坐缆车上大涌谷吃黑鸡蛋。",
+     "stops": [
+      {
+       "name": "雕刻之森美术馆",
+       "q": "Hakone Open-Air Museum",
+       "type": "museum",
+       "dur": 120,
+       "via": "浪漫特快约 1 小时 30 分钟"
+      },
+      {
+       "name": "大涌谷",
+       "q": "Owakudani",
+       "type": "sight",
+       "dur": 60
+      }
+     ],
+     "start": "10:00",
+     "stay": "箱根温泉旅馆"
+    },
+    {
+     "title": "芦之湖 · 箱根神社",
+     "text": "坐海盗船游芦之湖，看湖边的箱根神社鸟居，下午回东京。",
+     "stops": [
+      {
+       "name": "芦之湖海盗船",
+       "q": "Lake Ashi Pirate Ship",
+       "type": "fun",
+       "dur": 60,
+       "via": "缆车约 20 分钟"
+      },
+      {
+       "name": "箱根神社",
+       "q": "Hakone Shrine",
+       "type": "sight",
+       "dur": 60
+      }
+     ]
+    }
+   ]
+  },
+  "sjg3": {
+   "dest": "japan",
+   "city": "高山",
+   "label": "高山白川乡 3 天",
+   "title": "三天，飞驒高山和白川乡合掌村",
+   "kicker": "古村 · 3 天",
+   "start": [
+    2026,
+    0,
+    20
+   ],
+   "prep": [
+    "白川乡冬天点灯要提前抽签预约",
+    "名古屋到高山坐特急约 2 小时 30 分钟"
+   ],
+   "days": [
+    {
+     "title": "名古屋城",
+     "text": "到名古屋，看名古屋城，坐特急去高山。",
+     "stops": [
+      {
+       "name": "名古屋城",
+       "q": "Nagoya Castle",
+       "type": "sight",
+       "dur": 90,
+       "via": "地铁约 20 分钟"
+      },
+      {
+       "name": "高山老街",
+       "q": "Takayama Sanmachi",
+       "type": "street",
+       "dur": 60,
+       "via": "特急约 2 小时 30 分钟",
+       "at": "17:00"
+      }
+     ],
+     "start": "10:00",
+     "city": "高山",
+     "stay": "高山"
+    },
+    {
+     "title": "高山老街 · 白川乡",
+     "text": "上午宫川朝市和高山老街，下午坐巴士去白川乡，傍晚城山展望台。",
+     "stops": [
+      {
+       "name": "宫川朝市",
+       "q": "Miyagawa Morning Market",
+       "type": "street",
+       "dur": 60,
+       "via": "步行 10 分钟"
+      },
+      {
+       "name": "白川乡合掌村",
+       "q": "Shirakawago",
+       "type": "street",
+       "dur": 150,
+       "via": "巴士约 50 分钟"
+      },
+      {
+       "name": "城山展望台",
+       "q": "Shiroyama Viewpoint Shirakawago",
+       "type": "sight",
+       "dur": 45,
+       "at": "16:00"
+      }
+     ],
+     "start": "08:00",
+     "city": "高山",
+     "stay": "高山"
+    },
+    {
+     "title": "回程",
+     "text": "坐特急回名古屋。",
+     "stops": [
+      {
+       "name": "高山阵屋",
+       "q": "Takayama Jinya",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行 10 分钟"
+      }
+     ],
+     "start": "09:00",
+     "city": "高山"
+    }
+   ]
+  },
+  "hrs2": {
+   "dest": "japan",
+   "city": "广岛",
+   "label": "广岛宫岛 2 天",
+   "title": "两天，原爆圆顶和海上鸟居",
+   "kicker": "城市 · 2 天",
+   "start": [
+    2026,
+    3,
+    5
+   ],
+   "prep": [
+    "严岛神社的海上鸟居要看潮汐，满潮像浮在海上，退潮能走过去",
+    "广岛烧是广岛的大阪烧"
+   ],
+   "days": [
+    {
+     "title": "和平纪念公园",
+     "text": "到广岛，看原爆圆顶和和平纪念公园、纪念资料馆。",
+     "stops": [
+      {
+       "name": "原爆圆顶",
+       "q": "Atomic Bomb Dome",
+       "type": "sight",
+       "dur": 30,
+       "via": "电车约 15 分钟"
+      },
+      {
+       "name": "和平纪念资料馆",
+       "q": "Hiroshima Peace Memorial Museum",
+       "type": "museum",
+       "dur": 120
+      }
+     ],
+     "start": "13:00",
+     "stay": "广岛",
+     "dinner": {
+      "dish": "广岛烧",
+      "place": "广岛"
+     }
+    },
+    {
+     "title": "宫岛",
+     "text": "坐船去宫岛，看严岛神社海上鸟居，坐缆车上弥山，下午回。",
+     "stops": [
+      {
+       "name": "严岛神社",
+       "q": "Itsukushima Shrine",
+       "type": "sight",
+       "dur": 90,
+       "via": "电车加船约 1 小时"
+      },
+      {
+       "name": "弥山",
+       "q": "Mount Misen",
+       "type": "park",
+       "dur": 150
+      }
+     ],
+     "start": "08:30"
+    }
+   ]
+  },
+  "kys3": {
+   "dest": "japan",
+   "city": "福冈",
+   "label": "九州由布院别府 3 天",
+   "title": "三天，九州的温泉小镇",
+   "kicker": "温泉 · 3 天",
+   "start": [
+    2026,
+    10,
+    10
+   ],
+   "prep": [
+    "由布院之森观光列车要提前订",
+    "别府地狱巡游七个温泉池，套票便宜"
+   ],
+   "days": [
+    {
+     "title": "太宰府",
+     "text": "到福冈，下午去太宰府天满宫，吃梅枝饼。",
+     "stops": [
+      {
+       "name": "太宰府天满宫",
+       "q": "Dazaifu Tenmangu",
+       "type": "sight",
+       "dur": 120,
+       "via": "电车约 40 分钟"
+      }
+     ],
+     "start": "13:00",
+     "stay": "福冈",
+     "dinner": {
+      "dish": "博多拉面、明太子",
+      "place": "福冈"
+     }
+    },
+    {
+     "title": "由布院",
+     "text": "坐由布院之森到由布院，逛汤之坪街道，看金鳞湖。",
+     "stops": [
+      {
+       "name": "汤之坪街道",
+       "q": "Yunotsubo Street",
+       "type": "street",
+       "dur": 120,
+       "via": "观光列车约 2 小时 15 分钟"
+      },
+      {
+       "name": "金鳞湖",
+       "q": "Lake Kinrin",
+       "type": "park",
+       "dur": 45
+      }
+     ],
+     "city": "由布院",
+     "stay": "由布院温泉"
+    },
+    {
+     "title": "别府地狱 · 回程",
+     "text": "坐车到别府，看海地狱、血之池地狱，下午回福冈。",
+     "stops": [
+      {
+       "name": "海地狱",
+       "q": "Umi Jigoku",
+       "type": "sight",
+       "dur": 60,
+       "via": "巴士约 1 小时"
+      },
+      {
+       "name": "血之池地狱",
+       "q": "Chinoike Jigoku",
+       "type": "sight",
+       "dur": 45
+      }
+     ],
+     "city": "别府"
+    }
+   ]
+  },
+  "pus4": {
+   "dest": "korea",
+   "city": "釜山",
+   "label": "釜山庆州 4 天",
+   "title": "四天，釜山的海和庆州的古都",
+   "kicker": "城市 · 4 天",
+   "start": [
+    2026,
+    3,
+    5
+   ],
+   "prep": [
+    "釜山到庆州坐 KTX 约 30 分钟",
+    "海东龙宫寺日出最美"
+   ],
+   "days": [
+    {
+     "title": "甘川文化村 · 札嘎其",
+     "text": "到釜山，逛甘川文化村，傍晚札嘎其市场吃海鲜。",
+     "stops": [
+      {
+       "name": "甘川文化村",
+       "q": "Gamcheon Culture Village",
+       "type": "street",
+       "dur": 120,
+       "via": "地铁加公交约 40 分钟"
+      },
+      {
+       "name": "札嘎其市场",
+       "q": "Jagalchi Market",
+       "type": "street",
+       "dur": 90,
+       "at": "17:30"
+      }
+     ],
+     "start": "13:00",
+     "stay": "海云台"
+    },
+    {
+     "title": "海东龙宫寺 · 海云台",
+     "text": "上午海东龙宫寺，下午海云台海滩和天空胶囊列车。",
+     "stops": [
+      {
+       "name": "海东龙宫寺",
+       "q": "Haedong Yonggungsa",
+       "type": "sight",
+       "dur": 90,
+       "via": "打车约 30 分钟"
+      },
+      {
+       "name": "海云台",
+       "q": "Haeundae Beach",
+       "type": "park",
+       "dur": 150
+      }
+     ],
+     "stay": "海云台"
+    },
+    {
+     "title": "庆州",
+     "text": "坐 KTX 去庆州，看佛国寺、石窟庵，晚上东宫与月池。",
+     "stops": [
+      {
+       "name": "佛国寺",
+       "q": "Bulguksa",
+       "type": "sight",
+       "dur": 120,
+       "via": "KTX 约 30 分钟"
+      },
+      {
+       "name": "石窟庵",
+       "q": "Seokguram",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "东宫与月池",
+       "q": "Donggung Palace and Wolji Pond",
+       "type": "sight",
+       "dur": 60,
+       "at": "19:00"
+      }
+     ],
+     "city": "庆州",
+     "stay": "庆州"
+    },
+    {
+     "title": "大陵苑 · 回程",
+     "text": "上午大陵苑古坟群，下午回釜山机场。",
+     "stops": [
+      {
+       "name": "大陵苑",
+       "q": "Daereungwon",
+       "type": "park",
+       "dur": 90,
+       "via": "步行 15 分钟"
+      }
+     ],
+     "start": "09:00",
+     "city": "庆州"
+    }
+   ]
+  },
+  "ntg5": {
+   "dest": "vietnam",
+   "city": "芽庄",
+   "label": "芽庄大叻 5 天",
+   "title": "五天，芽庄的海和大叻的山城",
+   "kicker": "海边 · 5 天",
+   "start": [
+    2026,
+    2,
+    10
+   ],
+   "prep": [
+    "芽庄二到八月旱季海最好",
+    "芽庄到大叻坐车约 3 小时 30 分钟，山路弯多"
+   ],
+   "days": [
+    {
+     "title": "婆那加占婆塔",
+     "text": "到芽庄，看婆那加占婆塔，傍晚海滩。",
+     "stops": [
+      {
+       "name": "婆那加占婆塔",
+       "q": "Po Nagar Cham Towers",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 20 分钟"
+      },
+      {
+       "name": "芽庄海滩",
+       "q": "Nha Trang Beach",
+       "type": "park",
+       "dur": 120,
+       "at": "16:30"
+      }
+     ],
+     "start": "13:00",
+     "stay": "芽庄"
+    },
+    {
+     "title": "跳岛",
+     "text": "出海跳岛，浮潜看珊瑚。",
+     "stops": [
+      {
+       "name": "芽庄四岛游",
+       "q": "Nha Trang Island Hopping",
+       "type": "fun",
+       "dur": 360,
+       "via": "船约 30 分钟",
+       "at": "08:30"
+      }
+     ],
+     "start": "08:00",
+     "stay": "芽庄"
+    },
+    {
+     "title": "去大叻",
+     "text": "坐车上大叻，傍晚春香湖。",
+     "stops": [
+      {
+       "name": "春香湖",
+       "q": "Xuan Huong Lake",
+       "type": "park",
+       "dur": 60,
+       "via": "包车约 3 小时 30 分钟",
+       "at": "16:30"
+      }
+     ],
+     "start": "10:00",
+     "city": "大叻",
+     "stay": "大叻"
+    },
+    {
+     "title": "疯狂屋 · 竹林禅院",
+     "text": "上午疯狂屋，下午竹林禅院和大叻火车站。",
+     "stops": [
+      {
+       "name": "疯狂屋",
+       "q": "Crazy House Dalat",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 10 分钟"
+      },
+      {
+       "name": "竹林禅院",
+       "q": "Truc Lam Monastery",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "大叻火车站",
+       "q": "Dalat Railway Station",
+       "type": "sight",
+       "dur": 45
+      }
+     ],
+     "city": "大叻",
+     "stay": "大叻"
+    },
+    {
+     "title": "回程",
+     "text": "从大叻机场走。",
+     "stops": [
+      {
+       "name": "大叻夜市",
+       "q": "Dalat Night Market",
+       "type": "street",
+       "dur": 60,
+       "via": "步行 10 分钟"
+      }
+     ],
+     "start": "09:00",
+     "city": "大叻"
+    }
+   ]
+  },
+  "cri4": {
+   "dest": "thailand",
+   "city": "清莱",
+   "label": "清莱拜县 4 天",
+   "title": "四天，白庙蓝庙和拜县",
+   "kicker": "山城 · 4 天",
+   "start": [
+    2026,
+    11,
+    1
+   ],
+   "prep": [
+    "清迈到拜县 762 道弯，容易晕车",
+    "白庙进主殿要穿过膝的衣服"
+   ],
+   "days": [
+    {
+     "title": "白庙 · 蓝庙",
+     "text": "到清莱，看白庙和蓝庙，晚上清莱夜市。",
+     "stops": [
+      {
+       "name": "白庙",
+       "q": "Wat Rong Khun",
+       "type": "sight",
+       "dur": 90,
+       "via": "打车约 30 分钟"
+      },
+      {
+       "name": "蓝庙",
+       "q": "Wat Rong Suea Ten",
+       "type": "sight",
+       "dur": 45
+      }
+     ],
+     "start": "13:00",
+     "stay": "清莱"
+    },
+    {
+     "title": "黑屋 · 去清迈",
+     "text": "上午黑屋，下午坐车回清迈。",
+     "stops": [
+      {
+       "name": "黑屋",
+       "q": "Baan Dam Museum",
+       "type": "museum",
+       "dur": 90,
+       "via": "打车约 30 分钟"
+      }
+     ],
+     "start": "09:00",
+     "city": "清迈",
+     "stay": "清迈古城"
+    },
+    {
+     "title": "去拜县",
+     "text": "坐小巴去拜县，傍晚拜县峡谷看日落，晚上步行街。",
+     "stops": [
+      {
+       "name": "拜县峡谷",
+       "q": "Pai Canyon",
+       "type": "sight",
+       "dur": 60,
+       "via": "小巴约 3 小时",
+       "at": "17:30"
+      },
+      {
+       "name": "拜县步行街",
+       "q": "Pai Walking Street",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "start": "09:00",
+     "city": "拜县",
+     "stay": "拜县"
+    },
+    {
+     "title": "回程",
+     "text": "坐小巴回清迈机场。",
+     "stops": [
+      {
+       "name": "拜县纪念桥",
+       "q": "Pai Memorial Bridge",
+       "type": "sight",
+       "dur": 30,
+       "via": "摩托约 20 分钟"
+      }
+     ],
+     "start": "09:00",
+     "city": "拜县"
+    }
+   ]
+  },
+  "kbi4": {
+   "dest": "thailand",
+   "city": "甲米",
+   "label": "甲米 4 天",
+   "title": "四天，甲米的海和石灰岩",
+   "kicker": "海岛 · 4 天",
+   "start": [
+    2026,
+    0,
+    10
+   ],
+   "prep": [
+    "十一月到四月是旱季",
+    "莱利海滩只能坐长尾船去"
+   ],
+   "days": [
+    {
+     "title": "奥南海滩",
+     "text": "到甲米，在奥南海滩看日落。",
+     "stops": [
+      {
+       "name": "奥南海滩",
+       "q": "Ao Nang Beach",
+       "type": "park",
+       "dur": 120,
+       "via": "打车约 30 分钟",
+       "at": "17:00"
+      }
+     ],
+     "start": "14:00",
+     "stay": "奥南"
+    },
+    {
+     "title": "四岛游",
+     "text": "坐长尾船跳四岛：波达岛、鸡岛、塔布岛的海上沙路。",
+     "stops": [
+      {
+       "name": "甲米四岛游",
+       "q": "Krabi 4 Islands Tour",
+       "type": "fun",
+       "dur": 360,
+       "via": "长尾船约 20 分钟",
+       "at": "09:00"
+      }
+     ],
+     "start": "08:30",
+     "stay": "奥南"
+    },
+    {
+     "title": "莱利海滩",
+     "text": "坐长尾船去莱利海滩，看攀岩和公主洞。",
+     "stops": [
+      {
+       "name": "莱利海滩",
+       "q": "Railay Beach",
+       "type": "park",
+       "dur": 240,
+       "via": "长尾船约 15 分钟"
+      }
+     ],
+     "stay": "奥南"
+    },
+    {
+     "title": "虎窟寺 · 回程",
+     "text": "清早爬虎窟寺 1260 级台阶，下午去机场。",
+     "stops": [
+      {
+       "name": "虎窟寺",
+       "q": "Tiger Cave Temple",
+       "type": "sight",
+       "dur": 150,
+       "via": "打车约 30 分钟",
+       "at": "07:00"
+      }
+     ],
+     "start": "06:30"
+    }
+   ]
+  },
+  "ksm4": {
+   "dest": "thailand",
+   "city": "苏梅岛",
+   "label": "苏梅岛 4 天",
+   "title": "四天，苏梅岛和安通群岛",
+   "kicker": "海岛 · 4 天",
+   "start": [
+    2026,
+    2,
+    1
+   ],
+   "prep": [
+    "十月到十二月雨季，海浪大",
+    "安通国家海洋公园一天游要提前订"
+   ],
+   "days": [
+    {
+     "title": "查汶海滩",
+     "text": "到苏梅岛，在查汶海滩，晚上查汶夜市。",
+     "stops": [
+      {
+       "name": "查汶海滩",
+       "q": "Chaweng Beach",
+       "type": "park",
+       "dur": 150,
+       "via": "打车约 15 分钟"
+      }
+     ],
+     "start": "14:00",
+     "stay": "查汶"
+    },
+    {
+     "title": "安通群岛",
+     "text": "一天安通国家海洋公园，划皮划艇、爬观景台看翡翠湖。",
+     "stops": [
+      {
+       "name": "安通国家海洋公园",
+       "q": "Ang Thong National Marine Park",
+       "type": "fun",
+       "dur": 420,
+       "via": "船约 1 小时",
+       "at": "08:00"
+      }
+     ],
+     "start": "07:30",
+     "stay": "查汶"
+    },
+    {
+     "title": "大佛寺 · 祖父祖母石",
+     "text": "上午大佛寺，下午祖父祖母石和拉迈海滩。",
+     "stops": [
+      {
+       "name": "大佛寺",
+       "q": "Big Buddha Samui",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 20 分钟"
+      },
+      {
+       "name": "祖父祖母石",
+       "q": "Hin Ta Hin Yai",
+       "type": "sight",
+       "dur": 30
+      },
+      {
+       "name": "拉迈海滩",
+       "q": "Lamai Beach",
+       "type": "park",
+       "dur": 120
+      }
+     ],
+     "stay": "查汶"
+    },
+    {
+     "title": "回程",
+     "text": "上午渔人村，下午去机场。",
+     "stops": [
+      {
+       "name": "渔人村",
+       "q": "Fishermans Village Samui",
+       "type": "street",
+       "dur": 90,
+       "via": "打车约 20 分钟"
+      }
+     ],
+     "start": "09:30"
+    }
+   ]
+  },
+  "yunc2": {
+   "dest": "shanxi",
+   "city": "运城",
+   "label": "运城 2 天",
+   "title": "两天，关公故里和鹳雀楼",
+   "kicker": "古迹 · 2 天",
+   "start": [
+    2026,
+    8,
+    25
+   ],
+   "prep": [
+    "解州关帝庙是全国最大的关帝庙",
+    "运城盐湖夏天会变成七彩"
+   ],
+   "days": [
+    {
+     "title": "关帝庙 · 盐湖",
+     "text": "到运城，去解州关帝庙，下午运城盐湖。",
+     "stops": [
+      {
+       "name": "解州关帝庙",
+       "q": "解州关帝庙",
+       "type": "sight",
+       "dur": 120,
+       "via": "打车约 30 分钟"
+      },
+      {
+       "name": "运城盐湖",
+       "q": "运城盐湖",
+       "type": "park",
+       "dur": 90
+      }
+     ],
+     "start": "13:00",
+     "stay": "运城市区",
+     "dinner": {
+      "dish": "运城羊肉泡馍、闻喜煮饼",
+      "place": "运城市区"
+     }
+    },
+    {
+     "title": "鹳雀楼 · 普救寺",
+     "text": "包车去永济，登鹳雀楼，看《西厢记》的普救寺，下午回。",
+     "stops": [
+      {
+       "name": "鹳雀楼",
+       "q": "鹳雀楼",
+       "type": "sight",
+       "dur": 90,
+       "via": "包车约 1 小时"
+      },
+      {
+       "name": "普救寺",
+       "q": "普救寺",
+       "type": "sight",
+       "dur": 60
+      }
+     ],
+     "city": "永济"
     }
    ]
   }
