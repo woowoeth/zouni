@@ -26757,6 +26757,289 @@
    "page": "Route.dc.html#nt2s",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "slgt8",
+   "dest": "gansu",
+   "name": "丝绸之路",
+   "region": "西北",
+   "days": 8,
+   "title": "丝绸之路 8 天",
+   "headline": "八天，坐火车走丝绸之路",
+   "dek": "到西安，上城墙骑车，晚上回民街。",
+   "why": null,
+   "price": {
+    "lo": 3400,
+    "hi": 7000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      330,
+      990
+     ],
+     "local": [
+      320,
+      720
+     ],
+     "nights": 7,
+     "n": 8,
+     "car": false
+    }
+   },
+   "tags": [
+    "跨省",
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-31"
+    ],
+    "best": [
+     "09-01",
+     "10-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#slgt8",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "shwz6",
+   "dest": "zhejiang",
+   "name": "苏州乌镇杭州",
+   "region": "华东",
+   "days": 6,
+   "title": "苏州乌镇杭州 6 天",
+   "headline": "六天，苏州、乌镇、杭州",
+   "dek": "到苏州，看拙政园，傍晚平江路。",
+   "why": null,
+   "price": {
+    "lo": 2500,
+    "hi": 5100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      240,
+      540
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": false
+    }
+   },
+   "tags": [
+    "跨省",
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-30"
+    ],
+    "best": [
+     "04-01",
+     "05-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#shwz6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hngt6",
+   "dest": "hunan",
+   "name": "长沙张家界凤凰",
+   "region": "华中",
+   "days": 6,
+   "title": "长沙张家界凤凰 6 天",
+   "headline": "六天，坐高铁走湖南",
+   "dek": "到长沙，看岳麓书院，傍晚橘子洲。",
+   "why": null,
+   "price": {
+    "lo": 3200,
+    "hi": 6500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      300,
+      900
+     ],
+     "local": [
+      500,
+      950
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": true
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "04-01",
+     "11-15"
+    ],
+    "best": [
+     "10-01",
+     "11-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hngt6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "yngt8",
+   "dest": "yunnan",
+   "name": "云南高铁",
+   "region": "西南",
+   "days": 8,
+   "title": "云南高铁 8 天",
+   "headline": "八天，昆明大理丽江西双版纳",
+   "dek": "到昆明，逛翠湖，傍晚海埂大坝看滇池和西山。",
+   "why": null,
+   "price": {
+    "lo": 3200,
+    "hi": 6600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      1100,
+      1950
+     ],
+     "nights": 7,
+     "n": 8,
+     "car": true
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "10-15",
+     "05-15"
+    ],
+    "best": [
+     "02-15",
+     "04-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#yngt8",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cdcq6",
+   "dest": "sichuan",
+   "name": "成都乐山峨眉重庆",
+   "region": "西南",
+   "days": 6,
+   "title": "成都乐山峨眉重庆 6 天",
+   "headline": "六天，川渝一线",
+   "dek": "到成都，逛宽窄巷子，去人民公园喝盖碗茶。",
+   "why": null,
+   "price": {
+    "lo": 2500,
+    "hi": 5100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      240,
+      540
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": false
+    }
+   },
+   "tags": [
+    "跨省",
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "03-01",
+     "11-30"
+    ],
+    "best": [
+     "04-01",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cdcq6",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }

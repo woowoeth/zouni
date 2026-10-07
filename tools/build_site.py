@@ -1527,7 +1527,10 @@ def go_info(r, t, d0, rid=None):
     first = next((w['t'] for w in r['days'][0]['rows'] if re.match(r'^\d\d:\d\d$', w.get('t') or '')), '')
     last = next((w['t'] for w in reversed(r['days'][-1]['rows']) if w.get('type') == 'dep' and re.match(r'^\d\d:\d\d$', w.get('t') or '')), '')
     return {'lat': round(p0[0], 3), 'lng': round(p0[1], 3), 'city': r['days'][0].get('city') or d0.get('name', ''), 'ab': 0 if d0.get('scope') == 'domestic' else 1,
-            'fx': _go_fixed(r), 'drv': 1 if r.get('drive') else 0, 'car': 1 if re.search(r'包车|大巴|自驾', str(next(((w.get('how') or w.get('via')) for w in r['days'][0]['rows'] if w.get('type') == 'dep' and (w.get('how') or w.get('via'))), '') or '')) else 0, 'first': first, 'last': last, 'o': o, 'km': round(dk)}   # car：第一天就要包车、坐大巴去的小地方，不写“坐高铁”
+            'nh': 1 if (r['days'][0].get('navCity') or r['days'][0].get('city')) in NO_HSR else 0, 'fx': _go_fixed(r), 'drv': 1 if r.get('drive') else 0, 'car': 1 if re.search(r'包车|大巴|自驾', str(next(((w.get('how') or w.get('via')) for w in r['days'][0]['rows'] if w.get('type') == 'dep' and (w.get('how') or w.get('via'))), '') or '')) else 0, 'first': first, 'last': last, 'o': o, 'km': round(dk)}   # car：第一天就要包车、坐大巴去的小地方，不写“坐高铁”
+
+
+NO_HSR = {'榆林', '敦煌', '喀什', '伊宁', '阿勒泰', '格尔木', '香格里拉', '腾冲', '稻城', '九寨沟', '阿尔山', '漠河', '额济纳', '海拉尔', '满洲里', '拉萨', '林芝', '日喀则', '塔县', '和田', '库车', '若尔盖', '康定', '泸沽湖', '德钦', '丙中洛', '阿坝', '甘孜', '玛多', '果洛', '那曲', '巴音布鲁克', '禾木', '喀纳斯', '布尔津', '芒康', '左贡', '八宿', '波密', '然乌'}   # 不通高铁的旅游地，“怎么去”不写坐高铁
 
 
 def _go_fixed(r):
@@ -1550,6 +1553,7 @@ def go_text(g, o=None, km_=None):
     elif g['ab'] and km_ > 5000: way = f'从北京或上海坐飞机，约 {max(1, round(km_ / 750 + 1))} 小时'   # 有没有直飞因航线而异，不乱写“要转机”   # 欧美非洲：从大机场飞，远的要转机
     elif g['ab']: way = f'从{o}坐飞机，约 {max(1, round(km_ / 700 + 1))} 小时'
     elif g['drv']: way = f'从{o}开过去约 {max(1, round(km_ * 1.25 / 80))} 小时；也可以坐高铁或飞机到了再租车'
+    elif g.get('nh') and km_ > 250: way = f'从{o}坐火车约 {max(2, round(km_ * 1.25 / 90))} 小时，或者坐飞机'   # 不通高铁
     elif g.get('car') and km_ <= 600: way = f'从{o}坐车约 {max(1, round(km_ * 1.3 / 70))} 小时，包车或坐大巴'   # 小地方不通高铁
     elif km_ <= 1200: way = f'从{o}坐高铁约 {max(1, round(km_ / 230 + 0.5))} 小时'
     else: way = f'从{o}坐飞机最省事，飞行约 {max(1, round(km_ / 700 + 1))} 小时'
