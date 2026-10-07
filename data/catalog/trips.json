@@ -28421,8 +28421,8 @@
       270
      ],
      "local": [
-      460,
-      860
+      200,
+      450
      ],
      "nights": 4,
      "n": 5,
@@ -28445,6 +28445,231 @@
    "anytime": false,
    "status": "ok",
    "page": "Route.dc.html#xmtl5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bj5d",
+   "dest": "beijing",
+   "name": "北京",
+   "region": "华北",
+   "days": 5,
+   "title": "北京 5 天（深度）",
+   "headline": "五天，慢慢看北京",
+   "dek": "到北京，天安门广场，下午故宫，傍晚景山看中轴线。",
+   "why": null,
+   "price": {
+    "lo": 2200,
+    "hi": 4600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      300,
+      900
+     ],
+     "local": [
+      200,
+      450
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": false
+    }
+   },
+   "tags": [
+    "城市"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "09-15",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bj5d",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sh5d",
+   "dest": "shanghai",
+   "name": "上海",
+   "region": "华东",
+   "days": 5,
+   "title": "上海 5 天（深度）",
+   "headline": "五天，上海的老洋房和水乡",
+   "dek": "到上海，走南京路到外滩，晚上看陆家嘴灯光。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 4200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      200,
+      450
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": false
+    }
+   },
+   "tags": [
+    "城市"
+   ],
+   "season": {
+    "ok": [
+     "03-01",
+     "12-15"
+    ],
+    "best": [
+     "03-20",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sh5d",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gz4d",
+   "dest": "guangdong",
+   "name": "广州",
+   "region": "华南",
+   "days": 4,
+   "title": "广州 4 天（深度）",
+   "headline": "四天，吃在广州",
+   "dek": "到广州，越秀公园看五羊石像，晚上北京路。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 3900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 1,
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      420,
+      770
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [
+    "城市"
+   ],
+   "season": {
+    "ok": [
+     "10-15",
+     "04-30"
+    ],
+    "best": [
+     "11-01",
+     "01-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gz4d",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cq4d",
+   "dest": "chongqing",
+   "name": "重庆",
+   "region": "西南",
+   "days": 4,
+   "title": "重庆 4 天（深度）",
+   "headline": "四天，山城上上下下",
+   "dek": "到重庆，解放碑，坐长江索道，晚上洪崖洞。",
+   "why": null,
+   "price": {
+    "lo": 1700,
+    "hi": 3500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [
+    "城市"
+   ],
+   "season": {
+    "ok": [
+     "03-01",
+     "12-15"
+    ],
+    "best": [
+     "10-01",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cq4d",
    "engineRoute": null,
    "poster": null
   }
