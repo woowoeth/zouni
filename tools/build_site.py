@@ -1400,33 +1400,53 @@ def day_point(rr, k):
     return DAY_PT[key]
 
 
+_CAND_POOL = None
+_core = lambda x: re.split(r'\s*·\s*', x or '')[0].strip()
+
+
+def _cand_pool():
+    """所有可以“接上”的一天（别的线里不是赶路、不是回程的天），只算一次"""
+    global _CAND_POOL
+    if _CAND_POOL is None:
+        pool = []
+        for o, rr in ROUTES.items():
+            for k, dd in enumerate(rr['days']):
+                ttl = dd.get('title') or ''
+                if re.search(r'回|→|出发|去|到达|抵达|还车|提车', ttl): continue
+                pt = day_point(rr, k) or ((dd['lat'], dd['lng']) if dd.get('lat') and dd.get('lng') else None)   # 景点没坐标的，用这一天的落脚点
+                if not pt: continue
+                names = [w.get('name') for w in dd['rows'] if w['type'] in ('see', 'fun')]
+                if not names: continue
+                pool.append((o, k, ttl, pt, [_core(x) for x in names], rr.get('label')))
+        _CAND_POOL = pool
+    return _CAND_POOL
+
+
 def add_cands(rid, r):
-    """加一天的候选：离这条线倒数第二天（最后住的地方）100 公里以内、不是赶路或回程的天，按远近排"""
+    """加一天的候选：离这条线每一天（最后一天除外）100 公里以内的、别的线里的一天；d 记“离第几天多远”，在哪天后面加就按离那天的远近排"""
     n_ = len(r['days'])
     if n_ < 2: return []
-    base = day_point(r, n_ - 2) or day_point(r, n_ - 1)
-    if not base: return []
-    core = lambda x: re.split(r'\s*·\s*', x or '')[0].strip()
-    mine = {core(w.get('name')) for d in r['days'] for w in d['rows'] if w['type'] in ('see', 'fun')}
-    out = []
-    for o, rr in ROUTES.items():
+    pts = [day_point(r, k) or ((r['days'][k]['lat'], r['days'][k]['lng']) if r['days'][k].get('lat') and r['days'][k].get('lng') else None) for k in range(n_ - 1)]
+    mine = {_core(w.get('name')) for d in r['days'] for w in d['rows'] if w['type'] in ('see', 'fun')}
+    best = []
+    for (o, k, ttl, pt, cores, label) in _cand_pool():
         if o == rid: continue
-        for k, dd in enumerate(rr['days']):
-            ttl = dd.get('title') or ''
-            if re.search(r'回|→|出发|去|到达|抵达|还车|提车', ttl): continue
-            pt = day_point(rr, k)
-            if not pt: continue
-            dist = _km(base, pt)
-            if dist > 100: continue
-            names = [w.get('name') for w in dd['rows'] if w['type'] in ('see', 'fun')]
-            if not names or sum(1 for x in names if core(x) in mine) >= max(1, len(names) // 2 + (len(names) % 2)): continue   # 一半以上已经在这条线里，就不推荐
-            out.append({'rid': o, 'label': rr.get('label'), 'i': k, 'title': ttl, 'km': round(dist), 'lat': round(pt[0], 4), 'lng': round(pt[1], 4)})
-    out.sort(key=lambda x: x['km'])
+        if sum(1 for x in cores if x in mine) >= max(1, len(cores) // 2 + (len(cores) % 2)): continue   # 一半以上已经在这条线里
+        dd = {}
+        for j, bp in enumerate(pts):
+            if not bp or abs(bp[0] - pt[0]) > 1.0 or abs(bp[1] - pt[1]) > 1.4: continue
+            km = _km(bp, pt)
+            if km <= 100: dd[j] = round(km)
+        if dd: best.append({'rid': o, 'label': label, 'i': k, 'title': ttl, 'lat': round(pt[0], 4), 'lng': round(pt[1], 4), 'd': dd, 'km': min(dd.values())})
+    best.sort(key=lambda x: x['km'])
     seen = set(); res = []
-    for x in out:
+    for x in best:
         if x['title'] in seen: continue
         seen.add(x['title']); res.append(x)
-    return res[:12]
+    keep = set()
+    for j in range(n_ - 1):
+        for x in sorted([x for x in res if j in x['d']], key=lambda x: x['d'][j])[:10]: keep.add(id(x))
+    return [x for x in res if id(x) in keep]
 
 
 HOTELS = json.load(open('data/hotels/ctrip_hotels.json')) if os.path.exists('data/hotels/ctrip_hotels.json') else {}

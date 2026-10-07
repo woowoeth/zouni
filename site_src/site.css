@@ -562,3 +562,7 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .where .rh{margin:28px 0 10px;padding-top:12px;border-top:1px solid var(--ink);font:900 20px/1.3 var(--serif);color:var(--ink);letter-spacing:.04em}
 /* 频道页之间的留白统一 */
 .chan .sjs h2{margin-top:8px;padding-top:14px;border-top:1px solid var(--ink)}
+
+/* 每天下面“这天后面加一天” */
+.addafter{display:block;width:100%;margin:14px 0 0;padding:10px 0;border:1px dashed var(--line);border-radius:8px;background:none;color:var(--sub);font-size:13px}
+.addafter:active{background:var(--bg2,#ece8df)}
