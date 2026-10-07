@@ -31989,6 +31989,591 @@
      "city": "因弗内斯"
     }
    ]
+  },
+  "nyc5": {
+   "dest": "usa",
+   "city": "纽约",
+   "label": "纽约 5 天",
+   "title": "五天，纽约的博物馆和天际线",
+   "kicker": "城市 · 5 天",
+   "start": [
+    2026,
+    4,
+    25
+   ],
+   "prep": [
+    "大都会博物馆、自由女神像的船票提前在官网订",
+    "曼哈顿地铁 24 小时运行，刷卡直接进站"
+   ],
+   "days": [
+    {
+     "title": "时代广场 · 中央公园",
+     "text": "到纽约，逛中央公园，晚上去时代广场。",
+     "stops": [
+      {
+       "name": "中央公园",
+       "q": "Central Park",
+       "type": "park",
+       "dur": 120
+      },
+      {
+       "name": "时代广场",
+       "q": "Times Square",
+       "type": "street",
+       "dur": 60,
+       "at": "19:30"
+      }
+     ],
+     "start": "13:00",
+     "stay": "中城"
+    },
+    {
+     "title": "大都会博物馆",
+     "text": "一整天大都会艺术博物馆，傍晚第五大道。",
+     "stops": [
+      {
+       "name": "大都会艺术博物馆",
+       "q": "The Metropolitan Museum of Art",
+       "type": "museum",
+       "dur": 300,
+       "at": "10:00"
+      },
+      {
+       "name": "第五大道",
+       "q": "Fifth Avenue",
+       "type": "street",
+       "dur": 60
+      }
+     ],
+     "stay": "中城"
+    },
+    {
+     "title": "自由女神 · 华尔街",
+     "text": "上午坐船去自由女神像，下午华尔街和 911 纪念馆，傍晚走布鲁克林大桥。",
+     "stops": [
+      {
+       "name": "自由女神像",
+       "q": "Statue of Liberty",
+       "type": "sight",
+       "dur": 180,
+       "at": "09:00"
+      },
+      {
+       "name": "911 纪念馆",
+       "q": "9/11 Memorial",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "布鲁克林大桥",
+       "q": "Brooklyn Bridge",
+       "type": "sight",
+       "dur": 60,
+       "at": "18:00"
+      }
+     ],
+     "stay": "中城"
+    },
+    {
+     "title": "高线公园 · 帝国大厦",
+     "text": "上午切尔西市场和高线公园，晚上上帝国大厦看夜景。",
+     "stops": [
+      {
+       "name": "切尔西市场",
+       "q": "Chelsea Market",
+       "type": "street",
+       "dur": 60
+      },
+      {
+       "name": "高线公园",
+       "q": "The High Line",
+       "type": "park",
+       "dur": 90
+      },
+      {
+       "name": "帝国大厦",
+       "q": "Empire State Building",
+       "type": "sight",
+       "dur": 90,
+       "at": "20:00"
+      }
+     ],
+     "stay": "中城"
+    },
+    {
+     "title": "回程",
+     "text": "上午现代艺术博物馆，下午去机场。",
+     "stops": [
+      {
+       "name": "现代艺术博物馆",
+       "q": "MoMA",
+       "type": "museum",
+       "dur": 150,
+       "at": "10:30"
+      }
+     ],
+     "start": "10:00"
+    }
+   ]
+  },
+  "cns4": {
+   "dest": "australia",
+   "city": "凯恩斯",
+   "label": "凯恩斯大堡礁 4 天",
+   "title": "四天，大堡礁和热带雨林",
+   "kicker": "海岛 · 4 天",
+   "start": [
+    2026,
+    8,
+    15
+   ],
+   "prep": [
+    "十一月到次年五月是水母季，下海要穿防蛰服",
+    "出海浮潜一天船程来回约四小时"
+   ],
+   "days": [
+    {
+     "title": "凯恩斯海滨",
+     "text": "到凯恩斯，傍晚在海滨步道和人工泻湖。",
+     "stops": [
+      {
+       "name": "凯恩斯海滨步道",
+       "q": "Cairns Esplanade",
+       "type": "park",
+       "dur": 120,
+       "at": "16:30"
+      }
+     ],
+     "start": "13:00",
+     "stay": "凯恩斯市中心"
+    },
+    {
+     "title": "大堡礁",
+     "text": "坐船出海到外堡礁，浮潜看珊瑚和海龟。",
+     "stops": [
+      {
+       "name": "外堡礁",
+       "q": "Outer Great Barrier Reef",
+       "type": "fun",
+       "dur": 420,
+       "at": "08:00"
+      }
+     ],
+     "start": "07:30",
+     "stay": "凯恩斯市中心"
+    },
+    {
+     "title": "库兰达雨林",
+     "text": "坐观光火车上库兰达，坐空中缆车穿过热带雨林下山。",
+     "stops": [
+      {
+       "name": "库兰达观光火车",
+       "q": "Kuranda Scenic Railway",
+       "type": "fun",
+       "dur": 120,
+       "at": "08:30"
+      },
+      {
+       "name": "天空之轨缆车",
+       "q": "Skyrail Rainforest Cableway",
+       "type": "fun",
+       "dur": 120
+      }
+     ],
+     "stay": "凯恩斯市中心"
+    },
+    {
+     "title": "回程",
+     "text": "上午去棕榈湾海滩，下午去机场。",
+     "stops": [
+      {
+       "name": "棕榈湾",
+       "q": "Palm Cove",
+       "type": "park",
+       "dur": 120,
+       "via": "打车约 30 分钟"
+      }
+     ],
+     "start": "09:00"
+    }
+   ]
+  },
+  "nzn5": {
+   "dest": "newzealand",
+   "city": "奥克兰",
+   "label": "新西兰北岛 5 天",
+   "title": "五天，霍比特村和罗托鲁瓦",
+   "kicker": "北岛 · 5 天",
+   "start": [
+    2026,
+    11,
+    20
+   ],
+   "drive": true,
+   "prep": [
+    "霍比特村只能跟团进，提前在官网订",
+    "怀托摩萤火虫洞里不能拍照"
+   ],
+   "days": [
+    {
+     "title": "奥克兰",
+     "text": "到奥克兰，上天空塔，傍晚去伊甸山看全城。",
+     "stops": [
+      {
+       "name": "天空塔",
+       "q": "Sky Tower Auckland",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "伊甸山",
+       "q": "Mount Eden",
+       "type": "sight",
+       "dur": 60,
+       "at": "18:00"
+      }
+     ],
+     "start": "13:00",
+     "stay": "奥克兰"
+    },
+    {
+     "title": "霍比特村",
+     "text": "开车去马塔马塔的霍比特村，晚上到罗托鲁瓦。",
+     "stops": [
+      {
+       "name": "霍比特村",
+       "q": "Hobbiton Movie Set",
+       "type": "sight",
+       "dur": 150,
+       "via": "自驾约 2 小时"
+      },
+      {
+       "name": "罗托鲁瓦湖",
+       "q": "Lake Rotorua",
+       "type": "park",
+       "dur": 60
+      }
+     ],
+     "city": "罗托鲁瓦",
+     "stay": "罗托鲁瓦"
+    },
+    {
+     "title": "地热公园 · 毛利文化",
+     "text": "上午怀奥塔普地热仙境，晚上看毛利村的哈卡表演和地热焖饭。",
+     "stops": [
+      {
+       "name": "怀奥塔普地热仙境",
+       "q": "Wai-O-Tapu",
+       "type": "sight",
+       "dur": 150
+      },
+      {
+       "name": "毛利文化村",
+       "q": "Te Puia",
+       "type": "fun",
+       "dur": 150,
+       "at": "18:00"
+      }
+     ],
+     "city": "罗托鲁瓦",
+     "stay": "罗托鲁瓦"
+    },
+    {
+     "title": "萤火虫洞",
+     "text": "开去怀托摩，坐船进萤火虫洞，晚上回奥克兰。",
+     "stops": [
+      {
+       "name": "怀托摩萤火虫洞",
+       "q": "Waitomo Glowworm Caves",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 2 小时"
+      }
+     ],
+     "city": "奥克兰",
+     "stay": "奥克兰"
+    },
+    {
+     "title": "回程",
+     "text": "上午去怀赫科岛或海港散步，下午还车去机场。",
+     "stops": [
+      {
+       "name": "奥克兰海港",
+       "q": "Viaduct Harbour",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "start": "09:00"
+    }
+   ]
+  },
+  "mtr4": {
+   "dest": "greece",
+   "city": "雅典",
+   "label": "德尔斐梅黛奥拉 4 天",
+   "title": "四天，德尔斐神谕和天空之城",
+   "kicker": "古迹 · 4 天",
+   "start": [
+    2026,
+    4,
+    25
+   ],
+   "prep": [
+    "梅黛奥拉修道院各有闭门日，出发前查",
+    "进修道院男士要长裤、女士要长裙"
+   ],
+   "days": [
+    {
+     "title": "去德尔斐",
+     "text": "从雅典开车去德尔斐，看阿波罗神庙遗址。",
+     "stops": [
+      {
+       "name": "德尔斐遗址",
+       "q": "Delphi Archaeological Site",
+       "type": "sight",
+       "dur": 180,
+       "via": "包车约 2 小时 30 分钟"
+      }
+     ],
+     "start": "09:00",
+     "city": "德尔斐",
+     "stay": "德尔斐"
+    },
+    {
+     "title": "去梅黛奥拉",
+     "text": "开到卡兰巴卡，傍晚在梅黛奥拉看夕阳。",
+     "stops": [
+      {
+       "name": "梅黛奥拉日落观景点",
+       "q": "Meteora Sunset Rock",
+       "type": "sight",
+       "dur": 90,
+       "via": "包车约 3 小时 30 分钟",
+       "at": "18:30"
+      }
+     ],
+     "city": "卡兰巴卡",
+     "stay": "卡兰巴卡"
+    },
+    {
+     "title": "梅黛奥拉修道院",
+     "text": "上午看大梅黛奥拉修道院和瓦尔拉姆修道院。",
+     "stops": [
+      {
+       "name": "大梅黛奥拉修道院",
+       "q": "Great Meteoron Monastery",
+       "type": "sight",
+       "dur": 120,
+       "at": "09:30"
+      },
+      {
+       "name": "瓦尔拉姆修道院",
+       "q": "Varlaam Monastery",
+       "type": "sight",
+       "dur": 60
+      }
+     ],
+     "city": "卡兰巴卡",
+     "stay": "卡兰巴卡"
+    },
+    {
+     "title": "回雅典",
+     "text": "坐火车回雅典。",
+     "stops": [
+      {
+       "name": "卡兰巴卡火车站",
+       "q": "Kalambaka Station",
+       "type": "sight",
+       "dur": 20
+      }
+     ],
+     "start": "09:00",
+     "city": "卡兰巴卡"
+    }
+   ]
+  },
+  "asw4": {
+   "dest": "egypt",
+   "city": "阿斯旺",
+   "label": "阿斯旺阿布辛贝 4 天",
+   "title": "四天，尼罗河上游",
+   "kicker": "古国 · 4 天",
+   "start": [
+    2026,
+    11,
+    15
+   ],
+   "prep": [
+    "阿布辛贝来回要七八个小时，凌晨出发",
+    "二月二十二日、十月二十二日阳光会照进神庙最深处"
+   ],
+   "days": [
+    {
+     "title": "菲莱神庙",
+     "text": "到阿斯旺，坐船去菲莱神庙，傍晚坐三角帆船。",
+     "stops": [
+      {
+       "name": "菲莱神庙",
+       "q": "Philae Temple",
+       "type": "sight",
+       "dur": 120
+      },
+      {
+       "name": "尼罗河三角帆船",
+       "q": "Felucca Aswan",
+       "type": "fun",
+       "dur": 90,
+       "at": "17:00"
+      }
+     ],
+     "start": "13:00",
+     "stay": "阿斯旺"
+    },
+    {
+     "title": "阿布辛贝",
+     "text": "凌晨出发去阿布辛贝神庙，下午回阿斯旺。",
+     "stops": [
+      {
+       "name": "阿布辛贝神庙",
+       "q": "Abu Simbel Temples",
+       "type": "sight",
+       "dur": 150,
+       "via": "包车约 3 小时 30 分钟",
+       "at": "08:00"
+      }
+     ],
+     "start": "04:00",
+     "stay": "阿斯旺"
+    },
+    {
+     "title": "努比亚村",
+     "text": "上午阿斯旺大坝和未完成的方尖碑，下午坐船去努比亚村。",
+     "stops": [
+      {
+       "name": "未完成的方尖碑",
+       "q": "Unfinished Obelisk",
+       "type": "sight",
+       "dur": 45
+      },
+      {
+       "name": "努比亚村",
+       "q": "Nubian Village Aswan",
+       "type": "street",
+       "dur": 150
+      }
+     ],
+     "stay": "阿斯旺"
+    },
+    {
+     "title": "回程",
+     "text": "上午科翁坡神庙，下午去机场或去卢克索。",
+     "stops": [
+      {
+       "name": "科翁坡神庙",
+       "q": "Kom Ombo Temple",
+       "type": "sight",
+       "dur": 90,
+       "via": "包车约 1 小时"
+      }
+     ],
+     "start": "08:30"
+    }
+   ]
+  },
+  "gva4": {
+   "dest": "switzerland",
+   "city": "日内瓦",
+   "label": "日内瓦湖 4 天",
+   "title": "四天，日内瓦湖畔",
+   "kicker": "湖区 · 4 天",
+   "start": [
+    2026,
+    6,
+    1
+   ],
+   "prep": [
+    "用瑞士通票，日内瓦湖游船也能坐",
+    "西庸城堡在蒙特勒湖边，坐船或火车都能到"
+   ],
+   "days": [
+    {
+     "title": "日内瓦",
+     "text": "到日内瓦，看大喷泉和老城圣彼得大教堂。",
+     "stops": [
+      {
+       "name": "日内瓦大喷泉",
+       "q": "Jet d Eau",
+       "type": "sight",
+       "dur": 45
+      },
+      {
+       "name": "日内瓦老城",
+       "q": "Geneva Old Town",
+       "type": "street",
+       "dur": 120
+      }
+     ],
+     "start": "13:00",
+     "stay": "日内瓦"
+    },
+    {
+     "title": "万国宫 · 洛桑",
+     "text": "上午万国宫，下午坐火车去洛桑看奥林匹克博物馆。",
+     "stops": [
+      {
+       "name": "万国宫",
+       "q": "Palais des Nations",
+       "type": "sight",
+       "dur": 90,
+       "at": "10:00"
+      },
+      {
+       "name": "奥林匹克博物馆",
+       "q": "Olympic Museum Lausanne",
+       "type": "museum",
+       "dur": 120,
+       "via": "火车约 40 分钟"
+      }
+     ],
+     "city": "洛桑",
+     "stay": "洛桑"
+    },
+    {
+     "title": "拉沃葡萄园 · 西庸城堡",
+     "text": "走拉沃梯田葡萄园，下午去蒙特勒西庸城堡。",
+     "stops": [
+      {
+       "name": "拉沃葡萄园",
+       "q": "Lavaux Vineyard",
+       "type": "park",
+       "dur": 150
+      },
+      {
+       "name": "西庸城堡",
+       "q": "Chateau de Chillon",
+       "type": "sight",
+       "dur": 90
+      }
+     ],
+     "city": "蒙特勒",
+     "stay": "蒙特勒"
+    },
+    {
+     "title": "回程",
+     "text": "上午蒙特勒湖边皇后乐队主唱弗雷迪的雕像，下午回日内瓦机场。",
+     "stops": [
+      {
+       "name": "弗雷迪雕像",
+       "q": "Freddie Mercury Statue",
+       "type": "sight",
+       "dur": 20
+      }
+     ],
+     "start": "09:00",
+     "city": "蒙特勒"
+    }
+   ]
   }
  }
 }

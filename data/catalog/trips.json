@@ -22558,8 +22558,8 @@
       450
      ],
      "local": [
-      1240,
-      2090
+      980,
+      1680
      ],
      "nights": 4,
      "n": 5,
@@ -22744,6 +22744,334 @@
    "anytime": false,
    "status": "ok",
    "page": "Route.dc.html#sco5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "nyc5",
+   "dest": "usa",
+   "name": "纽约",
+   "region": "北美",
+   "days": 5,
+   "title": "纽约 5 天",
+   "headline": "五天，纽约的博物馆和天际线",
+   "dek": "到纽约，逛中央公园，晚上去时代广场。",
+   "why": null,
+   "price": {
+    "lo": 12300,
+    "hi": 23100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 1,
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      460,
+      860
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "11-15"
+    ],
+    "best": [
+     "04-20",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nyc5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cns4",
+   "dest": "australia",
+   "name": "凯恩斯大堡礁",
+   "region": "大洋洲",
+   "days": 4,
+   "title": "凯恩斯大堡礁 4 天",
+   "headline": "四天，大堡礁和热带雨林",
+   "dek": "到凯恩斯，傍晚在海滨步道和人工泻湖。",
+   "why": null,
+   "price": {
+    "lo": 9000,
+    "hi": 16600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "10-31"
+    ],
+    "best": [
+     "06-15",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cns4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "nzn5",
+   "dest": "newzealand",
+   "name": "新西兰北岛",
+   "region": "大洋洲",
+   "days": 5,
+   "title": "新西兰北岛 5 天",
+   "headline": "五天，霍比特村和罗托鲁瓦",
+   "dek": "到奥克兰，上天空塔，傍晚去伊甸山看全城。",
+   "why": null,
+   "price": {
+    "lo": 11800,
+    "hi": 21000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 2,
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      1240,
+      2090
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [
+    "自驾"
+   ],
+   "season": {
+    "ok": [
+     "10-15",
+     "04-15"
+    ],
+    "best": [
+     "12-01",
+     "03-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nzn5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "mtr4",
+   "dest": "greece",
+   "name": "德尔斐梅黛奥拉",
+   "region": "欧洲",
+   "days": 4,
+   "title": "德尔斐梅黛奥拉 4 天",
+   "headline": "四天，德尔斐神谕和天空之城",
+   "dek": "从雅典开车去德尔斐，看阿波罗神庙遗址。",
+   "why": null,
+   "price": {
+    "lo": 8700,
+    "hi": 16200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      680,
+      1180
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "04-20",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#mtr4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "asw4",
+   "dest": "egypt",
+   "name": "阿斯旺阿布辛贝",
+   "region": "北非",
+   "days": 4,
+   "title": "阿斯旺阿布辛贝 4 天",
+   "headline": "四天，尼罗河上游",
+   "dek": "到阿斯旺，坐船去菲莱神庙，傍晚坐三角帆船。",
+   "why": null,
+   "price": {
+    "lo": 7200,
+    "hi": 13100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      680,
+      1180
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-15",
+     "04-15"
+    ],
+    "best": [
+     "11-01",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#asw4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gva4",
+   "dest": "switzerland",
+   "name": "日内瓦湖",
+   "region": "欧洲",
+   "days": 4,
+   "title": "日内瓦湖 4 天",
+   "headline": "四天，日内瓦湖畔",
+   "dek": "到日内瓦，看大喷泉和老城圣彼得大教堂。",
+   "why": null,
+   "price": {
+    "lo": 10100,
+    "hi": 18500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-15"
+    ],
+    "best": [
+     "06-01",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gva4",
    "engineRoute": null,
    "poster": null
   }
