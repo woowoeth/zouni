@@ -500,11 +500,11 @@
     var ovm=document.querySelector('.ovmore');if(ovm)ovm.addEventListener('click',function(){document.querySelector('.overview').classList.add('open');ovm.remove()});
   }
 
-  // ——— 地图图标：手机上直接调起高德 App（iOS / 安卓），打不开或在微信里就走网页 ———
+  // ——— 地图图标：手机上直接调起高德 App（iOS / 安卓），不退回网页 ———
   document.addEventListener('click',function(e){var a=e.target.closest('a.ic.map[data-ios],a.tvnav[data-ios]');if(!a)return;var ua=navigator.userAgent,ios=/iPhone|iPad|iPod/i.test(ua),and=/Android/i.test(ua);if((!ios&&!and)||/MicroMessenger/i.test(ua))return;
     e.preventDefault();var web=a.href,gone=false,t0=Date.now();function hid(){if(document.hidden)gone=true}document.addEventListener('visibilitychange',hid);
     zOpen(ios?a.dataset.ios:a.dataset.and,'高德地图')});   // 只走高德 App，不退回网页
-  // ——— 点评：手机上先试 App，打不开（或在微信里）再去网页 ———
+  // ——— 点评、小红书：手机上只开 App，电脑和微信里不放入口 ———
   document.addEventListener('click',function(e){var a=e.target.closest('a.dp[data-app],a.xhs[data-app]');if(!a)return;   // 点评、小红书一样：手机上先试 App
     var mobile=/iPhone|iPad|Android/i.test(navigator.userAgent),wx=/MicroMessenger/i.test(navigator.userAgent);if(!mobile||wx)return;
     e.preventDefault();var web=a.href,t=Date.now(),gone=false;function hid(){gone=true}document.addEventListener('visibilitychange',hid,{once:true});
