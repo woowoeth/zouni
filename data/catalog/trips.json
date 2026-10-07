@@ -24677,8 +24677,8 @@
       360
      ],
      "local": [
-      600,
-      1000
+      340,
+      590
      ],
      "nights": 1,
      "n": 2,
@@ -24699,6 +24699,492 @@
    "anytime": false,
    "status": "ok",
    "page": "Route.dc.html#yunc2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xlxs2",
+   "dest": "sichuan",
+   "name": "西岭雪山",
+   "region": "西南",
+   "days": 2,
+   "title": "西岭雪山 2 天",
+   "headline": "两天，“窗含西岭千秋雪”",
+   "dek": "从成都去大邑，下午到西岭雪山脚下，住山里。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "12-01",
+     "03-15"
+    ],
+    "best": [
+     "12-20",
+     "02-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xlxs2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cdgz2",
+   "dest": "sichuan",
+   "name": "成都古镇",
+   "region": "西南",
+   "days": 2,
+   "title": "成都古镇 2 天",
+   "headline": "两天，黄龙溪和街子",
+   "dek": "从成都去黄龙溪，看古镇和府河、锦江交汇。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      0,
+      0
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-01",
+     "11-30"
+    ],
+    "best": [
+     "03-15",
+     "05-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cdgz2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "zhjm2",
+   "dest": "sichuan",
+   "name": "昭化剑门关",
+   "region": "西南",
+   "days": 2,
+   "title": "昭化剑门关 2 天",
+   "headline": "两天，昭化古城和剑门关",
+   "dek": "到广元，去昭化古城，看葭萌关和费祎墓。",
+   "why": null,
+   "price": {
+    "lo": 1100,
+    "hi": 2200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      30,
+      90
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "05-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#zhjm2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hs2c",
+   "dest": "chongqing",
+   "name": "石柱黄水",
+   "region": "西南",
+   "days": 2,
+   "title": "石柱黄水 2 天",
+   "headline": "两天，重庆人的避暑地",
+   "dek": "从重庆开车到石柱黄水，下午月亮湖。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-15",
+     "09-15"
+    ],
+    "best": [
+     "07-01",
+     "08-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hs2c",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hcdy2",
+   "dest": "chongqing",
+   "name": "合川钓鱼城",
+   "region": "西南",
+   "days": 2,
+   "title": "合川钓鱼城 2 天",
+   "headline": "两天，“上帝折鞭处”钓鱼城",
+   "dek": "从重庆到合川，上钓鱼城，看护国门和古战场。",
+   "why": null,
+   "price": {
+    "lo": 1100,
+    "hi": 2200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      30,
+      90
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-01",
+     "11-30"
+    ],
+    "best": [
+     "10-01",
+     "11-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hcdy2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ayt2",
+   "dest": "thailand",
+   "name": "大城",
+   "region": "东南亚",
+   "days": 2,
+   "title": "大城 2 天",
+   "headline": "两天，大城王朝的古都",
+   "dek": "从曼谷到大城，看树根里的佛头和三座佛塔。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 4500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      180,
+      380
+     ],
+     "food": [
+      120,
+      220
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "11-01",
+     "02-28"
+    ],
+    "best": [
+     "11-15",
+     "02-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ayt2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "pnh2",
+   "dest": "cambodia",
+   "name": "金边",
+   "region": "东南亚",
+   "days": 2,
+   "title": "金边 2 天",
+   "headline": "两天，金边的王宫和历史",
+   "dek": "到金边，看王宫和银阁寺、国家博物馆，傍晚河边。",
+   "why": null,
+   "price": {
+    "lo": 2600,
+    "hi": 4800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      180,
+      380
+     ],
+     "food": [
+      120,
+      220
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "11-01",
+     "03-31"
+    ],
+    "best": [
+     "12-01",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#pnh2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "vv3",
+   "dest": "laos",
+   "name": "万荣",
+   "region": "东南亚",
+   "days": 3,
+   "title": "万荣 3 天",
+   "headline": "三天，万荣的喀斯特和蓝色泻湖",
+   "dek": "到万荣，傍晚在南松河边看日落。",
+   "why": null,
+   "price": {
+    "lo": 2700,
+    "hi": 5200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      180,
+      380
+     ],
+     "food": [
+      120,
+      220
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      120,
+      270
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "11-01",
+     "04-30"
+    ],
+    "best": [
+     "11-15",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#vv3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "vns3",
+   "dest": "india",
+   "name": "瓦拉纳西",
+   "region": "南亚",
+   "days": 3,
+   "title": "瓦拉纳西 3 天",
+   "headline": "三天，恒河边的圣城",
+   "dek": "到瓦拉纳西，傍晚去达萨斯瓦梅朵河坛看恒河晚祭。",
+   "why": null,
+   "price": {
+    "lo": 3900,
+    "hi": 7400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      180,
+      380
+     ],
+     "food": [
+      120,
+      220
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      120,
+      270
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-15",
+     "03-15"
+    ],
+    "best": [
+     "11-01",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#vns3",
    "engineRoute": null,
    "poster": null
   }
