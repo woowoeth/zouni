@@ -35933,6 +35933,601 @@
     10,
     15
    ]
+  },
+  "pqc4": {
+   "city": "富国岛",
+   "label": "富国岛 4 天",
+   "title": "四天，富国岛的海",
+   "kicker": "海岛 · 4 天",
+   "prep": [
+    "十一月到四月是旱季",
+    "中国护照去富国岛可以免签停留三十天（只限富国岛）"
+   ],
+   "days": [
+    {
+     "title": "长滩 · 夜市",
+     "text": "到富国岛，傍晚长滩看日落，晚上丁求夜市。",
+     "stops": [
+      {
+       "name": "长滩",
+       "q": "Long Beach Phu Quoc",
+       "type": "park",
+       "dur": 120,
+       "via": "打车约 15 分钟",
+       "at": "17:00"
+      },
+      {
+       "name": "丁求夜市",
+       "q": "Dinh Cau Night Market",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "start": "14:00",
+     "stay": "长滩"
+    },
+    {
+     "title": "香岛缆车 · 南部",
+     "text": "坐跨海缆车去香岛，下午星沙滩。",
+     "stops": [
+      {
+       "name": "香岛缆车",
+       "q": "Hon Thom Cable Car",
+       "type": "fun",
+       "dur": 240,
+       "via": "打车约 40 分钟"
+      },
+      {
+       "name": "星沙滩",
+       "q": "Sao Beach",
+       "type": "park",
+       "dur": 120
+      }
+     ],
+     "stay": "长滩"
+    },
+    {
+     "title": "北岛 · 珍珠岛",
+     "text": "去北部珍珠岛和大世界。",
+     "stops": [
+      {
+       "name": "富国岛大世界",
+       "q": "Grand World Phu Quoc",
+       "type": "street",
+       "dur": 180,
+       "via": "打车约 40 分钟"
+      }
+     ],
+     "stay": "长滩"
+    },
+    {
+     "title": "回程",
+     "text": "上午鱼露厂和胡椒园，下午去机场。",
+     "stops": [
+      {
+       "name": "鱼露厂",
+       "q": "Phu Quoc Fish Sauce Factory",
+       "type": "sight",
+       "dur": 45,
+       "via": "打车约 15 分钟"
+      }
+     ],
+     "start": "09:30"
+    }
+   ],
+   "dest": "vietnam",
+   "start": [
+    2026,
+    0,
+    10
+   ]
+  },
+  "mn3": {
+   "city": "美奈",
+   "label": "美奈 3 天",
+   "title": "三天，美奈的沙丘",
+   "kicker": "沙丘 · 3 天",
+   "prep": [
+    "从胡志明市坐大巴约 4 小时",
+    "白沙丘清早看日出"
+   ],
+   "days": [
+    {
+     "title": "红沙丘",
+     "text": "从胡志明市坐大巴到美奈，傍晚红沙丘看日落。",
+     "stops": [
+      {
+       "name": "红沙丘",
+       "q": "Red Sand Dunes Mui Ne",
+       "type": "sight",
+       "dur": 90,
+       "via": "大巴约 4 小时",
+       "at": "17:00"
+      }
+     ],
+     "start": "08:00",
+     "stay": "美奈"
+    },
+    {
+     "title": "白沙丘 · 仙女溪",
+     "text": "清早白沙丘看日出，回来走仙女溪和渔村。",
+     "stops": [
+      {
+       "name": "白沙丘",
+       "q": "White Sand Dunes Mui Ne",
+       "type": "sight",
+       "dur": 120,
+       "via": "吉普约 40 分钟",
+       "at": "05:30"
+      },
+      {
+       "name": "仙女溪",
+       "q": "Fairy Stream Mui Ne",
+       "type": "park",
+       "dur": 90
+      },
+      {
+       "name": "美奈渔村",
+       "q": "Mui Ne Fishing Village",
+       "type": "street",
+       "dur": 45
+      }
+     ],
+     "start": "04:45",
+     "stay": "美奈"
+    },
+    {
+     "title": "回程",
+     "text": "坐大巴回胡志明市。",
+     "stops": [
+      {
+       "name": "美奈海滩",
+       "q": "Mui Ne Beach",
+       "type": "park",
+       "dur": 60,
+       "via": "步行 5 分钟"
+      }
+     ],
+     "start": "09:00"
+    }
+   ],
+   "dest": "vietnam",
+   "start": [
+    2026,
+    0,
+    10
+   ]
+  },
+  "hue2": {
+   "city": "顺化",
+   "label": "顺化 2 天",
+   "title": "两天，阮朝古都顺化",
+   "kicker": "古都 · 2 天",
+   "prep": [
+    "顺化皇城是越南最后一个王朝的皇宫",
+    "九到十二月雨季，常有大雨"
+   ],
+   "days": [
+    {
+     "title": "皇城 · 天姥寺",
+     "text": "到顺化，看皇城，傍晚坐船到天姥寺。",
+     "stops": [
+      {
+       "name": "顺化皇城",
+       "q": "Imperial City Hue",
+       "type": "sight",
+       "dur": 180,
+       "via": "打车约 20 分钟"
+      },
+      {
+       "name": "天姥寺",
+       "q": "Thien Mu Pagoda",
+       "type": "sight",
+       "dur": 60,
+       "at": "17:00"
+      }
+     ],
+     "start": "12:00",
+     "stay": "顺化"
+    },
+    {
+     "title": "皇陵 · 回程",
+     "text": "上午启定皇陵和嗣德皇陵，下午去岘港或机场。",
+     "stops": [
+      {
+       "name": "启定皇陵",
+       "q": "Khai Dinh Tomb",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 30 分钟"
+      },
+      {
+       "name": "嗣德皇陵",
+       "q": "Tu Duc Tomb",
+       "type": "sight",
+       "dur": 75
+      }
+     ],
+     "start": "08:30"
+    }
+   ],
+   "dest": "vietnam",
+   "start": [
+    2026,
+    2,
+    15
+   ]
+  },
+  "btn2": {
+   "city": "民丹岛",
+   "label": "民丹岛 2 天",
+   "title": "两天，从新加坡坐船去民丹岛",
+   "kicker": "海岛 · 2 天",
+   "prep": [
+    "从新加坡丹那美拉码头坐船约 1 小时",
+    "度假村集中在北部拉高湾"
+   ],
+   "days": [
+    {
+     "title": "拉高湾",
+     "text": "从新加坡坐船到民丹岛，下午在拉高湾海滩和水晶泻湖。",
+     "stops": [
+      {
+       "name": "拉高湾",
+       "q": "Lagoi Bay Bintan",
+       "type": "park",
+       "dur": 180,
+       "via": "船约 1 小时"
+      }
+     ],
+     "start": "09:00",
+     "stay": "拉高湾"
+    },
+    {
+     "title": "红树林 · 回程",
+     "text": "上午坐船游红树林，下午坐船回新加坡。",
+     "stops": [
+      {
+       "name": "民丹岛红树林",
+       "q": "Bintan Mangrove Tour",
+       "type": "fun",
+       "dur": 120,
+       "via": "包车约 30 分钟"
+      }
+     ]
+    }
+   ],
+   "dest": "indonesia",
+   "start": [
+    2026,
+    4,
+    10
+   ]
+  },
+  "hhn3": {
+   "city": "华欣",
+   "label": "华欣 3 天",
+   "title": "三天，泰国王室的海边",
+   "kicker": "海边 · 3 天",
+   "prep": [
+    "从曼谷坐车约 3 小时",
+    "蝉夜市周五到周日晚上开"
+   ],
+   "days": [
+    {
+     "title": "华欣火车站 · 海滩",
+     "text": "从曼谷坐车到华欣，看老火车站，傍晚华欣海滩。",
+     "stops": [
+      {
+       "name": "华欣火车站",
+       "q": "Hua Hin Railway Station",
+       "type": "sight",
+       "dur": 30,
+       "via": "包车约 3 小时"
+      },
+      {
+       "name": "华欣海滩",
+       "q": "Hua Hin Beach",
+       "type": "park",
+       "dur": 120,
+       "at": "16:30"
+      }
+     ],
+     "start": "09:00",
+     "stay": "华欣"
+    },
+    {
+     "title": "爱与希望之宫 · 蝉夜市",
+     "text": "上午爱与希望之宫，傍晚考塔基看海，晚上蝉夜市。",
+     "stops": [
+      {
+       "name": "爱与希望之宫",
+       "q": "Maruekhathaiyawan Palace",
+       "type": "sight",
+       "dur": 90,
+       "via": "打车约 25 分钟"
+      },
+      {
+       "name": "考塔基",
+       "q": "Khao Takiab",
+       "type": "sight",
+       "dur": 60,
+       "at": "17:00"
+      },
+      {
+       "name": "蝉夜市",
+       "q": "Cicada Market",
+       "type": "street",
+       "dur": 90
+      }
+     ],
+     "stay": "华欣"
+    },
+    {
+     "title": "回程",
+     "text": "上午在海边，下午回曼谷。",
+     "stops": [
+      {
+       "name": "华欣夜市",
+       "q": "Hua Hin Night Market",
+       "type": "street",
+       "dur": 45,
+       "via": "步行 10 分钟"
+      }
+     ],
+     "start": "10:00"
+    }
+   ],
+   "dest": "thailand",
+   "start": [
+    2026,
+    1,
+    10
+   ]
+  },
+  "kch3": {
+   "city": "象岛",
+   "label": "象岛 3 天",
+   "title": "三天，象岛的雨林和海",
+   "kicker": "海岛 · 3 天",
+   "prep": [
+    "从曼谷坐车加轮渡约 5 小时",
+    "象岛西岸看日落，东岸是雨林"
+   ],
+   "days": [
+    {
+     "title": "白沙滩",
+     "text": "从曼谷到象岛，傍晚白沙滩看日落。",
+     "stops": [
+      {
+       "name": "白沙滩",
+       "q": "White Sand Beach Koh Chang",
+       "type": "park",
+       "dur": 120,
+       "via": "包车加轮渡约 5 小时",
+       "at": "17:00"
+      }
+     ],
+     "start": "08:00",
+     "stay": "白沙滩"
+    },
+    {
+     "title": "克朗普瀑布 · 邦宝渔村",
+     "text": "上午克朗普瀑布游泳，下午南边邦宝渔村，吃海鲜。",
+     "stops": [
+      {
+       "name": "克朗普瀑布",
+       "q": "Klong Plu Waterfall",
+       "type": "park",
+       "dur": 120,
+       "via": "打车约 20 分钟"
+      },
+      {
+       "name": "邦宝渔村",
+       "q": "Bang Bao Fishing Village",
+       "type": "street",
+       "dur": 120
+      }
+     ],
+     "stay": "白沙滩"
+    },
+    {
+     "title": "回程",
+     "text": "坐轮渡加车回曼谷。",
+     "stops": [
+      {
+       "name": "象岛码头",
+       "q": "Ao Sapparot Pier",
+       "type": "sight",
+       "dur": 30,
+       "via": "打车约 30 分钟"
+      }
+     ],
+     "start": "09:00"
+    }
+   ],
+   "dest": "thailand",
+   "start": [
+    2026,
+    0,
+    10
+   ]
+  },
+  "kto3": {
+   "city": "涛岛",
+   "label": "涛岛 3 天",
+   "title": "三天，涛岛潜水",
+   "kicker": "潜水 · 3 天",
+   "prep": [
+    "涛岛是世界上考潜水证最便宜的地方之一",
+    "从苏梅岛或春蓬坐快船过去"
+   ],
+   "days": [
+    {
+     "title": "沙丽海滩",
+     "text": "坐快船到涛岛，傍晚沙丽海滩看日落。",
+     "stops": [
+      {
+       "name": "沙丽海滩",
+       "q": "Sairee Beach",
+       "type": "park",
+       "dur": 120,
+       "via": "快船约 1 小时 30 分钟",
+       "at": "17:30"
+      }
+     ],
+     "start": "10:00",
+     "stay": "沙丽海滩"
+    },
+    {
+     "title": "南园岛",
+     "text": "坐长尾船去南园岛，爬观景台看三岛连沙，浮潜。",
+     "stops": [
+      {
+       "name": "南园岛",
+       "q": "Koh Nang Yuan",
+       "type": "park",
+       "dur": 240,
+       "via": "长尾船约 15 分钟"
+      }
+     ],
+     "stay": "沙丽海滩"
+    },
+    {
+     "title": "观景台 · 回程",
+     "text": "清早爬约翰苏万观景台看日出，下午坐船走。",
+     "stops": [
+      {
+       "name": "约翰苏万观景台",
+       "q": "John-Suwan Viewpoint",
+       "type": "sight",
+       "dur": 90,
+       "via": "打车约 15 分钟",
+       "at": "06:00"
+      }
+     ],
+     "start": "05:30"
+    }
+   ],
+   "dest": "thailand",
+   "start": [
+    2026,
+    3,
+    10
+   ]
+  },
+  "pks3": {
+   "city": "巴色",
+   "label": "巴色四千美岛 3 天",
+   "title": "三天，瓦普寺和四千美岛",
+   "kicker": "湄公河 · 3 天",
+   "prep": [
+    "瓦普寺是比吴哥更早的高棉神庙遗址",
+    "四千美岛在湄公河上，适合发呆"
+   ],
+   "days": [
+    {
+     "title": "瓦普寺",
+     "text": "到巴色，包车去瓦普寺。",
+     "stops": [
+      {
+       "name": "瓦普寺",
+       "q": "Wat Phou",
+       "type": "sight",
+       "dur": 150,
+       "via": "包车约 1 小时"
+      }
+     ],
+     "start": "10:00",
+     "stay": "巴色"
+    },
+    {
+     "title": "四千美岛",
+     "text": "南下到四千美岛，傍晚看湄公河日落。",
+     "stops": [
+      {
+       "name": "东德岛",
+       "q": "Don Det",
+       "type": "street",
+       "dur": 180,
+       "via": "包车加船约 3 小时",
+       "at": "16:00"
+      }
+     ],
+     "city": "四千美岛",
+     "stay": "东德岛"
+    },
+    {
+     "title": "孔帕彭瀑布 · 回程",
+     "text": "上午孔帕彭瀑布，东南亚最大的瀑布，下午回巴色。",
+     "stops": [
+      {
+       "name": "孔帕彭瀑布",
+       "q": "Khone Phapheng Falls",
+       "type": "park",
+       "dur": 90,
+       "via": "包车约 30 分钟"
+      }
+     ],
+     "city": "四千美岛"
+    }
+   ],
+   "dest": "laos",
+   "start": [
+    2026,
+    11,
+    10
+   ]
+  },
+  "lpsd2": {
+   "dest": "guizhou",
+   "city": "六盘水",
+   "label": "六盘水 2 天",
+   "title": "两天，“中国凉都”的高山草原",
+   "kicker": "避暑 · 2 天",
+   "start": [
+    2026,
+    6,
+    20
+   ],
+   "prep": [
+    "六盘水夏天平均气温不到二十度，被叫作“中国凉都”",
+    "乌蒙大草原海拔两千多米，带外套"
+   ],
+   "days": [
+    {
+     "title": "乌蒙大草原",
+     "text": "从六盘水包车去盘州乌蒙大草原，看高山草甸和风车。",
+     "stops": [
+      {
+       "name": "乌蒙大草原",
+       "q": "乌蒙大草原",
+       "type": "park",
+       "dur": 240,
+       "via": "包车约 2 小时"
+      }
+     ],
+     "start": "09:00",
+     "stay": "六盘水",
+     "dinner": {
+      "dish": "水城烙锅、羊肉粉",
+      "place": "六盘水"
+     }
+    },
+    {
+     "title": "韭菜坪 · 回程",
+     "text": "去韭菜坪看野韭菜花（八九月开），下午回。",
+     "stops": [
+      {
+       "name": "韭菜坪",
+       "q": "韭菜坪 六盘水",
+       "type": "park",
+       "dur": 180,
+       "via": "包车约 1 小时 30 分钟"
+      }
+     ]
+    }
+   ]
   }
  }
 }

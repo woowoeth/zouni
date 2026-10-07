@@ -424,7 +424,7 @@
     // ——— 怎么去、怎么回：换成你自己的出发地 ———
     var goEl=document.querySelector('section.go'),GO=null;try{GO=goEl?JSON.parse(goEl.dataset.go):null}catch(e){}
     function goNow(){if(!GO)return null;var o=zOrigin()||{n:GO.o,lat:null},km=o.lat!=null?zKm(o.lat,o.lng,GO.lat,GO.lng):GO.km;var mode=(+GO.drv)?'drive':(km<60?'near':(+GO.ab||km>1200)?'fly':'train');return{o:o.n,km:km,mode:mode,way:zGoWay(GO,o.n,km)}}
-    if(goEl&&GO&&zOrigin()){var gn=goNow(),sp=goEl.querySelector('.gw span');   // 只有知道你的出发地才改写，不然保留页面上按大城市写的if(sp)sp.textContent=sp.textContent.replace(/^[^。]*。/,gn.way+'。');
+    if(goEl&&GO&&zOrigin()&&!GO.fx){   // 行程里写明了从哪儿出发（先到河内再坐大巴）就不按你的出发地改写var gn=goNow(),sp=goEl.querySelector('.gw span');   // 只有知道你的出发地才改写，不然保留页面上按大城市写的if(sp)sp.textContent=sp.textContent.replace(/^[^。]*。/,gn.way+'。');
       [].slice.call(document.querySelectorAll('.faq dt')).forEach(function(dt){if(/怎么去/.test(dt.textContent)&&dt.nextElementSibling)dt.nextElementSibling.textContent=gn.way+'。'})}
     function fmtD(d){return(d.getMonth()+1)+'/'+d.getDate()}
     function tripDates(){var inp=document.querySelector('.dpk'),s0=(inp&&inp.value)||art.dataset.start,d0=new Date(s0+'T12:00:00'),n=document.querySelectorAll('.day').length;return{d0:d0,dN:new Date(d0.getTime()+(n-1)*864e5),n:n}}
