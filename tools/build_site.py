@@ -1534,10 +1534,22 @@ def go_info(r, t, d0, rid=None):
     first = next((w['t'] for w in r['days'][0]['rows'] if re.match(r'^\d\d:\d\d$', w.get('t') or '')), '')
     last = next((w['t'] for w in reversed(r['days'][-1]['rows']) if w.get('type') == 'dep' and re.match(r'^\d\d:\d\d$', w.get('t') or '')), '')
     return {'lat': round(p0[0], 3), 'lng': round(p0[1], 3), 'city': r['days'][0].get('city') or d0.get('name', ''), 'ab': 0 if d0.get('scope') == 'domestic' else 1,
-            'nh': 1 if (r['days'][0].get('navCity') or r['days'][0].get('city')) in NO_HSR else 0, 'isl': 1 if (t.get('dest') == 'hainan') else 0, 'fx': _go_fixed(r), 'drv': 1 if r.get('drive') else 0, 'car': 1 if re.search(r'包车|大巴|自驾', str(next(((w.get('how') or w.get('via')) for w in r['days'][0]['rows'] if w.get('type') == 'dep' and (w.get('how') or w.get('via'))), '') or '')) else 0, 'first': first, 'last': last, 'o': o, 'km': round(dk)}   # car：第一天就要包车、坐大巴去的小地方，不写“坐高铁”
+            'legs': _legs(r), 'nh': 1 if (r['days'][0].get('navCity') or r['days'][0].get('city')) in NO_HSR else 0, 'isl': 1 if (t.get('dest') == 'hainan') else 0, 'fx': _go_fixed(r), 'drv': 1 if r.get('drive') else 0, 'car': 1 if re.search(r'包车|大巴|自驾', str(next(((w.get('how') or w.get('via')) for w in r['days'][0]['rows'] if w.get('type') == 'dep' and (w.get('how') or w.get('via'))), '') or '')) else 0, 'first': first, 'last': last, 'o': o, 'km': round(dk)}   # car：第一天就要包车、坐大巴去的小地方，不写“坐高铁”
 
 
 NO_HSR = {'榆林', '敦煌', '喀什', '伊宁', '阿勒泰', '格尔木', '香格里拉', '腾冲', '稻城', '九寨沟', '阿尔山', '漠河', '额济纳', '海拉尔', '满洲里', '拉萨', '林芝', '日喀则', '塔县', '和田', '库车', '若尔盖', '康定', '泸沽湖', '德钦', '丙中洛', '阿坝', '甘孜', '玛多', '果洛', '那曲', '巴音布鲁克', '禾木', '喀纳斯', '布尔津', '芒康', '左贡', '八宿', '波密', '然乌'}   # 不通高铁的旅游地，“怎么去”不写坐高铁
+
+
+def _legs(r):
+    """长线中间换城市坐高铁、火车、飞机的那几段（要提前买票）：[天序号, 从, 到, 火车/飞机]"""
+    out = []
+    for k in range(1, len(r['days'])):
+        d, p = r['days'][k], r['days'][k - 1]
+        c, pc = (d.get('navCity') or d.get('city') or ''), (p.get('navCity') or p.get('city') or '')
+        how = next(((w.get('how') or '') for w in d['rows'] if w.get('type') == 'dep'), '')
+        if c and pc and c != pc and re.search(r'高铁|动车|火车|飞机', how):
+            out.append([k, pc, c, '机票' if '飞机' in how else '火车票'])
+    return out
 
 
 def _go_fixed(r):

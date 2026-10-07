@@ -429,11 +429,11 @@
     function fmtD(d){return(d.getMonth()+1)+'/'+d.getDate()}
     function tripDates(){var inp=document.querySelector('.dpk'),s0=(inp&&inp.value)||art.dataset.start,d0=new Date(s0+'T12:00:00'),n=document.querySelectorAll('.day').length;return{d0:d0,dN:new Date(d0.getTime()+(n-1)*864e5),n:n}}
     // ——— 往返车票：放进“要办的事”（高铁提前 15 天开售） ———
-    window.zGoItems=function(T,TK){var gn=goNow();if(!gn||gn.mode==='near'||gn.mode==='drive')return[];var td=tripDates(),city=GO.city||'',tr=gn.mode==='train';
+    window.zGoItems=function(T,TK){var gn=goNow(),rt=!!(gn&&gn.mode!=='near'&&gn.mode!=='drive');if(!rt&&!(GO&&GO.legs&&GO.legs.length))return[];var td=tripDates(),city=GO.city||'',tr=!!(gn&&gn.mode==='train');
       var sale=new Date(td.d0.getTime()-15*864e5),link=tr?'https://www.12306.cn/index/':'https://m.ctrip.com/html5/flight/swift/index';
       function it(key,t,how){return{g:'往返车票',t:t,how:how,link:link,done:T.indexOf(key)>=0,tog:function(){var T2=[];try{T2=JSON.parse(localStorage.getItem(TK)||'[]')}catch(e){}var i=T2.indexOf(key);if(i>=0)T2.splice(i,1);else T2.push(key);try{localStorage.setItem(TK,JSON.stringify(T2))}catch(e){}}}}
-      return[it('go:去','买去程'+(tr?'高铁票':'机票')+'：'+gn.o+' → '+city+'，'+fmtD(td.d0)+' 上午',tr?'高铁提前 15 天开售，'+fmtD(sale)+' 起能买':'机票越早越便宜'),
-             it('go:回','买回程'+(tr?'高铁票':'机票')+'：'+city+' → '+gn.o+'，'+fmtD(td.dN)+' 傍晚',tr?'回程也是提前 15 天开售':'')]};
+      return(rt?[it('go:去','买去程'+(tr?'高铁票':'机票')+'：'+gn.o+' → '+city+'，'+fmtD(td.d0)+' 上午',tr?'高铁提前 15 天开售，'+fmtD(sale)+' 起能买':'机票越早越便宜'),
+             it('go:回','买回程'+(tr?'高铁票':'机票')+'：'+city+' → '+gn.o+'，'+fmtD(td.dN)+' 傍晚',tr?'回程也是提前 15 天开售':'')]:[]).concat((GO.legs||[]).map(function(L){var dd=new Date(td.d0.getTime()+L[0]*864e5),sl=new Date(dd.getTime()-15*864e5),fly=L[3]==='机票';var o=it('leg:'+L[0]+L[1]+L[2],'买第 '+(L[0]+1)+' 天的'+L[3]+'：'+L[1]+' → '+L[2]+'，'+fmtD(dd),fly?'机票越早越便宜':'火车提前 15 天开售，'+fmtD(sl)+' 起能买');o.link=fly?'https://m.ctrip.com/html5/flight/swift/index':'https://www.12306.cn/index/';return o}))};   // 长线中间换城市的那几段，也要提前买票
     // ——— 加到手机日历：每天的安排，加上买票、预约、订住宿的提醒 ———
     window.zIcs=function(){function p2(x){return('0'+x).slice(-2)}function ymd(d){return d.getFullYear()+p2(d.getMonth()+1)+p2(d.getDate())}function esc(s){return String(s).replace(/[\\,;]/g,function(c){return'\\'+c}).replace(/\n/g,'\\n')}
       var td=tripDates(),L=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//zouni.app//CN','CALSCALE:GREGORIAN'],uid=0;
