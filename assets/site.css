@@ -557,3 +557,8 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .where .goodline{margin:4px 20px 14px;font:700 17px/1.7 var(--serif);color:var(--ink)}
 /* 频道页标题统一字距 */
 .where h1,.chan h1{letter-spacing:.02em}
+
+/* 走哪儿：分区（华北、华东…）改成宋体标题加细线，像杂志栏目 */
+.where .rh{margin:28px 0 10px;padding-top:12px;border-top:1px solid var(--ink);font:900 20px/1.3 var(--serif);color:var(--ink);letter-spacing:.04em}
+/* 频道页之间的留白统一 */
+.chan .sjs h2{margin-top:8px;padding-top:14px;border-top:1px solid var(--ink)}
