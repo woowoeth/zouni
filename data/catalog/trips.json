@@ -23292,6 +23292,278 @@
    "page": "Route.dc.html#fuji2",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "kvk3",
+   "dest": "czech",
+   "name": "布拉格周边",
+   "region": "欧洲",
+   "days": 3,
+   "title": "布拉格周边 3 天",
+   "headline": "三天，人骨教堂和温泉小镇",
+   "dek": "坐火车去库特纳霍拉，看人骨教堂和圣巴巴拉大教堂，晚上回布拉格。",
+   "why": null,
+   "price": {
+    "lo": 6600,
+    "hi": 12400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      120,
+      270
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-15"
+    ],
+    "best": [
+     "05-01",
+     "06-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#kvk3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "inn3",
+   "dest": "austria",
+   "name": "因斯布鲁克",
+   "region": "欧洲",
+   "days": 3,
+   "title": "因斯布鲁克 3 天",
+   "headline": "三天，阿尔卑斯山里的城",
+   "dek": "到因斯布鲁克，逛老城和黄金屋顶。",
+   "why": null,
+   "price": {
+    "lo": 7400,
+    "hi": 13600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      120,
+      270
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-20",
+     "09-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#inn3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "dsd2",
+   "dest": "fujian",
+   "name": "东山岛",
+   "region": "华东",
+   "days": 2,
+   "title": "东山岛 2 天",
+   "headline": "两天，东山岛的海",
+   "dek": "到东山岛，看风动石和东山关帝庙，傍晚南门湾。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "11-15"
+    ],
+    "best": [
+     "09-15",
+     "11-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#dsd2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "pt2",
+   "dest": "fujian",
+   "name": "平潭",
+   "region": "华东",
+   "days": 2,
+   "title": "平潭 2 天",
+   "headline": "两天，平潭的蓝眼泪和石头厝",
+   "dek": "到平潭，逛北港石头厝，傍晚看石牌洋。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 2,
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "05-01",
+     "07-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#pt2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "any2",
+   "dest": "hebei",
+   "name": "阿那亚北戴河",
+   "region": "华北",
+   "days": 2,
+   "title": "阿那亚北戴河 2 天",
+   "headline": "两天，孤独图书馆和鸽子窝",
+   "dek": "到阿那亚，看孤独图书馆和阿那亚礼堂，傍晚海边。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 1,
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-15",
+     "10-15"
+    ],
+    "best": [
+     "06-15",
+     "09-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#any2",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }

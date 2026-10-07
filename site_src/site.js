@@ -77,6 +77,13 @@
   if(WXB){try{if(!sessionStorage.getItem('zouni_wxtip')){sessionStorage.setItem('zouni_wxtip','1');setTimeout(function(){if(typeof toast==='function')toast('微信里打不开高德、携程、点评、小红书：点右上角 ··· 选“在浏览器打开”')},1200)}}catch(e){}}
   document.addEventListener('click',function(e){var a=e.target.closest('a.tl2,.stays .bk a.btn');if(!a||!MOB||WXB)return;   // 订酒店：在携程 App 里打开这家
     e.preventDefault();try{zOpen('ctrip://wireless/h5?url='+btoa(a.href)+'&type=2','携程旅行')}catch(x){}});
+
+  // ——— 每天末尾“下一天 ›”：读完一天直接去下一天（去掉、加一天以后重新算） ———
+  function zNext(){var ds=[...document.querySelectorAll('.day')].filter(function(d){return !d.hidden&&d.offsetParent!==null});
+    document.querySelectorAll('.nextday').forEach(function(a){a.remove()});
+    ds.forEach(function(d,i){var n=ds[i+1];if(!n||!n.id)return;var t=(n.querySelector('h2,h3')||{}).textContent||'';var a=document.createElement('a');a.className='nextday';a.href='#'+n.id;a.textContent='下一天 · '+t.replace(/\s+/g,' ').trim().slice(0,24)+' ›';
+      d.appendChild(a)})}
+  if(document.querySelector('.day')){setTimeout(zNext,60);document.addEventListener('click',function(e){if(e.target.closest('.rmday,.addday,.adayok,.restore,.ovrestore,[data-addday]'))setTimeout(zNext,400)})}
   // ——— 行程页 ———
   var art=document.querySelector('article.trip');
   if(art){
