@@ -29237,6 +29237,168 @@
    "page": "Route.dc.html#sxyl4",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "khv3",
+   "dest": "uzbekistan",
+   "name": "希瓦",
+   "region": "中亚",
+   "days": 3,
+   "title": "希瓦 3 天",
+   "headline": "三天，住在希瓦古城里",
+   "dek": "到希瓦，傍晚在城墙上看日落。",
+   "why": null,
+   "price": {
+    "lo": 4500,
+    "hi": 8100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      180,
+      380
+     ],
+     "food": [
+      120,
+      220
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      120,
+      270
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "06-15"
+    ],
+    "best": [
+     "04-15",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#khv3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "aqb3",
+   "dest": "jordan",
+   "name": "亚喀巴红海",
+   "region": "西亚",
+   "days": 3,
+   "title": "亚喀巴红海 3 天",
+   "headline": "三天，红海浮潜",
+   "dek": "到亚喀巴，逛亚喀巴城堡和海边。",
+   "why": null,
+   "price": {
+    "lo": 3400,
+    "hi": 6400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      180,
+      380
+     ],
+     "food": [
+      120,
+      220
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      120,
+      270
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "05-15"
+    ],
+    "best": [
+     "03-15",
+     "04-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#aqb3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gobi4",
+   "dest": "mongolia",
+   "name": "南戈壁",
+   "region": "东亚",
+   "days": 4,
+   "title": "南戈壁 4 天",
+   "headline": "四天，戈壁的火焰崖和沙丘",
+   "dek": "飞到达兰扎达嘎德，包车去鹰谷。",
+   "why": null,
+   "price": {
+    "lo": 3800,
+    "hi": 7200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      180,
+      380
+     ],
+     "food": [
+      120,
+      220
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-15"
+    ],
+    "best": [
+     "07-01",
+     "08-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gobi4",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }

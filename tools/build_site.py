@@ -387,6 +387,8 @@ SIGHT = {
     '三祖寺': '禅宗三祖僧璨弘法的地方', '山谷流泉摩崖石刻': '宋代以来的摩崖石刻，黄庭坚的号“山谷”就来自这里', '天柱峰': '天柱山主峰，像一根擎天的石柱', '南清园': '三清山的核心景区，巨蟒出山、东方女神', '西海岸栈道': '悬在三清山西边绝壁上的栈道',
     '大运河森林公园': '通州的运河公园，京杭大运河北端', '三岔河口': '海河、北运河、南运河交汇处，天津的发源地', '南阳古镇': '运河穿过微山湖的水上古镇', '清江浦': '明清漕运重镇，清江浦楼在运河边', '中国大运河博物馆': '扬州运河三湾边的大运河博物馆',
     '京杭大运河博物馆': '拱宸桥边，京杭大运河南端的博物馆', '朝天门': '嘉陵江和长江交汇处的码头', '丰都名山': '传说中的“鬼城”', '巫山小三峡': '大宁河上的峡谷，换小船进去', '神女溪': '巫峡里的支流峡谷',
+    '伊钦卡拉': '希瓦的内城，世界文化遗产，整座城像露天博物馆', '城墙日落': '爬上土黄色城墙看日落', '卡尔塔宣礼塔': '没建完的蓝绿色宣礼塔', '库纳阿克宫': '希瓦可汗的宫殿', '伊斯兰霍贾宣礼塔': '希瓦最高的宣礼塔，能登顶', '朱玛清真寺': '两百多根雕花木柱撑起的清真寺',
+    '亚喀巴城堡': '十六世纪的马穆鲁克城堡', '亚喀巴海滨': '红海边的散步道', '日本花园浮潜点': '红海珊瑚礁，离岸很近', '玻璃底船': '不下水也能看珊瑚', '鹰谷': '戈壁里的峡谷，夏天谷底还有冰', '洪格尔沙丘': '一百多公里长的“会唱歌的沙丘”', '火焰崖': '恐龙蛋化石最早发现的地方，傍晚崖壁通红',
     '稻河古街区': '泰州老城沿河的街区', '望海楼': '泰州的城标，傍晚好看', '千垛景区': '垛田上开满油菜花，坐船进去看', '李中水上森林': '水杉长在水里的森林', '石浦渔港古城': '依山而建的渔港老街',
     '中国渔村': '象山海边看渔船的地方', '蛇蟠岛': '三门的海岛，有千洞之岛的说法', '遂昌金矿国家矿山公园': '千年金矿遗址，能下矿洞', '南尖岩': '看云海和梯田的山头', '诺邓古村': '千年盐井古村，诺邓火腿的产地',
     '太极图观景台': '沘江弯出一个天然太极图', '诺邓盐井': '还能看到古盐井和盐课司', '阳岭国家森林公园': '崇义城边的森林公园', '上堡梯田': '客家人开垦的梯田，世界灌溉工程遗产', '天鹅湖国家城市湿地公园': '冬天上万只白天鹅来过冬',
@@ -1856,7 +1858,7 @@ def pian_page():
     for k, (show, path, _v) in enumerate(SHOWS):
         ALL = [x for x in SJ if (x.get('show') or '舌尖上的中国') == show]
         rows.append(f'<li><a href="{path}"><i>{k + 1:02d}</i><span><b>{E(show)}</b><small>{E(SHOW_NOTE.get(show, ""))} · 拍过 {len(ALL)} 处</small></span></a></li>')
-    head = ('<div class="pagehead"><a class="back" href="/">' + BACK_ICON + '返回</a><a class="home" href="/">本期</a></div><p class="kick">走你 · 频道</p>'
+    head = ('<div class="pagehead"><a class="back" href="/">' + BACK_ICON + '返回</a><a class="home" href="/">本期</a></div><p class="kick">走你 · ' + str(TODAY.year) + ' · ' + ("一二三四五六七八九十"[TODAY.month-1] if TODAY.month<=10 else ("十一" if TODAY.month==11 else "十二")) + '月 · 频道</p>'
             '<h1>跟片走</h1><p class="deck">' + str(len(SHOWS)) + ' 部纪录片里拍过的地方和吃的。能去的，我们排进了行程，点进去就是那一天。</p>')
     body = '<article class="chan">' + head + '<ol class="toc">' + ''.join(rows) + '</ol></article>'
     write('/pian/', page('/pian/', '跟片走：纪录片里拍过的地方，排进行程的哪一天 | 走你', '舌尖上的中国、风味人间、如果国宝会说话、记住乡愁等纪录片里拍过的地方和美食，能去的直接到排好的那一天。', body, [], None, [('首页', '/'), ('跟片走', '/pian/')]))
@@ -1975,7 +1977,7 @@ def where_page():
             regs.append(f'<section class="reg"><h3 class="rh">{E(reg)}</h3><ul class="cards">{"".join(cards)}</ul></section>')
         scopes.append(f'<section class="scope" id="{scope}"{"" if scope == "domestic" else " hidden"}>{"".join(regs)}</section>')
     nd, na, nw = len(ATLAS['domestic']), len(ATLAS['asia']), len(ATLAS.get('world', []))
-    body = (f'<article class="where"><div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><p class="kick">走你 · 频道</p><h1>走哪儿</h1><p class="deck">按季节挑地方：每个目的地标好这个月正不正好去、多冷多热、排好的线有几条。</p><div class="stick">'
+    body = (f'<article class="where"><div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><p class="kick">走你 · {TODAY.year} · {"一二三四五六七八九十"[TODAY.month-1] if TODAY.month<=10 else ("十一" if TODAY.month==11 else "十二")}月 · 频道</p><h1>走哪儿</h1><p class="deck">按季节挑地方：每个目的地标好这个月正不正好去、多冷多热、排好的线有几条。</p><div class="stick">'
             f'<div class="tabs"><button type="button" data-t="domestic" class="on">国内 · {nd}</button><button type="button" data-t="asia">亚洲 · {na}</button><button type="button" data-t="world">更远 · {nw}</button></div>'
             f'<div class="mon" role="group" aria-label="选月份">{"".join(f"<button type=button data-m={k} class={chr(39)}{chr(111)+chr(110) if k == m else chr(32)}{chr(39)}>{k}月</button>" for k in range(1, 13))}</div>'
             f'</div><div class="wbar"><p class="goodline"></p><div class="gl"><span class="cnt" aria-live="polite"></span><button type="button" class="mtog" aria-label="地图看">地图看</button><button type="button" class="ftog" aria-label="筛选">筛选 ▾</button></div>'

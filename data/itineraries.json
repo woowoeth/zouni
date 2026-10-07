@@ -42693,6 +42693,231 @@
     9,
     10
    ]
+  },
+  "khv3": {
+   "city": "希瓦",
+   "label": "希瓦 3 天",
+   "title": "三天，住在希瓦古城里",
+   "kicker": "古城 · 3 天",
+   "prep": [
+    "从布哈拉坐火车约 6 小时，或者飞乌尔根奇再打车 40 分钟",
+    "古城通票一张管两天"
+   ],
+   "days": [
+    {
+     "title": "伊钦卡拉古城",
+     "text": "到希瓦，傍晚在城墙上看日落。",
+     "stops": [
+      {
+       "name": "伊钦卡拉",
+       "q": "Itchan Kala",
+       "type": "street",
+       "dur": 150,
+       "via": "打车约 40 分钟"
+      },
+      {
+       "name": "城墙日落",
+       "q": "Khiva City Walls",
+       "type": "sight",
+       "dur": 60,
+       "at": "18:30"
+      }
+     ],
+     "start": "13:00",
+     "stay": "古城里"
+    },
+    {
+     "title": "宣礼塔 · 宫殿",
+     "text": "上午卡尔塔宣礼塔、库纳阿克宫，下午伊斯兰霍贾宣礼塔登顶。",
+     "stops": [
+      {
+       "name": "卡尔塔宣礼塔",
+       "q": "Kalta Minor",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行 5 分钟"
+      },
+      {
+       "name": "库纳阿克宫",
+       "q": "Kunya Ark",
+       "type": "sight",
+       "dur": 90
+      },
+      {
+       "name": "伊斯兰霍贾宣礼塔",
+       "q": "Islam Khoja Minaret",
+       "type": "sight",
+       "dur": 60
+      }
+     ],
+     "stay": "古城里"
+    },
+    {
+     "title": "回程",
+     "text": "上午朱玛清真寺的两百多根木柱，下午走。",
+     "stops": [
+      {
+       "name": "朱玛清真寺",
+       "q": "Juma Mosque Khiva",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行 5 分钟"
+      }
+     ],
+     "start": "09:00"
+    }
+   ],
+   "dest": "uzbekistan",
+   "start": [
+    2026,
+    3,
+    20
+   ]
+  },
+  "aqb3": {
+   "city": "亚喀巴",
+   "label": "亚喀巴红海 3 天",
+   "title": "三天，红海浮潜",
+   "kicker": "海边 · 3 天",
+   "prep": [
+    "亚喀巴红海的珊瑚离岸很近，下水就能看",
+    "从瓦迪拉姆过去开车约 1 小时"
+   ],
+   "days": [
+    {
+     "title": "亚喀巴老城",
+     "text": "到亚喀巴，逛亚喀巴城堡和海边。",
+     "stops": [
+      {
+       "name": "亚喀巴城堡",
+       "q": "Aqaba Fort",
+       "type": "sight",
+       "dur": 45,
+       "via": "打车约 20 分钟"
+      },
+      {
+       "name": "亚喀巴海滨",
+       "q": "Aqaba Corniche",
+       "type": "park",
+       "dur": 90,
+       "at": "17:30"
+      }
+     ],
+     "start": "14:00",
+     "stay": "亚喀巴"
+    },
+    {
+     "title": "红海浮潜",
+     "text": "去日本花园、彩虹礁浮潜。",
+     "stops": [
+      {
+       "name": "日本花园浮潜点",
+       "q": "Japanese Garden Aqaba",
+       "type": "fun",
+       "dur": 240,
+       "via": "打车约 30 分钟"
+      }
+     ],
+     "stay": "亚喀巴"
+    },
+    {
+     "title": "回程",
+     "text": "上午坐玻璃底船，下午去机场。",
+     "stops": [
+      {
+       "name": "玻璃底船",
+       "q": "Aqaba Glass Bottom Boat",
+       "type": "fun",
+       "dur": 60,
+       "via": "步行 10 分钟"
+      }
+     ],
+     "start": "09:30"
+    }
+   ],
+   "dest": "jordan",
+   "start": [
+    2026,
+    2,
+    20
+   ]
+  },
+  "gobi4": {
+   "city": "达兰扎达嘎德",
+   "label": "南戈壁 4 天",
+   "title": "四天，戈壁的火焰崖和沙丘",
+   "kicker": "荒野 · 4 天",
+   "prep": [
+    "从乌兰巴托飞达兰扎达嘎德约 1 小时 30 分钟，再包越野车",
+    "戈壁住蒙古包，早晚温差大"
+   ],
+   "days": [
+    {
+     "title": "到戈壁",
+     "text": "飞到达兰扎达嘎德，包车去鹰谷。",
+     "stops": [
+      {
+       "name": "鹰谷",
+       "q": "Yolyn Am",
+       "type": "park",
+       "dur": 150,
+       "via": "越野车约 1 小时"
+      }
+     ],
+     "start": "12:00",
+     "stay": "蒙古包营地"
+    },
+    {
+     "title": "洪格尔沙丘",
+     "text": "开到洪格尔沙丘，傍晚爬沙丘看日落。",
+     "stops": [
+      {
+       "name": "洪格尔沙丘",
+       "q": "Khongoryn Els",
+       "type": "park",
+       "dur": 180,
+       "via": "越野车约 4 小时",
+       "at": "17:30"
+      }
+     ],
+     "stay": "沙丘营地"
+    },
+    {
+     "title": "火焰崖",
+     "text": "开到巴彦扎格火焰崖，恐龙化石出土的地方，傍晚崖壁变红。",
+     "stops": [
+      {
+       "name": "火焰崖",
+       "q": "Bayanzag Flaming Cliffs",
+       "type": "sight",
+       "dur": 120,
+       "via": "越野车约 4 小时",
+       "at": "17:30"
+      }
+     ],
+     "stay": "蒙古包营地"
+    },
+    {
+     "title": "回程",
+     "text": "开回达兰扎达嘎德，飞回乌兰巴托。",
+     "stops": [
+      {
+       "name": "达兰扎达嘎德",
+       "q": "Dalanzadgad",
+       "type": "street",
+       "dur": 30,
+       "via": "越野车约 2 小时"
+      }
+     ],
+     "start": "08:00"
+    }
+   ],
+   "dest": "mongolia",
+   "start": [
+    2026,
+    6,
+    10
+   ]
   }
  }
 }
