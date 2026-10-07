@@ -531,14 +531,14 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .r .gb,.qual .gb,em.gb,span.gb{color:var(--sub)!important;border-color:var(--line)!important}
 
 /* ——— 频道页（走哪儿、跟片走）统一版式：顶栏、小字频道名、大标题、导语、下划线切换 ——— */
-.kick{margin:18px 20px 0;font:700 12px/1.4 var(--sans,system-ui);letter-spacing:.14em;color:var(--sub)}
+.where .kick,.chan .kick{margin:18px 20px 0;font:700 12px/1.4 var(--sans,system-ui);letter-spacing:.14em;color:var(--sub)}
 .where h1,.chan h1{margin:6px 20px 6px;font:900 34px/1.2 var(--serif)}
 .deck{margin:0 20px 16px;font:400 15px/1.7 var(--serif);color:var(--sub)}
 .ctabs{display:flex;gap:18px;overflow-x:auto;margin:0 20px;border-bottom:1px solid var(--line);scrollbar-width:none}
 .ctabs::-webkit-scrollbar{display:none}
 .ctabs a{flex:none;padding:10px 0;font-size:14px;color:var(--sub);text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px}
 .ctabs a.on{color:var(--ink);font-weight:700;border-color:var(--ink)}
-.where .tabs{display:flex;gap:18px;margin:0 20px;padding:0;background:none;border-bottom:1px solid var(--line)}
+.where .tabs{display:flex;gap:18px;margin:0;padding:0;background:none;border-bottom:1px solid var(--line)}
 .where .tabs button{flex:none;width:auto;height:auto;padding:10px 0;margin-bottom:-1px;background:none!important;color:var(--sub)!important;border:0;border-bottom:2px solid transparent;border-radius:0;font-size:14px;font-weight:400}
 .where .tabs button.on{color:var(--ink)!important;border-color:var(--ink);font-weight:700}
 .chan .sjs{padding-top:20px}
@@ -554,7 +554,7 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .toc b{display:block;font:900 22px/1.3 var(--serif)}
 .toc small{display:block;margin-top:4px;font-size:13px;color:var(--sub)}
 /* 走哪儿：本月一句放大成导语，像杂志的引言 */
-.where .goodline{margin:4px 20px 14px;font:700 17px/1.7 var(--serif);color:var(--ink)}
+.where .goodline{margin:4px 0 14px;font:700 17px/1.7 var(--serif);color:var(--ink)}
 /* 频道页标题统一字距 */
 .where h1,.chan h1{letter-spacing:.02em}
 
