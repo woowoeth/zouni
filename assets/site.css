@@ -511,3 +511,21 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .dh .sjo{color:var(--sub)}
 .dh .sjo a{font-weight:400;color:var(--ink);margin-right:0}
 .dh .sjo a+a::before{content:'·';margin:0 6px;color:var(--sub)}
+
+/* ——— 全站减红：红色只留给要点的东西（改、要预约、去订、买票）和真正要注意的提醒（快截止、晚了、限行）；标题标签、序号、等级、来源名一律墨色或灰色 ——— */
+.pre h2,.stays .sh .lbl,.story .lbl,.todo h3{color:var(--sub)}
+.overview b{color:var(--sub)}
+.tier{color:var(--sub)}
+.qual small{color:var(--sub)}
+.gb{color:var(--sub);border-color:var(--line)}
+.r .s.tre b{color:var(--ink)}
+.day .sjn b{color:var(--ink)}
+.se .sjd b{color:var(--ink)}
+.se .sjd a{color:var(--ink);font-weight:400;border-bottom:1px solid var(--line)}
+.items .k{color:var(--sub)}
+.dest h2{color:var(--ink)}
+.hlegend b{color:var(--sub)}
+.entry b,.tip b{color:var(--ink)}
+/* 懂一点里的地方名：放在段首一行小灰字，不再用红 */
+.story p b{display:block;margin:0 0 2px;font:700 12px/1.5 var(--sans,system-ui);color:var(--sub);letter-spacing:.04em}
+.r .gb,.qual .gb,em.gb,span.gb{color:var(--sub)!important;border-color:var(--line)!important}
