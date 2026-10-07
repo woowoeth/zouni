@@ -617,7 +617,7 @@
     ul.innerHTML=xs.map(function(x){var s0='';try{s0=localStorage.getItem('zouni_start_'+x.id)||''}catch(e){}var when='';if(s0){var d=new Date(s0+'T12:00:00'),n=new Date();n.setHours(12,0,0,0);var left=Math.round((d-n)/864e5);when='<small>'+(d.getMonth()+1)+'/'+d.getDate()+' 出发 · '+(left>0?'还有 '+left+' 天':left===0?'就是今天':'已出发')+'</small>'}
       return'<li><a href="/trip/'+encodeURIComponent(x.id)+'/"><b>'+String(x.label).replace(/</g,'&lt;')+' ›</b><span>'+String(x.title).replace(/</g,'&lt;')+'</span>'+when+'</a></li>'}).join('')});
 
-  // ——— 去哪儿 ———
+  // ——— 走哪儿 ———
   var flt=document.querySelector('.flt'),mon=document.querySelector('.mon');
   if(flt&&mon){
     var st={fit:true,d:'',low:false,q:'',niche:false,near:false,bud:0,tab:'domestic',drive:false},inp=flt.querySelector('input'),cnt=document.querySelector('.cnt'),gl=document.querySelector('.goodline');
@@ -649,7 +649,7 @@
       if(typeof drawMap==='function')setTimeout(drawMap,0);
       gl.textContent=good.length?(m+' 月正好去 '+good.length+' 个：'+good.slice(0,10).join('、')+(good.length>10?' 等':'')):(m+' 月没有正好去的，看看“也行”的')}
 
-    // ——— 去哪儿：地图看（按现在的筛选，正好的黑点、也行的绿点；点名字进目的地） ———
+    // ——— 走哪儿：地图看（按现在的筛选，正好的黑点、也行的绿点；点名字进目的地） ———
     var mt=document.querySelector('.mtog'),mapbox=null;
     function drawMap(){if(!mapbox)return;var cs=[].slice.call(document.querySelectorAll('#'+st.tab+' .card:not([hidden])'));
       if(!cs.length){mapbox.innerHTML='<p class="hint" style="padding:16px">没有符合的目的地</p>';return}

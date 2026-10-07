@@ -609,14 +609,14 @@ def fit_label(best, m):
 
 
 def extras(trip_desc, dest_desc):
-    urls = ['/', '/where/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/hangpai/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
+    urls = ['/', '/where/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/yichuan/', '/hangpai/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
     lm = TODAY.isoformat()
     open(os.path.join(OUT, 'sitemap.xml'), 'w', encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         ''.join(f'<url><loc>{BASE}{u}</loc><lastmod>{lm}</lastmod></url>\n' for u in urls) + '</urlset>\n')
     open(os.path.join(OUT, 'robots.txt'), 'w', encoding='utf-8').write(f'User-agent: *\nAllow: /\n\nSitemap: {BASE}/sitemap.xml\n')
     lines = ['# 走你（zouni.app）', '', '> 中文旅行行程网站：按季节挑目的地，按天排好每一站——几点出发、怎么去、吃什么、住哪；覆盖国内 34 个省级行政区和亚洲 22 国。', '',
              '每条行程都是按天、按时间排的：出发时间、交通方式和时长、饭点、住宿片区或三档酒店；每个地点带地图和大众点评链接。目的地页给出最好的月份、12 个月平均气温、看什么吃什么，以及该省全部国家 5A 级旅游景区和世界遗产。', '',
-             '## 主要页面', f'- [去哪儿]({BASE}/where/)：按月份看国内和亚洲目的地哪儿正好去', '', '## 目的地']
+             '## 主要页面', f'- [走哪儿]({BASE}/where/)：按月份看国内、亚洲和更远的目的地哪儿正好去', f'- [跟片走]({BASE}/shejian/)：纪录片里拍过的地方，排进了哪条行程的哪一天', '', '## 目的地']
     lines += [f'- [{d["name"]}]({BASE}/d/{d["id"]}/)：{dest_desc[d["id"]]}' for d in CAT['destinations']]
     _drv = [r_ for r_ in ROUTE_IDS if ROUTES[r_].get('drive')]
     lines += ['', '## 长途和自驾（环线、跨省长线、全国环线）'] + [f'- [{ROUTES[r_].get("label")}]({BASE}/trip/{r_}/)：{len(ROUTES[r_]["days"])} 天，{day_line(ROUTES[r_])}' for r_ in _drv]
@@ -626,8 +626,8 @@ def extras(trip_desc, dest_desc):
     for f in glob.glob('site_src/*.txt'):   # indexnow 密钥文件（公开的，按协议要放在站点根目录）
         if re.fullmatch(r'[0-9a-f]{32}\.txt', os.path.basename(f)): shutil.copy(f, os.path.join(OUT, os.path.basename(f)))
     open(os.path.join(OUT, '.nojekyll'), 'w').write('')
-    nf = page('/404.html', '没找到这个页面 | 走你', '这个页面不存在，可以从去哪儿重新找。',
-              '<article class="nf"><h1>没找到这个页面</h1><p><a class="btn" href="/where/">去“去哪儿”找找 ›</a></p></article><script>(function(){var m=location.hash.match(/#trip=(\\w+)/);if(m){location.replace("/trip/"+m[1]+"/");}})();</script>')
+    nf = page('/404.html', '没找到这个页面 | 走你', '这个页面不存在，可以从走哪儿重新找。',
+              '<article class="nf"><h1>没找到这个页面</h1><p><a class="btn" href="/where/">去“走哪儿”找找 ›</a></p></article><script>(function(){var m=location.hash.match(/#trip=(\\w+)/);if(m){location.replace("/trip/"+m[1]+"/");}})();</script>')
     open(os.path.join(OUT, '404.html'), 'w', encoding='utf-8').write(nf.replace('<link rel="canonical" href="https://zouni.app/404.html">', '<meta name="robots" content="noindex">'))
 
 
@@ -668,7 +668,7 @@ def page(path, title, desc, body, jsonld=(), image=None, crumbs=()):
 <main>
 {body}
 </main>
-<footer class="foot"><p>走你：按季节挑地方，按天排好每一站。</p><p><a href="/">本期</a><a href="/where/">去哪儿</a><a href="/shejian/">跟着纪录片去</a><a href="/sitemap.xml">网站地图</a></p></footer>
+<footer class="foot"><p>走你：按季节挑地方，按天排好每一站。</p><p><a href="/">本期</a><a href="/where/">走哪儿</a><a href="/shejian/">跟片走</a><a href="/sitemap.xml">网站地图</a></p></footer>
 <script src="/assets/site.js?v={ASSET_V}" defer></script>
 </body>
 </html>
@@ -1638,7 +1638,7 @@ def faq_items(r, t, d0, g):
 
 
 SJ = (json.load(open('data/catalog/shejian.json')) if os.path.exists('data/catalog/shejian.json') else []) + (json.load(open('data/catalog/fengwei.json')) if os.path.exists('data/catalog/fengwei.json') else []) + (json.load(open('data/catalog/docs_more.json')) if os.path.exists('data/catalog/docs_more.json') else [])
-SHOWS = [('舌尖上的中国', '/shejian/', '推荐'), ('风味人间', '/fengwei/', '推荐'), ('风味原产地', '/yuanchandi/', '推荐'), ('早餐中国', '/zaocan/', '早上吃'), ('如果国宝会说话', '/guobao/', '讲过'), ('记住乡愁', '/xiangchou/', '拍过'), ('航拍中国', '/hangpai/', '拍过')]
+SHOWS = [('舌尖上的中国', '/shejian/', '推荐'), ('风味人间', '/fengwei/', '推荐'), ('风味原产地', '/yuanchandi/', '推荐'), ('早餐中国', '/zaocan/', '早上吃'), ('如果国宝会说话', '/guobao/', '讲过'), ('记住乡愁', '/xiangchou/', '拍过'), ('人生一串', '/yichuan/', '推荐'), ('航拍中国', '/hangpai/', '拍过')]
 SHOW_VERB = {a: c for a, b, c in SHOWS}
 SJ_VAGUE = {'东北', '四川', '云南', '河南', '广东', '江南', '闽南', '内蒙古', '宁夏', '西藏', '台湾', '山西', '山东', '陕北', '贵州', '广东乡下', '粤东海边', '四川养蜂人', '吉林朝鲜族山村', '北部湾渔船', '客家'}
 SJ_CN = '零一二三四'
@@ -1834,7 +1834,7 @@ def trip_page(rid):
             f'<script type="application/json" id="indoor">{json.dumps(indoor_near(r), ensure_ascii=False).replace("</", "<\\/")}</script>'
             f'<script type="application/json" id="nearby">{json.dumps(near_for(r), ensure_ascii=False).replace("</", "<\\/")}</script>'
             f'<section class="overview{" folded" if n > 10 else ""}"><h2>{n} 天，怎么排</h2>{_stay_line(r)}<ol>{over}</ol>{f'<button type="button" class="ovmore">看全部 {n} 天</button>' if n > 10 else ''}{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{"".join(days)}<div class="addday" data-city="{E(addday_city(r, STAYFIX))}"><button type="button" class="add">＋ 加一天</button></div>{dest_link}{dock}</article>')
-    crumbs = [('首页', '/'), ('去哪儿', '/where/')] + ([(d0['name'], f'/d/{t["dest"]}/')] if d0 else []) + [(r.get('label') or r['title'], f'/trip/{rid}/')]
+    crumbs = [('首页', '/'), ('走哪儿', '/where/')] + ([(d0['name'], f'/d/{t["dest"]}/')] if d0 else []) + [(r.get('label') or r['title'], f'/trip/{rid}/')]
     img = '/img/' + (r.get('img') or '').replace('/_blob/', '') + '.svg' if r.get('img') else None
     _faq_ld = {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in _fq]}
     write(f'/trip/{rid}/', page(f'/trip/{rid}/', f'{r.get("label") or r["title"]}行程：{r["title"]} | 走你', desc, body, [ld, _faq_ld], img, crumbs))
@@ -1867,11 +1867,13 @@ def shejian_page(show='舌尖上的中国', path='/shejian/', other=('风味人�
             body += f'<h3>{("《" + E(ep) + "》") if ep else "这一季还拍过"}</h3><ul class="sjl">{li}</ul>'
         out.append(f'<section class="sjs"><h2>第{SJ_CN[sn]}季</h2>{body}</section>')
     n_hit = sum(1 for x in ALL if hit.get(id(x)))
-    _eat = show in ('舌尖上的中国', '风味人间', '风味原产地', '早餐中国')
+    _eat = show in ('舌尖上的中国', '风味人间', '风味原产地', '早餐中国', '人生一串')
     others = ''.join(f'<a href="{pp}">《{ss}》</a> ' for ss, pp, _v in SHOWS if ss != show)
-    head = f'<header class="dh"><p class="crumb"><a href="/">走你</a> · 跟着纪录片去</p><h1>跟着《{show}》{"去吃" if _eat else "去看"}</h1><p class="sub">节目里拍过的 {len(ALL)} 处{"吃的" if _eat else "地方"}，{(str(n_hit) + " 处已经排进了我们的行程，点进去就是那一天") if show != "航拍中国" else "按省挂在目的地页"}</p><p class="sub sjo">另看：{others}</p></header>'
+    tabs = ''.join(f'<a href="{pp}"{" class=\"on\"" if ss == show else ""}>{ss}</a>' for ss, pp, _v in SHOWS)
+    head = (f'<div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><p class="kick">走你 · 跟片走</p>'
+            f'<h1>跟着《{show}》走</h1><p class="deck">节目里拍过的 {len(ALL)} 处{"吃的" if _eat else "地方"}，{(str(n_hit) + " 处已经排进了我们的行程，点进去就是那一天") if show != "航拍中国" else "按省挂在目的地页"}。</p><nav class="ctabs">{tabs}</nav>')
     desc = f'《{show}》拍过的地方和美食：{len(ALL)} 处，按季按集列出，能去的直接到排好的那一天。'
-    write(path, page(path, f'跟着《{show}》{"去吃" if _eat else "去看"}：节目里拍过的地方{"和美食" if _eat else ""} | 走你', desc, head + ''.join(out), [], None, None))
+    write(path, page(path, f'跟着《{show}》走：节目里拍过的地方{"和美食" if _eat else ""} | 走你', desc, '<article class="chan">' + head + ''.join(out) + '</article>', [], None, [('首页', '/'), ('跟片走', '/shejian/')]))
     return n_hit
 
 
@@ -1914,7 +1916,7 @@ def dest_page(d):
         {'@type': 'Question', 'name': f'{d["name"]}有什么值得看？', 'acceptedAnswer': {'@type': 'Answer', 'text': '、'.join(d.get('see') or [])}} if d.get('see') else None,
         {'@type': 'Question', 'name': f'{d["name"]}吃什么？', 'acceptedAnswer': {'@type': 'Answer', 'text': '、'.join(d.get('eat') or [])}} if d.get('eat') else None,
         {'@type': 'Question', 'name': f'去{d["name"]}有哪些排好的行程？', 'acceptedAnswer': {'@type': 'Answer', 'text': '；'.join(f'{ROUTES[x].get("label")}：{day_line(ROUTES[x])}' for x in _rl[:12])}} if _rl else None] if q_]}
-    write(f'/d/{did}/', page(f'/d/{did}/', f'{d["name"]}旅行攻略：什么时候去、玩几天、看什么吃什么 | 走你', desc, body, [ld, faq], None, [('首页', '/'), ('去哪儿', '/where/'), (d['name'], f'/d/{did}/')]))
+    write(f'/d/{did}/', page(f'/d/{did}/', f'{d["name"]}旅行攻略：什么时候去、玩几天、看什么吃什么 | 走你', desc, body, [ld, faq], None, [('首页', '/'), ('走哪儿', '/where/'), (d['name'], f'/d/{did}/')]))
     return desc
 
 
@@ -1952,7 +1954,7 @@ def where_page():
             regs.append(f'<section class="reg"><h3 class="rh">{E(reg)}</h3><ul class="cards">{"".join(cards)}</ul></section>')
         scopes.append(f'<section class="scope" id="{scope}"{"" if scope == "domestic" else " hidden"}>{"".join(regs)}</section>')
     nd, na, nw = len(ATLAS['domestic']), len(ATLAS['asia']), len(ATLAS.get('world', []))
-    body = (f'<article class="where"><div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><h1>去哪儿</h1><div class="stick">'
+    body = (f'<article class="where"><div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><p class="kick">走你 · 频道</p><h1>走哪儿</h1><p class="deck">按季节挑地方：每个目的地标好这个月正不正好去、多冷多热、排好的线有几条。</p><div class="stick">'
             f'<div class="tabs"><button type="button" data-t="domestic" class="on">国内 · {nd}</button><button type="button" data-t="asia">亚洲 · {na}</button><button type="button" data-t="world">更远 · {nw}</button></div>'
             f'<div class="mon" role="group" aria-label="选月份">{"".join(f"<button type=button data-m={k} class={chr(39)}{chr(111)+chr(110) if k == m else chr(32)}{chr(39)}>{k}月</button>" for k in range(1, 13))}</div>'
             f'</div><div class="wbar"><p class="goodline"></p><div class="gl"><span class="cnt" aria-live="polite"></span><button type="button" class="mtog" aria-label="地图看">地图看</button><button type="button" class="ftog" aria-label="筛选">筛选 ▾</button></div>'
@@ -1962,7 +1964,7 @@ def where_page():
             f'<div class="row"><span>预算</span><select class="bud" aria-label="每人预算"><option value="">不限</option><option value="2000">¥2K 以内</option><option value="5000">¥5K 以内</option><option value="10000">¥10K 以内</option></select></div>'
             f'<div class="row"><span>其他</span><button type="button" data-f="fit" class="on">只看合适的</button><button type="button" data-f="low">避开高原</button><button type="button" data-f="niche">有小众</button><button type="button" data-f="drive">有自驾环线</button></div><button type="button" class="clr" hidden>清空筛选</button></div>'
             f'</div>{"".join(scopes)}</article>')
-    write('/where/', page('/where/', '去哪儿：国内 34 个省级行政区和亚洲 22 国，按月份挑目的地 | 走你', '每个目的地按月份标出正好去、也行、不建议，附每月平均气温、看什么吃什么和排好的行程。', body, [], None, [('首页', '/'), ('去哪儿', '/where/')]))
+    write('/where/', page('/where/', '走哪儿：国内、亚洲和更远的目的地，按月份挑 | 走你', '每个目的地按月份标出正好去、也行、不建议，附每月平均气温、看什么吃什么和排好的行程。', body, [], None, [('首页', '/'), ('走哪儿', '/where/')]))
 
 
 
