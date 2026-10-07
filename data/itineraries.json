@@ -43910,6 +43910,517 @@
     6,
     10
    ]
+  },
+  "nor5": {
+   "city": "卑尔根",
+   "label": "挪威峡湾 5 天",
+   "title": "五天，卑尔根和松恩峡湾",
+   "kicker": "峡湾 · 5 天",
+   "prep": [
+    "“挪威缩影”路线：卑尔根坐火车到米达尔，换弗洛姆铁路下到峡湾",
+    "峡湾游船夏天要提前订"
+   ],
+   "days": [
+    {
+     "title": "布吕根",
+     "text": "到卑尔根，逛布吕根彩色木屋和鱼市。",
+     "stops": [
+      {
+       "name": "布吕根",
+       "q": "Bryggen",
+       "type": "street",
+       "dur": 120,
+       "via": "机场大巴约 40 分钟"
+      },
+      {
+       "name": "卑尔根鱼市",
+       "q": "Bergen Fish Market",
+       "type": "street",
+       "dur": 60
+      }
+     ],
+     "start": "13:00",
+     "stay": "卑尔根"
+    },
+    {
+     "title": "弗洛伊恩山",
+     "text": "坐缆车上弗洛伊恩山看卑尔根全城，下午逛老城。",
+     "stops": [
+      {
+       "name": "弗洛伊恩山",
+       "q": "Floyen",
+       "type": "park",
+       "dur": 150,
+       "via": "缆车约 10 分钟"
+      }
+     ],
+     "stay": "卑尔根"
+    },
+    {
+     "title": "弗洛姆铁路",
+     "text": "坐火车到米达尔，换弗洛姆铁路下到峡湾，住弗洛姆。",
+     "stops": [
+      {
+       "name": "弗洛姆铁路",
+       "q": "Flam Railway",
+       "type": "fun",
+       "dur": 60,
+       "via": "火车约 2 小时",
+       "at": "11:00"
+      },
+      {
+       "name": "斯泰加斯坦观景台",
+       "q": "Stegastein Viewpoint",
+       "type": "sight",
+       "dur": 60,
+       "via": "大巴约 30 分钟"
+      }
+     ],
+     "start": "08:00",
+     "city": "弗洛姆",
+     "stay": "弗洛姆"
+    },
+    {
+     "title": "纳柔依峡湾",
+     "text": "坐游船穿过纳柔依峡湾，世界遗产里最窄的峡湾之一，再坐车回卑尔根。",
+     "stops": [
+      {
+       "name": "纳柔依峡湾游船",
+       "q": "Naeroyfjord Cruise",
+       "type": "fun",
+       "dur": 150,
+       "via": "步行 5 分钟",
+       "at": "09:30"
+      }
+     ],
+     "start": "09:00",
+     "city": "弗洛姆",
+     "stay": "卑尔根"
+    },
+    {
+     "title": "回程",
+     "text": "从卑尔根飞走。",
+     "stops": [
+      {
+       "name": "卑尔根老城",
+       "q": "Bergen Old Town",
+       "type": "street",
+       "dur": 60,
+       "via": "步行 10 分钟"
+      }
+     ],
+     "start": "09:30"
+    }
+   ],
+   "dest": "norway",
+   "start": [
+    2026,
+    5,
+    20
+   ]
+  },
+  "rvn4": {
+   "city": "罗瓦涅米",
+   "label": "罗瓦涅米极光 4 天",
+   "title": "四天，北极圈看极光",
+   "kicker": "冰雪 · 4 天",
+   "prep": [
+    "极光要晴天、远离灯光，跟极光团去营地等",
+    "零下二三十度，帽子、手套、雪地靴都要"
+   ],
+   "days": [
+    {
+     "title": "北极圈博物馆",
+     "text": "到罗瓦涅米，看北极圈博物馆，晚上第一次出去等极光。",
+     "stops": [
+      {
+       "name": "北极圈博物馆",
+       "q": "Arktikum",
+       "type": "museum",
+       "dur": 120,
+       "via": "打车约 15 分钟"
+      },
+      {
+       "name": "极光营地",
+       "q": "Aurora Camp Rovaniemi",
+       "type": "fun",
+       "dur": 150,
+       "at": "20:30"
+      }
+     ],
+     "start": "13:00",
+     "stay": "罗瓦涅米"
+    },
+    {
+     "title": "圣诞老人村",
+     "text": "去圣诞老人村，跨北极圈线，给家里寄明信片。",
+     "stops": [
+      {
+       "name": "圣诞老人村",
+       "q": "Santa Claus Village",
+       "type": "sight",
+       "dur": 240,
+       "via": "大巴约 20 分钟"
+      }
+     ],
+     "stay": "罗瓦涅米"
+    },
+    {
+     "title": "哈士奇 · 驯鹿",
+     "text": "坐哈士奇雪橇、驯鹿雪橇，晚上再等一次极光。",
+     "stops": [
+      {
+       "name": "哈士奇雪橇",
+       "q": "Husky Safari Rovaniemi",
+       "type": "fun",
+       "dur": 180,
+       "via": "接送约 30 分钟"
+      },
+      {
+       "name": "驯鹿农场",
+       "q": "Reindeer Farm Rovaniemi",
+       "type": "fun",
+       "dur": 90
+      }
+     ],
+     "stay": "罗瓦涅米"
+    },
+    {
+     "title": "回程",
+     "text": "从罗瓦涅米飞赫尔辛基转机。",
+     "stops": [
+      {
+       "name": "罗瓦涅米教堂",
+       "q": "Rovaniemi Church",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行 10 分钟"
+      }
+     ],
+     "start": "09:30"
+    }
+   ],
+   "dest": "finland",
+   "start": [
+    2027,
+    0,
+    10
+   ]
+  },
+  "mex5": {
+   "city": "墨西哥城",
+   "label": "墨西哥城 5 天",
+   "title": "五天，金字塔、人类学博物馆和弗里达",
+   "kicker": "古文明 · 5 天",
+   "prep": [
+    "墨西哥城海拔两千二百多米，第一天别走太多",
+    "特奥蒂瓦坎一早去，中午太晒"
+   ],
+   "days": [
+    {
+     "title": "宪法广场 · 大神庙",
+     "text": "到墨西哥城，看宪法广场和阿兹特克大神庙遗址。",
+     "stops": [
+      {
+       "name": "宪法广场",
+       "q": "Zocalo Mexico City",
+       "type": "street",
+       "dur": 60,
+       "via": "打车约 30 分钟"
+      },
+      {
+       "name": "大神庙遗址",
+       "q": "Templo Mayor",
+       "type": "sight",
+       "dur": 120
+      }
+     ],
+     "start": "13:00",
+     "stay": "历史中心"
+    },
+    {
+     "title": "人类学博物馆",
+     "text": "一整天国家人类学博物馆，看阿兹特克太阳历石。",
+     "stops": [
+      {
+       "name": "国家人类学博物馆",
+       "q": "Museo Nacional de Antropologia",
+       "type": "museum",
+       "dur": 300,
+       "via": "地铁约 30 分钟"
+      }
+     ],
+     "stay": "历史中心"
+    },
+    {
+     "title": "特奥蒂瓦坎",
+     "text": "一早去特奥蒂瓦坎，爬太阳金字塔和月亮金字塔。",
+     "stops": [
+      {
+       "name": "特奥蒂瓦坎",
+       "q": "Teotihuacan",
+       "type": "sight",
+       "dur": 240,
+       "via": "大巴约 1 小时",
+       "at": "08:30"
+      }
+     ],
+     "start": "07:30",
+     "stay": "历史中心"
+    },
+    {
+     "title": "弗里达故居 · 霍奇米尔科",
+     "text": "上午弗里达故居蓝房子，下午霍奇米尔科坐彩船。",
+     "stops": [
+      {
+       "name": "弗里达故居",
+       "q": "Frida Kahlo Museum",
+       "type": "museum",
+       "dur": 90,
+       "via": "打车约 40 分钟"
+      },
+      {
+       "name": "霍奇米尔科",
+       "q": "Xochimilco",
+       "type": "fun",
+       "dur": 120
+      }
+     ],
+     "stay": "历史中心"
+    },
+    {
+     "title": "回程",
+     "text": "上午美术宫，下午去机场。",
+     "stops": [
+      {
+       "name": "美术宫",
+       "q": "Palacio de Bellas Artes",
+       "type": "sight",
+       "dur": 90,
+       "via": "步行 15 分钟"
+      }
+     ],
+     "start": "09:30"
+    }
+   ],
+   "dest": "mexico",
+   "start": [
+    2026,
+    10,
+    10
+   ]
+  },
+  "cuz5": {
+   "city": "库斯科",
+   "label": "库斯科马丘比丘 5 天",
+   "title": "五天，印加古都和马丘比丘",
+   "kicker": "古文明 · 5 天",
+   "prep": [
+    "库斯科海拔三千四百米，先下到圣谷住，适应了再回库斯科",
+    "马丘比丘门票和火车票都要提前一两个月订"
+   ],
+   "days": [
+    {
+     "title": "去圣谷",
+     "text": "到库斯科直接下到圣谷，看皮萨克遗址，住圣谷（海拔低一些，好适应）。",
+     "stops": [
+      {
+       "name": "皮萨克遗址",
+       "q": "Pisac Archaeological Park",
+       "type": "sight",
+       "dur": 120,
+       "via": "包车约 1 小时"
+      }
+     ],
+     "start": "11:00",
+     "city": "圣谷",
+     "stay": "乌鲁班巴"
+    },
+    {
+     "title": "去热水镇",
+     "text": "坐火车去马丘比丘脚下的热水镇。",
+     "stops": [
+      {
+       "name": "热水镇",
+       "q": "Aguas Calientes",
+       "type": "street",
+       "dur": 90,
+       "via": "火车约 2 小时",
+       "at": "15:00"
+      }
+     ],
+     "start": "10:00",
+     "city": "热水镇",
+     "stay": "热水镇"
+    },
+    {
+     "title": "马丘比丘",
+     "text": "一早坐大巴上马丘比丘，看云雾散开，下午坐火车回库斯科。",
+     "stops": [
+      {
+       "name": "马丘比丘",
+       "q": "Machu Picchu",
+       "type": "sight",
+       "dur": 240,
+       "via": "大巴约 30 分钟",
+       "at": "06:30"
+      }
+     ],
+     "start": "05:45",
+     "city": "库斯科",
+     "stay": "库斯科老城"
+    },
+    {
+     "title": "库斯科老城",
+     "text": "上午武器广场和太阳神殿，下午萨克塞瓦曼。",
+     "stops": [
+      {
+       "name": "武器广场",
+       "q": "Plaza de Armas Cusco",
+       "type": "street",
+       "dur": 60,
+       "via": "步行 10 分钟"
+      },
+      {
+       "name": "太阳神殿",
+       "q": "Qorikancha",
+       "type": "sight",
+       "dur": 60
+      },
+      {
+       "name": "萨克塞瓦曼",
+       "q": "Sacsayhuaman",
+       "type": "sight",
+       "dur": 90
+      }
+     ],
+     "city": "库斯科",
+     "stay": "库斯科老城"
+    },
+    {
+     "title": "回程",
+     "text": "从库斯科飞利马转机。",
+     "stops": [
+      {
+       "name": "圣佩德罗市场",
+       "q": "San Pedro Market Cusco",
+       "type": "street",
+       "dur": 60,
+       "via": "步行 10 分钟"
+      }
+     ],
+     "start": "09:00",
+     "city": "库斯科"
+    }
+   ],
+   "dest": "peru",
+   "start": [
+    2026,
+    5,
+    10
+   ]
+  },
+  "lnl2": {
+   "city": "锦屏",
+   "label": "隆里古城 2 天",
+   "title": "两天，隆里古城",
+   "kicker": "古城 · 2 天",
+   "prep": [
+    "隆里是明代屯兵的城，城里住着汉族，四周是侗族、苗族村寨",
+    "从凯里坐车约 3 小时"
+   ],
+   "days": [
+    {
+     "title": "隆里古城",
+     "text": "从凯里坐车去隆里，逛城墙和老街，住城里。",
+     "stops": [
+      {
+       "name": "隆里古城",
+       "q": "隆里古城",
+       "type": "street",
+       "dur": 180,
+       "via": "大巴约 3 小时"
+      }
+     ],
+     "start": "09:00",
+     "city": "隆里",
+     "stay": "隆里古城",
+     "dinner": {
+      "dish": "侗家酸汤鱼",
+      "place": "隆里"
+     }
+    },
+    {
+     "title": "回程",
+     "text": "上午看隆里的花脸龙（正月才有），下午回凯里。",
+     "stops": [
+      {
+       "name": "隆里城墙",
+       "q": "隆里古城 城墙",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行 10 分钟"
+      }
+     ],
+     "city": "隆里"
+    }
+   ],
+   "dest": "guizhou",
+   "start": [
+    2026,
+    9,
+    20
+   ]
+  },
+  "bga2": {
+   "city": "赤水",
+   "label": "赤水丙安 2 天",
+   "title": "两天，丙安古镇和赤水大瀑布",
+   "kicker": "古镇 · 2 天",
+   "prep": [
+    "丙安古镇建在赤水河边的悬崖上，红军长征经过",
+    "赤水大瀑布五六月水最大"
+   ],
+   "days": [
+    {
+     "title": "丙安古镇",
+     "text": "到赤水，去丙安古镇，过吊桥进镇，看红军长征的旧址。",
+     "stops": [
+      {
+       "name": "丙安古镇",
+       "q": "丙安古镇",
+       "type": "street",
+       "dur": 150,
+       "via": "包车约 40 分钟"
+      }
+     ],
+     "start": "11:00",
+     "stay": "赤水",
+     "dinner": {
+      "dish": "赤水晒醋、竹笋",
+      "place": "赤水"
+     }
+    },
+    {
+     "title": "赤水大瀑布 · 回程",
+     "text": "上午赤水大瀑布，下午回。",
+     "stops": [
+      {
+       "name": "赤水大瀑布",
+       "q": "赤水大瀑布",
+       "type": "park",
+       "dur": 180,
+       "via": "包车约 1 小时"
+      }
+     ]
+    }
+   ],
+   "dest": "guizhou",
+   "start": [
+    2026,
+    4,
+    10
+   ]
   }
  }
 }
