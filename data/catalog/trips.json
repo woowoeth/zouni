@@ -27828,6 +27828,231 @@
    "page": "Route.dc.html#db3s7",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "hbgt6",
+   "dest": "hubei",
+   "name": "武汉宜昌恩施",
+   "region": "华中",
+   "days": 6,
+   "title": "武汉宜昌恩施 6 天",
+   "headline": "六天，黄鹤楼、三峡、恩施大峡谷",
+   "dek": "到武汉，登黄鹤楼，傍晚户部巷吃小吃。",
+   "why": null,
+   "price": {
+    "lo": 2800,
+    "hi": 5900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      240,
+      540
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": false
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "05-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hbgt6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jsgt6",
+   "dest": "jiangsu",
+   "name": "南京扬州镇江苏州",
+   "region": "华东",
+   "days": 6,
+   "title": "南京扬州镇江苏州 6 天",
+   "headline": "六天，坐高铁游江苏",
+   "dek": "到南京，逛夫子庙，晚上秦淮河夜游。",
+   "why": null,
+   "price": {
+    "lo": 2500,
+    "hi": 5200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      240,
+      540
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": false
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "05-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jsgt6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sdgt6",
+   "dest": "shandong",
+   "name": "济南泰山曲阜青岛",
+   "region": "华东",
+   "days": 6,
+   "title": "济南泰山曲阜青岛 6 天",
+   "headline": "六天，一山一水一圣人，再加青岛的海",
+   "dek": "到济南，看趵突泉，傍晚大明湖，晚上芙蓉街。",
+   "why": null,
+   "price": {
+    "lo": 2700,
+    "hi": 5900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 1,
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      390,
+      1170
+     ],
+     "local": [
+      500,
+      950
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": true
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "04-01",
+     "11-15"
+    ],
+    "best": [
+     "09-15",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sdgt6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hngd6",
+   "dest": "henan",
+   "name": "郑州开封洛阳登封",
+   "region": "华中",
+   "days": 6,
+   "title": "郑州开封洛阳登封 6 天",
+   "headline": "六天，中原古都",
+   "dek": "到郑州，看河南博物院，听华夏古乐。",
+   "why": null,
+   "price": {
+    "lo": 2200,
+    "hi": 4900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      240,
+      540
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": false
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-10",
+     "05-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hngd6",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }

@@ -373,6 +373,8 @@ SIGHT = {
     '解忧公主薰衣草园': '霍城的薰衣草园，六月花开', '汉人街': '伊宁的老商业街', '宏村南湖': '清早看宏村倒影', '塔川': '秋天红叶的小村', '卢村': '木雕楼的徽州古村', '黎阳in巷': '屯溪新开的老街区',
     '塞上老街': '大召寺旁的老街', '内蒙古博物院': '恐龙化石和草原文物', '昭君博物院': '王昭君墓所在的博物院', '希拉穆仁草原': '离呼和浩特最近的草原', '响沙湾': '库布其沙漠里会响的沙丘',
     '成吉思汗陵': '纪念成吉思汗的陵园', '鄂尔多斯博物馆': '外形像一块岩石的博物馆', '羊卓雍错': '西藏三大圣湖之一，形状像珊瑚', '索松村': '看南迦巴瓦峰最好的村子', '嘎拉桃花村': '林芝三月桃花最好的村子', '二道白河': '长白山北坡脚下的小镇',
+    '户部巷': '武汉的早点街', '东湖绿道': '沿东湖的骑行绿道', '瘦西湖': '扬州的湖，五亭桥和二十四桥', '东关街': '扬州的老街，晚上热闹', '个园': '以竹和四季假山出名的扬州园林', '芙蓉街': '济南泉水边的小吃老街',
+    '泰山红门': '爬泰山的传统起点', '日观峰': '泰山看日出的地方', '孔府': '孔子嫡系后代住的府第', '嵩阳书院': '宋代四大书院之一',
     '稻河古街区': '泰州老城沿河的街区', '望海楼': '泰州的城标，傍晚好看', '千垛景区': '垛田上开满油菜花，坐船进去看', '李中水上森林': '水杉长在水里的森林', '石浦渔港古城': '依山而建的渔港老街',
     '中国渔村': '象山海边看渔船的地方', '蛇蟠岛': '三门的海岛，有千洞之岛的说法', '遂昌金矿国家矿山公园': '千年金矿遗址，能下矿洞', '南尖岩': '看云海和梯田的山头', '诺邓古村': '千年盐井古村，诺邓火腿的产地',
     '太极图观景台': '沘江弯出一个天然太极图', '诺邓盐井': '还能看到古盐井和盐课司', '阳岭国家森林公园': '崇义城边的森林公园', '上堡梯田': '客家人开垦的梯田，世界灌溉工程遗产', '天鹅湖国家城市湿地公园': '冬天上万只白天鹅来过冬',
@@ -1794,7 +1796,7 @@ def trip_page(rid):
                 if c_: lastpt = c_
         navprev = lastpt
         rows = [w for k_, w in enumerate(rows) if not (w['type'] == 'dep' and w.get('to') == '吃晚饭' and (w.get('how') or '') in ('打车或步行', ''))]
-        days.append(f'<section class="day" id="d{i + 1}"><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
+        days.append(f'<section class="day" id="d{i + 1}" data-city="{E(d.get("navCity") or d.get("city") or "")}"><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
                     f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (d.get("clim") or {}).get(str(dates[i].month)) else ""}</p>' + sj_lines(_sj.get(i, [])) + f'{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
         sights += [w['name'] for w in d['rows'] if w['type'] == 'see' and w.get('poi')]
     desc = f'{r["title"]}：{n} 天按天排好，' + '、'.join(dict.fromkeys(re.split(r'\s*·\s*', ' · '.join(x['title'] for x in r['days']))))[:70] + '。' + season_text(t)

@@ -79,7 +79,10 @@
     e.preventDefault();try{zOpen('ctrip://wireless/h5?url='+btoa(a.href)+'&type=2','携程旅行')}catch(x){}});
 
   // ——— 每天末尾“下一天 ›”：读完一天直接去下一天（去掉、加一天以后重新算） ———
-  function zNext(){var ds=[...document.querySelectorAll('.day')].filter(function(d){return !d.hidden&&d.offsetParent!==null});
+  function zStay(){var p=document.querySelector('.ovstay');if(!p)return;var ds=[...document.querySelectorAll('.day')].filter(function(d){return !d.hidden&&d.offsetParent!==null}),seq=[];   // 去掉、加一天以后重算“住哪、住几晚”
+    ds.slice(0,-1).forEach(function(d){var c=d.dataset.city||'';if(!c)return;if(seq.length&&seq[seq.length-1][0]===c)seq[seq.length-1][1]++;else seq.push([c,1])});
+    p.hidden=seq.length<3;if(seq.length>=3)p.textContent='住：'+seq.map(function(x){return x[0]+' '+x[1]+' 晚'}).join(' → ')}
+  function zNext(){zStay();var ds=[...document.querySelectorAll('.day')].filter(function(d){return !d.hidden&&d.offsetParent!==null});
     document.querySelectorAll('.nextday').forEach(function(a){a.remove()});
     ds.forEach(function(d,i){var n=ds[i+1];if(!n||!n.id)return;var t=(n.querySelector('h2,h3')||{}).textContent||'';var a=document.createElement('a');a.className='nextday';a.href='#'+n.id;a.textContent='下一天 · '+t.replace(/\s+/g,' ').trim().slice(0,24)+' ›';
       d.appendChild(a)})}
