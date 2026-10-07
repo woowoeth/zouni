@@ -29742,6 +29742,337 @@
    "page": "Route.dc.html#kbyy2",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "muc4",
+   "dest": "germany",
+   "name": "慕尼黑新天鹅堡",
+   "region": "欧洲",
+   "days": 4,
+   "title": "慕尼黑新天鹅堡 4 天",
+   "headline": "四天，慕尼黑和新天鹅堡",
+   "dek": "到慕尼黑，看玛利亚广场的新市政厅报时钟，逛维克图阿连市场。",
+   "why": null,
+   "price": {
+    "lo": 8400,
+    "hi": 15500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-15"
+    ],
+    "best": [
+     "06-01",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#muc4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ams4",
+   "dest": "netherlands",
+   "name": "阿姆斯特丹",
+   "region": "欧洲",
+   "days": 4,
+   "title": "阿姆斯特丹 4 天",
+   "headline": "四天，运河、梵高和风车",
+   "dek": "到阿姆斯特丹，坐运河船，下午安妮之家。",
+   "why": null,
+   "price": {
+    "lo": 8900,
+    "hi": 16600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "09-30"
+    ],
+    "best": [
+     "04-10",
+     "05-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ams4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "dbv5",
+   "dest": "croatia",
+   "name": "杜布罗夫尼克斯普利特",
+   "region": "欧洲",
+   "days": 5,
+   "title": "杜布罗夫尼克斯普利特 5 天",
+   "headline": "五天，亚得里亚海的古城",
+   "dek": "到杜布罗夫尼克，逛古城的斯特拉敦大道。",
+   "why": null,
+   "price": {
+    "lo": 9500,
+    "hi": 17600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      200,
+      450
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-15"
+    ],
+    "best": [
+     "05-15",
+     "06-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#dbv5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "banff5",
+   "dest": "canada",
+   "name": "班夫冰原大道",
+   "region": "北美",
+   "days": 5,
+   "title": "班夫冰原大道 5 天",
+   "headline": "五天，开车走加拿大落基山",
+   "dek": "从卡尔加里开到班夫，坐硫磺山缆车。",
+   "why": null,
+   "price": {
+    "lo": 12000,
+    "hi": 22400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 1,
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      1240,
+      2090
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [
+    "自驾"
+   ],
+   "season": {
+    "ok": [
+     "06-15",
+     "09-30"
+    ],
+    "best": [
+     "07-01",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#banff5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "htxgl2",
+   "dest": "yunnan",
+   "name": "虎跳峡高路徒步",
+   "region": "西南",
+   "days": 2,
+   "title": "虎跳峡高路徒步 2 天",
+   "headline": "两天，走虎跳峡高路",
+   "dek": "从丽江坐车到虎跳峡镇，开始走高路，过二十八道拐，住中途客栈。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [
+    "徒步"
+   ],
+   "season": {
+    "ok": [
+     "10-01",
+     "05-31"
+    ],
+    "best": [
+     "10-15",
+     "12-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#htxgl2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "nanji2",
+   "dest": "zhejiang",
+   "name": "南麂岛",
+   "region": "华东",
+   "days": 2,
+   "title": "南麂岛 2 天",
+   "headline": "两天，“贝藻王国”南麂岛",
+   "dek": "坐船上南麂岛，下午大沙岙海滩，傍晚看日落。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [
+    "海岛"
+   ],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-31"
+    ],
+    "best": [
+     "06-15",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nanji2",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
