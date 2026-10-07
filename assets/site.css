@@ -492,3 +492,6 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 
 /* 每天末尾的“下一天 ›” */
 .nextday{display:block;margin:14px 0 0;padding:12px 0 2px;border-top:1px solid var(--line);font-size:14px;font-weight:700;color:var(--red);text-align:right;text-decoration:none}
+
+/* 多城市长线：住哪、住几晚 */
+.ovstay{margin:-4px 0 10px;font-size:13px;line-height:1.7;color:var(--sub)}
