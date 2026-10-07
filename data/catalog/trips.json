@@ -27071,8 +27071,8 @@
       720
      ],
      "local": [
-      800,
-      1450
+      540,
+      1040
      ],
      "nights": 6,
      "n": 7,
@@ -27376,6 +27376,287 @@
    "anytime": false,
    "status": "ok",
    "page": "Route.dc.html#hnhd6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gxgt7",
+   "dest": "guangxi",
+   "name": "广西",
+   "region": "华南",
+   "days": 7,
+   "title": "广西 7 天",
+   "headline": "七天，桂林山水到涠洲岛",
+   "dek": "到桂林，看象鼻山，晚上坐船游两江四湖。",
+   "why": null,
+   "price": {
+    "lo": 3200,
+    "hi": 6600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      1060,
+      1860
+     ],
+     "nights": 6,
+     "n": 7,
+     "car": true
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "04-01",
+     "11-15"
+    ],
+    "best": [
+     "09-20",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gxgt7",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jxgt6",
+   "dest": "jiangxi",
+   "name": "江西",
+   "region": "华东",
+   "days": 6,
+   "title": "江西 6 天",
+   "headline": "六天，滕王阁、庐山、瓷都、婺源",
+   "dek": "到南昌，登滕王阁看赣江，晚上吃瓦罐汤。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 5200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      500,
+      950
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": true
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "03-20",
+     "04-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jxgt6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gzgt7",
+   "dest": "guizhou",
+   "name": "贵州",
+   "region": "西南",
+   "days": 7,
+   "title": "贵州 7 天",
+   "headline": "七天，黄果树、荔波、西江、镇远",
+   "dek": "到贵阳，看甲秀楼，下午青岩古镇。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 5500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      280,
+      630
+     ],
+     "nights": 6,
+     "n": 7,
+     "car": false
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "04-15",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gzgt7",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xjhc8",
+   "dest": "xinjiang",
+   "name": "新疆",
+   "region": "西北",
+   "days": 8,
+   "title": "新疆 8 天（不开车）",
+   "headline": "八天，不开车玩新疆",
+   "dek": "到乌鲁木齐，看新疆博物馆，晚上国际大巴扎。",
+   "why": null,
+   "price": {
+    "lo": 3300,
+    "hi": 6800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 1,
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      270,
+      810
+     ],
+     "local": [
+      840,
+      1540
+     ],
+     "nights": 7,
+     "n": 8,
+     "car": true
+    }
+   },
+   "tags": [
+    "不开车"
+   ],
+   "season": {
+    "ok": [
+     "06-01",
+     "10-15"
+    ],
+    "best": [
+     "07-15",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xjhc8",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ahgt6",
+   "dest": "anhui",
+   "name": "黄山宏村",
+   "region": "华东",
+   "days": 6,
+   "title": "黄山宏村 6 天（不开车）",
+   "headline": "六天，黄山、宏村、西递、屯溪",
+   "dek": "坐高铁到黄山北，晚上屯溪老街吃徽菜。",
+   "why": null,
+   "price": {
+    "lo": 2200,
+    "hi": 4900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      240,
+      540
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": false
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-30"
+    ],
+    "best": [
+     "10-15",
+     "11-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ahgt6",
    "engineRoute": null,
    "poster": null
   }
