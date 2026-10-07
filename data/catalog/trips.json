@@ -28084,8 +28084,8 @@
       540
      ],
      "local": [
-      720,
-      1270
+      460,
+      860
      ],
      "nights": 4,
      "n": 5,
@@ -28276,6 +28276,175 @@
    "anytime": false,
    "status": "ok",
    "page": "Route.dc.html#xa5d",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "yudn5",
+   "dest": "chongqing",
+   "name": "武隆黔江酉阳",
+   "region": "西南",
+   "days": 5,
+   "title": "武隆黔江酉阳 5 天（不开车）",
+   "headline": "五天，坐火车玩渝东南",
+   "dek": "坐动车去武隆，下午仙女山草原。",
+   "why": null,
+   "price": {
+    "lo": 2600,
+    "hi": 5200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      460,
+      860
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [
+    "不开车"
+   ],
+   "season": {
+    "ok": [
+     "04-01",
+     "11-15"
+    ],
+    "best": [
+     "04-15",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#yudn5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cd5d",
+   "dest": "sichuan",
+   "name": "成都",
+   "region": "西南",
+   "days": 5,
+   "title": "成都 5 天（深度）",
+   "headline": "五天，成都城里加都江堰青城山",
+   "dek": "到成都，逛宽窄巷子，去人民公园喝盖碗茶。",
+   "why": null,
+   "price": {
+    "lo": 2100,
+    "hi": 4500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      200,
+      450
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": false
+    }
+   },
+   "tags": [
+    "城市"
+   ],
+   "season": {
+    "ok": [
+     "03-01",
+     "11-30"
+    ],
+    "best": [
+     "03-20",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cd5d",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xmtl5",
+   "dest": "fujian",
+   "name": "厦门泉州土楼",
+   "region": "华东",
+   "days": 5,
+   "title": "厦门泉州土楼 5 天",
+   "headline": "五天，鼓浪屿、泉州古城、南靖土楼",
+   "dek": "到厦门，看南普陀寺，傍晚沙坡尾。",
+   "why": null,
+   "price": {
+    "lo": 2600,
+    "hi": 5100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 1,
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      460,
+      860
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "12-15"
+    ],
+    "best": [
+     "10-15",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xmtl5",
    "engineRoute": null,
    "poster": null
   }
