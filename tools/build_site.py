@@ -1894,9 +1894,9 @@ def shejian_page(show='舌尖上的中国', path='/shejian/', other=('风味人�
     others = ''.join(f'<a href="{pp}">《{ss}》</a> ' for ss, pp, _v in SHOWS if ss != show)
     tabs = ''.join(f'<a href="{pp}"{" class=\"on\"" if ss == show else ""}>{ss}</a>' for ss, pp, _v in SHOWS)
     head = (f'<div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><p class="kick">走你 · 跟片走</p>'
-            f'<h1>跟着《{show}》走</h1><p class="deck">节目里拍过的 {len(ALL)} 处{"吃的" if _eat else "地方"}，{(str(n_hit) + " 处已经排进了我们的行程，点进去就是那一天") if show != "航拍中国" else "按省挂在目的地页"}。</p><nav class="ctabs">{tabs}</nav>')
+            f'<h1>{("《" + show + "》里的地方") if show.startswith("跟着") else ("跟着《" + show + "》走")}</h1><p class="deck">节目里拍过的 {len(ALL)} 处{"吃的" if _eat else "地方"}，{(str(n_hit) + " 处已经排进了我们的行程，点进去就是那一天") if show != "航拍中国" else "按省挂在目的地页"}。</p><nav class="ctabs">{tabs}</nav>')
     desc = f'《{show}》拍过的地方和美食：{len(ALL)} 处，按季按集列出，能去的直接到排好的那一天。'
-    write(path, page(path, f'跟着《{show}》走：节目里拍过的地方{"和美食" if _eat else ""} | 走你', desc, '<article class="chan">' + head + ''.join(out) + '</article>', [], None, [('首页', '/'), ('跟片走', '/pian/')]))
+    write(path, page(path, f'{("《" + show + "》里的地方") if show.startswith("跟着") else ("跟着《" + show + "》走")}：节目里拍过的地方{"和美食" if _eat else ""} | 走你', desc, '<article class="chan">' + head + ''.join(out) + '</article>', [], None, [('首页', '/'), ('跟片走', '/pian/')]))
     return n_hit
 
 
