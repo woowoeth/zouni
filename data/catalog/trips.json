@@ -29514,6 +29514,234 @@
    "page": "Route.dc.html#kbjn5",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "kbgl3",
+   "dest": "guangxi",
+   "name": "课本里的桂林",
+   "region": "华南",
+   "days": 3,
+   "title": "课本里的桂林 3 天",
+   "headline": "三天，带着《桂林山水》去漓江",
+   "dek": "到桂林，看象鼻山，晚上两江四湖。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      380,
+      680
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [
+    "课本",
+    "带娃"
+   ],
+   "season": {
+    "ok": [
+     "04-01",
+     "11-15"
+    ],
+    "best": [
+     "09-15",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#kbgl3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "kbxa3",
+   "dest": "shaanxi",
+   "name": "课本里的西安",
+   "region": "西北",
+   "days": 3,
+   "title": "课本里的西安 3 天",
+   "headline": "三天，带着《秦兵马俑》去西安",
+   "dek": "到西安，上城墙骑车，晚上钟鼓楼。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 2700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      120,
+      270
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": false
+    }
+   },
+   "tags": [
+    "课本",
+    "带娃"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "05-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#kbxa3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "kbjnn2",
+   "dest": "shandong",
+   "name": "课本里的济南",
+   "region": "华东",
+   "days": 2,
+   "title": "课本里的济南 2 天",
+   "headline": "两天，带着老舍的文章去济南",
+   "dek": "到济南，看趵突泉，读老舍《趵突泉》；傍晚大明湖。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [
+    "课本",
+    "带娃"
+   ],
+   "season": {
+    "ok": [
+     "11-15",
+     "05-15"
+    ],
+    "best": [
+     "12-15",
+     "02-28"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#kbjnn2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "kbyy2",
+   "dest": "hunan",
+   "name": "课本里的岳阳",
+   "region": "华中",
+   "days": 2,
+   "title": "课本里的岳阳 2 天",
+   "headline": "两天，带着《岳阳楼记》去洞庭",
+   "dek": "到岳阳，登岳阳楼，读《岳阳楼记》；傍晚看洞庭湖。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [
+    "课本",
+    "带娃"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "09-15",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#kbyy2",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
