@@ -495,3 +495,8 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 
 /* 多城市长线：住哪、住几晚 */
 .ovstay{margin:-4px 0 10px;font-size:13px;line-height:1.7;color:var(--sub)}
+
+/* 简洁：每天开头只留“出发”和“日落”两格（日出对多数人没用）；目的地页列表的图标改灰，三十行一排红图标太花 */
+.day .fx:has(.sun[data-k="rise"]){display:none}
+.qual .icg .ic{color:var(--sub)}
+.qual .icg .ic svg{opacity:.75}

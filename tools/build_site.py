@@ -1673,7 +1673,8 @@ def sj_lines(xs):
     for sh in shows:
         ys = [x for x in xs if (x.get('show') or '舌尖上的中国') == sh]
         places = {y['place'] for y in ys}
-        body = '、'.join(y['food'] for y in ys) + '（' + '、'.join(sorted(places, key=lambda z: [y['place'] for y in ys].index(z))) + '）'   # 吃的连着写，地方合在括号里
+        foods = '、'.join(y['food'] for y in ys).split('、')
+        body = '、'.join(foods[:2]) + ('等' if len(foods) > 2 else '') + '（' + '、'.join(sorted(places, key=lambda z: [y['place'] for y in ys].index(z))[:2]) + '）'   # 最多写两样，多了写“等”，一行读完
         out += f'<p class="sjn"><b>{E(sh)}</b>{SHOW_VERB.get(sh, "推荐")}{E(body)}</p>'
     return out
 
