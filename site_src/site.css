@@ -545,3 +545,15 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .chan .sjs h2{font:900 22px var(--serif)}
 
 .where h1{padding:0;text-indent:0}
+
+/* 跟片走目录：像杂志目录，序号、片名、一句话 */
+.toc{list-style:none;margin:8px 20px 32px;padding:0;border-top:1px solid var(--ink)}
+.toc li{border-bottom:1px solid var(--line)}
+.toc a{display:flex;align-items:baseline;gap:16px;padding:16px 0;color:var(--ink);text-decoration:none}
+.toc i{flex:none;width:28px;font:400 13px/1 var(--serif);font-style:normal;color:var(--sub)}
+.toc b{display:block;font:900 22px/1.3 var(--serif)}
+.toc small{display:block;margin-top:4px;font-size:13px;color:var(--sub)}
+/* 走哪儿：本月一句放大成导语，像杂志的引言 */
+.where .goodline{margin:4px 20px 14px;font:700 17px/1.7 var(--serif);color:var(--ink)}
+/* 频道页标题统一字距 */
+.where h1,.chan h1{letter-spacing:.02em}

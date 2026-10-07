@@ -613,7 +613,7 @@ def fit_label(best, m):
 
 
 def extras(trip_desc, dest_desc):
-    urls = ['/', '/where/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/yichuan/', '/xiaoye/', '/hexi/', '/hangpai/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
+    urls = ['/', '/where/', '/pian/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/yichuan/', '/xiaoye/', '/hexi/', '/hangpai/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
     lm = TODAY.isoformat()
     open(os.path.join(OUT, 'sitemap.xml'), 'w', encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         ''.join(f'<url><loc>{BASE}{u}</loc><lastmod>{lm}</lastmod></url>\n' for u in urls) + '</urlset>\n')
@@ -672,7 +672,7 @@ def page(path, title, desc, body, jsonld=(), image=None, crumbs=()):
 <main>
 {body}
 </main>
-<footer class="foot"><p>走你：按季节挑地方，按天排好每一站。</p><p><a href="/">本期</a><a href="/where/">走哪儿</a><a href="/shejian/">跟片走</a><a href="/sitemap.xml">网站地图</a></p></footer>
+<footer class="foot"><p>走你：按季节挑地方，按天排好每一站。</p><p><a href="/">本期</a><a href="/where/">走哪儿</a><a href="/pian/">跟片走</a><a href="/sitemap.xml">网站地图</a></p></footer>
 <script src="/assets/site.js?v={ASSET_V}" defer></script>
 </body>
 </html>
@@ -1845,6 +1845,23 @@ def trip_page(rid):
     return desc
 
 
+SHOW_NOTE = {'舌尖上的中国': '中国人的家常和手艺', '风味人间': '一样食材在世界各地的做法', '风味原产地': '一地一集，追到食材长出来的地方', '早餐中国': '一城一家早餐店',
+             '如果国宝会说话': '一集一件国宝，现在在哪个馆', '记住乡愁': '一集一个古村', '人生一串': '各地的烧烤摊', '宵夜江湖': '一城一夜的宵夜',
+             '河西走廊': '从武威到敦煌的丝路历史', '航拍中国': '从天上看一个省'}
+
+
+def pian_page():
+    """跟片走的目录页：每部片子一行，像杂志目录"""
+    rows = []
+    for k, (show, path, _v) in enumerate(SHOWS):
+        ALL = [x for x in SJ if (x.get('show') or '舌尖上的中国') == show]
+        rows.append(f'<li><a href="{path}"><i>{k + 1:02d}</i><span><b>{E(show)}</b><small>{E(SHOW_NOTE.get(show, ""))} · 拍过 {len(ALL)} 处</small></span></a></li>')
+    head = ('<div class="pagehead"><a class="back" href="/">' + BACK_ICON + '返回</a><a class="home" href="/">本期</a></div><p class="kick">走你 · 频道</p>'
+            '<h1>跟片走</h1><p class="deck">' + str(len(SHOWS)) + ' 部纪录片里拍过的地方和吃的。能去的，我们排进了行程，点进去就是那一天。</p>')
+    body = '<article class="chan">' + head + '<ol class="toc">' + ''.join(rows) + '</ol></article>'
+    write('/pian/', page('/pian/', '跟片走：纪录片里拍过的地方，排进行程的哪一天 | 走你', '舌尖上的中国、风味人间、如果国宝会说话、记住乡愁等纪录片里拍过的地方和美食，能去的直接到排好的那一天。', body, [], None, [('首页', '/'), ('跟片走', '/pian/')]))
+
+
 def shejian_page(show='舌尖上的中国', path='/shejian/', other=('风味人间', '/fengwei/')):
     hit = {}
     for rid in ROUTE_IDS:
@@ -1877,7 +1894,7 @@ def shejian_page(show='舌尖上的中国', path='/shejian/', other=('风味人�
     head = (f'<div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><p class="kick">走你 · 跟片走</p>'
             f'<h1>跟着《{show}》走</h1><p class="deck">节目里拍过的 {len(ALL)} 处{"吃的" if _eat else "地方"}，{(str(n_hit) + " 处已经排进了我们的行程，点进去就是那一天") if show != "航拍中国" else "按省挂在目的地页"}。</p><nav class="ctabs">{tabs}</nav>')
     desc = f'《{show}》拍过的地方和美食：{len(ALL)} 处，按季按集列出，能去的直接到排好的那一天。'
-    write(path, page(path, f'跟着《{show}》走：节目里拍过的地方{"和美食" if _eat else ""} | 走你', desc, '<article class="chan">' + head + ''.join(out) + '</article>', [], None, [('首页', '/'), ('跟片走', '/shejian/')]))
+    write(path, page(path, f'跟着《{show}》走：节目里拍过的地方{"和美食" if _eat else ""} | 走你', desc, '<article class="chan">' + head + ''.join(out) + '</article>', [], None, [('首页', '/'), ('跟片走', '/pian/')]))
     return n_hit
 
 
@@ -2142,6 +2159,7 @@ if __name__ == '__main__':
     trip_desc = {rid: trip_page(rid) for rid in ROUTE_IDS}
     dest_desc = {d['id']: dest_page(d) for d in CAT['destinations']}
     sj_hit = 0
+    pian_page()
     for _k, (show_, path_, _v) in enumerate(SHOWS):
         nxt = SHOWS[(_k + 1) % len(SHOWS)]
         h_ = shejian_page(show_, path_, (nxt[0], nxt[1])); sj_hit = sj_hit or h_
