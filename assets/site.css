@@ -489,3 +489,6 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 /* 住宿卡：酒店名和图标同一行；懂一点里的地方名用红字区分 */
 .stays li b.tg,.stays li div>b{display:inline}.stays li .icg{display:inline-flex;margin-left:6px;vertical-align:-3px}.stays li small{display:block}
 .story p b{color:var(--red)}
+
+/* 每天末尾的“下一天 ›” */
+.nextday{display:block;margin:14px 0 0;padding:12px 0 2px;border-top:1px solid var(--line);font-size:14px;font-weight:700;color:var(--red);text-align:right;text-decoration:none}
