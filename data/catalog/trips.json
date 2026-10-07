@@ -28590,8 +28590,8 @@
       450
      ],
      "local": [
-      420,
-      770
+      160,
+      360
      ],
      "nights": 3,
      "n": 4,
@@ -28670,6 +28670,289 @@
    "anytime": false,
    "status": "ok",
    "page": "Route.dc.html#cq4d",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "njqd3",
+   "dest": "jiangsu",
+   "name": "南京秋冬",
+   "region": "华东",
+   "days": 3,
+   "title": "南京秋冬 3 天",
+   "headline": "三天，栖霞山红叶和汤山温泉",
+   "dek": "到南京，去栖霞山看红叶和千佛岩。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      120,
+      270
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": false
+    }
+   },
+   "tags": [
+    "秋冬",
+    "温泉"
+   ],
+   "season": {
+    "ok": [
+     "10-25",
+     "02-28"
+    ],
+    "best": [
+     "11-05",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#njqd3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "chwq2",
+   "dest": "guangdong",
+   "name": "从化温泉",
+   "region": "华南",
+   "days": 2,
+   "title": "从化温泉 2 天",
+   "headline": "两天，石门红叶和从化温泉",
+   "dek": "从广州去从化，看石门国家森林公园的红叶，晚上泡温泉。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      30,
+      90
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [
+    "秋冬",
+    "温泉"
+   ],
+   "season": {
+    "ok": [
+     "11-15",
+     "02-28"
+    ],
+    "best": [
+     "11-25",
+     "12-25"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#chwq2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "szqt3",
+   "dest": "jiangsu",
+   "name": "苏州秋天",
+   "region": "华东",
+   "days": 3,
+   "title": "苏州秋天 3 天",
+   "headline": "三天，天平山红枫和太湖东山",
+   "dek": "到苏州，去天平山看红枫。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      380,
+      680
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [
+    "秋冬"
+   ],
+   "season": {
+    "ok": [
+     "10-25",
+     "12-10"
+    ],
+    "best": [
+     "11-10",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#szqt3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jlhx4",
+   "dest": "jilin",
+   "name": "吉林滑雪雾凇",
+   "region": "东北",
+   "days": 4,
+   "title": "吉林滑雪雾凇 4 天",
+   "headline": "四天，北大湖滑雪和雾凇岛",
+   "dek": "到吉林市，傍晚松花江边雾凇长廊。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 3900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      940,
+      1590
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [
+    "冬季",
+    "滑雪"
+   ],
+   "season": {
+    "ok": [
+     "12-15",
+     "03-10"
+    ],
+    "best": [
+     "01-01",
+     "02-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jlhx4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hrqt2",
+   "dest": "beijing",
+   "name": "北京怀柔秋天",
+   "region": "华北",
+   "days": 2,
+   "title": "北京怀柔秋天 2 天",
+   "headline": "两天，红螺寺银杏和慕田峪秋色",
+   "dek": "去怀柔红螺寺看银杏，傍晚雁栖湖。",
+   "why": null,
+   "price": {
+    "lo": 800,
+    "hi": 1800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [
+    "秋冬"
+   ],
+   "season": {
+    "ok": [
+     "10-10",
+     "11-15"
+    ],
+    "best": [
+     "10-20",
+     "11-05"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hrqt2",
    "engineRoute": null,
    "poster": null
   }
