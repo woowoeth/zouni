@@ -27659,6 +27659,175 @@
    "page": "Route.dc.html#ahgt6",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "nmhc6",
+   "dest": "neimenggu",
+   "name": "内蒙古",
+   "region": "华北",
+   "days": 6,
+   "title": "内蒙古 6 天（不开车）",
+   "headline": "六天，草原、沙漠和成吉思汗陵",
+   "dek": "到呼和浩特，看大召寺，逛塞上老街，吃烧麦。",
+   "why": null,
+   "price": {
+    "lo": 3000,
+    "hi": 6200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      1020,
+      1770
+     ],
+     "nights": 5,
+     "n": 6,
+     "car": true
+    }
+   },
+   "tags": [
+    "不开车"
+   ],
+   "season": {
+    "ok": [
+     "06-15",
+     "09-15"
+    ],
+    "best": [
+     "07-10",
+     "08-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nmhc6",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xzlz7",
+   "dest": "xizang",
+   "name": "拉萨林芝",
+   "region": "西南",
+   "days": 7,
+   "title": "拉萨林芝 7 天（不开车）",
+   "headline": "七天，拉萨、纳木错、羊湖、林芝",
+   "dek": "到拉萨，慢慢走八廓街，适应高原。",
+   "why": null,
+   "price": {
+    "lo": 4000,
+    "hi": 8000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      1320,
+      2270
+     ],
+     "nights": 6,
+     "n": 7,
+     "car": true
+    }
+   },
+   "tags": [
+    "不开车"
+   ],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-31"
+    ],
+    "best": [
+     "05-01",
+     "06-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xzlz7",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "db3s7",
+   "dest": "jilin",
+   "name": "东北三省",
+   "region": "东北",
+   "days": 7,
+   "title": "东北三省 7 天（不开车）",
+   "headline": "七天，沈阳、长春、长白山、哈尔滨",
+   "dek": "到沈阳，看沈阳故宫和张氏帅府。",
+   "why": null,
+   "price": {
+    "lo": 2500,
+    "hi": 5700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      270,
+      810
+     ],
+     "local": [
+      280,
+      630
+     ],
+     "nights": 6,
+     "n": 7,
+     "car": false
+    }
+   },
+   "tags": [
+    "跨省",
+    "高铁"
+   ],
+   "season": {
+    "ok": [
+     "06-01",
+     "10-10"
+    ],
+    "best": [
+     "07-15",
+     "09-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#db3s7",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }

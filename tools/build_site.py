@@ -371,6 +371,8 @@ SIGHT = {
     '古窑民俗博览区': '看古法烧窑和拉坯', '大七孔': '荔波的原始森林峡谷', '西江观景台': '晚上看西江千户苗寨万家灯火', '新疆博物馆': '楼兰美女干尸、丝路文物', '坎儿井': '吐鲁番的地下水利工程',
     '葡萄沟': '吐鲁番种葡萄的山沟', '交河故城': '世界上最大最古老的生土建筑城市', '火焰山': '《西游记》里的火焰山', '喀赞其': '伊宁的维吾尔老街区，蓝色的房子', '伊犁河大桥': '伊宁城南的伊犁河桥，傍晚好看',
     '解忧公主薰衣草园': '霍城的薰衣草园，六月花开', '汉人街': '伊宁的老商业街', '宏村南湖': '清早看宏村倒影', '塔川': '秋天红叶的小村', '卢村': '木雕楼的徽州古村', '黎阳in巷': '屯溪新开的老街区',
+    '塞上老街': '大召寺旁的老街', '内蒙古博物院': '恐龙化石和草原文物', '昭君博物院': '王昭君墓所在的博物院', '希拉穆仁草原': '离呼和浩特最近的草原', '响沙湾': '库布其沙漠里会响的沙丘',
+    '成吉思汗陵': '纪念成吉思汗的陵园', '鄂尔多斯博物馆': '外形像一块岩石的博物馆', '羊卓雍错': '西藏三大圣湖之一，形状像珊瑚', '索松村': '看南迦巴瓦峰最好的村子', '嘎拉桃花村': '林芝三月桃花最好的村子', '二道白河': '长白山北坡脚下的小镇',
     '稻河古街区': '泰州老城沿河的街区', '望海楼': '泰州的城标，傍晚好看', '千垛景区': '垛田上开满油菜花，坐船进去看', '李中水上森林': '水杉长在水里的森林', '石浦渔港古城': '依山而建的渔港老街',
     '中国渔村': '象山海边看渔船的地方', '蛇蟠岛': '三门的海岛，有千洞之岛的说法', '遂昌金矿国家矿山公园': '千年金矿遗址，能下矿洞', '南尖岩': '看云海和梯田的山头', '诺邓古村': '千年盐井古村，诺邓火腿的产地',
     '太极图观景台': '沘江弯出一个天然太极图', '诺邓盐井': '还能看到古盐井和盐课司', '阳岭国家森林公园': '崇义城边的森林公园', '上堡梯田': '客家人开垦的梯田，世界灌溉工程遗产', '天鹅湖国家城市湿地公园': '冬天上万只白天鹅来过冬',
@@ -1540,6 +1542,18 @@ def go_info(r, t, d0, rid=None):
 NO_HSR = {'榆林', '敦煌', '喀什', '伊宁', '阿勒泰', '格尔木', '香格里拉', '腾冲', '稻城', '九寨沟', '阿尔山', '漠河', '额济纳', '海拉尔', '满洲里', '拉萨', '林芝', '日喀则', '塔县', '和田', '库车', '若尔盖', '康定', '泸沽湖', '德钦', '丙中洛', '阿坝', '甘孜', '玛多', '果洛', '那曲', '巴音布鲁克', '禾木', '喀纳斯', '布尔津', '芒康', '左贡', '八宿', '波密', '然乌'}   # 不通高铁的旅游地，“怎么去”不写坐高铁
 
 
+def _stay_line(r):
+    """多城市长线：住哪、住几晚（订住宿用），只有住三个以上地方才写"""
+    seq = []
+    for d in r['days'][:-1]:
+        c = d.get('navCity') or d.get('city') or d.get('stayName') or ''   # 写城市名，比“钟楼附近”好认
+        if not c: continue
+        if seq and seq[-1][0] == c: seq[-1][1] += 1
+        else: seq.append([c, 1])
+    if len(seq) < 3: return ''
+    return '<p class="ovstay">住：' + ' → '.join(f'{E(c)} {k} 晚' for c, k in seq) + '</p>'
+
+
 def _legs(r):
     """长线中间换城市坐高铁、火车、飞机的那几段（要提前买票）：[天序号, 从, 到, 火车/飞机]"""
     out = []
@@ -1573,6 +1587,7 @@ def go_text(g, o=None, km_=None):
     elif g['ab']: way = f'从{o}坐飞机，约 {max(1, round(km_ / 700 + 1))} 小时'
     elif g['drv']: way = f'从{o}开过去约 {max(1, round(km_ * 1.25 / 80))} 小时；也可以坐高铁或飞机到了再租车'
     elif g.get('isl') and km_ > 250: way = f'从{o}坐飞机，约 {max(1, round(km_ / 700 + 1))} 小时'   # 海南岛：高铁过不了海峡
+    elif g.get('nh') and km_ > 900: way = f'从{o}坐飞机，约 {max(1, round(km_ / 700 + 1))} 小时'   # 不通高铁又远（拉萨这类），坐飞机
     elif g.get('nh') and km_ > 250: way = f'从{o}坐火车约 {max(2, round(km_ * 1.25 / 90))} 小时，或者坐飞机'   # 不通高铁
     elif g.get('car') and km_ <= 600: way = f'从{o}坐车约 {max(1, round(km_ * 1.3 / 70))} 小时，包车或坐大巴'   # 小地方不通高铁
     elif km_ <= 1200: way = f'从{o}坐高铁约 {max(1, round(km_ / 230 + 0.5))} 小时'
@@ -1804,7 +1819,7 @@ def trip_page(rid):
             f'<script type="application/json" id="cands">{json.dumps(add_cands(rid, r), ensure_ascii=False).replace("</", "<\\/")}</script>'
             f'<script type="application/json" id="indoor">{json.dumps(indoor_near(r), ensure_ascii=False).replace("</", "<\\/")}</script>'
             f'<script type="application/json" id="nearby">{json.dumps(near_for(r), ensure_ascii=False).replace("</", "<\\/")}</script>'
-            f'<section class="overview{" folded" if n > 10 else ""}"><h2>{n} 天，怎么排</h2><ol>{over}</ol>{f'<button type="button" class="ovmore">看全部 {n} 天</button>' if n > 10 else ''}{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{"".join(days)}<div class="addday" data-city="{E(addday_city(r, STAYFIX))}"><button type="button" class="add">＋ 加一天</button></div>{dest_link}{dock}</article>')
+            f'<section class="overview{" folded" if n > 10 else ""}"><h2>{n} 天，怎么排</h2>{_stay_line(r)}<ol>{over}</ol>{f'<button type="button" class="ovmore">看全部 {n} 天</button>' if n > 10 else ''}{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{"".join(days)}<div class="addday" data-city="{E(addday_city(r, STAYFIX))}"><button type="button" class="add">＋ 加一天</button></div>{dest_link}{dock}</article>')
     crumbs = [('首页', '/'), ('去哪儿', '/where/')] + ([(d0['name'], f'/d/{t["dest"]}/')] if d0 else []) + [(r.get('label') or r['title'], f'/trip/{rid}/')]
     img = '/img/' + (r.get('img') or '').replace('/_blob/', '') + '.svg' if r.get('img') else None
     _faq_ld = {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in _fq]}
