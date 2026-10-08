@@ -304,6 +304,11 @@ if site:
         for m in re.finditer(r'<span class="tier">高级</span>.*?参考价 (¥[\d,]+–[\d,]+)/晚', h, flags=re.S):
             if m.group(1) != want: bad19.append(f'{rid} 高级档写 {m.group(1)}，按 {dst} 住宿估价应是 {want}'); break
     if bad19: fails.append(('国外住宿三档价格不对', sorted(set(bad19))))
+    # 20 site.js 语法：node --check（行内注释吞掉后面的代码这类错，字符串 lint 抓不全：2026-10 又吞了一次，整个页面脚本报错）
+    import subprocess, shutil as _sh
+    if _sh.which('node'):
+        _p = subprocess.run(['node', '--check', os.path.join(ROOT, 'site_src', 'site.js')], capture_output=True, text=True)
+        if _p.returncode: fails.append(('site.js 语法错误', [next((l for l in _p.stderr.splitlines() if 'Error' in l and 'Node.js' not in l), 'node --check 失败')]))
     deny = os.path.join(ROOT, 'build', 'denies.txt')
     if os.path.exists(deny):
         # 抽查：串线闸拒绝的“文案 → 线”，页面里不得再出现该文案的原文

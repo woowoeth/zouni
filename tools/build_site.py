@@ -1980,17 +1980,26 @@ ORIGINS = {'北京': (39.90, 116.40), '上海': (31.23, 121.47), '广州': (23.1
            '厦门': (24.48, 118.09), '昆明': (25.04, 102.71), '沈阳': (41.80, 123.43), '青岛': (36.07, 120.38), '香港': (22.32, 114.17), '兰州': (36.06, 103.83), '乌鲁木齐': (43.83, 87.62), '哈尔滨': (45.80, 126.53), '福州': (26.07, 119.30), '南昌': (28.68, 115.86), '合肥': (31.82, 117.23), '贵阳': (26.65, 106.63), '南宁': (22.82, 108.37), '太原': (37.87, 112.55)}
 
 
+# 第一天先到别的城市提车/集合再出发的线：到达点、到达城市手写（路线数据里没有站点坐标，算出来是第一天的终点；nm4 第一天从酒泉提车、当晚到额济纳，高铁只能买到酒泉）
+GO_ARRIVE = {'nm4': ('酒泉', 39.744, 98.494)}
+
+
 def go_info(r, t, d0, rid=None):
     """怎么去、怎么回：离得最近的大城市出发（网页里会换成用户自己的出发地）"""
     c = route_center(rid) if rid else None
     p0 = day_point(r, 0) or c
+    _d0 = r['days'][0]; _c0 = _d0.get('navCity') or _d0.get('city')
+    _f0 = next((coord(w['poi'], _c0) for w in _d0['rows'] if w['type'] in ('see', 'fun') and w.get('poi') and coord(w['poi'], _c0)), None)
+    if _f0 and p0 and _km(_f0, p0) > 100: p0 = _f0
+    _ov = GO_ARRIVE.get(rid)
+    if _ov: p0 = (_ov[1], _ov[2])       # 第一天跨城（酒泉提车 → 额济纳）：到达点是第一站，不是当天各站的平均
     if not p0: return None
     _hubs = ORIGINS if d0.get('scope') == 'domestic' else {k: v for k, v in ORIGINS.items() if k in ('北京', '上海', '广州', '成都', '香港')}   # 出国默认从几大国际机场算
     o, dk = min(((nm, _km(xy, p0)) for nm, xy in _hubs.items()), key=lambda x: x[1])
     first = next((w['t'] for w in r['days'][0]['rows'] if re.match(r'^\d\d:\d\d$', w.get('t') or '')), '')
     last = next((w['t'] for w in reversed(r['days'][-1]['rows']) if w.get('type') == 'dep' and re.match(r'^\d\d:\d\d$', w.get('t') or '')), '')
-    return {'lat': round(p0[0], 3), 'lng': round(p0[1], 3), 'city': r['days'][0].get('city') or d0.get('name', ''), 'ab': 0 if d0.get('scope') == 'domestic' else 1,
-            'legs': _legs(r), 'nh': 1 if (r['days'][0].get('navCity') or r['days'][0].get('city')) in NO_HSR else 0, 'isl': 1 if (t.get('dest') == 'hainan') else 0, 'dst': t.get('dest'), 'fx': _go_fixed(r), 'drv': 1 if r.get('drive') else 0, 'car': 1 if re.search(r'包车|大巴|自驾', str(next(((w.get('how') or w.get('via')) for w in r['days'][0]['rows'] if w.get('type') == 'dep' and (w.get('how') or w.get('via'))), '') or '')) else 0, 'first': first, 'last': last, 'o': o, 'km': round(dk)}   # car：第一天就要包车、坐大巴去的小地方，不写“坐高铁”
+    return {'lat': round(p0[0], 3), 'lng': round(p0[1], 3), 'city': (GO_ARRIVE.get(rid) or (None,))[0] or r['days'][0].get('city') or d0.get('name', ''), 'ab': 0 if d0.get('scope') == 'domestic' else 1,
+            'legs': _legs(r), 'nh': 1 if ((GO_ARRIVE.get(rid) or (None,))[0] or r['days'][0].get('navCity') or r['days'][0].get('city')) in NO_HSR else 0, 'isl': 1 if (t.get('dest') == 'hainan') else 0, 'dst': t.get('dest'), 'fx': _go_fixed(r), 'drv': 1 if r.get('drive') else 0, 'car': 1 if re.search(r'包车|大巴|自驾', str(next(((w.get('how') or w.get('via')) for w in r['days'][0]['rows'] if w.get('type') == 'dep' and (w.get('how') or w.get('via'))), '') or '')) else 0, 'first': first, 'last': last, 'o': o, 'km': round(dk)}   # car：第一天就要包车、坐大巴去的小地方，不写“坐高铁”
 
 
 NO_HSR = {'榆林', '敦煌', '喀什', '伊宁', '阿勒泰', '格尔木', '香格里拉', '腾冲', '稻城', '九寨沟', '阿尔山', '漠河', '额济纳', '海拉尔', '满洲里', '拉萨', '林芝', '日喀则', '塔县', '和田', '库车', '若尔盖', '康定', '泸沽湖', '德钦', '丙中洛', '阿坝', '甘孜', '玛多', '果洛', '那曲', '巴音布鲁克', '禾木', '喀纳斯', '布尔津', '芒康', '左贡', '八宿', '波密', '然乌'}   # 不通高铁的旅游地，“怎么去”不写坐高铁
