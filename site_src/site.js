@@ -728,7 +728,8 @@
       document.querySelectorAll('.reg').forEach(function(r){r.hidden=!r.querySelector('.card:not([hidden])')});
       if(st.q&&!n&&!apply.sw){var tabs_=[].slice.call(document.querySelectorAll('.tabs button')),other=tabs_.filter(function(b){var sc=document.getElementById(b.dataset.t);return sc&&sc.querySelector('.card:not([hidden])')})[0];if(other){apply.sw=true;other.click();apply.sw=false;return}}   // 搜的东西在别的页签里（搜“巴黎”在国内页签是空的）：自动切过去
       if(st.q)[].slice.call(document.querySelectorAll('.card:not([hidden])')).forEach(function(c){if((c.dataset.name||'').toLowerCase().indexOf(st.q)>=0&&c.parentNode.firstChild!==c)c.parentNode.insertBefore(c,c.parentNode.firstChild)});   // 名字就含搜索词的排最前
-      cnt.textContent=n?('符合的 '+n+' 个'):'没有符合的，点“清空筛选”再看看';
+      var oth_=st.q?[].slice.call(document.querySelectorAll('.tabs button')).filter(function(b){var sc=document.getElementById(b.dataset.t);return b.dataset.t!==st.tab&&sc&&sc.querySelector('.card:not([hidden])')}).map(function(b){return b.textContent.replace(/\s*·.*$/,'')+' '+document.getElementById(b.dataset.t).querySelectorAll('.card:not([hidden])').length+' 个'}):[];
+      cnt.textContent=(n?('符合的 '+n+' 个'):(st.q?(oth_.length?'这个页签里没找到「'+st.q+'」':'没找到「'+st.q+'」，试试中文名，或者少写几个字'):'没有符合的，点“清空筛选”再看看'))+(oth_.length?'；别的页签还有：'+oth_.join('、'):'');
       var k=(st.q?1:0)+(st.d?1:0)+(st.low?1:0)+(st.niche?1:0)+(st.near?1:0)+(st.bud?1:0)+(st.fit?0:1);ft.textContent=(flt.hidden?'筛选':'收起')+(k?' · '+k:'')+(flt.hidden?' ▾':' ▴');ft.classList.toggle('on',k>0||!flt.hidden);clr.hidden=!k;
       if(typeof drawMap==='function')setTimeout(drawMap,0);
       gl.textContent=good.length?(m+' 月正好去 '+good.length+' 个：'+good.slice(0,10).join('、')+(good.length>10?' 等':'')):(m+' 月没有正好去的，看看“也行”的')}
