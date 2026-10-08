@@ -32786,6 +32786,168 @@
    "page": "Route.dc.html#qy4",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "jnb5",
+   "dest": "southafrica",
+   "name": "约翰内斯堡克鲁格",
+   "region": "非洲",
+   "days": 5,
+   "title": "约翰内斯堡克鲁格 5 天",
+   "headline": "五天，约翰内斯堡和克鲁格野生动物",
+   "dek": "到约翰内斯堡，下午看种族隔离博物馆，再去索韦托的维拉卡茨街。",
+   "why": null,
+   "price": {
+    "lo": 10400,
+    "hi": 19600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      1240,
+      2090
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jnb5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "kry4",
+   "dest": "ireland",
+   "name": "基拉尼凯里环线",
+   "region": "欧洲",
+   "days": 4,
+   "title": "基拉尼凯里环线 4 天",
+   "headline": "四天，基拉尼、凯里环线和丁格尔半岛",
+   "dek": "到基拉尼，骑车或步行逛国家公园，看罗斯城堡和马克罗斯庄园。",
+   "why": null,
+   "price": {
+    "lo": 10800,
+    "hi": 19600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      270,
+      810
+     ],
+     "local": [
+      940,
+      1590
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "09-15"
+    ],
+    "best": [
+     "06-01",
+     "08-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#kry4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "oax4",
+   "dest": "mexico",
+   "name": "瓦哈卡",
+   "region": "拉美",
+   "days": 4,
+   "title": "瓦哈卡 4 天",
+   "headline": "四天，瓦哈卡古城和山谷里的遗址",
+   "dek": "到瓦哈卡，下午在索卡洛广场坐坐，看圣多明各教堂，傍晚逛市场。",
+   "why": null,
+   "price": {
+    "lo": 10000,
+    "hi": 18000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      680,
+      1180
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-15",
+     "12-31"
+    ],
+    "best": [
+     "10-25",
+     "11-05"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#oax4",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
