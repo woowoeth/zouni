@@ -347,7 +347,7 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .glance .dtw.dt,.glance span.dt{min-height:0;align-items:initial}
 .glance .pp{position:relative;display:block;height:18px;min-height:0;margin:4px 0 0;padding:0;border:0;background:none;-webkit-appearance:none;appearance:none;border-radius:0;font:400 12px/18px var(--sans);color:var(--red);text-align:left;cursor:pointer}
 .glance .pp:after{content:"";position:absolute;left:-8px;right:-8px;top:-12px;bottom:-12px}
-.fx .st{display:inline-flex;align-items:baseline;gap:3px;cursor:pointer;position:relative}.fx .st i{font-style:normal;font-size:12px;font-weight:700;color:var(--red)}.fx .st:after{content:"";position:absolute;inset:-10px -8px}
+.fx .st{display:inline-flex;align-items:baseline;gap:3px;cursor:pointer;position:relative;padding:0;height:auto}.fx .st i{font-style:normal;font-size:12px;font-weight:700;color:var(--red)}.fx .st:after{content:"";position:absolute;inset:-10px -8px}
 .stg{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:12px}.stg button{height:44px;border:0;background:var(--card);font:700 15px var(--serif);color:var(--ink);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}.stg button.on{background:var(--ink);color:var(--bg)}
 .latewarn{margin:14px 0 0;padding:10px 12px;background:#f3e3dd;color:#6b2a1c;font-size:13px;line-height:1.6}.latewarn p{margin:0}.latewarn div{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
 .latewarn button{height:36px;padding:0 10px;border:0;background:var(--bg);font-size:13px;font-weight:700;color:var(--ink);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}.latewarn .drop{background:var(--ink);color:var(--bg)}
@@ -565,4 +565,9 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 
 /* 每天下面“这天后面加一天” */
 .addafter{display:block;width:100%;margin:14px 0 0;padding:10px 0;border:1px dashed var(--line);border-radius:8px;background:none;color:var(--sub);font-size:13px}
+/* 原有天底部两个按钮并一行：去掉（左，窄）+ 加一天（右，撑满） */
+.dayact{display:flex;gap:8px;align-items:stretch;margin-top:14px}
+.dayact .rmday{margin:0;flex:0 0 auto;height:40px}
+.dayact .addafter{margin:0;flex:1 1 auto;width:auto;min-width:0;height:40px;padding:0 8px;white-space:nowrap}
+@media print{.dayact{display:none}}
 .addafter:active{background:var(--bg2,#ece8df)}
