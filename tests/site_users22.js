@@ -1,5 +1,5 @@
 // 第二十二组：三格对齐、收藏图标、加一天按位置、预约链接、真实酒店
-const p=require('/tmp/node_modules/puppeteer'); const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const p=require('puppeteer'); const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const B=process.argv[2]||'http://localhost:8765';
 (async()=>{ const b=await p.launch({args:['--no-sandbox','--disable-dev-shm-usage']}); const dev=p.KnownDevices['iPhone 13']; const R=[], errs=[];
   const fresh=async()=>{ const ctx=await b.createBrowserContext(); const pg=await ctx.newPage(); pg.on('pageerror',e=>errs.push(e.message.split('\n')[0])); await pg.emulate(dev); return pg; };
