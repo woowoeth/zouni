@@ -585,3 +585,6 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 /* 微信里的“复制”按钮（只在微信里出现）；点击区域放大到约 44px */
 .cpy{display:none}.wx .cpy{display:inline-block;position:relative;margin-left:8px;padding:0 6px;height:22px;border:1px solid var(--line);background:none;border-radius:11px;font:700 12px var(--sans);color:var(--sub);vertical-align:middle;-webkit-appearance:none;appearance:none;cursor:pointer}
 .wx .cpy:after{content:"";position:absolute;left:-8px;right:-8px;top:-12px;bottom:-12px}
+
+/* 剪贴板不能用时的文本框 */
+.cpbox{width:100%;box-sizing:border-box;margin-top:8px;padding:10px;font:15px/1.5 var(--sans);border:1px solid var(--line);background:var(--card);color:var(--ink);resize:none;border-radius:0}
