@@ -66,6 +66,17 @@ BOOK_URL = {'故宫': 'https://ticket.dpm.org.cn', '中国国家博物馆': 'htt
             '湖南博物院': 'https://www.hnmuseum.com', '上海博物馆': 'https://www.shanghaimuseum.net', '九寨沟': 'https://www.jiuzhai.com', '鼓浪屿': 'https://www.xmferry.com',
             '大熊猫繁育研究基地': 'https://www.panda.org.cn', '熊猫基地': 'https://www.panda.org.cn'}
 BOOK_HOW = {'天安门': '微信小程序「天安门广场预约参观」', '毛主席纪念堂': '微信公众号「毛主席纪念堂」', '布达拉宫': '布达拉宫官方公众号', '拙政园': '拙政园官方公众号'}
+# 2026-10 增补：国内（颐和园、慕田峪经联网核实）和国外热门馆。国外这类馆基本都要提前订时段票，漏掉的后果是白跑；政策常变，文案只写“要提前订”，具体以官网为准
+BOOK.update({'颐和园': '颐和园要提前在线购票（实名，刷证入园）', '慕田峪长城': '慕田峪长城要提前实名预约购票',
+             '卢浮宫': '卢浮宫要提前在官网选时段订票，热门时段会售罄', '梵高博物馆': '梵高博物馆只卖限时票，要提前在官网订', '安妮之家': '安妮之家只在网上售票，常提前几周售罄，要早订',
+             '阿尔罕布拉宫': '阿尔罕布拉宫的票常常售罄，要提前在官网订', '圣家堂': '圣家堂要提前在官网订票、选时段', '梵蒂冈博物馆': '梵蒂冈博物馆建议提前在官网订票，现场排队很长',
+             '乌菲兹美术馆': '乌菲兹建议提前在官网订票，现场排队很长', '新天鹅堡': '新天鹅堡按时段进，要提前在官网订票', '马丘比丘': '马丘比丘每天限人数、分时段，要提前通过官方渠道买票',
+             '埃菲尔铁塔': '埃菲尔铁塔上塔的票要提前在官网订，当天常售罄', '凡尔赛宫': '凡尔赛宫建议提前在官网订票，现场排队很长', '奥赛博物馆': '奥赛博物馆建议提前在官网订时段票',
+             '罗马斗兽场': '罗马斗兽场要提前在官网订票，现场排队很长', '塞维利亚王宫': '塞维利亚王宫建议提前在官网订票，现场排队很长'})
+BOOK_URL.update({'卢浮宫': 'https://ticket.louvre.fr', '梵高博物馆': 'https://www.vangoghmuseum.com', '安妮之家': 'https://www.annefrank.org', '阿尔罕布拉宫': 'https://tickets.alhambra-patronato.es',
+                 '圣家堂': 'https://sagradafamilia.org', '梵蒂冈博物馆': 'https://tickets.museivaticani.va', '乌菲兹美术馆': 'https://www.uffizi.it', '新天鹅堡': 'https://www.neuschwanstein.de',
+                 '埃菲尔铁塔': 'https://ticket.toureiffel.paris', '凡尔赛宫': 'https://www.chateauversailles.fr', '奥赛博物馆': 'https://www.musee-orsay.fr'})
+BOOK_HOW.update({'颐和园': '微信小程序「颐和园官方在线购票」或公众号「畅游公园」', '慕田峪长城': '微信公众号「慕田峪长城」'})
 
 
 def book_of(text):
@@ -2106,8 +2117,8 @@ def compute_denies():
         t2 = {core[i:i + 2] for i in range(len(core) - 1) if re.fullmatch(r'[\u4e00-\u9fa5]{2}', core[i:i + 2]) and core[i:i + 2] not in GENERIC2}   # 两字地名（阳朔、泉州）只从标签、城市、目的地名里取，免得被标题里的普通词误伤
         TK[rid] = t3 | t2
         return TK[rid]
-    def named(rid, text):
-        return any(t_ in text for t_ in toks(rid))
+    def named(rid, text, key=''):
+        return any(t_ in text and t_ not in key for t_ in toks(rid))     # 键本身包含的词不算点名（线路标题里的“卢浮宫”来自这个站，不是文案点的名）
     tabs = (('SIGHT', SIGHT, lambda k, n, c: k in n, lambda v: v),
             ('DEEP', DEEP, lambda k, n, c: k == c or (len(k) >= 3 and k in n), lambda v: v),
             ('BOOK', BOOK, lambda k, n, c: k in n, lambda v: v),
@@ -2122,14 +2133,14 @@ def compute_denies():
             if len({r_[0] for r_ in m}) < 2: continue
             cl = clusters(m)
             if len(cl) < 2: continue
-            scores = [sum(1 for rid in {r_[0] for r_ in c} if named(rid, text)) for c in cl]
+            scores = [sum(1 for rid in {r_[0] for r_ in c} if named(rid, text, k)) for c in cl]
             if max(scores) > 0:                      # ①文案点了名：点名的留，其余拒绝
                 keep = sorted({r_[0] for c, sc in zip(cl, scores) if sc > 0 for r_ in c})[:3]
                 for c, sc in zip(cl, scores):
                     if sc == 0:
                         for rid in {r_[0] for r_ in c}: DENY.add((tab, k, rid)); log.append(f'{tab} 「{k}」拒绝 {rid}（文案点名的是 {keep}）')
                 continue
-            exact = [r_ for r_ in m if r_[2] == k or r_[2].startswith(k)]     # ②没点名：本家规则
+            exact = [r_ for r_ in m if r_[2] == k or (r_[2].startswith(k) and len(r_[2]) - len(k) <= 3)]     # ②没点名：本家规则（“故宫博物院”算故宫；“卢浮宫阿布扎比”多出 4 个字，是另一座馆）
             ex_cl = [c for c in cl if any(r_ in exact for r_ in c)]
             if exact and len(ex_cl) == 1:
                 for c in cl:
@@ -2530,7 +2541,7 @@ def home_page():
         _src = ('/img/' + (rr.get('img') or '').replace('/_blob/', '') + '.svg') if rr.get('img') else ('/img/p/' + rid + '.svg')
         _pts = [p_ for k_ in range(n) for p_ in [day_point(rr, k_)] if p_]
         _c = (sum(p_[0] for p_ in _pts) / len(_pts), sum(p_[1] for p_ in _pts) / len(_pts)) if _pts else (dd.get('lat'), dd.get('lng'))
-        _hi = 1 if max([(d_.get('elev') or 0) for d_ in rr['days']] + [0]) >= 3000 else 0
+        _hi = 1 if max([(d_.get('elev') or 0) for d_ in rr['days']] + [0]) >= 2500 else 0     # 最高天标 ≥2500 米算高原：带老人孩子不推荐，也不能写“不上高原”
         _sd = 1 if (rr.get('drive') or any((w_.get('how') or '').startswith(('自驾', '开车', '回住处 · 自驾', '回住处 · 开车')) or '提车' in (w_.get('name') or w_.get('to') or '') for d_ in rr['days'] for w_ in d_['rows'])) else 0     # 要自己开车（自驾、提车）：首页“不开车”要排除
         extra = (f' data-ws="{wb[0]}" data-we="{wb[1]}" data-os="{ob[0]}" data-oe="{ob[1]}" data-img="{1 if rr.get("img") else 0}" data-comp="{1 if rr.get("compiled") else 0}" data-clim=\'{E(json.dumps(dd.get("climate") or {}))}\''
                  + (f' data-lat="{_c[0]:.3f}" data-lng="{_c[1]:.3f}"' if _c[0] else '') + f' data-hi="{_hi}" data-drv="{1 if rr.get("drive") else 0}" data-sd="{_sd}" data-ab="{0 if dd.get("scope") == "domestic" else 1}"'

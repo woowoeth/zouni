@@ -156,6 +156,16 @@ if site:
             if top >= 3000 and '氧气' not in h: bad.append(f'{rid} 最高到 {top} 米但页面里没有氧气/高反提示')
         if mons and any((st + datetime.timedelta(days=i)).weekday() == 0 for i in mons): bad.append(f'{rid} 默认出发日 {st} 让周一闭馆的那天落在周一')
     if bad: fails.append(('页面不变量', bad))
+    # 8 热门馆名单：行程里出现这些馆，那一行必须有“要预约”徽标（漏掉的后果是白跑）；名字里带“阿布扎比”的是另一座馆，不算
+    MUST_BOOK = ['故宫博物院', '颐和园', '慕田峪长城', '八达岭长城', '卢浮宫', '梵高博物馆', '安妮之家', '阿尔罕布拉宫', '圣家堂', '梵蒂冈博物馆', '乌菲兹美术馆', '新天鹅堡', '马丘比丘', '埃菲尔铁塔', '凡尔赛宫', '奥赛博物馆', '罗马斗兽场', '塞维利亚王宫']
+    bad8 = []
+    for f in glob.glob(os.path.join(site, 'trip', '*', 'index.html')):
+        rid = f.split('/')[-2]; h = open(f, encoding='utf-8').read()
+        for li in re.findall(r'<li class="r (?:see|fun)"[^>]*>(.*?)</li>', h, flags=re.S):
+            tx = re.sub(r'<[^>]+>', ' ', li)
+            for k in MUST_BOOK:
+                if k in tx.split('·')[0] and '阿布扎比' not in tx and 'class="bkn' not in li: bad8.append(f'{rid} 「{k}」那一行没有“要预约”徽标')
+    if bad8: fails.append(('热门馆缺预约徽标', sorted(set(bad8))))
     deny = os.path.join(ROOT, 'build', 'denies.txt')
     if os.path.exists(deny):
         # 抽查：串线闸拒绝的“文案 → 线”，页面里不得再出现该文案的原文
