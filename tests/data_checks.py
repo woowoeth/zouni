@@ -191,6 +191,17 @@ if site:
             if nm in FC and not has: bad10.append(f'{rid} 「{nm}」没有闭馆日标记')
             if has and nm not in FC: bad10.append(f'{rid} 「{nm}」不该有闭馆日标记')
     if bad10: fails.append(('国外闭馆日', sorted(set(bad10))))
+    # 11 清真寺：表里的清真寺出现在哪一天，那一天必须有“清真寺”着装/可否入内提醒
+    MOS = ['蓝色清真寺', '圣索菲亚', '布特拉清真寺', '库图比亚清真寺', '卡鲁因清真寺', '亚庇市立清真寺', '朱玛清真寺', '比比哈努姆清真寺', '东关清真大寺']
+    bad11 = []
+    for f in glob.glob(os.path.join(site, 'trip', '*', 'index.html')):
+        rid = f.split('/')[-2]; h = open(f, encoding='utf-8').read()
+        for sec in h.split('<section class="day"')[1:]:
+            sec = sec.split('</section>')[0]
+            for li in re.findall(r'<li class="r (?:see|fun)"[^>]*>(.*?)</li>', sec, flags=re.S):
+                nm = re.sub(r'<[^>]+>', ' ', li.split('<p class="m">')[1].split('</p>')[0]).strip() if '<p class="m">' in li else ''
+                if nm in MOS and 'alt mosque' not in sec: bad11.append(f'{rid} ' + re.search(r'id="(d\d+)"', sec).group(1) + f' 「{nm}」那天没有清真寺提醒')
+    if bad11: fails.append(('清真寺缺提醒', sorted(set(bad11))))
     deny = os.path.join(ROOT, 'build', 'denies.txt')
     if os.path.exists(deny):
         # 抽查：串线闸拒绝的“文案 → 线”，页面里不得再出现该文案的原文

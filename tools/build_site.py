@@ -2217,6 +2217,22 @@ def ferry_note(d, first=True, rid='', extra=''):
 LIGHT_FERRY = {'hrs2'}
 
 
+MOS_DRESS = '要穿能遮住肩膀和膝盖的衣服（长衣长裤），女士带头巾，进门脱鞋；礼拜时段（周五中午尤其）游客可能不能进，以当天门口告示为准。'
+MOSQUE = {'蓝色清真寺': MOS_DRESS + '门口有免费头巾。', '圣索菲亚': '现在是清真寺：' + MOS_DRESS,
+          '布特拉清真寺': '要穿长衣长裤，没带够的门口可以借长袍；周五上午是主麻礼拜，不接待游客，以当天为准。',
+          '库图比亚清真寺': '摩洛哥多数清真寺只对穆斯林开放，非穆斯林在外面看建筑、塔楼就好，别往里走。',
+          '卡鲁因清真寺': '摩洛哥多数清真寺只对穆斯林开放，非穆斯林在门口外面看一眼就好，别往里走。',
+          '亚庇市立清真寺': MOS_DRESS, '朱玛清真寺': MOS_DRESS, '比比哈努姆清真寺': MOS_DRESS, '东关清真大寺': MOS_DRESS}
+
+
+def mosque_note(d):
+    """当天去清真寺：着装、礼拜时段、可否入内。表里没有的（谢赫扎耶德等）页面上本来就写了着装。名字必须整名相等"""
+    for w in d['rows']:
+        if w['type'] in ('see', 'fun') and (w.get('name') or '') in MOSQUE:
+            return f'<p class="alt mosque"><b>清真寺</b>{MOSQUE[w["name"]]}</p>'
+    return ''
+
+
 def trip_page(rid):
     CUR_RID[0] = rid
     r = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}; d0 = DEST.get(t.get('dest'), {})
@@ -2355,7 +2371,7 @@ def trip_page(rid):
         if _alt_html: ALT_SEEN[_tier] = True
         _fe = ferry_note(d, not FERRY_SEEN[0], rid, ''.join(row_html(w, city, app) for w in rows))
         if _fe and 'alt ferry"><b>今天要坐船' in _fe: FERRY_SEEN[0] = True
-        _alt_html += _fe
+        _alt_html += _fe + mosque_note(d)
         days.append(f'<section class="day" id="d{i + 1}" data-city="{E(d.get("navCity") or d.get("city") or "")}"><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
                     f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (d.get("clim") or {}).get(str(dates[i].month)) else ""}</p>' + sj_lines(_sj.get(i, [])) + f'{_alt_html}{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
         sights += [w['name'] for w in d['rows'] if w['type'] == 'see' and w.get('poi')]
