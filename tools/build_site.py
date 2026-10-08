@@ -2140,6 +2140,15 @@ def compute_denies():
     return len(DENY)
 
 
+def alt_note(e, first=True):     # first：这一档（≥3,500 / ≥2,500）在本页是不是第一次出现
+    """当天最高点的海拔 → 行动建议。第一次到高海拔的那天写全，之后的天只写一句简短提醒（免得每天重复一大段）"""
+    if e < 2500: return ''
+    if not first: return f'<p class="alt"><b>海拔 {e:,} 米</b>注意高反：慢慢走、多喝水，头疼恶心就停下来歇。</p>'
+    if e >= 3500:
+        return f'<p class="alt"><b>海拔 {e:,} 米</b>到了先歇一天，别洗澡、别喝酒、别剧烈运动，慢慢走、多喝水；出发前问问医生，备好便携氧气瓶；头疼、恶心、嘴唇发紫别硬撑，马上往低处走。</p>'
+    return f'<p class="alt"><b>海拔 {e:,} 米</b>头一天别洗澡、别喝酒、别剧烈运动，慢慢走、多喝水；心肺有毛病的先问问医生。</p>'
+
+
 def trip_page(rid):
     CUR_RID[0] = rid
     r = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}; d0 = DEST.get(t.get('dest'), {})
@@ -2169,6 +2178,9 @@ def trip_page(rid):
     if has_cost:
         glance += f'<div class="ppl" hidden><span>{"租车按车分摊，两人一间" if cost.get("perCar") else "两人一间，一个人单独一间"}</span><div><button type="button" data-d="-1" aria-label="少一个人">−</button><b>2 人</b><button type="button" data-d="1" aria-label="多一个人">+</button></div></div>'
     prep_items = list(r.get('prep') or [])
+    _mx = max([(d_.get('elev') or 0) for d_ in r['days']] + [0])
+    if _mx >= 3000 and not any(re.search(r'高反|高原反应|氧气|高海拔', x) for x in prep_items):
+        prep_items.append(f'行程最高到 {_mx:,} 米：提前问问医生，备好便携氧气瓶和常用药，头一天别洗澡、别剧烈运动')
     for dd in r['days']:
         for w in dd['rows']:
             bk = book_of(w.get('name')) if w['type'] in ('see', 'fun') else None
@@ -2183,6 +2195,7 @@ def trip_page(rid):
     daynav = f'<nav class="daynav{" long" if n > 9 else ""}" aria-label="跳到第几天">' + ''.join(f'<a href="#d{i + 1}">{i + 1}</a>' for i in range(n)) + '</nav>'
     days = []; sights = []; navprev = None
     STAYFIX = stay_fix(r)
+    ALT_SEEN = {'35': False, '25': False}     # 两档各自第一次写全文
     for i, d in enumerate(r['days']):
         STORY_NOW[0] = d.get('story') or ''
         city = d.get('navCity') or d.get('city'); rows = list(d['rows'])
@@ -2267,8 +2280,11 @@ def trip_page(rid):
                 if c_: lastpt = c_
         navprev = lastpt
         rows = [w for k_, w in enumerate(rows) if not (w['type'] == 'dep' and w.get('to') == '吃晚饭' and (w.get('how') or '') in ('打车或步行', ''))]
+        _tier = '35' if (d.get('elev') or 0) >= 3500 else '25'
+        _alt_html = alt_note(d.get('elev') or 0, not ALT_SEEN[_tier])
+        if _alt_html: ALT_SEEN[_tier] = True
         days.append(f'<section class="day" id="d{i + 1}" data-city="{E(d.get("navCity") or d.get("city") or "")}"><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
-                    f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (d.get("clim") or {}).get(str(dates[i].month)) else ""}</p>' + sj_lines(_sj.get(i, [])) + f'{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
+                    f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (d.get("clim") or {}).get(str(dates[i].month)) else ""}</p>' + sj_lines(_sj.get(i, [])) + f'{_alt_html}{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
         sights += [w['name'] for w in d['rows'] if w['type'] == 'see' and w.get('poi')]
     desc = f'{r["title"]}：{n} 天按天排好，' + '、'.join(dict.fromkeys(re.split(r'\s*·\s*', ' · '.join(x['title'] for x in r['days']))))[:70] + '。' + season_text(t)
     ld = {'@context': 'https://schema.org', '@type': 'TouristTrip', 'name': r['title'], 'description': desc, 'url': BASE + f'/trip/{rid}/', 'inLanguage': 'zh-CN',

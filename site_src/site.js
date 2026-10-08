@@ -84,6 +84,12 @@
   var MOB=/iPhone|iPad|Android/i.test(navigator.userAgent),WXB=/MicroMessenger/i.test(navigator.userAgent);
   if(!MOB||WXB)document.documentElement.classList.add('noapp');
   if(WXB){try{if(!sessionStorage.getItem('zouni_wxtip')){sessionStorage.setItem('zouni_wxtip','1');setTimeout(function(){if(typeof toast==='function')toast('微信里打不开高德、携程、点评、小红书：点右上角 ··· 选“在浏览器打开”')},1200)}}catch(e){}}
+  // ——— 微信里打不开高德、携程等 App：景点和酒店名旁边放一个“复制”，复制“城市 + 名字”，去别的 App 里粘贴搜索 ———
+  function zCopy(txt,msg){var done=function(){if(typeof toast==='function')toast(msg)},fail=function(){prompt('复制这个名字',txt)};try{navigator.clipboard.writeText(txt).then(done,fail)}catch(e){fail()}}   // 剪贴板被拒绝时弹出让用户自己复制，不说“已复制”
+  window.zAddCopy=function(){if(!document.documentElement.classList.contains('wx'))return;[].slice.call(document.querySelectorAll('.tl > li.r.see .m, .tl > li.r.fun .m, .tl > li.r.stay .m, .stays .tg')).forEach(function(m){if(m.querySelector('.cpy'))return;var b=document.createElement('button');b.type='button';b.className='cpy';b.setAttribute('aria-label','复制名字');b.textContent='复制';m.appendChild(b)})};
+  if(WXB){document.documentElement.classList.add('wx');window.zAddCopy()}
+  document.addEventListener('click',function(e){var b=e.target.closest('.cpy');if(!b)return;e.preventDefault();var m=b.parentNode,nm=(m.childNodes[0]&&m.childNodes[0].textContent||'').replace(/^住\s*·\s*/,'').trim(),dy=b.closest('.day'),ct=dy&&dy.dataset.city||'';
+    var txt=(ct&&nm.indexOf(ct)<0?ct+' ':'')+nm;zCopy(txt,'已复制「'+txt+'」，到高德或小红书里粘贴搜索')});
   document.addEventListener('click',function(e){var a=e.target.closest('a.tl2,.stays .bk a.btn');if(!a||!MOB||WXB)return;   // 订酒店：在携程 App 里打开这家
     e.preventDefault();try{zOpen('ctrip://wireless/h5?url='+btoa(a.href)+'&type=2','携程旅行')}catch(x){}});
 
@@ -229,7 +235,7 @@
           var dm=svg.querySelector('.dms');if(dm)dm.innerHTML=h;
           var xl=svg.querySelector('.xl');if(xl)xl.innerHTML=list.filter(function(it){return it.from&&it.p}).map(function(it){return'<path d="M'+it.from[0].toFixed(1)+','+it.from[1].toFixed(1)+' L'+it.p[0].toFixed(1)+','+it.p[1].toFixed(1)+'" fill="none" stroke="#a63d27" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round"/>'}).join('');
           var lg=svg.parentNode.querySelector('.hlegend');if(lg)lg.innerHTML=list.map(function(it,i){return it.nm?'<span><b>'+(i+1)+'</b>'+String(it.nm).replace(/</g,'&lt;')+'</span>':''}).join('')}
-        function renum(){setTimeout(function(){if(priceHook)priceHook()},0);var secs=[].slice.call(document.querySelectorAll('.day'));
+        function renum(){setTimeout(function(){if(priceHook)priceHook();if(window.zAddCopy)window.zAddCopy()},0);var secs=[].slice.call(document.querySelectorAll('.day'));
           secs.forEach(function(sec,i){sec.id='d'+(i+1);var no=sec.querySelector('.no');if(no)no.textContent=('0'+(i+1)).slice(-2);var sm=sec.querySelector('header small');if(sm){var p=sm.textContent.split(' · ');sm.textContent=cnDay(i)+(p.length>1?' · '+p.slice(1).join(' · '):'')}});
           var nv=document.querySelector('.daynav');if(nv){var a=nv.querySelectorAll('a');for(var k=a.length;k<secs.length;k++)nv.insertAdjacentHTML('beforeend','<a href="#d'+(k+1)+'">'+(k+1)+'</a>');for(var k2=a.length-1;k2>=secs.length;k2--)a[k2].remove()}
           var ol=document.querySelector('.overview ol'),lis=ol?ol.children:[];
@@ -630,7 +636,8 @@
         if(ws&&we){var wrp=ws>we,ins=wrp?(mdn>=ws||mdn<=we):(mdn>=ws&&mdn<=we);if(!ins)return}   // 不在最好的日子里的不推荐（原来会把 12 月的冬捕推给 10 月的人）
         if(st.w==='o'){var cl=null;try{cl=JSON.parse(li.dataset.clim||'{}')[tdy.getMonth()+1]}catch(e){}if(cl&&(cl[1]<=-10||cl[0]<=-3))return}   // 带老人孩子：夜里零下十度以下的不推荐
         if(st.d==='w'){if(n>3)return;s+=d<=300?50:d<=500?35:d<=700?12:d<=1200?-10:-40}   // 周末只有两三天：路上超过大半天的往后排else if(st.d==='m'){if(n<4||n>5)return;s+=d<=2500?20:0}else{if(n<6)return;s+=10}
-        if(st.w==='o'&&li.dataset.hi==='1')return;if(st.w==='o'&&li.dataset.drv==='1'&&n>8)s-=15;
+        if(st.w==='o'&&(li.dataset.hi==='1'||li.dataset.ab==='1'))return;   // 带老人孩子：不上高原、不出国（签证和长途飞行，国外线“出发前”还没做细）
+        if(st.w==='o'&&li.dataset.drv==='1'&&n>8)s-=15;
         var kk=((li.querySelector('.k')||{}).textContent||'').replace(/\s+/g,' ').trim();if(/正当季|最好/.test(kk))s+=12;if(/最后/.test(kk))s+=6;if(li.closest('#drive'))s+=st.d==='l'?10:-5;if(li.dataset.img==='1')s+=3;
         var on2=st.o==='here'?'你这里':st.o;
         if(li.dataset.ab==='1')why.push('从'+on2+'飞过去约 '+Math.max(1,Math.round(d/700+1))+' 小时');else if(d<80)why.push('就在'+on2+'附近');else if(d<=300)why.push(on2+'过去直线约 '+d+' 公里，路上至少 '+Math.max(1,Math.ceil(d/110))+' 小时（山区更久）');else if(d<=800)why.push(on2+'过去直线约 '+d+' 公里，路上要大半天');else why.push(on2+'过去直线约 '+d+' 公里，坐飞机最省事');

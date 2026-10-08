@@ -119,6 +119,12 @@ if site:
         n0 = int(m.group(1)); st = datetime.date.fromisoformat(m.group(3)); mons = [int(x) for x in m.group(2).split(',') if x]
         if st <= today: bad.append(f'{rid} 默认出发日 {st} 不晚于今天')
         if len(re.findall(r'<section class="day"', h)) != n0: bad.append(f'{rid} 天数 {n0} 与页面里的天数不一致')
+        dt = re.search(r'class="dtw dt"[^>]*>([^<]*)', h)
+        if st.year > today.year and dt and '明年' not in dt.group(1): bad.append(f'{rid} 默认出发日在明年（{st}）但页头没写“明年”')
+        mx_ = max([int(x.replace(',', '')) for x in re.findall(r'<p class="alt"><b>海拔 ([\d,]+) 米', h)] + [0])
+        if re.search(r'行程最高到 ([\d,]+) 米', h):
+            top = int(re.search(r'行程最高到 ([\d,]+) 米', h).group(1).replace(',', ''))
+            if top >= 3000 and '氧气' not in h: bad.append(f'{rid} 最高到 {top} 米但页面里没有氧气/高反提示')
         if mons and any((st + datetime.timedelta(days=i)).weekday() == 0 for i in mons): bad.append(f'{rid} 默认出发日 {st} 让周一闭馆的那天落在周一')
     if bad: fails.append(('页面不变量', bad))
     deny = os.path.join(ROOT, 'build', 'denies.txt')
@@ -137,6 +143,53 @@ if site:
                 body = re.sub(r'<[^>]+>', ' ', open(p, encoding='utf-8').read())
                 if txt in body: bad7.append(f'{rid} 页面里仍有被拒绝的一句话（{k}）：{txt}')
     if bad7: fails.append(('串线：被闸拒绝的文案仍出现在页面里', bad7))
+
+# 8 编译结果（build/routes.js）：返程车程、页头最长车程
+RJS = os.path.join(ROOT, 'build', 'routes.js')
+if os.path.exists(RJS):
+    R = json.loads(re.search(r'window.ZOUNI_ROUTES=(.*);\n', open(RJS, encoding='utf-8').read()).group(1))
+    def mins(x):
+        m = re.search(r'约 (\d+) 小时(?: (\d+) 分)?', x or '')
+        if m: return int(m.group(1)) * 60 + int(m.group(2) or 0)
+        m = re.search(r'约 (\d+) 分', x or ''); return int(m.group(1)) if m else None
+    LONG_BACK_OK = {'xhg3', 'xzlz7', 'asw4', 'syd6', 'nzs7', 'prg4', 'xm4'}      # 回程 >2.5 小时、人工确认过确实那么远的当天往返
+    bad = []; bad2 = []; bad3 = []
+    for rid, r in R.items():
+        mx = 0
+        for i, d in enumerate(r['days']):
+            deps = [w for w in d['rows'] if w['type'] == 'dep']
+            back = [w for w in deps if (w.get('how') or '').startswith('回住处')]
+            withdur = [w for w in deps if (w.get('to') == '住处') and mins(w.get('how')) and mins(w.get('how')) >= 60]
+            if len(withdur) > 1: bad.append(f'{rid} 第{i + 1}天：两段“出发→住处”都带 1 小时以上车程')
+            if back:
+                bm = mins(back[0]['how']); out = [mins(w.get('how')) for w in deps if (w.get('how') or '').startswith(('包车', '自驾', '开车', '火车', '大巴', '高铁'))]; out = [x for x in out if x]
+                if bm and out and not (0.5 <= bm / max(out) <= 2): bad.append(f'{rid} 第{i + 1}天：回住处 {bm} 分钟，去程最长 {max(out)} 分钟（比值超出 0.5–2）')
+                if bm and bm > 150 and rid not in LONG_BACK_OK: bad.append(f'{rid} 第{i + 1}天：回住处 {bm} 分钟 > 2.5 小时，不在人工确认的名单里（多半是坐标不对）')
+            drive = sum((mins(w.get('how')) or 0) for w in deps if (w.get('how') or '').startswith(('包车', '自驾', '开车', '回住处 · 包车', '回住处 · 自驾', '回住处 · 开车')))
+            mx = max(mx, drive)
+        m = re.search(r'最长一天 ([\d.]+) 小时', r.get('driveSub') or '')
+        if m and mx >= 120 and float(m.group(1)) * 60 < 0.6 * mx: bad2.append(f'{rid} 页头“最长一天 {m.group(1)} 小时”，实际某天开车约 {round(mx / 60, 1)} 小时')
+    if bad: fails.append(('回程车程不自洽（同一天两段回程、去回时间比、过长回程）', bad))
+    if bad2: fails.append(('页头“最长一天”比实际车程短太多', bad2))
+    # 价格：去掉任意一天后，价格上下限都不得上升（用页面里的费用明细按网页的公式算）
+    if site:
+        bad = []
+        for f in glob.glob(os.path.join(site, 'trip', '*', 'index.html')):
+            rid = f.split('/')[-2]; h = open(f, encoding='utf-8').read()
+            mc = re.search(r'data-cost=\'([^\']*)\'', h); mn = re.search(r'data-n0="(\d+)"', h)
+            if not mc or not mc.group(1) or not mn: continue
+            import html as _h
+            C = json.loads(_h.unescape(mc.group(1))); n0 = int(mn.group(1))
+            def price(dn, N=2):
+                rd = dn / n0; rn = max(dn - 1, 0) / (n0 - 1) if n0 > 1 else 1
+                rooms = math.ceil(N / 2); car = math.ceil(N / 4) * C['carTotal'] / N if C.get('perCar') else C.get('tollsPP', 0); lodge = C['lodgeRoom'] * rooms / N
+                loc = (C['tixPP'] + C['foodPP'] + car) * rd + lodge * rn
+                return loc + C['trans'][0], loc + C['trans'][1]
+            full = price(n0)
+            for dn in range(1, n0):
+                lo, hi = price(dn)
+                if lo > full[0] + 1 or hi > full[1] + 1: bad.append(f'{rid} 去掉到 {dn} 天价格反而上升'); break
+        if bad: fails.append(('价格不单调：去掉一天后价格上升', bad))
 
 if fails:
     for title, items in fails:
