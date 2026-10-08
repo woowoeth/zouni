@@ -85,7 +85,13 @@
   if(!MOB||WXB)document.documentElement.classList.add('noapp');
   if(WXB){try{if(!sessionStorage.getItem('zouni_wxtip')){sessionStorage.setItem('zouni_wxtip','1');setTimeout(function(){if(typeof toast==='function')toast('微信里打不开高德、携程、点评、小红书：点右上角 ··· 选“在浏览器打开”')},1200)}}catch(e){}}
   // ——— 微信里打不开高德、携程等 App：景点和酒店名旁边放一个“复制”，复制“城市 + 名字”，去别的 App 里粘贴搜索 ———
-  function zCopy(txt,msg){var done=function(){if(typeof toast==='function')toast(msg)},fail=function(){prompt('复制这个名字',txt)};try{navigator.clipboard.writeText(txt).then(done,fail)}catch(e){fail()}}   // 剪贴板被拒绝时弹出让用户自己复制，不说“已复制”
+  // 剪贴板不能用时（微信 X5 内核里 prompt() 可能不弹）：页面里弹一个选中好的文本框，长按复制
+  function zCopyBox(txt,title){var mask=document.createElement('div');mask.className='pk-mask';var sh=document.createElement('div');sh.className='pk';sh.setAttribute('role','dialog');
+    sh.innerHTML='<div class="pk-h"><b>'+title+'</b><button type="button" class="pk-x">关上</button></div><p class="xnote">长按下面的文字，选“复制”</p><textarea class="cpbox" readonly rows="3"></textarea>';
+    var ta=sh.querySelector('textarea');ta.value=txt;document.body.appendChild(mask);document.body.appendChild(sh);document.body.classList.add('pk-open');
+    try{ta.focus();ta.select();ta.setSelectionRange(0,txt.length)}catch(e){}
+    function cl(){mask.remove();sh.remove();document.body.classList.remove('pk-open')}sh.querySelector('.pk-x').addEventListener('click',cl);mask.addEventListener('click',cl)}
+  function zCopy(txt,msg){var done=function(){if(typeof toast==='function')toast(msg)},fail=function(){zCopyBox(txt,'复制这个名字')};try{navigator.clipboard.writeText(txt).then(done,fail)}catch(e){fail()}}   // 剪贴板被拒绝时弹出让用户自己复制，不说“已复制”
   window.zAddCopy=function(){if(!document.documentElement.classList.contains('wx'))return;[].slice.call(document.querySelectorAll('.tl > li.r.see .m, .tl > li.r.fun .m, .tl > li.r.stay .m, .stays .tg')).forEach(function(m){if(m.querySelector('.cpy'))return;var b=document.createElement('button');b.type='button';b.className='cpy';b.setAttribute('aria-label','复制名字');b.textContent='复制';m.appendChild(b)})};
   if(WXB){document.documentElement.classList.add('wx');window.zAddCopy()}
   document.addEventListener('click',function(e){var b=e.target.closest('.cpy');if(!b)return;e.preventDefault();var m=b.parentNode,nm=(m.childNodes[0]&&m.childNodes[0].textContent||'').replace(/^住\s*·\s*/,'').trim(),dy=b.closest('.day'),ct=dy&&dy.dataset.city||'';
@@ -173,7 +179,7 @@
     if(fb){paint();fb.addEventListener('click',function(){var f=ld('zouni_fav'),on=f.some(function(x){return x.id===me.id});f=on?f.filter(function(x){return x.id!==me.id}):[me].concat(f);sv('zouni_fav',f);paint();toast(on?'已从我的行程里拿掉':'已收进，本期页“我的行程”里能找到')})}
     // 分享、复制
     // 分享链接：剪贴板被拒绝（微信、iOS 常见）时不能说“已复制”，改成弹出让用户自己复制
-    function shareLink(){var u=myLink();if(navigator.share){navigator.share({title:document.title,url:u}).catch(function(){})}else{try{navigator.clipboard.writeText(u).then(function(){toast('链接已复制')},function(){prompt('复制这个链接',u)})}catch(e){prompt('复制这个链接',u)}}}
+    function shareLink(){var u=myLink();if(navigator.share){navigator.share({title:document.title,url:u}).catch(function(){})}else{try{navigator.clipboard.writeText(u).then(function(){toast('链接已复制')},function(){zCopyBox(u,'复制这个链接')})}catch(e){zCopyBox(u,'复制这个链接')}}}
     var sh=document.querySelector('.share');if(sh)sh.addEventListener('click',function(){var mask=document.createElement('div');mask.className='pk-mask';var s2=document.createElement('div');s2.className='pk';
       s2.innerHTML='<div class="pk-h"><b>分享</b><button type="button" class="pk-x">关上</button></div><div class="xd"><button type="button" data-a="link"><b>发链接给朋友</b><small>'+(myState()?'带上你改过的日期、时间和加的天':'原版行程')+'</small></button><button type="button" data-a="copy"><b>复制整条行程</b><small>按天的时间和地点，可以直接粘贴到微信</small></button><button type="button" data-a="shot"><b>生成分享图</b><small>长按保存，发朋友圈</small></button><button type="button" data-a="print"><b>打印 / 存成 PDF</b><small>一页页的行程单，给家里人或者出门带着</small></button></div>';
       function cl(){mask.remove();s2.remove();document.body.classList.remove('pk-open')}
@@ -182,7 +188,7 @@
     function copyTrip(){var out=[document.querySelector('.hero h1').innerText,location.href.split('#')[0],''];
       document.querySelectorAll('.day').forEach(function(d){out.push(d.querySelector('header small').innerText+' · '+d.querySelector('h2').innerText);
         d.querySelectorAll('.tl .r').forEach(function(r){if(r.classList.contains('dep'))return;out.push('  '+r.querySelector('time').innerText+'  '+r.querySelector('.m').innerText.replace(/\s+/g,' ').trim())});out.push('')});
-      var txt=out.join('\n');try{navigator.clipboard.writeText(txt).then(function(){toast('行程已复制，可以直接粘贴到微信')},function(){prompt('复制下面的行程',txt)})}catch(e){prompt('复制下面的行程',txt)}}
+      var txt=out.join('\n');try{navigator.clipboard.writeText(txt).then(function(){toast('行程已复制，可以直接粘贴到微信')},function(){zCopyBox(txt,'复制下面的行程')})}catch(e){zCopyBox(txt,'复制下面的行程')}}
     // 改出发日期：日期、星期、日出日落、往年气温、底栏一起变；记在本机
     var dk=document.querySelector('.dpk'),dtb=document.querySelector('.dt');
     if(dk&&dtb){var sk='zouni_start_'+me.id,W='日一二三四五六';
@@ -636,6 +642,7 @@
         if(ws&&we){var wrp=ws>we,ins=wrp?(mdn>=ws||mdn<=we):(mdn>=ws&&mdn<=we);if(!ins)return}   // 不在最好的日子里的不推荐（原来会把 12 月的冬捕推给 10 月的人）
         if(st.w==='o'){var cl=null;try{cl=JSON.parse(li.dataset.clim||'{}')[tdy.getMonth()+1]}catch(e){}if(cl&&(cl[1]<=-10||cl[0]<=-3))return}   // 带老人孩子：夜里零下十度以下的不推荐
         if(st.d==='w'){if(n>3)return;s+=d<=300?50:d<=500?35:d<=700?12:d<=1200?-10:-40}   // 周末只有两三天：路上超过大半天的往后排else if(st.d==='m'){if(n<4||n>5)return;s+=d<=2500?20:0}else{if(n<6)return;s+=10}
+        if(st.v==='n'&&li.dataset.sd==='1')return;   // 出行方式选了“不开车”：要自己开车的线不推荐
         if(st.w==='o'&&(li.dataset.hi==='1'||li.dataset.ab==='1'))return;   // 带老人孩子：不上高原、不出国（签证和长途飞行，国外线“出发前”还没做细）
         if(st.w==='o'&&li.dataset.drv==='1'&&n>8)s-=15;
         var kk=((li.querySelector('.k')||{}).textContent||'').replace(/\s+/g,' ').trim();if(/正当季|最好/.test(kk))s+=12;if(/最后/.test(kk))s+=6;if(li.closest('#drive'))s+=st.d==='l'?10:-5;if(li.dataset.img==='1')s+=3;
@@ -646,12 +653,12 @@
         sc.push({s:s,li:li,href:href,why:why.join(' · ')})});
       sc.sort(function(a,b){return b.s-a.s});var top=[],dests={};sc.forEach(function(x){var t=x.li.querySelector('h3').textContent.split(' · ')[0];if(top.length<3&&!dests[t]){dests[t]=1;top.push(x)}});return top}
     function render(){var ready=st.o&&st.d&&st.w,res=ready?pick():[];
-      sec.innerHTML='<h2>替我挑三条<small>答三个问题</small></h2>'+'<p class="pkq">从哪出发</p>'+chips('o',[['here','📍 当前位置']].concat(Object.keys(C).filter(function(c){return c!=='here'}).map(function(c){return[c,c]})))+'<p class="pkq">玩几天</p>'+chips('d',[['w','周末 2–3 天'],['m','4–5 天'],['l','一周以上']])+'<p class="pkq">和谁去</p>'+chips('w',[['f','自己或朋友'],['c','两个人'],['o','带老人孩子']])+
+      sec.innerHTML='<h2>替我挑三条<small>答三个问题</small></h2>'+'<p class="pkq">从哪出发</p>'+chips('o',[['here','📍 当前位置']].concat(Object.keys(C).filter(function(c){return c!=='here'}).map(function(c){return[c,c]})))+'<p class="pkq">玩几天</p>'+chips('d',[['w','周末 2–3 天'],['m','4–5 天'],['l','一周以上']])+'<p class="pkq">和谁去</p>'+chips('w',[['f','自己或朋友'],['c','两个人'],['o','带老人孩子']])+'<p class="pkq">出行方式<small>可不选</small></p>'+chips('v',[['a','自驾也行'],['n','不开车']])+
         (ready?(res.length?'<ol class="pkres">'+res.map(function(x,i){var img=x.li.querySelector('img');return'<li><a href="'+x.href+'"><span class="pkn">'+(i+1)+'</span><div><b>'+x.li.querySelector('h3').textContent+'</b><small>'+x.why+'</small></div>'+(img?'<img src="'+(img.getAttribute('src')||img.dataset.src||'')+'" alt="" loading="lazy">':'')+'</a></li>'}).join('')+'</ol>'+(res.length<3?'<p class="pkhint">按你选的（出发地、天数、当季、'+(st.w==='o'?'避开极寒和高原、':'')+'路程）现在只有 '+res.length+' 条合适的；换个“玩几天”或“和谁去”会多一些。</p>':''):'<p class="pkhint">这个时间没找到合适的，换个天数试试，或者把出发日期往后挪</p>'):'<p class="pkhint">选好三项，马上给你三条</p>');
       var on=sec.querySelector('.pkr[data-k="o"] .on');if(on)on.scrollIntoView({inline:'center',block:'nearest'});
       [].slice.call(sec.querySelectorAll('.pkr button')).forEach(function(b){b.addEventListener('click',function(){var k=b.parentNode.dataset.k;
           if(k==='o'&&b.dataset.v==='here'){if(!navigator.geolocation){toast('这个浏览器拿不到位置，选个城市吧');return}b.textContent='📍 定位中…';navigator.geolocation.getCurrentPosition(function(p){st.o='here';st.lat=+p.coords.latitude.toFixed(3);st.lng=+p.coords.longitude.toFixed(3);C['here']=[st.lat,st.lng];try{localStorage.setItem(PK,JSON.stringify(st))}catch(e){}var y=scrollY;render();scrollTo(0,y);document.dispatchEvent(new Event('zouni:origin'))},function(){toast('没拿到位置（可能没给定位权限），选个城市吧');b.textContent='📍 当前位置'},{timeout:8000,maximumAge:600000});return}
-          st[k]=b.dataset.v;try{localStorage.setItem(PK,JSON.stringify(st));if(k==='o')localStorage.setItem('zouni_org',b.dataset.v)}catch(e){}var y=scrollY;render();scrollTo(0,y);if(k==='o')document.dispatchEvent(new Event('zouni:origin'));ztrack('替我挑·'+({o:'出发地',d:'天数',w:'和谁'}[k]||k))})})}
+          st[k]=b.dataset.v;try{localStorage.setItem(PK,JSON.stringify(st));if(k==='o')localStorage.setItem('zouni_org',b.dataset.v)}catch(e){}var y=scrollY;render();scrollTo(0,y);if(k==='o')document.dispatchEvent(new Event('zouni:origin'));ztrack('替我挑·'+({o:'出发地',d:'天数',w:'和谁',v:'出行方式'}[k]||k))})})}
     render()})();
   // ——— 首页“长途和自驾”：再看全部 ———
   var dm=document.querySelector('.dmore');if(dm)dm.addEventListener('click',function(){document.querySelectorAll('#drive .items li[hidden]').forEach(function(li){li.hidden=false});dm.remove()});

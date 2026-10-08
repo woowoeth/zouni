@@ -2140,6 +2140,27 @@ def compute_denies():
     return len(DENY)
 
 
+SCHENGEN = {'france', 'italy', 'spain', 'iceland', 'switzerland', 'greece', 'portugal', 'czech', 'austria', 'germany', 'netherlands', 'croatia', 'norway', 'finland', 'belgium'}
+
+
+def foreign_prep(r, d0, existing):
+    """国外线“出发前要办的事”：签证、护照有效期、保险、自驾的驾照。只写通行的事实，政策常变，一律注明以官网为准。
+    已经写过的不重复（线路自己的 prep 里提过签证/驾照就不再加）"""
+    if d0.get('scope') == 'domestic': return []
+    did = d0.get('id') or ''; out = []
+    has = lambda pat: any(re.search(pat, x) for x in existing)
+    if did in SCHENGEN:
+        out.append('申根签证：向停留最久的那个国家的使馆或签证中心申请，一般提前 1 到 3 个月办；要有医疗保险（保额不低于 3 万欧元），护照签发不超过 10 年、离开申根区后还有 3 个月以上有效，至少 2 页空白页')
+    else:
+        if d0.get('visa') and not has(r'签证|免签|落地签|电子签'): out.append(f'签证：{d0["visa"]}（政策常变，以出发前官网为准）')
+        out.append('护照有效期：多数国家要求离境时还有 6 个月以上，订机票之前先对一下')
+        if not has(r'保险'): out.append('买一份境外旅行保险（含医疗和航班延误）')
+    drive = any((w.get('how') or '').startswith(('自驾', '开车', '回住处 · 自驾', '回住处 · 开车')) for dd in r['days'] for w in dd['rows']) or bool(r.get('drive'))
+    if drive and not has(r'驾照|驾驶证|国际驾'):
+        out.append('自驾：中国驾照在国外多数地方不能直接租车，要带驾照原件和公证过的外文翻译件（有的国家要国际驾照，以租车公司和当地规定为准），订车时问清')
+    return out
+
+
 def alt_note(e, first=True):     # first：这一档（≥3,500 / ≥2,500）在本页是不是第一次出现
     """当天最高点的海拔 → 行动建议。第一次到高海拔的那天写全，之后的天只写一句简短提醒（免得每天重复一大段）"""
     if e < 2500: return ''
@@ -2178,6 +2199,7 @@ def trip_page(rid):
     if has_cost:
         glance += f'<div class="ppl" hidden><span>{"租车按车分摊，两人一间" if cost.get("perCar") else "两人一间，一个人单独一间"}</span><div><button type="button" data-d="-1" aria-label="少一个人">−</button><b>2 人</b><button type="button" data-d="1" aria-label="多一个人">+</button></div></div>'
     prep_items = list(r.get('prep') or [])
+    prep_items = foreign_prep(r, dict(d0, id=t.get('dest')), prep_items) + prep_items     # 国外线：签证、护照、保险、驾照放在最前面
     _mx = max([(d_.get('elev') or 0) for d_ in r['days']] + [0])
     if _mx >= 3000 and not any(re.search(r'高反|高原反应|氧气|高海拔', x) for x in prep_items):
         prep_items.append(f'行程最高到 {_mx:,} 米：提前问问医生，备好便携氧气瓶和常用药，头一天别洗澡、别剧烈运动')
@@ -2508,8 +2530,9 @@ def home_page():
         _pts = [p_ for k_ in range(n) for p_ in [day_point(rr, k_)] if p_]
         _c = (sum(p_[0] for p_ in _pts) / len(_pts), sum(p_[1] for p_ in _pts) / len(_pts)) if _pts else (dd.get('lat'), dd.get('lng'))
         _hi = 1 if max([(d_.get('elev') or 0) for d_ in rr['days']] + [0]) >= 3000 else 0
+        _sd = 1 if (rr.get('drive') or any((w_.get('how') or '').startswith(('自驾', '开车', '回住处 · 自驾', '回住处 · 开车')) or '提车' in (w_.get('name') or w_.get('to') or '') for d_ in rr['days'] for w_ in d_['rows'])) else 0     # 要自己开车（自驾、提车）：首页“不开车”要排除
         extra = (f' data-ws="{wb[0]}" data-we="{wb[1]}" data-img="{1 if rr.get("img") else 0}" data-comp="{1 if rr.get("compiled") else 0}" data-clim=\'{E(json.dumps(dd.get("climate") or {}))}\''
-                 + (f' data-lat="{_c[0]:.3f}" data-lng="{_c[1]:.3f}"' if _c[0] else '') + f' data-hi="{_hi}" data-drv="{1 if rr.get("drive") else 0}" data-ab="{0 if dd.get("scope") == "domestic" else 1}"'
+                 + (f' data-lat="{_c[0]:.3f}" data-lng="{_c[1]:.3f}"' if _c[0] else '') + f' data-hi="{_hi}" data-drv="{1 if rr.get("drive") else 0}" data-sd="{_sd}" data-ab="{0 if dd.get("scope") == "domestic" else 1}"'
                  f' data-t="{E(rr["title"])}" data-n="{n}" data-pr="{E(price_k(rr.get("price")))}" data-src="{E(_src)}" data-h="/trip/{rid}/"')
         img = (rr.get('img') or '').replace('/_blob/', '')
         if not (img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg'))) and os.path.exists(os.path.join('site_src', 'posters', rid + '.svg')): img = 'p/' + rid

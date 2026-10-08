@@ -108,6 +108,16 @@ for rid, v in I.items():
             if g and g[0] > 0: bad.append(f'{rid} {s["name"]} 纬度 {g[0]}（南半球应为负）')
 if bad: fails.append(('南半球国家的站点纬度为正', bad))
 
+# 5b 低平的国家和省份不会有 ≥3000 米的天（按地名补海拔时“塞拉萨里”误含“拉萨”、“松花湖”误含“花湖”就是这样发现的）
+LOW = {'finland', 'norway', 'germany', 'netherlands', 'belgium', 'croatia', 'czech', 'uk', 'ireland', 'portugal', 'spain', 'greece', 'egypt', 'thailand', 'vietnam', 'malaysia', 'singapore', 'cambodia', 'laos', 'japan', 'korea',
+       'jilin', 'heilongjiang', 'liaoning', 'shandong', 'jiangsu', 'zhejiang', 'fujian', 'guangdong', 'hainan', 'shanghai', 'tianjin', 'anhui', 'jiangxi', 'hunan', 'henan', 'guangxi', 'chongqing', 'beijing', 'hongkong', 'macau'}
+bad = []
+for rid, v in I.items():
+    if v['dest'] in LOW:
+        for i, d in enumerate(v['days']):
+            if (d.get('elev') or 0) >= 3000 and not (rid == 'hbel8' or rid == 'wgs2'): bad.append(f'{rid} 第{i + 1}天 海拔 {d["elev"]}（{v["dest"]} 不该有 ≥3000 米）')
+if bad: fails.append(('低平地区出现 ≥3000 米的天（海拔补错了）', bad))
+
 # 6/7 页面
 site = sys.argv[1] if len(sys.argv) > 1 else None
 if site:
@@ -119,9 +129,19 @@ if site:
         n0 = int(m.group(1)); st = datetime.date.fromisoformat(m.group(3)); mons = [int(x) for x in m.group(2).split(',') if x]
         if st <= today: bad.append(f'{rid} 默认出发日 {st} 不晚于今天')
         if len(re.findall(r'<section class="day"', h)) != n0: bad.append(f'{rid} 天数 {n0} 与页面里的天数不一致')
+        if 'data-app="google"' in h:        # 国外线：必须有护照事项；自驾的必须有驾照提示（“订了机票才发现不能入境/不能租车”）
+            _t = re.sub(r'<[^>]+>', ' ', h)
+            if '护照' not in _t: bad.append(f'{rid} 国外线“出发前”里没有护照/签证事项')
+            _deps = ' '.join(re.sub(r'<[^>]+>', ' ', x) for x in re.findall(r'<li class="r dep"[^>]*>(.*?)</li>', h, flags=re.S))      # 只看时间轴里的“出发 →”行
+            if re.search(r'→[^自开]{0,30}(自驾约|开车约|自驾 |开车 )', _deps) and not re.search(r'驾照|国际驾', _t): bad.append(f'{rid} 国外自驾线没有驾照提示')
         dt = re.search(r'class="dtw dt"[^>]*>([^<]*)', h)
         if st.year > today.year and dt and '明年' not in dt.group(1): bad.append(f'{rid} 默认出发日在明年（{st}）但页头没写“明年”')
-        mx_ = max([int(x.replace(',', '')) for x in re.findall(r'<p class="alt"><b>海拔 ([\d,]+) 米', h)] + [0])
+        # 文案里写了“海拔 N 米 / 海拔三千多米”（N≥3000）的页面，必须有氧气/高反提示（天标没给海拔时靠这条兜底；“水洞长三千多米”这种长度不算）
+        _txt = re.sub(r'<[^>]+>', ' ', re.sub(r'<p class="alt">.*?</p>', '', h, flags=re.S))
+        _CN = {'一': 1, '两': 2, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9}
+        for _m in re.finditer(r'海拔[^。，；、]{0,8}?(?:(\d[\d,]*)\s*米|([一二两三四五六七八九])千[多余]?米)', _txt):
+            _n = int(_m.group(1).replace(',', '')) if _m.group(1) else _CN[_m.group(2)] * 1000
+            if _n >= 3000 and '氧气' not in h: bad.append(f'{rid} 文案写了“{_m.group(0)}”但页面里没有氧气/高反提示'); break
         if re.search(r'行程最高到 ([\d,]+) 米', h):
             top = int(re.search(r'行程最高到 ([\d,]+) 米', h).group(1).replace(',', ''))
             if top >= 3000 and '氧气' not in h: bad.append(f'{rid} 最高到 {top} 米但页面里没有氧气/高反提示')
