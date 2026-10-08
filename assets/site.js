@@ -312,7 +312,7 @@
     todayBar();if(dk)dk.addEventListener('change',function(){setTimeout(todayBar,0)});
     // 今晚住：标记已订
     var bk=ld('zouni_booked');document.querySelectorAll('.stays .mk').forEach(function(b){function pt(){var on=bk.indexOf(b.dataset.k)>=0;b.classList.toggle('on',on);b.textContent=on?'已订 ✓':'标记已订'}pt();
-      b.addEventListener('click',function(){var i=bk.indexOf(b.dataset.k);if(i>=0)bk.splice(i,1);else bk.push(b.dataset.k);sv('zouni_booked',bk);pt()})});
+      b.addEventListener('click',function(){bk=ld('zouni_booked');var i=bk.indexOf(b.dataset.k);if(i>=0)bk.splice(i,1);else bk.push(b.dataset.k);sv('zouni_booked',bk);pt()})});
 
     // ——— 生成分享图：封面画 + 标题 + 天数价格出发日 + 前几天安排 + 网址，长按保存发朋友圈 ———
     function shotTrip(){var W_=1080,H_=1500,cv=document.createElement('canvas');cv.width=W_;cv.height=H_;var x=cv.getContext('2d');
@@ -398,7 +398,7 @@
         var msgs=[];if(t>22*60+30&&t>t0end+5)msgs.push('按 '+m2hm(start)+' 出发，这天要到 '+m2hm(t)+' 才结束');
         late.forEach(function(r){msgs.push('赶不上「'+r.querySelector('.m').childNodes[0].textContent.trim()+'」原定的 '+r.dataset.at)});
         var changed=(hm2m(S[oi])!=null&&hm2m(S[oi])!==t0[0])||Object.keys(A).length>0||Object.keys(F).length>0;
-        var road=0,nsee=0,gapRow=null,gapLen=0;vis.forEach(function(r,i){var nx=vis[i+1],a=r._t,b=nx?nx._t:t;if(r.classList.contains('dep')&&r.dataset.slack!=='1'){var sd_=(r.querySelector('.s')||{}).textContent||'',hh_=/(\d+)\s*小时/.exec(sd_),mn_=/(\d+)\s*分/.exec(sd_),lg_=(hh_||mn_)?(hh_?+hh_[1]*60:0)+(mn_?+mn_[1]:0):(/回去歇一下/.test(sd_)?0:b-a);road+=Math.max(0,Math.min(b-a,lg_))}if((r.classList.contains('see')||r.classList.contains('fun'))&&r.dataset.slack!=='1')nsee++;if(r.dataset.slack==='1'&&b-a>gapLen){gapLen=b-a;gapRow=r}});
+        var road=0,nsee=0,gapRow=null,gapLen=0;vis.forEach(function(r,i){var nx=vis[i+1],a=r._t,b=nx?nx._t:t;if(r.classList.contains('dep')&&r.dataset.slack!=='1'){var sd_=(r.querySelector('.s')||{}).textContent||'',hh_=/(\d+)\s*小时/.exec(sd_),mn_=/(\d+)\s*分/.exec(sd_),lg_=(hh_||mn_)?(hh_?+hh_[1]*60:0)+(mn_?+mn_[1]:0):(/回去歇一下/.test(sd_)?0:b-a);road+=Math.max(0,lg_)}if((r.classList.contains('see')||r.classList.contains('fun'))&&r.dataset.slack!=='1')nsee++;if(r.dataset.slack==='1'&&b-a>gapLen){gapLen=b-a;gapRow=r}});
         var summary='改完：这天 '+m2hm(t)+' 结束，去 '+nsee+' 个地方，路上约 '+hstr(road||0);
         var sun=sec.querySelector('.sun'),used=[];Object.keys(getF()).forEach(function(d){Object.keys(getF()[d]).forEach(function(k){used.push(getF()[d][k].n)})});
         var fillHint=null;if(gapRow&&gapLen>=150&&NB.length){var sps=[],allD=[].slice.call(document.querySelectorAll('.day')),di=allD.indexOf(sec);[di,di-1].forEach(function(q){var s2=allD[q]&&allD[q].querySelector('.sun[data-k="rise"]');if(s2)sps.push([+s2.dataset.lat,+s2.dataset.lng])});   // 只看这天和前一天住的地方附近
@@ -726,6 +726,8 @@
         var hp=c.querySelector('.hit'),why=st.q?c.dataset.hits.split('|').filter(function(h){return h.toLowerCase().indexOf(st.q)>=0}).slice(0,3):[];hp.hidden=!why.length;hp.textContent=why.length?'有 '+why.join('、'):'';
         c.hidden=!ok;var inTab=c.closest('.scope').id===st.tab;if(ok&&inTab)n++;if(v==='正好'&&inTab)good.push(c.dataset.name)});
       document.querySelectorAll('.reg').forEach(function(r){r.hidden=!r.querySelector('.card:not([hidden])')});
+      if(st.q&&!n&&!apply.sw){var tabs_=[].slice.call(document.querySelectorAll('.tabs button')),other=tabs_.filter(function(b){var sc=document.getElementById(b.dataset.t);return sc&&sc.querySelector('.card:not([hidden])')})[0];if(other){apply.sw=true;other.click();apply.sw=false;return}}   // 搜的东西在别的页签里（搜“巴黎”在国内页签是空的）：自动切过去
+      if(st.q)[].slice.call(document.querySelectorAll('.card:not([hidden])')).forEach(function(c){if((c.dataset.name||'').toLowerCase().indexOf(st.q)>=0&&c.parentNode.firstChild!==c)c.parentNode.insertBefore(c,c.parentNode.firstChild)});   // 名字就含搜索词的排最前
       cnt.textContent=n?('符合的 '+n+' 个'):'没有符合的，点“清空筛选”再看看';
       var k=(st.q?1:0)+(st.d?1:0)+(st.low?1:0)+(st.niche?1:0)+(st.near?1:0)+(st.bud?1:0)+(st.fit?0:1);ft.textContent=(flt.hidden?'筛选':'收起')+(k?' · '+k:'')+(flt.hidden?' ▾':' ▴');ft.classList.toggle('on',k>0||!flt.hidden);clr.hidden=!k;
       if(typeof drawMap==='function')setTimeout(drawMap,0);
