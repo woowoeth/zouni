@@ -890,6 +890,19 @@ def hrs(m):
 
 
 
+_ns_ = {}
+exec(re.search(r'^ASIA_STAY = \{.*\}$', open('tools/estimate_prices.py', encoding='utf-8').read(), re.M).group(0), _ns_)
+ASIA_STAY = _ns_['ASIA_STAY']      # 国外每人每晚（两人一间）住宿估价，和总价同一来源；“今晚住”三档按它算（房价 = 每人 × 2）
+
+
+def stay_tiers_abroad(dest, area):
+    lo_, hi_ = ASIA_STAY.get(dest, (180, 380))
+    R_ = lambda x: f'{int(round(x / 100.0)) * 100:,}' if x >= 1000 else f'{int(round(x / 50.0)) * 50}'
+    resort = bool(re.search(r'度假', area or ''))
+    return [('奢华', '度假村里最好的房型' if resort else '五星或高端酒店', f'¥{R_(hi_ * 2.6)} 起'), ('高级', '度假村的标准房' if resort else '四星或品牌连锁', f'¥{R_(lo_ * 2)}–{R_(hi_ * 2)}'),
+            ('中低', '最便宜的房型' if resort else '经济连锁或家庭旅馆', f'¥{R_(lo_ * 0.8)}–{R_(lo_ * 1.4)}')]
+
+
 WEEK = '一二三四五六日'
 
 
@@ -2347,6 +2360,7 @@ def trip_page(rid):
             q_ = lambda w_: hotel_url(kw_, city, app, d0.get('base', {}).get('name'))
             tiers = [('奢华', '五星或高端度假酒店' if not hi else '当地最好的酒店', pr[0], q_('')), ('高级', '四星或品牌连锁', pr[1], q_('')), ('中低', '经济连锁或干净的客栈', pr[2], q_(''))]
             if vil: tiers = [('奢华', '当地最好的精品民宿', '¥500 起', q_('')), ('高级', '评分高的客栈', '¥200–400', q_('')), ('中低', '干净的农家乐或青旅', '¥80–200', q_(''))]
+            if (d0.get('scope') or 'domestic') != 'domestic': tiers = [(a_, b_, c_, q_('')) for a_, b_, c_ in stay_tiers_abroad(t.get('dest'), area)]     # 国外按国家的住宿估价，不能用国内价格表
             HT, TOP = hotel_pick(city, area)
             def _hl(h, tn, desc, pp):
                 if not h: return f'<b class="tg">{desc}</b><small>参考价 {pp}/晚</small>'

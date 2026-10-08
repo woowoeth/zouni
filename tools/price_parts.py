@@ -9,7 +9,7 @@ for t in T['trips']:
     d = CAT[it['dest']]; n = len(it['days']); nights = n - 1; city = it['city']
     first = next((G.get((x.get('city') or city) + '|' + (s.get('q') or s['name'])) for x in it['days'] for s in x['stops'] if G.get((x.get('city') or city) + '|' + (s.get('q') or s['name']))), None)
     pt = (first['lat'], first['lng']) if first else (d['base']['lat'], d['base']['lng'])
-    if d['scope'] == 'asia':
+    if d['scope'] != 'domestic':
         air = ASIA_AIR.get(d['id'], (2500, 4500)); stay = ASIA_STAY.get(d['id'], (180, 380)); food = ASIA_FOOD.get(d['id'], (120, 220))
     else:
         dist = min(km(pt, h) for h in HUBS.values())

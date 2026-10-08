@@ -291,6 +291,19 @@ if site:
         for nm, a, b in HOL:
             if datetime.date.fromisoformat(a) <= en and st <= datetime.date.fromisoformat(b) and nm not in pre: bad18.append(f'{rid} 默认 {st} 起 {n0} 天，落进{nm}假期（{a}–{b}）')
     if bad18: fails.append(('默认出发日落进法定假日', sorted(set(bad18))))
+    # 19 国外线“今晚住”的高级档价格必须按国家的住宿估价算（房价 = 每人 × 2），不能是国内价格表（夏威夷威基基四星写成 ¥400–700）
+    _ns = {}; exec(re.search(r'^ASIA_STAY = \{.*\}$', open('tools/estimate_prices.py', encoding='utf-8').read(), re.M).group(0), _ns); AS_ = _ns['ASIA_STAY']
+    DEST_OF = {t_['id']: t_['dest'] for t_ in json.load(open('data/catalog/trips.json', encoding='utf-8'))['trips']}
+    DSCOPE = {d_['id']: d_['scope'] for d_ in json.load(open('data/catalog/destinations.json', encoding='utf-8'))['destinations']}
+    R_ = lambda x: f'{int(round(x / 100.0)) * 100:,}' if x >= 1000 else f'{int(round(x / 50.0)) * 50}'
+    bad19 = []
+    for f in glob.glob(os.path.join(site, 'trip', '*', 'index.html')):
+        rid = f.split('/')[-2]; dst = DEST_OF.get(rid)
+        if not dst or DSCOPE.get(dst) == 'domestic': continue
+        h = open(f, encoding='utf-8').read(); lo_, hi_ = AS_.get(dst, (180, 380)); want = f'¥{R_(lo_ * 2)}–{R_(hi_ * 2)}'
+        for m in re.finditer(r'<span class="tier">高级</span>.*?参考价 (¥[\d,]+–[\d,]+)/晚', h, flags=re.S):
+            if m.group(1) != want: bad19.append(f'{rid} 高级档写 {m.group(1)}，按 {dst} 住宿估价应是 {want}'); break
+    if bad19: fails.append(('国外住宿三档价格不对', sorted(set(bad19))))
     deny = os.path.join(ROOT, 'build', 'denies.txt')
     if os.path.exists(deny):
         # 抽查：串线闸拒绝的“文案 → 线”，页面里不得再出现该文案的原文
