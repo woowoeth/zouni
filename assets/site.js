@@ -486,7 +486,7 @@
       function holiday(){var inp=document.querySelector('.dpk'),s0=(inp&&inp.value)||art.dataset.start;if(!s0)return;var ul=document.querySelector('.pre:not(.go) ul');if(!ul)return;var old=ul.querySelector('.hol');if(old)old.remove();
         var n=document.querySelectorAll('.day').length,a=new Date(s0+'T12:00:00'),b=new Date(a.getTime()+(n-1)*864e5),iso=function(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)},
             hit=HOL.filter(function(h){return h[1]<=iso(b)&&iso(a)<=h[2]});if(!hit.length)return;var pre=(ul.parentNode.innerText||'');if(hit.every(function(h){return pre.indexOf(h[0])>=0}))return;   // 出发前已经写了这个节日的（蔚县打树花），不重复
-        var li=document.createElement('li');li.className='tip hol';var md=function(x){return+x.slice(5,7)+'/'+ +x.slice(8,10)};li.innerHTML='<span>这几天碰上'+hit.map(function(h){return h[0]+'假期（大约 '+md(h[1])+'–'+md(h[2])+'）'}).join('、')+'：机票、住宿、景区门票会涨价，限流也更严，早点订；想避开就改一下出发日期。具体放假和调休以国务院公布的为准。</span>';ul.insertBefore(li,ul.firstChild)}
+        var li=document.createElement('li');li.className='tip hol';var md=function(x){return+x.slice(5,7)+'/'+ +x.slice(8,10)};li.innerHTML=art.dataset.app==='amap'?'<span>这几天碰上'+hit.map(function(h){return h[0]+'假期（大约 '+md(h[1])+'–'+md(h[2])+'）'}).join('、')+'：机票、住宿、景区门票会涨价，限流也更严，早点订；想避开就改一下出发日期。具体放假和调休以国务院公布的为准。</span>':'<span>这几天碰上国内'+hit.map(function(h){return h[0]+'假期（大约 '+md(h[1])+'–'+md(h[2])+'）'}).join('、')+'：从国内出发的机票会涨价、不好买，早点订；想避开就改一下出发日期。</span>';ul.insertBefore(li,ul.firstChild)}
       [].slice.call(document.querySelectorAll('.day')).forEach(applyRain);
       run();monday();holiday();var inp=document.querySelector('.dpk');if(inp)inp.addEventListener('change',function(){setTimeout(function(){run();monday();holiday()},50)})})();
 
