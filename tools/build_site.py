@@ -761,6 +761,7 @@ def tz_of(dest, lng):
     else:
         z = TZ.get(dest, 8)
     rule = DST.get(dest, '')
+    if dest == 'usa' and lng < -140: z, rule = -10, ''     # 夏威夷：UTC-10，不实行夏令时
     if dest == 'australia' and lng <= 141: rule = ''     # 只有东南沿海（悉尼、墨尔本）有夏令时
     return z, rule
 import hashlib as _hl
@@ -1730,6 +1731,7 @@ def stay_fix(r):
         if sp and ccp and _km(sp, ccp) > 80: sp = None
         if last and sp and 30 < _km(last, sp) <= 120:
             out0 = next((w['how'] for w in d['rows'] if w['type'] == 'dep' and w.get('how')), '') or ''
+            if plast and P[i] and _km(plast, P[i][0]) > 100: out0 = ''       # 转场日：第一段是从上一座城过来的高铁，不是“当天往返”的去程，回住处不能照抄（slgt8 晚上 3 小时 30 分高铁回住处）
             if re.search(r'JR|高铁|动车|火车|地铁|轮渡|坐船|公交|大巴|快艇', out0):
                 how = re.split(r'\s*·\s*', out0)[0]            # 去的时候坐什么，回来也坐什么
             else:

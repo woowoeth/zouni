@@ -25592,8 +25592,8 @@
       220
      ],
      "tix": [
-      120,
-      360
+      150,
+      450
      ],
      "local": [
       420,
@@ -28596,7 +28596,7 @@
      ],
      "nights": 3,
      "n": 4,
-     "car": true
+     "car": false
     }
    },
    "tags": [
@@ -32920,8 +32920,8 @@
       160
      ],
      "tix": [
-      210,
-      630
+      240,
+      720
      ],
      "local": [
       680,
@@ -32946,6 +32946,277 @@
    "anytime": false,
    "status": "ok",
    "page": "Route.dc.html#oax4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "str4",
+   "dest": "france",
+   "name": "斯特拉斯堡科尔马",
+   "region": "欧洲",
+   "days": 4,
+   "title": "斯特拉斯堡科尔马 4 天",
+   "headline": "四天，斯特拉斯堡和阿尔萨斯酒乡",
+   "dek": "到斯特拉斯堡，下午看红砂岩的大教堂，再沿河走小法兰西区的木骨架老屋。",
+   "why": null,
+   "price": {
+    "lo": 8800,
+    "hi": 16400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      420,
+      770
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "12-31"
+    ],
+    "best": [
+     "11-25",
+     "12-23"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#str4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "nap5",
+   "dest": "italy",
+   "name": "那不勒斯阿马尔菲",
+   "region": "欧洲",
+   "days": 5,
+   "title": "那不勒斯阿马尔菲 5 天",
+   "headline": "五天，那不勒斯、庞贝和阿马尔菲海岸",
+   "dek": "到那不勒斯，下午走斯帕卡那不勒斯老街，看王宫，傍晚去海边的蛋堡。",
+   "why": null,
+   "price": {
+    "lo": 9300,
+    "hi": 17800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      460,
+      860
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-15"
+    ],
+    "best": [
+     "05-01",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nap5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "oxf4",
+   "dest": "uk",
+   "name": "牛津科茨沃尔德巴斯",
+   "region": "欧洲",
+   "days": 4,
+   "title": "牛津科茨沃尔德巴斯 4 天",
+   "headline": "四天，牛津、科茨沃尔德小镇和巴斯",
+   "dek": "到牛津，下午看基督堂学院，拉德克利夫圆形图书馆，再沿河走到莫德林学院。",
+   "why": null,
+   "price": {
+    "lo": 10000,
+    "hi": 18300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      680,
+      1180
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-20",
+     "09-30"
+    ],
+    "best": [
+     "05-15",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#oxf4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hnl5",
+   "dest": "usa",
+   "name": "夏威夷瓦胡岛",
+   "region": "北美",
+   "days": 5,
+   "title": "夏威夷瓦胡岛 5 天",
+   "headline": "五天，瓦胡岛的海边和火山口",
+   "dek": "到檀香山，傍晚在威基基海滩看日落，第二天一早爬钻石头山。",
+   "why": null,
+   "price": {
+    "lo": 12600,
+    "hi": 23600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "baoFix": 2,
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      270,
+      810
+     ],
+     "local": [
+      200,
+      450
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-15"
+    ],
+    "best": [
+     "04-20",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hnl5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ayq3",
+   "dest": "australia",
+   "name": "乌鲁鲁",
+   "region": "大洋洲",
+   "days": 3,
+   "title": "乌鲁鲁 3 天",
+   "headline": "三天，乌鲁鲁的日出日落和卡塔丘塔",
+   "dek": "到乌鲁鲁，下午去文化中心了解当地原住民的故事，傍晚在观景台看乌鲁鲁变色。",
+   "why": null,
+   "price": {
+    "lo": 8700,
+    "hi": 15900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      900,
+      1500
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-15"
+    ],
+    "best": [
+     "05-01",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ayq3",
    "engineRoute": null,
    "poster": null
   }

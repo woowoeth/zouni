@@ -12862,10 +12862,11 @@
   "q": "沙面"
  },
  "广州|珠江夜游": {
-  "lat": 22.7264014,
-  "lng": 113.5242066,
-  "hit": "广州德诚摩托车工业有限公司, 4, 珠江街道, 南沙区, 广州市, 广东省, 中国",
-  "q": "广州 珠江夜游"
+  "lat": 23.1181,
+  "lng": 113.2664,
+  "hit": "OSM 核对（天字码头）",
+  "q": "珠江夜游",
+  "src": "curated"
  },
  "开平|立园": {
   "lat": 22.3526071,
@@ -19255,9 +19256,9 @@
   "src": "curated"
  },
  "亚庇|Tanjung Aru Beach": {
-  "lat": 5.948,
-  "lng": 116.045,
-  "hit": "人工核对（近似）",
+  "lat": 5.9357,
+  "lng": 116.0467,
+  "hit": "OSM 核对（Pantai Tanjung Aru）",
   "q": "Tanjung Aru Beach",
   "src": "curated"
  },
@@ -24741,6 +24742,405 @@
   "lng": -96.7266,
   "hit": "人工核对（市中心）",
   "q": "瓦哈卡",
+  "src": "curated"
+ },
+ "斯特拉斯堡|Strasbourg Cathedral": {
+  "lat": 48.5818,
+  "lng": 7.7507,
+  "hit": "人工核对（近似）",
+  "q": "Strasbourg Cathedral",
+  "src": "curated"
+ },
+ "斯特拉斯堡|La Petite France Strasbourg": {
+  "lat": 48.5799,
+  "lng": 7.7385,
+  "hit": "人工核对（近似）",
+  "q": "La Petite France Strasbourg",
+  "src": "curated"
+ },
+ "科尔马|Place Kleber Strasbourg": {
+  "lat": 48.5855,
+  "lng": 7.7457,
+  "hit": "人工核对（近似）",
+  "q": "Place Kleber Strasbourg",
+  "src": "curated"
+ },
+ "科尔马|Petite Venise Colmar": {
+  "lat": 48.0745,
+  "lng": 7.3557,
+  "hit": "人工核对（近似）",
+  "q": "Petite Venise Colmar",
+  "src": "curated"
+ },
+ "科尔马|Musee Unterlinden Colmar": {
+  "lat": 48.0795,
+  "lng": 7.3589,
+  "hit": "人工核对（近似）",
+  "q": "Musee Unterlinden Colmar",
+  "src": "curated"
+ },
+ "科尔马|Riquewihr": {
+  "lat": 48.1664,
+  "lng": 7.2972,
+  "hit": "人工核对（近似）",
+  "q": "Riquewihr",
+  "src": "curated"
+ },
+ "科尔马|Eguisheim": {
+  "lat": 48.0431,
+  "lng": 7.3079,
+  "hit": "人工核对（近似）",
+  "q": "Eguisheim",
+  "src": "curated"
+ },
+ "斯特拉斯堡|Palais Rohan Strasbourg": {
+  "lat": 48.5811,
+  "lng": 7.7512,
+  "hit": "人工核对（近似）",
+  "q": "Palais Rohan Strasbourg",
+  "src": "curated"
+ },
+ "斯特拉斯堡|European Parliament Strasbourg": {
+  "lat": 48.5972,
+  "lng": 7.751,
+  "hit": "人工核对（近似）",
+  "q": "European Parliament Strasbourg",
+  "src": "curated"
+ },
+ "那不勒斯|Spaccanapoli Naples": {
+  "lat": 40.8467,
+  "lng": 14.2556,
+  "hit": "人工核对（近似）",
+  "q": "Spaccanapoli Naples",
+  "src": "curated"
+ },
+ "那不勒斯|Palazzo Reale Naples": {
+  "lat": 40.8359,
+  "lng": 14.2488,
+  "hit": "人工核对（近似）",
+  "q": "Palazzo Reale Naples",
+  "src": "curated"
+ },
+ "那不勒斯|Castel dell'Ovo": {
+  "lat": 40.8281,
+  "lng": 14.2477,
+  "hit": "人工核对（近似）",
+  "q": "Castel dell'Ovo",
+  "src": "curated"
+ },
+ "那不勒斯|Pompeii Archaeological Park": {
+  "lat": 40.7506,
+  "lng": 14.4869,
+  "hit": "人工核对（近似）",
+  "q": "Pompeii Archaeological Park",
+  "src": "curated"
+ },
+ "那不勒斯|Mount Vesuvius": {
+  "lat": 40.8213,
+  "lng": 14.4264,
+  "hit": "人工核对（近似）",
+  "q": "Mount Vesuvius",
+  "src": "curated"
+ },
+ "苏莲托|Sorrento Old Town": {
+  "lat": 40.6263,
+  "lng": 14.3758,
+  "hit": "人工核对（近似）",
+  "q": "Sorrento Old Town",
+  "src": "curated"
+ },
+ "苏莲托|Positano": {
+  "lat": 40.628,
+  "lng": 14.4843,
+  "hit": "人工核对（近似）",
+  "q": "Positano",
+  "src": "curated"
+ },
+ "苏莲托|Piazzetta Capri": {
+  "lat": 40.5502,
+  "lng": 14.2428,
+  "hit": "人工核对（近似）",
+  "q": "Piazzetta Capri",
+  "src": "curated"
+ },
+ "苏莲托|Blue Grotto Capri": {
+  "lat": 40.5606,
+  "lng": 14.2032,
+  "hit": "人工核对（近似）",
+  "q": "Blue Grotto Capri",
+  "src": "curated"
+ },
+ "那不勒斯|Naples Cathedral Duomo di Napoli": {
+  "lat": 40.8528,
+  "lng": 14.2599,
+  "hit": "人工核对（近似）",
+  "q": "Naples Cathedral Duomo di Napoli",
+  "src": "curated"
+ },
+ "那不勒斯|Castel Sant'Elmo Naples": {
+  "lat": 40.8441,
+  "lng": 14.238,
+  "hit": "人工核对（近似）",
+  "q": "Castel Sant'Elmo Naples",
+  "src": "curated"
+ },
+ "牛津|Christ Church Oxford": {
+  "lat": 51.7497,
+  "lng": -1.2563,
+  "hit": "人工核对（近似）",
+  "q": "Christ Church Oxford",
+  "src": "curated"
+ },
+ "牛津|Radcliffe Camera": {
+  "lat": 51.7534,
+  "lng": -1.254,
+  "hit": "人工核对（近似）",
+  "q": "Radcliffe Camera",
+  "src": "curated"
+ },
+ "牛津|Magdalen College Oxford": {
+  "lat": 51.7523,
+  "lng": -1.2427,
+  "hit": "人工核对（近似）",
+  "q": "Magdalen College Oxford",
+  "src": "curated"
+ },
+ "牛津|Bibury": {
+  "lat": 51.7603,
+  "lng": -1.8344,
+  "hit": "人工核对（近似）",
+  "q": "Bibury",
+  "src": "curated"
+ },
+ "牛津|Bourton-on-the-Water": {
+  "lat": 51.8855,
+  "lng": -1.7547,
+  "hit": "人工核对（近似）",
+  "q": "Bourton-on-the-Water",
+  "src": "curated"
+ },
+ "牛津|Stow-on-the-Wold": {
+  "lat": 51.93,
+  "lng": -1.722,
+  "hit": "人工核对（近似）",
+  "q": "Stow-on-the-Wold",
+  "src": "curated"
+ },
+ "巴斯|Roman Baths Bath": {
+  "lat": 51.3811,
+  "lng": -2.359,
+  "hit": "人工核对（近似）",
+  "q": "Roman Baths Bath",
+  "src": "curated"
+ },
+ "巴斯|Bath Abbey": {
+  "lat": 51.3814,
+  "lng": -2.358,
+  "hit": "人工核对（近似）",
+  "q": "Bath Abbey",
+  "src": "curated"
+ },
+ "巴斯|Royal Crescent Bath": {
+  "lat": 51.3869,
+  "lng": -2.3669,
+  "hit": "人工核对（近似）",
+  "q": "Royal Crescent Bath",
+  "src": "curated"
+ },
+ "巴斯|Pulteney Bridge Bath": {
+  "lat": 51.384,
+  "lng": -2.3517,
+  "hit": "人工核对（近似）",
+  "q": "Pulteney Bridge Bath",
+  "src": "curated"
+ },
+ "巴斯|Stonehenge": {
+  "lat": 51.1789,
+  "lng": -1.8262,
+  "hit": "人工核对（近似）",
+  "q": "Stonehenge",
+  "src": "curated"
+ },
+ "檀香山|Waikiki Beach": {
+  "lat": 21.2766,
+  "lng": -157.827,
+  "hit": "人工核对（近似）",
+  "q": "Waikiki Beach",
+  "src": "curated"
+ },
+ "檀香山|Diamond Head State Monument": {
+  "lat": 21.262,
+  "lng": -157.8056,
+  "hit": "人工核对（近似）",
+  "q": "Diamond Head State Monument",
+  "src": "curated"
+ },
+ "檀香山|USS Arizona Memorial": {
+  "lat": 21.3649,
+  "lng": -157.95,
+  "hit": "人工核对（近似）",
+  "q": "USS Arizona Memorial",
+  "src": "curated"
+ },
+ "檀香山|Chinatown Honolulu": {
+  "lat": 21.3125,
+  "lng": -157.8639,
+  "hit": "人工核对（近似）",
+  "q": "Chinatown Honolulu",
+  "src": "curated"
+ },
+ "檀香山|Waimea Bay Beach Park": {
+  "lat": 21.641,
+  "lng": -158.0663,
+  "hit": "人工核对（近似）",
+  "q": "Waimea Bay Beach Park",
+  "src": "curated"
+ },
+ "檀香山|Haleiwa Town": {
+  "lat": 21.5933,
+  "lng": -158.1064,
+  "hit": "人工核对（近似）",
+  "q": "Haleiwa Town",
+  "src": "curated"
+ },
+ "檀香山|Sunset Beach Oahu": {
+  "lat": 21.6786,
+  "lng": -158.04,
+  "hit": "人工核对（近似）",
+  "q": "Sunset Beach Oahu",
+  "src": "curated"
+ },
+ "檀香山|Byodo-In Temple Oahu": {
+  "lat": 21.4112,
+  "lng": -157.8157,
+  "hit": "人工核对（近似）",
+  "q": "Byodo-In Temple Oahu",
+  "src": "curated"
+ },
+ "檀香山|Kualoa Ranch": {
+  "lat": 21.512,
+  "lng": -157.839,
+  "hit": "人工核对（近似）",
+  "q": "Kualoa Ranch",
+  "src": "curated"
+ },
+ "檀香山|Lanikai Beach": {
+  "lat": 21.393,
+  "lng": -157.7143,
+  "hit": "人工核对（近似）",
+  "q": "Lanikai Beach",
+  "src": "curated"
+ },
+ "檀香山|Manoa Falls Trail": {
+  "lat": 21.3331,
+  "lng": -157.8,
+  "hit": "人工核对（近似）",
+  "q": "Manoa Falls Trail",
+  "src": "curated"
+ },
+ "檀香山|Ala Moana Beach Park": {
+  "lat": 21.2893,
+  "lng": -157.8478,
+  "hit": "人工核对（近似）",
+  "q": "Ala Moana Beach Park",
+  "src": "curated"
+ },
+ "乌鲁鲁|Uluru-Kata Tjuta Cultural Centre": {
+  "lat": -25.3598,
+  "lng": 131.0174,
+  "hit": "人工核对（近似）",
+  "q": "Uluru-Kata Tjuta Cultural Centre",
+  "src": "curated"
+ },
+ "乌鲁鲁|Uluru Car Sunset Viewing Area": {
+  "lat": -25.3359,
+  "lng": 131.0047,
+  "hit": "人工核对（近似）",
+  "q": "Uluru Car Sunset Viewing Area",
+  "src": "curated"
+ },
+ "乌鲁鲁|Talinguru Nyakunytjaku": {
+  "lat": -25.3697,
+  "lng": 131.0629,
+  "hit": "人工核对（近似）",
+  "q": "Talinguru Nyakunytjaku",
+  "src": "curated"
+ },
+ "乌鲁鲁|Mutitjulu Waterhole Uluru": {
+  "lat": -25.351,
+  "lng": 131.0325,
+  "hit": "人工核对（近似）",
+  "q": "Mutitjulu Waterhole Uluru",
+  "src": "curated"
+ },
+ "乌鲁鲁|Kata Tjuta Valley of the Winds": {
+  "lat": -25.2959,
+  "lng": 130.754,
+  "hit": "人工核对（近似）",
+  "q": "Kata Tjuta Valley of the Winds",
+  "src": "curated"
+ },
+ "斯特拉斯堡|斯特拉斯堡": {
+  "lat": 48.5734,
+  "lng": 7.7521,
+  "hit": "人工核对（市中心）",
+  "q": "斯特拉斯堡",
+  "src": "curated"
+ },
+ "科尔马|科尔马": {
+  "lat": 48.0794,
+  "lng": 7.3585,
+  "hit": "人工核对（市中心）",
+  "q": "科尔马",
+  "src": "curated"
+ },
+ "那不勒斯|那不勒斯": {
+  "lat": 40.8518,
+  "lng": 14.2681,
+  "hit": "人工核对（市中心）",
+  "q": "那不勒斯",
+  "src": "curated"
+ },
+ "苏莲托|苏莲托": {
+  "lat": 40.6263,
+  "lng": 14.3758,
+  "hit": "人工核对（市中心）",
+  "q": "苏莲托",
+  "src": "curated"
+ },
+ "牛津|牛津": {
+  "lat": 51.752,
+  "lng": -1.2577,
+  "hit": "人工核对（市中心）",
+  "q": "牛津",
+  "src": "curated"
+ },
+ "巴斯|巴斯": {
+  "lat": 51.3811,
+  "lng": -2.359,
+  "hit": "人工核对（市中心）",
+  "q": "巴斯",
+  "src": "curated"
+ },
+ "檀香山|檀香山": {
+  "lat": 21.3069,
+  "lng": -157.8583,
+  "hit": "人工核对（市中心）",
+  "q": "檀香山",
+  "src": "curated"
+ },
+ "乌鲁鲁|乌鲁鲁": {
+  "lat": -25.3444,
+  "lng": 131.0369,
+  "hit": "人工核对（市中心）",
+  "q": "乌鲁鲁",
+  "src": "curated"
+ },
+ "瓦哈卡|Panteon Xoxocotlan": {
+  "lat": 17.03,
+  "lng": -96.751,
+  "hit": "OSM 近似（Santa Cruz Xoxocotlán 公墓一带）",
+  "q": "Panteon Xoxocotlan",
   "src": "curated"
  }
 }

@@ -245,6 +245,28 @@ if site:
             a = datetime.date(st.year, int(w.group(1)), int(w.group(2))); b = datetime.date(st.year, int(w.group(3)), int(w.group(4)))
             if not (st <= a and b <= st + datetime.timedelta(days=n0 - 1)): bad14.append(f'{rid} 默认 {st} 起 {n0} 天，没盖住{w.group(5)}（{a}–{b}）')
     if bad14: fails.append(('节日窗口没盖住', sorted(set(bad14))))
+    # 15 晚饭后“出发 → 住处”不能是 ≥2 小时的火车/高铁（把白天转场的高铁抄到了晚上：slgt8、hngt6 到住处过了午夜）
+    bad15 = []
+    for f in glob.glob(os.path.join(site, 'trip', '*', 'index.html')):
+        rid = f.split('/')[-2]; h = open(f, encoding='utf-8').read()
+        for sec in h.split('<section class="day"')[1:]:
+            sec = sec.split('</section>')[0]; dn = re.search(r'id="(d\d+)"', sec).group(1)
+            for li in sec.split('<li class="r dep"')[1:]:
+                tm = re.search(r'<time>(\d\d):(\d\d)</time>', li); sub = re.sub(r'<[^>]+>', ' ', li.split('<p class=s>')[1].split('</p>')[0]) if '<p class=s>' in li else ''
+                to_home = '出发 → 住处' in re.sub(r'<[^>]+>', '', li)
+                mh = re.search(r'约\s*(?:(\d+)\s*小时)?\s*(?:(\d+)\s*分钟?)?', sub)
+                if to_home and tm and int(tm.group(1)) >= 17 and re.search(r'高铁|动车|火车', sub) and mh and (int(mh.group(1) or 0) * 60 + int(mh.group(2) or 0)) >= 120:
+                    bad15.append(f'{rid} {dn} {tm.group(0)[6:11]} 晚上才坐 ≥2 小时的车回住处')
+    if bad15: fails.append(('晚上坐长途火车回住处', sorted(set(bad15))))
+    # 16 夜游/夜市/夜景类站点：必须在所属城市中心 40 公里内（珠江夜游曾命中南沙一家摩托车厂，白写“包车 1 小时 10 分”）
+    bad16 = []
+    for k, v in P.items():
+        if not v or k.endswith('#tried') or '|' not in k: continue
+        city, q = k.split('|', 1)
+        if re.search(r'夜游|夜市|夜景|夜钓', q) and (city + '|' + city) in P and P[city + '|' + city]:
+            cc_ = P[city + '|' + city]
+            if km((cc_['lat'], cc_['lng']), (v['lat'], v['lng'])) > 40: bad16.append(f'{k} 离城市中心 {round(km((cc_["lat"], cc_["lng"]), (v["lat"], v["lng"])))} 公里')
+    if bad16: fails.append(('夜游类站点离城市太远', bad16))
     deny = os.path.join(ROOT, 'build', 'denies.txt')
     if os.path.exists(deny):
         # 抽查：串线闸拒绝的“文案 → 线”，页面里不得再出现该文案的原文
