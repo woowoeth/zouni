@@ -76,6 +76,8 @@ BOOK.update({'颐和园': '颐和园要提前在线购票（实名，刷证入�
 BOOK_URL.update({'卢浮宫': 'https://ticket.louvre.fr', '梵高博物馆': 'https://www.vangoghmuseum.com', '安妮之家': 'https://www.annefrank.org', '阿尔罕布拉宫': 'https://tickets.alhambra-patronato.es',
                  '圣家堂': 'https://sagradafamilia.org', '梵蒂冈博物馆': 'https://tickets.museivaticani.va', '乌菲兹美术馆': 'https://www.uffizi.it', '新天鹅堡': 'https://www.neuschwanstein.de',
                  '埃菲尔铁塔': 'https://ticket.toureiffel.paris', '凡尔赛宫': 'https://www.chateauversailles.fr', '奥赛博物馆': 'https://www.musee-orsay.fr'})
+BOOK.update({'罗马浴场': '罗马浴场按时段进场，要提前在官网订票（比当天买便宜，旺季现场可能进不去）'})
+BOOK_URL.update({'罗马浴场': 'https://www.romanbaths.co.uk/tickets'})
 BOOK_HOW.update({'颐和园': '微信小程序「颐和园官方在线购票」或公众号「畅游公园」', '慕田峪长城': '微信公众号「慕田峪长城」'})
 
 
@@ -2235,6 +2237,18 @@ def mosque_note(d):
     return ''
 
 
+WX_SPOTS = {'卡普里蓝洞': '蓝洞遇风浪常关闭，小船不开就进不去，留点机动，别把当天回程排得太紧。',
+            '米尔福德峡湾': '峡湾的游轮和公路都会因天气取消，留点机动，别把当天回程排得太紧。'}
+
+
+def weather_note(d):
+    """当天去的地方靠天吃饭（关闭/取消的风险和船班同一类，但不是过水交通）。名字必须整名相等"""
+    for w in d['rows']:
+        if w['type'] in ('see', 'fun') and (w.get('name') or '') in WX_SPOTS:
+            return f'<p class="alt wx"><b>看天气</b>{WX_SPOTS[w["name"]]}</p>'
+    return ''
+
+
 def trip_page(rid):
     CUR_RID[0] = rid
     r = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}; d0 = DEST.get(t.get('dest'), {})
@@ -2374,7 +2388,7 @@ def trip_page(rid):
         if _alt_html: ALT_SEEN[_tier] = True
         _fe = ferry_note(d, not FERRY_SEEN[0], rid, ''.join(row_html(w, city, app) for w in rows))
         if _fe and 'alt ferry"><b>今天要坐船' in _fe: FERRY_SEEN[0] = True
-        _alt_html += _fe + mosque_note(d)
+        _alt_html += _fe + mosque_note(d) + weather_note(d)
         days.append(f'<section class="day" id="d{i + 1}" data-city="{E(d.get("navCity") or d.get("city") or "")}"><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
                     f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (d.get("clim") or {}).get(str(dates[i].month)) else ""}</p>' + sj_lines(_sj.get(i, [])) + f'{_alt_html}{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
         sights += [w['name'] for w in d['rows'] if w['type'] == 'see' and w.get('poi')]

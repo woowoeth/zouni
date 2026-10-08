@@ -267,6 +267,16 @@ if site:
             cc_ = P[city + '|' + city]
             if km((cc_['lat'], cc_['lng']), (v['lat'], v['lng'])) > 40: bad16.append(f'{k} 离城市中心 {round(km((cc_["lat"], cc_["lng"]), (v["lat"], v["lng"])))} 公里')
     if bad16: fails.append(('夜游类站点离城市太远', bad16))
+    # 17 靠天吃饭的去处（蓝洞、峡湾）：那天必须有“看天气”提醒
+    bad17 = []
+    for f in glob.glob(os.path.join(site, 'trip', '*', 'index.html')):
+        rid = f.split('/')[-2]; h = open(f, encoding='utf-8').read()
+        for sec in h.split('<section class="day"')[1:]:
+            sec = sec.split('</section>')[0]
+            for li in re.findall(r'<li class="r (?:see|fun)"[^>]*>(.*?)</li>', sec, flags=re.S):
+                nm = re.sub(r'<[^>]+>', ' ', li.split('<p class="m">')[1].split('</p>')[0]).strip() if '<p class="m">' in li else ''
+                if nm in ('卡普里蓝洞', '米尔福德峡湾') and 'alt wx' not in sec: bad17.append(f'{rid} 「{nm}」那天没有看天气提醒')
+    if bad17: fails.append(('靠天吃饭的去处缺提醒', sorted(set(bad17))))
     deny = os.path.join(ROOT, 'build', 'denies.txt')
     if os.path.exists(deny):
         # 抽查：串线闸拒绝的“文案 → 线”，页面里不得再出现该文案的原文
