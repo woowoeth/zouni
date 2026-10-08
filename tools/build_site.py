@@ -2564,8 +2564,9 @@ def where_page():
                 cl = x['clim'].get(str(m)) or ['', '']
                 n_tr = len(DEST_ROUTES.get(x['id'], [])); nn = len(NICHE_BY_DEST.get(x['id'], []))
                 days = sorted({len(ROUTES[r]['days']) for r in DEST_ROUTES.get(x['id'], [])}) or ([int(z) for z in re.findall(r'\d+', x['days'])[:1]] or [0])
-                qn = ' '.join([x['name'], x['base']] + x['see'] + x['eat'] + [q['short'] for q in QUAL_BY_PROV.get(x['name'], [])] + [ROUTES[r].get('label', '') for r in DEST_ROUTES.get(x['id'], [])] + [z['name'] for z in NICHE_BY_DEST.get(x['id'], [])])
-                hits = '|'.join([q['short'] for q in QUAL_BY_PROV.get(x['name'], [])] + [z['name'] for z in NICHE_BY_DEST.get(x['id'], [])] + x['see'] + x['eat'])
+                stops_ = list(dict.fromkeys(re.split(r'\s*[·（(]', w_['name'])[0].strip() for r_ in DEST_ROUTES.get(x['id'], []) for d_ in ROUTES[r_]['days'] for w_ in d_['rows'] if w_['type'] in ('see', 'fun') and w_.get('name')))     # 线内站点（禾木、卢浮宫）也能搜到
+                qn = ' '.join([x['name'], x['base']] + x['see'] + x['eat'] + [q['short'] for q in QUAL_BY_PROV.get(x['name'], [])] + [ROUTES[r].get('label', '') for r in DEST_ROUTES.get(x['id'], [])] + [z['name'] for z in NICHE_BY_DEST.get(x['id'], [])] + stops_)
+                hits = '|'.join([q['short'] for q in QUAL_BY_PROV.get(x['name'], [])] + [z['name'] for z in NICHE_BY_DEST.get(x['id'], [])] + x['see'] + x['eat'] + stops_)
                 los = [t['price']['lo'] for t in TRIPS if t['dest'] == x['id'] and (t.get('price') or {}).get('lo') and t.get('status') != 'blocked']
                 base = (x['base'] + ' · ' if x['base'] and x['base'] != x['name'] else '') + x['days']
                 cnt = '　'.join(z for z in [f'{n_tr} 条排好的行程' if n_tr else '', f'{nn} 处小众' if nn else ''] if z)
