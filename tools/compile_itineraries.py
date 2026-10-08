@@ -82,9 +82,12 @@ def back_leg(prev, stay_pt, far, roundtrip, legmax=0):
     换城市的搬家日不算：那天晚上就住在远处。返回 (文字, 分钟, 是不是开车)"""
     if roundtrip and far(prev) and stay_pt:
         how, mins, dist = leg(prev, stay_pt, None)
-        mins = max(mins, legmax)     # 当天已经写明的最长一段去程（山路比直线估算慢），回来按至少这么久算
+        est = mins
+        if legmax >= 60: mins = legmax     # 作者写明了去程时间：返程按去程算（景区路去回基本对称），不用坐标估算（坐标可能不准，估出来会和去程自相矛盾）
         # 超过 8 小时多半是“住处所在城市的中心点”不对，不当成当天来回
-        if 60 <= mins <= 480: return f'回住处 · {how} {dur_txt(mins)}' + (f' · {dist} 公里' if dist and dist >= 5 else ''), mins, how.startswith(('包车', '自驾', '开车'))
+        if 60 <= mins <= 480:
+            show_dist = dist and dist >= 5 and (legmax < 60 or 0.6 <= est / legmax <= 1.6)   # 估算和去程差太多，说明坐标不可信，公里数不写
+            return f'回住处 · {how} {dur_txt(mins)}' + (f' · {dist} 公里' if show_dist else ''), mins, how.startswith(('包车', '自驾', '开车'))
     return None
 
 
@@ -116,7 +119,7 @@ for rid, it in IT.items():
         RURAL[0] = it['dest'] not in ASIA_CC and dcity not in BIG_CITIES
         t = mm(d.get('start', '09:00')); prev = carry or dbase; rows = []; lunched = t >= 13 * 60; dined = False; drive = 0
         legmax = 0
-        rt_ = (not last) and (it['days'][di + 1].get('city', city) == dcity) and (not d.get('stay') or stay_ok or (sc is None and dcity in d['stay']))     # 第二天还以同一座城为基点、而且今晚住的就是这座城（或没写住处）：今天是当天来回；写明住在远处的是搬家日
+        rt_ = (not last) and (it['days'][di + 1].get('city', city) == dcity) and (not d.get('stay') or stay_ok or (sc is None and dcity in d['stay'])) and (not prev or km(prev, stay_pt) < 60)     # 今天出发时就在今晚住处附近（前一晚住在别处的搬家日不算）；第二天还以同一座城为基点、而且今晚住的就是这座城（或没写住处）：今天是当天来回；写明住在远处的是搬家日
         meal_i = di
 
         def meal(slot, spec, at):

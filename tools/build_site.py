@@ -2075,9 +2075,9 @@ def sj_for_dest(name):
 
 def compute_denies():
     """串线闸：同一条文案（一句话、懂一点、门票、预约）按站名匹配到相距很远的几个地方时，只留给它真正说的那个。
-    规则：①名字完全一样（或以它开头）的站所在的位置是“本家”，只靠名字里“包含”它的站（如“嫩江湾”包含“江湾”、“南阳武侯祠”包含“武侯祠”）
-    离本家超过 60 公里就拒绝；②本家本身也分散在几处（如“金顶日出”：峨眉山、武功山）时，文案里点了名的地方留下，别处拒绝；
-    文案没点名（泛泛而谈）的两边都留。结果写到 build/denies.txt 供复查。"""
+    规则：①文案里点了名的地方（线路标题、标签、城市、每天标题里的地名，三字和两字地名都算）优先——点名的留下，没点名的拒绝；
+    ②文案泛泛没点名时：名字完全一样（或以它开头）的站所在的位置是“本家”，只靠名字里“包含”它的站（如“嫩江湾”包含“江湾”、
+    “南阳武侯祠”包含“武侯祠”）离本家超过 60 公里就拒绝；本家本身分散在几处的两边都留。结果写到 build/denies.txt 供复查。"""
     rows = []
     for rid, rr in ROUTES.items():
         for d in rr['days']:
@@ -2092,14 +2092,17 @@ def compute_denies():
                 if _km((c[0][3], c[0][4]), (it[3], it[4])) <= th: c.append(it); break
             else: cl.append([it])
         return cl
+    GENERIC2 = {'自驾', '环线', '深度', '不开', '开车', '之旅', '经典', '周边', '古镇', '古城', '老街', '公园', '景区', '风景', '博物', '国家', '森林', '文化', '历史', '长城', '大道', '广场', '海边', '海岛', '高铁', '大环', '山海', '南岸', '北岸', '东部', '西部', '南部', '北部', '中部', '海岸', '边境', '三省'}
     TK = {}
     def toks(rid):
         if rid in TK: return TK[rid]
         rr = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}
-        base = re.sub(r'\s*\d+\s*天.*$', '', rr.get('label') or '') + (rr.get('city') or '') + (t.get('name') or '') + ((DEST.get(t.get('dest')) or {}).get('name') or '')
-        names = (rr.get('title') or '') + ' ' + ' '.join(d_.get('title') or '' for d_ in rr['days'])   # 线路标题和每天的标题也算“点名”（标签可能写“峨眉”不写“峨眉山”）
-        base += ' ' + names
-        TK[rid] = {base[i:i + 3] for i in range(len(base) - 2) if ' ' not in base[i:i + 3]}
+        core = re.sub(r'\s*\d+\s*天.*$', '', rr.get('label') or '') + (rr.get('city') or '') + (t.get('name') or '') + ((DEST.get(t.get('dest')) or {}).get('name') or '')
+        titles = (rr.get('title') or '') + ' ' + ' '.join(d_.get('title') or '' for d_ in rr['days'])   # 线路标题和每天的标题也算“点名”（标签可能写“峨眉”不写“峨眉山”）
+        base = core + ' ' + titles
+        t3 = {base[i:i + 3] for i in range(len(base) - 2) if ' ' not in base[i:i + 3]}
+        t2 = {core[i:i + 2] for i in range(len(core) - 1) if re.fullmatch(r'[\u4e00-\u9fa5]{2}', core[i:i + 2]) and core[i:i + 2] not in GENERIC2}   # 两字地名（阳朔、泉州）只从标签、城市、目的地名里取，免得被标题里的普通词误伤
+        TK[rid] = t3 | t2
         return TK[rid]
     def named(rid, text):
         return any(t_ in text for t_ in toks(rid))
@@ -2117,23 +2120,22 @@ def compute_denies():
             if len({r_[0] for r_ in m}) < 2: continue
             cl = clusters(m)
             if len(cl) < 2: continue
-            exact = [r_ for r_ in m if r_[2] == k or r_[2].startswith(k)]
+            scores = [sum(1 for rid in {r_[0] for r_ in c} if named(rid, text)) for c in cl]
+            if max(scores) > 0:                      # ①文案点了名：点名的留，其余拒绝
+                keep = sorted({r_[0] for c, sc in zip(cl, scores) if sc > 0 for r_ in c})[:3]
+                for c, sc in zip(cl, scores):
+                    if sc == 0:
+                        for rid in {r_[0] for r_ in c}: DENY.add((tab, k, rid)); log.append(f'{tab} 「{k}」拒绝 {rid}（文案点名的是 {keep}）')
+                continue
+            exact = [r_ for r_ in m if r_[2] == k or r_[2].startswith(k)]     # ②没点名：本家规则
             ex_cl = [c for c in cl if any(r_ in exact for r_ in c)]
             if exact and len(ex_cl) == 1:
                 for c in cl:
                     if c is ex_cl[0]: continue
                     for rid in {r_[0] for r_ in c}: DENY.add((tab, k, rid)); log.append(f'{tab} 「{k}」拒绝 {rid}（本家在 {sorted({r_[0] for r_ in ex_cl[0]})[:3]}）')
-                continue
-            cand = ex_cl if exact else cl
-            scores = [sum(1 for rid in {r_[0] for r_ in c} if named(rid, text)) for c in cand]
-            if max(scores) > 0:
-                for c, sc in zip(cand, scores):
-                    if sc == 0:
-                        for rid in {r_[0] for r_ in c}: DENY.add((tab, k, rid)); log.append(f'{tab} 「{k}」拒绝 {rid}（文案点名的是 {sorted({r_[0] for cc, s2 in zip(cand, scores) if s2 > 0 for r_ in cc})[:3]}）')
     os.makedirs('build', exist_ok=True)
     open('build/denies.txt', 'w', encoding='utf-8').write('\n'.join(sorted(log)) + '\n')
     return len(DENY)
-
 
 
 def trip_page(rid):
@@ -2159,7 +2161,7 @@ def trip_page(rid):
                     'trans': [round(pp_['lo'] - loc2), round(pp_['hi'] - loc2)]}      # 2 人时正好等于原来的价格
     has_cost = bool(cost and cost.get('trans'))
     sub3 = ('<button type="button" class="pp">2 人 · 每人 ›</button>' if has_cost else f'<small>{"每人 · 含往返" + (" · 参考价" if price.startswith("约") else "") if "¥" in price else "价格另算"}</small>')
-    glance = (f'<div class="glance"><div class="g1"><b class="big">{n}<small> 天</small></b><span class="dtw dt" role="button" tabindex="0" data-best="{",".join(s0) if s0 else ""}" aria-label="改出发日期">{yp}{md(dates[0])}–{dates[-1].day if dates[-1].month == dates[0].month else md(dates[-1])} <i>改</i></span><input type="hidden" class="dpk" data-min="{TODAY.isoformat()}" value="{dates[0].isoformat()}"></div>'
+    glance = (f'<div class="glance"><div class="g1"><b class="big">{n}<small> 天</small></b><span class="dtw dt" role="button" tabindex="0" data-best="{",".join(s0) if s0 else ""}" aria-label="改出发日期">{yp}{md(dates[0])}{("–" + (str(dates[-1].day) if dates[-1].month == dates[0].month else md(dates[-1]))) if n > 1 else ""} <i>改</i></span><input type="hidden" class="dpk" data-min="{TODAY.isoformat()}" value="{dates[0].isoformat()}"></div>'
               f'<div><b>{E(r.get("driveTop"))}</b><small>{E(r.get("driveSub"))}</small></div>'
               f'<div><b class="price" data-cost=\'{E(json.dumps(cost)) if has_cost else ""}\'>{E(price_k(price))}</b>{sub3}</div></div>')
     if has_cost:
