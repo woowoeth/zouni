@@ -1616,7 +1616,9 @@ def mon_days(r):
         for w in d['rows']:
             if w['type'] in ('see', 'fun'):
                 tx = tix_of(w.get('name')) or {}
-                if '周一闭馆' in (tx.get('c') or '') or '周一闭馆' in (w.get('kb') or '') or '周一闭馆' in (sight_of(w.get('name')) or ''): out.append(i); break
+                nm_ = w.get('name') or ''
+                maybe_ = r.get('navApp') == 'amap' and INDOOR_RE.search(nm_) and not re.search(r'秦始皇帝陵|兵马俑', nm_)     # 国内没标的博物馆也避开周一（页面上给软提示）
+                if '周一闭馆' in (tx.get('c') or '') or '周一闭馆' in (w.get('kb') or '') or '周一闭馆' in (sight_of(w.get('name')) or '') or maybe_: out.append(i); break
     return out
 
 
@@ -2186,7 +2188,7 @@ def trip_page(rid):
         city = d.get('navCity') or d.get('city'); rows = list(d['rows'])
         if i < n - 1 and (d.get('stayName') or d.get('stay')):
             nm = STAYFIX[i][0] if not d.get('stay') else d['stay'][0]['name']
-            if STAYFIX[i][1]:   # 一日游跑远了：回住处那段写清楚车程
+            if STAYFIX[i][1] and not any((w_.get('how') or '').startswith('回住处') for w_ in rows):   # 一日游跑远了：回住处那段写清楚车程（编译时已经写过“回住处 · …”的天不再补，免得同一天出现两段回程）
                 for w_ in reversed(rows):
                     if w_['type'] == 'dep' and w_.get('to') == '住处': w_['how'] = STAYFIX[i][1]; break
             rows.append({'t': '晚上', 'type': 'stay', 'name': nm, 'd': d['stay'][0].get('sell', '') if d.get('stay') else d.get('stayNote', ''), 'poi': nm, 'dp': d['stay'][0].get('dp') if d.get('stay') else None})

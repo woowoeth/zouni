@@ -77,12 +77,14 @@ def leg(a, b, via=None):
 def short(n): return re.split(r'\s*·\s*', n)[0]
 
 
-def back_leg(prev, stay_pt, far, roundtrip, legmax=0):
+def back_leg(prev, stay_pt, far, roundtrip, legmax=0, outhow=''):
+    # 第 1 天（到达日）调用时 legmax 传 0：那一天最长的去程是从出发城市过来的，不能当返程，只用坐标估算
     """当天最后一站离住处城市很远、而且第二天还以同一座城为基点（当天来回）时，回住处要算车程（原来只写“回去歇一下”，车程被吞掉）。
     换城市的搬家日不算：那天晚上就住在远处。返回 (文字, 分钟, 是不是开车)"""
     if roundtrip and far(prev) and stay_pt:
         how, mins, dist = leg(prev, stay_pt, None)
         est = mins
+        if legmax >= 60 and outhow: how = outhow     # 去的时候坐什么，回来也坐什么（火车去就火车回）
         if legmax >= 60: mins = legmax     # 作者写明了去程时间：返程按去程算（景区路去回基本对称），不用坐标估算（坐标可能不准，估出来会和去程自相矛盾）
         # 超过 8 小时多半是“住处所在城市的中心点”不对，不当成当天来回
         if 60 <= mins <= 480:
@@ -118,7 +120,7 @@ for rid, it in IT.items():
         far = lambda p: p and km(p, dbase) > 60   # 当天已经到了另一座城：回住处就留在当地
         RURAL[0] = it['dest'] not in ASIA_CC and dcity not in BIG_CITIES
         t = mm(d.get('start', '09:00')); prev = carry or dbase; rows = []; lunched = t >= 13 * 60; dined = False; drive = 0
-        legmax = 0
+        legmax = 0; legmax_how = ''
         rt_ = (not last) and (it['days'][di + 1].get('city', city) == dcity) and (not d.get('stay') or stay_ok or (sc is None and dcity in d['stay'])) and (not prev or km(prev, stay_pt) < 60)     # 今天出发时就在今晚住处附近（前一晚住在别处的搬家日不算）；第二天还以同一座城为基点、而且今晚住的就是这座城（或没写住处）：今天是当天来回；写明住在远处的是搬家日
         meal_i = di
 
@@ -135,7 +137,7 @@ for rid, it in IT.items():
             dine_there = bool(st.get('at') and mm(st['at']) >= 18 * 60 and (d.get('dinner') or {}).get('place') and (d['dinner']['place'] in st['name'] or d['dinner']['place'] in (st.get('q') or '')))
             if st.get('at') and mm(st['at']) >= 18 * 60 and not dined and not last and not dine_there:
                 if t < 17 * 60 + 30:
-                    _bl = back_leg(prev, stay_pt, far, rt_, legmax); rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': _bl[0] if _bl else '回去歇一下'}); drive += (_bl[1] if _bl and _bl[2] else 0); t = max(18 * 60 + 10, t + (_bl[1] if _bl else 0)); prev = stay_pt if (stay_ok or _bl) else (prev if far(prev) else stay_pt)
+                    _bl = back_leg(prev, stay_pt, far, rt_, 0 if di == 0 else legmax, '' if di == 0 else legmax_how); rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': _bl[0] if _bl else '回去歇一下'}); drive += (_bl[1] if _bl and _bl[2] else 0); t = max(18 * 60 + 10, t + (_bl[1] if _bl else 0)); prev = stay_pt if (stay_ok or _bl) else (prev if far(prev) else stay_pt)
                 rows.append(meal('晚饭', d.get('dinner'), max(t, 18 * 60))); t = max(t, 18 * 60) + 75; dined = True
             # 到了饭点先吃午饭
             if not lunched and t >= 11 * 60 + 40 and st['type'] != 'food':
@@ -147,7 +149,7 @@ for rid, it in IT.items():
                 if at0 - mins - t >= 60:
                     if not lunched and 11 * 60 <= t <= 14 * 60:          # 先吃午饭再回去歇
                         rows.append(meal('午饭', d.get('lunch'), max(t, 11 * 60 + 30))); t = max(t, 11 * 60 + 30) + 60; lunched = True
-                    _bl = back_leg(prev, stay_pt, far, rt_, legmax); rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': _bl[0] if _bl else '回去歇一下'}); drive += (_bl[1] if _bl and _bl[2] else 0); t += (_bl[1] if _bl else 0); prev = stay_pt if (stay_ok or _bl) else (prev if far(prev) else stay_pt)
+                    _bl = back_leg(prev, stay_pt, far, rt_, 0 if di == 0 else legmax, '' if di == 0 else legmax_how); rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': _bl[0] if _bl else '回去歇一下'}); drive += (_bl[1] if _bl and _bl[2] else 0); t += (_bl[1] if _bl else 0); prev = stay_pt if (stay_ok or _bl) else (prev if far(prev) else stay_pt)
                     how, mins, dist = leg(prev, pt, st.get('via'))     # 歇完从住处出发，路程按住处算
                     at0 = max(t + mins, 18 * 60)
                 t = at0 - mins
@@ -155,7 +157,7 @@ for rid, it in IT.items():
                 gap = mm(st['at']) - mins - t
                 if gap >= 60 and rows: rows.append({'t': hm(t), 'type': 'see', 'name': '沿途慢慢走', 'd': dur_txt(gap), 'poi': '', 'dp': ''})   # (d) 等夕照、等开船的空当
                 t = max(t, mm(st['at']) - mins)
-            if st.get('via') and how.startswith(('包车', '自驾', '开车')): legmax = max(legmax, mins)
+            if st.get('via') and mins >= legmax and mins >= 60: legmax = mins; legmax_how = how     # 当天最长的一段已写明的去程（时间、方式）
             if how.startswith(('包车', '自驾', '开车')): drive += mins
             rows.append({'t': hm(t), 'type': 'dep', 'to': short(st['name']), 'how': f'{how} {dur_txt(mins)}' + (f' · {dist} 公里' if dist and dist >= 5 else '')})
             if not lunched and t < 12 * 60 and t + mins > 13 * 60:   # 车开过中午：路上吃
@@ -185,10 +187,10 @@ for rid, it in IT.items():
         else:
             if not dined:
                 if t < 17 * 60 + 30:
-                    _bl = back_leg(prev, stay_pt, far, rt_, legmax); rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': _bl[0] if _bl else '回去歇一下'}); drive += (_bl[1] if _bl and _bl[2] else 0); t = max(18 * 60 + 10, t + (_bl[1] if _bl else 0)); prev = stay_pt if (stay_ok or _bl) else (prev if far(prev) else stay_pt)
+                    _bl = back_leg(prev, stay_pt, far, rt_, 0 if di == 0 else legmax, '' if di == 0 else legmax_how); rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': _bl[0] if _bl else '回去歇一下'}); drive += (_bl[1] if _bl and _bl[2] else 0); t = max(18 * 60 + 10, t + (_bl[1] if _bl else 0)); prev = stay_pt if (stay_ok or _bl) else (prev if far(prev) else stay_pt)
                 rows.append({'t': hm(max(t, 18 * 60 + 10)), 'type': 'dep', 'to': '吃晚饭', 'how': '开车或步行' if SELF[0] else '打车或步行'})
                 rows.append(meal('晚饭', d.get('dinner'), max(t, 18 * 60 + 10) + 20)); t = max(t, 18 * 60 + 10) + 95
-            _bl = back_leg(prev, stay_pt, far, rt_, legmax); rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': _bl[0] if _bl else ('开车或步行' if SELF[0] else '打车或步行')}); drive += (_bl[1] if _bl and _bl[2] else 0)
+            _bl = back_leg(prev, stay_pt, far, rt_, 0 if di == 0 else legmax, '' if di == 0 else legmax_how); rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': _bl[0] if _bl else ('开车或步行' if SELF[0] else '打车或步行')}); drive += (_bl[1] if _bl and _bl[2] else 0)
         # 时间必须单调递增
         ts = [mm(w['t']) for w in rows]
         if ts != sorted(ts): report.append(f'{rid} D{di + 1} 时间倒序')

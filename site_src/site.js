@@ -460,8 +460,12 @@
       // 周一：博物馆多数闭馆，提醒一下
       function monday(){var inp=document.querySelector('.dpk'),s0=(inp&&inp.value)||art.dataset.start;if(!s0)return;var d0=new Date(s0+'T12:00:00');
         [].slice.call(document.querySelectorAll('.day')).forEach(function(sec,i){var old=sec.querySelector('.mon');if(old)old.remove();var d=new Date(d0.getTime()+i*864e5);if(d.getDay()!==1)return;
-          var ms=[].slice.call(sec.querySelectorAll('.tl > .r')).filter(function(r){return!r.hidden&&(r.dataset.in||/周一闭馆/.test(r.innerText))}).map(function(r){return r.querySelector('.m').childNodes[0].textContent.trim()});if(!ms.length)return;
-          var cl=sec.querySelector('[data-clim]');if(!cl)return;var p=document.createElement('p');p.className='fc mon';p.innerHTML='<b>这天是周一</b>「'+ms.slice(0,2).join('」「')+'」这类博物馆多数周一闭馆，出发前查一下，或者和别的天对调';cl.parentNode.insertBefore(p,cl.nextSibling)})}
+          var rs=[].slice.call(sec.querySelectorAll('.tl > .r')).filter(function(r){return!r.hidden}),nm=function(r){return r.querySelector('.m').childNodes[0].textContent.trim()},
+              sure=rs.filter(function(r){return/周一闭馆/.test(r.innerText)}).map(nm),
+              maybe=(art.dataset.app==='amap')?rs.filter(function(r){return r.dataset.in&&!/周一闭馆/.test(r.innerText)&&!/秦始皇帝陵|兵马俑/.test(nm(r))}).map(nm):[];   // 没标周一闭馆的只给软提示，国外不提示（各国不一样）
+          if(!sure.length&&!maybe.length)return;
+          var cl=sec.querySelector('[data-clim]');if(!cl)return;var p=document.createElement('p');p.className='fc mon';
+          p.innerHTML='<b>这天是周一</b>'+(sure.length?'「'+sure.slice(0,2).join('」「')+'」周一闭馆，出发前查一下，或者把出发日期改一天':'「'+maybe.slice(0,2).join('」「')+'」这类博物馆有的周一闭馆，出发前查一下');cl.parentNode.insertBefore(p,cl.nextSibling)})}
       [].slice.call(document.querySelectorAll('.day')).forEach(applyRain);
       run();monday();var inp=document.querySelector('.dpk');if(inp)inp.addEventListener('change',function(){setTimeout(function(){run();monday()},50)})})();
 
@@ -629,7 +633,7 @@
         if(st.w==='o'&&li.dataset.hi==='1')return;if(st.w==='o'&&li.dataset.drv==='1'&&n>8)s-=15;
         var kk=((li.querySelector('.k')||{}).textContent||'').replace(/\s+/g,' ').trim();if(/正当季|最好/.test(kk))s+=12;if(/最后/.test(kk))s+=6;if(li.closest('#drive'))s+=st.d==='l'?10:-5;if(li.dataset.img==='1')s+=3;
         var on2=st.o==='here'?'你这里':st.o;
-        if(li.dataset.ab==='1')why.push('从'+on2+'飞过去约 '+Math.max(1,Math.round(d/700+1))+' 小时');else if(d<80)why.push('就在'+on2+'附近');else if(d<=300)why.push(on2+'过去约 '+d+' 公里，高铁或自驾约 '+Math.max(1,Math.ceil(d/110))+' 小时');else if(d<=800)why.push(on2+'过去约 '+d+' 公里，路上要大半天，高铁或飞机');else why.push(on2+'过去约 '+d+' 公里，坐飞机最省事');
+        if(li.dataset.ab==='1')why.push('从'+on2+'飞过去约 '+Math.max(1,Math.round(d/700+1))+' 小时');else if(d<80)why.push('就在'+on2+'附近');else if(d<=300)why.push(on2+'过去直线约 '+d+' 公里，路上至少 '+Math.max(1,Math.ceil(d/110))+' 小时（山区更久）');else if(d<=800)why.push(on2+'过去直线约 '+d+' 公里，路上要大半天');else why.push(on2+'过去直线约 '+d+' 公里，坐飞机最省事');
         if(li.dataset.ab==='1'&&st.d==='w')s-=8;
         if(kk)why.push(kk);if(st.w==='o')why.push('不上高原');
         sc.push({s:s,li:li,href:href,why:why.join(' · ')})});
