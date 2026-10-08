@@ -166,6 +166,15 @@ if site:
             for k in MUST_BOOK:
                 if k in tx.split('·')[0] and '阿布扎比' not in tx and 'class="bkn' not in li: bad8.append(f'{rid} 「{k}」那一行没有“要预约”徽标')
     if bad8: fails.append(('热门馆缺预约徽标', sorted(set(bad8))))
+    # 9 当天要坐船/渡轮（路上一行写了轮渡/渡轮/快艇/长尾船/船约）：那一天必须有“班次以当天为准”的提醒
+    bad9 = []
+    for f in glob.glob(os.path.join(site, 'trip', '*', 'index.html')):
+        rid = f.split('/')[-2]; h = open(f, encoding='utf-8').read()
+        for sec in h.split('<section class="day"')[1:]:
+            sec = sec.split('</section>')[0]; tx = re.sub(r'<[^>]+>', ' ', sec)
+            if re.search(r'轮渡|渡轮|快艇|快船|长尾船|(?<!门票 )[坐加搭乘]船(?![游看穿进过从在])|船约|船回', tx) and 'alt ferry' not in sec:
+                bad9.append(f'{rid} ' + re.search(r'id="(d\d+)"', sec).group(1) + ' 要坐船但没有班次/停航提醒')
+    if bad9: fails.append(('坐船当天缺班次提醒', sorted(set(bad9))))
     deny = os.path.join(ROOT, 'build', 'denies.txt')
     if os.path.exists(deny):
         # 抽查：串线闸拒绝的“文案 → 线”，页面里不得再出现该文案的原文

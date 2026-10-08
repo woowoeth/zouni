@@ -2181,6 +2181,28 @@ def alt_note(e, first=True):     # first：这一档（≥3,500 / ≥2,500）在
     return f'<p class="alt"><b>海拔 {e:,} 米</b>注意高反：头一天别洗澡、别喝酒、别剧烈运动，慢慢走、多喝水；心肺有毛病的先问问医生。</p>'
 
 
+FERRY_RE = r'轮渡|渡轮|快艇|快船|长尾船|(?<!门票 )[坐加搭乘]船(?![游看穿进过从在])|船约|船回'
+
+
+def ferry_note(d, first=True, rid='', extra=''):
+    """当天要坐船/渡轮 → 班次和停航提醒。不写具体时刻（没有官方班次表，写错比不写更糟）；第一次写全，之后只写一句。
+    只认“过水的交通”（轮渡、坐船上岛/回、快艇…），“坐船游XX”这类游览不算"""
+    texts = [d.get('text') or ''] + [str(v) for w in d['rows'] for k, v in w.items() if k in ('how', 'via', 'name', 'meta', 'note', 'tip', 'tix') and isinstance(v, str)]
+    texts.append(re.sub(r'<[^>]+>', ' ', extra))
+    hit = next((x for x in texts if re.search(FERRY_RE, x) and '游轮' not in x), None)
+    if not hit: return ''
+    via = next((((w.get('how') or '') + ' ' + (w.get('via') or '')) for w in d['rows'] if w.get('type') == 'dep' and re.search(FERRY_RE, (w.get('how') or '') + ' ' + (w.get('via') or ''))), '')
+    m = re.search(r'约\s*(?:(\d+)\s*小时)?\s*(?:(\d+)\s*分钟)?', via); mins = (int(m.group(1) or 0) * 60 + int(m.group(2) or 0)) if m else 0
+    light = bool(re.search(r'轮渡|渡轮', via)) and not re.search(r'快艇|快船|长尾船', via) and 0 < mins < 40
+    if rid in LIGHT_FERRY: light = True
+    if light: return '<p class="alt ferry"><b>今天要坐渡轮</b>班次以当天为准，别把回程安排得太紧。</p>'
+    if not first: return '<p class="alt ferry"><b>今天要坐船</b>班次以当天为准，遇风浪可能停航。</p>'
+    return '<p class="alt ferry"><b>今天要坐船</b>船班以当天为准，遇大风浪可能停航或改点；去岛上、过海的，回程别排得太紧，当天要赶飞机、高铁的别订最后一班，出发前一天再向船公司或码头确认班次。</p>'
+
+
+LIGHT_FERRY = {'hrs2'}
+
+
 def trip_page(rid):
     CUR_RID[0] = rid
     r = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}; d0 = DEST.get(t.get('dest'), {})
@@ -2228,6 +2250,7 @@ def trip_page(rid):
     daynav = f'<nav class="daynav{" long" if n > 9 else ""}" aria-label="跳到第几天">' + ''.join(f'<a href="#d{i + 1}">{i + 1}</a>' for i in range(n)) + '</nav>'
     days = []; sights = []; navprev = None
     STAYFIX = stay_fix(r)
+    FERRY_SEEN = [False]
     ALT_SEEN = {'35': False, '25': False}     # 两档各自第一次写全文
     for i, d in enumerate(r['days']):
         STORY_NOW[0] = d.get('story') or ''
@@ -2316,6 +2339,9 @@ def trip_page(rid):
         _tier = '35' if (d.get('elev') or 0) >= 3500 else '25'
         _alt_html = alt_note(d.get('elev') or 0, not ALT_SEEN[_tier])
         if _alt_html: ALT_SEEN[_tier] = True
+        _fe = ferry_note(d, not FERRY_SEEN[0], rid, ''.join(row_html(w, city, app) for w in rows))
+        if _fe and 'alt ferry"><b>今天要坐船' in _fe: FERRY_SEEN[0] = True
+        _alt_html += _fe
         days.append(f'<section class="day" id="d{i + 1}" data-city="{E(d.get("navCity") or d.get("city") or "")}"><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
                     f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (d.get("clim") or {}).get(str(dates[i].month)) else ""}</p>' + sj_lines(_sj.get(i, [])) + f'{_alt_html}{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
         sights += [w['name'] for w in d['rows'] if w['type'] == 'see' and w.get('poi')]
