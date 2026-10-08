@@ -33763,6 +33763,222 @@
    "page": "Route.dc.html#sz4d",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "wzs4",
+   "dest": "hainan",
+   "name": "五指山琼中",
+   "region": "华南",
+   "days": 4,
+   "title": "五指山琼中 4 天",
+   "headline": "四天，海南的雨林、黎苗村寨和瀑布",
+   "dek": "到五指山，下午走热带雨林栈道，傍晚去水满乡的黎族村寨。",
+   "why": null,
+   "price": {
+    "lo": 2600,
+    "hi": 5300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      1200,
+      2000
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "11-01",
+     "12-31"
+    ],
+    "best": [
+     "11-10",
+     "12-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wzs4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hnw5",
+   "dest": "hainan",
+   "name": "海南西线",
+   "region": "华南",
+   "days": 5,
+   "title": "海南西线 5 天",
+   "headline": "五天，海南西海岸的盐田、海湾和雨林",
+   "dek": "到儋州，下午去苏东坡被贬时住过的东坡书院。",
+   "why": null,
+   "price": {
+    "lo": 3200,
+    "hi": 6500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      1500,
+      2500
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "11-01",
+     "12-31"
+    ],
+    "best": [
+     "11-10",
+     "12-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hnw5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "tjbh4",
+   "dest": "tianjin",
+   "name": "天津滨海",
+   "region": "华北",
+   "days": 4,
+   "title": "天津滨海 4 天",
+   "headline": "四天，天津的老城、海河和滨海新区",
+   "dek": "到天津，下午坐天津之眼，逛古文化街，傍晚在意式风情区吃饭。",
+   "why": null,
+   "price": {
+    "lo": 1700,
+    "hi": 3500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "04-10",
+     "05-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#tjbh4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jgs4",
+   "dest": "jiangxi",
+   "name": "井冈山吉安",
+   "region": "华东",
+   "days": 4,
+   "title": "井冈山吉安 4 天",
+   "headline": "四天，井冈山的红色山路和吉安老城",
+   "dek": "到井冈山，下午去革命博物馆和北山烈士陵园。",
+   "why": null,
+   "price": {
+    "lo": 2200,
+    "hi": 4600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      680,
+      1180
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-10",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "05-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jgs4",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
