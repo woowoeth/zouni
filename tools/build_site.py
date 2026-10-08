@@ -70,7 +70,10 @@ BOOK_HOW = {'天安门': '微信小程序「天安门广场预约参观」', '�
 
 def book_of(text):
     t = text or ''
-    return next(((k, v) for k, v in BOOK.items() if k in t), None)
+    best = None
+    for k, v in BOOK.items():
+        if k in t and not _den('BOOK', k) and (best is None or len(k) > len(best[0])): best = (k, v)
+    return best
 
 
 def book_link(k):
@@ -121,7 +124,7 @@ SIGHT = {
     '华山北峰': '北峰索道上下最省力', '华山西峰': '西峰的悬崖最陡', '华山东峰': '五岳里看日出最出名的地方之一', '避暑山庄': '清代皇帝的夏宫，比颐和园还大',
     '普宁寺': '大乘之阁里有一尊二十多米高的木雕千手观音', '普陀宗乘之庙': '仿布达拉宫修建，被叫作小布达拉宫', '芙蓉镇': '古镇挂在瀑布边上',
     '王屋山': '愚公移山故事里的王屋山', '八廓街': '围着大昭寺的转经道', '色拉寺': '下午常有喇嘛辩经',
-    '开元寺': '唐代始建的古寺', '金顶': '海拔三千多米的金顶看日出和云海', '太古里': '大慈寺旁的开放式街区', '春熙路': '成都最热闹的商业街',
+    '开元寺': '唐代始建的古寺', '金顶': '山顶的金顶，看日出和云海', '武功山金顶': '武功山最高的地方之一，海拔约 1,918 米，山顶是连片的高山草甸，清早在这里看日出和云海', '太古里': '大慈寺旁的开放式街区', '春熙路': '成都最热闹的商业街',
     '额尔齐斯大峡谷': '额尔齐斯河冲出的花岗岩峡谷', '布尔津': '去喀纳斯前的落脚小城', '禾木观景台': '看禾木村全景', '叠溪海子': '1933 年大地震形成的堰塞湖',
     '五彩池': '黄龙最上面的一片钙华池', '武陵源': '张家界峰林的核心景区', '文武庙': '香港最老的庙之一，供奉文昌和关帝', '太平山': '看维多利亚港夜景',
     '中环码头': '坐天星小轮过海', '道顿堀': '大阪最热闹的街，格力高跑步人招牌在这里', '大阪城': '丰臣秀吉修建的城', '黑门市场': '被叫作大阪的厨房，海鲜小吃多',
@@ -710,9 +713,20 @@ SIGHT = {
     '刘氏庄园': '大地主刘文彩的庄园', '建川博物馆': '民间收藏的抗战文物', '碧峰峡': '雅安的大熊猫基地和峡谷', '七星岩': '肇庆的喀斯特山和湖', '世界之窗': '世界著名建筑的微缩景观',}
 
 
+CUR_RID = [None]     # 正在生成哪条线的页面（串线闸要按线判断）
+DENY = set()         # {(表名, 键, 线编号)}：这条文案不该出现在这条线里（同名但在别处的景点）
+
+
+def _den(tab, k):
+    return (tab, k, CUR_RID[0]) in DENY
+
+
 def sight_of(text):
     t = text or ''
-    return next((v for k, v in SIGHT.items() if k in t), None)
+    best = None
+    for k, v in SIGHT.items():
+        if k in t and not _den('SIGHT', k) and (best is None or len(k) > len(best[0])): best = (k, v)     # 最长的键优先：“沈阳故宫”不能拿到“故宫”的介绍
+    return best[1] if best else None
 
 
 TZ = {'japan': 9, 'korea': 9, 'thailand': 7, 'vietnam': 7, 'cambodia': 7, 'laos': 7, 'malaysia': 8, 'singapore': 8, 'indonesia': 8, 'philippines': 8,
@@ -1572,9 +1586,10 @@ def row_html(w, city, app):
         bk_ = book_of(w.get('name')); sg_ = sight_of(w.get('name')); tx_ = tix_of(w.get('name'))
         if tx_:   # 时长、门票、一句话并成一行：门票写短（“约 100 元”），开放时间不写，只留“周一闭馆”这种
             _tt = re.sub(r'（要(实名)?预约）', '', tx_.get('t') or '') if bk_ else (tx_.get('t') or '')   # 上面已经写了“要预约”
-            _tt = re.sub(r'(\d[\d,]*)\s*元左右', r'约 \1 元', _tt)
+            _tt = re.sub(r'(\d[\d,]*)\s*元左右', r'约 \1 元', _tt); _tt = re.sub(r'^门票\s*', '', _tt)
             _tx = ' · '.join(x for x in [(_tt if '免费' in _tt[:6] else '门票' + ('' if _tt.startswith(('约', '旺季')) else ' ') + _tt) if _tt else '', tx_.get('c', '')] if x)
             if _tx: sub = (sub + ' · ' if sub else '') + '<span class="tix">' + E(_tx) + '</span>'
+            if '周一闭馆' in _tx and sg_: sg_ = re.sub(r'[，、]?周一闭馆', '', sg_)     # 门票那一行已经写了，一句话里不再重复
         if sg_ and not (mu and mu['treasures']) and re.split(r'\s*·\s*', w.get('name') or '')[0] not in STORY_NOW[0]: sub = (sub + ' · ' if sub else '') + '<span class="sn2">' + E(sg_) + '</span>'   # 懂一点里讲过的不再重复
         if mu and mu['treasures']:
             main += '<span class="gb">国宝</span>'
@@ -1594,10 +1609,40 @@ def row_html(w, city, app):
 
 
 WEEK = '一二三四五六日'
+def mon_days(r):
+    """行程里哪几天（从 0 数）有周一闭馆的去处"""
+    out = []
+    for i, d in enumerate(r['days']):
+        for w in d['rows']:
+            if w['type'] in ('see', 'fun'):
+                tx = tix_of(w.get('name')) or {}
+                if '周一闭馆' in (tx.get('c') or '') or '周一闭馆' in (w.get('kb') or '') or '周一闭馆' in (sight_of(w.get('name')) or ''): out.append(i); break
+    return out
+
+
 def start_date(r):
     st = r.get('start') or [TODAY.year, TODAY.month - 1, TODAY.day]
     d = datetime.date(st[0], st[1] + 1, min(st[2], 28))
     while d < TODAY: d = d.replace(year=d.year + 1)
+    # 正当季（今天落在“最好的日子”里）：默认出发日要落在窗口内，不能顺延到明年（首页封面写着“还剩 7 天”，点进去却是明年）
+    t = TRIP_OF_ROUTE.get(r.get('id')) or {}
+    b = (t.get('season') or {}).get('best')
+    end = None
+    if b and not t.get('anytime'):
+        md0 = TODAY.strftime('%m-%d'); wrap = b[0] > b[1]
+        if (md0 >= b[0] or md0 <= b[1]) if wrap else (b[0] <= md0 <= b[1]):
+            end = datetime.date(TODAY.year + (1 if wrap and md0 >= b[0] else 0), int(b[1][:2]), int(b[1][3:]))
+            cand = TODAY + datetime.timedelta(days=(5 - TODAY.weekday()) % 7)      # 下一个周六，且至少两天后
+            if (cand - TODAY).days < 2: cand += datetime.timedelta(days=7)
+            d = cand if cand <= end else max(TODAY + datetime.timedelta(days=1), end)
+    # 行程里有“周一闭馆”的去处：默认日期要避开让那一天落在周一（先试后一天、前一天，再远一点；不出窗口、不早于明天）
+    mons = mon_days(r)
+    if mons:
+        lo = TODAY + datetime.timedelta(days=1)
+        for off in (0, 1, -1, 2, -2, 3, -3, 4, -4, 5, -5, 6, -6):
+            c_ = d + datetime.timedelta(days=off)
+            if c_ < lo or (end and c_ > end): continue
+            if all((c_ + datetime.timedelta(days=i)).weekday() != 0 for i in mons): d = c_; break
     return d
 
 
@@ -1764,7 +1809,7 @@ INDOOR_RE = re.compile(r'博物馆|博物院|美术馆|纪念馆|展览馆|科�
 
 def tix_of(name):
     n_ = name or ''
-    k = next((k for k in sorted(TIX, key=len, reverse=True) if k in n_), None)
+    k = next((k for k in sorted(TIX, key=len, reverse=True) if k in n_ and not _den('TIX', k)), None)
     return TIX[k] if k else None
 
 
@@ -2028,12 +2073,77 @@ def sj_for_dest(name):
     return [x for x in SJ if x['prov'] == name or (name in ('香港', '澳门') and x['place'] in (name,))]
 
 
+def compute_denies():
+    """串线闸：同一条文案（一句话、懂一点、门票、预约）按站名匹配到相距很远的几个地方时，只留给它真正说的那个。
+    规则：①名字完全一样（或以它开头）的站所在的位置是“本家”，只靠名字里“包含”它的站（如“嫩江湾”包含“江湾”、“南阳武侯祠”包含“武侯祠”）
+    离本家超过 60 公里就拒绝；②本家本身也分散在几处（如“金顶日出”：峨眉山、武功山）时，文案里点了名的地方留下，别处拒绝；
+    文案没点名（泛泛而谈）的两边都留。结果写到 build/denies.txt 供复查。"""
+    rows = []
+    for rid, rr in ROUTES.items():
+        for d in rr['days']:
+            if d.get('lat') is None: continue
+            for w in d['rows']:
+                if w['type'] in ('see', 'fun') and w.get('name'):
+                    rows.append((rid, w['name'], re.split(r'\s*[·（(]\s*', w['name'])[0].strip(), d['lat'], d['lng']))
+    def clusters(items, th=60):
+        cl = []
+        for it in items:
+            for c in cl:
+                if _km((c[0][3], c[0][4]), (it[3], it[4])) <= th: c.append(it); break
+            else: cl.append([it])
+        return cl
+    TK = {}
+    def toks(rid):
+        if rid in TK: return TK[rid]
+        rr = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}
+        base = re.sub(r'\s*\d+\s*天.*$', '', rr.get('label') or '') + (rr.get('city') or '') + (t.get('name') or '') + ((DEST.get(t.get('dest')) or {}).get('name') or '')
+        names = (rr.get('title') or '') + ' ' + ' '.join(d_.get('title') or '' for d_ in rr['days'])   # 线路标题和每天的标题也算“点名”（标签可能写“峨眉”不写“峨眉山”）
+        base += ' ' + names
+        TK[rid] = {base[i:i + 3] for i in range(len(base) - 2) if ' ' not in base[i:i + 3]}
+        return TK[rid]
+    def named(rid, text):
+        return any(t_ in text for t_ in toks(rid))
+    tabs = (('SIGHT', SIGHT, lambda k, n, c: k in n, lambda v: v),
+            ('DEEP', DEEP, lambda k, n, c: k == c or (len(k) >= 3 and k in n), lambda v: v),
+            ('BOOK', BOOK, lambda k, n, c: k in n, lambda v: v),
+            ('TIX', TIX, lambda k, n, c: k in n, lambda v: (v.get('t') or '') + (v.get('c') or '') + (v.get('h') or '')))
+    log = []
+    DENY.clear()
+    for tab, table, pred, val in tabs:
+        for k, v in table.items():
+            text = str(val(v)) if not isinstance(v, str) else v
+            if tab == 'BOOK': text = str(v)
+            m = [r_ for r_ in rows if pred(k, r_[1], r_[2])]
+            if len({r_[0] for r_ in m}) < 2: continue
+            cl = clusters(m)
+            if len(cl) < 2: continue
+            exact = [r_ for r_ in m if r_[2] == k or r_[2].startswith(k)]
+            ex_cl = [c for c in cl if any(r_ in exact for r_ in c)]
+            if exact and len(ex_cl) == 1:
+                for c in cl:
+                    if c is ex_cl[0]: continue
+                    for rid in {r_[0] for r_ in c}: DENY.add((tab, k, rid)); log.append(f'{tab} 「{k}」拒绝 {rid}（本家在 {sorted({r_[0] for r_ in ex_cl[0]})[:3]}）')
+                continue
+            cand = ex_cl if exact else cl
+            scores = [sum(1 for rid in {r_[0] for r_ in c} if named(rid, text)) for c in cand]
+            if max(scores) > 0:
+                for c, sc in zip(cand, scores):
+                    if sc == 0:
+                        for rid in {r_[0] for r_ in c}: DENY.add((tab, k, rid)); log.append(f'{tab} 「{k}」拒绝 {rid}（文案点名的是 {sorted({r_[0] for cc, s2 in zip(cand, scores) if s2 > 0 for r_ in cc})[:3]}）')
+    os.makedirs('build', exist_ok=True)
+    open('build/denies.txt', 'w', encoding='utf-8').write('\n'.join(sorted(log)) + '\n')
+    return len(DENY)
+
+
+
 def trip_page(rid):
+    CUR_RID[0] = rid
     r = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}; d0 = DEST.get(t.get('dest'), {})
     _g = go_info(r, t, d0, rid)   # 不能传临时拷贝：day_point 按对象 id 缓存，临时对象的 id 会被别的线复用，算出别的线的坐标
     _sj = sj_for_trip(rid, r)
     sd = start_date(r); dates = [sd + datetime.timedelta(days=i) for i in range(len(r['days']))]
     md = lambda x: f'{x.month}/{x.day}'
+    yp = '明年 ' if sd.year > TODAY.year else ''     # 默认日期落在明年时写出来，免得被当成写错或已过期
     app = r.get('navApp') or 'amap'; n = len(r['days']); price = r.get('price') or ''; cost = r.get('cost')
     back = f'/d/{t["dest"]}/' if t.get('dest') in DEST else '/where/'
     s0 = (t.get('season') or {}).get('best')
@@ -2049,7 +2159,7 @@ def trip_page(rid):
                     'trans': [round(pp_['lo'] - loc2), round(pp_['hi'] - loc2)]}      # 2 人时正好等于原来的价格
     has_cost = bool(cost and cost.get('trans'))
     sub3 = ('<button type="button" class="pp">2 人 · 每人 ›</button>' if has_cost else f'<small>{"每人 · 含往返" + (" · 参考价" if price.startswith("约") else "") if "¥" in price else "价格另算"}</small>')
-    glance = (f'<div class="glance"><div class="g1"><b class="big">{n}<small> 天</small></b><span class="dtw dt" role="button" tabindex="0" data-best="{",".join(s0) if s0 else ""}" aria-label="改出发日期">{md(dates[0])}–{dates[-1].day if dates[-1].month == dates[0].month else md(dates[-1])} <i>改</i></span><input type="hidden" class="dpk" data-min="{TODAY.isoformat()}" value="{dates[0].isoformat()}"></div>'
+    glance = (f'<div class="glance"><div class="g1"><b class="big">{n}<small> 天</small></b><span class="dtw dt" role="button" tabindex="0" data-best="{",".join(s0) if s0 else ""}" aria-label="改出发日期">{yp}{md(dates[0])}–{dates[-1].day if dates[-1].month == dates[0].month else md(dates[-1])} <i>改</i></span><input type="hidden" class="dpk" data-min="{TODAY.isoformat()}" value="{dates[0].isoformat()}"></div>'
               f'<div><b>{E(r.get("driveTop"))}</b><small>{E(r.get("driveSub"))}</small></div>'
               f'<div><b class="price" data-cost=\'{E(json.dumps(cost)) if has_cost else ""}\'>{E(price_k(price))}</b>{sub3}</div></div>')
     if has_cost:
@@ -2113,12 +2223,12 @@ def trip_page(rid):
                 return f'<b class="tg">{E(h["name"])}</b>{icons(_hn, city, app, xk=(_hn if city in _hn else f"{city} {_hn}"))}<small>{E(meta)}{" · " if meta else ""}参考价 {pp}/晚</small><a class="tl2" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(h["id"]))}">携程订这家 ›</a>'
             keys_ = ('lux', 'mid', 'eco')
             if HT:
-                lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{tn}</span><div>{_hl(HT.get(keys_[k]), tn, desc, pp)}</div></li>' for k, (tn, desc, pp, u) in enumerate(tiers))
+                lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{tn}</span><div>{_hl(HT.get(kk_), tn, desc, pp)}</div></li>' for k, ((tn, desc, pp, u), kk_) in enumerate([(tiers[i_], keys_[i_]) for i_ in (1, 2, 0)]))   # 默认先给中间一档，奢华放在“看另外两档”里（原来第一眼永远是五星 ¥900 起，和估价对不上）
             elif TOP:
                 lis = (f'<li><span class="tier">推荐</span><div><b class="tg">{E(TOP[0]["name"])}</b><small>{E(str(TOP[0].get("score") or ""))} 分{(" · " + E(TOP[0]["rev"]) + "点评") if TOP[0].get("rev") else ""}</small><a class="tl2" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(TOP[0]["id"]))}">携程订这家 ›</a></div></li>'
                        + ''.join(f'<li class="more"><span class="tier">推荐</span><div><b class="tg">{E(h["name"])}</b><small>{E(str(h.get("score") or ""))} 分{(" · " + E(h["rev"]) + "点评") if h.get("rev") else ""}</small><a class="tl2" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(h["id"]))}">携程订这家 ›</a></div></li>' for h in TOP[1:3]))
             else:
-                lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{tn}</span><div><b class="tg">{desc}</b><small>参考价 {pp}/晚</small></div></li>' for k, (tn, desc, pp, u) in enumerate(tiers))
+                lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{tn}</span><div><b class="tg">{desc}</b><small>参考价 {pp}/晚</small></div></li>' for k, (tn, desc, pp, u) in enumerate([tiers[i_] for i_ in (1, 2, 0)]))
             lis = re.sub(r'<b class="tg">([^<]+)</b>(?!<span class="icg">)', lambda m_: m_.group(0) + icons(re.sub(r'[（(].*$', '', html.unescape(m_.group(1))).strip(), city, app, xk=re.sub(r'[（(].*$', '', html.unescape(m_.group(1))).strip()), lis)   # 推荐三家那种也加导航、点评、小红书
             stays = (f'<div class="stays"><div class="sh"><span class="lbl">今晚住</span><span>{E(area)}{" · 连住 " + str(run) + " 晚" if run > 1 else ""}</span></div><ul>{lis}</ul><button type="button" class="tog">{"再看两家" if (not HT and TOP) else "看另外两档"}</button>'
                      f'<div class="bk" hidden><a class="btn" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(((HT or {}).get("lux") or (HT or {}).get("mid") or (HT or {}).get("eco") or (TOP or [{}])[0]).get("id")) if (HT or TOP) else tiers[0][3])}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpurl(area + " 酒店", city))}" aria-label="在大众点评看附近酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
@@ -2126,7 +2236,7 @@ def trip_page(rid):
         for w_ in d['rows']:
             if w_['type'] not in ('see', 'fun'): continue
             nm_ = re.split(r'\s*·\s*', w_.get('name') or '')[0]
-            k_ = next((k for k in DEEP if k == nm_ or (len(k) >= 3 and k in (w_.get('name') or ''))), None)
+            k_ = next((k for k in sorted(DEEP, key=lambda x: (x != nm_, -len(x))) if (k == nm_ or (len(k) >= 3 and k in (w_.get('name') or ''))) and not _den('DEEP', k)), None)
             if not k_ or DEEP[k_] in [x[1] for x in _more]: continue
             dn_ = '兵马俑' if k_ == '秦始皇帝陵博物院' else re.sub(r'(博物院|景区|公园)$', '', k_)
             if k_[:2] in _base or dn_[:2] in _base:   # 原文已经讲到这处：原文只有一句、补充段更完整，就用补充段替掉原文
@@ -2168,8 +2278,8 @@ def trip_page(rid):
     _nb = nearby_routes(rid)
     near_html = ('<section class="nearr"><h2>附近还能去</h2><ul>' + ''.join(f'<li><a href="/trip/{o}/"><b>{E(ROUTES[o].get("label"))} ›</b><span>{E(day_line(ROUTES[o]))}</span><small>离这里约 {round(dk / 10) * 10 if dk >= 20 else round(dk)} 公里 · {E(price_k(ROUTES[o].get("price")))}</small></a></li>' for dk, o in _nb) + '</ul></section>') if _nb else ''
     dest_link = faq_html + near_html + (f'<p class="morelink"><a href="/d/{E(t["dest"])}/">{E(d0.get("name", ""))}的其他去处 ›</a></p>' if t.get('dest') in DEST else '')
-    dock = f'<div class="dock"><div><b>{md(dates[0])} 出发 · {n} 天</b><small>2 人 · 每人 {E(price_k(price))}</small></div><button type="button" class="fav" data-id="{rid}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{FAV_ICON}<span>收进行程</span></button></div>'
-    body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-start="{dates[0].isoformat()}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
+    dock = f'<div class="dock"><div><b>{yp}{md(dates[0])} 出发 · {n} 天</b><small>2 人 · 每人 {E(price_k(price))}</small></div><button type="button" class="fav" data-id="{rid}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{FAV_ICON}<span>收进行程</span></button></div>'
+    body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-n0="{n}" data-mon="{",".join(str(x) for x in mon_days(r))}" data-start="{dates[0].isoformat()}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
             + (f'<section class="pre go" data-go=\'{E(json.dumps(_g, ensure_ascii=False))}\'><h2>怎么去、怎么回</h2><ul><li class="tip gw"><span>{E(go_text(_g))}。'
                + (f'第一天 {E(_g["first"])} 开始，按{"中午出发、下午到" if _g["first"] >= "15:00" else "上午出发、中午前到"}算的。' if _g['first'] and _g['first'] >= '12:00' else (f'第一天 {E(_g["first"])} 就开始，最好头天晚上到。' if _g['first'] else '')) + '</span></li>'
 
@@ -2401,7 +2511,7 @@ def home_page():
     counts = {b: sum(1 for x in order if ('d1' if len(ROUTES[x]['days']) <= 3 else 'd2' if len(ROUTES[x]['days']) <= 5 else 'd3') == b) for b in ('d1', 'd2', 'd3')}
     others = [x for x in ROUTE_IDS if TRIP_OF_ROUTE.get(x) and window(TRIP_OF_ROUTE[x]) and x not in order and x != cover]
     toc = ''.join(item(i + 2, rid, '小众' if '小众' in (TRIP_OF_ROUTE[rid].get('tags') or []) else '正当季', hide=i >= 8) for i, rid in enumerate(order)) + \
-          ''.join(item(0, rid, '小众' if '小众' in (TRIP_OF_ROUTE[rid].get('tags') or []) else '正当季', hide=True) for rid in others)
+          ''.join(item(0, rid, '小众' if '小众' in (TRIP_OF_ROUTE[rid].get('tags') or []) else '过季', hide=True) for rid in others)   # 这些不在最好的日子里：只给按月份筛选用，不能写“正当季”
     chips = (f'<div class="dchips" role="group" aria-label="我有几天"><button type="button" data-b="" class="on">全部 {len(order)}</button>'
              f'<button type="button" data-b="d1">周末 2–3 天 · {counts["d1"]}</button><button type="button" data-b="d2">4–5 天 · {counts["d2"]}</button><button type="button" data-b="d3">一周以上 · {counts["d3"]}</button></div>')
     nxt = (m % 12) + 1
@@ -2497,6 +2607,7 @@ if __name__ == '__main__':
     for f in ('site.css', 'site.js', 'favicon.svg', 'og.png', 'qr.js', 'apple-touch-icon.png', 'favicon-32.png'):
         src = os.path.join('site_src', f)
         if os.path.exists(src): shutil.copy(src, os.path.join(OUT, 'img' if f in ('favicon.svg', 'og.png', 'apple-touch-icon.png', 'favicon-32.png') else 'assets', f))
+    print('串线闸：拒绝', compute_denies(), '条（详见 build/denies.txt）')
     trip_desc = {rid: trip_page(rid) for rid in ROUTE_IDS}
     dest_desc = {d['id']: dest_page(d) for d in CAT['destinations']}
     sj_hit = 0

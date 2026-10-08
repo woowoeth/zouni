@@ -157,7 +157,7 @@ for rid in ED['order']:
     elevs = [d['elev'] or 0 for d in days]; longd = sum(1 for d in days if d['driveMin'] >= 360)
     stairs = any(re.search(r'天梯|台阶|爬|索道上山|观景台', w.get('name', '')) for d in days for w in d['rows'] if w['type'] == 'see')
     fit = []
-    if max(elevs) >= 3000: fit.append('高海拔，最高住在 %s 米：7 岁以下的孩子、心肺不好的老人慎重' % format(max(elevs), ','))
+    if max(elevs) >= 3000: fit.append('高海拔，行程最高到 %s 米：7 岁以下的孩子、心肺不好的老人慎重' % format(max(elevs), ','))
     if longd: fit.append('有 %d 天开车 6 小时以上：带孩子要多停几次' % longd)
     if stairs: fit.append('台阶和上坡多：膝盖不好的可以少走一段')
     meta['fit'] = fit
