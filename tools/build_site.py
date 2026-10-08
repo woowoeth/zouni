@@ -1637,6 +1637,18 @@ def fclosed_days(r):
     return out
 
 
+# 法定假日出行高峰窗口（含前后返程高峰的大致范围；放假和调休每年 11 月才由国务院公布，这里是按节日日期估的，页面提示里写“以公布为准”）。site.js 里有同一张表，改动要两边一起
+HOLIDAYS = [('元旦', '2027-01-01', '2027-01-03'), ('春节', '2027-02-04', '2027-02-14'), ('清明', '2027-04-03', '2027-04-05'), ('五一', '2027-05-01', '2027-05-05'), ('端午', '2027-06-09', '2027-06-11'),
+            ('中秋', '2027-09-15', '2027-09-17'), ('国庆', '2027-10-01', '2027-10-07'), ('元旦', '2028-01-01', '2028-01-03'), ('春节', '2028-01-24', '2028-02-03'), ('清明', '2028-04-04', '2028-04-06'),
+            ('五一', '2028-05-01', '2028-05-05'), ('端午', '2028-05-27', '2028-05-29'), ('国庆', '2028-10-01', '2028-10-07')]
+
+
+def holiday_hit(start, n):
+    """默认行程 [start, start+n-1] 和哪些假日窗口相交"""
+    end = start + datetime.timedelta(days=n - 1)
+    return [h[0] for h in HOLIDAYS if datetime.date.fromisoformat(h[1]) <= end and start <= datetime.date.fromisoformat(h[2])]
+
+
 def mon_days(r):
     """行程里哪几天（从 0 数）有周一闭馆的去处"""
     out = []
@@ -1666,13 +1678,13 @@ def start_date(r):
             if (cand - TODAY).days < 2: cand += datetime.timedelta(days=7)
             d = cand if cand <= end else max(TODAY + datetime.timedelta(days=1), end)
     # 行程里有“周一闭馆”的去处：默认日期要避开让那一天落在周一（先试后一天、前一天，再远一点；不出窗口、不早于明天）
-    mons = mon_days(r); fcl = fclosed_days(r)
-    if mons or fcl:
+    mons = mon_days(r); fcl = fclosed_days(r); own_hol = any(x in ' '.join(r.get('prep') or []) for x in ('春节', '国庆', '五一', '中秋', '端午', '清明'))     # 线路本来就为假日做的（蔚县打树花）不避
+    if mons or fcl or not own_hol:
         lo = TODAY + datetime.timedelta(days=1)
-        for off in (0, 1, -1, 2, -2, 3, -3, 4, -4, 5, -5, 6, -6):
+        for off in [0] + [x * y for x in range(1, 13) for y in (1, -1)]:
             c_ = d + datetime.timedelta(days=off)
             if c_ < lo or (end and c_ > end): continue
-            if all((c_ + datetime.timedelta(days=i)).weekday() != 0 for i in mons) and all((c_ + datetime.timedelta(days=i)).weekday() != wd for i, wd in fcl): d = c_; break
+            if all((c_ + datetime.timedelta(days=i)).weekday() != 0 for i in mons) and all((c_ + datetime.timedelta(days=i)).weekday() != wd for i, wd in fcl) and (own_hol or not holiday_hit(c_, len(r['days']))): d = c_; break
     return d
 
 

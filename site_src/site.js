@@ -208,7 +208,7 @@
       var mn=dk.dataset.min||dk.min;try{var s0=localStorage.getItem(sk)||localStorage.getItem('zouni_home_date');if(s0&&s0>=mn&&s0!==dk.value){dk.value=s0;applyStart(s0)}}catch(e){}
       // 页面是静态生成的：没存过日期、默认日期已经过去时，按今天重新给一个——正当季落在“最好的日子”里（下一个周六），否则顺延一年
       function defStart(v,best){var t=new Date();t.setHours(12,0,0,0);var td=iso(t);if(v>=td)return v;var b=best?best.split(','):null,mons=(art.dataset.mon||'').split(',').filter(Boolean).map(Number),cls=(art.dataset.cl||'').split(',').filter(Boolean).map(function(z){var q=z.split(':');return[+q[0],+q[1]]});
-        function fixMon(c,end){if(!mons.length&&!cls.length)return iso(c);var lo=new Date(t.getTime()+864e5),offs=[0,1,-1,2,-2,3,-3,4,-4,5,-5,6,-6],k,x;   // 有“周一闭馆”的去处：默认日期别让那一天落在周一
+        function fixMon(c,end){if(!mons.length&&!cls.length)return iso(c);var lo=new Date(t.getTime()+864e5),offs=[0],k,x;for(k=1;k<=12;k++)offs.push(k,-k);   // 有“周一闭馆”的去处：默认日期别让那一天落在周一
           for(k=0;k<offs.length;k++){x=new Date(c.getTime()+offs[k]*864e5);if(x<lo||(end&&x>end))continue;if(mons.every(function(i){return new Date(x.getTime()+i*864e5).getDay()!==1})&&cls.every(function(z){return new Date(x.getTime()+z[0]*864e5).getDay()!==z[1]}))return iso(x)}return iso(c)}
         if(b&&b.length===2){var md=td.slice(5),wrap=b[0]>b[1],inside=wrap?(md>=b[0]||md<=b[1]):(md>=b[0]&&md<=b[1]);
           if(inside){var c=new Date(t.getTime());c.setDate(c.getDate()+(6-c.getDay()+7)%7);if(c-t<2*864e5)c.setDate(c.getDate()+7);
@@ -481,8 +481,14 @@
           if(wk!==1||(!sure.length&&!maybe.length))return;
           var cl=sec.querySelector('[data-clim]');if(!cl)return;var p=document.createElement('p');p.className='fc mon';
           p.innerHTML='<b>这天是周一</b>'+(sure.length?'「'+sure.slice(0,2).join('」「')+'」周一闭馆，出发前查一下，或者把出发日期改一天':'「'+maybe.slice(0,2).join('」「')+'」这类博物馆有的周一闭馆，出发前查一下');cl.parentNode.insertBefore(p,cl.nextSibling)})}
+      // 法定假日出行高峰：行程日期和假日窗口相交，就在“出发前”最上面提醒（表在 build_site.HOLIDAYS，放假安排每年 11 月才公布，这里是估的）
+      var HOL=[['元旦','2027-01-01','2027-01-03'],['春节','2027-02-04','2027-02-14'],['清明','2027-04-03','2027-04-05'],['五一','2027-05-01','2027-05-05'],['端午','2027-06-09','2027-06-11'],['中秋','2027-09-15','2027-09-17'],['国庆','2027-10-01','2027-10-07'],['元旦','2028-01-01','2028-01-03'],['春节','2028-01-24','2028-02-03'],['清明','2028-04-04','2028-04-06'],['五一','2028-05-01','2028-05-05'],['端午','2028-05-27','2028-05-29'],['国庆','2028-10-01','2028-10-07']];
+      function holiday(){var inp=document.querySelector('.dpk'),s0=(inp&&inp.value)||art.dataset.start;if(!s0)return;var ul=document.querySelector('.pre:not(.go) ul');if(!ul)return;var old=ul.querySelector('.hol');if(old)old.remove();
+        var n=document.querySelectorAll('.day').length,a=new Date(s0+'T12:00:00'),b=new Date(a.getTime()+(n-1)*864e5),iso=function(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)},
+            hit=HOL.filter(function(h){return h[1]<=iso(b)&&iso(a)<=h[2]});if(!hit.length)return;var pre=(ul.parentNode.innerText||'');if(hit.every(function(h){return pre.indexOf(h[0])>=0}))return;   // 出发前已经写了这个节日的（蔚县打树花），不重复
+        var li=document.createElement('li');li.className='tip hol';var md=function(x){return+x.slice(5,7)+'/'+ +x.slice(8,10)};li.innerHTML='<span>这几天碰上'+hit.map(function(h){return h[0]+'假期（大约 '+md(h[1])+'–'+md(h[2])+'）'}).join('、')+'：机票、住宿、景区门票会涨价，限流也更严，早点订；想避开就改一下出发日期。具体放假和调休以国务院公布的为准。</span>';ul.insertBefore(li,ul.firstChild)}
       [].slice.call(document.querySelectorAll('.day')).forEach(applyRain);
-      run();monday();var inp=document.querySelector('.dpk');if(inp)inp.addEventListener('change',function(){setTimeout(function(){run();monday()},50)})})();
+      run();monday();holiday();var inp=document.querySelector('.dpk');if(inp)inp.addEventListener('change',function(){setTimeout(function(){run();monday();holiday()},50)})})();
 
     // ——— 怎么去、怎么回：换成你自己的出发地 ———
     var goEl=document.querySelector('section.go'),GO=null;try{GO=goEl?JSON.parse(goEl.dataset.go):null}catch(e){}

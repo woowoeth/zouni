@@ -277,6 +277,20 @@ if site:
                 nm = re.sub(r'<[^>]+>', ' ', li.split('<p class="m">')[1].split('</p>')[0]).strip() if '<p class="m">' in li else ''
                 if nm in ('卡普里蓝洞', '米尔福德峡湾') and 'alt wx' not in sec: bad17.append(f'{rid} 「{nm}」那天没有看天气提醒')
     if bad17: fails.append(('靠天吃饭的去处缺提醒', sorted(set(bad17))))
+    # 18 默认出发日不能落进法定假日出行高峰（价格贵、车票紧、限流），线路自己为假日做的（出发前写了节日名）除外；表和 build_site.HOLIDAYS 一致
+    HOL = [('元旦', '2027-01-01', '2027-01-03'), ('春节', '2027-02-04', '2027-02-14'), ('清明', '2027-04-03', '2027-04-05'), ('五一', '2027-05-01', '2027-05-05'), ('端午', '2027-06-09', '2027-06-11'),
+           ('中秋', '2027-09-15', '2027-09-17'), ('国庆', '2027-10-01', '2027-10-07'), ('元旦', '2028-01-01', '2028-01-03'), ('春节', '2028-01-24', '2028-02-03'), ('清明', '2028-04-04', '2028-04-06'),
+           ('五一', '2028-05-01', '2028-05-05'), ('端午', '2028-05-27', '2028-05-29'), ('国庆', '2028-10-01', '2028-10-07')]
+    bad18 = []
+    for f in glob.glob(os.path.join(site, 'trip', '*', 'index.html')):
+        rid = f.split('/')[-2]; h = open(f, encoding='utf-8').read()
+        ms = re.search(r'data-n0="(\d+)".*?data-start="([^"]+)"', h)
+        if not ms: continue
+        n0, st = int(ms.group(1)), datetime.date.fromisoformat(ms.group(2)); en = st + datetime.timedelta(days=n0 - 1)
+        pre = re.sub(r'<[^>]+>', '', h.split('<h2>出发前</h2>')[1].split('</section>')[0]) if '<h2>出发前</h2>' in h else ''
+        for nm, a, b in HOL:
+            if datetime.date.fromisoformat(a) <= en and st <= datetime.date.fromisoformat(b) and nm not in pre: bad18.append(f'{rid} 默认 {st} 起 {n0} 天，落进{nm}假期（{a}–{b}）')
+    if bad18: fails.append(('默认出发日落进法定假日', sorted(set(bad18))))
     deny = os.path.join(ROOT, 'build', 'denies.txt')
     if os.path.exists(deny):
         # 抽查：串线闸拒绝的“文案 → 线”，页面里不得再出现该文案的原文
