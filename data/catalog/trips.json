@@ -33435,6 +33435,334 @@
    "page": "Route.dc.html#sbg4",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "hz5d",
+   "dest": "zhejiang",
+   "name": "杭州",
+   "region": "华东",
+   "days": 5,
+   "title": "杭州 5 天（深度）",
+   "headline": "五天，杭州的湖、山和老街",
+   "dek": "到杭州，沿着西湖走：断桥、苏堤，傍晚看雷峰塔的夕照。",
+   "why": null,
+   "price": {
+    "lo": 2200,
+    "hi": 4700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      330,
+      990
+     ],
+     "local": [
+      200,
+      450
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-10",
+     "11-30"
+    ],
+    "best": [
+     "03-25",
+     "04-25"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hz5d",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "nj4d",
+   "dest": "jiangsu",
+   "name": "南京",
+   "region": "华东",
+   "days": 4,
+   "title": "南京 4 天（深度）",
+   "headline": "四天，南京的陵、城墙和秦淮",
+   "dek": "到南京，下午去中山陵走台阶，再看明孝陵的神道。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [
+    "红叶"
+   ],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-30"
+    ],
+    "best": [
+     "10-20",
+     "11-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#nj4d",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xm4d",
+   "dest": "fujian",
+   "name": "厦门",
+   "region": "华东",
+   "days": 4,
+   "title": "厦门 4 天（深度）",
+   "headline": "四天，厦门的岛、海和老街",
+   "dek": "到厦门，下午坐船去鼓浪屿，走小巷，看日光岩，傍晚回岛内。",
+   "why": null,
+   "price": {
+    "lo": 1900,
+    "hi": 4100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-15",
+     "12-31"
+    ],
+    "best": [
+     "11-01",
+     "12-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xm4d",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "qd4d",
+   "dest": "shandong",
+   "name": "青岛",
+   "region": "华东",
+   "days": 4,
+   "title": "青岛 4 天（深度）",
+   "headline": "四天，青岛的海、老城和山",
+   "dek": "到青岛，下午走栈桥，看天主教堂，傍晚逛八大关的老别墅。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 4400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-31"
+    ],
+    "best": [
+     "05-15",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#qd4d",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wh4d",
+   "dest": "hubei",
+   "name": "武汉",
+   "region": "华中",
+   "days": 4,
+   "title": "武汉 4 天（深度）",
+   "headline": "四天，武汉的江、湖和博物馆",
+   "dek": "到武汉，下午上黄鹤楼，走过长江大桥，傍晚逛户部巷吃小吃。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 4300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [
+    "樱花"
+   ],
+   "season": {
+    "ok": [
+     "03-10",
+     "11-30"
+    ],
+    "best": [
+     "03-15",
+     "04-05"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wh4d",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "sz4d",
+   "dest": "jiangsu",
+   "name": "苏州",
+   "region": "华东",
+   "days": 4,
+   "title": "苏州 4 天（深度）",
+   "headline": "四天，苏州的园林、水巷和古镇",
+   "dek": "到苏州，下午逛拙政园，再去苏州博物馆，傍晚走平江路。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 4000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      420,
+      770
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-10",
+     "11-30"
+    ],
+    "best": [
+     "04-01",
+     "05-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#sz4d",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
