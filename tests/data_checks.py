@@ -202,6 +202,22 @@ if site:
                 nm = re.sub(r'<[^>]+>', ' ', li.split('<p class="m">')[1].split('</p>')[0]).strip() if '<p class="m">' in li else ''
                 if nm in MOS and 'alt mosque' not in sec: bad11.append(f'{rid} ' + re.search(r'id="(d\d+)"', sec).group(1) + f' 「{nm}」那天没有清真寺提醒')
     if bad11: fails.append(('清真寺缺提醒', sorted(set(bad11))))
+    # 12 转场日：17:00 以后才出发、路上 ≥2 小时，到站后就不能再排景点（深夜到了还逛；该把长途挪到下午、晚饭在目的地）
+    bad12 = []
+    for f in glob.glob(os.path.join(site, 'trip', '*', 'index.html')):
+        rid = f.split('/')[-2]; h = open(f, encoding='utf-8').read()
+        for sec in h.split('<section class="day"')[1:]:
+            sec = sec.split('</section>')[0]; dn = re.search(r'id="(d\d+)"', sec).group(1)
+            rows = []
+            for li in sec.split('<li class="r ')[1:]:
+                ty = li.split('"')[0]; tm = re.search(r'<time>(\d\d):(\d\d)</time>', li)
+                sub = re.sub(r'<[^>]+>', ' ', li.split('<p class=s>')[1].split('</p>')[0]) if '<p class=s>' in li else ''
+                rows.append((ty, int(tm.group(1)) * 60 + int(tm.group(2)) if tm else None, sub))
+            for i, (ty, tm, sub) in enumerate(rows[:-1]):
+                m = re.search(r'约\s*(?:(\d+)\s*小时)?\s*(?:(\d+)\s*分钟?)?', sub)
+                if ty == 'dep' and tm is not None and tm >= 17 * 60 and m and (int(m.group(1) or 0) * 60 + int(m.group(2) or 0)) >= 120 and rows[i + 1][0] in ('see', 'fun') and '回住处' not in sub:
+                    bad12.append(f'{rid} {dn} {tm // 60:02d}:{tm % 60:02d} 才出发、路上 ≥2 小时，到站还排了景点')
+    if bad12: fails.append(('转场日晚出发还排景点', sorted(set(bad12))))
     deny = os.path.join(ROOT, 'build', 'denies.txt')
     if os.path.exists(deny):
         # 抽查：串线闸拒绝的“文案 → 线”，页面里不得再出现该文案的原文
