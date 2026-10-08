@@ -49818,6 +49818,507 @@
     4,
     20
    ]
+  },
+  "rhi4": {
+   "city": "科隆",
+   "label": "莱茵河科隆海德堡 4 天",
+   "title": "四天，科隆、莱茵河谷和海德堡",
+   "kicker": "河谷 · 4 天",
+   "prep": [
+    "要提前办申根签证",
+    "莱茵河谷的游船和渡轮按季节开，班次以当天码头告示为准",
+    "城市之间坐火车，买德铁车票或区域通票；周末和节假日车次会少一些",
+    "德国商店周日大多不开门，吃的东西周六买好"
+   ],
+   "days": [
+    {
+     "title": "科隆大教堂 · 老城",
+     "text": "到科隆，下午看哥特式大教堂，走过霍亨索伦桥，傍晚逛老城。",
+     "stops": [
+      {
+       "name": "科隆大教堂",
+       "q": "Cologne Cathedral",
+       "type": "sight",
+       "dur": 90,
+       "via": "机场轻轨加步行约 40 分钟"
+      },
+      {
+       "name": "霍亨索伦桥",
+       "q": "Hohenzollern Bridge Cologne",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "科隆老城",
+       "q": "Cologne Altstadt",
+       "type": "street",
+       "dur": 75,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "13:00",
+     "elev": 55,
+     "stay": "科隆老城",
+     "dinner": {
+      "dish": "烤猪肘",
+      "place": "老城里的啤酒馆"
+     }
+    },
+    {
+     "title": "去莱茵河谷 · 罗蕾莱",
+     "text": "一早坐火车去莱茵河谷，上午看莱茵费尔斯城堡，下午坐渡轮过河看罗蕾莱岩。",
+     "stops": [
+      {
+       "name": "莱茵费尔斯城堡",
+       "q": "Rheinfels Castle St Goar",
+       "type": "sight",
+       "dur": 120,
+       "via": "火车加步行约 2 小时"
+      },
+      {
+       "name": "罗蕾莱岩",
+       "q": "Loreley Rock",
+       "type": "sight",
+       "dur": 120,
+       "via": "渡轮约 10 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 80,
+     "stay": "圣戈阿尔",
+     "city": "圣戈阿尔",
+     "lunch": {
+      "dish": "莱茵白葡萄酒配香肠",
+      "place": "圣戈阿尔河边的小馆"
+     }
+    },
+    {
+     "title": "去海德堡",
+     "text": "上午坐火车去海德堡，下午上城堡，傍晚走老桥和哲学家小径看城堡的夕照。",
+     "stops": [
+      {
+       "name": "海德堡城堡",
+       "q": "Heidelberg Castle",
+       "type": "sight",
+       "dur": 120,
+       "via": "火车约 2 小时 30 分钟"
+      },
+      {
+       "name": "海德堡老桥",
+       "q": "Old Bridge Heidelberg",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 20 分钟"
+      },
+      {
+       "name": "哲学家小径",
+       "q": "Philosophenweg Heidelberg",
+       "type": "park",
+       "dur": 75,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "09:30",
+     "elev": 115,
+     "stay": "海德堡老城",
+     "city": "海德堡",
+     "dinner": {
+      "dish": "施瓦本饺子",
+      "place": "老城的酒馆"
+     },
+     "lunch": {
+      "dish": "炸猪排",
+      "place": "海德堡老城的酒馆"
+     }
+    },
+    {
+     "title": "法兰克福 · 回程",
+     "text": "上午坐火车去法兰克福，逛罗马广场，下午去机场。",
+     "stops": [
+      {
+       "name": "法兰克福罗马广场",
+       "q": "Romerberg Frankfurt",
+       "type": "street",
+       "dur": 90,
+       "via": "火车约 1 小时"
+      }
+     ],
+     "start": "09:00",
+     "elev": 100,
+     "city": "法兰克福"
+    }
+   ],
+   "dest": "germany",
+   "start": [
+    2027,
+    4,
+    20
+   ]
+  },
+  "tsc4": {
+   "city": "锡耶纳",
+   "label": "托斯卡纳 4 天",
+   "title": "四天，锡耶纳、圣吉米尼亚诺和比萨斜塔",
+   "kicker": "乡村 · 4 天",
+   "prep": [
+    "要提前办申根签证",
+    "锡耶纳到圣吉米尼亚诺要坐大巴或包车，大巴班次不多",
+    "比萨斜塔要提前在官网订登塔时段",
+    "托斯卡纳的小镇下午会有午休，店铺可能关到 16:00 左右"
+   ],
+   "days": [
+    {
+     "title": "锡耶纳田野广场",
+     "text": "到锡耶纳，下午在扇形的田野广场坐一会儿，看大教堂的黑白条纹。",
+     "stops": [
+      {
+       "name": "田野广场",
+       "q": "Piazza del Campo Siena",
+       "type": "street",
+       "dur": 90,
+       "via": "大巴加步行约 40 分钟"
+      },
+      {
+       "name": "锡耶纳大教堂",
+       "q": "Siena Cathedral",
+       "type": "sight",
+       "dur": 75,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "13:00",
+     "elev": 320,
+     "stay": "锡耶纳老城",
+     "dinner": {
+      "dish": "托斯卡纳牛排",
+      "place": "老城的小馆"
+     }
+    },
+    {
+     "title": "圣吉米尼亚诺 · 蒙特里久尼",
+     "text": "上午坐大巴去圣吉米尼亚诺，下午去中世纪的城墙小镇蒙特里久尼。",
+     "stops": [
+      {
+       "name": "圣吉米尼亚诺",
+       "q": "San Gimignano",
+       "type": "street",
+       "dur": 150,
+       "via": "大巴约 1 小时 15 分钟"
+      },
+      {
+       "name": "蒙特里久尼",
+       "q": "Monteriggioni",
+       "type": "street",
+       "dur": 75,
+       "via": "包车约 40 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 330,
+     "stay": "锡耶纳老城",
+     "lunch": {
+      "dish": "野猪肉面",
+      "place": "圣吉米尼亚诺的小馆"
+     }
+    },
+    {
+     "title": "去比萨 · 斜塔",
+     "text": "上午包车去比萨，下午看奇迹广场的斜塔，傍晚逛老城。",
+     "stops": [
+      {
+       "name": "比萨斜塔",
+       "q": "Leaning Tower of Pisa",
+       "type": "sight",
+       "dur": 120,
+       "via": "包车约 1 小时 45 分钟"
+      },
+      {
+       "name": "比萨骑士广场",
+       "q": "Piazza dei Cavalieri Pisa",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 5,
+     "stay": "比萨老城",
+     "city": "比萨",
+     "dinner": {
+      "dish": "鹰嘴豆饼",
+      "place": "比萨老城的小店"
+     },
+     "lunch": {
+      "dish": "托斯卡纳面包汤",
+      "place": "比萨老城的小馆"
+     }
+    },
+    {
+     "title": "卢卡城墙 · 回程",
+     "text": "上午坐火车去卢卡，骑车走一圈城墙，下午回比萨机场。",
+     "stops": [
+      {
+       "name": "卢卡城墙",
+       "q": "Lucca Walls",
+       "type": "park",
+       "dur": 120,
+       "via": "火车约 30 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 20,
+     "city": "卢卡"
+    }
+   ],
+   "dest": "italy",
+   "start": [
+    2027,
+    4,
+    28
+   ]
+  },
+  "dlm4": {
+   "city": "科尔蒂纳丹佩佐",
+   "label": "多洛米蒂 4 天",
+   "title": "四天，多洛米蒂的湖和山",
+   "kicker": "徒步 · 4 天",
+   "prep": [
+    "要提前办申根签证",
+    "这里山路多，最好包车；自己开车的话意大利靠右行驶，要带驾照原件和公证的意大利语或英文翻译件",
+    "索拉皮斯、三峰这些热门点夏天要提前订停车或班车，具体以官网为准",
+    "山里天气变得快，早上晴下午常有雷雨，带防水外套；有些山路和缆车 10 月后关闭",
+    "这条线没有高海拔，最高约 2,300 米"
+   ],
+   "days": [
+    {
+     "title": "科尔蒂纳 · 五塔",
+     "text": "到科尔蒂纳丹佩佐，傍晚坐缆车上五塔，看日落时的山尖。",
+     "stops": [
+      {
+       "name": "科尔蒂纳老城",
+       "q": "Cortina d Ampezzo",
+       "type": "street",
+       "dur": 60,
+       "via": "包车约 2 小时 30 分钟"
+      },
+      {
+       "name": "五塔",
+       "q": "Cinque Torri",
+       "type": "park",
+       "dur": 150,
+       "via": "包车约 20 分钟"
+      }
+     ],
+     "start": "13:00",
+     "elev": 1220,
+     "stay": "科尔蒂纳",
+     "dinner": {
+      "dish": "蘑菇意面",
+      "place": "科尔蒂纳老城的小馆"
+     }
+    },
+    {
+     "title": "三峰 · 米苏里纳湖",
+     "text": "包车去三峰山，走环线看三座岩峰，回程在米苏里纳湖边休息。",
+     "stops": [
+      {
+       "name": "三峰环线",
+       "q": "Tre Cime di Lavaredo",
+       "type": "park",
+       "dur": 240,
+       "via": "包车约 1 小时"
+      },
+      {
+       "name": "米苏里纳湖",
+       "q": "Lago di Misurina",
+       "type": "park",
+       "dur": 60,
+       "via": "包车约 20 分钟"
+      }
+     ],
+     "start": "08:00",
+     "elev": 2320,
+     "stay": "科尔蒂纳"
+    },
+    {
+     "title": "布拉耶斯湖",
+     "text": "早上去最出名的湖，绕湖走一圈，下午去多比亚科小镇。",
+     "stops": [
+      {
+       "name": "布拉耶斯湖",
+       "q": "Lago di Braies",
+       "type": "park",
+       "dur": 150,
+       "via": "包车约 1 小时 20 分钟"
+      },
+      {
+       "name": "多比亚科",
+       "q": "Dobbiaco",
+       "type": "street",
+       "dur": 60,
+       "via": "包车约 40 分钟"
+      }
+     ],
+     "start": "07:30",
+     "elev": 1500,
+     "stay": "科尔蒂纳"
+    },
+    {
+     "title": "乔山口 · 回程",
+     "text": "上午开上乔山口看群山，下午包车去威尼斯机场。",
+     "stops": [
+      {
+       "name": "乔山口",
+       "q": "Passo Giau",
+       "type": "park",
+       "dur": 90,
+       "via": "包车约 30 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 2230
+    }
+   ],
+   "dest": "italy",
+   "start": [
+    2027,
+    5,
+    25
+   ]
+  },
+  "sbg4": {
+   "city": "萨尔茨堡",
+   "label": "萨尔茨堡湖区 4 天",
+   "title": "四天，萨尔茨堡和萨尔茨卡默古特湖区",
+   "kicker": "湖区 · 4 天",
+   "prep": [
+    "要提前办申根签证",
+    "萨尔茨堡到湖区坐巴士，班次不多；圣沃尔夫冈的湖上渡轮按季节开",
+    "沙夫山小火车夏天开，5 月到 10 月，具体日期以官网为准",
+    "哈尔施塔特游客多，早上和傍晚人少"
+   ],
+   "days": [
+    {
+     "title": "米拉贝尔花园 · 老城 · 要塞",
+     "text": "到萨尔茨堡，先去电影里的米拉贝尔花园，再走粮食胡同，傍晚上要塞。",
+     "stops": [
+      {
+       "name": "米拉贝尔花园",
+       "q": "Mirabell Gardens Salzburg",
+       "type": "park",
+       "dur": 75,
+       "via": "火车加步行约 40 分钟"
+      },
+      {
+       "name": "粮食胡同",
+       "q": "Getreidegasse Salzburg",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 12 分钟"
+      },
+      {
+       "name": "霍亨萨尔茨堡要塞",
+       "q": "Hohensalzburg Fortress",
+       "type": "sight",
+       "dur": 120,
+       "via": "缆车约 10 分钟"
+      }
+     ],
+     "start": "13:00",
+     "elev": 425,
+     "stay": "萨尔茨堡老城",
+     "dinner": {
+      "dish": "萨尔茨堡汤圆",
+      "place": "老城里的老店"
+     }
+    },
+    {
+     "title": "蒙德湖 · 圣沃尔夫冈",
+     "text": "上午坐巴士去蒙德湖看教堂，下午去圣沃尔夫冈，坐小火车上沙夫山。",
+     "stops": [
+      {
+       "name": "蒙德湖教堂",
+       "q": "Basilica St Michael Mondsee",
+       "type": "sight",
+       "dur": 60,
+       "via": "巴士约 50 分钟"
+      },
+      {
+       "name": "圣沃尔夫冈",
+       "q": "St Wolfgang im Salzkammergut",
+       "type": "street",
+       "dur": 90,
+       "via": "巴士约 50 分钟"
+      },
+      {
+       "name": "沙夫山",
+       "q": "Schafberg Summit",
+       "type": "park",
+       "dur": 120,
+       "via": "小火车约 40 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 540,
+     "stay": "圣沃尔夫冈",
+     "city": "圣沃尔夫冈",
+     "lunch": {
+      "dish": "湖鱼",
+      "place": "圣沃尔夫冈湖边的餐厅"
+     }
+    },
+    {
+     "title": "去哈尔施塔特",
+     "text": "上午坐巴士去哈尔施塔特，下午上盐矿，傍晚在湖边走走。",
+     "stops": [
+      {
+       "name": "哈尔施塔特盐矿",
+       "q": "Hallstatt Salt Mine",
+       "type": "sight",
+       "dur": 150,
+       "via": "巴士约 2 小时"
+      },
+      {
+       "name": "哈尔施塔特老镇",
+       "q": "Hallstatt Village",
+       "type": "street",
+       "dur": 90,
+       "via": "步行约 20 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 510,
+     "stay": "哈尔施塔特",
+     "city": "哈尔施塔特",
+     "dinner": {
+      "dish": "烤湖鳟",
+      "place": "哈尔施塔特湖边的小店"
+     }
+    },
+    {
+     "title": "回萨尔茨堡 · 海尔布伦",
+     "text": "上午坐巴士回萨尔茨堡，下午去海尔布伦宫的喷泉花园，晚上去机场。",
+     "stops": [
+      {
+       "name": "海尔布伦宫",
+       "q": "Hellbrunn Palace Salzburg",
+       "type": "sight",
+       "dur": 120,
+       "via": "巴士约 2 小时 30 分钟"
+      }
+     ],
+     "start": "09:30",
+     "elev": 425,
+     "city": "萨尔茨堡"
+    }
+   ],
+   "dest": "austria",
+   "start": [
+    2027,
+    4,
+    12
+   ]
   }
  }
 }
