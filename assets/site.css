@@ -571,3 +571,9 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .dayact .addafter{margin:0;flex:1 1 auto;width:auto;min-width:0;height:40px;padding:0 8px;white-space:nowrap}
 @media print{.dayact{display:none}}
 .addafter:active{background:var(--bg2,#ece8df)}
+
+/* 小控件的可点击区域放大到约 44px（外观不变）：每天的“调整”、页脚链接。手慢、手指粗的人容易点错 */
+.r .s .adj{position:relative}
+.r .s .adj:after{content:"";position:absolute;left:-8px;right:-8px;top:-10px;bottom:-10px}
+.foot a{position:relative}
+.foot a:after{content:"";position:absolute;left:-6px;right:-6px;top:-14px;bottom:-14px}
