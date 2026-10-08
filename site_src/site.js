@@ -639,9 +639,14 @@
       all.forEach(function(li){var href=li.querySelector('a[href^="/trip/"]').getAttribute('href');if(seen[href])return;seen[href]=1;var n=+li.dataset.n,d=km(o,[+li.dataset.lat,+li.dataset.lng]),s=0,why=[];
         if(d<60)return;   // 就在出发地的不推荐
         var tdy=new Date(),mdn=('0'+(tdy.getMonth()+1)).slice(-2)+'-'+('0'+tdy.getDate()).slice(-2),ws=li.dataset.ws,we=li.dataset.we;
-        if(ws&&we){var wrp=ws>we,ins=wrp?(mdn>=ws||mdn<=we):(mdn>=ws&&mdn<=we);if(!ins)return}   // 不在最好的日子里的不推荐（原来会把 12 月的冬捕推给 10 月的人）
+        var okOnly=false;
+        if(ws&&we){var wrp=ws>we,ins=wrp?(mdn>=ws||mdn<=we):(mdn>=ws&&mdn<=we);
+          if(!ins){var os=li.dataset.os,oe=li.dataset.oe,owr=os>oe,oins=os&&oe&&(owr?(mdn>=os||mdn<=oe):(mdn>=os&&mdn<=oe));if(!oins)return;okOnly=true}}   // 不在“能去”的日子里的不推荐（原来会把 12 月的冬捕推给 10 月的人）；在“能去”但不是最好的日子里的，后面补位时扣分
         if(st.w==='o'){var cl=null;try{cl=JSON.parse(li.dataset.clim||'{}')[tdy.getMonth()+1]}catch(e){}if(cl&&(cl[1]<=-10||cl[0]<=-3))return}   // 带老人孩子：夜里零下十度以下的不推荐
-        if(st.d==='w'){if(n>3)return;s+=d<=300?50:d<=500?35:d<=700?12:d<=1200?-10:-40}   // 周末只有两三天：路上超过大半天的往后排else if(st.d==='m'){if(n<4||n>5)return;s+=d<=2500?20:0}else{if(n<6)return;s+=10}
+        // 周末只有两三天：路上超过大半天的往后排；4–5 天也是近的优先（原来 2500 公里内一律同分）
+        if(st.d==='w'){if(n>3)return;s+=d<=300?50:d<=500?35:d<=700?12:d<=1200?-10:-40}
+        else if(st.d==='m'){if(n<4||n>5)return;s+=d<=500?40:d<=900?30:d<=1500?20:d<=2500?10:0}
+        else{if(n<6)return;s+=10+(d<=800?10:d<=2000?5:0)}
         if(st.v==='n'&&li.dataset.sd==='1')return;   // 出行方式选了“不开车”：要自己开车的线不推荐
         if(st.w==='o'&&(li.dataset.hi==='1'||li.dataset.ab==='1'))return;   // 带老人孩子：不上高原、不出国（签证和长途飞行，国外线“出发前”还没做细）
         if(st.w==='o'&&li.dataset.drv==='1'&&n>8)s-=15;
@@ -649,9 +654,10 @@
         var on2=st.o==='here'?'你这里':st.o;
         if(li.dataset.ab==='1')why.push('从'+on2+'飞过去约 '+Math.max(1,Math.round(d/700+1))+' 小时');else if(d<80)why.push('就在'+on2+'附近');else if(d<=300)why.push(on2+'过去直线约 '+d+' 公里，路上至少 '+Math.max(1,Math.ceil(d/110))+' 小时（山区更久）');else if(d<=800)why.push(on2+'过去直线约 '+d+' 公里，路上要大半天');else why.push(on2+'过去直线约 '+d+' 公里，坐飞机最省事');
         if(li.dataset.ab==='1'&&st.d==='w')s-=8;
+        if(okOnly){s-=15;why.push('现在也能去，不是最好的时候')}
         if(kk)why.push(kk);if(st.w==='o')why.push('不上高原');
         sc.push({s:s,li:li,href:href,why:why.join(' · ')})});
-      sc.sort(function(a,b){return b.s-a.s});var top=[],dests={};sc.forEach(function(x){var t=x.li.querySelector('h3').textContent.split(' · ')[0];if(top.length<3&&!dests[t]){dests[t]=1;top.push(x)}});return top}
+      sc.sort(function(a,b){return b.s-a.s});var top=[],dests={};sc.forEach(function(x){var t=x.li.querySelector('h3').textContent.split(' · ')[0];if(top.length<3&&(dests[t]||0)<2){dests[t]=(dests[t]||0)+1;top.push(x)}});return top}   // 同一个省最多两条（原来只许一条，成都周边几乎全在四川，近的线进不来）
     function render(){var ready=st.o&&st.d&&st.w,res=ready?pick():[];
       sec.innerHTML='<h2>替我挑三条<small>答三个问题</small></h2>'+'<p class="pkq">从哪出发</p>'+chips('o',[['here','📍 当前位置']].concat(Object.keys(C).filter(function(c){return c!=='here'}).map(function(c){return[c,c]})))+'<p class="pkq">玩几天</p>'+chips('d',[['w','周末 2–3 天'],['m','4–5 天'],['l','一周以上']])+'<p class="pkq">和谁去</p>'+chips('w',[['f','自己或朋友'],['c','两个人'],['o','带老人孩子']])+'<p class="pkq">出行方式<small>可不选</small></p>'+chips('v',[['a','自驾也行'],['n','不开车']])+
         (ready?(res.length?'<ol class="pkres">'+res.map(function(x,i){var img=x.li.querySelector('img');return'<li><a href="'+x.href+'"><span class="pkn">'+(i+1)+'</span><div><b>'+x.li.querySelector('h3').textContent+'</b><small>'+x.why+'</small></div>'+(img?'<img src="'+(img.getAttribute('src')||img.dataset.src||'')+'" alt="" loading="lazy">':'')+'</a></li>'}).join('')+'</ol>'+(res.length<3?'<p class="pkhint">按你选的（出发地、天数、当季、'+(st.w==='o'?'避开极寒和高原、':'')+'路程）现在只有 '+res.length+' 条合适的；换个“玩几天”或“和谁去”会多一些。</p>':''):'<p class="pkhint">这个时间没找到合适的，换个天数试试，或者把出发日期往后挪</p>'):'<p class="pkhint">选好三项，马上给你三条</p>');

@@ -118,6 +118,15 @@ for rid, v in I.items():
             if (d.get('elev') or 0) >= 3000 and not (rid == 'hbel8' or rid == 'wgs2'): bad.append(f'{rid} 第{i + 1}天 海拔 {d["elev"]}（{v["dest"]} 不该有 ≥3000 米）')
 if bad: fails.append(('低平地区出现 ≥3000 米的天（海拔补错了）', bad))
 
+# 5c site.js：注释（//）后面不能还跟着代码——写在同一行末尾的注释会吞掉后面的代码（这轮犯过四次，其中一次让首页“4–5 天”“一周以上”的筛选失效）
+bad = []
+for n, l in enumerate(open('site_src/site.js', encoding='utf-8').read().split('\n'), 1):
+    s_ = re.sub(r"'(?:[^'\\\n]|\\.)*'|\"(?:[^\"\\\n]|\\.)*\"|`(?:[^`\\\n]|\\.)*`", lambda m: 'S' * len(m.group(0)), l)
+    s_ = re.sub(r"/(?:[^/\\\n]|\\.)+/[gimsuy]*(?=[.,;)])", lambda m: 'R' * len(m.group(0)), s_)
+    m_ = re.search(r'(?<![:\w])//', s_)
+    if m_ and re.search(r'\belse\s*(if\s*\(|\{)|\}\s*else\b|\bfunction\s*\w*\s*\(|\)\s*\{|;\s*\w+\s*\(\w*', s_[m_.end():]): bad.append(f'site_src/site.js 第 {n} 行：注释后面还有代码（会被吞掉）：{l.strip()[:90]}')
+if bad: fails.append(('site.js 里注释吞掉了后面的代码', bad))
+
 # 6/7 页面
 site = sys.argv[1] if len(sys.argv) > 1 else None
 if site:

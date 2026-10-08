@@ -2167,7 +2167,7 @@ def alt_note(e, first=True):     # first：这一档（≥3,500 / ≥2,500）在
     if not first: return f'<p class="alt"><b>海拔 {e:,} 米</b>注意高反：慢慢走、多喝水，头疼恶心就停下来歇。</p>'
     if e >= 3500:
         return f'<p class="alt"><b>海拔 {e:,} 米</b>到了先歇一天，别洗澡、别喝酒、别剧烈运动，慢慢走、多喝水；出发前问问医生，备好便携氧气瓶；头疼、恶心、嘴唇发紫别硬撑，马上往低处走。</p>'
-    return f'<p class="alt"><b>海拔 {e:,} 米</b>头一天别洗澡、别喝酒、别剧烈运动，慢慢走、多喝水；心肺有毛病的先问问医生。</p>'
+    return f'<p class="alt"><b>海拔 {e:,} 米</b>注意高反：头一天别洗澡、别喝酒、别剧烈运动，慢慢走、多喝水；心肺有毛病的先问问医生。</p>'
 
 
 def trip_page(rid):
@@ -2526,12 +2526,13 @@ def home_page():
     def item(i, rid, kicker, hide=False):
         rr = ROUTES[rid]; tt = TRIP_OF_ROUTE[rid]; dd = DEST.get(tt['dest'], {}); c = clim(dd); n = len(rr['days'])
         wb = window(tt) or ['', '']
+        ob = (tt.get('season') or {}).get('ok') or ['', '']     # “能去”的日子（比最好的日子宽），首页推荐不足时补位用
         _src = ('/img/' + (rr.get('img') or '').replace('/_blob/', '') + '.svg') if rr.get('img') else ('/img/p/' + rid + '.svg')
         _pts = [p_ for k_ in range(n) for p_ in [day_point(rr, k_)] if p_]
         _c = (sum(p_[0] for p_ in _pts) / len(_pts), sum(p_[1] for p_ in _pts) / len(_pts)) if _pts else (dd.get('lat'), dd.get('lng'))
         _hi = 1 if max([(d_.get('elev') or 0) for d_ in rr['days']] + [0]) >= 3000 else 0
         _sd = 1 if (rr.get('drive') or any((w_.get('how') or '').startswith(('自驾', '开车', '回住处 · 自驾', '回住处 · 开车')) or '提车' in (w_.get('name') or w_.get('to') or '') for d_ in rr['days'] for w_ in d_['rows'])) else 0     # 要自己开车（自驾、提车）：首页“不开车”要排除
-        extra = (f' data-ws="{wb[0]}" data-we="{wb[1]}" data-img="{1 if rr.get("img") else 0}" data-comp="{1 if rr.get("compiled") else 0}" data-clim=\'{E(json.dumps(dd.get("climate") or {}))}\''
+        extra = (f' data-ws="{wb[0]}" data-we="{wb[1]}" data-os="{ob[0]}" data-oe="{ob[1]}" data-img="{1 if rr.get("img") else 0}" data-comp="{1 if rr.get("compiled") else 0}" data-clim=\'{E(json.dumps(dd.get("climate") or {}))}\''
                  + (f' data-lat="{_c[0]:.3f}" data-lng="{_c[1]:.3f}"' if _c[0] else '') + f' data-hi="{_hi}" data-drv="{1 if rr.get("drive") else 0}" data-sd="{_sd}" data-ab="{0 if dd.get("scope") == "domestic" else 1}"'
                  f' data-t="{E(rr["title"])}" data-n="{n}" data-pr="{E(price_k(rr.get("price")))}" data-src="{E(_src)}" data-h="/trip/{rid}/"')
         img = (rr.get('img') or '').replace('/_blob/', '')
