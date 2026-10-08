@@ -45269,6 +45269,1375 @@
      "city": "宁武"
     }
    ]
+  },
+  "hel3": {
+   "city": "赫尔辛基",
+   "label": "赫尔辛基 3 天",
+   "title": "三天，赫尔辛基老城和海上要塞",
+   "kicker": "城市 · 3 天",
+   "prep": [
+    "要提前办申根签证",
+    "市区景点走得到，买一张 HSL 交通票管地铁、电车和去要塞的渡轮",
+    "苏奥门林纳要塞的渡轮从集市广场边上的码头坐，约 15 分钟"
+   ],
+   "days": [
+    {
+     "title": "参议院广场 · 岩石教堂",
+     "text": "到赫尔辛基，看白色大教堂，下午去岩石教堂。",
+     "stops": [
+      {
+       "name": "赫尔辛基大教堂",
+       "q": "Helsinki Cathedral",
+       "type": "sight",
+       "dur": 60,
+       "via": "机场火车加步行约 50 分钟"
+      },
+      {
+       "name": "岩石教堂",
+       "q": "Temppeliaukio Church",
+       "type": "sight",
+       "dur": 45,
+       "via": "电车或步行约 20 分钟"
+      },
+      {
+       "name": "集市广场",
+       "q": "Helsinki Market Square",
+       "type": "street",
+       "dur": 60,
+       "via": "电车约 15 分钟"
+      }
+     ],
+     "start": "13:00",
+     "stay": "赫尔辛基市中心",
+     "dinner": {
+      "dish": "三文鱼汤",
+      "place": "集市广场边上的小馆"
+     },
+     "elev": 10
+    },
+    {
+     "title": "苏奥门林纳要塞 · 中央图书馆",
+     "text": "坐渡轮去海上要塞走一圈，下午去 Oodi 中央图书馆。",
+     "stops": [
+      {
+       "name": "苏奥门林纳要塞",
+       "q": "Suomenlinna",
+       "type": "sight",
+       "dur": 210,
+       "via": "渡轮约 15 分钟"
+      },
+      {
+       "name": "Oodi 中央图书馆",
+       "q": "Oodi Helsinki Central Library",
+       "type": "sight",
+       "dur": 75,
+       "via": "渡轮加电车约 40 分钟"
+      }
+     ],
+     "start": "09:30",
+     "stay": "赫尔辛基市中心",
+     "lunch": {
+      "dish": "肉桂卷",
+      "place": "要塞岛上的咖啡馆"
+     },
+     "elev": 10
+    },
+    {
+     "title": "西贝柳斯公园 · 回程",
+     "text": "上午去西贝柳斯纪念碑，下午回机场。",
+     "stops": [
+      {
+       "name": "西贝柳斯纪念碑",
+       "q": "Sibelius Monument",
+       "type": "sight",
+       "dur": 60,
+       "via": "电车约 25 分钟"
+      },
+      {
+       "name": "塞拉萨里露天博物馆",
+       "q": "Seurasaari Open-Air Museum",
+       "type": "park",
+       "dur": 90,
+       "via": "公交约 15 分钟"
+      }
+     ],
+     "start": "09:30",
+     "elev": 10
+    }
+   ],
+   "dest": "finland",
+   "start": [
+    2027,
+    5,
+    20
+   ]
+  },
+  "yvr4": {
+   "city": "温哥华",
+   "label": "温哥华维多利亚 4 天",
+   "title": "四天，温哥华和温哥华岛",
+   "kicker": "城市 · 4 天",
+   "prep": [
+    "加拿大要办签证，出发前一两个月就开始准备",
+    "去维多利亚要坐 BC Ferries 渡轮，夏天周末最好提前订车位和座位",
+    "布查特花园在维多利亚北边约 20 公里，坐公交或打车"
+   ],
+   "days": [
+    {
+     "title": "史丹利公园 · 煤气镇",
+     "text": "到温哥华，骑车环斯坦利公园，晚上去煤气镇看蒸汽钟。",
+     "stops": [
+      {
+       "name": "史丹利公园",
+       "q": "Stanley Park Seawall",
+       "type": "park",
+       "dur": 150,
+       "via": "机场轻轨加公交约 60 分钟"
+      },
+      {
+       "name": "煤气镇蒸汽钟",
+       "q": "Gastown Steam Clock",
+       "type": "street",
+       "dur": 60,
+       "via": "公交约 25 分钟"
+      }
+     ],
+     "start": "12:00",
+     "stay": "温哥华市中心",
+     "dinner": {
+      "dish": "三文鱼",
+      "place": "煤气镇的餐厅"
+     },
+     "elev": 5
+    },
+    {
+     "title": "格兰维尔岛 · 卡皮拉诺吊桥",
+     "text": "上午逛格兰维尔岛的公共市场，下午去北温哥华的吊桥。",
+     "stops": [
+      {
+       "name": "格兰维尔岛",
+       "q": "Granville Island Public Market",
+       "type": "street",
+       "dur": 120,
+       "via": "公交约 20 分钟"
+      },
+      {
+       "name": "卡皮拉诺吊桥公园",
+       "q": "Capilano Suspension Bridge",
+       "type": "fun",
+       "dur": 150,
+       "via": "免费接驳巴士约 35 分钟"
+      }
+     ],
+     "start": "09:00",
+     "stay": "温哥华市中心",
+     "lunch": {
+      "dish": "海鲜杂烩",
+      "place": "格兰维尔岛公共市场"
+     },
+     "elev": 5
+    },
+    {
+     "title": "渡轮去维多利亚 · 布查特花园",
+     "text": "早上坐渡轮过海，下午逛布查特花园，晚上住维多利亚。",
+     "stops": [
+      {
+       "name": "布查特花园",
+       "q": "Butchart Gardens",
+       "type": "park",
+       "dur": 180,
+       "via": "渡轮加大巴约 3 小时"
+      },
+      {
+       "name": "维多利亚内港",
+       "q": "Victoria Inner Harbour",
+       "type": "street",
+       "dur": 90,
+       "via": "公交约 1 小时"
+      }
+     ],
+     "start": "07:30",
+     "stay": "维多利亚内港",
+     "city": "维多利亚",
+     "dinner": {
+      "dish": "炸鱼薯条",
+      "place": "内港边上的小店"
+     },
+     "elev": 20
+    },
+    {
+     "title": "省议会大厦 · 回程",
+     "text": "上午看省议会大厦和皇家博物馆，中午坐渡轮回温哥华去机场。",
+     "stops": [
+      {
+       "name": "不列颠哥伦比亚省议会大厦",
+       "q": "British Columbia Parliament Buildings",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "皇家不列颠哥伦比亚博物馆",
+       "q": "Royal BC Museum",
+       "type": "museum",
+       "dur": 90,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "09:00",
+     "city": "维多利亚",
+     "elev": 20
+    }
+   ],
+   "dest": "canada",
+   "start": [
+    2027,
+    6,
+    10
+   ]
+  },
+  "ber4": {
+   "city": "柏林",
+   "label": "柏林 4 天",
+   "title": "四天，柏林和波茨坦",
+   "kicker": "城市 · 4 天",
+   "prep": [
+    "要提前办申根签证",
+    "买柏林 AB 区的公共交通票，波茨坦在 B 区内"
+   ],
+   "days": [
+    {
+     "title": "勃兰登堡门 · 国会大厦",
+     "text": "到柏林，从勃兰登堡门走到国会大厦，再去大屠杀纪念碑。",
+     "stops": [
+      {
+       "name": "勃兰登堡门",
+       "q": "Brandenburg Gate",
+       "type": "sight",
+       "dur": 40,
+       "via": "机场火车约 30 分钟"
+      },
+      {
+       "name": "国会大厦穹顶",
+       "q": "Reichstag Dome",
+       "type": "sight",
+       "dur": 90,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "欧洲被害犹太人纪念碑",
+       "q": "Memorial to the Murdered Jews of Europe",
+       "type": "sight",
+       "dur": 40,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "12:30",
+     "stay": "柏林米特区",
+     "dinner": {
+      "dish": "咖喱香肠",
+      "place": "街边小摊"
+     },
+     "elev": 35
+    },
+    {
+     "title": "博物馆岛 · 电视塔",
+     "text": "上午逛博物馆岛，爬柏林大教堂，傍晚去亚历山大广场。",
+     "stops": [
+      {
+       "name": "博物馆岛",
+       "q": "Museum Island Berlin",
+       "type": "museum",
+       "dur": 180,
+       "via": "地铁约 20 分钟"
+      },
+      {
+       "name": "柏林大教堂",
+       "q": "Berlin Cathedral",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "柏林电视塔",
+       "q": "Berlin TV Tower",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "09:30",
+     "stay": "柏林米特区",
+     "elev": 35
+    },
+    {
+     "title": "查理检查站 · 东边画廊",
+     "text": "看冷战的痕迹：查理检查站、恐怖地形图，最后在东边画廊看墙。",
+     "stops": [
+      {
+       "name": "查理检查站",
+       "q": "Checkpoint Charlie",
+       "type": "sight",
+       "dur": 40,
+       "via": "地铁约 20 分钟"
+      },
+      {
+       "name": "恐怖地形图纪念馆",
+       "q": "Topography of Terror",
+       "type": "museum",
+       "dur": 90,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "东边画廊",
+       "q": "East Side Gallery",
+       "type": "street",
+       "dur": 90,
+       "via": "地铁约 25 分钟"
+      }
+     ],
+     "start": "09:30",
+     "stay": "柏林米特区",
+     "elev": 35
+    },
+    {
+     "title": "波茨坦无忧宫 · 回程",
+     "text": "上午坐火车去波茨坦逛无忧宫花园，下午回柏林去机场。",
+     "stops": [
+      {
+       "name": "无忧宫",
+       "q": "Sanssouci Palace",
+       "type": "sight",
+       "dur": 180,
+       "via": "城铁约 40 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 35
+    }
+   ],
+   "dest": "germany",
+   "start": [
+    2027,
+    4,
+    20
+   ]
+  },
+  "kz3": {
+   "city": "阿拉木图",
+   "label": "恰伦大峡谷科尔赛湖 3 天",
+   "title": "三天，恰伦大峡谷和科尔赛湖",
+   "kicker": "自然 · 3 天",
+   "prep": [
+    "哈萨克斯坦对中国公民免签，入境前再查一下最新天数",
+    "这条线要包车：阿拉木图到恰伦约 3 小时，恰伦到萨蒂村约 3 小时，萨蒂村到科尔赛湖约 1 小时",
+    "凯恩迪湖一段是土路，下雨后问司机能不能走，保暖衣服带上，湖区早晚冷"
+   ],
+   "days": [
+    {
+     "title": "恰伦大峡谷",
+     "text": "到阿拉木图，包车去恰伦大峡谷，下到谷底走河边的步道，傍晚继续开去萨蒂村住下，约 3 小时。",
+     "stops": [
+      {
+       "name": "恰伦大峡谷",
+       "q": "Charyn Canyon",
+       "type": "sight",
+       "dur": 210,
+       "via": "包车约 3 小时"
+      }
+     ],
+     "start": "08:00",
+     "stay": "萨蒂村",
+     "city": "萨蒂",
+     "lunch": {
+      "dish": "手抓饭",
+      "place": "路边饭馆"
+     },
+     "elev": 1100
+    },
+    {
+     "title": "科尔赛湖 · 凯恩迪湖",
+     "text": "包车去科尔赛湖，傍晚到凯恩迪湖看水里的枯树。",
+     "stops": [
+      {
+       "name": "下科尔赛湖",
+       "q": "Lower Kolsai Lake",
+       "type": "sight",
+       "dur": 120,
+       "via": "包车约 1 小时"
+      },
+      {
+       "name": "凯恩迪湖",
+       "q": "Kaindy Lake",
+       "type": "sight",
+       "dur": 90,
+       "via": "包车约 1 小时"
+      }
+     ],
+     "start": "08:30",
+     "stay": "萨蒂村",
+     "city": "萨蒂",
+     "elev": 1800
+    },
+    {
+     "title": "回阿拉木图 · 绿山",
+     "text": "一早返程，下午坐缆车上绿山，傍晚去潘菲洛夫公园。",
+     "stops": [
+      {
+       "name": "科克托别缆车",
+       "q": "Kok Tobe Almaty",
+       "type": "fun",
+       "dur": 120,
+       "via": "包车约 5 小时 30 分钟"
+      },
+      {
+       "name": "潘菲洛夫公园和升天大教堂",
+       "q": "Panfilov Park Zenkov Cathedral",
+       "type": "park",
+       "dur": 75,
+       "via": "打车约 15 分钟"
+      }
+     ],
+     "start": "07:30",
+     "city": "阿拉木图",
+     "elev": 800
+    }
+   ],
+   "dest": "kazakhstan",
+   "start": [
+    2027,
+    5,
+    10
+   ]
+  },
+  "sri4": {
+   "city": "科伦坡",
+   "label": "加勒古城南海岸 4 天",
+   "title": "四天，加勒古城和南海岸",
+   "kicker": "海边 · 4 天",
+   "prep": [
+    "去之前在官网办电子旅行许可（ETA）",
+    "科伦坡到加勒走南部高速约 2 小时，可以包车，也可以坐火车沿海走",
+    "米瑞莎赏鲸大约在 11 月到 4 月，船清早就出发，晕船的带药"
+   ],
+   "days": [
+    {
+     "title": "加勒古城",
+     "text": "到科伦坡，包车去加勒，走完古城墙，看日落。",
+     "stops": [
+      {
+       "name": "加勒古堡",
+       "q": "Galle Fort",
+       "type": "sight",
+       "dur": 150,
+       "via": "包车约 2 小时"
+      },
+      {
+       "name": "加勒灯塔",
+       "q": "Galle Fort Lighthouse Rampart",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "10:00",
+     "stay": "加勒古城",
+     "city": "加勒",
+     "dinner": {
+      "dish": "海鲜咖喱",
+      "place": "古城里的小馆"
+     },
+     "elev": 5
+    },
+    {
+     "title": "乌纳瓦图纳 · 和平塔",
+     "text": "上午去乌纳瓦图纳海滩，下午上日本和平塔。",
+     "stops": [
+      {
+       "name": "乌纳瓦图纳海滩",
+       "q": "Unawatuna Beach",
+       "type": "park",
+       "dur": 150,
+       "via": "嘟嘟车约 20 分钟"
+      },
+      {
+       "name": "日本和平塔",
+       "q": "Japanese Peace Pagoda Galle",
+       "type": "sight",
+       "dur": 60,
+       "via": "嘟嘟车约 15 分钟"
+      }
+     ],
+     "start": "09:00",
+     "stay": "加勒古城",
+     "city": "加勒",
+     "elev": 5
+    },
+    {
+     "title": "米瑞莎赏鲸",
+     "text": "清早出海看鲸，下午在米瑞莎的海滩晒太阳。",
+     "stops": [
+      {
+       "name": "米瑞莎赏鲸",
+       "q": "Mirissa Whale Watching",
+       "type": "fun",
+       "dur": 240,
+       "via": "包车约 1 小时"
+      },
+      {
+       "name": "鹦鹉岩",
+       "q": "Parrot Rock Mirissa",
+       "type": "park",
+       "dur": 90,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "06:00",
+     "stay": "米瑞莎",
+     "city": "米瑞莎",
+     "elev": 5
+    },
+    {
+     "title": "回科伦坡",
+     "text": "上午回科伦坡，去甘加拉马寺，傍晚在加勒菲斯绿地吹海风。",
+     "stops": [
+      {
+       "name": "甘加拉马寺",
+       "q": "Gangaramaya Temple",
+       "type": "sight",
+       "dur": 75,
+       "via": "包车约 3 小时"
+      },
+      {
+       "name": "加勒菲斯绿地",
+       "q": "Galle Face Green",
+       "type": "park",
+       "dur": 90,
+       "via": "嘟嘟车约 15 分钟"
+      }
+     ],
+     "start": "08:30",
+     "city": "科伦坡",
+     "elev": 5
+    }
+   ],
+   "dest": "srilanka",
+   "start": [
+    2026,
+    11,
+    20
+   ]
+  },
+  "auh3": {
+   "city": "阿布扎比",
+   "label": "阿布扎比 3 天",
+   "title": "三天，阿布扎比",
+   "kicker": "城市 · 3 天",
+   "prep": [
+    "要提前办签证，出发前查中国护照的最新政策",
+    "进大清真寺要穿长衣长裤，女生要备头巾",
+    "可以飞阿布扎比，也可以飞迪拜再坐车过来，约 1.5 小时"
+   ],
+   "days": [
+    {
+     "title": "谢赫扎伊德大清真寺",
+     "text": "到阿布扎比，下午进大清真寺，傍晚正好看日落。",
+     "stops": [
+      {
+       "name": "谢赫扎伊德大清真寺",
+       "q": "Sheikh Zayed Grand Mosque",
+       "type": "sight",
+       "dur": 150,
+       "via": "打车约 30 分钟"
+      }
+     ],
+     "start": "12:00",
+     "stay": "阿布扎比滨海",
+     "dinner": {
+      "dish": "阿拉伯烤肉",
+      "place": "市区的黎巴嫩餐厅"
+     },
+     "elev": 10
+    },
+    {
+     "title": "卢浮宫阿布扎比 · 滨海大道",
+     "text": "上午看卢浮宫阿布扎比，下午在滨海大道散步。",
+     "stops": [
+      {
+       "name": "卢浮宫阿布扎比",
+       "q": "Louvre Abu Dhabi",
+       "type": "museum",
+       "dur": 180,
+       "via": "打车约 20 分钟"
+      },
+      {
+       "name": "阿布扎比滨海大道",
+       "q": "Abu Dhabi Corniche",
+       "type": "park",
+       "dur": 90,
+       "via": "打车约 20 分钟"
+      }
+     ],
+     "start": "10:00",
+     "stay": "阿布扎比滨海",
+     "elev": 10
+    },
+    {
+     "title": "亚斯岛 · 回程",
+     "text": "去亚斯岛的法拉利世界玩半天，晚上去机场。",
+     "stops": [
+      {
+       "name": "法拉利世界",
+       "q": "Ferrari World Abu Dhabi",
+       "type": "fun",
+       "dur": 240,
+       "via": "打车约 30 分钟"
+      }
+     ],
+     "start": "10:00",
+     "elev": 10
+    }
+   ],
+   "dest": "uae",
+   "start": [
+    2026,
+    11,
+    25
+   ]
+  },
+  "geo4": {
+   "city": "库塔伊西",
+   "label": "库塔伊西巴统 4 天",
+   "title": "四天，库塔伊西和黑海边的巴统",
+   "kicker": "古城 · 4 天",
+   "prep": [
+    "入境政策出发前去官网查一下",
+    "库塔伊西有直飞国际航班；库塔伊西到巴统包车约 2 小时 30 分钟",
+    "Martvili 大峡谷划船的季节和水位看天气，雨后可能停"
+   ],
+   "days": [
+    {
+     "title": "库塔伊西 · 普罗米修斯洞",
+     "text": "到库塔伊西，下午去普罗米修斯溶洞，傍晚看巴格拉特大教堂。",
+     "stops": [
+      {
+       "name": "普罗米修斯溶洞",
+       "q": "Prometheus Cave",
+       "type": "sight",
+       "dur": 120,
+       "via": "包车约 30 分钟"
+      },
+      {
+       "name": "巴格拉特大教堂",
+       "q": "Bagrati Cathedral Kutaisi",
+       "type": "sight",
+       "dur": 60,
+       "via": "包车约 30 分钟"
+      }
+     ],
+     "start": "12:00",
+     "stay": "库塔伊西老城",
+     "dinner": {
+      "dish": "哈恰普里",
+      "place": "老城里的小馆"
+     },
+     "elev": 130
+    },
+    {
+     "title": "马尔特维利大峡谷 · 去巴统",
+     "text": "上午去峡谷划船，下午包车去黑海边的巴统，傍晚逛皮亚扎广场。",
+     "stops": [
+      {
+       "name": "马尔特维利大峡谷",
+       "q": "Martvili Canyon",
+       "type": "sight",
+       "dur": 150,
+       "via": "包车约 1 小时"
+      },
+      {
+       "name": "巴统皮亚扎广场",
+       "q": "Piazza Square Batumi",
+       "type": "street",
+       "dur": 60,
+       "via": "包车约 2 小时 30 分钟"
+      }
+     ],
+     "start": "08:30",
+     "stay": "巴统老城",
+     "city": "巴统",
+     "lunch": {
+      "dish": "欣卡里",
+      "place": "峡谷附近的农家馆"
+     },
+     "elev": 100
+    },
+    {
+     "title": "巴统海滨大道 · 老城",
+     "text": "在海滨大道走走，上字母塔，再逛老城。",
+     "stops": [
+      {
+       "name": "巴统海滨大道",
+       "q": "Batumi Boulevard",
+       "type": "park",
+       "dur": 120,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "巴统字母塔",
+       "q": "Alphabet Tower Batumi",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 20 分钟"
+      },
+      {
+       "name": "巴统欧洲广场",
+       "q": "Europe Square Batumi",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "10:00",
+     "stay": "巴统老城",
+     "city": "巴统",
+     "elev": 5
+    },
+    {
+     "title": "巴统植物园 · 回程",
+     "text": "上午去海边的植物园，下午去机场。",
+     "stops": [
+      {
+       "name": "巴统植物园",
+       "q": "Batumi Botanical Garden",
+       "type": "park",
+       "dur": 180,
+       "via": "打车约 30 分钟"
+      }
+     ],
+     "start": "09:00",
+     "city": "巴统",
+     "elev": 5
+    }
+   ],
+   "dest": "georgia",
+   "start": [
+    2027,
+    5,
+    20
+   ]
+  },
+  "rtm3": {
+   "city": "鹿特丹",
+   "label": "鹿特丹代尔夫特 3 天",
+   "title": "三天，鹿特丹、风车和代尔夫特",
+   "kicker": "城市 · 3 天",
+   "prep": [
+    "要提前办申根签证",
+    "鹿特丹到代尔夫特、海牙都坐火车，分别约 15 分钟和 25 分钟",
+    "小孩堤防的风车在河边，从鹿特丹坐水上巴士约 1 小时"
+   ],
+   "days": [
+    {
+     "title": "方块屋 · 市场大厅",
+     "text": "到鹿特丹，看方块屋和市场大厅，傍晚在伊拉斯谟桥边走走。",
+     "stops": [
+      {
+       "name": "方块屋",
+       "q": "Cube Houses Rotterdam",
+       "type": "sight",
+       "dur": 45,
+       "via": "火车加地铁约 60 分钟"
+      },
+      {
+       "name": "市场大厅",
+       "q": "Markthal Rotterdam",
+       "type": "street",
+       "dur": 75,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "伊拉斯谟桥",
+       "q": "Erasmus Bridge Rotterdam",
+       "type": "sight",
+       "dur": 40,
+       "via": "电车约 15 分钟"
+      }
+     ],
+     "start": "13:00",
+     "stay": "鹿特丹市中心",
+     "dinner": {
+      "dish": "炸鲱鱼三明治",
+      "place": "市场大厅里的海鲜摊"
+     },
+     "elev": 0
+    },
+    {
+     "title": "小孩堤防 · 代尔夫特",
+     "text": "上午去小孩堤防看风车，下午坐火车去代尔夫特逛老城。",
+     "stops": [
+      {
+       "name": "小孩堤防风车村",
+       "q": "Kinderdijk Windmills",
+       "type": "sight",
+       "dur": 150,
+       "via": "水上巴士约 1 小时"
+      },
+      {
+       "name": "代尔夫特市集广场",
+       "q": "Delft Market Square",
+       "type": "street",
+       "dur": 90,
+       "via": "公交加火车约 1 小时"
+      },
+      {
+       "name": "维米尔中心",
+       "q": "Vermeer Centre Delft",
+       "type": "museum",
+       "dur": 60,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "08:30",
+     "stay": "鹿特丹市中心",
+     "elev": 0
+    },
+    {
+     "title": "海牙 · 回程",
+     "text": "坐火车去海牙看《戴珍珠耳环的少女》，下午去机场。",
+     "stops": [
+      {
+       "name": "毛里茨皇家美术馆",
+       "q": "Mauritshuis",
+       "type": "museum",
+       "dur": 120,
+       "via": "火车约 25 分钟"
+      },
+      {
+       "name": "内庭",
+       "q": "Binnenhof The Hague",
+       "type": "sight",
+       "dur": 40,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 0
+    }
+   ],
+   "dest": "netherlands",
+   "start": [
+    2027,
+    4,
+    22
+   ]
+  },
+  "osl3": {
+   "city": "奥斯陆",
+   "label": "奥斯陆 3 天",
+   "title": "三天，奥斯陆的海边和博物馆",
+   "kicker": "城市 · 3 天",
+   "prep": [
+    "要提前办申根签证",
+    "歌剧院的屋顶可以走上去，免费",
+    "去比格迪半岛的博物馆，夏天从市政厅码头坐渡轮约 15 分钟"
+   ],
+   "days": [
+    {
+     "title": "歌剧院 · 蒙克博物馆",
+     "text": "到奥斯陆，走上歌剧院的屋顶，再去蒙克博物馆。",
+     "stops": [
+      {
+       "name": "奥斯陆歌剧院",
+       "q": "Oslo Opera House",
+       "type": "sight",
+       "dur": 60,
+       "via": "机场快线加步行约 40 分钟"
+      },
+      {
+       "name": "蒙克博物馆",
+       "q": "MUNCH Oslo",
+       "type": "museum",
+       "dur": 120,
+       "via": "步行约 8 分钟"
+      },
+      {
+       "name": "阿克斯胡斯要塞",
+       "q": "Akershus Fortress",
+       "type": "sight",
+       "dur": 75,
+       "via": "步行约 20 分钟"
+      }
+     ],
+     "start": "12:30",
+     "stay": "奥斯陆市中心",
+     "elev": 20
+    },
+    {
+     "title": "维格朗公园 · 比格迪半岛",
+     "text": "上午逛维格朗雕塑公园，下午坐渡轮去比格迪看北欧的船。",
+     "stops": [
+      {
+       "name": "维格朗雕塑公园",
+       "q": "Vigeland Sculpture Park",
+       "type": "park",
+       "dur": 120,
+       "via": "电车约 20 分钟"
+      },
+      {
+       "name": "弗拉姆号博物馆",
+       "q": "Fram Museum Oslo",
+       "type": "museum",
+       "dur": 75,
+       "via": "电车加渡轮约 50 分钟"
+      },
+      {
+       "name": "康提基博物馆",
+       "q": "Kon-Tiki Museum",
+       "type": "museum",
+       "dur": 60,
+       "via": "步行约 3 分钟"
+      }
+     ],
+     "start": "09:00",
+     "stay": "奥斯陆市中心",
+     "elev": 20
+    },
+    {
+     "title": "霍尔门科伦 · 回程",
+     "text": "坐地铁上霍尔门科伦跳台，中午回市区去机场。",
+     "stops": [
+      {
+       "name": "霍尔门科伦跳台",
+       "q": "Holmenkollen Ski Jump",
+       "type": "sight",
+       "dur": 120,
+       "via": "地铁约 30 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 20
+    }
+   ],
+   "dest": "norway",
+   "start": [
+    2027,
+    5,
+    18
+   ]
+  },
+  "cun4": {
+   "city": "坎昆",
+   "label": "坎昆玛雅遗址 4 天",
+   "title": "四天，坎昆、奇琴伊察和图卢姆",
+   "kicker": "古迹 · 4 天",
+   "prep": [
+    "出发前在官网查中国护照要不要签证或电子许可",
+    "奇琴伊察和图卢姆各要一整天，包车或跟团最省事；奇琴伊察单程约 2 小时 30 分钟",
+    "中午的遗址很晒，带帽子和水，早点到"
+   ],
+   "days": [
+    {
+     "title": "坎昆海滩",
+     "text": "到坎昆，下午去海滩，傍晚逛酒店区。",
+     "stops": [
+      {
+       "name": "海豚海滩",
+       "q": "Playa Delfines Cancun",
+       "type": "park",
+       "dur": 150,
+       "via": "公交约 40 分钟"
+      }
+     ],
+     "start": "13:00",
+     "stay": "坎昆酒店区",
+     "dinner": {
+      "dish": "塔可",
+      "place": "市区的小馆"
+     },
+     "elev": 10
+    },
+    {
+     "title": "奇琴伊察",
+     "text": "包车去奇琴伊察看玛雅金字塔，回来路上在天然井里游泳。",
+     "stops": [
+      {
+       "name": "奇琴伊察",
+       "q": "Chichen Itza",
+       "type": "sight",
+       "dur": 150,
+       "via": "包车约 2 小时 30 分钟"
+      },
+      {
+       "name": "伊基尔天然井",
+       "q": "Cenote Ik Kil",
+       "type": "fun",
+       "dur": 60,
+       "via": "包车约 10 分钟"
+      }
+     ],
+     "start": "07:30",
+     "stay": "坎昆酒店区",
+     "city": "奇琴伊察",
+     "elev": 30
+    },
+    {
+     "title": "图卢姆",
+     "text": "包车去海边的图卢姆遗址，再去天然井游泳。",
+     "stops": [
+      {
+       "name": "图卢姆遗址",
+       "q": "Tulum Ruins",
+       "type": "sight",
+       "dur": 120,
+       "via": "包车约 2 小时"
+      },
+      {
+       "name": "大天然井",
+       "q": "Gran Cenote Tulum",
+       "type": "fun",
+       "dur": 90,
+       "via": "包车约 15 分钟"
+      }
+     ],
+     "start": "08:00",
+     "stay": "坎昆酒店区",
+     "city": "图卢姆",
+     "elev": 10
+    },
+    {
+     "title": "女人岛 · 回程",
+     "text": "坐船去女人岛，下午回坎昆去机场。",
+     "stops": [
+      {
+       "name": "女人岛",
+       "q": "Isla Mujeres",
+       "type": "park",
+       "dur": 180,
+       "via": "渡轮约 30 分钟"
+      }
+     ],
+     "start": "09:00",
+     "city": "坎昆",
+     "elev": 5
+    }
+   ],
+   "dest": "mexico",
+   "start": [
+    2026,
+    11,
+    28
+   ]
+  },
+  "plt4": {
+   "city": "扎格拉布",
+   "label": "十六湖扎达尔 4 天",
+   "title": "四天，十六湖和扎达尔",
+   "kicker": "自然 · 4 天",
+   "prep": [
+    "要提前办申根签证",
+    "十六湖夏天人多，门票最好提前在官网买",
+    "十六湖到扎达尔坐大巴约 2 小时；克尔卡的瀑布下现在不让游泳"
+   ],
+   "days": [
+    {
+     "title": "扎格拉布上城",
+     "text": "到扎格拉布，逛上城和多拉茨市场。",
+     "stops": [
+      {
+       "name": "扎格拉布上城",
+       "q": "Zagreb Upper Town",
+       "type": "street",
+       "dur": 90,
+       "via": "机场大巴加步行约 50 分钟"
+      },
+      {
+       "name": "耶拉契奇广场",
+       "q": "Ban Jelacic Square",
+       "type": "street",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "多拉茨市场",
+       "q": "Dolac Market Zagreb",
+       "type": "street",
+       "dur": 45,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "13:00",
+     "stay": "扎格拉布老城",
+     "elev": 120
+    },
+    {
+     "title": "十六湖国家公园",
+     "text": "一早去十六湖，沿木栈道走过湖和瀑布，傍晚到公园附近住下。",
+     "stops": [
+      {
+       "name": "十六湖国家公园",
+       "q": "Plitvice Lakes National Park",
+       "type": "park",
+       "dur": 330,
+       "via": "大巴约 2 小时"
+      }
+     ],
+     "start": "07:30",
+     "stay": "十六湖附近",
+     "city": "十六湖",
+     "elev": 600
+    },
+    {
+     "title": "去扎达尔 · 海风琴",
+     "text": "上午去扎达尔，傍晚听海风琴，看落日。",
+     "stops": [
+      {
+       "name": "扎达尔海风琴",
+       "q": "Zadar Sea Organ",
+       "type": "sight",
+       "dur": 60,
+       "via": "大巴约 2 小时"
+      },
+      {
+       "name": "向太阳致敬",
+       "q": "Greeting to the Sun Zadar",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "扎达尔古罗马广场",
+       "q": "Roman Forum Zadar",
+       "type": "street",
+       "dur": 45,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "09:00",
+     "stay": "扎达尔老城",
+     "city": "扎达尔",
+     "elev": 5
+    },
+    {
+     "title": "克尔卡瀑布 · 回程",
+     "text": "上午去克尔卡国家公园看瀑布，下午去机场。",
+     "stops": [
+      {
+       "name": "克尔卡国家公园",
+       "q": "Krka National Park Skradinski Buk",
+       "type": "park",
+       "dur": 180,
+       "via": "大巴加步行约 1 小时 30 分钟"
+      }
+     ],
+     "start": "08:30",
+     "city": "扎达尔",
+     "elev": 5
+    }
+   ],
+   "dest": "croatia",
+   "start": [
+    2027,
+    5,
+    14
+   ]
+  },
+  "gnt3": {
+   "city": "根特",
+   "label": "根特安特卫普 3 天",
+   "title": "三天，根特和安特卫普",
+   "kicker": "城市 · 3 天",
+   "prep": [
+    "要提前办申根签证",
+    "根特到安特卫普坐火车约 50 分钟",
+    "圣巴夫大教堂里的《神秘的羔羊》要买票进，旺季人多"
+   ],
+   "days": [
+    {
+     "title": "格拉芬斯泰恩城堡 · 运河边",
+     "text": "到根特，看伯爵城堡，傍晚在运河边的老房子前走走。",
+     "stops": [
+      {
+       "name": "格拉芬斯泰恩城堡",
+       "q": "Gravensteen Ghent",
+       "type": "sight",
+       "dur": 90,
+       "via": "火车加步行约 1 小时 30 分钟"
+      },
+      {
+       "name": "格拉斯雷",
+       "q": "Graslei Ghent",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "13:00",
+     "stay": "根特老城",
+     "dinner": {
+      "dish": "根特炖鸡",
+      "place": "老城里的小馆"
+     },
+     "elev": 10
+    },
+    {
+     "title": "圣巴夫大教堂 · 去安特卫普",
+     "text": "上午看《神秘的羔羊》，下午坐火车去安特卫普。",
+     "stops": [
+      {
+       "name": "圣巴夫大教堂",
+       "q": "Saint Bavo Cathedral Ghent",
+       "type": "sight",
+       "dur": 75,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "安特卫普中央车站",
+       "q": "Antwerp Central Station",
+       "type": "sight",
+       "dur": 40,
+       "via": "火车约 50 分钟"
+      },
+      {
+       "name": "安特卫普大广场",
+       "q": "Grote Markt Antwerp",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "09:30",
+     "stay": "安特卫普老城",
+     "city": "安特卫普",
+     "elev": 10
+    },
+    {
+     "title": "鲁本斯故居 · 回程",
+     "text": "上午去鲁本斯故居和圣母大教堂，中午去机场。",
+     "stops": [
+      {
+       "name": "鲁本斯故居",
+       "q": "Rubens House Antwerp",
+       "type": "museum",
+       "dur": 75,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "安特卫普圣母大教堂",
+       "q": "Cathedral of Our Lady Antwerp",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "09:30",
+     "city": "安特卫普",
+     "elev": 10
+    }
+   ],
+   "dest": "belgium",
+   "start": [
+    2027,
+    5,
+    6
+   ]
+  },
+  "lim3": {
+   "city": "利马",
+   "label": "利马 3 天",
+   "title": "三天，利马的海边和老城",
+   "kicker": "城市 · 3 天",
+   "prep": [
+    "中国护照入境秘鲁前先在官网查签证政策",
+    "利马 12 月到 4 月是夏天，晴；5 月到 11 月常年阴天有雾",
+    "利马海拔低，不用适应；要去库斯科的话安排在这之后"
+   ],
+   "days": [
+    {
+     "title": "米拉弗洛雷斯 · 爱情公园",
+     "text": "到利马，在海边的悬崖公园散步，傍晚吃一顿酸橘汁生鱼。",
+     "stops": [
+      {
+       "name": "爱情公园",
+       "q": "Parque del Amor Lima",
+       "type": "park",
+       "dur": 60,
+       "via": "机场打车约 50 分钟"
+      },
+      {
+       "name": "拉科马购物中心",
+       "q": "Larcomar Lima",
+       "type": "street",
+       "dur": 90,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "13:00",
+     "stay": "米拉弗洛雷斯",
+     "dinner": {
+      "dish": "酸橘汁生鱼",
+      "place": "海边的海鲜馆"
+     },
+     "elev": 100
+    },
+    {
+     "title": "老城 · 拉科博物馆",
+     "text": "上午逛武器广场和圣弗朗西斯科修道院，下午去拉科博物馆。",
+     "stops": [
+      {
+       "name": "利马武器广场",
+       "q": "Plaza Mayor Lima",
+       "type": "street",
+       "dur": 60,
+       "via": "快速公交约 40 分钟"
+      },
+      {
+       "name": "圣弗朗西斯科修道院",
+       "q": "San Francisco Convent Lima",
+       "type": "sight",
+       "dur": 75,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "拉科博物馆",
+       "q": "Larco Museum Lima",
+       "type": "museum",
+       "dur": 120,
+       "via": "打车约 20 分钟"
+      }
+     ],
+     "start": "09:00",
+     "stay": "米拉弗洛雷斯",
+     "elev": 100
+    },
+    {
+     "title": "巴兰科 · 回程",
+     "text": "上午去巴兰科看叹息桥，再去普克亚纳遗址，下午去机场。",
+     "stops": [
+      {
+       "name": "叹息桥",
+       "q": "Bridge of Sighs Barranco Lima",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 20 分钟"
+      },
+      {
+       "name": "普克亚纳遗址",
+       "q": "Huaca Pucllana",
+       "type": "sight",
+       "dur": 75,
+       "via": "打车约 15 分钟"
+      }
+     ],
+     "start": "09:30",
+     "elev": 100
+    }
+   ],
+   "dest": "peru",
+   "start": [
+    2027,
+    1,
+    12
+   ]
   }
  }
 }
