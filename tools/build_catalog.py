@@ -29,7 +29,7 @@ def quality_of(d):
     xs=sorted(xs,key=lambda q:(0 if '世界遗产' in q['tags'] else 1, 0 if q.get('covered') else 1, q['short']))
     return [{'n':q['short'],'w':'世界遗产' in q['tags'],'a':'5A' in q['tags'],'c':bool(q.get('covered'))} for q in xs]
 # 2 派生：去哪儿
-REG={'domestic':['华北','东北','华东','华中','华南','西南','西北','港澳台'],'asia':['东亚','东南亚','南亚','西亚','中亚'],'world':['欧洲','北非','北美','大洋洲','拉美']}
+REG={'domestic':['华北','东北','华东','华中','华南','西南','西北','港澳台'],'asia':['东亚','东南亚','南亚','西亚','中亚'],'world':['欧洲','北非','非洲','北美','拉美','大洋洲']}
 fmt=lambda p: '¥{:,}–{:,}'.format(p['lo'],p['hi']) if p.get('lo') else '另算'
 def trip_card(t): return {'name':t['name'],'days':t['days'],'price':fmt(t['price']),'feel':' · '.join(t['tags']),'href':t['page'] or '','blocked':t['status']=='blocked'}
 ATLAS={'regions':REG,'domestic':[],'asia':[],'world':[]}

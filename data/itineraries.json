@@ -44421,6 +44421,286 @@
     4,
     10
    ]
+  },
+  "bru3": {
+   "city": "布鲁塞尔",
+   "label": "布鲁塞尔布鲁日 3 天",
+   "title": "三天，布鲁塞尔和布鲁日",
+   "kicker": "城市 · 3 天",
+   "prep": [
+    "布鲁塞尔到布鲁日坐火车约 1 小时",
+    "华夫饼、薯条、巧克力都在老城"
+   ],
+   "days": [
+    {
+     "title": "大广场 · 撒尿小童",
+     "text": "到布鲁塞尔，看大广场，找撒尿小童。",
+     "stops": [
+      {
+       "name": "布鲁塞尔大广场",
+       "q": "Grand Place Brussels",
+       "type": "street",
+       "dur": 90,
+       "via": "火车约 20 分钟"
+      },
+      {
+       "name": "撒尿小童",
+       "q": "Manneken Pis",
+       "type": "sight",
+       "dur": 20
+      }
+     ],
+     "start": "13:00",
+     "stay": "布鲁塞尔老城"
+    },
+    {
+     "title": "布鲁日",
+     "text": "坐火车去布鲁日，登钟楼，坐运河船。",
+     "stops": [
+      {
+       "name": "布鲁日钟楼",
+       "q": "Belfry of Bruges",
+       "type": "sight",
+       "dur": 90,
+       "via": "火车约 1 小时"
+      },
+      {
+       "name": "布鲁日运河游船",
+       "q": "Bruges Canal Boat",
+       "type": "fun",
+       "dur": 45
+      }
+     ],
+     "start": "08:30",
+     "stay": "布鲁塞尔老城"
+    },
+    {
+     "title": "原子球塔 · 回程",
+     "text": "上午原子球塔，下午去机场。",
+     "stops": [
+      {
+       "name": "原子球塔",
+       "q": "Atomium",
+       "type": "sight",
+       "dur": 90,
+       "via": "地铁约 30 分钟"
+      }
+     ],
+     "start": "09:30"
+    }
+   ],
+   "dest": "belgium",
+   "start": [
+    2026,
+    4,
+    20
+   ]
+  },
+  "dub4": {
+   "city": "都柏林",
+   "label": "都柏林莫赫悬崖 4 天",
+   "title": "四天，都柏林到大西洋边",
+   "kicker": "海岸 · 4 天",
+   "prep": [
+    "圣三一学院的《凯尔经》要提前在网上买票",
+    "都柏林到戈尔韦坐火车约 2 小时 30 分钟"
+   ],
+   "days": [
+    {
+     "title": "圣三一学院 · 圣殿酒吧区",
+     "text": "到都柏林，看圣三一学院的长厅和《凯尔经》，晚上圣殿酒吧区听音乐。",
+     "stops": [
+      {
+       "name": "圣三一学院",
+       "q": "Trinity College Dublin",
+       "type": "sight",
+       "dur": 120,
+       "via": "机场大巴约 40 分钟"
+      },
+      {
+       "name": "圣殿酒吧区",
+       "q": "Temple Bar",
+       "type": "street",
+       "dur": 90,
+       "at": "19:00"
+      }
+     ],
+     "start": "13:00",
+     "stay": "都柏林"
+    },
+    {
+     "title": "健力士 · 去戈尔韦",
+     "text": "上午健力士黑啤展览馆，下午坐火车去戈尔韦。",
+     "stops": [
+      {
+       "name": "健力士黑啤展览馆",
+       "q": "Guinness Storehouse",
+       "type": "museum",
+       "dur": 120,
+       "via": "电车约 20 分钟"
+      },
+      {
+       "name": "戈尔韦老城",
+       "q": "Galway Latin Quarter",
+       "type": "street",
+       "dur": 90,
+       "via": "火车约 2 小时 30 分钟",
+       "at": "17:30"
+      }
+     ],
+     "city": "戈尔韦",
+     "stay": "戈尔韦"
+    },
+    {
+     "title": "莫赫悬崖",
+     "text": "坐大巴去莫赫悬崖，两百米高的海崖。",
+     "stops": [
+      {
+       "name": "莫赫悬崖",
+       "q": "Cliffs of Moher",
+       "type": "sight",
+       "dur": 150,
+       "via": "大巴约 1 小时 30 分钟"
+      }
+     ],
+     "start": "08:30",
+     "city": "戈尔韦",
+     "stay": "戈尔韦"
+    },
+    {
+     "title": "回程",
+     "text": "坐火车回都柏林去机场。",
+     "stops": [
+      {
+       "name": "戈尔韦海边",
+       "q": "Salthill Promenade",
+       "type": "park",
+       "dur": 60,
+       "via": "步行 20 分钟"
+      }
+     ],
+     "start": "08:30",
+     "city": "戈尔韦"
+    }
+   ],
+   "dest": "ireland",
+   "start": [
+    2026,
+    5,
+    10
+   ]
+  },
+  "cpt5": {
+   "city": "开普敦",
+   "label": "开普敦好望角 5 天",
+   "title": "五天，桌山、好望角和企鹅",
+   "kicker": "海岸 · 5 天",
+   "prep": [
+    "桌山缆车风大会停，早上去",
+    "开普敦晚上别单独步行，打车"
+   ],
+   "days": [
+    {
+     "title": "V&A 码头",
+     "text": "到开普敦，傍晚在 V&A 码头看桌山。",
+     "stops": [
+      {
+       "name": "V&A 码头",
+       "q": "V&A Waterfront",
+       "type": "street",
+       "dur": 120,
+       "via": "打车约 30 分钟",
+       "at": "16:30"
+      }
+     ],
+     "start": "13:00",
+     "stay": "开普敦"
+    },
+    {
+     "title": "桌山 · 罗本岛",
+     "text": "上午坐缆车上桌山，下午坐船去罗本岛，曼德拉被关了十八年的地方。",
+     "stops": [
+      {
+       "name": "桌山",
+       "q": "Table Mountain Cableway",
+       "type": "sight",
+       "dur": 150,
+       "via": "打车约 20 分钟",
+       "at": "08:30"
+      },
+      {
+       "name": "罗本岛",
+       "q": "Robben Island",
+       "type": "sight",
+       "dur": 210,
+       "via": "船约 30 分钟"
+      }
+     ],
+     "start": "08:00",
+     "stay": "开普敦"
+    },
+    {
+     "title": "好望角 · 企鹅滩",
+     "text": "开查普曼峰公路，看博尔德斯企鹅滩，到好望角。",
+     "stops": [
+      {
+       "name": "查普曼峰公路",
+       "q": "Chapmans Peak Drive",
+       "type": "sight",
+       "dur": 45,
+       "via": "包车约 40 分钟"
+      },
+      {
+       "name": "博尔德斯企鹅滩",
+       "q": "Boulders Beach",
+       "type": "park",
+       "dur": 90
+      },
+      {
+       "name": "好望角",
+       "q": "Cape of Good Hope",
+       "type": "sight",
+       "dur": 120
+      }
+     ],
+     "start": "08:30",
+     "stay": "开普敦"
+    },
+    {
+     "title": "斯泰伦博斯",
+     "text": "去斯泰伦博斯酒庄区。",
+     "stops": [
+      {
+       "name": "斯泰伦博斯",
+       "q": "Stellenbosch",
+       "type": "street",
+       "dur": 240,
+       "via": "包车约 50 分钟"
+      }
+     ],
+     "stay": "开普敦"
+    },
+    {
+     "title": "回程",
+     "text": "上午波卡普彩色街区，下午去机场。",
+     "stops": [
+      {
+       "name": "波卡普",
+       "q": "Bo-Kaap",
+       "type": "street",
+       "dur": 60,
+       "via": "打车约 10 分钟"
+      }
+     ],
+     "start": "09:30"
+    }
+   ],
+   "dest": "southafrica",
+   "start": [
+    2026,
+    10,
+    15
+   ]
   }
  }
 }

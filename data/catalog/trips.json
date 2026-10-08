@@ -30401,6 +30401,168 @@
    "page": "Route.dc.html#bga2",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "bru3",
+   "dest": "belgium",
+   "name": "布鲁塞尔布鲁日",
+   "region": "欧洲",
+   "days": 3,
+   "title": "布鲁塞尔布鲁日 3 天",
+   "headline": "三天，布鲁塞尔和布鲁日",
+   "dek": "到布鲁塞尔，看大广场，找撒尿小童。",
+   "why": null,
+   "price": {
+    "lo": 7500,
+    "hi": 13800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      120,
+      270
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-15"
+    ],
+    "best": [
+     "05-01",
+     "06-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bru3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "dub4",
+   "dest": "ireland",
+   "name": "都柏林莫赫悬崖",
+   "region": "欧洲",
+   "days": 4,
+   "title": "都柏林莫赫悬崖 4 天",
+   "headline": "四天，都柏林到大西洋边",
+   "dek": "到都柏林，看圣三一学院的长厅和《凯尔经》，晚上圣殿酒吧区听音乐。",
+   "why": null,
+   "price": {
+    "lo": 9900,
+    "hi": 17900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "09-30"
+    ],
+    "best": [
+     "06-01",
+     "08-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#dub4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cpt5",
+   "dest": "southafrica",
+   "name": "开普敦好望角",
+   "region": "非洲",
+   "days": 5,
+   "title": "开普敦好望角 5 天",
+   "headline": "五天，桌山、好望角和企鹅",
+   "dek": "到开普敦，傍晚在 V&A 码头看桌山。",
+   "why": null,
+   "price": {
+    "lo": 9900,
+    "hi": 18700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      720,
+      1270
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "04-15"
+    ],
+    "best": [
+     "11-01",
+     "03-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cpt5",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
