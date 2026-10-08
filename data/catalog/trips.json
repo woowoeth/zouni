@@ -33979,6 +33979,222 @@
    "page": "Route.dc.html#jgs4",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "csh5",
+   "dest": "guangdong",
+   "name": "潮汕",
+   "region": "华南",
+   "days": 5,
+   "title": "潮汕 5 天",
+   "headline": "五天，潮州古城、汕头老街和南澳岛",
+   "dek": "到潮州，下午逛牌坊街，傍晚走广济桥，看韩江边的夜景。",
+   "why": null,
+   "price": {
+    "lo": 2500,
+    "hi": 5300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      240,
+      720
+     ],
+     "local": [
+      720,
+      1270
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-15",
+     "12-31"
+    ],
+    "best": [
+     "11-01",
+     "12-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#csh5",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "mz4",
+   "dest": "guangdong",
+   "name": "梅州客家",
+   "region": "华南",
+   "days": 4,
+   "title": "梅州客家 4 天",
+   "headline": "四天，梅州的围龙屋、侨乡村和茶田",
+   "dek": "到梅州，下午看客家博物馆，再去叶剑英纪念园。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 4800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      940,
+      1590
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-01",
+     "12-31"
+    ],
+    "best": [
+     "10-20",
+     "12-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#mz4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hh4",
+   "dest": "hunan",
+   "name": "怀化侗乡",
+   "region": "华中",
+   "days": 4,
+   "title": "怀化侗乡 4 天",
+   "headline": "四天，洪江古商城、芷江和通道侗寨",
+   "dek": "到怀化，下午包车去洪江古商城，走那些明清时的商号和老街。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 4800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      940,
+      1590
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-10",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "05-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hh4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ybl4",
+   "dest": "sichuan",
+   "name": "宜宾泸州",
+   "region": "西南",
+   "days": 4,
+   "title": "宜宾泸州 4 天",
+   "headline": "四天，宜宾的竹海、李庄和泸州的酒",
+   "dek": "到宜宾，下午包车去李庄古镇，看抗战时迁来的同济大学旧址。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 4000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      940,
+      1590
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-10",
+     "11-15"
+    ],
+    "best": [
+     "03-20",
+     "05-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ybl4",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
