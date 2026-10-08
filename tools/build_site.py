@@ -2,7 +2,7 @@
 # 用法：python3 tools/build_site.py <输出目录>
 # 输入：build/routes.js、build/catalog.js、data/catalog/cn_quality.json、海报 SVG
 # 输出：首页、去哪儿、56 个目的地页、全部行程页、sitemap.xml、robots.txt、llms.txt、404.html、CNAME
-import json, html, re, os, sys, shutil, html, datetime, glob, urllib.parse
+import calendar, json, html, re, os, sys, shutil, html, datetime, glob, urllib.parse
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else 'site'
 BASE = 'https://zouni.app'
@@ -1649,7 +1649,7 @@ def mon_days(r):
 
 def start_date(r):
     st = r.get('start') or [TODAY.year, TODAY.month - 1, TODAY.day]
-    d = datetime.date(st[0], st[1] + 1, min(st[2], 28))
+    d = datetime.date(st[0], st[1] + 1, min(st[2], calendar.monthrange(st[0], st[1] + 1)[1]))
     while d < TODAY: d = d.replace(year=d.year + 1)
     # 正当季（今天落在“最好的日子”里）：默认出发日要落在窗口内，不能顺延到明年（首页封面写着“还剩 7 天”，点进去却是明年）
     t = TRIP_OF_ROUTE.get(r.get('id')) or {}
@@ -2288,8 +2288,9 @@ def trip_page(rid):
         if i < n - 1 and (d.get('stayName') or d.get('stay')):
             nm = STAYFIX[i][0] if not d.get('stay') else d['stay'][0]['name']
             if STAYFIX[i][1] and not any((w_.get('how') or '').startswith('回住处') for w_ in rows):   # 一日游跑远了：回住处那段写清楚车程（编译时已经写过“回住处 · …”的天不再补，免得同一天出现两段回程）
-                for w_ in reversed(rows):
-                    if w_['type'] == 'dep' and w_.get('to') == '住处': w_['how'] = STAYFIX[i][1]; break
+                _hm = [w_ for w_ in rows if w_['type'] == 'dep' and w_.get('to') == '住处']      # 白天已经“回去歇一下”过的：车程写在那一段上，晚饭在住处附近吃，晚上不再开夜路
+                _tgt = next((w_ for w_ in _hm if w_['t'] < '17:30'), _hm[-1] if _hm else None)
+                if _tgt: _tgt['how'] = STAYFIX[i][1]
             rows.append({'t': '晚上', 'type': 'stay', 'name': nm, 'd': d['stay'][0].get('sell', '') if d.get('stay') else d.get('stayNote', ''), 'poi': nm, 'dp': d['stay'][0].get('dp') if d.get('stay') else None})
         first = firstdep(d)
         facts = [('出发', first or '—')]

@@ -218,6 +218,33 @@ if site:
                 if ty == 'dep' and tm is not None and tm >= 17 * 60 and m and (int(m.group(1) or 0) * 60 + int(m.group(2) or 0)) >= 120 and rows[i + 1][0] in ('see', 'fun') and '回住处' not in sub:
                     bad12.append(f'{rid} {dn} {tm // 60:02d}:{tm % 60:02d} 才出发、路上 ≥2 小时，到站还排了景点')
     if bad12: fails.append(('转场日晚出发还排景点', sorted(set(bad12))))
+    # 13 天标题里的景点（城堡/宫/教堂/博物馆/寺/塔…）必须和当天时间表对得上（kry4 标题写“黑石城堡”，时间表是“布拉尼城堡”）。去掉后缀后核心词没有任何 2 字片段出现就红；简称（陕历博）不带后缀，不在范围内
+    SUF = '城堡|宫殿|宫|教堂|大教堂|博物馆|美术馆|寺|塔|古堡|要塞|修道院'
+    bad13 = []
+    for f in glob.glob(os.path.join(site, 'trip', '*', 'index.html')):
+        rid = f.split('/')[-2]; h = open(f, encoding='utf-8').read()
+        for sec in h.split('<section class="day"')[1:]:
+            sec = sec.split('</section>')[0]; dn = re.search(r'id="(d\d+)"', sec).group(1)
+            title = re.sub(r'<[^>]+>', '', re.search(r'<h2>(.*?)</h2>', sec, flags=re.S).group(1))
+            blob = ' '.join(re.sub(r'<[^>]+>', '', m).strip() for m in re.findall(r'<p class="m">(.*?)</p>', sec, flags=re.S))
+            for tok in re.split(r'\s*·\s*', title):
+                mm_ = re.match(r'^(.{2,})(' + SUF + ')$', tok)
+                if not mm_ or tok.startswith(('去', '回', '到')): continue
+                core = mm_.group(1)
+                if core in blob or tok in blob or any(core[i:i + 2] in blob for i in range(len(core) - 1)): continue
+                bad13.append(f'{rid} {dn} 标题里的「{tok}」在当天时间表里找不到')
+    if bad13: fails.append(('天标题和时间表对不上', sorted(set(bad13))))
+    # 14 “出发前”里写了节日窗口（“10 月 31 日到 11 月 2 日是亡灵节”）：默认出发日起的行程必须把整段窗口盖住
+    bad14 = []
+    for f in glob.glob(os.path.join(site, 'trip', '*', 'index.html')):
+        rid = f.split('/')[-2]; h = open(f, encoding='utf-8').read()
+        ms = re.search(r'data-n0="(\d+)".*?data-start="([^"]+)"', h)
+        if not ms: continue
+        n0, st = int(ms.group(1)), datetime.date.fromisoformat(ms.group(2))
+        for w in re.finditer(r'(\d+)\s*月\s*(\d+)\s*日到\s*(\d+)\s*月\s*(\d+)\s*日是([^，。<]+)', h):
+            a = datetime.date(st.year, int(w.group(1)), int(w.group(2))); b = datetime.date(st.year, int(w.group(3)), int(w.group(4)))
+            if not (st <= a and b <= st + datetime.timedelta(days=n0 - 1)): bad14.append(f'{rid} 默认 {st} 起 {n0} 天，没盖住{w.group(5)}（{a}–{b}）')
+    if bad14: fails.append(('节日窗口没盖住', sorted(set(bad14))))
     deny = os.path.join(ROOT, 'build', 'denies.txt')
     if os.path.exists(deny):
         # 抽查：串线闸拒绝的“文案 → 线”，页面里不得再出现该文案的原文
