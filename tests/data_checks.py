@@ -175,6 +175,22 @@ if site:
             if re.search(r'轮渡|渡轮|快艇|快船|长尾船|(?<!门票 )[坐加搭乘]船(?![游看穿进过从在])|船约|船回', tx) and 'alt ferry' not in sec:
                 bad9.append(f'{rid} ' + re.search(r'id="(d\d+)"', sec).group(1) + ' 要坐船但没有班次/停航提醒')
     if bad9: fails.append(('坐船当天缺班次提醒', sorted(set(bad9))))
+    # 10 国外去处每周闭馆日：表里的馆出现在行程里，那一行要带 data-cw；默认出发日不能让那一天落在闭馆日
+    FC = {'卢浮宫': 1, '奥赛博物馆': 0, '凡尔赛宫': 0, '乌菲兹美术馆': 0, '梵蒂冈博物馆': 6, '托普卡帕宫': 1, '景福宫': 1, '昌德宫': 0, '无忧宫': 0, '国家人类学博物馆': 0}
+    bad10 = []
+    for f in glob.glob(os.path.join(site, 'trip', '*', 'index.html')):
+        rid = f.split('/')[-2]; h = open(f, encoding='utf-8').read()
+        if 'data-app="amap"' in h.split('>')[0] + h[:4000] and '<article class="trip" data-app="amap"' in h: continue
+        m = re.search(r'data-start="([^"]+)" data-cl="([^"]*)"', h)
+        if not m: bad10.append(f'{rid} 缺 data-cl'); continue
+        st = datetime.date.fromisoformat(m.group(1)); cl = [tuple(map(int, z.split(':'))) for z in m.group(2).split(',') if z]
+        for i, js in cl:
+            if (st + datetime.timedelta(days=i)).isoformat() and ((st + datetime.timedelta(days=i)).weekday() + 1) % 7 == js: bad10.append(f'{rid} 默认出发日 {st} 让第 {i + 1} 天落在闭馆日')
+        for m2 in re.finditer(r'<li class="r (?:see|fun)"([^>]*)><time>[^<]*</time><span class="dot"></span><div class="rb"><p class="m">([^<]+)', h):
+            nm = m2.group(2).strip(); has = 'data-cw=' in m2.group(1)
+            if nm in FC and not has: bad10.append(f'{rid} 「{nm}」没有闭馆日标记')
+            if has and nm not in FC: bad10.append(f'{rid} 「{nm}」不该有闭馆日标记')
+    if bad10: fails.append(('国外闭馆日', sorted(set(bad10))))
     deny = os.path.join(ROOT, 'build', 'denies.txt')
     if os.path.exists(deny):
         # 抽查：串线闸拒绝的“文案 → 线”，页面里不得再出现该文案的原文

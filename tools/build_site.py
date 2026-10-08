@@ -1615,11 +1615,25 @@ def row_html(w, city, app):
     ic = icons(kw, city, app, w.get('dp'), w.get('nav'), w.get('navp'), _xk) if kw else ''
     if t == 'eat' and not kw:   # 没有具体地方的饭：只放点评，按“城市 + 菜名”找
         ic = f'<a class="ic dp" href="{E(dpurl(w.get("dish") or "", city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote((city or "") + " " + (w.get("dish") or "")))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上找 {E(w.get("dish"))}">{ICON_DP}</a>'
-    da = (f' data-at="{E(w["at"])}"' if w.get('at') else '') + (f' data-meal="{"l" if w.get("slot") == "午饭" else "d" if w.get("slot") == "晚饭" else "b"}"' if t == 'eat' else '') + (' data-in="1"' if t in ('see', 'fun') and INDOOR_RE.search(w.get('name') or '') else '')
+    da = (f' data-at="{E(w["at"])}"' if w.get('at') else '') + (f' data-meal="{"l" if w.get("slot") == "午饭" else "d" if w.get("slot") == "晚饭" else "b"}"' if t == 'eat' else '') + (' data-in="1"' if t in ('see', 'fun') and INDOOR_RE.search(w.get('name') or '') else '') + (f' data-cw="{(FOREIGN_CLOSED[w["name"]] + 1) % 7}"' if t in ('see', 'fun') and app != 'amap' and (w.get('name') or '') in FOREIGN_CLOSED else '')
     return f'<li class="r {t}"{da}><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">{main}{ic}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
 
 
 WEEK = '一二三四五六日'
+# 国外去处的每周固定闭馆日（Python weekday：周一=0…周日=6）。只放网上查到多处一致的；名字必须整名相等（“卢浮宫阿布扎比”是另一座，不算）
+FOREIGN_CLOSED = {'卢浮宫': 1, '奥赛博物馆': 0, '凡尔赛宫': 0, '乌菲兹美术馆': 0, '梵蒂冈博物馆': 6, '托普卡帕宫': 1, '景福宫': 1, '昌德宫': 0, '无忧宫': 0, '国家人类学博物馆': 0}
+
+
+def fclosed_days(r):
+    """国外线里（天序号, python 周几）：那一天有每周固定闭馆的去处"""
+    out = []
+    if r.get('navApp') == 'amap': return out
+    for i, d in enumerate(r['days']):
+        for w in d['rows']:
+            if w['type'] in ('see', 'fun') and (w.get('name') or '') in FOREIGN_CLOSED: out.append((i, FOREIGN_CLOSED[w['name']]))
+    return out
+
+
 def mon_days(r):
     """行程里哪几天（从 0 数）有周一闭馆的去处"""
     out = []
@@ -1649,13 +1663,13 @@ def start_date(r):
             if (cand - TODAY).days < 2: cand += datetime.timedelta(days=7)
             d = cand if cand <= end else max(TODAY + datetime.timedelta(days=1), end)
     # 行程里有“周一闭馆”的去处：默认日期要避开让那一天落在周一（先试后一天、前一天，再远一点；不出窗口、不早于明天）
-    mons = mon_days(r)
-    if mons:
+    mons = mon_days(r); fcl = fclosed_days(r)
+    if mons or fcl:
         lo = TODAY + datetime.timedelta(days=1)
         for off in (0, 1, -1, 2, -2, 3, -3, 4, -4, 5, -5, 6, -6):
             c_ = d + datetime.timedelta(days=off)
             if c_ < lo or (end and c_ > end): continue
-            if all((c_ + datetime.timedelta(days=i)).weekday() != 0 for i in mons): d = c_; break
+            if all((c_ + datetime.timedelta(days=i)).weekday() != 0 for i in mons) and all((c_ + datetime.timedelta(days=i)).weekday() != wd for i, wd in fcl): d = c_; break
     return d
 
 
@@ -2358,7 +2372,7 @@ def trip_page(rid):
     near_html = ('<section class="nearr"><h2>附近还能去</h2><ul>' + ''.join(f'<li><a href="/trip/{o}/"><b>{E(ROUTES[o].get("label"))} ›</b><span>{E(day_line(ROUTES[o]))}</span><small>离这里约 {round(dk / 10) * 10 if dk >= 20 else round(dk)} 公里 · {E(price_k(ROUTES[o].get("price")))}</small></a></li>' for dk, o in _nb) + '</ul></section>') if _nb else ''
     dest_link = faq_html + near_html + (f'<p class="morelink"><a href="/d/{E(t["dest"])}/">{E(d0.get("name", ""))}的其他去处 ›</a></p>' if t.get('dest') in DEST else '')
     dock = f'<div class="dock"><div><b>{yp}{md(dates[0])} 出发 · {n} 天</b><small>2 人 · 每人 {E(price_k(price))}</small></div><button type="button" class="fav" data-id="{rid}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{FAV_ICON}<span>收进行程</span></button></div>'
-    body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-n0="{n}" data-mon="{",".join(str(x) for x in mon_days(r))}" data-start="{dates[0].isoformat()}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
+    body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-n0="{n}" data-mon="{",".join(str(x) for x in mon_days(r))}" data-start="{dates[0].isoformat()}" data-cl="{",".join(f"{i}:{(wd + 1) % 7}" for i, wd in fclosed_days(r))}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
             + (f'<section class="pre go" data-go=\'{E(json.dumps(_g, ensure_ascii=False))}\'><h2>怎么去、怎么回</h2><ul><li class="tip gw"><span>{E(go_text(_g))}。'
                + (f'第一天 {E(_g["first"])} 开始，按{"中午出发、下午到" if _g["first"] >= "15:00" else "上午出发、中午前到"}算的。' if _g['first'] and _g['first'] >= '12:00' else (f'第一天 {E(_g["first"])} 就开始，最好头天晚上到。' if _g['first'] else '')) + '</span></li>'
 

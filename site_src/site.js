@@ -207,9 +207,9 @@
       dk.addEventListener('change',function(){if(!dk.value)return;try{localStorage.setItem(sk,dk.value)}catch(e){}applyStart(dk.value);var d=new Date(dk.value+'T12:00:00');toast('改成 '+fmt(d)+' 出发了')});
       var mn=dk.dataset.min||dk.min;try{var s0=localStorage.getItem(sk)||localStorage.getItem('zouni_home_date');if(s0&&s0>=mn&&s0!==dk.value){dk.value=s0;applyStart(s0)}}catch(e){}
       // 页面是静态生成的：没存过日期、默认日期已经过去时，按今天重新给一个——正当季落在“最好的日子”里（下一个周六），否则顺延一年
-      function defStart(v,best){var t=new Date();t.setHours(12,0,0,0);var td=iso(t);if(v>=td)return v;var b=best?best.split(','):null,mons=(art.dataset.mon||'').split(',').filter(Boolean).map(Number);
-        function fixMon(c,end){if(!mons.length)return iso(c);var lo=new Date(t.getTime()+864e5),offs=[0,1,-1,2,-2,3,-3,4,-4,5,-5,6,-6],k,x;   // 有“周一闭馆”的去处：默认日期别让那一天落在周一
-          for(k=0;k<offs.length;k++){x=new Date(c.getTime()+offs[k]*864e5);if(x<lo||(end&&x>end))continue;if(mons.every(function(i){return new Date(x.getTime()+i*864e5).getDay()!==1}))return iso(x)}return iso(c)}
+      function defStart(v,best){var t=new Date();t.setHours(12,0,0,0);var td=iso(t);if(v>=td)return v;var b=best?best.split(','):null,mons=(art.dataset.mon||'').split(',').filter(Boolean).map(Number),cls=(art.dataset.cl||'').split(',').filter(Boolean).map(function(z){var q=z.split(':');return[+q[0],+q[1]]});
+        function fixMon(c,end){if(!mons.length&&!cls.length)return iso(c);var lo=new Date(t.getTime()+864e5),offs=[0,1,-1,2,-2,3,-3,4,-4,5,-5,6,-6],k,x;   // 有“周一闭馆”的去处：默认日期别让那一天落在周一
+          for(k=0;k<offs.length;k++){x=new Date(c.getTime()+offs[k]*864e5);if(x<lo||(end&&x>end))continue;if(mons.every(function(i){return new Date(x.getTime()+i*864e5).getDay()!==1})&&cls.every(function(z){return new Date(x.getTime()+z[0]*864e5).getDay()!==z[1]}))return iso(x)}return iso(c)}
         if(b&&b.length===2){var md=td.slice(5),wrap=b[0]>b[1],inside=wrap?(md>=b[0]||md<=b[1]):(md>=b[0]&&md<=b[1]);
           if(inside){var c=new Date(t.getTime());c.setDate(c.getDate()+(6-c.getDay()+7)%7);if(c-t<2*864e5)c.setDate(c.getDate()+7);
             var end=new Date((t.getFullYear()+(wrap&&md>=b[0]?1:0))+'-'+b[1]+'T12:00:00');if(c>end)c=new Date(Math.max(t.getTime()+864e5,end.getTime()));return fixMon(c,end)}}
@@ -471,11 +471,14 @@
         p.querySelector('.rainswap').addEventListener('click',function(){var R2=getR();R2[oi]={k:o.dataset.k,n:best.x.n,c:best.x.c};try{localStorage.setItem(RK,JSON.stringify(R2))}catch(e){}applyRain(sec);run();toast('换成了「'+best.x.n+'」')})}
       // 周一：博物馆多数闭馆，提醒一下
       function monday(){var inp=document.querySelector('.dpk'),s0=(inp&&inp.value)||art.dataset.start;if(!s0)return;var d0=new Date(s0+'T12:00:00');
-        [].slice.call(document.querySelectorAll('.day')).forEach(function(sec,i){var old=sec.querySelector('.mon');if(old)old.remove();var d=new Date(d0.getTime()+i*864e5);if(d.getDay()!==1)return;
+        [].slice.call(document.querySelectorAll('.day')).forEach(function(sec,i){var old=sec.querySelector('.mon');if(old)old.remove();var d=new Date(d0.getTime()+i*864e5);var wk=d.getDay();
           var rs=[].slice.call(sec.querySelectorAll('.tl > .r')).filter(function(r){return!r.hidden}),nm=function(r){return r.querySelector('.m').childNodes[0].textContent.trim()},
               sure=rs.filter(function(r){return/周一闭馆/.test(r.innerText)}).map(nm),
               maybe=(art.dataset.app==='amap')?rs.filter(function(r){return r.dataset.in&&!/周一闭馆/.test(r.innerText)&&!/秦始皇帝陵|兵马俑/.test(nm(r))}).map(nm):[];   // 没标周一闭馆的只给软提示，国外不提示（各国不一样）
-          if(!sure.length&&!maybe.length)return;
+          var fcl=rs.filter(function(r){return r.dataset.cw===String(wk)}).map(nm),WN='日一二三四五六',cl0=sec.querySelector('[data-clim]');   // 国外去处每周固定闭馆日（表在 build_site.FOREIGN_CLOSED）
+          if(fcl.length&&cl0){var ls=wk===0&&d.getDate()+7>new Date(d.getFullYear(),d.getMonth()+1,0).getDate(),pf=document.createElement('p');pf.className='fc mon';
+            pf.innerHTML='<b>这天是周'+WN[wk]+'</b>'+(ls&&fcl.length===1&&/梵蒂冈/.test(fcl[0])?'今天是月底周日，「'+fcl[0]+'」免费开放，但人极多、要排很久；想看得舒服就把出发日期改一天':'「'+fcl.slice(0,2).join('」「')+'」周'+WN[wk]+'闭馆，出发前以官网为准，或者把出发日期改一天');cl0.parentNode.insertBefore(pf,cl0.nextSibling);return}
+          if(wk!==1||(!sure.length&&!maybe.length))return;
           var cl=sec.querySelector('[data-clim]');if(!cl)return;var p=document.createElement('p');p.className='fc mon';
           p.innerHTML='<b>这天是周一</b>'+(sure.length?'「'+sure.slice(0,2).join('」「')+'」周一闭馆，出发前查一下，或者把出发日期改一天':'「'+maybe.slice(0,2).join('」「')+'」这类博物馆有的周一闭馆，出发前查一下');cl.parentNode.insertBefore(p,cl.nextSibling)})}
       [].slice.call(document.querySelectorAll('.day')).forEach(applyRain);
