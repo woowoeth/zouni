@@ -35653,6 +35653,276 @@
    "page": "Route.dc.html#cm3",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "mtg4",
+   "dest": "beijing",
+   "name": "门头沟",
+   "region": "华北",
+   "days": 4,
+   "title": "门头沟 4 天",
+   "headline": "四天，北京门头沟的潭柘寺、爨底下和京西古道",
+   "dek": "到门头沟，下午看潭柘寺，再去戒台寺。",
+   "why": null,
+   "price": {
+    "lo": 2100,
+    "hi": 4300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      940,
+      1590
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "11-15"
+    ],
+    "best": [
+     "10-01",
+     "11-05"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#mtg4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wuzh3",
+   "dest": "ningxia",
+   "name": "吴忠",
+   "region": "西北",
+   "days": 3,
+   "title": "吴忠 3 天",
+   "headline": "三天，吴忠的青铜峡、同心清真大寺和红军西征",
+   "dek": "从银川到青铜峡，看西夏的一百零八塔，再去青铜峡鸟岛。",
+   "why": null,
+   "price": {
+    "lo": 2100,
+    "hi": 4300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      900,
+      1500
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-25",
+     "10-15"
+    ],
+    "best": [
+     "05-15",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wuzh3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jms4",
+   "dest": "heilongjiang",
+   "name": "佳木斯",
+   "region": "东北",
+   "days": 4,
+   "title": "佳木斯 4 天",
+   "headline": "四天，佳木斯的松花江、富锦湿地和同江赫哲族",
+   "dek": "到佳木斯，下午在松花江边走走，晚上吃江鱼。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 4800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      940,
+      1590
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "07-01",
+     "09-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jms4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lsh4",
+   "dest": "hainan",
+   "name": "陵水",
+   "region": "华南",
+   "days": 4,
+   "title": "陵水 4 天",
+   "headline": "四天，陵水的猴岛、吊罗山和黎族椰田古寨",
+   "dek": "到陵水，下午去椰田古寨，看黎族的传统村寨。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      420,
+      770
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "11-01",
+     "04-30"
+    ],
+    "best": [
+     "12-01",
+     "03-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lsh4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "bxi4",
+   "dest": "liaoning",
+   "name": "本溪",
+   "region": "东北",
+   "days": 4,
+   "title": "本溪 4 天",
+   "headline": "四天，本溪的水洞、关门山和桓仁五女山",
+   "dek": "到本溪，下午看本溪水洞，洞里是地下暗河。",
+   "why": null,
+   "price": {
+    "lo": 2300,
+    "hi": 4800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      940,
+      1590
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-31"
+    ],
+    "best": [
+     "09-25",
+     "10-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bxi4",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
