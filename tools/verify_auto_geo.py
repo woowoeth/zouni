@@ -93,26 +93,44 @@ if sys.argv[1] == 'apply':
                 b2 = near_c[0]; G[key] = {'lat': b2['lat'], 'lng': b2['lng'], 'hit': 'Nominatim 核对 ' + b2['name'], 'q': q, 'src': 'osm'}; changed.append((rid, s['name'], '换到市附近'))
             else: flagged.append((rid, s['name'], round(d)))
     json.dump(G, open('data/geo/pois.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
-    # 3) 按新坐标重算受影响路线的 via（保持“打车/包车/步行”前缀）
-    n_via = 0
-    for rid in sorted(AUTO):
-        r = IT.get(rid)
-        if not r or (r['dest'] in FOREIGN) != FOR: continue
-        for d in r['days']:
-            c = d.get('city') or r['city']; prev = G.get(c + '|' + c)
-            prev = (prev['lat'], prev['lng']) if prev and prev.get('lat') else None
-            for s in d['stops']:
-                g = G.get(c + '|' + (s.get('q') or s['name']))
-                if not g or not g.get('lat'): continue
-                cur = (g['lat'], g['lng'])
-                if prev and s.get('via'):
-                    dist = km(prev, cur); pre = re.match(r'(打车|包车|步行|自驾|公交|地铁|高铁|火车)', s['via'])
-                    if pre and pre.group(1) in ('打车', '包车'):
-                        spd = 40 if dist < 40 else 60
-                        new = fmt_via('打车' if dist < 30 and pre.group(1) == '打车' else '包车', max(10, dist * 1.3 / spd * 60))
-                        if new != s['via']: s['via'] = new; n_via += 1
-                prev = cur
+    n_via = 0   # via 另用 `vias` 子命令重算（只改坐标变了的景点和它后面一站；起点按前一晚的住处算）
     full = json.load(open('data/itineraries.json', encoding='utf-8')); full['itineraries'] = IT
     json.dump(full, open('data/itineraries.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
     print('核对一致', ok, '| 无法核对', unverified, '| 改坐标', len(changed), '| 存疑未改', len(flagged), '| 重算 via', n_via)
     json.dump({'changed': changed, 'flagged': flagged}, open('build/verify_apply.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+
+
+if sys.argv[1] == 'vias':
+    # 用法：python3 tools/verify_auto_geo.py vias <核对前的 pois.json>   （FOREIGN=1 时处理国外）
+    before = json.load(open(sys.argv[2], encoding='utf-8'))
+    moved = {k for k, v in G.items() if isinstance(v, dict) and v.get('lat') and isinstance(before.get(k), dict) and before[k].get('lat') and (abs(v['lat'] - before[k]['lat']) > 1e-3 or abs(v['lng'] - before[k]['lng']) > 1e-3)}
+    def cen(c):
+        g = G.get(c + '|' + c); return (g['lat'], g['lng']) if g and g.get('lat') else None
+    n = 0
+    for rid in sorted(AUTO):
+        r = IT.get(rid)
+        if not r or (r['dest'] in FOREIGN) != FOR: continue
+        for di, d in enumerate(r['days']):
+            c = d.get('city') or r['city']
+            start = cen(r['city']) if di == 0 else (cen(r['days'][di - 1].get('stay') or '') or cen(r['days'][di - 1].get('city') or r['city']))
+            prev = start; hit_prev = False
+            for s_ in d['stops']:
+                g = G.get(c + '|' + (s_.get('q') or s_['name']))
+                cur = (g['lat'], g['lng']) if g and g.get('lat') else None
+                is_moved = (c + '|' + (s_.get('q') or s_['name'])) in moved
+                if cur and prev and (is_moved or hit_prev) and s_.get('via'):
+                    pre = re.match(r'(打车|包车|自驾|公交|步行)', s_['via'])
+                    if pre:
+                        dist = km(prev, cur)
+                        if pre.group(1) in ('打车', '包车'):
+                            spd = 40 if dist < 40 else 60
+                            new = fmt_via(pre.group(1), max(10, dist * 1.3 / spd * 60))
+                        elif pre.group(1) == '自驾':
+                            new = fmt_via('自驾', max(10, dist * 1.3 / 60 * 60))
+                        else: new = s_['via']
+                        if new != s_['via']: s_['via'] = new; n += 1
+                hit_prev = is_moved
+                prev = cur or prev
+    full = json.load(open('data/itineraries.json', encoding='utf-8')); full['itineraries'] = IT
+    json.dump(full, open('data/itineraries.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
+    print('重算 via', n, '| 坐标变动的景点', len(moved))
