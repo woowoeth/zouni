@@ -35923,6 +35923,222 @@
    "page": "Route.dc.html#bxi4",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "xyg4",
+   "dest": "shaanxi",
+   "name": "咸阳",
+   "region": "西北",
+   "days": 4,
+   "title": "咸阳 4 天",
+   "headline": "四天，咸阳的汉阳陵、乾陵、昭陵和茂陵",
+   "dek": "到咸阳，下午看咸阳博物馆，再去汉阳陵博物院。",
+   "why": null,
+   "price": {
+    "lo": 2100,
+    "hi": 4300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      940,
+      1590
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-20",
+     "11-10"
+    ],
+    "best": [
+     "04-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xyg4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "plg2",
+   "dest": "gansu",
+   "name": "平凉",
+   "region": "西北",
+   "days": 2,
+   "title": "平凉 2 天",
+   "headline": "两天，平凉的王母宫石窟、大云寺和崆峒山",
+   "dek": "到泾川，看北魏的王母宫石窟，再去大云寺。",
+   "why": null,
+   "price": {
+    "lo": 900,
+    "hi": 2000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-10"
+    ],
+    "best": [
+     "06-15",
+     "09-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#plg2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cj3",
+   "dest": "hainan",
+   "name": "昌江",
+   "region": "华南",
+   "days": 3,
+   "title": "昌江 3 天",
+   "headline": "三天，昌江的昌化岭、海尾湿地和霸王岭",
+   "dek": "到昌江，下午去昌化岭，看海边的岩石山和昌化江入海口。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      640,
+      1090
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "11-01",
+     "04-30"
+    ],
+    "best": [
+     "12-01",
+     "03-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cj3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wuha3",
+   "dest": "neimenggu",
+   "name": "乌海",
+   "region": "华北",
+   "days": 3,
+   "title": "乌海 3 天",
+   "headline": "三天，乌海的乌海湖、甘德尔山和金沙湾",
+   "dek": "到乌海，下午去乌海湖，是黄河水库形成的湖，傍晚看日落。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      120,
+      270
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-15"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wuha3",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
