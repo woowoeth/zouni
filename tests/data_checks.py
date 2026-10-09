@@ -376,7 +376,7 @@ if os.path.exists(RJS):
     # 21 纪录片：只有一季（或查不到多季）的片子页面里不得出现“第几季”（2026-10 用户指出：没有多季的也写了第一季）
     if site:
         bad = []
-        for pth in ('hexi', 'shuben', 'changjiang', 'sichou', 'yingxiang'):
+        for pth in ('hexi', 'shuben', 'changjiang', 'sichou', 'yingxiang', 'silu'):
             f = os.path.join(site, pth, 'index.html')
             if not os.path.exists(f): bad.append(f'{pth} 页面不存在'); continue
             n = len(re.findall(r'第[一二三四五六七八九十]季', open(f, encoding='utf-8').read()))

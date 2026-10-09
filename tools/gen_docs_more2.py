@@ -132,6 +132,11 @@ for prov, t in YX.items():
     for n, name in [(a_, b_.strip()) for a_, b_ in re.findall(r'(\d+)(\D+)', t)]:
         out.append({'show': '中国影像方志', 's': 1, 'ep': '', 'food': name, 'place': name, 'prov': prov, 'keys': ([] if name in NOKEY else [name])})
 
+# ---------- 丝绸之路（1980，中日合拍；央视版 14 集里标题里地点明确的）----------
+for ep, food, prov, keys in [('古都长安', '西安', '陕西', ['西安']), ('神秘的黑城', '黑水城', '内蒙古', ['黑水城', '额济纳']), ('莫高窟的生命', '敦煌莫高窟', '甘肃', ['莫高窟', '敦煌']),
+                             ('到楼兰去', '楼兰', '新疆', ['楼兰']), ('美丽的和田', '和田', '新疆', ['和田']), ('火焰山下', '吐鲁番', '新疆', ['吐鲁番'])]:
+    out.append({'show': '丝绸之路', 's': 1, 'ep': ep, 'food': food, 'place': food, 'prov': prov, 'keys': keys})
+
 json.dump(out, open('data/catalog/docs_more2.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1)
 from collections import Counter
 print(len(out), Counter(x['show'] for x in out))

@@ -1090,7 +1090,7 @@ def fit_label(best, m):
 
 
 def extras(trip_desc, dest_desc):
-    urls = ['/', '/where/', '/pian/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/yichuan/', '/xiaoye/', '/hexi/', '/shuben/', '/hangpai/', '/laoguang/', '/changjiang/', '/sichou/', '/yingxiang/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
+    urls = ['/', '/where/', '/pian/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/yichuan/', '/xiaoye/', '/hexi/', '/shuben/', '/hangpai/', '/laoguang/', '/changjiang/', '/sichou/', '/yingxiang/', '/silu/', '/phil/', '/weizhi/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
     lm = TODAY.isoformat()
     open(os.path.join(OUT, 'sitemap.xml'), 'w', encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         ''.join(f'<url><loc>{BASE}{u}</loc><lastmod>{lm}</lastmod></url>\n' for u in urls) + '</urlset>\n')
@@ -4024,12 +4024,12 @@ def faq_items(r, t, d0, g):
     return qs
 
 
-SJ = (json.load(open('data/catalog/shejian.json')) if os.path.exists('data/catalog/shejian.json') else []) + (json.load(open('data/catalog/fengwei.json')) if os.path.exists('data/catalog/fengwei.json') else []) + (json.load(open('data/catalog/docs_more.json')) if os.path.exists('data/catalog/docs_more.json') else []) + (json.load(open('data/catalog/docs_more2.json')) if os.path.exists('data/catalog/docs_more2.json') else [])
-SHOWS = [('舌尖上的中国', '/shejian/', '推荐'), ('风味人间', '/fengwei/', '推荐'), ('风味原产地', '/yuanchandi/', '推荐'), ('早餐中国', '/zaocan/', '早上吃'), ('如果国宝会说话', '/guobao/', '讲过'), ('记住乡愁', '/xiangchou/', '拍过'), ('人生一串', '/yichuan/', '推荐'), ('宵夜江湖', '/xiaoye/', '拍过'), ('河西走廊', '/hexi/', '拍过'), ('跟着书本去旅行', '/shuben/', '讲过'), ('航拍中国', '/hangpai/', '拍过'), ('老广的味道', '/laoguang/', '推荐'), ('话说长江', '/changjiang/', '讲过'), ('新丝绸之路', '/sichou/', '拍过'), ('中国影像方志', '/yingxiang/', '拍过')]
+SJ = (json.load(open('data/catalog/shejian.json')) if os.path.exists('data/catalog/shejian.json') else []) + (json.load(open('data/catalog/fengwei.json')) if os.path.exists('data/catalog/fengwei.json') else []) + (json.load(open('data/catalog/docs_more.json')) if os.path.exists('data/catalog/docs_more.json') else []) + (json.load(open('data/catalog/docs_more2.json')) if os.path.exists('data/catalog/docs_more2.json') else []) + (json.load(open('data/catalog/docs_travel.json')) if os.path.exists('data/catalog/docs_travel.json') else [])
+SHOWS = [('舌尖上的中国', '/shejian/', '推荐'), ('风味人间', '/fengwei/', '推荐'), ('风味原产地', '/yuanchandi/', '推荐'), ('早餐中国', '/zaocan/', '早上吃'), ('如果国宝会说话', '/guobao/', '讲过'), ('记住乡愁', '/xiangchou/', '拍过'), ('人生一串', '/yichuan/', '推荐'), ('宵夜江湖', '/xiaoye/', '拍过'), ('河西走廊', '/hexi/', '拍过'), ('跟着书本去旅行', '/shuben/', '讲过'), ('航拍中国', '/hangpai/', '拍过'), ('老广的味道', '/laoguang/', '推荐'), ('话说长江', '/changjiang/', '讲过'), ('新丝绸之路', '/sichou/', '拍过'), ('中国影像方志', '/yingxiang/', '拍过'), ('丝绸之路', '/silu/', '拍过'), ('菲尔来蹭饭', '/phil/', '去过'), ('未知之旅', '/weizhi/', '去过')]
 SHOW_VERB = {a: c for a, b, c in SHOWS}
 SJ_VAGUE = {'东北', '四川', '云南', '河南', '广东', '江南', '闽南', '内蒙古', '宁夏', '西藏', '台湾', '山西', '山东', '陕北', '贵州', '广东乡下', '粤东海边', '四川养蜂人', '吉林朝鲜族山村', '北部湾渔船', '客家'}
-SJ_CN = '零一二三四五六七八九十'
-SINGLE_SEASON = {'河西走廊', '跟着书本去旅行', '话说长江', '新丝绸之路', '中国影像方志'}   # 只有一季（或查不到多季）的片子，不写“第一季”
+SJ_CN = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二']
+SINGLE_SEASON = {'河西走廊', '跟着书本去旅行', '话说长江', '新丝绸之路', '中国影像方志', '丝绸之路'}   # 只有一季（或查不到多季）的片子，不写“第一季”
 
 
 def sj_label(x):
@@ -4393,7 +4393,7 @@ def trip_page(rid):
 
 SHOW_NOTE = {'舌尖上的中国': '中国人的家常和手艺', '风味人间': '一样食材在世界各地的做法', '风味原产地': '一地一集，追到食材长出来的地方', '早餐中国': '一城一家早餐店',
              '如果国宝会说话': '一集一件国宝，现在在哪个馆', '记住乡愁': '一集一个古村', '人生一串': '各地的烧烤摊', '宵夜江湖': '一城一夜的宵夜',
-             '河西走廊': '从武威到敦煌的丝路历史', '跟着书本去旅行': '课文里写到的地方，带着书去看', '航拍中国': '从天上看一个省', '老广的味道': '广东广西的一集一味，追到食材的产地', '话说长江': '1983 年的老片，从源头走到入海口', '新丝绸之路': '楼兰、龟兹、敦煌、喀什，一路走到长安', '中国影像方志': '央视的县域纪录片，一集一个县'}
+             '河西走廊': '从武威到敦煌的丝路历史', '跟着书本去旅行': '课文里写到的地方，带着书去看', '航拍中国': '从天上看一个省', '老广的味道': '广东广西的一集一味，追到食材的产地', '话说长江': '1983 年的老片，从源头走到入海口', '新丝绸之路': '楼兰、龟兹、敦煌、喀什，一路走到长安', '中国影像方志': '央视的县域纪录片，一集一个县', '丝绸之路': '1980 年中日合拍的老片，从长安走到楼兰、和田', '菲尔来蹭饭': '一集一座城，跟着菲尔去吃当地人的饭', '未知之旅': '安东尼·波登的旅行，一集一个地方'}
 
 
 def pian_page():
@@ -4416,7 +4416,7 @@ def shejian_page(show='舌尖上的中国', path='/shejian/', other=('风味人�
     dname = {v['name']: k for k, v in DEST.items()}
     out = []
     ALL = [x for x in SJ if (x.get('show') or '舌尖上的中国') == show]
-    for sn in range(1, 11):
+    for sn in range(1, 13):
         xs = [x for x in ALL if x['s'] == sn]
         if not xs: continue
         kf = (lambda x_: x_['prov']) if show == '中国影像方志' else (lambda x_: x_['ep'])
