@@ -36571,6 +36571,222 @@
    "page": "Route.dc.html#hc2",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "jsh2",
+   "dest": "shanghai",
+   "name": "金山",
+   "region": "华东",
+   "days": 2,
+   "title": "金山 2 天",
+   "headline": "两天，上海金山的枫泾古镇、渔村和城市沙滩",
+   "dek": "到金山，先看枫泾古镇的水巷和农民画，下午去金山嘴渔村。",
+   "why": null,
+   "price": {
+    "lo": 700,
+    "hi": 1600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-20"
+    ],
+    "best": [
+     "04-01",
+     "11-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jsh2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "pg2",
+   "dest": "beijing",
+   "name": "平谷",
+   "region": "华北",
+   "days": 2,
+   "title": "平谷 2 天",
+   "headline": "两天，北京平谷的金海湖和京东大峡谷",
+   "dek": "到平谷，下午去金海湖，在湖边走走，傍晚看日落。",
+   "why": null,
+   "price": {
+    "lo": 1200,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-31"
+    ],
+    "best": [
+     "09-15",
+     "10-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#pg2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "fsg2",
+   "dest": "jilin",
+   "name": "抚松",
+   "region": "东北",
+   "days": 2,
+   "title": "抚松 2 天",
+   "headline": "两天，抚松的露水河和长白山西坡",
+   "dek": "到抚松，下午去露水河的林子里走走。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "07-01",
+     "09-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#fsg2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hyn2",
+   "dest": "ningxia",
+   "name": "海原",
+   "region": "西北",
+   "days": 2,
+   "title": "海原 2 天",
+   "headline": "两天，海原的地震遗址、西安州古城和南华山",
+   "dek": "到海原，看 1920 年海原大地震留下的遗址，再去西安州古城。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-15",
+     "09-30"
+    ],
+    "best": [
+     "06-15",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hyn2",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }

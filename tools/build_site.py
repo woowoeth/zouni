@@ -457,6 +457,15 @@ SIGHT = {
     '草海': '泸沽湖边长满芦苇的湖湾，走走婚桥', '女神湾': '泸沽湖看日落的湖湾', '潮州工夫茶': '潮州人喝茶的老讲究', '珠海渔女': '珠海海边的渔女石像', '日月贝': '珠海大剧院，像两片贝壳',
     '情侣路': '珠海海边几十公里的海滨路', '雪如意': '张家口崇礼的冬奥跳台', '燊海井': '自贡的千米深盐井，还在用古法熬盐', '蜀南竹海': '宜宾七万多亩竹林，《卧虎藏龙》竹林戏在这里拍', '邛海湿地': '西昌城边的湖和湿地',
     '泸山': '邛海边的山，山上有寺庙', '拜将坛': '汉中刘邦拜韩信为大将的地方',
+    '枫泾古镇': '金山的江南水乡古镇',
+    '金山嘴渔村': '金山海边的老渔村',
+    '金山城市沙滩': '上海金山的人工海滩',
+    '金海湖': '平谷的水库湖景区',
+    '京东大峡谷': '平谷的峡谷景区',
+    '露水河国家森林公园': '抚松的森林公园',
+    '海原地震遗址': '1920 年海原大地震的遗址',
+    '西安州古城': '海原的古城遗址',
+    '南华山': '海原的山，自然保护区',
     '北镇庙': '北镇的庙，祭祀医巫闾山山神',
     '崇兴寺双塔': '北镇的两座辽代砖塔',
     '医巫闾山': '北镇的名山，国家森林公园',
@@ -1222,6 +1231,15 @@ def navurl(a, b, how, app, name):
 
 
 DEEP = {   # “懂一点”的补充段落：时间轴那一行只是一句话，这里讲来历和看点；只写核对过的
+    '枫泾古镇': '上海最西南的江南水乡古镇，有小桥流水，还是农民画的出名地方，枫泾丁蹄是当地的特产。',
+    '金山嘴渔村': '金山海边的老渔村，渔民的老房子改成了小店和画廊，能看海、吃海鲜。',
+    '金山城市沙滩': '上海最大的人工海滩之一，在金山的海边，沙子细，秋天人少适合散步。',
+    '金海湖': '平谷的水库湖，湖面开阔，周围是山，湖边有步道和观景台，傍晚能看日落。',
+    '京东大峡谷': '平谷北部的峡谷，有栈道和瀑布，秋天红叶最好看。',
+    '露水河国家森林公园': '抚松的森林公园，长着红松和云杉，空气好，夏天凉快，是看东北原始森林的地方。',
+    '海原地震遗址': '1920 年海原大地震留下的遗址，能看到震裂的大地和倒塌的房子，是中国地震史上最重要的遗址之一。',
+    '西安州古城': '海原的古城遗址，宋代建的军事城堡，现在还剩下土城墙。',
+    '南华山': '海原的名山，山上有草地和森林，是宁夏中南部的自然保护区，夏天凉快。',
     '北镇庙': '祭祀医巫闾山山神的庙，“北镇”这个名字就来自这座庙，是古代“五镇”之一的北镇，现存的建筑多是明清时修的。',
     '崇兴寺双塔': '北镇城里的两座辽代砖塔，是北镇的标志。',
     '医巫闾山': '辽西的名山，现在是国家森林公园，山里有寺观和石崖，自古就是祭祀的名山，秋天有红叶。',
@@ -4497,6 +4515,9 @@ def pian_page():
     write('/pian/', page('/pian/', '跟片走：纪录片和杂志榜单里的地方，排进行程的哪一天 | 走你', '舌尖上的中国、风味人间、如果国宝会说话、记住乡愁、中国影像方志，以及孤独星球、国家地理的年度榜单里拍过、选过的地方和美食，能去的直接到排好的那一天。', body, [], None, [('首页', '/'), ('跟片走', '/pian/')]))
 
 
+from motifs import SPRITE as _SPRITE, tile as _tile
+
+
 def _pn(show):
     """片子页底部：上一部 / 下一部，加回目录"""
     names = [s_ for s_, _p, _v in SHOWS]; i = names.index(show)
@@ -4531,7 +4552,13 @@ def shejian_page(show='舌尖上的中国', path='/shejian/', other=('风味人�
                 _why = WHY.get(f'{show}|{x["food"]}|{x["place"]}')
                 _wy = f'<p class="why">{E(_why)}</p>' if _why else ''
                 _sp = '' if show == '中国影像方志' else f'<span>{E(x["prov"]) if x["food"] == x["place"] else E(x["place"]) + (("，" + E(x["prov"])) if x["prov"] not in x["place"] else "")}</span>'
-                li += f'<li><b>{E(x["food"])}</b>{_sp}{_wy}' + (('<small>' + go + '</small>') if go else '') + '</li>'
+                _eat_s = show in ('舌尖上的中国', '风味人间', '风味原产地', '早餐中国', '人生一串', '宵夜江湖', '老广的味道', '街头美食')
+                _dscope = (DEST.get(dname.get(x['prov'])) or {}).get('scope', 'domestic')
+                if _eat_s: _kw, _cy = x['food'], x['place']
+                elif show == '如果国宝会说话': _kw, _cy = x['place'], ''
+                else: _kw, _cy = x['food'], ('' if x['prov'] in x['food'] else x['prov'])
+                _ic = icons(re.split(r'[（(]', _kw)[0].strip(), _cy, 'google' if _dscope != 'domestic' else 'amap')
+                li += f'<li>{_tile(show, x["food"], x["place"], _why or "", show + "|" + x["food"] + "|" + x["place"])}<div class="nm"><b>{E(x["food"])}</b>{_ic}</div>{_sp}{_wy}' + (('<small>' + go + '</small>') if go else '') + '</li>'
             _hid = f' id="pv{len(jumps) - 1}"' if show == '中国影像方志' and ep else ''
             _hl = (f'<a href="/d/{dname[ep]}/">{E(ep)}</a>' if (show == '中国影像方志' and ep and ep in dname) else (E(ep) if show == '中国影像方志' else '《' + E(ep) + '》')) if ep else ''
             body += f'<h3{_hid}>{_hl if ep else "这一季还拍过"}</h3><ul class="sjl">{li}</ul>'
@@ -4544,7 +4571,7 @@ def shejian_page(show='舌尖上的中国', path='/shejian/', other=('风味人�
     head = (f'<div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><p class="kick">走你 · 跟片走</p>'
             f'<h1>{("《" + show + "》里的目的地") if show in MAG else (("《" + show + "》里的地方") if show.startswith("跟着") else ("跟着《" + show + "》走"))}</h1><p class="deck">{"榜单里入选的" if show in MAG else "节目里拍过的"} {len(ALL)} 处{"吃的" if _eat else "地方"}，{(str(n_hit) + " 处已经排进了我们的行程，点进去就是那一天") if show != "航拍中国" else "按省挂在目的地页"}。</p><figure class="shero"><img src="/img/p/show-{path.strip("/")}.svg" alt="" width="600" height="800"></figure><nav class="ctabs">{tabs}</nav>')
     desc = (f'《{show}》入选的目的地：{len(ALL)} 处，能去的直接到排好的那一天。' if show in MAG else f'《{show}》拍过的地方和美食：{len(ALL)} 处，按季按集列出，能去的直接到排好的那一天。')
-    write(path, page(path, f'{("《" + show + "》里的目的地") if show in MAG else (("《" + show + "》里的地方") if show.startswith("跟着") else ("跟着《" + show + "》走"))}：{"榜单里入选的目的地" if show in MAG else "节目里拍过的地方" + ("和美食" if _eat else "")} | 走你', desc, '<article class="chan">' + head + (('<nav class="jump" aria-label="跳到">' + ''.join(f'<a href="#{a_}">{E(b_)}</a>' for a_, b_ in jumps) + '</nav>') if len(jumps) >= 2 else '') + ''.join(out) + _pn(show) + '</article>', [], None, [('首页', '/'), ('跟片走', '/pian/')]))
+    write(path, page(path, f'{("《" + show + "》里的目的地") if show in MAG else (("《" + show + "》里的地方") if show.startswith("跟着") else ("跟着《" + show + "》走"))}：{"榜单里入选的目的地" if show in MAG else "节目里拍过的地方" + ("和美食" if _eat else "")} | 走你', desc, '<article class="chan">' + _SPRITE + head + (('<nav class="jump" aria-label="跳到">' + ''.join(f'<a href="#{a_}">{E(b_)}</a>' for a_, b_ in jumps) + '</nav>') if len(jumps) >= 2 else '') + ''.join(out) + _pn(show) + '</article>', [], None, [('首页', '/'), ('跟片走', '/pian/')]))
     return n_hit
 
 
@@ -4621,6 +4648,7 @@ def where_page():
                 for r_ in DEST_ROUTES.get(x['id'], []):
                     u_ = poster_url(r_)
                     if u_: ct_ = f'<img class="ct" src="{u_}" alt="" width="44" height="58" loading="lazy">'; break
+                if not ct_: ct_ = _tile('中国影像方志', x['name'], '', ' '.join(x['see'][:3]), x['id'])
                 ms_ = ''.join(f'<i class="{"b" if fit_label(x["best"], mm_) == "正好" else "o" if fit_label(x["best"], mm_) == "也行" else ""}{" now" if mm_ == m else ""}" title="{mm_} 月 {fit_label(x["best"], mm_)}"></i>' for mm_ in range(1, 13))
                 bs_ = sorted(set(x['best'])); grp_ = []
                 for b_ in bs_:
@@ -4649,7 +4677,7 @@ def where_page():
             regs.append(f'<section class="reg" id="r-{scope}-{ri_}"><h3 class="rh">{E(reg)}</h3><ul class="cards">{"".join(cards)}</ul></section>'); rj.append(f'<a href="#r-{scope}-{ri_}">{E(reg)}</a>')
         scopes.append(f'<section class="scope" id="{scope}"{"" if scope == "domestic" else " hidden"}>' + (f'<nav class="rj" aria-label="跳到分区">{"".join(rj)}</nav>' if len(rj) >= 3 else '') + f'{"".join(regs)}</section>')
     nd, na, nw = len(ATLAS['domestic']), len(ATLAS['asia']), len(ATLAS.get('world', []))
-    body = (f'<article class="where"><div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><p class="kick">走你 · {TODAY.year} · {"一二三四五六七八九十"[TODAY.month-1] if TODAY.month<=10 else ("十一" if TODAY.month==11 else "十二")}月 · 频道</p><h1>走哪儿</h1><p class="deck">按季节挑地方：每个目的地标好这个月正不正好去、多冷多热、排好的线有几条。</p><div class="stick">'
+    body = (_SPRITE + f'<article class="where"><div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><p class="kick">走你 · {TODAY.year} · {"一二三四五六七八九十"[TODAY.month-1] if TODAY.month<=10 else ("十一" if TODAY.month==11 else "十二")}月 · 频道</p><h1>走哪儿</h1><p class="deck">按季节挑地方：每个目的地标好这个月正不正好去、多冷多热、排好的线有几条。</p><div class="stick">'
             f'<div class="tabs"><button type="button" data-t="domestic" class="on">国内 · {nd}</button><button type="button" data-t="asia">亚洲 · {na}</button><button type="button" data-t="world">更远 · {nw}</button></div>'
             f'<div class="mon" role="group" aria-label="选月份">{"".join(f"<button type=button data-m={k} class={chr(39)}{chr(111)+chr(110) if k == m else chr(32)}{chr(39)}>{k}月</button>" for k in range(1, 13))}</div>'
             f'</div><div class="wbar"><p class="goodline"></p><div class="gl"><span class="cnt" aria-live="polite"></span><button type="button" class="mtog" aria-label="地图看">地图看</button><button type="button" class="ftog" aria-label="筛选">筛选 ▾</button></div>'
