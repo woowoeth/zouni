@@ -34627,6 +34627,222 @@
    "page": "Route.dc.html#lyx4",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "lz4",
+   "dest": "gansu",
+   "name": "兰州",
+   "region": "西北",
+   "days": 4,
+   "title": "兰州 4 天",
+   "headline": "四天，兰州的黄河、铁桥和一碗牛肉面",
+   "dek": "到兰州，下午走黄河铁桥，上白塔山看黄河，晚上去正宁路夜市吃小吃。",
+   "why": null,
+   "price": {
+    "lo": 2200,
+    "hi": 4600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      680,
+      1180
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-15"
+    ],
+    "best": [
+     "05-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lz4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ay4",
+   "dest": "henan",
+   "name": "安阳",
+   "region": "华中",
+   "days": 4,
+   "title": "安阳 4 天",
+   "headline": "四天，安阳的殷墟、汤阴和红旗渠",
+   "dek": "到安阳，下午去殷墟看宫殿宗庙遗址，傍晚看中国文字博物馆。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 5000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      940,
+      1590
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "05-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ay4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "gdtr4",
+   "dest": "qinghai",
+   "name": "贵德同仁",
+   "region": "西北",
+   "days": 4,
+   "title": "贵德同仁 4 天",
+   "headline": "四天，贵德的丹霞、同仁的唐卡和坎布拉",
+   "dek": "到西宁，包车去贵德，傍晚逛古城，看黄河边的千姿湖。",
+   "why": null,
+   "price": {
+    "lo": 2600,
+    "hi": 5200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      1200,
+      2000
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-15"
+    ],
+    "best": [
+     "06-15",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#gdtr4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "km4",
+   "dest": "yunnan",
+   "name": "昆明",
+   "region": "西南",
+   "days": 4,
+   "title": "昆明 4 天",
+   "headline": "四天，昆明的湖、石林和老街",
+   "dek": "到昆明，下午看云南陆军讲武堂，在翠湖边走走，傍晚逛金马碧鸡坊。",
+   "why": null,
+   "price": {
+    "lo": 1600,
+    "hi": 3500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      420,
+      770
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "11-01",
+     "12-31"
+    ],
+    "best": [
+     "11-15",
+     "12-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#km4",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
