@@ -646,3 +646,18 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .sjl .why{margin:3px 0 4px;font:400 14px/1.7 var(--sans);color:var(--ink)}
 .where .ch .ct{flex:none;width:44px;height:58px;object-fit:cover;background:var(--card);margin-right:2px}
 .where .ch>div{flex:1}
+
+/* 条目小插图（tools/motifs.py）：五个颜色变量 + 平涂符号 */
+.ma{fill:var(--a)}.mb{fill:var(--b)}.mc{fill:var(--c)}.md{fill:var(--d)}.me{fill:var(--e)}
+.ti{display:block;width:56px;height:75px;flex:none}
+
+/* 条目小插图排版：左边一张，右边是名字、地点、好在哪、链接 */
+.sjl li{display:grid;grid-template-columns:56px 1fr;column-gap:14px;align-items:start}
+.sjl li>.ti{grid-column:1;grid-row:1 / span 4;margin-top:2px}
+.sjl li>b,.sjl li>span,.sjl li>p,.sjl li>small{grid-column:2}
+.where .ch .ti{width:44px;height:58px;margin-right:2px}
+
+.sjl li>div.nm{grid-column:2;display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.sjl li>div.nm b{flex:1;min-width:0}
+.sjl li>div.nm .icg{flex:none;margin-top:2px}
+.sjl .ic{color:var(--sub)}
