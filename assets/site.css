@@ -588,3 +588,45 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 
 /* 剪贴板不能用时的文本框 */
 .cpbox{width:100%;box-sizing:border-box;margin-top:8px;padding:10px;font:15px/1.5 var(--sans);border:1px solid var(--line);background:var(--card);color:var(--ink);resize:none;border-radius:0}
+
+/* ===== 2026-10 频道页完善：走哪儿月份条、片里一行、分区跳转；跟片走分栏目录、跳转条、上下部 ===== */
+.where .ms{display:flex;gap:2px;margin:10px 0 4px}
+.where .ms i{flex:1;height:6px;border-radius:1px;background:var(--line)}
+.where .ms i.o{background:#c9c4b8}
+.where .ms i.b{background:var(--ink)}
+.where .ms i.now{box-shadow:0 0 0 1.5px var(--bg,#f3f1ec),0 0 0 2.5px var(--sub)}
+.where .msl{margin:0 0 6px;font-size:12px;line-height:1.5;color:var(--sub)}
+.where .kv a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
+.where .rj{display:flex;gap:16px;overflow-x:auto;margin:14px 20px 0;padding:0 0 2px;scrollbar-width:none}
+.where .rj::-webkit-scrollbar{display:none}
+.where .rj a{flex:none;font-size:13px;color:var(--sub);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.where .rj a:active{color:var(--ink);border-color:var(--ink)}
+.where .reg{scroll-margin-top:96px}
+.chan .ph{display:flex;justify-content:space-between;align-items:baseline;margin:28px 20px 0;padding-top:12px;border-top:1px solid var(--ink);font:900 20px/1.3 var(--serif);letter-spacing:.04em}
+.chan .ph small{font:400 12px var(--sans);letter-spacing:0;color:var(--sub)}
+.chan.pian .toc{margin:4px 20px 0;border-top:0}
+.chan.pian .toc a{padding:14px 0}
+.chan.pian .toc b{font-size:20px}
+.chan.pian .toc em{display:block;margin-top:3px;font:400 12px/1.5 var(--sans);font-style:normal;color:var(--sub)}
+.chan .pm{margin:10px 20px 36px;font:400 15px/2.1 var(--serif);color:var(--ink)}
+.chan .pm a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line)}
+.chan .pm a small{margin-left:3px;font:400 11px var(--sans);color:var(--sub)}
+.chan .pm .sep{color:var(--sub)}
+.chan .jump{display:flex;gap:14px;overflow-x:auto;margin:0 20px;padding:12px 0 2px;scrollbar-width:none}
+.chan .jump::-webkit-scrollbar{display:none}
+.chan .jump a{flex:none;font-size:13px;color:var(--sub);text-decoration:none;padding:3px 0;border-bottom:1px solid var(--line)}
+.chan .sjs,.chan .sjs h3{scroll-margin-top:12px}
+.chan .pn{display:flex;justify-content:space-between;gap:12px;margin:36px 20px 40px;padding-top:14px;border-top:1px solid var(--ink)}
+.chan .pn a{flex:1;display:block;color:var(--ink);text-decoration:none;font:700 15px/1.4 var(--serif)}
+.chan .pn a:nth-child(2){text-align:center}.chan .pn a:last-child{text-align:right}
+.chan .pn small{display:block;font:400 11px var(--sans);color:var(--sub);letter-spacing:.06em;margin-bottom:2px}
+
+/* 2026-10 用户：下划线真的很丑。频道页里的链接和标签一律不要下划线，靠墨色和灰色区分；标签只留一条细分隔线 */
+.sjl small a,.chan .jump a,.chan .pm a,.where .kv a,.chan .ph a{border-bottom:0!important;text-decoration:none}
+.sjl small a{color:var(--ink)}
+.ctabs a,.ctabs a.on,.where .tabs button,.where .tabs button.on{border-bottom-color:transparent!important}
+.ctabs a.on,.where .tabs button.on{color:var(--ink)!important;font-weight:700}
+.chan .jump a{color:var(--sub)}
+.chan .jump a:active,.chan .jump a:hover{color:var(--ink)}
+.where .rj a,.where .rj a:active{border-bottom:0}
+.chan .pn a{text-decoration:none}
