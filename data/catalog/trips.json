@@ -35005,6 +35005,222 @@
    "page": "Route.dc.html#fy3",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "yinc4",
+   "dest": "ningxia",
+   "name": "银川",
+   "region": "西北",
+   "days": 4,
+   "title": "银川 4 天",
+   "headline": "四天，银川的西夏王陵、影视城和沙湖",
+   "dek": "到银川，下午看承天寺塔和海宝塔，傍晚在老城吃羊肉。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 4900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      940,
+      1590
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-25",
+     "10-15"
+    ],
+    "best": [
+     "05-15",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#yinc4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "tyuan4",
+   "dest": "shanxi",
+   "name": "太原",
+   "region": "华北",
+   "days": 4,
+   "title": "太原 4 天",
+   "headline": "四天，太原的晋祠、双塔和天龙山",
+   "dek": "到太原，下午看山西博物院，傍晚去双塔寺，两座塔在夕阳里很好看。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 4000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      420,
+      770
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-31"
+    ],
+    "best": [
+     "05-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#tyuan4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "dlc4",
+   "dest": "liaoning",
+   "name": "大连旅顺",
+   "region": "东北",
+   "days": 4,
+   "title": "大连旅顺 4 天",
+   "headline": "四天，大连的海岸、旅顺口和金石滩",
+   "dek": "到大连，下午去老虎滩，傍晚在星海广场看海，沿滨海路走。",
+   "why": null,
+   "price": {
+    "lo": 1700,
+    "hi": 4000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      270,
+      810
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-15"
+    ],
+    "best": [
+     "05-15",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#dlc4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "mdj4",
+   "dest": "heilongjiang",
+   "name": "牡丹江镜泊湖",
+   "region": "东北",
+   "days": 4,
+   "title": "牡丹江镜泊湖 4 天",
+   "headline": "四天，牡丹江的渤海古都、镜泊湖和火山口森林",
+   "dek": "到牡丹江，下午在江边的公园走走，晚上吃朝鲜族的烤肉和冷面。",
+   "why": null,
+   "price": {
+    "lo": 2100,
+    "hi": 4200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      940,
+      1590
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-15"
+    ],
+    "best": [
+     "06-15",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#mdj4",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
