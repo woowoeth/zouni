@@ -457,6 +457,18 @@ SIGHT = {
     '草海': '泸沽湖边长满芦苇的湖湾，走走婚桥', '女神湾': '泸沽湖看日落的湖湾', '潮州工夫茶': '潮州人喝茶的老讲究', '珠海渔女': '珠海海边的渔女石像', '日月贝': '珠海大剧院，像两片贝壳',
     '情侣路': '珠海海边几十公里的海滨路', '雪如意': '张家口崇礼的冬奥跳台', '燊海井': '自贡的千米深盐井，还在用古法熬盐', '蜀南竹海': '宜宾七万多亩竹林，《卧虎藏龙》竹林戏在这里拍', '邛海湿地': '西昌城边的湖和湿地',
     '泸山': '邛海边的山，山上有寺庙', '拜将坛': '汉中刘邦拜韩信为大将的地方',
+    '云居寺': '房山的古寺，有隋代开始刻的石经',
+    '十渡': '拒马河边的喀斯特风景区',
+    '上方山国家森林公园': '房山的山，有云水洞',
+    '方塔园': '松江的公园，里面有北宋的方塔',
+    '醉白池': '松江的江南园林',
+    '佘山天主教堂': '佘山上的天主教堂',
+    '辰山植物园': '松江的大植物园',
+    '乌梁素海': '河套的大湖，芦苇和候鸟',
+    '三盛公水利枢纽': '黄河上的大型水利枢纽',
+    '鸡鹿塞': '磴口的汉代古关',
+    '塔拉滩': '共和的大型光伏园',
+    '龙羊峡': '黄河上游的峡谷，有龙羊峡水电站',
     '咸阳博物馆': '咸阳的博物馆，收藏汉代彩绘兵马俑',
     '汉阳陵博物院': '汉景帝的陵墓和博物馆',
     '永泰公主墓': '乾陵的陪葬墓，壁画有名',
@@ -1090,7 +1102,7 @@ def fit_label(best, m):
 
 
 def extras(trip_desc, dest_desc):
-    urls = ['/', '/where/', '/pian/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/yichuan/', '/xiaoye/', '/hexi/', '/shuben/', '/hangpai/', '/laoguang/', '/changjiang/', '/sichou/', '/yingxiang/', '/silu/', '/phil/', '/weizhi/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
+    urls = ['/', '/where/', '/pian/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/yichuan/', '/xiaoye/', '/hexi/', '/shuben/', '/hangpai/', '/laoguang/', '/changjiang/', '/sichou/', '/yingxiang/', '/silu/', '/phil/', '/weizhi/', '/lp/', '/natgeo/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
     lm = TODAY.isoformat()
     open(os.path.join(OUT, 'sitemap.xml'), 'w', encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         ''.join(f'<url><loc>{BASE}{u}</loc><lastmod>{lm}</lastmod></url>\n' for u in urls) + '</urlset>\n')
@@ -1200,6 +1212,18 @@ def navurl(a, b, how, app, name):
 
 
 DEEP = {   # “懂一点”的补充段落：时间轴那一行只是一句话，这里讲来历和看点；只写核对过的
+    '云居寺': '房山的古寺，从隋代起僧人在石板上刻佛经，积累下一万多块，藏在山上的石经山和地下。',
+    '十渡': '拒马河边的喀斯特地貌，山崖和河水很好看，有竹筏和蹦极。',
+    '上方山国家森林公园': '房山的山，山上有云水洞和寺庙，是北京西南的一个森林公园。',
+    '方塔园': '松江的公园，园里的方塔是北宋年间建的砖塔，是松江的标志。',
+    '醉白池': '松江的江南园林，始建于宋代，池水清，池边有亭台。',
+    '佘山天主教堂': '佘山顶上的天主教堂，1935 年建成，是东亚最大的天主教堂之一。',
+    '辰山植物园': '松江的植物园，2010 年开放，有温室和花园，占地很大。',
+    '乌梁素海': '河套的淡水湖，湖里长满芦苇，是候鸟的重要栖息地，也是黄河的一个湖泊。',
+    '三盛公水利枢纽': '黄河上的大型水利枢纽，是河套灌区的总引水口，建于 20 世纪 60 年代。',
+    '鸡鹿塞': '磴口的汉代古关，是汉代通往漠北的要塞。',
+    '塔拉滩': '共和的大型光伏园，光伏板铺在草原上，有熊猫图案的那一片很出名，旁边就是草原。',
+    '龙羊峡': '黄河上游的峡谷，修了龙羊峡水电站，形成了龙羊湖，是青海最大的人工湖之一。',
     '咸阳博物馆': '馆里收藏着杨家湾汉墓出土的彩绘兵马俑，俑小巧，排成军阵。',
     '汉阳陵博物院': '汉景帝的陵墓，园里的地下展厅能看到陪葬坑里的彩绘陶俑，有的陶俑身上还保留着颜色。',
     '永泰公主墓': '乾陵的陪葬墓，唐中宗的女儿永泰公主的墓，墓里有精美的壁画。',
@@ -4025,11 +4049,12 @@ def faq_items(r, t, d0, g):
 
 
 SJ = (json.load(open('data/catalog/shejian.json')) if os.path.exists('data/catalog/shejian.json') else []) + (json.load(open('data/catalog/fengwei.json')) if os.path.exists('data/catalog/fengwei.json') else []) + (json.load(open('data/catalog/docs_more.json')) if os.path.exists('data/catalog/docs_more.json') else []) + (json.load(open('data/catalog/docs_more2.json')) if os.path.exists('data/catalog/docs_more2.json') else []) + (json.load(open('data/catalog/docs_travel.json')) if os.path.exists('data/catalog/docs_travel.json') else [])
-SHOWS = [('舌尖上的中国', '/shejian/', '推荐'), ('风味人间', '/fengwei/', '推荐'), ('风味原产地', '/yuanchandi/', '推荐'), ('早餐中国', '/zaocan/', '早上吃'), ('如果国宝会说话', '/guobao/', '讲过'), ('记住乡愁', '/xiangchou/', '拍过'), ('人生一串', '/yichuan/', '推荐'), ('宵夜江湖', '/xiaoye/', '拍过'), ('河西走廊', '/hexi/', '拍过'), ('跟着书本去旅行', '/shuben/', '讲过'), ('航拍中国', '/hangpai/', '拍过'), ('老广的味道', '/laoguang/', '推荐'), ('话说长江', '/changjiang/', '讲过'), ('新丝绸之路', '/sichou/', '拍过'), ('中国影像方志', '/yingxiang/', '拍过'), ('丝绸之路', '/silu/', '拍过'), ('菲尔来蹭饭', '/phil/', '去过'), ('未知之旅', '/weizhi/', '去过')]
+SHOWS = [('舌尖上的中国', '/shejian/', '推荐'), ('风味人间', '/fengwei/', '推荐'), ('风味原产地', '/yuanchandi/', '推荐'), ('早餐中国', '/zaocan/', '早上吃'), ('如果国宝会说话', '/guobao/', '讲过'), ('记住乡愁', '/xiangchou/', '拍过'), ('人生一串', '/yichuan/', '推荐'), ('宵夜江湖', '/xiaoye/', '拍过'), ('河西走廊', '/hexi/', '拍过'), ('跟着书本去旅行', '/shuben/', '讲过'), ('航拍中国', '/hangpai/', '拍过'), ('老广的味道', '/laoguang/', '推荐'), ('话说长江', '/changjiang/', '讲过'), ('新丝绸之路', '/sichou/', '拍过'), ('中国影像方志', '/yingxiang/', '拍过'), ('丝绸之路', '/silu/', '拍过'), ('菲尔来蹭饭', '/phil/', '去过'), ('未知之旅', '/weizhi/', '去过'), ('孤独星球年度榜', '/lp/', '入选'), ('国家地理年度榜', '/natgeo/', '入选')]
 SHOW_VERB = {a: c for a, b, c in SHOWS}
 SJ_VAGUE = {'东北', '四川', '云南', '河南', '广东', '江南', '闽南', '内蒙古', '宁夏', '西藏', '台湾', '山西', '山东', '陕北', '贵州', '广东乡下', '粤东海边', '四川养蜂人', '吉林朝鲜族山村', '北部湾渔船', '客家'}
 SJ_CN = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二']
-SINGLE_SEASON = {'河西走廊', '跟着书本去旅行', '话说长江', '新丝绸之路', '中国影像方志', '丝绸之路'}   # 只有一季（或查不到多季）的片子，不写“第一季”
+MAG = {'孤独星球年度榜', '国家地理年度榜'}   # 杂志榜单，不是纪录片：按年份分组，不写“第几季”
+SINGLE_SEASON = {'河西走廊', '跟着书本去旅行', '话说长江', '新丝绸之路', '中国影像方志', '丝绸之路', '孤独星球年度榜', '国家地理年度榜'}   # 只有一季（或查不到多季）的片子，不写“第一季”
 
 
 def sj_label(x):
@@ -4062,7 +4087,7 @@ def sj_lines(xs):
     for sh in shows:
         ys = [x for x in xs if (x.get('show') or '舌尖上的中国') == sh]
         places = {y['place'] for y in ys}
-        foods = '、'.join(y['food'] for y in ys).split('、')
+        foods = '、'.join(y['food'] + (f'（{y["ep"][:4]} 年榜）' if sh in MAG else '') for y in ys).split('、')
         body = '、'.join(foods[:2]) + ('等' if len(foods) > 2 else '') + ('' if all(y['food'] == y['place'] for y in ys) else '（' + '、'.join(sorted(places, key=lambda z: [y['place'] for y in ys].index(z))[:2]) + '）')   # 最多写两样，多了写“等”，一行读完；片里讲的就是这个地方时不重复写
         out += f'<p class="sjn"><b>{E(sh)}</b>{SHOW_VERB.get(sh, "推荐")}{E(body)}</p>'
     return out
@@ -4393,7 +4418,7 @@ def trip_page(rid):
 
 SHOW_NOTE = {'舌尖上的中国': '中国人的家常和手艺', '风味人间': '一样食材在世界各地的做法', '风味原产地': '一地一集，追到食材长出来的地方', '早餐中国': '一城一家早餐店',
              '如果国宝会说话': '一集一件国宝，现在在哪个馆', '记住乡愁': '一集一个古村', '人生一串': '各地的烧烤摊', '宵夜江湖': '一城一夜的宵夜',
-             '河西走廊': '从武威到敦煌的丝路历史', '跟着书本去旅行': '课文里写到的地方，带着书去看', '航拍中国': '从天上看一个省', '老广的味道': '广东广西的一集一味，追到食材的产地', '话说长江': '1983 年的老片，从源头走到入海口', '新丝绸之路': '楼兰、龟兹、敦煌、喀什，一路走到长安', '中国影像方志': '央视的县域纪录片，一集一个县', '丝绸之路': '1980 年中日合拍的老片，从长安走到楼兰、和田', '菲尔来蹭饭': '一集一座城，跟着菲尔去吃当地人的饭', '未知之旅': '安东尼·波登的旅行，一集一个地方'}
+             '河西走廊': '从武威到敦煌的丝路历史', '跟着书本去旅行': '课文里写到的地方，带着书去看', '航拍中国': '从天上看一个省', '老广的味道': '广东广西的一集一味，追到食材的产地', '话说长江': '1983 年的老片，从源头走到入海口', '新丝绸之路': '楼兰、龟兹、敦煌、喀什，一路走到长安', '中国影像方志': '央视的县域纪录片，一集一个县', '丝绸之路': '1980 年中日合拍的老片，从长安走到楼兰、和田', '菲尔来蹭饭': '一集一座城，跟着菲尔去吃当地人的饭', '未知之旅': '安东尼·波登的旅行，一集一个地方', '孤独星球年度榜': '《Best in Travel》每年评出的 25 个目的地', '国家地理年度榜': '《Best of the World》每年评出的 25 个目的地'}
 
 
 def pian_page():
@@ -4403,7 +4428,7 @@ def pian_page():
         ALL = [x for x in SJ if (x.get('show') or '舌尖上的中国') == show]
         rows.append(f'<li><a href="{path}"><i>{k + 1:02d}</i><span><b>{E(show)}</b><small>{E(SHOW_NOTE.get(show, ""))} · 拍过 {len(ALL)} 处</small></span></a></li>')
     head = ('<div class="pagehead"><a class="back" href="/">' + BACK_ICON + '返回</a><a class="home" href="/">本期</a></div><p class="kick">走你 · ' + str(TODAY.year) + ' · ' + ("一二三四五六七八九十"[TODAY.month-1] if TODAY.month<=10 else ("十一" if TODAY.month==11 else "十二")) + '月 · 频道</p>'
-            '<h1>跟片走</h1><p class="deck">' + str(len(SHOWS)) + ' 部纪录片里拍过的地方和吃的。能去的，我们排进了行程，点进去就是那一天。</p>')
+            '<h1>跟片走</h1><p class="deck">' + str(len(SHOWS)) + ' 部纪录片和杂志榜单里的地方和吃的。能去的，我们排进了行程，点进去就是那一天。</p>')
     body = '<article class="chan">' + head + '<ol class="toc">' + ''.join(rows) + '</ol></article>'
     write('/pian/', page('/pian/', '跟片走：纪录片里拍过的地方，排进行程的哪一天 | 走你', '舌尖上的中国、风味人间、如果国宝会说话、记住乡愁等纪录片里拍过的地方和美食，能去的直接到排好的那一天。', body, [], None, [('首页', '/'), ('跟片走', '/pian/')]))
 
@@ -4439,9 +4464,9 @@ def shejian_page(show='舌尖上的中国', path='/shejian/', other=('风味人�
     others = ''.join(f'<a href="{pp}">《{ss}》</a> ' for ss, pp, _v in SHOWS if ss != show)
     tabs = ''.join(f'<a href="{pp}"{" class=\"on\"" if ss == show else ""}>{ss}</a>' for ss, pp, _v in SHOWS)
     head = (f'<div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><p class="kick">走你 · 跟片走</p>'
-            f'<h1>{("《" + show + "》里的地方") if show.startswith("跟着") else ("跟着《" + show + "》走")}</h1><p class="deck">节目里拍过的 {len(ALL)} 处{"吃的" if _eat else "地方"}，{(str(n_hit) + " 处已经排进了我们的行程，点进去就是那一天") if show != "航拍中国" else "按省挂在目的地页"}。</p><nav class="ctabs">{tabs}</nav>')
-    desc = f'《{show}》拍过的地方和美食：{len(ALL)} 处，按季按集列出，能去的直接到排好的那一天。'
-    write(path, page(path, f'{("《" + show + "》里的地方") if show.startswith("跟着") else ("跟着《" + show + "》走")}：节目里拍过的地方{"和美食" if _eat else ""} | 走你', desc, '<article class="chan">' + head + ''.join(out) + '</article>', [], None, [('首页', '/'), ('跟片走', '/pian/')]))
+            f'<h1>{("《" + show + "》里的目的地") if show in MAG else (("《" + show + "》里的地方") if show.startswith("跟着") else ("跟着《" + show + "》走"))}</h1><p class="deck">{"榜单里入选的" if show in MAG else "节目里拍过的"} {len(ALL)} 处{"吃的" if _eat else "地方"}，{(str(n_hit) + " 处已经排进了我们的行程，点进去就是那一天") if show != "航拍中国" else "按省挂在目的地页"}。</p><nav class="ctabs">{tabs}</nav>')
+    desc = (f'《{show}》入选的目的地：{len(ALL)} 处，能去的直接到排好的那一天。' if show in MAG else f'《{show}》拍过的地方和美食：{len(ALL)} 处，按季按集列出，能去的直接到排好的那一天。')
+    write(path, page(path, f'{("《" + show + "》里的目的地") if show in MAG else (("《" + show + "》里的地方") if show.startswith("跟着") else ("跟着《" + show + "》走"))}：{"榜单里入选的目的地" if show in MAG else "节目里拍过的地方" + ("和美食" if _eat else "")} | 走你', desc, '<article class="chan">' + head + ''.join(out) + '</article>', [], None, [('首页', '/'), ('跟片走', '/pian/')]))
     return n_hit
 
 

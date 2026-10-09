@@ -36139,6 +36139,222 @@
    "page": "Route.dc.html#wuha3",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "fsh3",
+   "dest": "beijing",
+   "name": "房山",
+   "region": "华北",
+   "days": 3,
+   "title": "房山 3 天",
+   "headline": "三天，北京房山的周口店、云居寺和十渡",
+   "dek": "到房山，下午看周口店北京人遗址，是 1929 年发现北京人头盖骨的地方。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      640,
+      1090
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "11-10"
+    ],
+    "best": [
+     "09-20",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#fsh3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "shsj2",
+   "dest": "shanghai",
+   "name": "松江",
+   "region": "华东",
+   "days": 2,
+   "title": "松江 2 天",
+   "headline": "两天，上海松江的方塔园、醉白池和佘山",
+   "dek": "到松江，下午看北宋的方塔，再去醉白池看江南园林。",
+   "why": null,
+   "price": {
+    "lo": 700,
+    "hi": 1700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-20"
+    ],
+    "best": [
+     "04-01",
+     "11-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#shsj2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "byne2",
+   "dest": "neimenggu",
+   "name": "巴彦淖尔",
+   "region": "华北",
+   "days": 2,
+   "title": "巴彦淖尔 2 天",
+   "headline": "两天，巴彦淖尔的三盛公、鸡鹿塞和乌梁素海",
+   "dek": "到临河，包车去磴口，看黄河上的三盛公水利枢纽，再去鸡鹿塞，是汉代的古关。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-15",
+     "10-10"
+    ],
+    "best": [
+     "06-15",
+     "09-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#byne2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "ghe3",
+   "dest": "qinghai",
+   "name": "共和",
+   "region": "西北",
+   "days": 3,
+   "title": "共和 3 天",
+   "headline": "三天，共和的塔拉滩、龙羊峡和青海湖",
+   "dek": "到共和，下午去塔拉滩，看大片的光伏板，有熊猫图案的那一片最出名。",
+   "why": null,
+   "price": {
+    "lo": 2100,
+    "hi": 4200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      180,
+      380
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      900,
+      1500
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-20"
+    ],
+    "best": [
+     "07-01",
+     "08-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#ghe3",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
