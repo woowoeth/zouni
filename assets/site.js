@@ -789,3 +789,25 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fixTabs); else fixTabs();
 })();
+(function(){
+  var bar = document.querySelector('.chan .jump');
+  if (!bar) return;
+  var links = [].slice.call(bar.querySelectorAll('a')), ticking = false;
+  function mark(i){
+    links.forEach(function(a, k){ if (k === i) a.classList.add('on'); else a.classList.remove('on'); });
+    var on = links[i];
+    if (on) bar.scrollLeft = on.offsetLeft - (bar.clientWidth - on.offsetWidth) / 2;
+  }
+  function spy(){
+    ticking = false;
+    var cur = 0;
+    links.forEach(function(a, k){
+      var el = document.getElementById(a.getAttribute('href').slice(1));
+      if (el && el.getBoundingClientRect().top <= 120) cur = k;
+    });
+    mark(cur);
+  }
+  window.addEventListener('scroll', function(){ if (!ticking) { ticking = true; requestAnimationFrame(spy); } }, {passive: true});
+  links.forEach(function(a, k){ a.addEventListener('click', function(){ mark(k); }); });
+  mark(0);
+})();
