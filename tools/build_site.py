@@ -7676,6 +7676,7 @@ def sj_label(x):
 
 
 _SJ_TRIP_CACHE = {}
+_SJ_EXTRA = {}
 _EAT_SHOWS = {'舌尖上的中国', '风味人间', '风味原产地', '早餐中国', '人生一串', '宵夜江湖', '老广的味道', '街头美食'}
 
 
@@ -7697,9 +7698,10 @@ def _sj_for_trip(rid, r):
             if any(kk and kk in txt for kk in x['keys']):
                 out.setdefault(k, [])
                 sh_ = [y.get('show') for y in out[k]]
-                if (x.get('show') in sh_ and sh_.count(x.get('show')) < 3) or len(set(sh_)) < 2:
+                if (x.get('show') in sh_ and sh_.count(x.get('show')) < (8 if x.get('show') == '中国影像方志' else 3)) or len(set(sh_)) < 2:
                     out[k].append(x); used.add(i)
-                    if x.get('show') in _EAT_SHOWS: seen_food.add(x['food'])   # 一天最多两部片子，同一部片子的并成一行
+                    if x.get('show') in _EAT_SHOWS: seen_food.add(x['food'])
+                else: _SJ_EXTRA.setdefault(id(x), []).append((rid, k))     # 当天已经有两部片子了，这条不写在行程页上，但算“已排进”   # 一天最多两部片子，同一部片子的并成一行
     return out
 
 
@@ -7710,6 +7712,7 @@ def sj_hits():
         for rid in ROUTE_IDS:
             for k, xs in sj_for_trip(rid, ROUTES[rid]).items():
                 for x in xs: h.setdefault(id(x), []).append((rid, k))
+        for i_, l_ in _SJ_EXTRA.items(): h.setdefault(i_, []).extend(l_)
         sj_hits._h = h
     return sj_hits._h
 
