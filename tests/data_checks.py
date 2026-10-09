@@ -275,7 +275,7 @@ if site:
             sec = sec.split('</section>')[0]
             for li in re.findall(r'<li class="r (?:see|fun)"[^>]*>(.*?)</li>', sec, flags=re.S):
                 nm = re.sub(r'<[^>]+>', ' ', li.split('<p class="m">')[1].split('</p>')[0]).strip() if '<p class="m">' in li else ''
-                if nm in ('卡普里蓝洞', '米尔福德峡湾') and 'alt wx' not in sec: bad17.append(f'{rid} 「{nm}」那天没有看天气提醒')
+                if nm in ('卡普里蓝洞', '米尔福德峡湾', '贝纳吉尔海蚀洞') and 'alt wx' not in sec: bad17.append(f'{rid} 「{nm}」那天没有看天气提醒')
     if bad17: fails.append(('靠天吃饭的去处缺提醒', sorted(set(bad17))))
     # 18 默认出发日不能落进法定假日出行高峰（价格贵、车票紧、限流），线路自己为假日做的（出发前写了节日名）除外；表和 build_site.HOLIDAYS 一致
     HOL = [('元旦', '2027-01-01', '2027-01-03'), ('春节', '2027-02-04', '2027-02-14'), ('清明', '2027-04-03', '2027-04-05'), ('五一', '2027-05-01', '2027-05-05'), ('端午', '2027-06-09', '2027-06-11'),
