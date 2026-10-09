@@ -4071,6 +4071,7 @@ SJ = (json.load(open('data/catalog/shejian.json')) if os.path.exists('data/catal
 SHOWS = [('舌尖上的中国', '/shejian/', '推荐'), ('风味人间', '/fengwei/', '推荐'), ('风味原产地', '/yuanchandi/', '推荐'), ('早餐中国', '/zaocan/', '早上吃'), ('如果国宝会说话', '/guobao/', '讲过'), ('记住乡愁', '/xiangchou/', '拍过'), ('人生一串', '/yichuan/', '推荐'), ('宵夜江湖', '/xiaoye/', '拍过'), ('河西走廊', '/hexi/', '拍过'), ('跟着书本去旅行', '/shuben/', '讲过'), ('航拍中国', '/hangpai/', '拍过'), ('老广的味道', '/laoguang/', '推荐'), ('话说长江', '/changjiang/', '讲过'), ('新丝绸之路', '/sichou/', '拍过'), ('中国影像方志', '/yingxiang/', '拍过'), ('丝绸之路', '/silu/', '拍过'), ('菲尔来蹭饭', '/phil/', '去过'), ('未知之旅', '/weizhi/', '去过'), ('孤独星球年度榜', '/lp/', '入选'), ('国家地理年度榜', '/natgeo/', '入选'), ('街头美食', '/jietou/', '去过')]
 SHOW_VERB = {a: c for a, b, c in SHOWS}
 SJ_VAGUE = {'东北', '四川', '云南', '河南', '广东', '江南', '闽南', '内蒙古', '宁夏', '西藏', '台湾', '山西', '山东', '陕北', '贵州', '广东乡下', '粤东海边', '四川养蜂人', '吉林朝鲜族山村', '北部湾渔船', '客家'}
+WHY = json.load(open('data/catalog/why.json', encoding='utf-8')) if os.path.exists('data/catalog/why.json') else {}   # “好在哪、为什么要吃要去”一句话：show|food|place -> 句子
 SJ_CN = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二']
 MAG = {'孤独星球年度榜', '国家地理年度榜'}   # 杂志榜单，不是纪录片：按年份分组，不写“第几季”
 SINGLE_SEASON = {'河西走廊', '跟着书本去旅行', '话说长江', '新丝绸之路', '中国影像方志', '丝绸之路', '孤独星球年度榜', '国家地理年度榜'}   # 只有一季（或查不到多季）的片子，不写“第一季”
@@ -4480,7 +4481,7 @@ def pian_page():
             nh = sum(1 for x in ALL if hit.get(id(x)))
             yrs = len({x['s'] for x in ALL}) if show not in SINGLE_SEASON else 0
             rows.append(f'<li><a href="{paths[show]}"><i>{k:02d}</i><span><b>{E(show)}</b><small>{E(SHOW_NOTE.get(show, ""))}</small>'
-                        f'<em>{"榜单 " + str(len({x["ep"] for x in ALL})) + " 年 · " if show in MAG else (str(yrs) + " 季 · " if yrs > 1 else "")}{"入选" if show in MAG else "拍过"} {len(ALL)} 处{(" · 已排进 " + str(nh) + " 处") if nh else ""}</em></span></a></li>')
+                        f'<em>{"榜单 " + str(len({x["ep"] for x in ALL})) + " 年 · " if show in MAG else (str(yrs) + " 季 · " if yrs > 1 else "")}{"入选" if show in MAG else "拍过"} {len(ALL)} 处{(" · 已排进 " + str(nh) + " 处") if nh else ""}</em></span><img class="pt" src="/img/p/show-{paths[show].strip("/")}.svg" alt="" width="60" height="80" loading="lazy"></a></li>')
         secs.append(f'<h2 class="ph">{E(cat)}<small>{len(shows)} 部</small></h2><ol class="toc">{"".join(rows)}</ol>')
     # 跟片最多的地方：同一个目的地被几部片子、榜单提到
     dname = {v['name']: key for key, v in DEST.items()}; per = {}
@@ -4522,10 +4523,15 @@ def shejian_page(show='舌尖上的中国', path='/shejian/', other=('风味人�
             li = ''
             for x in [x for x in xs if kf(x) == ep]:
                 trips = hit.get(id(x), [])[:3]
-                go = ' '.join(f'<a href="/trip/{rid}/#d{k + 1}">{E(re.sub(r"\s*\d+\s*天$", "", ROUTES[rid].get("label") or ""))}第 {k + 1} 天</a>' for rid, k in trips)
+                _seen = []; _tr2 = []
+                for rid, k in hit.get(id(x), []):
+                    if rid not in _seen: _seen.append(rid); _tr2.append((rid, k))
+                go = ' '.join(f'<a href="/trip/{rid}/#d{k + 1}">{E(ROUTES[rid].get("label") or "")}</a>' for rid, k in _tr2[:3])
                 if not go and dname.get(x['prov']) and show != '中国影像方志': go = f'<a href="/d/{dname[x["prov"]]}/">去{E(x["prov"])}看看</a>'
+                _why = WHY.get(f'{show}|{x["food"]}|{x["place"]}')
+                _wy = f'<p class="why">{E(_why)}</p>' if _why else ''
                 _sp = '' if show == '中国影像方志' else f'<span>{E(x["prov"]) if x["food"] == x["place"] else E(x["place"]) + (("，" + E(x["prov"])) if x["prov"] not in x["place"] else "")}</span>'
-                li += f'<li><b>{E(x["food"])}</b>{_sp}' + (('<small>' + go + '</small>') if go else '') + '</li>'
+                li += f'<li><b>{E(x["food"])}</b>{_sp}{_wy}' + (('<small>' + go + '</small>') if go else '') + '</li>'
             _hid = f' id="pv{len(jumps) - 1}"' if show == '中国影像方志' and ep else ''
             _hl = (f'<a href="/d/{dname[ep]}/">{E(ep)}</a>' if (show == '中国影像方志' and ep and ep in dname) else (E(ep) if show == '中国影像方志' else '《' + E(ep) + '》')) if ep else ''
             body += f'<h3{_hid}>{_hl if ep else "这一季还拍过"}</h3><ul class="sjl">{li}</ul>'
@@ -4536,7 +4542,7 @@ def shejian_page(show='舌尖上的中国', path='/shejian/', other=('风味人�
     others = ''.join(f'<a href="{pp}">《{ss}》</a> ' for ss, pp, _v in SHOWS if ss != show)
     tabs = ''.join(f'<a href="{pp}"{" class=\"on\"" if ss == show else ""}>{ss}</a>' for ss, pp, _v in SHOWS)
     head = (f'<div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><p class="kick">走你 · 跟片走</p>'
-            f'<h1>{("《" + show + "》里的目的地") if show in MAG else (("《" + show + "》里的地方") if show.startswith("跟着") else ("跟着《" + show + "》走"))}</h1><p class="deck">{"榜单里入选的" if show in MAG else "节目里拍过的"} {len(ALL)} 处{"吃的" if _eat else "地方"}，{(str(n_hit) + " 处已经排进了我们的行程，点进去就是那一天") if show != "航拍中国" else "按省挂在目的地页"}。</p><nav class="ctabs">{tabs}</nav>')
+            f'<h1>{("《" + show + "》里的目的地") if show in MAG else (("《" + show + "》里的地方") if show.startswith("跟着") else ("跟着《" + show + "》走"))}</h1><p class="deck">{"榜单里入选的" if show in MAG else "节目里拍过的"} {len(ALL)} 处{"吃的" if _eat else "地方"}，{(str(n_hit) + " 处已经排进了我们的行程，点进去就是那一天") if show != "航拍中国" else "按省挂在目的地页"}。</p><figure class="shero"><img src="/img/p/show-{path.strip("/")}.svg" alt="" width="600" height="800"></figure><nav class="ctabs">{tabs}</nav>')
     desc = (f'《{show}》入选的目的地：{len(ALL)} 处，能去的直接到排好的那一天。' if show in MAG else f'《{show}》拍过的地方和美食：{len(ALL)} 处，按季按集列出，能去的直接到排好的那一天。')
     write(path, page(path, f'{("《" + show + "》里的目的地") if show in MAG else (("《" + show + "》里的地方") if show.startswith("跟着") else ("跟着《" + show + "》走"))}：{"榜单里入选的目的地" if show in MAG else "节目里拍过的地方" + ("和美食" if _eat else "")} | 走你', desc, '<article class="chan">' + head + (('<nav class="jump" aria-label="跳到">' + ''.join(f'<a href="#{a_}">{E(b_)}</a>' for a_, b_ in jumps) + '</nav>') if len(jumps) >= 2 else '') + ''.join(out) + _pn(show) + '</article>', [], None, [('首页', '/'), ('跟片走', '/pian/')]))
     return n_hit
@@ -4585,6 +4591,14 @@ def dest_page(d):
     return desc
 
 
+def poster_url(rid):
+    """这条线的海报地址（没有就空）"""
+    rr = ROUTES[rid]; img = (rr.get('img') or '').replace('/_blob/', '')
+    if img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg')): return f'/img/{img}.svg'
+    if os.path.exists(os.path.join('site_src', 'posters', rid + '.svg')): return f'/img/p/{rid}.svg'
+    return ''
+
+
 def where_page():
     m = TODAY.month; scopes = []
     for scope, title in (('domestic', '国内'), ('asia', '亚洲'), ('world', '更远')):
@@ -4603,6 +4617,10 @@ def where_page():
                 base = (x['base'] + ' · ' if x['base'] and x['base'] != x['name'] else '') + x['days']
                 cnt = '　'.join(z for z in [f'{n_tr} 条排好的行程' if n_tr else '', f'{nn} 处小众' if nn else ''] if z)
                 fcls = 'fit' + ('' if f == '正好' else ' ok' if f == '也行' else ' no')
+                ct_ = ''
+                for r_ in DEST_ROUTES.get(x['id'], []):
+                    u_ = poster_url(r_)
+                    if u_: ct_ = f'<img class="ct" src="{u_}" alt="" width="44" height="58" loading="lazy">'; break
                 ms_ = ''.join(f'<i class="{"b" if fit_label(x["best"], mm_) == "正好" else "o" if fit_label(x["best"], mm_) == "也行" else ""}{" now" if mm_ == m else ""}" title="{mm_} 月 {fit_label(x["best"], mm_)}"></i>' for mm_ in range(1, 13))
                 bs_ = sorted(set(x['best'])); grp_ = []
                 for b_ in bs_:
@@ -4624,7 +4642,7 @@ def where_page():
                 entry = f'<p class="kv"><b>入境</b>{E(x.get("entry"))}</p>' if x.get('entry') else ''
                 cards.append(f'<li class="card" data-best="{",".join(map(str, x["best"]))}" data-clim=\'{E(json.dumps(x["clim"]))}\' data-no="{1 if x["noTrip"] else 0}" data-days="{",".join(map(str, days))}" '
                              f'data-high="{1 if (x.get("elev") or 0) >= 2200 else 0}" data-lat="{x["lat"]}" data-lng="{x["lng"]}" data-niche="{nn}" data-drive="{1 if any(ROUTES[r_].get('drive') for r_ in DEST_ROUTES.get(x['id'], [])) else 0}" data-plo="{min(los) if los else ""}" data-hits="{E(hits)}" data-q="{E(qn)}" data-name="{E(x["name"])}">'
-                             f'<a class="ch" href="/d/{x["id"]}/"><div><h3>{E(x["name"])}</h3><span class="base">{E(base)}</span></div><span class="{fcls}">{f}</span></a>'
+                             f'<a class="ch" href="/d/{x["id"]}/">{ct_}<div><h3>{E(x["name"])}</h3><span class="base">{E(base)}</span></div><span class="{fcls}">{f}</span></a>'
                              f'<p class="cl">{m} 月：白天 {cl[0]}℃，夜里 {cl[1]}℃</p><div class="ms" aria-hidden="true">{ms_}</div><p class="msl">{msl_}</p><p class="hit" hidden></p><p class="dist" hidden></p>'
                              f'<p class="kv"><b>看</b>{E("、".join(x["see"]))}</p><p class="kv"><b>吃</b>{E("、".join(x["eat"]))}</p>{entry}{xp_}'
                              f'{("<div class=tr>" + "".join(rows) + "</div>") if rows else ""}{qlink}</li>')

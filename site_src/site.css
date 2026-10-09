@@ -636,3 +636,13 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .chan .jump a{flex:none;display:flex;align-items:center;justify-content:center;min-width:44px;height:36px;padding:0 12px;border:0;background:var(--card);color:var(--ink);font-size:13px;font-weight:700}
 .chan .jump a.on{background:var(--ink);color:var(--bg)}
 .chan .sjs,.chan .sjs h3{scroll-margin-top:64px}
+
+/* 2026-10 插图：跟片走的片子封面、走哪儿卡片缩略图，用和行程海报同一套画法；“好在哪”一行 */
+.chan .shero{margin:0 20px 18px;height:210px;overflow:hidden;background:var(--card)}
+.chan .shero img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 60%}
+.chan.pian .toc a{align-items:center}
+.chan.pian .toc a>span{flex:1;min-width:0}
+.chan .toc .pt{flex:none;width:60px;height:80px;object-fit:cover;background:var(--card)}
+.sjl .why{margin:3px 0 4px;font:400 14px/1.7 var(--sans);color:var(--ink)}
+.where .ch .ct{flex:none;width:44px;height:58px;object-fit:cover;background:var(--card);margin-right:2px}
+.where .ch>div{flex:1}
