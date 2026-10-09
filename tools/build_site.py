@@ -457,6 +457,23 @@ SIGHT = {
     '草海': '泸沽湖边长满芦苇的湖湾，走走婚桥', '女神湾': '泸沽湖看日落的湖湾', '潮州工夫茶': '潮州人喝茶的老讲究', '珠海渔女': '珠海海边的渔女石像', '日月贝': '珠海大剧院，像两片贝壳',
     '情侣路': '珠海海边几十公里的海滨路', '雪如意': '张家口崇礼的冬奥跳台', '燊海井': '自贡的千米深盐井，还在用古法熬盐', '蜀南竹海': '宜宾七万多亩竹林，《卧虎藏龙》竹林戏在这里拍', '邛海湿地': '西昌城边的湖和湿地',
     '泸山': '邛海边的山，山上有寺庙', '拜将坛': '汉中刘邦拜韩信为大将的地方',
+    '安顺文庙': '贵州保存最完整、规模最大的孔庙',
+    '天龙屯堡': '明代军户后代住的石头村',
+    '云山屯': '明代的屯堡聚落，石头垒的房子和碉楼',
+    '格凸河穿洞': '河水从山肚子里穿过的大洞',
+    '剑川古城': '白族的古城，以木雕出名',
+    '石宝山石窟': '南诏和大理国时凿在红砂岩上的石窟',
+    '寺登街': '沙溪古镇的主街，当年马帮交易的地方',
+    '兴教寺': '沙溪的白族佛寺，里面有明代壁画',
+    '常德诗墙': '沅江边刻着历代写常德的诗词的长墙',
+    '桃花源': '陶渊明《桃花源记》传说所在的地方',
+    '夹山寺': '唐代禅师讲禅的寺，禅茶的故事出在这里',
+    '城头山遗址': '约六千年前的古城遗址',
+    '辽阳白塔': '金代的八角十三层砖塔，是东北最高的古塔',
+    '玉佛苑': '供着一尊用岫岩玉雕成的大玉佛',
+    '鲅鱼圈': '营口南边的海边新区',
+    '望儿山': '山上有一座母亲眺望远方的雕像',
+    '辽河老街': '营口近代开埠时留下的老街',
     '韩城古城': '明清的老城，有文庙、城隍庙和一条条老巷子',
     '党家村': '明清古村，砖木的四合院一座挨着一座',
     '司马迁祠': '《史记》作者司马迁的祠和墓',
@@ -992,6 +1009,10 @@ FAV_ICON = '<svg class="fi" width="18" height="18" viewBox="0 0 24 24" fill="non
 BACK_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg>'
 
 
+# Google Analytics 4 衡量 ID（G-XXXXXXXXXX）写在 data/analytics.json 的 ga4 里；空则不加脚本
+GA4 = (json.load(open('data/analytics.json', encoding='utf-8')).get('ga4') or '').strip() if os.path.exists('data/analytics.json') else ''
+
+
 def page(path, title, desc, body, jsonld=(), image=None, crumbs=()):
     url = BASE + path
     ld = ''.join(f'<script type="application/ld+json">{json.dumps(j, ensure_ascii=False)}</script>' for j in jsonld)
@@ -999,6 +1020,7 @@ def page(path, title, desc, body, jsonld=(), image=None, crumbs=()):
         ld += '<script type="application/ld+json">' + json.dumps({'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
             {'@type': 'ListItem', 'position': i + 1, 'name': n, 'item': BASE + p} for i, (n, p) in enumerate(crumbs)]}, ensure_ascii=False) + '</script>'
     og = image or '/img/og.png'
+    ga = (f'<script async src="https://www.googletagmanager.com/gtag/js?id={GA4}"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments)}}gtag("js",new Date());gtag("config","{GA4}");</script>' if GA4 else '')
     return f"""<!doctype html>
 <html lang="zh-CN">
 <head>
@@ -1015,7 +1037,7 @@ def page(path, title, desc, body, jsonld=(), image=None, crumbs=()):
 <link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png"><link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <link rel="stylesheet" href="/assets/fonts/sans.css"><link rel="stylesheet" href="/assets/fonts/serif.css">
 <link rel="stylesheet" href="/assets/site.css?v={ASSET_V}">
-{ld}
+{ga}{ld}
 </head>
 <body>
 <main>
@@ -1067,6 +1089,24 @@ def navurl(a, b, how, app, name):
 
 
 DEEP = {   # “懂一点”的补充段落：时间轴那一行只是一句话，这里讲来历和看点；只写核对过的
+    '安顺文庙': '明代建的孔庙，格局保存得很完整，是贵州规模最大的文庙之一，院子里有古树和石碑。',
+    '黄果树瀑布': '主瀑高约 77 米，宽约 101 米，是亚洲最大的瀑布之一，夏天雨季水量最大，瀑布后面有一个水帘洞，可以走进去。',
+    '天龙屯堡': '明初朱元璋派大军到贵州，兵士带着家眷留下屯田，后代住在石头垒的堡子里，至今还说着明代传下来的口音，女人穿蓝色长衫、包头帕。',
+    '云山屯': '安顺的屯堡聚落，石头垒的房子、碉楼和石巷，保存着明代屯堡的格局。',
+    '格凸河穿洞': '紫云的喀斯特河谷，河水从山肚子里穿过，洞又高又宽，坐船进去，两岸是峭壁。',
+    '剑川古城': '白族的古城，木雕是剑川的拿手活，古城里还有不少木雕铺和老房子。',
+    '石宝山石窟': '南诏和大理国时期在红砂岩上凿的石窟，里面有佛像，也有白族的世俗雕刻，是白族石窟艺术的代表。',
+    '寺登街': '沙溪是茶马古道上保存完好的古集市，寺登街的四方街是当年马帮交易的广场，2001 年被世界纪念性建筑基金会列入濒危名录，之后做了修复。',
+    '兴教寺': '白族阿吒力教的佛寺，大殿里有明代的壁画。',
+    '常德诗墙': '沿着沅江的一堵长石墙，上面刻着历代文人写常德的诗词。',
+    '桃花源': '陶渊明《桃花源记》里的武陵人，据说就是在这一带，景区里有桃花溪、秦人村，春天桃花开时最美。',
+    '夹山寺': '唐代善会禅师在这里讲禅，“茶禅一味”的禅茶由此得名，相传明末李自成在这里出过家。',
+    '城头山遗址': '距今约六千年的古城遗址，是中国发现最早的城之一，发现了城墙、祭坛和稻田。',
+    '辽阳白塔': '建于金代，八角十三层，高约 70 米，是东北最高的古塔，砖砌的塔身上有很多佛像雕刻。',
+    '玉佛苑': '鞍山的玉佛苑里供着一尊用整块岫岩玉雕成的大佛，被称作世界上最大的玉雕佛像。',
+    '鲅鱼圈': '营口南边的海边新区，有沙滩，也有新鲜的海鲜。',
+    '望儿山': '山上有一座母亲眺望远方的雕像，传说一位母亲天天上山等儿子回来，后来成了母爱的象征。',
+    '辽河老街': '营口是东北最早开埠的港口，辽河边的老街留着清末民初的商铺和洋行。',
     '卧虎山黑龙庙': '碛口镇后面的小山，山上的黑龙庙是清代商人和船工祭拜的地方，从这里能把碛口古镇和黄河看全。',
     '韩城古城': '明清时的老城，文庙、城隍庙、东营庙一座接一座，街巷里还有老四合院，现在古城里住的人不少，也有老店。',
     '党家村': '明清时的古村，砖木的四合院一座挨着一座，村里的文星阁是标志，被专家称为古代民居的“活化石”。',

@@ -34411,6 +34411,222 @@
    "page": "Route.dc.html#bzsx4",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "as4",
+   "dest": "guizhou",
+   "name": "安顺屯堡",
+   "region": "西南",
+   "days": 4,
+   "title": "安顺屯堡 4 天",
+   "headline": "四天，安顺的屯堡、黄果树和格凸河",
+   "dek": "到安顺，下午看安顺文庙，傍晚逛老城，吃一碗安顺裹卷。",
+   "why": null,
+   "price": {
+    "lo": 2300,
+    "hi": 4800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      940,
+      1590
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-10",
+     "11-15"
+    ],
+    "best": [
+     "03-15",
+     "04-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#as4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "jcsx4",
+   "dest": "yunnan",
+   "name": "剑川沙溪",
+   "region": "西南",
+   "days": 4,
+   "title": "剑川沙溪 4 天",
+   "headline": "四天，剑川的石窟、木雕和沙溪古镇",
+   "dek": "到剑川，下午逛古城，看白族的木雕铺和老街。",
+   "why": null,
+   "price": {
+    "lo": 2600,
+    "hi": 5200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      1200,
+      2000
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-01",
+     "11-30"
+    ],
+    "best": [
+     "03-15",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#jcsx4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "chd4",
+   "dest": "hunan",
+   "name": "常德桃花源",
+   "region": "华中",
+   "days": 4,
+   "title": "常德桃花源 4 天",
+   "headline": "四天，常德的桃花源、夹山和城头山",
+   "dek": "到常德，下午沿沅江走诗墙，傍晚包车去桃源住下。",
+   "why": null,
+   "price": {
+    "lo": 2600,
+    "hi": 5200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      1200,
+      2000
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-10",
+     "11-15"
+    ],
+    "best": [
+     "03-15",
+     "04-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#chd4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lyx4",
+   "dest": "liaoning",
+   "name": "辽阳鞍山营口",
+   "region": "东北",
+   "days": 4,
+   "title": "辽阳鞍山营口 4 天",
+   "headline": "四天，辽阳的白塔、鞍山的玉佛和营口的老街",
+   "dek": "到辽阳，下午看白塔和广佑寺，傍晚在老街吃饭。",
+   "why": null,
+   "price": {
+    "lo": 1600,
+    "hi": 3700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      160,
+      360
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-15"
+    ],
+    "best": [
+     "05-15",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lyx4",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
