@@ -21,13 +21,16 @@ for L in routes:
     for d in L['days']:
         o = {'title': d['title'], 'text': d['text'], 'stops': [], 'start': d['start'], 'elev': d.get('elev') or 0}
         for s in d['stops']:
+            if s.get('lat') is not None and s.get('lng') is not None:
+                _k = (d.get('city') or L['city']) + '|' + (s.get('q') or s['name'])
+                GP.setdefault(_k, {'lat': float(s['lat']), 'lng': float(s['lng']), 'hit': '人工核对（近似）', 'q': s.get('q') or s['name'], 'src': 'curated'})
             o['stops'].append({'name': s['name'], 'q': s.get('q') or s['name'], 'type': s.get('type') or 'sight', 'dur': int(s.get('dur') or 90), 'via': s.get('via') or '打车约 20 分钟'})
         if d.get('stay'): o['stay'] = d['stay']
         if d.get('city'): o['city'] = d['city']
         if d.get('lunch'): o['lunch'] = d['lunch']
         if d.get('dinner'): o['dinner'] = d['dinner']
         days.append(o)
-    IT['itineraries'][L['id']] = {'city': L['city'], 'label': L['label'], 'title': L['title'], 'kicker': L['kicker'], 'prep': L['prep'], 'days': days, 'dest': L['dest'], 'start': L['start']}
+    IT['itineraries'][L['id']] = {'city': L['city'], 'label': L['label'], 'title': L['title'], 'kicker': L['kicker'], 'prep': L['prep'], 'days': days, 'dest': L['dest'], 'start': [L['start'][0], L['start'][1] - 1, L['start'][2]]}   # 网站里 start 的月份是 0 起（JS 习惯）；路线 JSON 里写自然月
     dest.setdefault('routes', []).append(L['id'])
     TR['trips'].append({'id': L['id'], 'dest': L['dest'], 'name': L['label'].rsplit(' ', 2)[0], 'region': dest['region'], 'days': len(days), 'title': L['label'], 'headline': L['title'], 'dek': days[0]['text'],
                         'why': None, 'price': None, 'tags': L.get('tags', []), 'season': {'ok': L['ok'], 'best': L['best']}, 'anytime': False, 'status': 'ok', 'page': 'Route.dc.html#' + L['id'], 'engineRoute': None, 'poster': None})
