@@ -630,3 +630,9 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .chan .jump a:active,.chan .jump a:hover{color:var(--ink)}
 .where .rj a,.where .rj a:active{border-bottom:0}
 .chan .pn a{text-decoration:none}
+
+/* 2026-10 用户：第一季、第二季为啥不用和月份一样的样式 —— 频道页跳转条改成和走哪儿的月份条同款（灰块，当前项墨色底），滚动时跟着当前位置高亮 */
+.chan .jump{position:sticky;top:0;z-index:5;gap:4px;margin:0;padding:10px 20px;background:var(--bg,#f3f1ec)}
+.chan .jump a{flex:none;display:flex;align-items:center;justify-content:center;min-width:44px;height:36px;padding:0 12px;border:0;background:var(--card);color:var(--ink);font-size:13px;font-weight:700}
+.chan .jump a.on{background:var(--ink);color:var(--bg)}
+.chan .sjs,.chan .sjs h3{scroll-margin-top:64px}
