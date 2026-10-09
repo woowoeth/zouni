@@ -36355,6 +36355,222 @@
    "page": "Route.dc.html#ghe3",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "bzh2",
+   "dest": "liaoning",
+   "name": "北镇",
+   "region": "东北",
+   "days": 2,
+   "title": "北镇 2 天",
+   "headline": "两天，北镇的北镇庙、崇兴寺双塔和医巫闾山",
+   "dek": "到北镇，下午看北镇庙，再去崇兴寺看辽代的双塔。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-31"
+    ],
+    "best": [
+     "09-25",
+     "10-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#bzh2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "rch3",
+   "dest": "shandong",
+   "name": "荣成",
+   "region": "华东",
+   "days": 3,
+   "title": "荣成 3 天",
+   "headline": "三天，荣成的成山头、天鹅湖和赤山",
+   "dek": "到荣成，下午去成山头，是山东半岛最东端，有“天尽头”之称。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      120,
+      270
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-31"
+    ],
+    "best": [
+     "05-15",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#rch3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "lyg2",
+   "dest": "hunan",
+   "name": "浏阳",
+   "region": "华中",
+   "days": 2,
+   "title": "浏阳 2 天",
+   "headline": "两天，浏阳的文家市和大围山",
+   "dek": "从长沙到浏阳，看文家市的秋收起义会师旧址。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-31"
+    ],
+    "best": [
+     "09-15",
+     "10-25"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#lyg2",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "hc2",
+   "dest": "jilin",
+   "name": "珲春",
+   "region": "东北",
+   "days": 2,
+   "title": "珲春 2 天",
+   "headline": "两天，珲春的防川和敬信湿地",
+   "dek": "到珲春，包车去防川，登龙虎阁看中、朝、俄三国。",
+   "why": null,
+   "price": {
+    "lo": 1500,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-15",
+     "10-10"
+    ],
+    "best": [
+     "07-01",
+     "09-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hc2",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
