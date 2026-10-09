@@ -34843,6 +34843,168 @@
    "page": "Route.dc.html#km4",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "wlmq4",
+   "dest": "xinjiang",
+   "name": "乌鲁木齐",
+   "region": "西北",
+   "days": 4,
+   "title": "乌鲁木齐 4 天",
+   "headline": "四天，乌鲁木齐的博物馆、天池和南山牧场",
+   "dek": "到乌鲁木齐，下午看新疆博物馆里的楼兰美女，傍晚上红山，晚上逛国际大巴扎。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      680,
+      1180
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-15"
+    ],
+    "best": [
+     "06-01",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wlmq4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cf4",
+   "dest": "neimenggu",
+   "name": "赤峰",
+   "region": "华北",
+   "days": 4,
+   "title": "赤峰 4 天",
+   "headline": "四天，赤峰的红山玉龙、石林和达里湖",
+   "dek": "到赤峰，下午看赤峰博物馆里红山文化的玉器，傍晚在红山上走走。",
+   "why": null,
+   "price": {
+    "lo": 2400,
+    "hi": 4800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      940,
+      1590
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-15",
+     "09-30"
+    ],
+    "best": [
+     "06-15",
+     "09-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cf4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "fy3",
+   "dest": "heilongjiang",
+   "name": "抚远东极",
+   "region": "东北",
+   "days": 3,
+   "title": "抚远东极 3 天",
+   "headline": "三天，抚远：中国最早的日出和黑瞎子岛",
+   "dek": "到抚远，下午在乌苏里江边走走，傍晚看江上的日落。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      900,
+      1500
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-15"
+    ],
+    "best": [
+     "06-15",
+     "08-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#fy3",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
