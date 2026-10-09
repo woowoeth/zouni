@@ -782,3 +782,10 @@
     try{var q0=new URLSearchParams(location.search).get('q');if(q0){st.q=q0.trim().toLowerCase();st.fit=false;inp.value=q0;flt.hidden=false;flt.querySelectorAll('[data-f="fit"]').forEach(function(b){b.classList.remove('on')})}}catch(e){}
     apply()}
 })();
+(function(){
+  function fixTabs(){
+    var bar = document.querySelector('.ctabs'), on = bar && bar.querySelector('a.on');
+    if (bar && on) bar.scrollLeft = on.offsetLeft - (bar.clientWidth - on.offsetWidth) / 2;
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fixTabs); else fixTabs();
+})();
