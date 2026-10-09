@@ -1,6 +1,6 @@
 # 声明式行程 → 线路页数据
 # 用法：python3 tools/compile_itineraries.py build/routes.js   （把编译结果并进已有的 routes.js）
-import json, math, os, re, sys, time, urllib.parse, urllib.request
+import json, zlib, math, os, re, sys, time, urllib.parse, urllib.request
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else 'build/routes.js'
 IT = json.load(open('data/itineraries.json'))['itineraries']
@@ -101,12 +101,30 @@ ORDER = json.loads(re.search(r'window.ZOUNI_ORDER=(\[.*?\]);', s).group(1))
 ROUTES = json.loads(re.search(r'window.ZOUNI_ROUTES=(.*);\n', s).group(1))
 report = []
 CITY_FOOD = json.load(open('data/catalog/city_food.json')) if os.path.exists('data/catalog/city_food.json') else {}
+# 同一条行程里不重复推荐同一道菜：城市招牌菜用完后，从节目里拍过的本省吃的里挨个补（舌尖、风味、老广等；早餐中国不算，那是早餐）
+REGION_FOOD = {}
+for _f in ('shejian', 'fengwei', 'docs_more', 'docs_more2', 'docs_travel'):
+    _p = f'data/catalog/{_f}.json'
+    if not os.path.exists(_p): continue
+    for _x in json.load(open(_p, encoding='utf-8')):
+        if (_x.get('show') or '舌尖上的中国') in ('舌尖上的中国', '风味人间', '风味原产地', '人生一串', '宵夜江湖', '老广的味道', '街头美食') and _x.get('food') and _x['food'] != _x.get('place') and len(_x['food']) <= 12 and not any(w_ in _x['food'] for w_ in ('节', '（', '(', '季', '之')):
+            REGION_FOOD.setdefault(_x['prov'], []).append((_x['food'], _x['place']))
+PROV_FOOD = json.load(open('data/catalog/prov_food.json', encoding='utf-8')) if os.path.exists('data/catalog/prov_food.json') else {}   # 各省区市、各国的特色菜（成批补充，见 docs/handoff/03）
+CITY_TAGS = ['新奥尔良', '波士顿', '芝加哥', '纽约', '旧金山', '洛杉矶', '得州', '德州', '费城', '拉斯维加斯', '迈阿密', '西雅图', '夏威夷', '缅因', '加州', '堪萨斯', '孟菲斯', '纳什维尔', '底特律', '奥斯汀', '休斯敦', '圣路易斯', '波特兰', '新墨西哥', '路易斯安那', '蒙特利尔', '魁北克', '多伦多', '温哥华', '悉尼', '墨尔本', '布里斯班', '珀斯', '阿德莱德', '塔斯马尼亚', '开普敦', '约翰内斯堡', '墨西哥城', '瓦哈卡', '尤卡坦', '马德里', '巴塞罗那', '塞维利亚', '巴斯克', '里昂', '巴黎', '马赛', '罗马', '那不勒斯', '西西里', '佛罗伦萨', '威尼斯', '伦敦', '爱丁堡', '东京', '大阪', '京都', '札幌', '福冈', '首尔', '釜山', '曼谷', '清迈', '胡志明', '河内', '新德里', '孟买']
+GENERIC_OK = {'随意', '简单吃一点', '路上吃', '本地菜', '小吃'} | set(['当地家常菜', '时令蔬菜小炒', '街边小吃', '本地汤面', '炒一桌家常', '小火锅', '烧烤', '饺子或面片', '粥配小菜', '砂锅煲', '烩菜', '炖菜', '家常小炒', '卤味拼盘', '米饭套餐', '包子配豆浆', '凉菜加热菜', '烙饼卷菜'])
+GENERIC_MEAL = ['当地家常菜', '时令蔬菜小炒', '街边小吃', '本地汤面', '炒一桌家常', '小火锅', '烧烤', '饺子或面片', '粥配小菜', '砂锅煲', '烩菜', '炖菜', '家常小炒', '卤味拼盘', '米饭套餐', '包子配豆浆', '凉菜加热菜', '烙饼卷菜']
 for rid, it in IT.items():
     dest = CAT[it['dest']]; city = it['city']; CUR_CC[0] = CC.get(it['dest'], 'cn'); SELF[0] = bool(it.get('drive'))
     base = (dest['base']['lat'], dest['base']['lng'])
     cg = geocode(city, city, None)                      # 以行程所在城市为中心，不用省会
     if cg and km(base, (cg['lat'], cg['lng'])) < 2500: base = (cg['lat'], cg['lng'])   # 离省会远的城市（喀什、札幌、天水）也认
     eat_pool = list(dest['eat']); days = []; n = len(it['days']); drive_tot = 0; longest = 0; carry = None
+    served = set()
+    used_dish = set()      # 同一条行程里每顿饭的菜不重复：先收集手写的，没写的从城市招牌菜、省里的招牌菜里挨个挑还没吃过的
+    for _d in it['days']:
+        for _k in ('lunch', 'dinner'):
+            for _x in ((_d.get(_k) or {}).get('dish') or '').split('、'):
+                if _x.strip(): used_dish.add(_x.strip())
     for di, d in enumerate(it['days']):
         last = di == n - 1
         dcity = d.get('city', city); dbase = base
@@ -127,7 +145,26 @@ for rid, it in IT.items():
         def meal(slot, spec, at):
             global meal_i
             pool = CITY_FOOD.get(dcity) or CITY_FOOD.get(city) or eat_pool   # 先用当天城市的招牌菜
-            dish = (spec or {}).get('dish') or pool[meal_i % len(pool)]; meal_i += 1
+            dish = (spec or {}).get('dish')
+            if dish and dish.split('、')[0].strip() in served and dish not in GENERIC_OK:      # 手写的菜在同一条行程里已经吃过：换一道，地点也不沿用
+                dish = None; spec = {}
+            if not dish:
+                _rf = REGION_FOOD.get(dest.get('name'), [])
+                _here = [f_ for l_ in REGION_FOOD.values() for f_, p_ in l_ if p_ and (p_ in dcity or dcity in p_)]      # 不管哪个省，只要“拍过”的地点就是今天住的城市
+                near = list(dict.fromkeys((CITY_FOOD.get(dcity) or []) + (CITY_FOOD.get(city) or []) + _here))
+                fresh_near = [c_ for c_ in near if c_.split('、')[0].strip() not in used_dish]
+                big = list(dict.fromkeys(eat_pool + [f_ for f_, p_ in _rf] + list(PROV_FOOD.get(dest.get('name'), []))))
+                big = [c_ for c_ in big if not any(t_ in c_ and t_ not in (dcity + city + (it.get('label') or '')) for t_ in CITY_TAGS)]     # 大国的菜名里带着别的城市（“芝加哥深盘披萨”）时，不推荐给不在那座城的行程
+                fresh_big = [c_ for c_ in big if c_.split('、')[0].strip() not in used_dish]
+                if not fresh_near and fresh_big:           # 本城的招牌菜吃完了：从本省（本国）的特色菜里按路线编号错开着挑，别每条线都从同一道开始
+                    cands = [fresh_big[zlib.crc32((rid + str(meal_i)).encode()) % len(fresh_big)]]
+                else:
+                    cands = near + big + GENERIC_MEAL
+                fresh = [c_ for c_ in cands if c_.split('、')[0].strip() not in used_dish]
+                dish = fresh[0] if fresh else GENERIC_MEAL[meal_i % len(GENERIC_MEAL)]
+            used_dish.update(x_.strip() for x_ in dish.split('、') if x_.strip())
+            served.update(x_.strip() for x_ in dish.split('、') if x_.strip())
+            meal_i += 1
             place = (spec or {}).get('place') or '附近'
             return {'t': hm(at), 'type': 'eat', 'slot': slot, 'dish': dish, 'place': place, 'd': '', 'poi': '', 'dp': dp(city, dish.split('、')[0])}
 
