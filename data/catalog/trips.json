@@ -35437,6 +35437,222 @@
    "page": "Route.dc.html#tlq4",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "baic3",
+   "dest": "jilin",
+   "name": "白城",
+   "region": "东北",
+   "days": 3,
+   "title": "白城 3 天",
+   "headline": "三天，白城的向海、莫莫格和嫩江湾湿地",
+   "dek": "早上从白城包车去通榆的向海，看湿地和鸟，傍晚住通榆。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 4100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      900,
+      1500
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-20",
+     "10-15"
+    ],
+    "best": [
+     "05-01",
+     "10-01"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#baic3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "trh3",
+   "dest": "qinghai",
+   "name": "同仁热贡",
+   "region": "西北",
+   "days": 3,
+   "title": "同仁热贡 3 天",
+   "headline": "三天，同仁的隆务寺、吾屯和热贡艺术",
+   "dek": "从西宁到同仁，下午看隆务寺，是同仁最大的寺院。",
+   "why": null,
+   "price": {
+    "lo": 1600,
+    "hi": 3400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      380,
+      680
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-15",
+     "10-01"
+    ],
+    "best": [
+     "06-15",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#trh3",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "wlcb4",
+   "dest": "neimenggu",
+   "name": "乌兰察布",
+   "region": "华北",
+   "days": 4,
+   "title": "乌兰察布 4 天",
+   "headline": "四天，乌兰察布的辉腾锡勒草原、火山群和岱海",
+   "dek": "到乌兰察布，下午去白海子看水鸟，晚上吃莜面。",
+   "why": null,
+   "price": {
+    "lo": 2000,
+    "hi": 4000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      940,
+      1590
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "06-20",
+     "09-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#wlcb4",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "cm3",
+   "dest": "shanghai",
+   "name": "崇明",
+   "region": "华东",
+   "days": 3,
+   "title": "崇明 3 天",
+   "headline": "三天，崇明岛的东滩湿地、明珠湖和森林公园",
+   "dek": "到崇明，下午去东滩湿地看水鸟，傍晚在岛上吃饭。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      120,
+      270
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#cm3",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }
