@@ -14,6 +14,7 @@ UA = {'User-Agent': 'zouni-travel-data/1.0 (zouni.app)'}
 
 CC = {'macau': 'mo', 'hongkong': 'hk'}
 ASIA_CC = {x['id']: x['cc'] for k_ in ('asia', 'world') for x in json.load(open('data/destinations.json')).get(k_, [])}
+ASIA_CC['taiwan'] = 'tw'     # 台湾在“国内”的港澳台里，但地图、导航、估价都按境外那一套走（高德不覆盖台湾）
 CC.update(ASIA_CC)
 CUR_CC = ['cn']
 
@@ -118,6 +119,30 @@ DISH_NOTE = json.load(open('data/catalog/dish_note.json', encoding='utf-8')) if 
 PROV_FOOD = json.load(open('data/catalog/prov_food.json', encoding='utf-8')) if os.path.exists('data/catalog/prov_food.json') else {}   # 各省区市、各国的特色菜（成批补充，见 docs/handoff/03）
 CITY_TAGS = ['新奥尔良', '波士顿', '芝加哥', '纽约', '旧金山', '洛杉矶', '得州', '德州', '费城', '拉斯维加斯', '迈阿密', '西雅图', '夏威夷', '缅因', '加州', '堪萨斯', '孟菲斯', '纳什维尔', '底特律', '奥斯汀', '休斯敦', '圣路易斯', '波特兰', '新墨西哥', '路易斯安那', '蒙特利尔', '魁北克', '多伦多', '温哥华', '悉尼', '墨尔本', '布里斯班', '珀斯', '阿德莱德', '塔斯马尼亚', '开普敦', '约翰内斯堡', '墨西哥城', '瓦哈卡', '尤卡坦', '马德里', '巴塞罗那', '塞维利亚', '巴斯克', '里昂', '巴黎', '马赛', '罗马', '那不勒斯', '西西里', '佛罗伦萨', '威尼斯', '伦敦', '爱丁堡', '东京', '大阪', '京都', '札幌', '福冈', '首尔', '釜山', '曼谷', '清迈', '胡志明', '河内', '新德里', '孟买']
 GENERIC_OK = {'随意', '简单吃一点', '路上吃', '本地菜', '小吃'} | set(['当地家常菜', '时令蔬菜小炒', '街边小吃', '本地汤面', '炒一桌家常', '小火锅', '烧烤', '饺子或面片', '粥配小菜', '砂锅煲', '烩菜', '炖菜', '家常小炒', '卤味拼盘', '米饭套餐', '包子配豆浆', '凉菜加热菜', '烙饼卷菜'])
+
+NOTMEAL = ('糖', '酥', '糕', '酒', '宵夜', '酱', '茶', '饼干', '月饼', '粽', '蜜饯', '奶', '冰', '清补凉')
+def _notmeal(c):
+    h = c.split('、')[0].strip()
+    if any(w_ in h for w_ in ('糖醋', '酥肉', '酥鱼', '酱肘', '酱鸭', '酱牛肉', '酱骨', '豆酱', '酒糟', '醉', '茶油', '汤圆')): return False
+    return any(w_ in h for w_ in NOTMEAL)
+CUR_CITY = [None]
+_DISH_PLACE = {}
+for _p_, _l_ in REGION_FOOD.items():
+    for _f_, _pl_ in _l_:
+        if _pl_: _DISH_PLACE.setdefault(_f_, []).append(_pl_)
+def _far_dish(c, base):
+    h = c.split('、')[0].strip()
+    pls = _DISH_PLACE.get(h)
+    if not pls or not base: return False
+    ds = []
+    for pl in pls:
+        g_ = None
+        for k_, v_ in GEO.items():
+            if k_.endswith('|' + pl) and k_.split('|')[0] == pl: g_ = v_; break
+        if g_: ds.append(km(base, (g_['lat'], g_['lng'])))
+    if ds: return min(ds) > 90
+    parts = [x for x in (CUR_CITY[0] or '').split('|') if x]
+    return not any(pl in x or x in pl for pl in pls for x in parts)      # 查不到出处的坐标：出处地名不在今天的城市里，就当是外地菜
 GENERIC_MEAL = ['当地家常菜', '时令蔬菜小炒', '街边小吃', '本地汤面', '炒一桌家常', '小火锅', '烧烤', '饺子或面片', '粥配小菜', '砂锅煲', '烩菜', '炖菜', '家常小炒', '卤味拼盘', '米饭套餐', '包子配豆浆', '凉菜加热菜', '烙饼卷菜']
 for rid, it in IT.items():
     dest = CAT[it['dest']]; city = it['city']; CUR_CC[0] = CC.get(it['dest'], 'cn'); SELF[0] = bool(it.get('drive'))
@@ -150,8 +175,11 @@ for rid, it in IT.items():
 
         def meal(slot, spec, at):
             global meal_i
+            CUR_CITY[0] = dcity + '|' + city
             pool = CITY_FOOD.get(dcity) or CITY_FOOD.get(city) or eat_pool   # 先用当天城市的招牌菜
             dish = (spec or {}).get('dish')
+            if dish and dish not in GENERIC_OK and (_notmeal(dish) or _far_dish(dish, dbase)):      # 手写的菜是点心/酒，或出处在远处（锦屏的晚饭写成遵义鸡蛋糕）：换成本地的
+                dish = None; spec = {}
             if dish and _dup(dish.split('、')[0].strip(), served) and dish not in GENERIC_OK:      # 手写的菜在同一条行程里已经吃过：换一道，地点也不沿用
                 dish = None; spec = {}
             if not dish:
@@ -161,6 +189,8 @@ for rid, it in IT.items():
                 fresh_near = [c_ for c_ in near if not _dup(c_.split('、')[0].strip(), used_dish)]
                 big = list(dict.fromkeys(eat_pool + [f_ for f_, p_ in _rf] + list(PROV_FOOD.get(dest.get('name'), []))))
                 big = [c_ for c_ in big if not any(t_ in c_ and t_ not in (dcity + city + (it.get('label') or '')) for t_ in CITY_TAGS)]     # 大国的菜名里带着别的城市（“芝加哥深盘披萨”）时，不推荐给不在那座城的行程
+                big = [c_ for c_ in big if not _notmeal(c_) and not _far_dish(c_, dbase)]      # 点心/酒/调料不当正餐；已知出处在远处的菜（烟台的海肠捞饭排进临沂）不推荐
+                near = [c_ for c_ in near if not _notmeal(c_)]
                 fresh_big = [c_ for c_ in big if not _dup(c_.split('、')[0].strip(), used_dish)]
                 if not fresh_near and fresh_big:           # 本城的招牌菜吃完了：从本省（本国）的特色菜里按路线编号错开着挑，别每条线都从同一道开始
                     cands = [fresh_big[zlib.crc32((rid + str(meal_i)).encode()) % len(fresh_big)]]

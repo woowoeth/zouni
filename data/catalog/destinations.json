@@ -4490,7 +4490,10 @@
      12
     ]
    },
-   "days": null,
+   "days": {
+    "min": 4,
+    "max": 8
+   },
    "see": [
     "台北故宫",
     "九份",
@@ -4501,9 +4504,9 @@
     "牛肉面",
     "夜市小吃"
    ],
-   "entry": "大陆居民赴台湾本岛旅游尚未恢复；福建、上海居民可去金门、马祖",
+   "entry": "大陆居民赴台要办往来台湾通行证并获入台许可，个人游开放情况以出发前官方政策为准；港澳居民、外籍人士按各自规定",
    "tip": null,
-   "status": "blocked",
+   "status": "ok",
    "climate": {
     "1": [
      19,
@@ -4555,9 +4558,25 @@
     ]
    },
    "trips": [
-    "tw5"
+    "ztwa",
+    "ztwb",
+    "ztwc",
+    "ztwd",
+    "ztwe",
+    "ztwf",
+    "ztwg",
+    "ztwh"
    ],
-   "engineRoutes": [],
+   "engineRoutes": [
+    "ztwa",
+    "ztwb",
+    "ztwc",
+    "ztwd",
+    "ztwe",
+    "ztwf",
+    "ztwg",
+    "ztwh"
+   ],
    "page": null
   },
   {

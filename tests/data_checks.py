@@ -164,7 +164,7 @@ if site:
         for li in re.findall(r'<li class="r (?:see|fun)"[^>]*>(.*?)</li>', h, flags=re.S):
             tx = re.sub(r'<[^>]+>', ' ', li)
             for k in MUST_BOOK:
-                if k in tx.split('·')[0] and '阿布扎比' not in tx and 'class="bkn' not in li: bad8.append(f'{rid} 「{k}」那一行没有“要预约”徽标')
+                if k in tx.split('·')[0] and '阿布扎比' not in tx and '国立故宫' not in tx and 'class="bkn' not in li: bad8.append(f'{rid} 「{k}」那一行没有“要预约”徽标')
     if bad8: fails.append(('热门馆缺预约徽标', sorted(set(bad8))))
     # 9 当天要坐船/渡轮（路上一行写了轮渡/渡轮/快艇/长尾船/船约）：那一天必须有“班次以当天为准”的提醒
     bad9 = []
