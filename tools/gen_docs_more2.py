@@ -127,10 +127,10 @@ for ep, food, prov, keys in SC:
 import re, sys
 sys.path.insert(0, 'tools')
 from yx_data import YX
-NOKEY = {'新县', '古县', '南县', '和平'}   # 太容易和普通词撞上
+NOKEY = {'和平': ['和平县'], '新县': ['新县'], '古县': ['古县'], '南县': ['南县']}   # 这几个县名太容易和普通词撞上：只认带“县”的写法，且省份要对上（片子页只算“已排进”，行程页不一定显示）
 for prov, t in YX.items():
     for n, name in [(a_, b_.strip()) for a_, b_ in re.findall(r'(\d+)(\D+)', t)]:
-        out.append({'show': '中国影像方志', 's': 1, 'ep': '', 'food': name, 'place': name, 'prov': prov, 'keys': ([] if name in NOKEY else [name])})
+        out.append({'show': '中国影像方志', 's': 1, 'ep': '', 'food': name, 'place': name, 'prov': prov, 'keys': NOKEY.get(name, [name])})
 
 # ---------- 丝绸之路（1980，中日合拍；央视版 14 集里标题里地点明确的）----------
 for ep, food, prov, keys in [('古都长安', '西安', '陕西', ['西安']), ('神秘的黑城', '黑水城', '内蒙古', ['黑水城', '额济纳']), ('莫高窟的生命', '敦煌莫高窟', '甘肃', ['莫高窟', '敦煌']),
