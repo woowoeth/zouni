@@ -125,6 +125,13 @@ def _notmeal(c):
     h = c.split('、')[0].strip()
     if any(w_ in h for w_ in ('糖醋', '酥肉', '酥鱼', '酱肘', '酱鸭', '酱牛肉', '酱骨', '豆酱', '酒糟', '醉', '茶油', '汤圆')): return False
     return any(w_ in h for w_ in NOTMEAL)
+WILD = ('鸡枞', '松茸', '牛肝菌', '见手青', '干巴菌', '羊肚菌', '竹荪', '菌子', '野生菌', '荔枝', '杨梅', '青梅', '蟹黄', '大闸蟹', '阳澄湖')   # 有季节的：野生菌和时令果、蟹
+WILD_MON = {'鸡枞': (6, 10), '松茸': (7, 10), '牛肝菌': (6, 10), '见手青': (6, 10), '干巴菌': (6, 10), '羊肚菌': (3, 5), '竹荪': (5, 10), '菌子': (6, 10), '野生菌': (6, 10), '荔枝': (5, 8), '杨梅': (5, 7), '青梅': (4, 6), '蟹黄': (9, 12), '大闸蟹': (9, 12), '阳澄湖': (9, 12)}
+def _offseason(c, month):
+    h = c.split('、')[0].strip()
+    for w_, (a_, b_) in WILD_MON.items():
+        if w_ in h and not (a_ <= month <= b_): return True
+    return False
 CUR_CITY = [None]
 _DISH_PLACE = {}
 for _p_, _l_ in REGION_FOOD.items():
@@ -178,7 +185,7 @@ for rid, it in IT.items():
             CUR_CITY[0] = dcity + '|' + city
             pool = CITY_FOOD.get(dcity) or CITY_FOOD.get(city) or eat_pool   # 先用当天城市的招牌菜
             dish = (spec or {}).get('dish')
-            if dish and dish not in GENERIC_OK and (_notmeal(dish) or _far_dish(dish, dbase)):      # 手写的菜是点心/酒，或出处在远处（锦屏的晚饭写成遵义鸡蛋糕）：换成本地的
+            if dish and dish not in GENERIC_OK and (_notmeal(dish) or _far_dish(dish, dbase) or _offseason(dish, (it.get('start') or [0, 0])[1] + 1)):      # 手写的菜是点心/酒，或出处在远处（锦屏的晚饭写成遵义鸡蛋糕）：换成本地的
                 dish = None; spec = {}
             if dish and _dup(dish.split('、')[0].strip(), served) and dish not in GENERIC_OK:      # 手写的菜在同一条行程里已经吃过：换一道，地点也不沿用
                 dish = None; spec = {}
@@ -189,8 +196,8 @@ for rid, it in IT.items():
                 fresh_near = [c_ for c_ in near if not _dup(c_.split('、')[0].strip(), used_dish)]
                 big = list(dict.fromkeys(eat_pool + [f_ for f_, p_ in _rf] + list(PROV_FOOD.get(dest.get('name'), []))))
                 big = [c_ for c_ in big if not any(t_ in c_ and t_ not in (dcity + city + (it.get('label') or '')) for t_ in CITY_TAGS)]     # 大国的菜名里带着别的城市（“芝加哥深盘披萨”）时，不推荐给不在那座城的行程
-                big = [c_ for c_ in big if not _notmeal(c_) and not _far_dish(c_, dbase)]      # 点心/酒/调料不当正餐；已知出处在远处的菜（烟台的海肠捞饭排进临沂）不推荐
-                near = [c_ for c_ in near if not _notmeal(c_)]
+                big = [c_ for c_ in big if not _notmeal(c_) and not _far_dish(c_, dbase) and not _offseason(c_, (it.get('start') or [0, 0])[1] + 1)]      # 点心/酒/调料不当正餐；已知出处在远处的菜（烟台的海肠捞饭排进临沂）不推荐
+                near = [c_ for c_ in near if not _notmeal(c_) and not _offseason(c_, (it.get('start') or [0, 0])[1] + 1)]
                 fresh_big = [c_ for c_ in big if not _dup(c_.split('、')[0].strip(), used_dish)]
                 if not fresh_near and fresh_big:           # 本城的招牌菜吃完了：从本省（本国）的特色菜里按路线编号错开着挑，别每条线都从同一道开始
                     cands = [fresh_big[zlib.crc32((rid + str(meal_i)).encode()) % len(fresh_big)]]
