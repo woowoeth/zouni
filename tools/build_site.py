@@ -9141,6 +9141,9 @@ def poster_url(rid):
     return ''
 
 
+WHERE_TAGS = [('海边', r'海滩|沙滩|海岛|海岸|海湾|海边|潜水|海滨|滨海|珊瑚'), ('草原', r'草原|牧场|牧民'), ('雪山湖泊', r'雪山|冰川|湖|海子'), ('古镇古城', r'古镇|古城|古村|老街|古道'), ('沙漠戈壁', r'沙漠|沙山|戈壁|雅丹'), ('亲子', r'乐园|动物园|海洋王国|科技馆|熊猫|海洋公园|水族馆|长隆|迪士尼|环球影城|亲子')]
+
+
 def where_page():
     m = TODAY.month; scopes = []
     for scope, title in (('domestic', '国内'), ('asia', '亚洲'), ('world', '更远')):
@@ -9175,6 +9178,8 @@ def where_page():
                 for y_ in sj_for_dest(x['name']): xs_[y_.get('show') or '舌尖上的中国'] = xs_.get(y_.get('show') or '舌尖上的中国', 0) + 1
                 xtop_ = sorted(xs_.items(), key=lambda kv: (-kv[1]))[:3]
                 xp_ = (f'<p class="kv"><b>片里</b><a href="/d/{x["id"]}/">' + '、'.join(f'{E(s_)} {n_}' for s_, n_ in xtop_) + (f'…共 {len(xs_)} 部' if len(xs_) > 3 else '') + '</a></p>') if xtop_ and not x['noTrip'] else ''
+                tg_txt = qn + ' ' + ' '.join(ROUTES[r_].get('label', '') for r_ in DEST_ROUTES.get(x['id'], []))
+                tags_ = ','.join(k_ for k_, pat_ in WHERE_TAGS if re.search(pat_, tg_txt))
                 rows = []
                 for rid in DEST_ROUTES.get(x['id'], [])[:4]:
                     tt = TRIP_OF_ROUTE[rid]; rr = ROUTES[rid]
@@ -9184,7 +9189,7 @@ def where_page():
                 qlink = (f'<a class="q" href="/d/{x["id"]}/#q">{qn_} 处 5A 和世界遗产 ›</a>' if qn_ else '') + (f'<a class="q" href="/d/{x["id"]}/">还有 {more} 条行程 ›</a>' if more > 0 else '')
                 entry = f'<p class="kv"><b>入境</b>{E(x.get("entry"))}</p>' if x.get('entry') else ''
                 cards.append(f'<li class="card" data-best="{",".join(map(str, x["best"]))}" data-clim=\'{E(json.dumps(x["clim"]))}\' data-no="{1 if x["noTrip"] else 0}" data-days="{",".join(map(str, days))}" '
-                             f'data-high="{1 if (x.get("elev") or 0) >= 2200 else 0}" data-lat="{x["lat"]}" data-lng="{x["lng"]}" data-niche="{nn}" data-drive="{1 if any(ROUTES[r_].get('drive') for r_ in DEST_ROUTES.get(x['id'], [])) else 0}" data-plo="{min(los) if los else ""}" data-hits="{E(hits)}" data-q="{E(qn)}" data-name="{E(x["name"])}">'
+                             f'data-high="{1 if (x.get("elev") or 0) >= 2200 else 0}" data-lat="{x["lat"]}" data-lng="{x["lng"]}" data-niche="{nn}" data-drive="{1 if any(ROUTES[r_].get('drive') for r_ in DEST_ROUTES.get(x['id'], [])) else 0}" data-plo="{min(los) if los else ""}" data-tags="{tags_}" data-hits="{E(hits)}" data-q="{E(qn)}" data-name="{E(x["name"])}">'
                              f'<a class="ch" href="/d/{x["id"]}/">{ct_}<div><h3>{E(x["name"])}</h3><span class="base">{E(base)}</span></div><span class="{fcls}">{f}</span></a>'
                              f'<p class="cl">{m} 月：白天 {cl[0]}℃，夜里 {cl[1]}℃</p><div class="ms" aria-hidden="true">{ms_}</div><p class="msl">{msl_}</p><p class="hit" hidden></p><p class="dist" hidden></p>'
                              f'<p class="kv"><b>看</b>{E("、".join(x["see"]))}</p><p class="kv"><b>吃</b>{E("、".join(x["eat"]))}</p>{entry}{xp_}'
@@ -9200,6 +9205,7 @@ def where_page():
             f'<div class="row"><span>出发</span><select class="org" aria-label="从哪出发"><option value="">不限</option>{"".join(f"<option value={o}>{o}</option>" for o in ORIGINS)}</select><button type="button" data-f="near" hidden>500 公里内</button></div>'
             f'<div class="row"><span>天数</span><button type="button" data-f="d1">2–3 天</button><button type="button" data-f="d2">4–5 天</button><button type="button" data-f="d3">6 天以上</button></div>'
             f'<div class="row"><span>预算</span><select class="bud" aria-label="每人预算"><option value="">不限</option><option value="2000">¥2K 以内</option><option value="5000">¥5K 以内</option><option value="10000">¥10K 以内</option></select></div>'
+            f'<div class="row"><span>题材</span>{"".join(f'<button type="button" data-f="t:{k_}">{k_}</button>' for k_, _p in WHERE_TAGS)}</div>'
             f'<div class="row"><span>其他</span><button type="button" data-f="fit" class="on">只看合适的</button><button type="button" data-f="low">避开高原</button><button type="button" data-f="niche">有小众</button><button type="button" data-f="drive">有自驾环线</button></div><button type="button" class="clr" hidden>清空筛选</button></div>'
             f'</div>{"".join(scopes)}</article>')
     write('/where/', page('/where/', '走哪儿：国内、亚洲和更远的目的地，按月份挑 | 走你', '每个目的地按月份标出正好去、也行、不建议，附每月平均气温、看什么吃什么和排好的行程。', body, [], None, [('首页', '/'), ('走哪儿', '/where/')]))
