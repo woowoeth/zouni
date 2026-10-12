@@ -9141,7 +9141,8 @@ def poster_url(rid):
     return ''
 
 
-WHERE_TAGS = [('海边', r'海滩|沙滩|海岛|海岸|海湾|海边|潜水|海滨|滨海|珊瑚'), ('草原', r'草原|牧场|牧民'), ('雪山湖泊', r'雪山|冰川|湖|海子'), ('古镇古城', r'古镇|古城|古村|老街|古道'), ('沙漠戈壁', r'沙漠|沙山|戈壁|雅丹'), ('亲子', r'乐园|动物园|海洋王国|科技馆|熊猫|海洋公园|水族馆|长隆|迪士尼|环球影城|亲子')]
+WHERE_TAGS = [('海边', r'海滩|沙滩|海岛|海岸|海湾|海边|潜水|海滨|滨海|珊瑚'), ('草原', r'草原|牧场|牧民'), ('雪山湖泊', r'雪山|冰川|湖|海子'), ('古镇古城', r'古镇|古城|古村|老街|古道'), ('沙漠戈壁', r'沙漠|沙山|戈壁|雅丹')]
+KIDS_DEST = {'北京', '上海', '广东', '四川', '香港', '澳门', '日本', '泰国', '美国', '天津', '江苏', '浙江', '山东', '海南', '福建', '重庆', '辽宁', '韩国', '新加坡', '马来西亚', '台湾', '澳大利亚', '新西兰', '法国', '荷兰', '德国', '英国', '马尔代夫', '印度尼西亚', '阿联酋'}   # 带孩子好玩好走的目的地（人工挑：乐园、动物园、海边、科技馆、交通方便），关键词匹配挑不准
 
 
 def where_page():
@@ -9179,7 +9180,7 @@ def where_page():
                 xtop_ = sorted(xs_.items(), key=lambda kv: (-kv[1]))[:3]
                 xp_ = (f'<p class="kv"><b>片里</b><a href="/d/{x["id"]}/">' + '、'.join(f'{E(s_)} {n_}' for s_, n_ in xtop_) + (f'…共 {len(xs_)} 部' if len(xs_) > 3 else '') + '</a></p>') if xtop_ and not x['noTrip'] else ''
                 tg_txt = qn + ' ' + ' '.join(ROUTES[r_].get('label', '') for r_ in DEST_ROUTES.get(x['id'], []))
-                tags_ = ','.join(k_ for k_, pat_ in WHERE_TAGS if re.search(pat_, tg_txt))
+                tags_ = ','.join([k_ for k_, pat_ in WHERE_TAGS if re.search(pat_, tg_txt)] + (['亲子'] if x['name'] in KIDS_DEST else []))
                 rows = []
                 for rid in DEST_ROUTES.get(x['id'], [])[:4]:
                     tt = TRIP_OF_ROUTE[rid]; rr = ROUTES[rid]
@@ -9205,7 +9206,7 @@ def where_page():
             f'<div class="row"><span>出发</span><select class="org" aria-label="从哪出发"><option value="">不限</option>{"".join(f"<option value={o}>{o}</option>" for o in ORIGINS)}</select><button type="button" data-f="near" hidden>500 公里内</button></div>'
             f'<div class="row"><span>天数</span><button type="button" data-f="d1">2–3 天</button><button type="button" data-f="d2">4–5 天</button><button type="button" data-f="d3">6 天以上</button></div>'
             f'<div class="row"><span>预算</span><select class="bud" aria-label="每人预算"><option value="">不限</option><option value="2000">¥2K 以内</option><option value="5000">¥5K 以内</option><option value="10000">¥10K 以内</option></select></div>'
-            f'<div class="row"><span>题材</span>{"".join(f'<button type="button" data-f="t:{k_}">{k_}</button>' for k_, _p in WHERE_TAGS)}</div>'
+            f'<div class="row"><span>题材</span>{"".join(f'<button type="button" data-f="t:{k_}">{k_}</button>' for k_ in [k2_ for k2_, _p in WHERE_TAGS] + ['亲子'])}</div>'
             f'<div class="row"><span>其他</span><button type="button" data-f="fit" class="on">只看合适的</button><button type="button" data-f="low">避开高原</button><button type="button" data-f="niche">有小众</button><button type="button" data-f="drive">有自驾环线</button></div><button type="button" class="clr" hidden>清空筛选</button></div>'
             f'</div>{"".join(scopes)}</article>')
     write('/where/', page('/where/', '走哪儿：国内、亚洲和更远的目的地，按月份挑 | 走你', '每个目的地按月份标出正好去、也行、不建议，附每月平均气温、看什么吃什么和排好的行程。', body, [], None, [('首页', '/'), ('走哪儿', '/where/')]))
