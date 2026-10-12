@@ -57,22 +57,27 @@ BIG_CITIES = {'北京', '上海', '广州', '深圳', '杭州', '南京', '成�
 RURAL = [False]   # 乡下：村子、景区之间打不到车，十几公里以上按包车写
 
 
+SELFV = [False]
+
+
 def leg(a, b, via=None):
     """两点之间：怎么走、多久、多远（自驾线路写开车）"""
     if via:
         h = re.search(r'(\d+) 小时', via); m2 = re.search(r'(\d+) 分钟', via)
         mins = (int(h.group(1)) * 60 if h else 0) + (int(m2.group(1)) if m2 else 0)
-        return re.sub(r'\s*\d+ (小时|分钟)', '', via).strip(), (mins or 25), None
+        _v = re.sub(r'\s*\d+ (小时|分钟)', '', via).strip()
+        if SELFV[0] and _v.startswith('包车'): _v = '自驾' + _v[2:]      # 自驾线里没有“包车”：租了车就是自己开（澳洲、新西兰、冰岛的山路没有别的车可包）
+        return _v, (mins or 25), None
     if not a or not b: return '打车', 20, None
     d = km(a, b) * 1.25
     if d < 1.3: return '步行', max(5, r5(d / 4.5 * 60)), None
     if SELF[0]:
         if d < 20: return '开车', max(10, r5(d / 30 * 60 + 5)), round(d)
         return '自驾约', r5(d / 70 * 60 + 10), round(d)
-    if RURAL[0] and d >= 12: return '包车约', r5(d / 50 * 60 + 10), round(d)
+    if RURAL[0] and d >= 12: return ('自驾约' if SELFV[0] else '包车约'), r5(d / 50 * 60 + 10), round(d)
     if d < 20: return '打车', max(10, r5(d / 25 * 60 + 8)), round(d)
     if d < 60: return '打车约', r5(d / 55 * 60 + 10), round(d)
-    return '包车约', r5(d / 65 * 60 + 10), round(d)
+    return ('自驾约' if SELFV[0] else '包车约'), r5(d / 65 * 60 + 10), round(d)
 
 
 def short(n): return re.split(r'\s*·\s*', n)[0]
@@ -86,6 +91,7 @@ def back_leg(prev, stay_pt, far, roundtrip, legmax=0, outhow=''):
         how, mins, dist = leg(prev, stay_pt, None)
         est = mins
         if legmax >= 60 and outhow: how = outhow     # 去的时候坐什么，回来也坐什么（火车去就火车回）
+        if SELFV[0] and how.startswith('包车'): how = '自驾' + how[2:]
         if legmax >= 60: mins = legmax     # 作者写明了去程时间：返程按去程算（景区路去回基本对称），不用坐标估算（坐标可能不准，估出来会和去程自相矛盾）
         # 超过 8 小时多半是“住处所在城市的中心点”不对，不当成当天来回
         if 60 <= mins <= 480:
@@ -137,8 +143,17 @@ _DISH_PLACE = {}
 for _p_, _l_ in REGION_FOOD.items():
     for _f_, _pl_ in _l_:
         if _pl_: _DISH_PLACE.setdefault(_f_, []).append(_pl_)
+ALIAS_PLACE = {'巴陵': '岳阳', '羊城': '广州', '金陵': '南京', '燕京': '北京', '姑苏': '苏州'}
+def _prefix_place(h):
+    for n_ in (3, 2):
+        p_ = ALIAS_PLACE.get(h[:n_], h[:n_])
+        if len(p_) == n_ and (p_ + '|' + p_) in GEO and GEO[p_ + '|' + p_].get('lat'): return GEO[p_ + '|' + p_]
+    return None
 def _far_dish(c, base):
     h = c.split('、')[0].strip()
+    if base and h not in _DISH_PLACE:      # 菜名以地名开头（大连炸海蛎、巴陵全鱼、兰州拉面）：那个地方离今天的城市远，就是外地菜
+        g0 = _prefix_place(h)
+        if g0 and km(base, (g0['lat'], g0['lng'])) > 90: return True
     pls = _DISH_PLACE.get(h)
     if not pls or not base: return False
     ds = []
@@ -152,7 +167,7 @@ def _far_dish(c, base):
     return not any(pl in x or x in pl for pl in pls for x in parts)      # 查不到出处的坐标：出处地名不在今天的城市里，就当是外地菜
 GENERIC_MEAL = ['当地家常菜', '时令蔬菜小炒', '街边小吃', '本地汤面', '炒一桌家常', '小火锅', '烧烤', '饺子或面片', '粥配小菜', '砂锅煲', '烩菜', '炖菜', '家常小炒', '卤味拼盘', '米饭套餐', '包子配豆浆', '凉菜加热菜', '烙饼卷菜']
 for rid, it in IT.items():
-    dest = CAT[it['dest']]; city = it['city']; CUR_CC[0] = CC.get(it['dest'], 'cn'); SELF[0] = bool(it.get('drive'))
+    dest = CAT[it['dest']]; city = it['city']; CUR_CC[0] = CC.get(it['dest'], 'cn'); SELF[0] = bool(it.get('drive')); SELFV[0] = SELF[0] or any((st_.get('via') or '').startswith('自驾') for d_ in it['days'] for st_ in d_['stops'])
     base = (dest['base']['lat'], dest['base']['lng'])
     cg = geocode(city, city, None)                      # 以行程所在城市为中心，不用省会
     if cg and km(base, (cg['lat'], cg['lng'])) < 2500: base = (cg['lat'], cg['lng'])   # 离省会远的城市（喀什、札幌、天水）也认

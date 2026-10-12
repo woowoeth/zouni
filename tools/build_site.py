@@ -8086,6 +8086,10 @@ for _a, _b in (('故宫博物院', '故宫'), ('天坛公园', '天坛'), ('颐�
 STORY_NOW = ['']   # 当前这一天的“懂一点”原文
 
 
+CLOSING_RE = re.compile(r'博物馆|博物院|美术馆|纪念馆|故居|旧址|陈列馆|科技馆|展览馆|寺|庙|祠|观$|道观|文庙|孔庙|府$|衙|石窟|陵|馆$')
+NOT_CLOSING_RE = re.compile(r'夜|市场|老街|步行街|公园|广场|码头|观景|日落|夜游|演出|灯光|夜景')
+
+
 def row_html(w, city, app):
     t = w['type']
     if t == 'dep':
@@ -8122,6 +8126,10 @@ def row_html(w, city, app):
             u_ = BOOK_URL.get(bk_[0]); h_ = BOOK_HOW.get(bk_[0], '')
             tag_ = (f'<a class="bkn bkl" href="{E(u_)}" rel="nofollow noopener" target="_blank">要预约 ›</a>' if u_ else f'<em class="bkn" data-how="{E(h_)}">要预约{("（" + ("小程序" if "小程序" in h_ else "公众号") + "）") if h_ else ""}</em>')
             sub = tag_ + (' · ' if sub else '') + sub
+    if t in ('see', 'fun') and CLOSING_RE.search(w.get('name') or '') and not NOT_CLOSING_RE.search(w.get('name') or ''):      # 按时关门的馆、寺、祠、故居排到傍晚：提醒先看官网（多数 17 点前后停止入场）
+        _st = int(w['t'][:2]) * 60 + int(w['t'][3:5]); _h = re.search(r'(\d+) 小时', w.get('d') or ''); _m = re.search(r'(\d+) 分', w.get('d') or '')
+        if _st >= 16 * 60 + 45 or _st + (int(_h.group(1)) * 60 if _h else 0) + (int(_m.group(1)) if _m else 0) > 17 * 60 + 45:
+            sub = (sub + ' · ' if sub else '') + '<span class="tix">傍晚可能已停止入场，出发前看一眼官网</span>'
     _core = re.split(r'\s*[·（(]\s*', (w.get('name') or ''))[0].strip()
     _xk = (f'{city} {_core}' if city and city not in _core else _core) if (t in ('see', 'fun') and _core and re.search(r'[\u4e00-\u9fff]', _core) and '沿途' not in _core) else None   # 小红书按“城市 景点名”搜，用中文名，不用导航用的查询词
     ic = icons(kw, city, app, w.get('dp'), w.get('nav'), w.get('navp'), _xk) if kw else ''
@@ -8259,7 +8267,7 @@ def stay_fix(r):
                 how = re.split(r'\s*·\s*', out0)[0]            # 去的时候坐什么，回来也坐什么
             else:
                 mins = int(_km(last, sp) * 1.3)
-                how = ('包车约 ' + (f'{mins // 60} 小时' + (f' {mins % 60} 分' if mins % 60 >= 10 else '') if mins >= 60 else f'{mins} 分钟') + f' · {round(_km(last, sp) * 1.3)} 公里')
+                how = (('自驾约 ' if any((w_.get('how') or '').startswith(('自驾', '开车')) for dd_ in r['days'] for w_ in dd_['rows']) else '包车约 ') + (f'{mins // 60} 小时' + (f' {mins % 60} 分' if mins % 60 >= 10 else '') if mins >= 60 else f'{mins} 分钟') + f' · {round(_km(last, sp) * 1.3)} 公里')
         if nm in ('古城', '老城', '市区', '市中心', '县城', '城里', '新城') and city: nm = city + nm
         out.append((nm, how)); prev_nm = d['stay'][0]['name'] if d.get('stay') else d.get('stayName')
     return out
