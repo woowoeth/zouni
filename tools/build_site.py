@@ -8746,7 +8746,7 @@ def foreign_prep(r, d0, existing):
     if did in SCHENGEN:
         out.append('申根签证：向停留最久的那个国家的使馆或签证中心申请，一般提前 1 到 3 个月办；要有医疗保险（保额不低于 3 万欧元），护照签发不超过 10 年、离开申根区后还有 3 个月以上有效，至少 2 页空白页')
     else:
-        if d0.get('visa') and not has(r'签证|免签|落地签|电子签'): out.append(f'签证：{d0["visa"]}（政策常变，以出发前官网为准）')
+        if (d0.get('visa') or d0.get('entry')) and not has(r'签证|免签|落地签|电子签'): out.append(f'签证：{d0.get("visa") or d0.get("entry")}（政策常变，以出发前官网为准）')     # 目录里存成 entry（build_catalog 把 visa 合进去了），读 visa 永远是空的，国外线一直没有签证提示
         out.append('护照有效期：多数国家要求离境时还有 6 个月以上，订机票之前先对一下')
         if not has(r'保险'): out.append('买一份境外旅行保险（含医疗和航班延误）')
     drive = any((w.get('how') or '').startswith(('自驾', '开车', '回住处 · 自驾', '回住处 · 开车')) for dd in r['days'] for w in dd['rows']) or bool(r.get('drive'))
