@@ -661,3 +661,17 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .sjl li>div.nm b{flex:1;min-width:0}
 .sjl li>div.nm .icg{flex:none;margin-top:2px}
 .sjl .ic{color:var(--sub)}
+
+/* 交互体验修正（build/ux 报告）：点击热区不小于 44px，站点后的三个小图标不重叠 */
+.fx .st:after{inset:-14px -8px}
+.glance .pp:after{content:"";position:absolute;inset:-14px -6px}
+.dtw .dt i{position:relative}.dtw .dt i:after{content:"";position:absolute;inset:-14px -10px}
+.adj{position:relative}.adj:after{content:"";position:absolute;inset:-12px -8px}
+.rmnote .rmback{min-height:44px;height:44px}
+.r .ic{width:42px;height:42px;margin:-10px 0 -10px 0}
+.toast .toast-act{margin-left:12px;height:32px;padding:0 10px;border:1px solid currentColor;background:transparent;color:inherit;font:700 14px var(--sans);cursor:pointer}
+img[loading=lazy]{background-color:var(--card)}
+.orgnote{margin:6px 0 0;font-size:13px;color:var(--sub)}.orgnote .orgx{height:44px;padding:0 6px;border:0;background:transparent;color:var(--red);font:700 13px var(--sans);cursor:pointer}
+.chan2{display:flex;gap:8px;margin:10px 20px 16px}.chan2 a{flex:1;min-height:56px;padding:8px 12px;display:flex;flex-direction:column;justify-content:center;background:var(--card);color:var(--ink);text-decoration:none}.chan2 a:active{background:rgba(28,29,26,.08)}.chan2 b{font-size:15px;font-weight:900}.chan2 small{margin-top:2px;font-size:12px;color:var(--sub)}
+.pkrs{display:block;margin:8px 0 0;height:44px;padding:0 4px;border:0;background:transparent;color:var(--red);font:700 13px var(--sans);cursor:pointer}
+.dock small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
