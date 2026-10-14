@@ -10036,13 +10036,13 @@ def dest_page(d):
     entry = f'<p class="entry"><b>入境</b>{E(d["entry"])}</p>' if d.get('entry') else ''
     tip = f'<p class="tip"><b>提示</b>{E(d["tip"])}</p>' if d.get('tip') else ''
     days_txt = (str(dd.get('min')) + ('–' + str(dd['max']) if dd.get('max') and dd.get('max') != dd.get('min') else '')) if dd else '—'
+    trips_sec = (f'<section><h2>排好的行程</h2>' + (f'<figure class="hmap dmap">{dm_}</figure>' if (dm_ := dest_map(did, d)) else '') + f'<ul class="trips">{trips}</ul></section>' if trips else '')      # 排好的行程放在“最好的月份”之后、气温表之前：进来先看能去哪（原来排在片单后面，要翻两屏）
     body = (f'<article class="dest"><div class="pagehead"><a class="back" href="/where/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div><div class="dh"><h1>{E(d["name"])}</h1><small>{E(d["region"])} · 落脚 {E(city)} · 建议 {days_txt} 天</small>'
             f'<p class="lead">最好的月份：{"、".join(str(m) + " 月" for m in sorted(best))}。</p>{entry}{tip}</div>'
-            f'<section><h2>每个月白天 / 夜里平均气温（℃）</h2><ol class="months">{months}</ol>{f"<p class=hint style=margin-top:8px>落脚城市海拔 {d[chr(98)+chr(97)+chr(115)+chr(101)][chr(101)+chr(108)+chr(101)+chr(118)]:,} 米</p>" if (d["base"].get("elev") or 0) >= 1500 else ""}</section>'
+            f'{trips_sec}<section><h2>每个月白天 / 夜里平均气温（℃）</h2><ol class="months">{months}</ol>{f"<p class=hint style=margin-top:8px>落脚城市海拔 {d[chr(98)+chr(97)+chr(115)+chr(101)][chr(101)+chr(108)+chr(101)+chr(118)]:,} 米</p>" if (d["base"].get("elev") or 0) >= 1500 else ""}</section>'
             f'<section class="se"><div><h2>看</h2><p>{E(see)}</p></div><div><h2>吃</h2><p>{E(eat)}</p>'
             + ''.join(('<p class="sjd"><b>' + E(show) + '拍过</b>' + ('、' if show == '中国影像方志' else '；').join((f'{E(x["food"])}（{E(x["place"])}' + ('，' + E(sj_label(x)) if sj_label(x) else '') + '）' if x['food'] != x['place'] else (E(x['food']) + ('（' + E(sj_label(x)) + '）' if sj_label(x) else ''))) for x in [y_ for y_ in sj_for_dest(d['name']) if (y_.get('show') or '舌尖上的中国') == show][:(8 if show == '中国影像方志' else 99)]) + ('等' if show == '中国影像方志' else '') + f' <a href="{path}">全部 ›</a></p>') for show, path, _v in SHOWS if any((x.get('show') or '舌尖上的中国') == show for x in sj_for_dest(d['name'])))
             + '</div></section>'
-            + (f'<section><h2>排好的行程</h2>' + (f'<figure class="hmap dmap">{dm_}</figure>' if (dm_ := dest_map(did, d)) else '') + f'<ul class="trips">{trips}</ul></section>' if trips else '')
             + (f'<section id="q"><h2>5A 和世界遗产 <span class="ct">{len(ql)} 处</span></h2><ul class="qual">{qhtml}</ul></section>' if ql else '')
             + (f'<section><h2>博物馆 <span class="ct">{len([x for x in MUS if x["dest"] == did])} 家</span></h2><ul class="qual mus">' + ''.join(f'<li><span><b>{E(x["name"])}</b>{("<small class=gt>镇馆之宝：" + E("、".join(x["treasures"])) + "</small>") if x["treasures"] else ""}</span>{"<em class=gb>国宝</em>" if x["treasures"] else ""}{icons(x["name"], x["city"], app)}</li>' for x in MUS if x['dest'] == did) + '</ul></section>' if any(x['dest'] == did for x in MUS) else '')
             + (f'<section><h2>人文体验</h2><ul class="niche">' + ''.join(f'<li><div class="nh"><b>{E(x["name"])}</b><span class="st open">{E(x["kind"])}</span>{icons(x["name"], x["city"], app)}</div><p>{E(x["note"])}</p></li>' for x in CULT['experiences'] if x['dest'] == did) + '</ul></section>' if any(x['dest'] == did for x in CULT['experiences']) else '')
@@ -10228,6 +10228,7 @@ def home_page():
             f'<div class="mast"><div><h1>走你</h1><small>{TODAY.year} · {mname}</small></div><button type="button" class="minebtn">{FAV_ICON}<span>我的行程</span></button></div>'
             f'<div class="datebar"><button type="button" class="hdt" aria-label="改出发日期"><b>{TODAY.month}/{TODAY.day} 周{"一二三四五六日"[TODAY.weekday()]} 出发</b><i>改</i></button><input type="hidden" class="hdpk" data-min="{TODAY.isoformat()}" value="{TODAY.isoformat()}"></div>'
             f'<div class="cv"><span class="kick">封面故事 · 正当季{(" · 还剩 " + str(dl0) + " 天") if dl0 is not None else ""}</span><h2>{tsplit(r["title"])}</h2><div class="chips"><span>{len(r["days"])} 天 · 人均 {E(price_k(r.get("price")))}</span><span>{m} 月 {c0[0]}°C / {c0[1]}°C</span></div><a class="go" href="/trip/{cover}/">翻开 →</a></div></div>'
+            f'<nav class="chan2" aria-label="频道"><a href="/where/"><b>走哪儿</b><small>按月份挑目的地</small></a><a href="/pian/"><b>跟片走</b><small>纪录片和杂志里的地方</small></a></nav>'
             f'<form class="hsearch" action="/where/" method="get" role="search"><input type="search" name="q" placeholder="搜地名或景点，比如 婺源、兵马俑" aria-label="搜地名或景点"><button type="submit">搜</button></form>'
 
             f'<section class="toc now" id="now"><h2><span class="nt">现在去正好</span><small class="ns">{len(order) + 1} 条，快过季的先看</small></h2>{chips}<ol class="items">{toc}</ol>'
