@@ -685,3 +685,9 @@ body{background:var(--bg);color:var(--ink)}
 }
 .toc a.allbar{color:var(--bg)}
 .mapmore{margin:8px 20px 0;font-size:13px;line-height:1.8;color:var(--sub)}.mapmore a{display:inline-block;padding:4px 2px;color:var(--red);font-weight:700}
+
+/* 地图底图：海、陆、本省/本国；四边渐隐、不画边框（颜色走类，深色模式换一套） */
+.mp-sea{fill:#e3eaea}.mp-land{fill:#f6f3ec;stroke:#cdc4b1}.mp-home{fill:#efe6d3;stroke:#cdc4b1}
+@media (prefers-color-scheme:dark){.mp-sea{fill:#1d2326}.mp-land{fill:#2a2c28;stroke:#43423a}.mp-home{fill:#36342b;stroke:#4d4b41}}
+.wmap .mk-fit{fill:#1c1d1a}.wmap .mk-ok{fill:#4f6233}.wmap .mk-no{fill:#7c7e77}.wmap .mk-t{stroke:#f6f3ec}.wmap .mk-lg{fill:#5d5f59}
+@media (prefers-color-scheme:dark){.wmap .mk-fit{fill:#ecebe5}.wmap .mk-ok{fill:#9bbf78}.wmap .mk-no{fill:#8b8d86}.wmap .mk-t{stroke:#1d2326}.wmap .mk-lg{fill:#b3b5ad}}
