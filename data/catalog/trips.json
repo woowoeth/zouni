@@ -63590,6 +63590,60 @@
    "page": "Route.dc.html#xo7d",
    "engineRoute": null,
    "poster": null
+  },
+  {
+   "id": "hx7v",
+   "dest": "gansu",
+   "name": "河西走廊自驾",
+   "region": "西北",
+   "days": 7,
+   "title": "河西走廊自驾 7 天",
+   "headline": "七天，从乌鞘岭走到莫高窟",
+   "dek": "从兰州出发进河西，先翻乌鞘岭，这是河西走廊的东大门；下午看天梯山石窟的大佛，傍晚到凉州白塔寺，晚上在武威吃一套凉州三套车。",
+   "why": null,
+   "price": {
+    "lo": 2800,
+    "hi": 6700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      600,
+      1800
+     ],
+     "local": [
+      2100,
+      3500
+     ],
+     "nights": 6,
+     "n": 7,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-15"
+    ],
+    "best": [
+     "06-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#hx7v",
+   "engineRoute": null,
+   "poster": null
   }
  ]
 }

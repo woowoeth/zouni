@@ -62,7 +62,7 @@ def motif(show, food, place, why=''):
             if _has(food, ws): return m
         return 'vase'
     if show == '跟着书本去旅行': return 'book'
-    if show in ('孤独星球年度榜', '国家地理年度榜', '菲尔来蹭饭', '未知之旅', '街头美食', '话说长江', '丝绸之路', '新丝绸之路', '河西走廊', '记住乡愁', '中国影像方志', '航拍中国'):
+    if show in ('孤独星球年度榜', '国家地理年度榜', '菲尔来蹭饭', '未知之旅', 'Roc山海行', '街头美食', '话说长江', '丝绸之路', '新丝绸之路', '河西走廊', '记住乡愁', '中国影像方志', '航拍中国'):
         s = food + place + (why or '') if show in ('中国影像方志', '记住乡愁') else food
         for m, ws in PLACE_RULES:
             if _has(s if show not in ('中国影像方志',) else food + ' ' + (why or ''), ws): return m

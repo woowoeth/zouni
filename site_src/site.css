@@ -691,3 +691,14 @@ body{background:var(--bg);color:var(--ink)}
 @media (prefers-color-scheme:dark){.mp-sea{fill:#1d2326}.mp-land{fill:#2a2c28;stroke:#43423a}.mp-home{fill:#36342b;stroke:#4d4b41}}
 .wmap .mk-fit{fill:#1c1d1a}.wmap .mk-ok{fill:#4f6233}.wmap .mk-no{fill:#7c7e77}.wmap .mk-t{stroke:#f6f3ec}.wmap .mk-lg{fill:#5d5f59}
 @media (prefers-color-scheme:dark){.wmap .mk-fit{fill:#ecebe5}.wmap .mk-ok{fill:#9bbf78}.wmap .mk-no{fill:#8b8d86}.wmap .mk-t{stroke:#1d2326}.wmap .mk-lg{fill:#b3b5ad}}
+
+/* 用户体验第二轮 */
+.mzoom{display:flex;gap:8px;margin:0 20px 8px;overflow-x:auto}.mzoom button{flex:none;height:44px;padding:0 14px;border:0;background:var(--card);color:var(--ink);font:700 13px var(--sans);cursor:pointer}.mzoom button.on{background:var(--ink);color:var(--bg)}
+.reset{position:relative}.reset:after{content:"";position:absolute;inset:-12px -10px}
+.dock b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px}.dock small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dock{gap:8px}.dock button{padding:0 11px}
+.tvx2{display:block;width:calc(100% - 40px);margin:18px 20px 28px;height:48px;border:0;background:var(--ink);color:var(--bg);font:700 15px var(--sans);cursor:pointer}
+.flt .clr{min-height:44px;min-width:72px}
+.mrw{display:flex;align-items:stretch}.mrw .mr{flex:1;min-width:0}.mrw .mrx{flex:none;width:56px;border:0;background:transparent;color:var(--red);font:700 13px var(--sans);cursor:pointer}
+@media (prefers-color-scheme:dark){.cv .go{border:1px solid rgba(236,235,229,.55)}.allbar i{color:var(--bg)}}
+.toast{z-index:60}
