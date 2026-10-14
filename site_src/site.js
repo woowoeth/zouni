@@ -740,23 +740,35 @@
 
     // ——— 走哪儿：地图看（按现在的筛选，正好的黑点、也行的绿点；点名字进目的地） ———
     var mt=document.querySelector('.mtog'),mapbox=null;
+    function mercY(a){a=Math.max(-85,Math.min(85,a));return Math.log(Math.tan(Math.PI/4+a*Math.PI/360))*180/Math.PI}
+    function loadBase(cb){if(window.ZBASE)return cb();if(loadBase.q){loadBase.q.push(cb);return}loadBase.q=[cb];var sc=document.createElement('script');sc.src='/assets/basemap.js';sc.onload=function(){var q=loadBase.q;loadBase.q=null;q.forEach(function(f){f()})};sc.onerror=function(){loadBase.q=null};document.head.appendChild(sc)}
     function drawMap(){if(!mapbox)return;var cs=[].slice.call(document.querySelectorAll('#'+st.tab+' .card:not([hidden])'));
       if(!cs.length){mapbox.innerHTML='<p class="hint" style="padding:16px">没有符合的目的地</p>';return}
+      if(!window.ZBASE)loadBase(function(){if(mapbox)drawMap()});
       var pts=cs.map(function(c){return{la:+c.dataset.lat,lo:+c.dataset.lng,n:c.dataset.name,f:c.querySelector('.fit').className,h:c.querySelector('a.ch').getAttribute('href')}});
-      var la=pts.map(function(p){return p.la}),lo=pts.map(function(p){return p.lo}),cl=(Math.max.apply(0,la)+Math.min.apply(0,la))/2,k=Math.cos(cl*Math.PI/180);
-      var Wm=390,Hm=st.tab!=='domestic'?360:420,pad=34,sx=Math.max((Math.max.apply(0,lo)-Math.min.apply(0,lo))*k,1),sy=Math.max(Math.max.apply(0,la)-Math.min.apply(0,la),1),sc=Math.min((Wm-2*pad)/sx,(Hm-2*pad)/sy),cx=(Math.max.apply(0,lo)+Math.min.apply(0,lo))/2;
-      function P(p){return[Wm/2+(p.lo-cx)*k*sc,Hm/2-(p.la-cl)*sc]}
-      var o='<svg viewBox="0 0 '+Wm+' '+Hm+'" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="'+(Wm-2)+'" height="'+(Hm-2)+'" fill="#efe9dc"/><rect x="6" y="6" width="'+(Wm-12)+'" height="'+(Hm-12)+'" fill="none" stroke="#1c1d1a" stroke-width="1.2" opacity=".55"/>',boxes=[],hits='',unl=[];
-      pts.sort(function(a,b){return(a.f==='fit'?0:1)-(b.f==='fit'?0:1)}).forEach(function(p){var q=P(p),col=p.f==='fit'?'#1c1d1a':/ok/.test(p.f)?'#4f6233':'#8d8f88',w=p.n.length*12+6;
-        o+='<circle cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="'+(p.f==='fit'?5:4)+'" fill="'+col+'"/>';hits+='<a href="'+p.h+'"><title>'+p.n+'</title><circle cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="12" fill="#efe9dc" fill-opacity="0"/></a>';
+      var la=pts.map(function(p){return p.la}),lo=pts.map(function(p){return p.lo}),my=la.map(mercY);
+      var Wm=390,Hm=st.tab!=='domestic'?360:420,pad=34,x0_=Math.min.apply(0,lo),x1_=Math.max.apply(0,lo),y0_=Math.min.apply(0,my),y1_=Math.max.apply(0,my),sc=Math.min((Wm-2*pad)/Math.max(x1_-x0_,1),(Hm-2*pad)/Math.max(y1_-y0_,1)),cx=(x0_+x1_)/2,cy=(y0_+y1_)/2;
+      function XY(a,b){return[Wm/2+(b-cx)*sc,Hm/2-(mercY(a)-cy)*sc]}
+      function P(p){return XY(p.la,p.lo)}
+      var u='w'+st.tab,o='<svg viewBox="0 0 '+Wm+' '+Hm+'" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="目的地分布图">'
+        +'<defs><clipPath id="c'+u+'"><rect width="'+Wm+'" height="'+Hm+'"/></clipPath></defs><g><g clip-path="url(#c'+u+')"><rect width="'+Wm+'" height="'+Hm+'" class="mp-sea"/>';
+      if(window.ZBASE){var vx0=cx-(Wm/2)/sc-1,vx1=cx+(Wm/2)/sc+1,vy0=cy-(Hm/2)/sc-1,vy1=cy+(Hm/2)/sc+1;
+        ['w','cn'].forEach(function(key){(window.ZBASE[key]||[]).forEach(function(r){var n=(r.length-1)/2,minx=1e9,maxx=-1e9,miny=1e9,maxy=-1e9,i;for(i=1;i<r.length;i+=2){var X=r[i],Y=r[i+1];if(X<minx)minx=X;if(X>maxx)maxx=X;if(Y<miny)miny=Y;if(Y>maxy)maxy=Y}
+          if(maxx<vx0||minx>vx1||mercY(maxy)<vy0||mercY(miny)>vy1)return;
+          var d='',lx=-1e9,ly=-1e9,k=0;for(i=1;i<r.length;i+=2){var q=XY(r[i+1],r[i]);if(Math.abs(q[0]-lx)<.6&&Math.abs(q[1]-ly)<.6)continue;lx=q[0];ly=q[1];d+=(k++?'L':'M')+q[0].toFixed(0)+','+q[1].toFixed(0)}
+          if(k>2)o+='<path d="'+d+'Z" class="mp-land" stroke-width=".7" stroke-linejoin="round"/>'})})}
+      o+='</g></g>';var boxes=[],hits='',unl=[];
+      pts.sort(function(a,b){return(a.f==='fit'?0:1)-(b.f==='fit'?0:1)}).forEach(function(p){var q=P(p),cl_=p.f==='fit'?'mk-fit':/ok/.test(p.f)?'mk-ok':'mk-no',w=p.n.length*12+6;
+        o+='<circle cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="'+(p.f==='fit'?5:4)+'" class="'+cl_+'"/>';hits+='<a href="'+p.h+'"><title>'+p.n+'</title><circle cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="12" fill="#fff" fill-opacity="0"/></a>';
         var placed=false;
         [12,10,9].forEach(function(fs){if(placed)return;var w2=p.n.length*fs+6,dy=fs;
           var cand=[[q[0]+8,q[1]+4,'start'],[q[0]-8,q[1]+4,'end'],[q[0],q[1]-9,'middle'],[q[0],q[1]+dy+5,'middle'],[q[0]+6,q[1]-8,'start'],[q[0]-6,q[1]-8,'end'],[q[0]+6,q[1]+dy+4,'start'],[q[0]-6,q[1]+dy+4,'end'],[q[0]+14,q[1]-12,'start'],[q[0]-14,q[1]-12,'end'],[q[0]+14,q[1]+dy+10,'start'],[q[0]-14,q[1]+dy+10,'end'],[q[0],q[1]-20,'middle'],[q[0],q[1]+dy+16,'middle']];
           for(var i=0;i<cand.length;i++){var c=cand[i],x0=c[2]==='start'?c[0]:c[2]==='end'?c[0]-w2:c[0]-w2/2,x1=x0+w2,y0=c[1]-dy,y1=c[1]+3;if(x0<10||x1>Wm-10||y0<10||y1>Hm-26)continue;
             if(boxes.some(function(b){return!(x1<b[0]||x0>b[2]||y1<b[1]||y0>b[3])}))continue;boxes.push([x0,y0,x1,y1]);placed=true;
-            o+='<a href="'+p.h+'"><rect x="'+(x0-3)+'" y="'+(y0-3)+'" width="'+(w2+6)+'" height="'+(dy+10)+'" fill="#efe9dc" fill-opacity="0"/><text x="'+c[0].toFixed(1)+'" y="'+c[1].toFixed(1)+'" text-anchor="'+c[2]+'" font-family="Noto Serif SC,serif" font-size="'+fs+'" font-weight="900" fill="'+col+'" paint-order="stroke" stroke="#efe9dc" stroke-width="3">'+p.n+'</text></a>';break}});if(!placed)unl.push(p)});
+            o+='<a href="'+p.h+'"><rect x="'+(x0-3)+'" y="'+(y0-3)+'" width="'+(w2+6)+'" height="'+(dy+10)+'" fill="#fff" fill-opacity="0"/><text x="'+c[0].toFixed(1)+'" y="'+c[1].toFixed(1)+'" text-anchor="'+c[2]+'" font-family="Noto Serif SC,serif" font-size="'+fs+'" font-weight="900" class="'+cl_+' mk-t" paint-order="stroke" stroke-width="3">'+p.n+'</text></a>';break}});if(!placed)unl.push(p)});
       o+=hits;
-      o+='<text x="14" y="'+(Hm-14)+'" font-family="Noto Sans SC,sans-serif" font-size="10" fill="#5d5f59">黑点正好去，绿点也行，灰点不建议 · 点名字进去</text></svg>';mapbox.innerHTML=o+(unl.length?'<p class="mapmore">图上挤得没标名字的：'+unl.map(function(p){return'<a href="'+p.h+'">'+p.n+'</a>'}).join('、')+'</p>':'')}
+      o+='<text x="14" y="'+(Hm-14)+'" font-family="Noto Sans SC,sans-serif" font-size="10" class="mk-lg">黑点正好去，绿点也行，灰点不建议 · 点名字进去</text></svg>';
+      mapbox.innerHTML=o+(unl.length?'<p class="mapmore">图上挤得没标名字的：'+unl.map(function(p){return'<a href="'+p.h+'">'+p.n+'</a>'}).join('、')+'</p>':'')}
     if(mt)mt.addEventListener('click',function(){var on=!mapbox;if(on){mapbox=document.createElement('div');mapbox.className='wmap hmap';document.querySelector('.wbar').insertAdjacentElement('afterend',mapbox);document.querySelectorAll('.scope').forEach(function(s){s.classList.add('maphide')});drawMap()}
       else{mapbox.remove();mapbox=null;document.querySelectorAll('.scope').forEach(function(s){s.classList.remove('maphide')})}mt.textContent=on?'列表看':'地图看';mt.classList.toggle('on',on);st.map=on;if(on){flt.hidden=true;apply();setTimeout(function(){if(mapbox)zjump(Math.max(0,mapbox.getBoundingClientRect().top+window.scrollY-130))},30)}else{save()}});
     mon.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;mon.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});apply()});

@@ -3,6 +3,9 @@ import json, math, os, re, html
 
 E = lambda s: html.escape(str(s if s is not None else ''), quote=True)
 BASE = []          # [(名字, 'cn'/'w', [环, ...], 外框)]
+# 地图不画边框、不做渐变：一块干净的硬边矩形（海面铺底，陆地按画面裁切）
+FEATHER = ('<defs><clipPath id="c{u}"><rect width="{W}" height="{H}"/></clipPath></defs>'
+           '<g><g clip-path="url(#c{u})"><rect width="{W}" height="{H}" class="mp-sea"/><g>')
 
 
 def _rings(geom):
@@ -97,7 +100,7 @@ def render(days, title, home=None, W=390, H=290, uid='m'):
     # 画面对应的经纬度范围（多留一圈）
     vx0 = cx - (W / 2) / sc - 1; vx1 = cx + (W / 2) / sc + 1
     o = [f'<svg viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{E(title)} 路线示意图">',
-         f'<defs><clipPath id="c{uid}"><rect width="{W}" height="{H}"/></clipPath></defs><rect width="{W}" height="{H}" fill="#e5ebeb"/><g clip-path="url(#c{uid})">']
+         FEATHER.format(u=uid, W=W, H=H)]
     o[0] = o[0].replace('<svg ', f'<svg data-cx="{cx:.5f}" data-cy="{cy:.5f}" data-sc="{sc:.3f}" data-w="{W}" data-h="{H}" ', 1)
     eps = 0.9
     for nm, src, ring, (bx0, by0, bx1, by1) in load_base():
@@ -108,8 +111,8 @@ def render(days, title, home=None, W=390, H=290, uid='m'):
         pts = rdp(pts, eps)
         if len(pts) < 3: continue
         hl = bool(home) and (home in nm or nm in (home or ''))
-        o.append(f'<path d="M' + ' L'.join(f'{x:.0f},{y:.0f}' for x, y in pts) + f'Z" fill="{"#efe7d6" if hl else "#f6f3ec"}" stroke="#cfc6b3" stroke-width=".7" stroke-linejoin="round"/>')
-    o.append('</g>')
+        o.append(f'<path d="M' + ' L'.join(f'{x:.0f},{y:.0f}' for x, y in pts) + f'Z" class="{"mp-home" if hl else "mp-land"}" stroke-width=".7" stroke-linejoin="round"/>')
+    o.append('</g></g></g>')
     # 路线
     seq = [(P(la, lo), nm, tp, di) for di, d in enumerate(days) for (la, lo, nm, tp) in d]
     xy = [s[0] for s in seq]
@@ -174,7 +177,7 @@ def render_points(pts, title, home=None, dots=(), W=390, H=300, uid='d'):
     P = lambda la, lo: (W / 2 + (lo - cx) * sc, H / 2 - (merc(la) - cy) * sc)
     vx0 = cx - (W / 2) / sc - 1; vx1 = cx + (W / 2) / sc + 1
     o = [f'<svg viewBox="0 0 {W} {H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="{E(title)}">',
-         f'<defs><clipPath id="c{uid}"><rect width="{W}" height="{H}"/></clipPath></defs><rect width="{W}" height="{H}" fill="#e5ebeb"/><g clip-path="url(#c{uid})">']
+         FEATHER.format(u=uid, W=W, H=H)]
     for nm, src, ring, (bx0, by0, bx1, by1) in load_base():
         if bx1 < vx0 or bx0 > vx1: continue
         if merc(by1) < cy - (H / 2) / sc - 1 or merc(by0) > cy + (H / 2) / sc + 1: continue
@@ -183,8 +186,8 @@ def render_points(pts, title, home=None, dots=(), W=390, H=300, uid='d'):
         q = rdp(q, .9)
         if len(q) < 3: continue
         hl = bool(home) and (home in nm or nm in (home or ''))
-        o.append(f'<path d="M' + ' L'.join(f'{x:.0f},{y:.0f}' for x, y in q) + f'Z" fill="{"#efe7d6" if hl else "#f6f3ec"}" stroke="#cfc6b3" stroke-width=".7" stroke-linejoin="round"/>')
-    o.append('</g>')
+        o.append(f'<path d="M' + ' L'.join(f'{x:.0f},{y:.0f}' for x, y in q) + f'Z" class="{"mp-home" if hl else "mp-land"}" stroke-width=".7" stroke-linejoin="round"/>')
+    o.append('</g></g></g>')
     for la, lo in dots:
         x, y = P(la, lo); o.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="2" fill="#2b2c28" opacity=".35"/>')
     boxes = [(10, H - 28, 330, H - 6), (W - 36, 8, W - 6, 44)]; unl = []
@@ -206,3 +209,16 @@ def render_points(pts, title, home=None, dots=(), W=390, H=300, uid='d'):
     o.append(f'<text x="12" y="{H - 12}" font-family="Noto Sans SC,sans-serif" font-size="10" fill="#5d5f59" paint-order="stroke" stroke="#f6f3ec" stroke-width="3">红圈是排好的线路（点名字进去），小黑点是 5A 和世界遗产</text>')
     o.append(f'<g transform="translate({W - 20},26)"><path d="M0,-11 L5,5 L0,1.5 L-5,5 Z" fill="#2b2c28"/><text x="0" y="-14" text-anchor="middle" font-family="Noto Sans SC,sans-serif" font-size="9" font-weight="700" fill="#2b2c28">北</text></g></svg>')
     return ''.join(o), unl
+
+
+def export_basemap(path):
+    """给浏览器端（走哪儿的地图）用的底图：省界、国界简化后写成一个脚本，打开地图时才加载。
+    每个环存成 [名字, x0, y0, x1, y1, ...]（经纬度，小数 2 位）"""
+    out = {'cn': [], 'w': []}
+    for nm, src, ring, bb in load_base():
+        pts = rdp([tuple(p[:2]) for p in ring], 0.1 if src == 'cn' else 0.3)
+        if len(pts) < 4: continue
+        out[src].append([nm] + [round(c, 2) for pt in pts for c in pt])
+    s = 'window.ZBASE=' + json.dumps(out, ensure_ascii=False, separators=(',', ':')) + ';'
+    open(path, 'w', encoding='utf-8').write(s)
+    return len(s)

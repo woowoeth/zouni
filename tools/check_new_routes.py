@@ -23,6 +23,12 @@ for f in sys.argv[1:]:
         m = BAN.search(txt)
         if m: errs.append('违禁词 ' + m.group(0))
         cen = r.get('centers') or {}
+        if not isinstance(r.get('centers'), dict): errs.append('centers 必须是 {城市: [纬,经]} 字典，不能是列表'); cen = {}
+        for cn_ in {(d.get('city') or r['city']) for d in r['days']} | {d['stay'] for d in r['days'] if d.get('stay')}:
+            if cen and cn_ not in cen: errs.append(f'centers 里缺城市「{cn_}」')
+        if not re.match(r'^[a-z0-9]+$', r['id']): errs.append('id 只能小写字母数字')
+        _st = r.get('start') or []
+        if len(_st) != 3 or not (1 <= _st[1] <= 12): errs.append(f'start 月份要写自然月 1–12：{_st}')
         for di, d in enumerate(r['days']):
             names = ' '.join(s['name'] for s in d['stops'])
             for p in re.split(r'\s*·\s*', d['title']):
