@@ -4712,7 +4712,7 @@ def icons(kw, city, app, dp=None, nav=None, navp=None, xk=None):
     q = ((city + ' ') if city else '') + kw
     ios_, and_ = amap_app(kw, city, navp[:2] if navp else None, navp[2] if navp else 'car') if app != 'google' else ('', '')
     return (f'<span class="icg"><a class="ic map" href="{E(nav or mapurl(kw, city, app))}"{(" data-ios=\"" + E(ios_) + "\" data-and=\"" + E(and_) + "\"") if ios_ else ""} rel="nofollow noopener" target="_blank" aria-label="{"导航去 " if nav else "地图上看 "}{E(kw)}">{ICON_PIN}</a>'
-            f'<a class="ic dp" href="{E(dp or dpurl(kw, city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote(q))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上看 {E(kw)}">{ICON_DP}</a>'
+            + ('' if app == 'google' else f'<a class="ic dp" href="{E(dp or dpurl(kw, city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote(q))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上看 {E(kw)}">{ICON_DP}</a>')
             + (f'<a class="ic xhs" href="https://www.xiaohongshu.com/search_result?keyword={urllib.parse.quote(xk)}&source=web_explore_feed" data-app="xhsdiscover://search/result?keyword={urllib.parse.quote(xk)}" rel="nofollow noopener" target="_blank" aria-label="小红书上看 {E(xk)} 的实景">{ICON_PHOTO}</a>' if xk else '')
             + (f'<a class="ic yt" href="https://www.youtube.com/results?search_query={urllib.parse.quote(xk + " 旅行")}" rel="nofollow noopener" target="_blank" aria-label="YouTube 上搜 {E(xk)} 的旅行视频">{ICON_YT}</a>' if xk else '') + '</span>')
 
@@ -5404,7 +5404,7 @@ DEEP = {   # “懂一点”的补充段落：时间轴那一行只是一句话�
     '卡久寺': '山南南部靠近不丹的格鲁派大寺，海拔高，山谷里常有全家转经的人；寺外山林有熊，转山要请向导。',
     '杰顿珠宗遗址': '西藏现存最大的古堡群，主堡和小堡建在一整块岩石上，三面悬空，一面是大峡谷，守得住也看得远。',
     '哲古错': '措美县的高原湖，冬天大半封冻，湖面还留着水纹；远处草原上只立着一座雪山，很突然。',
-    '千年沙棘林': '几千年的老沙棘树连成一片，景区里很安静，可以走很远；景色偏单调，转一圈就够，当地不卖沙棘汁。',
+    '千年沙棘林': '几千年的老沙棘树连成一片，景区里很安静，可以走很远；转一圈就够，半小时足矣。',
     '那日雍错': '西藏六大雍错之一，名气最小，雪后湖面封冻，风吹出一道道纹路；能看到远处的雅拉香布雪山。',
     '仓央嘉措故里': '六世达赖仓央嘉措出生的地方，在错那，村子离边境只有一两公里；去之前要办边防证。',
     '雅拉香布雪山': '措美县的雪山，山脚有一大块红色岩石，和周围岩石颜色完全不同；冬天徒步路滑，上山要带冰爪。',
@@ -11987,7 +11987,7 @@ def home_page():
         tile = (f'<a class="tile img" href="/trip/{rid}/"><img src="/img/{img}.svg" alt="" loading="lazy"></a>' if img and (img.startswith('p/') or os.path.exists(os.path.join(POSTER_SRC, img + '.svg')))
                 else f'<a class="tile" href="/trip/{rid}/" style="background:{["#c8432f", "#2e5b6b", "#4f6233", "#5a4a6b", "#8a5a2b", "#3b5a7a"][i % 6]}">{E(re.sub(r"\s*\d+\s*天$", "", rr.get("label") or ""))}</a>')
         dl = days_left(tt)
-        when = (f'<span class="left{" urgent" if dl is not None and dl <= 14 else ""}">{"最后 " + str(dl) + " 天" if dl is not None and dl <= 14 else "最好 " + wtxt(tt) + (" · 还剩 " + str(dl) + " 天" if dl is not None else "")}</span>' if window(tt) else '<span class="left">一年四季都能去</span>')
+        when = (f'<span class="left{" urgent" if dl is not None and dl <= 14 else ""}">{("今天最后一天" if dl == 0 else "最后 " + str(dl) + " 天") if dl is not None and dl <= 14 else "最好 " + wtxt(tt) + (" · 还剩 " + str(dl) + " 天" if dl is not None else "")}</span>' if window(tt) else '<span class="left">一年四季都能去</span>')
         band = 'd1' if n <= 3 else 'd2' if n <= 5 else 'd3'
         return (f'<li data-band="{band}"{extra}{" hidden" if hide else ""}><span class="num">{i:02d}</span><div class="tx"><span class="k">{kicker}</span><h3>{(E(dd.get("name", "")) + " · ") if not (rr.get("label") or "").startswith(dd.get("name", "") or "@") else ""}{E(re.sub(r"\s*\d+\s*天$", "", rr.get("label") or ""))}</h3><p>{E(day_line(rr))}</p>'
                 f'<small>{n} 天 · 人均 {E(price_k(rr.get("price")))}</small>{when}<span class="c">{m} 月白天 {c[0]}℃，夜里 {c[1]}℃</span><a class="open" href="/trip/{rid}/">翻开 ›</a></div>{tile}</li>')
@@ -12015,7 +12015,7 @@ def home_page():
     body = (f'<article class="home"><div class="cover">{f"<img src=/img/{cimg}.svg alt=>" if cimg else ""}'
             f'<div class="mast"><div><h1>走你</h1><small>{TODAY.year} · {mname}</small></div><button type="button" class="minebtn">{FAV_ICON}<span>我的行程</span></button></div>'
             f'<div class="datebar"><button type="button" class="hdt" aria-label="改出发日期"><b>{TODAY.month}/{TODAY.day} 周{"一二三四五六日"[TODAY.weekday()]} 出发</b><i>改</i></button><input type="hidden" class="hdpk" data-min="{TODAY.isoformat()}" value="{TODAY.isoformat()}"></div>'
-            f'<div class="cv"><span class="kick">封面故事 · 正当季{(" · 还剩 " + str(dl0) + " 天") if dl0 is not None else ""}</span><h2>{tsplit(r["title"])}</h2><div class="chips"><span>{len(r["days"])} 天 · 人均 {E(price_k(r.get("price")))}</span><span>{m} 月 {c0[0]}°C / {c0[1]}°C</span></div><a class="go" href="/trip/{cover}/">翻开 →</a></div></div>'
+            f'<div class="cv"><span class="kick">封面故事 · 正当季{((" · 今天最后一天" if dl0 == 0 else " · 还剩 " + str(dl0) + " 天")) if dl0 is not None else ""}</span><h2>{tsplit(r["title"])}</h2><div class="chips"><span>{len(r["days"])} 天 · 人均 {E(price_k(r.get("price")))}</span><span>{m} 月 {c0[0]}°C / {c0[1]}°C</span></div><a class="go" href="/trip/{cover}/">翻开 →</a></div></div>'
             f'<nav class="chan2" aria-label="频道"><a href="/where/"><b>走哪儿</b><small>按月份挑目的地</small></a><a href="/pian/"><b>跟片走</b><small>纪录片和杂志里的地方</small></a></nav>'
             f'<form class="hsearch" action="/where/" method="get" role="search"><input type="search" name="q" placeholder="搜地名或景点，比如 婺源、兵马俑" aria-label="搜地名或景点"><button type="submit">搜</button></form>'
 
