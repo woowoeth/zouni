@@ -52,8 +52,9 @@ for rid, v in I.items():
     city = v['city']; prev_city = None; prev_stay = None
     for di, d in enumerate(v['days']):
         c = d.get('city', city); prev = pt(c + '|' + c) if (di == 0 or (c == prev_city and d.get('stay') == prev_stay)) else None
-        for s in d['stops']:
+        for si_, s in enumerate(d['stops']):
             q = pt(c + '|' + s['q']); via = s.get('via') or ''
+            if di == 0 and si_ == 0 and v['dest'] not in DOMESTIC and v['dest'] != 'taiwan': prev = None      # 国外线到达日第一站是从机场或出发城市过来的（坐标里没有），不能拿基地城市中心当起点；国内线还是查（万绿湖就是这样查出来的）
             if q and prev and via and any(k in via for k in ROAD) and not any(k in via for k in NOTROAD):
                 m = vm(via)
                 if m >= 20:

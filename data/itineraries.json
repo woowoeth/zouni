@@ -104150,6 +104150,6641 @@
     10,
     9
    ]
+  },
+  "xn1a": {
+   "city": "乌兰巴托",
+   "label": "哈拉和林 4 天",
+   "title": "四天，哈拉和林、鄂尔浑瀑布和乔金喇嘛庙",
+   "kicker": "历史 · 4 天",
+   "prep": [
+    "在乌兰巴托的租车公司取车、第四天还车，建议连司机一起租，出城后多是搓板路和土路，导航信号时有时无",
+    "哈拉和林的牧民营地和小旅馆夏季要提前订，晚上温差大，带抓绒外套",
+    "乌兰巴托到哈拉和林一路车程很长，早出发，路上加油站间隔远，见到就加满",
+    "城里可刷卡，出城买东西和付营地费用多收现金图格里克"
+   ],
+   "days": [
+    {
+     "title": "博格达汗冬宫 · 乔金喇嘛庙",
+     "text": "第一天下午先看博格达汗冬宫博物馆，末代活佛的住所；再去乔金喇嘛庙博物馆，看寺院里的佛像和面具。",
+     "stops": [
+      {
+       "name": "博格达汗冬宫博物馆",
+       "q": "Bogd Khan Winter Palace Museum, Ulaanbaatar",
+       "type": "museum",
+       "dur": 90,
+       "via": "步行约 35 分钟"
+      },
+      {
+       "name": "乔金喇嘛庙博物馆",
+       "q": "Choijin Lama Temple Museum, Ulaanbaatar",
+       "type": "museum",
+       "dur": 60,
+       "via": "步行约 35 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 1350,
+     "stay": "乌兰巴托",
+     "city": "乌兰巴托",
+     "dinner": {
+      "dish": "霍尔霍格（石烤羊肉）",
+      "place": "市区的蒙古餐馆"
+     }
+    },
+    {
+     "title": "额尔德尼召 · 哈拉和林博物馆",
+     "text": "一早出发往西，下午到哈拉和林，看蒙古最早的大寺院额尔德尼召，再去博物馆了解当年的蒙古都城。",
+     "stops": [
+      {
+       "name": "额尔德尼召",
+       "q": "Erdene Zuu Monastery, Kharkhorin",
+       "type": "sight",
+       "dur": 120,
+       "via": "自驾约 5 小时 30 分钟"
+      },
+      {
+       "name": "哈拉和林博物馆",
+       "q": "Kharkhorin Museum, Mongolia",
+       "type": "museum",
+       "dur": 60,
+       "via": "步行约 6 分钟"
+      }
+     ],
+     "start": "07:30",
+     "elev": 1500,
+     "stay": "哈拉和林",
+     "city": "哈拉和林",
+     "lunch": {
+      "dish": "炒面片",
+      "place": "哈拉和林镇上的小餐馆"
+     }
+    },
+    {
+     "title": "鄂尔浑瀑布",
+     "text": "往西南进入鄂尔浑河谷，在火山岩峡谷里看鄂尔浑瀑布，沿谷地走走，傍晚回哈拉和林。",
+     "stops": [
+      {
+       "name": "鄂尔浑瀑布",
+       "q": "Orkhon Waterfall, Mongolia",
+       "type": "park",
+       "dur": 150,
+       "via": "自驾约 2 小时 30 分钟"
+      }
+     ],
+     "start": "08:00",
+     "elev": 1500,
+     "stay": "哈拉和林",
+     "city": "哈拉和林"
+    },
+    {
+     "title": "扎纳巴扎尔美术馆",
+     "text": "第四天上午启程回乌兰巴托，下午还车后去扎纳巴扎尔美术馆，看蒙古佛教雕像。",
+     "stops": [
+      {
+       "name": "扎纳巴扎尔美术馆",
+       "q": "Zanabazar Museum of Fine Arts, Ulaanbaatar",
+       "type": "museum",
+       "dur": 60,
+       "via": "自驾约 5 小时 30 分钟"
+      }
+     ],
+     "start": "08:00",
+     "elev": 1350,
+     "city": "乌兰巴托",
+     "lunch": {
+      "dish": "蒙古包子（Buuz）",
+      "place": "路边的家常餐馆"
+     }
+    }
+   ],
+   "dest": "mongolia",
+   "start": [
+    2027,
+    6,
+    20
+   ]
+  },
+  "xn1b": {
+   "city": "乌兰巴托",
+   "label": "乌兰巴托 3 天",
+   "title": "三天，自然历史博物馆、成吉思汗国家博物馆和国家美术馆",
+   "kicker": "文化 · 3 天",
+   "prep": [
+    "乌兰巴托市区堵车厉害，景点多在市中心，步行加打车最省事，叫车软件比路边拦车安全",
+    "夏季多数博物馆白天开放，周一常有调休，出发前查一下当天是否开门",
+    "人多的地方留意扒手，背包放身前；晚上少走背街",
+    "城里可刷卡，小店和出租车常收现金图格里克"
+   ],
+   "days": [
+    {
+     "title": "自然历史博物馆 · 国家歌剧院",
+     "text": "第一天下午去国家自然历史博物馆看恐龙化石，傍晚在国家歌剧院外走走，晚上吃手把肉。",
+     "stops": [
+      {
+       "name": "蒙古国家自然历史博物馆",
+       "q": "National Museum of Natural History, Ulaanbaatar",
+       "type": "museum",
+       "dur": 120,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "蒙古国家歌剧院",
+       "q": "State Academic Theatre of Opera and Ballet, Ulaanbaatar",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 1350,
+     "stay": "乌兰巴托",
+     "city": "乌兰巴托",
+     "dinner": {
+      "dish": "手把肉",
+      "place": "市中心的蒙古餐馆"
+     }
+    },
+    {
+     "title": "成吉思汗国家博物馆 · 国家美术馆",
+     "text": "上午去成吉思汗国家博物馆，看蒙古帝国的历史，再去国家美术馆看近现代蒙古画。",
+     "stops": [
+      {
+       "name": "成吉思汗国家博物馆",
+       "q": "Chinggis Khaan National Museum, Ulaanbaatar",
+       "type": "museum",
+       "dur": 120,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "蒙古国家美术馆",
+       "q": "Mongolian National Art Gallery, Ulaanbaatar",
+       "type": "museum",
+       "dur": 75,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "09:30",
+     "elev": 1350,
+     "stay": "乌兰巴托",
+     "city": "乌兰巴托",
+     "lunch": {
+      "dish": "涮羊肉火锅",
+      "place": "美术馆附近的火锅店"
+     }
+    },
+    {
+     "title": "国家百货商场 · 乌兰巴托火车站",
+     "text": "最后一天上午逛国家百货商场，看蒙古的羊绒和手工品，再到乌兰巴托火车站看站房和火车。",
+     "stops": [
+      {
+       "name": "国家百货商场",
+       "q": "State Department Store, Ulaanbaatar",
+       "type": "street",
+       "dur": 90,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "乌兰巴托火车站",
+       "q": "Ulaanbaatar Railway Station",
+       "type": "sight",
+       "dur": 45,
+       "via": "打车约 6 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 1350,
+     "city": "乌兰巴托"
+    }
+   ],
+   "dest": "mongolia",
+   "start": [
+    2027,
+    7,
+    10
+   ]
+  },
+  "xn1c": {
+   "city": "新加坡",
+   "label": "新加坡自然 3 天",
+   "title": "三天，植物园、武吉知马和麦里芝",
+   "kicker": "自然 · 3 天",
+   "prep": [
+    "市区用地铁加公交最方便，手机或银行卡刷一下就能乘，比现金方便",
+    "热带天气午后常下阵雨，带把折叠伞，穿透气速干的衣服",
+    "武吉知马和麦里芝的步道有猴子，别拿着食物走，也不要喂",
+    "熟食中心多是先找座位再点单，纸巾放桌上占位是当地习惯"
+   ],
+   "days": [
+    {
+     "title": "植物园 · 乌节路",
+     "text": "下午去新加坡植物园，在国家兰花园看热带兰花，傍晚逛乌节路，晚上吃海南鸡饭。",
+     "stops": [
+      {
+       "name": "新加坡植物园",
+       "q": "Singapore Botanic Gardens",
+       "type": "park",
+       "dur": 120,
+       "via": "打车约 12 分钟"
+      },
+      {
+       "name": "乌节路",
+       "q": "Orchard Road, Singapore",
+       "type": "street",
+       "dur": 90,
+       "via": "打车约 5 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 20,
+     "stay": "新加坡",
+     "city": "新加坡",
+     "dinner": {
+      "dish": "海南鸡饭",
+      "place": "乌节路附近的熟食中心"
+     }
+    },
+    {
+     "title": "武吉知马 · 双溪布洛",
+     "text": "早上先上武吉知马自然保护区走一段森林步道，再去北边的双溪布洛湿地保护区看红树林和水鸟。",
+     "stops": [
+      {
+       "name": "武吉知马自然保护区",
+       "q": "Bukit Timah Nature Reserve, Singapore",
+       "type": "park",
+       "dur": 120,
+       "via": "打车约 25 分钟"
+      },
+      {
+       "name": "双溪布洛湿地保护区",
+       "q": "Sungei Buloh Wetland Reserve, Singapore",
+       "type": "park",
+       "dur": 120,
+       "via": "打车约 30 分钟"
+      }
+     ],
+     "start": "08:00",
+     "elev": 90,
+     "stay": "新加坡",
+     "city": "新加坡",
+     "lunch": {
+      "dish": "叻沙",
+      "place": "北部的小餐馆"
+     }
+    },
+    {
+     "title": "麦里芝 · 碧山公园",
+     "text": "最后一天上午去麦里芝蓄水池公园走树顶步道，再到碧山公园逛逛，中午回市区。",
+     "stops": [
+      {
+       "name": "麦里芝蓄水池公园",
+       "q": "MacRitchie Reservoir Park, Singapore",
+       "type": "park",
+       "dur": 150,
+       "via": "打车约 18 分钟"
+      },
+      {
+       "name": "碧山公园",
+       "q": "Bishan-Ang Mo Kio Park, Singapore",
+       "type": "park",
+       "dur": 60,
+       "via": "打车约 5 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 60,
+     "city": "新加坡",
+     "lunch": {
+      "dish": "肉骨茶",
+      "place": "市区的肉骨茶店"
+     }
+    }
+   ],
+   "dest": "singapore",
+   "start": [
+    2027,
+    3,
+    6
+   ]
+  },
+  "xn1d": {
+   "city": "新加坡",
+   "label": "新加坡老城与东岸 3 天",
+   "title": "三天，国家博物馆、加东和虎豹别墅",
+   "kicker": "文化 · 3 天",
+   "prep": [
+    "市区和东岸都能坐地铁，到加东可以转公交，用银行卡刷一下就能乘",
+    "国家博物馆和大多数展馆下午很早关门，先去，不要拖到傍晚",
+    "加东一带老店多，店里能点娘惹菜，点之前先问辣不辣",
+    "午后常有雷阵雨，带把折叠伞；户外多走路，戴帽子和防晒"
+   ],
+   "days": [
+    {
+     "title": "国家博物馆 · 福康宁公园",
+     "text": "下午在国家博物馆看新加坡的历史，旁边的福康宁公园走一走，再去圣安德烈座堂看哥特式教堂。",
+     "stops": [
+      {
+       "name": "新加坡国家博物馆",
+       "q": "National Museum of Singapore",
+       "type": "museum",
+       "dur": 120,
+       "via": "步行约 12 分钟"
+      },
+      {
+       "name": "福康宁公园",
+       "q": "Fort Canning Park, Singapore",
+       "type": "park",
+       "dur": 75,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "圣安德烈座堂",
+       "q": "St Andrews Cathedral, Singapore",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 20,
+     "stay": "新加坡",
+     "city": "新加坡",
+     "dinner": {
+      "dish": "炒粿条",
+      "place": "附近的熟食中心"
+     }
+    },
+    {
+     "title": "加东 · 东海岸公园 · 星耀樟宜",
+     "text": "上午在加东看娘惹彩色店屋，再到东海岸公园走一走，下午去樟宜的星耀樟宜看室内瀑布。",
+     "stops": [
+      {
+       "name": "加东娘惹老街",
+       "q": "Katong Joo Chiat, Singapore",
+       "type": "street",
+       "dur": 90,
+       "via": "打车约 17 分钟"
+      },
+      {
+       "name": "东海岸公园",
+       "q": "East Coast Park, Singapore",
+       "type": "park",
+       "dur": 60,
+       "via": "步行约 12 分钟"
+      },
+      {
+       "name": "星耀樟宜",
+       "q": "Jewel Changi Airport, Singapore",
+       "type": "fun",
+       "dur": 90,
+       "via": "打车约 25 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 15,
+     "stay": "新加坡",
+     "city": "新加坡",
+     "lunch": {
+      "dish": "咖喱鱼头",
+      "place": "加东的老字号餐馆"
+     }
+    },
+    {
+     "title": "虎豹别墅 · 亨德森波浪桥",
+     "text": "最后一天上午去虎豹别墅看民间神话雕塑，再走亨德森波浪桥，在南部山脊上看城市。",
+     "stops": [
+      {
+       "name": "虎豹别墅",
+       "q": "Haw Par Villa, Singapore",
+       "type": "fun",
+       "dur": 90,
+       "via": "打车约 20 分钟"
+      },
+      {
+       "name": "亨德森波浪桥",
+       "q": "Henderson Waves, Singapore",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 12 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 40,
+     "city": "新加坡",
+     "lunch": {
+      "dish": "椰浆饭",
+      "place": "附近的小餐馆"
+     }
+    }
+   ],
+   "dest": "singapore",
+   "start": [
+    2027,
+    4,
+    11
+   ]
+  },
+  "xn2a": {
+   "city": "暹粒",
+   "label": "暹粒 3 天",
+   "title": "三天，巴孔寺、圣剑寺和崩密列",
+   "kicker": "古迹 · 3 天",
+   "prep": [
+    "没有自驾，包一辆嘟嘟车或带司机的小车跑一天最省事，住处就能帮着叫，出发前先把全天价钱谈好",
+    "吴哥古迹区要买通票，用手机拍照存好，进每个古迹都会查；肩膀和膝盖要遮住，否则不让上正殿",
+    "当地美元和瑞尔都收，找零常给瑞尔；崩密列路远，早点出发，带足水",
+    "古迹多在室外，中午日头毒，帽子和防晒必带，高处的塔寺放到下午再爬"
+   ],
+   "days": [
+    {
+     "title": "巴孔寺 · 神牛寺 · 罗莱寺 · 巴肯山",
+     "text": "先到暹粒东边的罗洛士古迹群，看吴哥王朝最早的都城遗迹，傍晚回到巴肯山看落日。",
+     "stops": [
+      {
+       "name": "巴孔寺",
+       "q": "Bakong Temple, Siem Reap",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 30 分钟"
+      },
+      {
+       "name": "神牛寺",
+       "q": "Preah Ko Temple, Siem Reap",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "罗莱寺",
+       "q": "Lolei Temple, Siem Reap",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "巴肯山",
+       "q": "Phnom Bakheng, Siem Reap",
+       "type": "sight",
+       "dur": 75,
+       "via": "打车约 40 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 20,
+     "stay": "暹粒",
+     "city": "暹粒",
+     "dinner": {
+      "dish": "洛克拉克（柠檬胡椒蘸汁炒牛肉）",
+      "place": "老市场附近的高棉餐馆"
+     }
+    },
+    {
+     "title": "圣剑寺 · 尼克宝寺 · 东梅奔寺 · 比粒寺",
+     "text": "早上去圣剑寺看长长的回廊和石柱，再顺着东边的几座寺庙走到比粒寺，傍晚看红色砖塔。",
+     "stops": [
+      {
+       "name": "圣剑寺",
+       "q": "Preah Khan Temple, Siem Reap",
+       "type": "sight",
+       "dur": 90,
+       "via": "打车约 25 分钟"
+      },
+      {
+       "name": "尼克宝寺",
+       "q": "Neak Pean, Siem Reap",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 25 分钟"
+      },
+      {
+       "name": "东梅奔寺",
+       "q": "East Mebon, Siem Reap",
+       "type": "sight",
+       "dur": 45,
+       "via": "打车约 10 分钟"
+      },
+      {
+       "name": "比粒寺",
+       "q": "Pre Rup, Siem Reap",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "08:00",
+     "elev": 20,
+     "stay": "暹粒",
+     "city": "暹粒",
+     "lunch": {
+      "dish": "高棉米线（Num Banh Chok）",
+      "place": "圣剑寺附近的路边饭馆"
+     },
+     "dinner": {
+      "dish": "柬式酸汤鱼",
+      "place": "暹粒老市场附近的家常馆子"
+     }
+    },
+    {
+     "title": "崩密列 · 班迭桑雷",
+     "text": "早起去崩密列，看石块散落、树根穿墙的大寺，回程顺路到班迭桑雷，下午回暹粒结束。",
+     "stops": [
+      {
+       "name": "崩密列",
+       "q": "Beng Mealea, Siem Reap",
+       "type": "sight",
+       "dur": 120,
+       "via": "打车约 1 小时 20 分钟"
+      },
+      {
+       "name": "班迭桑雷",
+       "q": "Banteay Samre, Siem Reap",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 50 分钟"
+      }
+     ],
+     "start": "07:30",
+     "elev": 25,
+     "city": "暹粒",
+     "lunch": {
+      "dish": "高棉咖喱",
+      "place": "班迭桑雷附近的路边饭馆"
+     }
+    }
+   ],
+   "dest": "cambodia",
+   "start": [
+    2027,
+    0,
+    13
+   ]
+  },
+  "xn2b": {
+   "city": "贡布",
+   "label": "贡布 3 天",
+   "title": "三天，贡布老城、波哥山和凯普",
+   "kicker": "山海 · 3 天",
+   "prep": [
+    "从金边坐长途巴士到贡布约四小时，车站在老城里；城里步行或骑自行车就够，去波哥山和凯普要包车或租摩托",
+    "波哥山的山路弯多，雨季后路面湿滑，带件外套，山上比城里凉；中午雾大时视野很差",
+    "贡布胡椒出名，市场和小店都有卖，买之前先尝；当地美元和瑞尔都收",
+    "凯普的螃蟹市场是现买现烹，先问清按斤算还是按份算，再点菜"
+   ],
+   "days": [
+    {
+     "title": "贡布老城 · 贡布老桥 · 贡布市场",
+     "text": "到贡布后先在老城里走，法式老房子和旧桥都不大，傍晚去河边看天色变暗。",
+     "stops": [
+      {
+       "name": "贡布老城",
+       "q": "Kampot Old Town, Cambodia",
+       "type": "street",
+       "dur": 90,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "贡布老桥",
+       "q": "Old Bridge, Kampot",
+       "type": "sight",
+       "dur": 40,
+       "via": "步行约 20 分钟"
+      },
+      {
+       "name": "贡布市场",
+       "q": "Kampot Central Market, Cambodia",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 20 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 5,
+     "stay": "贡布",
+     "city": "贡布",
+     "dinner": {
+      "dish": "洛克拉克牛肉（贡布胡椒酱）",
+      "place": "河边的高棉餐馆"
+     }
+    },
+    {
+     "title": "波哥山 · 废弃赌场酒店 · 天主教堂",
+     "text": "一早包车上波哥山，看山顶废弃的法式大酒店和荒废的石头教堂，云雾里很有味道，傍晚回贡布。",
+     "stops": [
+      {
+       "name": "波哥山废弃赌场酒店",
+       "q": "Bokor Palace Hotel, Kampot",
+       "type": "sight",
+       "dur": 75,
+       "via": "打车约 40 分钟"
+      },
+      {
+       "name": "波哥山天主教堂",
+       "q": "Bokor Hill Station Church, Kampot",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "波哥山圣母像",
+       "q": "Lok Yeay Mao Statue, Bokor, Kampot",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 12 分钟"
+      }
+     ],
+     "start": "08:00",
+     "elev": 1000,
+     "stay": "贡布",
+     "city": "贡布",
+     "dinner": {
+      "dish": "柬式煎鱼配蔬菜",
+      "place": "贡布老城里的河边餐厅"
+     }
+    },
+    {
+     "title": "凯普螃蟹市场 · 螃蟹雕像 · 凯普国家公园",
+     "text": "上午去海边的凯普，在螃蟹市场吃现烹的螃蟹，再沿海滨走到螃蟹雕像，最后在国家公园里走一小段林间步道。",
+     "stops": [
+      {
+       "name": "凯普螃蟹市场",
+       "q": "Kep Crab Market, Cambodia",
+       "type": "street",
+       "dur": 60,
+       "via": "打车约 40 分钟"
+      },
+      {
+       "name": "凯普螃蟹雕像",
+       "q": "Crab Statue, Kep",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "凯普国家公园",
+       "q": "Kep National Park, Cambodia",
+       "type": "park",
+       "dur": 90,
+       "via": "步行约 25 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 5,
+     "city": "贡布",
+     "lunch": {
+      "dish": "胡椒炒蟹",
+      "place": "凯普螃蟹市场的海鲜摊"
+     }
+    }
+   ],
+   "dest": "cambodia",
+   "start": [
+    2027,
+    10,
+    17
+   ]
+  },
+  "xn2c": {
+   "city": "万象",
+   "label": "万象 3 天",
+   "title": "三天，玉佛寺、塔銮和佛像公园",
+   "kicker": "城市 · 3 天",
+   "prep": [
+    "从琅勃拉邦到万象可以坐老中铁路的火车，约两小时，到站再打车进城；万象城里不大，嘟嘟车最方便，上车前先讲好价",
+    "进寺庙要穿过膝的裤子或裙子，肩膀要遮住；塔銮和佛像公园在郊区，早点去人少",
+    "当地主要用基普现金，大钞多，别人找零时看清数目；市场里可以讲价",
+    "晚上沿着湄公河边的路散步最舒服，蚊子多，带驱蚊水"
+   ],
+   "days": [
+    {
+     "title": "玉佛寺 · 西萨格寺 · 湄公河畔",
+     "text": "到万象下午先看市中心的两座老寺，都不大，再走到湄公河边看日落。",
+     "stops": [
+      {
+       "name": "玉佛寺",
+       "q": "Haw Phra Kaew, Vientiane",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "西萨格寺",
+       "q": "Wat Si Saket, Vientiane",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "万象湄公河畔",
+       "q": "Mekong Riverside, Vientiane",
+       "type": "park",
+       "dur": 90,
+       "via": "步行约 25 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 170,
+     "stay": "万象",
+     "city": "万象",
+     "dinner": {
+      "dish": "香茅烤鱼",
+      "place": "河边的老挝餐馆"
+     }
+    },
+    {
+     "title": "凯旋门 · 塔銮 · 老挝国家博物馆",
+     "text": "上午看凯旋门，再走到塔銮，是老挝最重要的佛塔，下午去博物馆了解国家的历史。",
+     "stops": [
+      {
+       "name": "凯旋门",
+       "q": "Patuxai, Vientiane",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 25 分钟"
+      },
+      {
+       "name": "塔銮",
+       "q": "Pha That Luang, Vientiane",
+       "type": "sight",
+       "dur": 75,
+       "via": "步行约 30 分钟"
+      },
+      {
+       "name": "老挝国家博物馆",
+       "q": "Lao National Museum, Vientiane",
+       "type": "museum",
+       "dur": 60,
+       "via": "打车约 10 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 170,
+     "stay": "万象",
+     "city": "万象",
+     "lunch": {
+      "dish": "老挝粉汤（考劈）",
+      "place": "塔銮附近的粉汤店"
+     },
+     "dinner": {
+      "dish": "青木瓜沙拉",
+      "place": "老城里的老挝餐厅"
+     }
+    },
+    {
+     "title": "佛像公园 · 万象中央市场",
+     "text": "最后一天早上去郊外的佛像公园，看水泥雕出的佛像群，再回市区逛市场结束。",
+     "stops": [
+      {
+       "name": "佛像公园",
+       "q": "Buddha Park, Vientiane",
+       "type": "park",
+       "dur": 90,
+       "via": "打车约 45 分钟"
+      },
+      {
+       "name": "万象中央市场",
+       "q": "Talat Sao, Vientiane",
+       "type": "street",
+       "dur": 60,
+       "via": "打车约 50 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 170,
+     "city": "万象"
+    }
+   ],
+   "dest": "laos",
+   "start": [
+    2027,
+    11,
+    8
+   ]
+  },
+  "xn2d": {
+   "city": "琅勃拉邦",
+   "label": "琅勃拉邦 3 天",
+   "title": "三天，玛寺、班帕侬和维苏那寺",
+   "kicker": "文化 · 3 天",
+   "prep": [
+    "琅勃拉邦老城不大，步行最舒服；去织布村可以打车或骑自行车，住处多半能租",
+    "进寺庙要遮住肩膀和膝盖；僧人不能碰，递东西请放下由对方拿",
+    "织染中心和织布村都能买围巾和布料，先问是手织还是机织，价格差得多",
+    "老城的主街晚上有夜市，路窄人多，包要背在身前"
+   ],
+   "days": [
+    {
+     "title": "玛寺 · 香孟寺 · 森苏卡兰寺",
+     "text": "下午在老城里走几座没怎么提到的老寺，看屋顶和墙上的描金图案，节奏很慢。",
+     "stops": [
+      {
+       "name": "玛寺",
+       "q": "Wat Mai Suwannaphumaham, Luang Prabang",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "香孟寺",
+       "q": "Wat Xieng Mouan, Luang Prabang",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "森苏卡兰寺",
+       "q": "Wat Sensoukharam, Luang Prabang",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 300,
+     "stay": "琅勃拉邦",
+     "city": "琅勃拉邦",
+     "dinner": {
+      "dish": "琅勃拉邦香肠",
+      "place": "老城里的老挝餐馆"
+     }
+    },
+    {
+     "title": "传统艺术与民族学中心 · 班帕侬 · 奥波托克织染中心",
+     "text": "这一天看老挝的手工艺：先在中心了解各族服饰，再去织布村和织染中心看手织和染色。",
+     "stops": [
+      {
+       "name": "传统艺术与民族学中心",
+       "q": "Traditional Arts and Ethnology Centre, Luang Prabang",
+       "type": "museum",
+       "dur": 75,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "班帕侬织布村",
+       "q": "Ban Phanom Weaving Village, Luang Prabang",
+       "type": "street",
+       "dur": 75,
+       "via": "打车约 8 分钟"
+      },
+      {
+       "name": "奥波托克织染中心",
+       "q": "Ock Pop Tok Living Crafts Centre, Luang Prabang",
+       "type": "sight",
+       "dur": 75,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 300,
+     "stay": "琅勃拉邦",
+     "city": "琅勃拉邦",
+     "lunch": {
+      "dish": "奥拉姆炖菜（Or Lam）",
+      "place": "织染中心的餐厅"
+     },
+     "dinner": {
+      "dish": "芭蕉叶蒸鱼",
+      "place": "老城里的老挝餐厅"
+     }
+    },
+    {
+     "title": "维苏那寺 · 阿含寺",
+     "text": "最后一天早上在老城看两座紧挨着的老寺，下午就可以离开。",
+     "stops": [
+      {
+       "name": "维苏那寺",
+       "q": "Wat Visoun, Luang Prabang",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "阿含寺",
+       "q": "Wat Aham, Luang Prabang",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 300,
+     "city": "琅勃拉邦",
+     "lunch": {
+      "dish": "琅勃拉邦酸辣肉末面（Khao Soi）",
+      "place": "老城里的面馆"
+     }
+    }
+   ],
+   "dest": "laos",
+   "start": [
+    2027,
+    10,
+    24
+   ]
+  },
+  "xn3a": {
+   "city": "博卡拉",
+   "label": "博卡拉 3 天",
+   "title": "三天，宾迪亚瓦西尼神庙、戴维瀑布和马亨德拉洞",
+   "kicker": "自然 · 3 天",
+   "prep": [
+    "从加德满都坐旅游大巴到博卡拉约 7 小时，早上发车，湖区下车后住湖边街区最方便",
+    "城里没有地铁公交，打车前先在上车前谈好价；也可以用本地叫车软件，湖区到各景点都是短途",
+    "洞窟里台阶湿滑，穿防滑鞋，带小手电；神庙里进殿要脱鞋",
+    "商店多收现金卢比，大额钞票在湖区兑换店换，别在路边换"
+   ],
+   "days": [
+    {
+     "title": "宾迪亚瓦西尼神庙 · 国际山地博物馆",
+     "text": "午后到博卡拉，先去老城的宾迪亚瓦西尼神庙，再去山地博物馆了解喜马拉雅登山史。晚上回湖边吃烤肉。",
+     "stops": [
+      {
+       "name": "宾迪亚瓦西尼神庙",
+       "q": "Bindhyabasini Temple, Pokhara",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 12 分钟"
+      },
+      {
+       "name": "国际山地博物馆",
+       "q": "International Mountain Museum, Pokhara",
+       "type": "museum",
+       "dur": 90,
+       "via": "打车约 14 分钟"
+      }
+     ],
+     "start": "13:00",
+     "elev": 820,
+     "stay": "博卡拉",
+     "city": "博卡拉",
+     "dinner": {
+      "dish": "塞库瓦烤肉",
+      "place": "湖区街边的烧烤馆"
+     }
+    },
+    {
+     "title": "戴维瀑布 · 古普特斯瓦尔洞 · 本纳斯湖",
+     "text": "上午看戴维瀑布钻进地下的样子，隔路就是古普特斯瓦尔洞。下午去东边的本纳斯湖，湖边安静，能看到山影。",
+     "stops": [
+      {
+       "name": "戴维瀑布",
+       "q": "Davis Falls, Pokhara",
+       "type": "sight",
+       "dur": 50,
+       "via": "打车约 7 分钟"
+      },
+      {
+       "name": "古普特斯瓦尔洞",
+       "q": "Gupteshwor Mahadev Cave, Pokhara",
+       "type": "sight",
+       "dur": 50,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "本纳斯湖",
+       "q": "Begnas Lake, Pokhara",
+       "type": "park",
+       "dur": 120,
+       "via": "打车约 30 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 820,
+     "stay": "博卡拉",
+     "city": "博卡拉",
+     "lunch": {
+      "dish": "图克巴藏式汤面",
+      "place": "湖区的藏人小馆"
+     }
+    },
+    {
+     "title": "马亨德拉洞 · 塞提河峡谷",
+     "text": "最后一天去北边的马亨德拉洞，再到塞提河峡谷看河水在窄缝里切出的深槽，中午前后结束。",
+     "stops": [
+      {
+       "name": "马亨德拉洞",
+       "q": "Mahendra Cave, Pokhara",
+       "type": "sight",
+       "dur": 75,
+       "via": "打车约 20 分钟"
+      },
+      {
+       "name": "塞提河峡谷",
+       "q": "Seti River Gorge, Pokhara",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 13 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 820,
+     "city": "博卡拉",
+     "lunch": {
+      "dish": "尼泊尔咖喱鸡套餐",
+      "place": "老城的家常饭馆"
+     }
+    }
+   ],
+   "dest": "nepal",
+   "start": [
+    2027,
+    10,
+    9
+   ]
+  },
+  "xn3b": {
+   "city": "加德满都",
+   "label": "加德满都 3 天",
+   "title": "三天，帕舒帕蒂纳特、昌古纳拉扬和纳莫布达",
+   "kicker": "文化 · 3 天",
+   "prep": [
+    "加德满都市内打车和叫车软件都方便，上车前谈好价；去纳加阔特和纳莫布达可以包一天车",
+    "帕舒帕蒂纳特是印度教火葬圣地，拍照要留意告示，不要靠近仪式",
+    "纳加阔特早晚凉，带件外套；想看日出就订朝东的房间",
+    "现金卢比通用，大额钞票在泰米尔街的兑换店换"
+   ],
+   "days": [
+    {
+     "title": "帕舒帕蒂纳特 · 科潘寺",
+     "text": "午后去巴格马蒂河边的帕舒帕蒂纳特，看河岸的火葬台和主神殿外的庭院。再去北边山坡上的科潘寺，傍晚看山谷。",
+     "stops": [
+      {
+       "name": "帕舒帕蒂纳特",
+       "q": "Pashupatinath Temple, Kathmandu",
+       "type": "sight",
+       "dur": 90,
+       "via": "打车约 10 分钟"
+      },
+      {
+       "name": "科潘寺",
+       "q": "Kopan Monastery, Kathmandu",
+       "type": "sight",
+       "dur": 75,
+       "via": "打车约 10 分钟"
+      }
+     ],
+     "start": "13:00",
+     "elev": 1330,
+     "stay": "加德满都",
+     "city": "加德满都",
+     "dinner": {
+      "dish": "乔伊拉烤水牛肉",
+      "place": "纽瓦尔人开的小馆"
+     }
+    },
+    {
+     "title": "布达尼拉坎塔 · 昌古纳拉扬寺",
+     "text": "上午去北郊看浮在池里的卧佛，再往东到昌古纳拉扬寺，看山顶上的老石雕。傍晚上山到纳加阔特住下。",
+     "stops": [
+      {
+       "name": "布达尼拉坎塔卧佛",
+       "q": "Budhanilkantha Temple, Kathmandu",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 25 分钟"
+      },
+      {
+       "name": "昌古纳拉扬寺",
+       "q": "Changu Narayan Temple, Bhaktapur",
+       "type": "sight",
+       "dur": 90,
+       "via": "打车约 25 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 1330,
+     "stay": "纳加阔特",
+     "city": "加德满都",
+     "lunch": {
+      "dish": "巴拉煎饼",
+      "place": "昌古村口的小馆"
+     }
+    },
+    {
+     "title": "纳加阔特 · 杜利克尔 · 纳莫布达",
+     "text": "清早到纳加阔特的观景塔看日出，上午到杜利克尔的卡莉寺，再去纳莫布达，这是山上有名的佛教朝圣地，中午后可以直接回加德满都。",
+     "stops": [
+      {
+       "name": "纳加阔特观景塔",
+       "q": "Nagarkot View Tower, Nagarkot",
+       "type": "sight",
+       "dur": 90,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "杜利克尔卡莉寺",
+       "q": "Dhulikhel Kali Temple, Dhulikhel",
+       "type": "sight",
+       "dur": 45,
+       "via": "打车约 30 分钟"
+      },
+      {
+       "name": "纳莫布达",
+       "q": "Namobuddha Monastery, Kavre",
+       "type": "sight",
+       "dur": 120,
+       "via": "打车约 18 分钟"
+      }
+     ],
+     "start": "05:30",
+     "elev": 2150,
+     "city": "纳加阔特",
+     "lunch": {
+      "dish": "迪多荞麦糕套餐",
+      "place": "纳莫布达山下的家常饭馆"
+     }
+    }
+   ],
+   "dest": "nepal",
+   "start": [
+    2027,
+    2,
+    16
+   ]
+  },
+  "xn3c": {
+   "city": "康提",
+   "label": "康提 3 天",
+   "title": "三天，佩拉德尼亚、努沃勒埃利耶和埃拉",
+   "kicker": "高地 · 3 天",
+   "prep": [
+    "康提去努沃勒埃利耶可以包车，或坐班车到当地再换三轮车；康提到埃拉的火车风景很好，但车票要提前订",
+    "高地早晚凉，带件外套；雨水多，薄雨衣必备",
+    "寺庙里进殿要脱鞋，穿过膝的裤子或长裙，肩膀要遮住",
+    "三轮车上车前先谈价，也可以用本地叫车软件"
+   ],
+   "days": [
+    {
+     "title": "佩拉德尼亚皇家植物园 · 巴希拉瓦坎达大佛",
+     "text": "午后去佩拉德尼亚皇家植物园，看大榕树和兰花园。傍晚到小山上的大佛旁，俯瞰康提城。",
+     "stops": [
+      {
+       "name": "佩拉德尼亚皇家植物园",
+       "q": "Royal Botanic Gardens Peradeniya, Kandy",
+       "type": "park",
+       "dur": 120,
+       "via": "打车约 13 分钟"
+      },
+      {
+       "name": "巴希拉瓦坎达大佛",
+       "q": "Bahirawakanda Vihara Buddha Statue, Kandy",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 12 分钟"
+      }
+     ],
+     "start": "13:00",
+     "elev": 500,
+     "stay": "康提",
+     "city": "康提",
+     "dinner": {
+      "dish": "科图罗提",
+      "place": "康提街边的科图摊"
+     }
+    },
+    {
+     "title": "兰博达瀑布 · 格雷戈里湖 · 哈格拉植物园",
+     "text": "一早出发上高地，路上看兰博达瀑布，到努沃勒埃利耶后在格雷戈里湖边走走，下午去哈格拉植物园。",
+     "stops": [
+      {
+       "name": "兰博达瀑布",
+       "q": "Ramboda Falls, Nuwara Eliya",
+       "type": "sight",
+       "dur": 45,
+       "via": "打车约 1 小时 30 分钟"
+      },
+      {
+       "name": "格雷戈里湖",
+       "q": "Gregory Lake, Nuwara Eliya",
+       "type": "park",
+       "dur": 60,
+       "via": "打车约 20 分钟"
+      },
+      {
+       "name": "哈格拉植物园",
+       "q": "Hakgala Botanical Garden, Nuwara Eliya",
+       "type": "park",
+       "dur": 90,
+       "via": "打车约 20 分钟"
+      }
+     ],
+     "start": "08:00",
+     "elev": 1870,
+     "stay": "努沃勒埃利耶",
+     "city": "康提",
+     "lunch": {
+      "dish": "酸鱼咖喱",
+      "place": "路边的家常饭馆"
+     }
+    },
+    {
+     "title": "九拱桥 · 小亚当峰 · 拉瓦那瀑布",
+     "text": "去埃拉，先看高地的九拱桥和火车，再爬小亚当峰看山谷，最后到拉瓦那瀑布。",
+     "stops": [
+      {
+       "name": "九拱桥",
+       "q": "Nine Arch Bridge, Ella",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 1 小时 30 分钟"
+      },
+      {
+       "name": "小亚当峰",
+       "q": "Little Adams Peak, Ella",
+       "type": "sight",
+       "dur": 90,
+       "via": "步行约 20 分钟"
+      },
+      {
+       "name": "拉瓦那瀑布",
+       "q": "Ravana Falls, Ella",
+       "type": "sight",
+       "dur": 45,
+       "via": "打车约 10 分钟"
+      }
+     ],
+     "start": "07:30",
+     "elev": 1000,
+     "city": "努沃勒埃利耶",
+     "lunch": {
+      "dish": "拉姆赖斯",
+      "place": "埃拉镇上的小馆"
+     }
+    }
+   ],
+   "dest": "srilanka",
+   "start": [
+    2027,
+    1,
+    9
+   ]
+  },
+  "xn3d": {
+   "city": "康提",
+   "label": "康提 3 天",
+   "title": "三天，皮杜朗加拉、阿努拉德普勒和米欣特莱",
+   "kicker": "古迹 · 3 天",
+   "prep": [
+    "康提到阿努拉德普勒包车约 3 个小时，也可以坐长途班车；古城区大，可雇三轮车半天",
+    "古城里的塔和寺庙要脱鞋，路面晒得烫，带袜子；衣服遮住肩膀和膝盖",
+    "皮杜朗加拉岩的路最后一段是石头，穿防滑鞋，带水",
+    "天气干热，白天尽量戴帽子，傍晚更适合在外面走"
+   ],
+   "days": [
+    {
+     "title": "皮杜朗加拉岩",
+     "text": "从康提出发去狮子岩旁边的皮杜朗加拉岩，下午爬山，在岩顶看狮子岩和夕阳，傍晚去阿努拉德普勒住下。",
+     "stops": [
+      {
+       "name": "皮杜朗加拉岩",
+       "q": "Pidurangala Rock, Sigiriya",
+       "type": "sight",
+       "dur": 150,
+       "via": "打车约 2 小时 10 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 120,
+     "stay": "阿努拉德普勒",
+     "city": "康提",
+     "dinner": {
+      "dish": "虾咖喱",
+      "place": "古城区的家常饭馆"
+     }
+    },
+    {
+     "title": "图帕拉马 · 鲁瓦内维利萨耶 · 圣菩提树 · 阿巴亚吉里",
+     "text": "一整天看阿努拉德普勒古城，从最早的佛塔、最大的白塔，到佛教徒敬拜的圣菩提树，最后到阿巴亚吉里的遗址。",
+     "stops": [
+      {
+       "name": "图帕拉马佛塔",
+       "q": "Thuparamaya, Anuradhapura",
+       "type": "sight",
+       "dur": 40,
+       "via": "步行约 35 分钟"
+      },
+      {
+       "name": "鲁瓦内维利萨耶大塔",
+       "q": "Ruwanwelisaya, Anuradhapura",
+       "type": "sight",
+       "dur": 50,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "圣菩提树",
+       "q": "Sri Maha Bodhi, Anuradhapura",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 12 分钟"
+      },
+      {
+       "name": "阿巴亚吉里佛塔遗址",
+       "q": "Abhayagiri Dagaba, Anuradhapura",
+       "type": "sight",
+       "dur": 75,
+       "via": "步行约 35 分钟"
+      }
+     ],
+     "start": "08:00",
+     "elev": 90,
+     "stay": "阿努拉德普勒",
+     "city": "阿努拉德普勒",
+     "lunch": {
+      "dish": "黑猪肉咖喱",
+      "place": "古城旁的小饭馆"
+     }
+    },
+    {
+     "title": "米欣特莱",
+     "text": "最后一早去米欣特莱，爬石阶上山，看白色佛塔和山下的古城平原。",
+     "stops": [
+      {
+       "name": "米欣特莱",
+       "q": "Mihintale, Anuradhapura",
+       "type": "sight",
+       "dur": 150,
+       "via": "打车约 30 分钟"
+      }
+     ],
+     "start": "07:30",
+     "elev": 150,
+     "city": "阿努拉德普勒",
+     "lunch": {
+      "dish": "鸡肉咖喱",
+      "place": "山下的家常饭馆"
+     }
+    }
+   ],
+   "dest": "srilanka",
+   "start": [
+    2027,
+    0,
+    19
+   ]
+  },
+  "xn4c": {
+   "city": "迪拜",
+   "label": "迪拜 3 天",
+   "title": "三天，迪拜框架、沙迦和朱美拉清真寺",
+   "kicker": "城市 · 3 天",
+   "prep": [
+    "迪拜地铁和出租车够用，Nol 卡在地铁站买，出租车可以用手机叫车软件，起步价透明",
+    "迪拜去沙迦走高速，出租车约 40 分钟；傍晚进出沙迦堵车厉害，尽量错开 17 点到 19 点",
+    "朱美拉清真寺只在上午安排导览，女士要带头巾，男女都要穿到手腕和脚踝的衣服；沙迦街区不卖酒，注意着装",
+    "室外中午偏热，12 月到 2 月最舒服；商场里空调很冷，带一件薄外套"
+   ],
+   "days": [
+    {
+     "title": "迪拜框架 · 阿尔沙欣达哈 · 阿尔西夫",
+     "text": "下午先上迪拜框架，从金色画框的顶层同时看新旧两个迪拜。再去克里克河边的阿尔沙欣达哈和阿尔西夫，看老城的样子，晚上在河边吃饭。",
+     "stops": [
+      {
+       "name": "迪拜框架",
+       "q": "Dubai Frame, Dubai",
+       "type": "sight",
+       "dur": 75,
+       "via": "打车约 10 分钟"
+      },
+      {
+       "name": "阿尔沙欣达哈历史街区",
+       "q": "Al Shindagha Heritage Area, Dubai",
+       "type": "street",
+       "dur": 80,
+       "via": "打车约 8 分钟"
+      },
+      {
+       "name": "阿尔西夫街区",
+       "q": "Al Seef, Dubai",
+       "type": "street",
+       "dur": 90,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 10,
+     "stay": "迪拜",
+     "city": "迪拜",
+     "dinner": {
+      "dish": "沙瓦玛烤肉卷",
+      "place": "阿尔西夫街区的当地小餐馆"
+     }
+    },
+    {
+     "title": "沙迦古堡 · 沙迦伊斯兰文明博物馆 · 阿尔努尔清真寺",
+     "text": "去隔壁的沙迦，这是阿联酋的文化之城。上午看古堡，再看伊斯兰文明博物馆里的科学仪器和古兰经，最后到泻湖边的清真寺。",
+     "stops": [
+      {
+       "name": "沙迦古堡",
+       "q": "Sharjah Fort Al Hisn, Sharjah",
+       "type": "museum",
+       "dur": 75,
+       "via": "打车约 40 分钟"
+      },
+      {
+       "name": "沙迦伊斯兰文明博物馆",
+       "q": "Sharjah Museum of Islamic Civilization, Sharjah",
+       "type": "museum",
+       "dur": 90,
+       "via": "步行约 8 分钟"
+      },
+      {
+       "name": "阿尔努尔清真寺",
+       "q": "Al Noor Mosque, Sharjah",
+       "type": "sight",
+       "dur": 40,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 10,
+     "stay": "迪拜",
+     "city": "迪拜",
+     "lunch": {
+      "dish": "马什布斯香料肉饭",
+      "place": "沙迦老城区的阿联酋家常菜馆"
+     }
+    },
+    {
+     "title": "朱美拉清真寺 · 阿尔萨卡尔大道 · 乌姆苏盖姆海滩",
+     "text": "最后一天上午参加朱美拉清真寺的导览，听讲解了解礼拜和清真寺。再去仓库改成的阿尔萨卡尔大道看画廊，傍晚在海滩远看阿拉伯塔酒店。",
+     "stops": [
+      {
+       "name": "朱美拉清真寺",
+       "q": "Jumeirah Mosque, Dubai",
+       "type": "sight",
+       "dur": 75,
+       "via": "打车约 8 分钟"
+      },
+      {
+       "name": "阿尔萨卡尔大道",
+       "q": "Alserkal Avenue, Dubai",
+       "type": "museum",
+       "dur": 90,
+       "via": "打车约 20 分钟"
+      },
+      {
+       "name": "乌姆苏盖姆海滩",
+       "q": "Umm Suqeim Beach, Dubai",
+       "type": "park",
+       "dur": 60,
+       "via": "打车约 8 分钟"
+      }
+     ],
+     "start": "09:30",
+     "elev": 10,
+     "city": "迪拜",
+     "lunch": {
+      "dish": "渔夫饭",
+      "place": "阿尔萨卡尔大道旁的咖啡餐厅"
+     }
+    }
+   ],
+   "dest": "uae",
+   "start": [
+    2027,
+    0,
+    19
+   ]
+  },
+  "xn4d": {
+   "city": "艾因",
+   "label": "艾因与富查伊拉 4 天",
+   "title": "四天，艾因、杰贝尔哈菲特、富查伊拉和哈特",
+   "kicker": "自驾 · 4 天",
+   "prep": [
+    "在迪拜机场或市区租车点取车，还到迪拜；阿联酋靠右行驶，限速牌严格，测速摄像头很多，取车前向租车点确认需要的驾照类型",
+    "艾因和哈特都是小城，地方不大；杰贝尔哈菲特的盘山路风大，注意停车位置和天气",
+    "艾因动物园进园后很大，白天出汗多，带水；富查伊拉到哈特的山路有些路段无信号，提前下载离线地图",
+    "加油站多数可以刷卡，汽油价格比国内便宜；清真寺和老城区衣着要保守"
+   ],
+   "days": [
+    {
+     "title": "艾因国家博物馆 · 艾因绿洲 · 艾因宫殿博物馆",
+     "text": "下午从迪拜自驾到艾因，先看国家博物馆，再走进枣椰林绿洲，最后看宫殿博物馆，了解老统治者的生活。",
+     "stops": [
+      {
+       "name": "艾因国家博物馆",
+       "q": "Al Ain National Museum, Al Ain",
+       "type": "museum",
+       "dur": 60,
+       "via": "自驾约 1 小时 50 分钟"
+      },
+      {
+       "name": "艾因绿洲",
+       "q": "Al Ain Oasis, Al Ain",
+       "type": "park",
+       "dur": 75,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "艾因宫殿博物馆",
+       "q": "Al Ain Palace Museum, Al Ain",
+       "type": "museum",
+       "dur": 50,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 300,
+     "stay": "艾因",
+     "city": "艾因",
+     "dinner": {
+      "dish": "卡布萨肉饭",
+      "place": "艾因市区的阿联酋餐馆"
+     }
+    },
+    {
+     "title": "希利考古公园 · 杰贝尔哈菲特 · 艾因动物园",
+     "text": "上午看希利的青铜时代遗址，再开车盘山上杰贝尔哈菲特，看沙漠和城市。下午去艾因动物园。",
+     "stops": [
+      {
+       "name": "希利考古公园",
+       "q": "Hili Archaeological Park, Al Ain",
+       "type": "park",
+       "dur": 60,
+       "via": "自驾约 15 分钟"
+      },
+      {
+       "name": "杰贝尔哈菲特",
+       "q": "Jebel Hafeet, Al Ain",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 45 分钟"
+      },
+      {
+       "name": "艾因动物园",
+       "q": "Al Ain Zoo, Al Ain",
+       "type": "fun",
+       "dur": 120,
+       "via": "自驾约 25 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 300,
+     "stay": "艾因",
+     "city": "艾因",
+     "lunch": {
+      "dish": "综合烤肉拼盘",
+      "place": "艾因市区的黎巴嫩烤肉店"
+     }
+    },
+    {
+     "title": "马萨菲星期五市场 · 比丹清真寺 · 富查伊拉古堡",
+     "text": "一早向东穿过哈贾尔山区，在马萨菲逛路边市场，再去比丹清真寺，最后到富查伊拉古堡，当晚住富查伊拉。",
+     "stops": [
+      {
+       "name": "马萨菲星期五市场",
+       "q": "Masafi Friday Market, Masafi",
+       "type": "street",
+       "dur": 60,
+       "via": "自驾约 2 小时 30 分钟"
+      },
+      {
+       "name": "比丹清真寺",
+       "q": "Al Bidyah Mosque, Fujairah",
+       "type": "sight",
+       "dur": 45,
+       "via": "自驾约 40 分钟"
+      },
+      {
+       "name": "富查伊拉古堡",
+       "q": "Fujairah Fort, Fujairah",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 55 分钟"
+      }
+     ],
+     "start": "08:00",
+     "elev": 20,
+     "stay": "富查伊拉",
+     "city": "富查伊拉",
+     "dinner": {
+      "dish": "烤羊排",
+      "place": "富查伊拉市区的烤肉餐馆"
+     }
+    },
+    {
+     "title": "富查伊拉博物馆 · 哈特遗产村",
+     "text": "早上看富查伊拉博物馆，再自驾去哈特遗产村，看石头老房和瞭望塔，下午开车回迪拜。",
+     "stops": [
+      {
+       "name": "富查伊拉博物馆",
+       "q": "Fujairah Museum, Fujairah",
+       "type": "museum",
+       "dur": 60,
+       "via": "步行约 20 分钟"
+      },
+      {
+       "name": "哈特遗产村",
+       "q": "Hatta Heritage Village, Hatta",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 1 小时 20 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 300,
+     "city": "哈特",
+     "lunch": {
+      "dish": "哈里斯小麦肉粥",
+      "place": "哈特遗产村旁的传统餐厅"
+     }
+    }
+   ],
+   "dest": "uae",
+   "start": [
+    2027,
+    2,
+    2
+   ]
+  },
+  "xn5a": {
+   "city": "特拉维",
+   "label": "特拉维 3 天",
+   "title": "三天，齐南达利、特拉维和西格纳吉",
+   "kicker": "美酒 · 3 天",
+   "prep": [
+    "在第比利斯取还车最方便，往东走卡赫季的主干路，路况尚可；也可在迪杜贝长途车站坐小巴去特拉维，再包车跑景点",
+    "卡赫季的酒庄和家庭酒窖多要提前电话或让住处帮忙预约，九、十月是葡萄收获季，酒庄最忙",
+    "乡下小店多只收拉里现金，进城先取够；教堂和修道院进门要遮住肩膀和膝盖，女士带条头巾",
+    "西格纳吉到第比利斯路上没有大城镇，油箱留半箱以上再出发"
+   ],
+   "days": [
+    {
+     "title": "齐南达利 · 特拉维巴塔什维利",
+     "text": "到卡赫季，先看齐南达利庄园的花园和故居，再到特拉维老城，看国王的城堡和古城墙。晚上在特拉维住下，吃烤肉配本地白葡萄酒。",
+     "stops": [
+      {
+       "name": "齐南达利庄园",
+       "q": "Tsinandali Estate, Telavi",
+       "type": "park",
+       "dur": 75,
+       "via": "自驾约 1 小时 40 分钟"
+      },
+      {
+       "name": "特拉维巴塔什维利城堡",
+       "q": "Batonis Tsikhe, Telavi",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 15 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 430,
+     "stay": "特拉维",
+     "city": "特拉维",
+     "dinner": {
+      "dish": "姆查迪烤肉串（Mtsvadi）",
+      "place": "特拉维老城的家庭餐馆"
+     }
+    },
+    {
+     "title": "阿拉韦尔迪 · 格雷米 · 特拉维千年梧桐",
+     "text": "早上去阿拉韦尔迪修道院，它是卡赫季最高的教堂之一。接着到格雷米城堡看旧王城的遗迹，下午回特拉维，在老梧桐树下歇脚。",
+     "stops": [
+      {
+       "name": "阿拉韦尔迪修道院",
+       "q": "Alaverdi Monastery, Kakheti",
+       "type": "sight",
+       "dur": 75,
+       "via": "自驾约 20 分钟"
+      },
+      {
+       "name": "格雷米城堡",
+       "q": "Gremi Citadel, Kakheti",
+       "type": "sight",
+       "dur": 75,
+       "via": "自驾约 25 分钟"
+      },
+      {
+       "name": "特拉维千年梧桐",
+       "q": "Telavi Plane Tree, Telavi",
+       "type": "park",
+       "dur": 30,
+       "via": "自驾约 25 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 430,
+     "stay": "特拉维",
+     "city": "特拉维",
+     "lunch": {
+      "dish": "恰赫霍毕利炖鸡（Chakhokhbili）",
+      "place": "格雷米附近的路边餐馆"
+     }
+    },
+    {
+     "title": "西格纳吉 · 波德贝 · 梅特希 · 夏尔丹街",
+     "text": "早上去西格纳吉，沿着城墙看山谷和红瓦屋顶，再走到波德贝修道院。中午后开车回第比利斯，傍晚逛梅特希教堂和夏尔丹街。",
+     "stops": [
+      {
+       "name": "西格纳吉城墙",
+       "q": "Sighnaghi City Walls, Georgia",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 1 小时 20 分钟"
+      },
+      {
+       "name": "波德贝修道院",
+       "q": "Bodbe Monastery, Sighnaghi",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 35 分钟"
+      },
+      {
+       "name": "梅特希教堂",
+       "q": "Metekhi Church, Tbilisi",
+       "type": "sight",
+       "dur": 40,
+       "via": "自驾约 2 小时"
+      },
+      {
+       "name": "夏尔丹街",
+       "q": "Sharden Street, Tbilisi",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 8 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 420,
+     "city": "第比利斯",
+     "lunch": {
+      "dish": "洛比奥豆焖饭（Lobio）",
+      "place": "夏尔丹街附近的小馆子"
+     }
+    }
+   ],
+   "dest": "georgia",
+   "start": [
+    2027,
+    8,
+    21
+   ]
+  },
+  "xn5b": {
+   "city": "斯特潘茨明达",
+   "label": "斯特潘茨明达 3 天",
+   "title": "三天，阿纳努里、格尔盖蒂和朱塔",
+   "kicker": "山野 · 3 天",
+   "prep": [
+    "在第比利斯取还四驱或高底盘车，走军事公路去山里；也可在迪杜贝长途车站坐小巴到斯特潘茨明达",
+    "山里天气变得快，早上晴、下午起雾下雨常见，带件防风防水的外套，早晚比城里冷很多",
+    "去朱塔的路是碎石土路，开车要慢，下雨后更难走；不想自己开可以在镇上找当地司机包车",
+    "镇上的餐馆和小店多收拉里现金，进山前在第比利斯先取好"
+   ],
+   "days": [
+    {
+     "title": "阿纳努里 · 古多里友谊纪念碑",
+     "text": "从第比利斯出发，沿军事公路北上。先看阿纳努里要塞和水库边的教堂，再到古多里山口，看一座圆形的友谊纪念碑和远处的山谷。晚上住进斯特潘茨明达。",
+     "stops": [
+      {
+       "name": "阿纳努里要塞",
+       "q": "Ananuri Fortress, Georgia",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 1 小时 30 分钟"
+      },
+      {
+       "name": "古多里友谊纪念碑",
+       "q": "Russia-Georgia Friendship Monument, Gudauri",
+       "type": "sight",
+       "dur": 30,
+       "via": "自驾约 1 小时"
+      }
+     ],
+     "start": "12:30",
+     "elev": 1740,
+     "stay": "斯特潘茨明达",
+     "city": "斯特潘茨明达",
+     "dinner": {
+      "dish": "沙克梅鲁蒜香鸡（Shkmeruli）",
+      "place": "镇上的家庭餐馆"
+     }
+    },
+    {
+     "title": "格尔盖蒂 · 达里亚利 · 朱塔",
+     "text": "早上从镇上走路上山，去格尔盖蒂三一教堂，背后就是卡兹别克山。下午北上看达里亚利修道院，再进朱塔村，在山谷里走一走。",
+     "stops": [
+      {
+       "name": "格尔盖蒂三一教堂",
+       "q": "Gergeti Trinity Church, Stepantsminda",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 1 小时 30 分钟"
+      },
+      {
+       "name": "达里亚利修道院",
+       "q": "Dariali Monastery, Georgia",
+       "type": "sight",
+       "dur": 45,
+       "via": "自驾约 25 分钟"
+      },
+      {
+       "name": "朱塔村",
+       "q": "Juta Village, Kazbegi",
+       "type": "park",
+       "dur": 120,
+       "via": "自驾约 45 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 1740,
+     "stay": "斯特潘茨明达",
+     "city": "斯特潘茨明达",
+     "lunch": {
+      "dish": "哈什牛杂汤（Khashi）",
+      "place": "镇上的老馆子"
+     }
+    },
+    {
+     "title": "鲁斯塔维利大道 · 国家博物馆",
+     "text": "早上驱车回第比利斯，路上多是山路，开得慢些。中午到市区，在鲁斯塔维利大道上走一走，再进格鲁吉亚国家博物馆看考古展品。",
+     "stops": [
+      {
+       "name": "鲁斯塔维利大道",
+       "q": "Rustaveli Avenue, Tbilisi",
+       "type": "street",
+       "dur": 45,
+       "via": "自驾约 3 小时 10 分钟"
+      },
+      {
+       "name": "格鲁吉亚国家博物馆",
+       "q": "Georgian National Museum, Tbilisi",
+       "type": "museum",
+       "dur": 90,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 400,
+     "city": "第比利斯",
+     "lunch": {
+      "dish": "帕赫哈利核桃拌菜（Pkhali）",
+      "place": "大道旁的餐馆"
+     }
+    }
+   ],
+   "dest": "georgia",
+   "start": [
+    2027,
+    5,
+    8
+   ]
+  },
+  "xn5c": {
+   "city": "安曼",
+   "label": "安曼 3 天",
+   "title": "三天，杰拉什、乌姆盖斯和安曼老城",
+   "kicker": "古城 · 3 天",
+   "prep": [
+    "在安曼取还车最简单，北部公路好走；不开车可以在安曼北站坐小巴去杰拉什，再包车去乌姆盖斯和阿杰隆",
+    "杰拉什的古城很大，几乎没有遮阴，带水、戴帽子，穿一双好走的鞋",
+    "清真寺非礼拜时间才对游客开放，进去要穿长袖长裤，女士带头巾；周五上午人多，尽量避开",
+    "小店和市集多收现金第纳尔，打车上车前先说好价或让司机打表"
+   ],
+   "days": [
+    {
+     "title": "杰拉什古城 · 阿杰隆城堡",
+     "text": "到安曼后往北开，先到杰拉什古城，看哈德良拱门、椭圆广场和长长的石柱街。接着去阿杰隆城堡，在山顶看松林和山谷。晚上回安曼。",
+     "stops": [
+      {
+       "name": "杰拉什古城",
+       "q": "Jerash Archaeological Site, Jordan",
+       "type": "sight",
+       "dur": 120,
+       "via": "自驾约 50 分钟"
+      },
+      {
+       "name": "阿杰隆城堡",
+       "q": "Ajloun Castle, Jordan",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 30 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 600,
+     "stay": "安曼",
+     "city": "安曼",
+     "dinner": {
+      "dish": "马格鲁巴倒扣饭（Maqluba）",
+      "place": "安曼老城的家常馆子"
+     }
+    },
+    {
+     "title": "彼拉古城 · 乌姆盖斯",
+     "text": "早上往北进约旦河谷，先看彼拉古城的柱廊和教堂遗迹，再到乌姆盖斯，在山头上看加利利和戈兰的方向。晚上回安曼。",
+     "stops": [
+      {
+       "name": "彼拉古城",
+       "q": "Pella Archaeological Site, Jordan",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 1 小时 20 分钟"
+      },
+      {
+       "name": "乌姆盖斯古城",
+       "q": "Umm Qais, Jordan",
+       "type": "sight",
+       "dur": 120,
+       "via": "自驾约 40 分钟"
+      }
+     ],
+     "start": "08:00",
+     "elev": 600,
+     "stay": "安曼",
+     "city": "安曼",
+     "lunch": {
+      "dish": "穆萨汗烤鸡饼（Musakhan）",
+      "place": "乌姆盖斯山顶的餐馆"
+     }
+    },
+    {
+     "title": "国王阿卜杜拉清真寺 · 约旦博物馆 · 胡赛尼清真寺",
+     "text": "上午逛安曼市区，先看蓝色圆顶的国王阿卜杜拉清真寺，再去约旦博物馆看古代文物，最后走到老城胡赛尼清真寺一带的市集。",
+     "stops": [
+      {
+       "name": "国王阿卜杜拉清真寺",
+       "q": "King Abdullah I Mosque, Amman",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 20 分钟"
+      },
+      {
+       "name": "约旦博物馆",
+       "q": "The Jordan Museum, Amman",
+       "type": "museum",
+       "dur": 90,
+       "via": "步行约 30 分钟"
+      },
+      {
+       "name": "胡赛尼清真寺",
+       "q": "Al-Husseini Mosque, Amman",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 25 分钟"
+      },
+      {
+       "name": "安曼老城市集",
+       "q": "Downtown Souk, Amman",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 800,
+     "city": "安曼",
+     "lunch": {
+      "dish": "法特鹰嘴豆泡饼（Fatteh）",
+      "place": "老城市集里的老店"
+     }
+    }
+   ],
+   "dest": "jordan",
+   "start": [
+    2027,
+    2,
+    23
+   ]
+  },
+  "xn5d": {
+   "city": "卡拉克",
+   "label": "卡拉克 3 天",
+   "title": "三天，耶稣受洗地、卡拉克和沙乌巴克",
+   "kicker": "城堡 · 3 天",
+   "prep": [
+    "国王公路沿线只有少数大城镇有加油站，进山前加满油；在安曼取还车，走死海公路和国王公路",
+    "耶稣受洗地要坐景区的接驳车参观，不能自己开进去，最后一班车早关，下午尽早到",
+    "卡拉克和沙乌巴克的城堡里台阶多又暗，带手电筒和防滑的鞋，进堡前把背包放轻",
+    "十一月山里早晚冷，卡拉克常有大风，带外套；小馆子只收现金"
+   ],
+   "days": [
+    {
+     "title": "耶稣受洗地 · 玛恩温泉",
+     "text": "从安曼往西下到约旦河谷，先去耶稣受洗地，看河边的教堂遗址。再到玛恩温泉，看热水从山里流下来，晚上翻山住进卡拉克。",
+     "stops": [
+      {
+       "name": "耶稣受洗地",
+       "q": "Baptism Site Bethany Beyond the Jordan, Jordan",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 50 分钟"
+      },
+      {
+       "name": "玛恩温泉",
+       "q": "Hammamat Main Hot Springs, Jordan",
+       "type": "park",
+       "dur": 90,
+       "via": "自驾约 45 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 950,
+     "stay": "卡拉克",
+     "city": "卡拉克",
+     "dinner": {
+      "dish": "烤全鸡（Farooj Mashwi）",
+      "place": "卡拉克城里的烤鸡店"
+     }
+    },
+    {
+     "title": "卡拉克城堡 · 沙乌巴克城堡",
+     "text": "早上先看卡拉克城堡，里面的暗道和拱廊是十字军时代留下的。接着往南到沙乌巴克城堡，在山顶看荒原。下午回卡拉克。",
+     "stops": [
+      {
+       "name": "卡拉克城堡",
+       "q": "Kerak Castle, Jordan",
+       "type": "sight",
+       "dur": 120,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "沙乌巴克城堡",
+       "q": "Shobak Castle, Jordan",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 1 小时 20 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 950,
+     "stay": "卡拉克",
+     "city": "卡拉克",
+     "lunch": {
+      "dish": "福尔蚕豆煲（Ful）",
+      "place": "卡拉克老街的小馆子"
+     }
+    },
+    {
+     "title": "乌姆拉萨斯 · 约旦博物馆",
+     "text": "早上从卡拉克出发，去乌姆拉萨斯看地上的马赛克。中午前开车回安曼，在约旦博物馆看展，还车结束。",
+     "stops": [
+      {
+       "name": "乌姆拉萨斯",
+       "q": "Umm ar-Rasas, Jordan",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 1 小时 15 分钟"
+      },
+      {
+       "name": "约旦博物馆",
+       "q": "The Jordan Museum, Amman",
+       "type": "museum",
+       "dur": 90,
+       "via": "自驾约 1 小时 10 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 800,
+     "city": "安曼",
+     "lunch": {
+      "dish": "卡布萨香料饭（Kabsa）",
+      "place": "安曼的老字号饭馆"
+     }
+    }
+   ],
+   "dest": "jordan",
+   "start": [
+    2027,
+    10,
+    9
+   ]
+  },
+  "xn6a": {
+   "city": "阿拉木图",
+   "label": "阿拉木图 3 天",
+   "title": "三天，共和国广场、大阿拉木图湖和第一总统公园",
+   "kicker": "山水 · 3 天",
+   "prep": [
+    "市内打车用 Yandex Go，能先看价格；去山里的路段信号弱，先下好离线地图",
+    "大阿拉木图湖在边境管控区，车上带好身份证件，路上有检查点；也可以在市区包车往返",
+    "山上比城里凉得多，夏天也带件外套；阿拉桑浴场最好提前订时段",
+    "博物馆去之前先查当天是否开放；小店多数能刷卡，也备点坚戈现金"
+   ],
+   "days": [
+    {
+     "title": "共和国广场 · 卡斯捷耶夫 · 阿拉桑浴场",
+     "text": "下午先到共和国广场看独立纪念碑，再去卡斯捷耶夫博物馆看哈萨克画作，傍晚到阿拉桑浴场泡澡放松。",
+     "stops": [
+      {
+       "name": "共和国广场",
+       "q": "Republic Square, Almaty",
+       "type": "street",
+       "dur": 40,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "卡斯捷耶夫博物馆",
+       "q": "Kasteyev State Museum of Arts, Almaty",
+       "type": "museum",
+       "dur": 90,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "阿拉桑浴场",
+       "q": "Arasan Baths, Almaty",
+       "type": "fun",
+       "dur": 90,
+       "via": "打车约 5 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 800,
+     "stay": "阿拉木图",
+     "city": "阿拉木图",
+     "dinner": {
+      "dish": "曼提",
+      "place": "市中心的哈萨克餐馆"
+     }
+    },
+    {
+     "title": "大阿拉木图湖 · 舒姆布拉克",
+     "text": "早上包车上山，先到大阿拉木图湖看山谷里的湖水，再去舒姆布拉克，夏天可以走山路看风景，傍晚回城。",
+     "stops": [
+      {
+       "name": "大阿拉木图湖",
+       "q": "Big Almaty Lake, Kazakhstan",
+       "type": "park",
+       "dur": 90,
+       "via": "打车约 40 分钟"
+      },
+      {
+       "name": "舒姆布拉克滑雪场",
+       "q": "Shymbulak Ski Resort, Almaty",
+       "type": "fun",
+       "dur": 90,
+       "via": "打车约 20 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 2500,
+     "stay": "阿拉木图",
+     "city": "阿拉木图",
+     "dinner": {
+      "dish": "卡兹马肉肠",
+      "place": "市区的哈萨克餐馆，拼盘上桌"
+     }
+    },
+    {
+     "title": "中央国家博物馆 · 第一总统公园 · 植物园",
+     "text": "上午去中央国家博物馆了解草原民族的历史，再去第一总统公园散步，最后到植物园的林荫道走一圈，下午收尾。",
+     "stops": [
+      {
+       "name": "哈萨克斯坦中央国家博物馆",
+       "q": "Central State Museum of Kazakhstan, Almaty",
+       "type": "museum",
+       "dur": 100,
+       "via": "步行约 25 分钟"
+      },
+      {
+       "name": "第一总统公园",
+       "q": "First President Park, Almaty",
+       "type": "park",
+       "dur": 80,
+       "via": "打车约 10 分钟"
+      },
+      {
+       "name": "阿拉木图植物园",
+       "q": "Almaty Botanical Garden",
+       "type": "park",
+       "dur": 70,
+       "via": "打车约 10 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 800,
+     "city": "阿拉木图",
+     "lunch": {
+      "dish": "拉格曼",
+      "place": "公园附近的面馆"
+     }
+    }
+   ],
+   "dest": "kazakhstan",
+   "start": [
+    2027,
+    5,
+    15
+   ]
+  },
+  "xn6b": {
+   "city": "奇姆肯特",
+   "label": "奇姆肯特 3 天",
+   "title": "三天，欧达巴西广场、亚萨维陵和奥特拉尔古城",
+   "kicker": "历史 · 丝路 · 3 天",
+   "prep": [
+    "租车在奇姆肯特市区或机场取还，三天后还在这里还车；奇姆肯特到突厥斯坦是平坦的公路，约三小时",
+    "奥特拉尔一带路面差，加满油再出发；遗址在草原上没有遮挡，带帽子和水",
+    "突厥斯坦的陵墓群进门要换鞋或脱帽，女士带条围巾；周五中午人多",
+    "付款用银行卡和坚戈现金，县城小店多数只收现金"
+   ],
+   "days": [
+    {
+     "title": "欧达巴西广场 · 树木公园",
+     "text": "到奇姆肯特后先去欧达巴西广场，看纪念三个部族联盟的纪念碑，傍晚在树木公园散步。",
+     "stops": [
+      {
+       "name": "欧达巴西广场",
+       "q": "Ordabasy Square, Shymkent",
+       "type": "street",
+       "dur": 50,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "奇姆肯特树木公园",
+       "q": "Dendrological Park, Shymkent",
+       "type": "park",
+       "dur": 80,
+       "via": "打车约 5 分钟"
+      }
+     ],
+     "start": "13:00",
+     "elev": 600,
+     "stay": "奇姆肯特",
+     "city": "奇姆肯特",
+     "dinner": {
+      "dish": "苏尔帕羊肉汤",
+      "place": "广场附近的哈萨克餐馆"
+     }
+    },
+    {
+     "title": "亚萨维陵 · 地下清真寺 · 苏丹别古姆陵",
+     "text": "早上自驾去突厥斯坦，看亚萨维陵的蓝色穹顶，再去地下清真寺和旁边的陵墓，晚上住在当地。",
+     "stops": [
+      {
+       "name": "亚萨维陵",
+       "q": "Mausoleum of Khoja Ahmed Yasawi, Turkestan",
+       "type": "sight",
+       "dur": 120,
+       "via": "自驾约 3 小时 5 分钟"
+      },
+      {
+       "name": "希尔维特地下清真寺",
+       "q": "Hilvet Underground Mosque, Turkestan",
+       "type": "sight",
+       "dur": 40,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "拉比娅苏丹别古姆陵",
+       "q": "Rabiga Sultan Begim Mausoleum, Turkestan",
+       "type": "sight",
+       "dur": 40,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "08:00",
+     "elev": 220,
+     "stay": "突厥斯坦",
+     "city": "突厥斯坦",
+     "dinner": {
+      "dish": "迪姆拉玛焖肉",
+      "place": "陵墓旁的餐馆"
+     }
+    },
+    {
+     "title": "奥特拉尔古城",
+     "text": "早上从突厥斯坦驱车去奥特拉尔，在草原上看丝路古城遗址，下午开车回奇姆肯特。",
+     "stops": [
+      {
+       "name": "奥特拉尔古城遗址",
+       "q": "Otrar Tobe, Kazakhstan",
+       "type": "sight",
+       "dur": 120,
+       "via": "自驾约 1 小时"
+      }
+     ],
+     "start": "08:00",
+     "elev": 200,
+     "city": "奥特拉尔",
+     "lunch": {
+      "dish": "烤羊排",
+      "place": "回程路上的路边餐馆"
+     }
+    }
+   ],
+   "dest": "kazakhstan",
+   "start": [
+    2027,
+    4,
+    18
+   ]
+  },
+  "xn6c": {
+   "city": "撒马尔罕",
+   "label": "撒马尔罕 3 天",
+   "title": "三天，兀鲁伯天文台、沙赫里萨布兹和孔尼吉尔",
+   "kicker": "历史 · 手工 · 3 天",
+   "prep": [
+    "去沙赫里萨布兹要自驾：在撒马尔罕市区租车点取还，当天往返，山路来回约三小时",
+    "市内打车用 Yandex Go，比街边议价便宜；老城景点都靠近，步行就够",
+    "清真寺和陵墓进门要穿过膝盖的衣服，女士带条围巾；夏天正午很热，早出晚归",
+    "付款以现金苏姆为主，大景点和餐馆也能刷卡，兑换在银行或正规兑换点"
+   ],
+   "days": [
+    {
+     "title": "西亚卜巴扎 · 阿夫拉西亚卜 · 兀鲁伯天文台",
+     "text": "下午先逛西亚卜巴扎买干果，再去阿夫拉西亚卜博物馆看老城遗址和壁画，最后到兀鲁伯天文台了解古代天文。",
+     "stops": [
+      {
+       "name": "西亚卜巴扎",
+       "q": "Siab Bazaar, Samarkand",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "阿夫拉西亚卜博物馆",
+       "q": "Afrasiab Museum, Samarkand",
+       "type": "museum",
+       "dur": 80,
+       "via": "打车约 5 分钟"
+      },
+      {
+       "name": "兀鲁伯天文台",
+       "q": "Ulugh Beg Observatory, Samarkand",
+       "type": "museum",
+       "dur": 60,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 720,
+     "stay": "撒马尔罕",
+     "city": "撒马尔罕",
+     "dinner": {
+      "dish": "沙什利克烤肉",
+      "place": "老城的烤肉铺"
+     }
+    },
+    {
+     "title": "阿克萨赖宫 · 多鲁特蒂洛瓦特 · 科克古姆巴兹",
+     "text": "早上翻山去沙赫里萨布兹，这是帖木儿的故乡，看阿克萨赖宫残存的大门和旁边的建筑群，傍晚回撒马尔罕。",
+     "stops": [
+      {
+       "name": "阿克萨赖宫遗址",
+       "q": "Ak-Saray Palace, Shakhrisabz",
+       "type": "sight",
+       "dur": 70,
+       "via": "自驾约 1 小时 20 分钟"
+      },
+      {
+       "name": "多鲁特蒂洛瓦特建筑群",
+       "q": "Dorut Tilovat Complex, Shakhrisabz",
+       "type": "sight",
+       "dur": 50,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "科克古姆巴兹清真寺",
+       "q": "Kok Gumbaz Mosque, Shakhrisabz",
+       "type": "sight",
+       "dur": 40,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "08:00",
+     "elev": 620,
+     "stay": "撒马尔罕",
+     "city": "沙赫里萨布兹",
+     "lunch": {
+      "dish": "拉格曼",
+      "place": "古城附近的家常餐馆"
+     }
+    },
+    {
+     "title": "圣丹尼尔陵 · 孔尼吉尔造纸",
+     "text": "上午去圣丹尼尔陵，再到孔尼吉尔看当地人用桑树皮手工造纸，中午前后结束行程。",
+     "stops": [
+      {
+       "name": "圣丹尼尔陵",
+       "q": "Daniel Mausoleum, Samarkand",
+       "type": "sight",
+       "dur": 50,
+       "via": "打车约 5 分钟"
+      },
+      {
+       "name": "孔尼吉尔造纸作坊",
+       "q": "Konigil Meros Paper Mill, Samarkand",
+       "type": "fun",
+       "dur": 90,
+       "via": "打车约 5 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 720,
+     "city": "撒马尔罕",
+     "lunch": {
+      "dish": "曼帕尔",
+      "place": "造纸村旁的家常餐馆"
+     }
+    }
+   ],
+   "dest": "uzbekistan",
+   "start": [
+    2027,
+    3,
+    20
+   ]
+  },
+  "xn6d": {
+   "city": "布哈拉",
+   "label": "布哈拉 4 天",
+   "title": "四天，布哈拉老城、夏宫和吉杜万陶瓷",
+   "kicker": "古城 · 手工 · 4 天",
+   "prep": [
+    "布哈拉老城步行就能逛完，住在老城内的小旅馆最方便；郊外用 Yandex Go 打车，或包车",
+    "吉杜万要自驾：在布哈拉市区租车点取还，约一小时车程，半天往返",
+    "进清真寺和陵墓穿过膝的衣服，女士带条围巾；正午老城很热，早晚走路，中午回旅馆",
+    "付款以现金苏姆为主，大店可刷卡；买手工艺品先看几家再还价"
+   ],
+   "days": [
+    {
+     "title": "波洛豪兹 · 萨曼尼陵 · 楚什马阿尤布",
+     "text": "下午从老城西边走起，先到波洛豪兹清真寺看木柱门廊，再去萨曼尼陵和楚什马阿尤布，傍晚回老城吃饭。",
+     "stops": [
+      {
+       "name": "波洛豪兹清真寺",
+       "q": "Bolo Hauz Mosque, Bukhara",
+       "type": "sight",
+       "dur": 40,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "伊斯梅尔萨曼尼陵",
+       "q": "Ismail Samani Mausoleum, Bukhara",
+       "type": "sight",
+       "dur": 50,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "楚什马阿尤布",
+       "q": "Chashma-Ayub Mausoleum, Bukhara",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 225,
+     "stay": "布哈拉",
+     "city": "布哈拉",
+     "dinner": {
+      "dish": "楚奇瓦拉汤饺",
+      "place": "老城的家常餐馆"
+     }
+    },
+    {
+     "title": "托奇扎戈兰 · 阿卜杜拉齐汗 · 米里阿拉伯 · 四塔",
+     "text": "白天在老城里走一圈，逛商业穹顶，看几座神学院，傍晚到四塔拍照，城东这一带比较安静。",
+     "stops": [
+      {
+       "name": "托奇扎戈兰商业穹顶",
+       "q": "Toqi Zargaron, Bukhara",
+       "type": "street",
+       "dur": 40,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "阿卜杜拉齐汗神学院",
+       "q": "Abdulaziz Khan Madrasa, Bukhara",
+       "type": "sight",
+       "dur": 50,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "米里阿拉伯神学院",
+       "q": "Mir-i-Arab Madrasa, Bukhara",
+       "type": "sight",
+       "dur": 40,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "四塔",
+       "q": "Chor Minor, Bukhara",
+       "type": "sight",
+       "dur": 40,
+       "via": "步行约 25 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 225,
+     "stay": "布哈拉",
+     "city": "布哈拉",
+     "lunch": {
+      "dish": "马斯塔瓦米汤",
+      "place": "老城的家常餐馆"
+     }
+    },
+    {
+     "title": "夏宫 · 纳克什班迪陵",
+     "text": "上午坐车去城郊的夏宫，看末代埃米尔的避暑宫殿，再到纳克什班迪陵，看苏菲圣地的朝圣场面，傍晚回布哈拉。",
+     "stops": [
+      {
+       "name": "夏宫",
+       "q": "Sitorai Mokhi Khosa Palace, Bukhara",
+       "type": "sight",
+       "dur": 70,
+       "via": "打车约 10 分钟"
+      },
+      {
+       "name": "纳克什班迪陵",
+       "q": "Bahauddin Naqshband Complex, Bukhara",
+       "type": "sight",
+       "dur": 70,
+       "via": "打车约 25 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 225,
+     "stay": "布哈拉",
+     "city": "布哈拉",
+     "dinner": {
+      "dish": "迪姆拉玛焖肉",
+      "place": "老城里的餐馆"
+     }
+    },
+    {
+     "title": "吉杜瓦尼陵 · 陶瓷工坊",
+     "text": "上午去吉杜万，先看吉杜瓦尼陵，再到陶瓷工坊看手工制陶，中午吃过饭就回布哈拉。",
+     "stops": [
+      {
+       "name": "阿卜杜哈利克吉杜瓦尼陵",
+       "q": "Abdulkhaliq Gijduvani Mausoleum, Gijduvan",
+       "type": "sight",
+       "dur": 50,
+       "via": "自驾约 50 分钟"
+      },
+      {
+       "name": "纳尔祖拉耶夫陶瓷工坊",
+       "q": "Narzullaev Ceramic Workshop, Gijduvan",
+       "type": "fun",
+       "dur": 70,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 230,
+     "city": "吉杜万",
+     "lunch": {
+      "dish": "诺伦冷切面",
+      "place": "吉杜万镇上的餐馆"
+     }
+    }
+   ],
+   "dest": "uzbekistan",
+   "start": [
+    2027,
+    4,
+    11
+   ]
+  },
+  "xn7a": {
+   "city": "廷布",
+   "label": "廷布 3 天",
+   "title": "三天，国家纪念塔、塔金保护区和切里寺",
+   "kicker": "城市文化 · 3 天",
+   "prep": [
+    "廷布没有红绿灯，市内小景点相隔不远，当地出租车随叫随停，可以按次讲价",
+    "不丹游客需随团或由当地向导和司机陪同，行程里的车程由向导安排，包车比较方便",
+    "寺庙内不能拍照，进殿要脱帽，穿长袖长裤；周末市场只在周五到周日营业",
+    "早晚温差大，春秋季带一件厚外套"
+   ],
+   "days": [
+    {
+     "title": "国家纪念塔 · 国家纺织博物馆 · 廷布周末市场",
+     "text": "先看白色的国家纪念塔，当地人在这里绕塔转经；再到纺织博物馆了解不丹织锦，傍晚逛河边的周末市场。",
+     "stops": [
+      {
+       "name": "国家纪念塔",
+       "q": "Memorial Chorten, Thimphu",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 12 分钟"
+      },
+      {
+       "name": "国家纺织博物馆",
+       "q": "National Textile Museum, Thimphu",
+       "type": "museum",
+       "dur": 75,
+       "via": "打车约 14 分钟"
+      },
+      {
+       "name": "廷布周末市场",
+       "q": "Centenary Farmers Market, Thimphu",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 12 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 2320,
+     "stay": "廷布",
+     "city": "廷布",
+     "dinner": {
+      "dish": "莫莫（不丹饺子）",
+      "place": "市场附近的家常餐馆"
+     }
+    },
+    {
+     "title": "塔金保护区 · 电视塔观景台 · 桑托佩里拉康",
+     "text": "上午去看不丹国兽羚牛，再上山坡看经幡和全城，下午到桑托佩里拉康参观。",
+     "stops": [
+      {
+       "name": "莫提塘塔金保护区",
+       "q": "Motithang Takin Preserve, Thimphu",
+       "type": "park",
+       "dur": 60,
+       "via": "打车约 7 分钟"
+      },
+      {
+       "name": "廷布电视塔观景台",
+       "q": "BBS Tower viewpoint, Thimphu",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 4 分钟"
+      },
+      {
+       "name": "桑托佩里拉康",
+       "q": "Zangto Pelri Lhakhang, Thimphu",
+       "type": "sight",
+       "dur": 45,
+       "via": "打车约 10 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 2400,
+     "stay": "廷布",
+     "city": "廷布",
+     "lunch": {
+      "dish": "蘑菇奶酪（Shamu Datshi）",
+      "place": "塔金保护区山下的餐馆"
+     },
+     "dinner": {
+      "dish": "辣椒炖猪肉（Phaksha Paa）",
+      "place": "廷布市区的不丹餐馆"
+     }
+    },
+    {
+     "title": "切里寺 · 德钦颇章寺",
+     "text": "最后一天上午徒步去切里寺，看山中古寺；下山后回城到德钦颇章寺，了解僧人的学习生活。",
+     "stops": [
+      {
+       "name": "切里寺",
+       "q": "Cheri Monastery, Thimphu",
+       "type": "sight",
+       "dur": 150,
+       "via": "打车约 20 分钟"
+      },
+      {
+       "name": "德钦颇章寺",
+       "q": "Dechen Phodrang Monastery, Thimphu",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 11 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 2700,
+     "city": "廷布",
+     "lunch": {
+      "dish": "荞麦面（Puta）",
+      "place": "廷布的小餐馆"
+     }
+    }
+   ],
+   "dest": "bhutan",
+   "start": [
+    2027,
+    3,
+    13
+   ]
+  },
+  "xn7b": {
+   "city": "帕罗",
+   "label": "帕罗 3 天",
+   "title": "三天，帕罗老街、敦杰宗和廷布",
+   "kicker": "历史人文 · 3 天",
+   "prep": [
+    "在帕罗住两晚，前两天景点都在河谷里，距离不远，由向导和司机用车接送",
+    "第三天从帕罗去廷布约 1 小时 15 分钟，看完当天回帕罗，或者直接送去机场",
+    "进博物馆和寺庙要穿长袖长裤，殿内不许拍照；国家博物馆在山坡上，要走一段坡路",
+    "早晚温度低，带上外套，秋季白天阳光强，带帽子"
+   ],
+   "days": [
+    {
+     "title": "帕罗老街 · 帕罗河木桥 · 敦采拉康",
+     "text": "下午到帕罗，先逛彩绘木屋的老街，再走过河上的有顶木桥，最后看外形像塔的敦采拉康。",
+     "stops": [
+      {
+       "name": "帕罗老街",
+       "q": "Paro Town Main Street, Bhutan",
+       "type": "street",
+       "dur": 75,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "帕罗河木桥",
+       "q": "Nyamai Zam Bridge, Paro",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 12 分钟"
+      },
+      {
+       "name": "敦采拉康",
+       "q": "Dumtse Lhakhang, Paro",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 2200,
+     "stay": "帕罗",
+     "city": "帕罗",
+     "dinner": {
+      "dish": "土豆奶酪（Kewa Datshi）",
+      "place": "老街上的不丹餐馆"
+     }
+    },
+    {
+     "title": "敦杰宗 · 帕罗国家博物馆 · 祖里宗",
+     "text": "上午去河谷尽头看敦杰宗遗址，再回到山坡上的国家博物馆，下午沿山路走到祖里宗，俯瞰帕罗全谷。",
+     "stops": [
+      {
+       "name": "敦杰宗遗址",
+       "q": "Drukgyel Dzong, Paro",
+       "type": "sight",
+       "dur": 75,
+       "via": "打车约 25 分钟"
+      },
+      {
+       "name": "帕罗国家博物馆",
+       "q": "National Museum of Bhutan, Paro",
+       "type": "museum",
+       "dur": 90,
+       "via": "打车约 25 分钟"
+      },
+      {
+       "name": "祖里宗",
+       "q": "Zuri Dzong, Paro",
+       "type": "sight",
+       "dur": 90,
+       "via": "步行约 40 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 2300,
+     "stay": "帕罗",
+     "city": "帕罗",
+     "lunch": {
+      "dish": "干牛肉炖辣椒（Shakam Paa）",
+      "place": "帕罗河边的餐馆"
+     }
+    },
+    {
+     "title": "传统绘画学校 · 国家图书馆 · 民俗遗产博物馆",
+     "text": "早上驱车去廷布，先看传统绘画学校，再到图书馆和民俗遗产博物馆，下午返回帕罗。",
+     "stops": [
+      {
+       "name": "不丹传统绘画学校",
+       "q": "Zorig Chusum, Thimphu",
+       "type": "museum",
+       "dur": 60,
+       "via": "打车约 1 小时"
+      },
+      {
+       "name": "不丹国家图书馆",
+       "q": "National Library of Bhutan, Thimphu",
+       "type": "museum",
+       "dur": 45,
+       "via": "打车约 11 分钟"
+      },
+      {
+       "name": "民俗遗产博物馆",
+       "q": "Folk Heritage Museum, Thimphu",
+       "type": "museum",
+       "dur": 75,
+       "via": "步行约 8 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 2320,
+     "city": "廷布",
+     "lunch": {
+      "dish": "辣炖鸡（Jasha Maru）",
+      "place": "廷布市区的不丹餐馆"
+     }
+    }
+   ],
+   "dest": "bhutan",
+   "start": [
+    2027,
+    9,
+    20
+   ]
+  },
+  "xn7c": {
+   "city": "雷克雅未克",
+   "label": "雷克雅未克 3 天",
+   "title": "三天，珍珠楼、雷克雅内斯半岛和哈夫纳菲厄泽",
+   "kicker": "地热 · 3 天",
+   "prep": [
+    "雷克雅未克市区步行就够，第二、三天需要自驾，在市区租车点取车，当天开回原处还车",
+    "雷克雅内斯半岛风大，地热区的蒸汽和泥浆很烫，只能走木栈道，别踩出路",
+    "冰岛天气多变，带防风防水外套；加油站和景点几乎都能刷卡，不用带现金",
+    "夏天天黑得晚，白天时间长，行程可以安排宽松些"
+   ],
+   "days": [
+    {
+     "title": "国家博物馆 · 哈帕音乐厅 · 太阳航海者 · 珍珠楼",
+     "text": "下午在市区慢慢走，先看国家博物馆了解冰岛历史，再沿海边到音乐厅和太阳航海者雕塑，最后上珍珠楼看全城。",
+     "stops": [
+      {
+       "name": "冰岛国家博物馆",
+       "q": "National Museum of Iceland, Reykjavik",
+       "type": "museum",
+       "dur": 90,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "哈帕音乐厅",
+       "q": "Harpa Concert Hall, Reykjavik",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 18 分钟"
+      },
+      {
+       "name": "太阳航海者雕塑",
+       "q": "Sun Voyager, Reykjavik",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 12 分钟"
+      },
+      {
+       "name": "珍珠楼",
+       "q": "Perlan, Reykjavik",
+       "type": "museum",
+       "dur": 90,
+       "via": "步行约 30 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 20,
+     "stay": "雷克雅未克",
+     "city": "雷克雅未克",
+     "dinner": {
+      "dish": "鳕鱼土豆泥（Plokkfiskur）",
+      "place": "市区的冰岛餐馆"
+     }
+    },
+    {
+     "title": "塞尔通 · 古努赫韦尔 · 雷克雅内斯灯塔 · 大陆桥",
+     "text": "自驾去雷克雅内斯半岛，沿路看地热区的泥浆池和蒸汽，再到海边灯塔和跨过板块裂缝的小桥，晚上回雷克雅未克。",
+     "stops": [
+      {
+       "name": "塞尔通地热区",
+       "q": "Seltun Geothermal Area, Krysuvik",
+       "type": "park",
+       "dur": 60,
+       "via": "自驾约 40 分钟"
+      },
+      {
+       "name": "古努赫韦尔地热区",
+       "q": "Gunnuhver Hot Springs, Reykjanes",
+       "type": "park",
+       "dur": 45,
+       "via": "自驾约 45 分钟"
+      },
+      {
+       "name": "雷克雅内斯灯塔",
+       "q": "Reykjanes Lighthouse, Iceland",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 25 分钟"
+      },
+      {
+       "name": "大陆桥",
+       "q": "Bridge Between Continents, Reykjanes",
+       "type": "sight",
+       "dur": 30,
+       "via": "自驾约 12 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 60,
+     "stay": "雷克雅未克",
+     "city": "雷克雅未克",
+     "lunch": {
+      "dish": "龙虾汤（Humarsupa）",
+      "place": "半岛海边的餐厅"
+     }
+    },
+    {
+     "title": "哈夫纳菲厄泽 · 赫利斯格迪 · 阿尔巴埃",
+     "text": "最后一天去南边的小镇哈夫纳菲厄泽，逛老港和熔岩公园，下午到阿尔巴埃露天博物馆。",
+     "stops": [
+      {
+       "name": "哈夫纳菲厄泽老港",
+       "q": "Hafnarfjordur Harbour, Iceland",
+       "type": "street",
+       "dur": 60,
+       "via": "自驾约 20 分钟"
+      },
+      {
+       "name": "赫利斯格迪公园",
+       "q": "Hellisgerdi Park, Hafnarfjordur",
+       "type": "park",
+       "dur": 45,
+       "via": "步行约 12 分钟"
+      },
+      {
+       "name": "阿尔巴埃露天博物馆",
+       "q": "Arbaer Open Air Museum, Reykjavik",
+       "type": "museum",
+       "dur": 90,
+       "via": "自驾约 20 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 20,
+     "city": "雷克雅未克",
+     "lunch": {
+      "dish": "烤北极红点鲑",
+      "place": "哈夫纳菲厄泽港边的餐厅"
+     }
+    }
+   ],
+   "dest": "iceland",
+   "start": [
+    2027,
+    6,
+    13
+   ]
+  },
+  "xn7d": {
+   "city": "雷克雅未克",
+   "label": "雷克雅未克 3 天",
+   "title": "三天，阿克拉内斯、亨拉瀑布和格林姆瀑布",
+   "kicker": "自然 · 3 天",
+   "prep": [
+    "三天都要自驾，在雷克雅未克市区租车点取车，最后一天回市区还车",
+    "第一晚住在雷克霍尔特一带的农家旅馆，要提前订；周边餐厅少，晚饭尽量早点吃",
+    "熔岩洞和格林姆瀑布都要走路，带防滑的鞋；瀑布谷里的路湿滑，注意脚下",
+    "冰岛天气多变，带防风防水外套；加油站和景点几乎都能刷卡"
+   ],
+   "days": [
+    {
+     "title": "阿克拉内斯灯塔 · 德尔达通胡韦尔 · 斯诺里",
+     "text": "下午出城，先到海岬上的阿克拉内斯灯塔，再去德尔达通胡韦尔看热水涌出山坡，晚上住在雷克霍尔特。",
+     "stops": [
+      {
+       "name": "阿克拉内斯灯塔",
+       "q": "Akranes Lighthouse, Iceland",
+       "type": "sight",
+       "dur": 45,
+       "via": "自驾约 45 分钟"
+      },
+      {
+       "name": "德尔达通胡韦尔温泉",
+       "q": "Deildartunguhver Hot Spring, Iceland",
+       "type": "park",
+       "dur": 45,
+       "via": "自驾约 55 分钟"
+      },
+      {
+       "name": "雷克霍尔特斯诺里博物馆",
+       "q": "Snorrastofa, Reykholt",
+       "type": "museum",
+       "dur": 60,
+       "via": "自驾约 10 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 20,
+     "stay": "雷克霍尔特",
+     "city": "雷克霍尔特",
+     "dinner": {
+      "dish": "烟熏羊肉（Hangikjot）",
+      "place": "雷克霍尔特的农家餐厅"
+     }
+    },
+    {
+     "title": "亨拉瀑布 · 巴纳瀑布 · 维德格尔米尔",
+     "text": "上午看从熔岩壁渗出的亨拉瀑布和旁边的巴纳瀑布，再去熔岩洞，下午开车回雷克雅未克。",
+     "stops": [
+      {
+       "name": "亨拉瀑布",
+       "q": "Hraunfossar, Iceland",
+       "type": "park",
+       "dur": 60,
+       "via": "自驾约 20 分钟"
+      },
+      {
+       "name": "巴纳瀑布",
+       "q": "Barnafoss, Iceland",
+       "type": "park",
+       "dur": 30,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "维德格尔米尔熔岩洞",
+       "q": "Vidgelmir Lava Cave, Iceland",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 15 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 150,
+     "stay": "雷克雅未克",
+     "city": "雷克霍尔特",
+     "lunch": {
+      "dish": "冰岛鱼汤",
+      "place": "瀑布附近的餐厅"
+     },
+     "dinner": {
+      "dish": "烤羊排",
+      "place": "雷克雅未克市区的餐厅"
+     }
+    },
+    {
+     "title": "格林姆瀑布 · 约法楼 · 洛加维吉街",
+     "text": "最后一天早上徒步去格林姆瀑布，下山后回市区，看约法楼，在洛加维吉街逛逛。",
+     "stops": [
+      {
+       "name": "格林姆瀑布",
+       "q": "Glymur Waterfall, Iceland",
+       "type": "park",
+       "dur": 180,
+       "via": "自驾约 50 分钟"
+      },
+      {
+       "name": "约法楼",
+       "q": "Hofdi House, Reykjavik",
+       "type": "sight",
+       "dur": 45,
+       "via": "自驾约 50 分钟"
+      },
+      {
+       "name": "洛加维吉街",
+       "q": "Laugavegur, Reykjavik",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 25 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 100,
+     "city": "雷克雅未克",
+     "lunch": {
+      "dish": "炸鱼薯条",
+      "place": "洛加维吉街上的小餐馆"
+     }
+    }
+   ],
+   "dest": "iceland",
+   "start": [
+    2027,
+    6,
+    20
+   ]
+  },
+  "xn10a": {
+   "city": "科英布拉",
+   "label": "科英布拉 3 天",
+   "title": "三天，科英布拉、孔米尼亚什和阿威罗",
+   "kicker": "历史 · 3 天",
+   "prep": [
+    "里斯本圣阿波罗尼亚站坐火车到科英布拉 B 站约 2 小时，再换小火车进市区，一路都有直达班次",
+    "第二、三天自驾，在科英布拉火车站附近的租车点取车和还车，只租两天",
+    "科英布拉老城在山上，台阶多，穿防滑的鞋；大学参观最好提前在网上订时段",
+    "葡萄牙小餐馆常先上面包和小菜，不点的不用吃，但会算钱；多数地方可以刷卡"
+   ],
+   "days": [
+    {
+     "title": "科英布拉大学 · 旧大教堂 · 葡萄牙小人国",
+     "text": "乘火车到科英布拉，先上山看大学和图书馆，再去旧大教堂，傍晚在小人国里看葡萄牙各地的缩微建筑。",
+     "stops": [
+      {
+       "name": "科英布拉大学",
+       "q": "University of Coimbra, Coimbra",
+       "type": "museum",
+       "dur": 100,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "科英布拉旧大教堂",
+       "q": "Se Velha de Coimbra, Coimbra",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 8 分钟"
+      },
+      {
+       "name": "葡萄牙小人国",
+       "q": "Portugal dos Pequenitos, Coimbra",
+       "type": "fun",
+       "dur": 90,
+       "via": "步行约 20 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 80,
+     "stay": "科英布拉",
+     "city": "科英布拉",
+     "dinner": {
+      "dish": "烤乳猪",
+      "place": "老城里的传统烤肉馆"
+     }
+    },
+    {
+     "title": "孔米尼亚什 · 布萨科宫 · 布萨科森林",
+     "text": "自驾先去孔米尼亚什看罗马人留下的马赛克，再开到布萨科，看森林里的宫殿并沿步道散步。",
+     "stops": [
+      {
+       "name": "孔米尼亚什罗马遗址",
+       "q": "Conimbriga Roman Ruins, Condeixa",
+       "type": "sight",
+       "dur": 100,
+       "via": "自驾约 30 分钟"
+      },
+      {
+       "name": "布萨科宫",
+       "q": "Palace Hotel do Bussaco, Luso",
+       "type": "sight",
+       "dur": 50,
+       "via": "自驾约 50 分钟"
+      },
+      {
+       "name": "布萨科森林",
+       "q": "Mata Nacional do Bussaco, Luso",
+       "type": "park",
+       "dur": 90,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 100,
+     "stay": "科英布拉",
+     "city": "科英布拉",
+     "lunch": {
+      "dish": "布拉什式炒鳕鱼",
+      "place": "遗址附近的家庭餐馆"
+     }
+    },
+    {
+     "title": "阿威罗 · 科斯塔诺瓦",
+     "text": "早上自驾去阿威罗，看车站的瓷砖画和运河边的老房子，再到海边看彩色条纹屋，下午回科英布拉还车。",
+     "stops": [
+      {
+       "name": "阿威罗火车站",
+       "q": "Aveiro Railway Station, Aveiro",
+       "type": "sight",
+       "dur": 30,
+       "via": "自驾约 55 分钟"
+      },
+      {
+       "name": "阿威罗中央运河",
+       "q": "Canal Central, Aveiro",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "科斯塔诺瓦彩色条纹屋",
+       "q": "Costa Nova Striped Houses, Aveiro",
+       "type": "street",
+       "dur": 75,
+       "via": "自驾约 25 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 10,
+     "city": "科英布拉",
+     "lunch": {
+      "dish": "阿威罗鳗鱼汤",
+      "place": "运河边的海鲜餐馆"
+     }
+    }
+   ],
+   "dest": "portugal",
+   "start": [
+    2027,
+    4,
+    11
+   ]
+  },
+  "xn10b": {
+   "city": "埃武拉",
+   "label": "埃武拉 3 天",
+   "title": "三天，埃武拉、蒙萨拉兹和埃尔瓦什",
+   "kicker": "古迹 · 3 天",
+   "prep": [
+    "里斯本塞特河站坐火车或从 Sete Rios 坐长途巴士到埃武拉，约 1 小时 30 分钟；老城可全部步行",
+    "第二、三天自驾，在埃武拉火车站附近的租车点取车和还车，只租两天",
+    "阿连特茹夏天很热，午后要找阴凉；帽子和水都带上，春秋最舒服",
+    "大教堂、礼拜堂多在午间休息，早点去；小餐馆午餐时间通常到下午三点左右"
+   ],
+   "days": [
+    {
+     "title": "吉拉尔多广场 · 埃武拉大教堂 · 罗马神庙 · 人骨礼拜堂",
+     "text": "乘车到埃武拉，先到吉拉尔多广场，再看大教堂、罗马神庙，下午去人骨礼拜堂。老城很小，全程步行。",
+     "stops": [
+      {
+       "name": "吉拉尔多广场",
+       "q": "Praca do Giraldo, Evora",
+       "type": "street",
+       "dur": 30,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "埃武拉大教堂",
+       "q": "Se de Evora, Evora",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "埃武拉罗马神庙",
+       "q": "Templo Romano de Evora, Evora",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "圣弗朗西斯科教堂与人骨礼拜堂",
+       "q": "Capela dos Ossos, Evora",
+       "type": "sight",
+       "dur": 40,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 300,
+     "stay": "埃武拉",
+     "city": "埃武拉",
+     "dinner": {
+      "dish": "阿连特茹炖黑猪肉蛤蜊",
+      "place": "老城里的阿连特茹餐馆"
+     }
+    },
+    {
+     "title": "阿尔门德雷斯巨石阵 · 蒙萨拉兹",
+     "text": "自驾去郊外的巨石阵，再开到东边的蒙萨拉兹山顶老村，登城堡看风景。",
+     "stops": [
+      {
+       "name": "阿尔门德雷斯巨石阵",
+       "q": "Cromeleque dos Almendres, Nossa Senhora de Guadalupe",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 30 分钟"
+      },
+      {
+       "name": "蒙萨拉兹老村",
+       "q": "Monsaraz Village, Reguengos de Monsaraz",
+       "type": "street",
+       "dur": 90,
+       "via": "自驾约 1 小时"
+      },
+      {
+       "name": "蒙萨拉兹城堡",
+       "q": "Castelo de Monsaraz, Monsaraz",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 8 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 300,
+     "stay": "埃武拉",
+     "city": "埃武拉",
+     "lunch": {
+      "dish": "阿连特茹面包汤",
+      "place": "老村里的小餐馆"
+     }
+    },
+    {
+     "title": "埃斯特雷莫斯 · 阿莫雷拉水道桥 · 埃尔瓦什城墙",
+     "text": "早起自驾去埃斯特雷莫斯，再往东到边境小城埃尔瓦什，看水道桥和星形城墙，下午回埃武拉还车。",
+     "stops": [
+      {
+       "name": "埃斯特雷莫斯罗西奥广场",
+       "q": "Rossio Marques de Pombal, Estremoz",
+       "type": "street",
+       "dur": 40,
+       "via": "自驾约 50 分钟"
+      },
+      {
+       "name": "埃斯特雷莫斯城堡",
+       "q": "Castelo de Estremoz, Estremoz",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 20 分钟"
+      },
+      {
+       "name": "阿莫雷拉水道桥",
+       "q": "Aqueduto da Amoreira, Elvas",
+       "type": "sight",
+       "dur": 45,
+       "via": "自驾约 50 分钟"
+      },
+      {
+       "name": "埃尔瓦什城墙",
+       "q": "Muralhas de Elvas, Elvas",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 350,
+     "city": "埃武拉",
+     "lunch": {
+      "dish": "炖羊肉",
+      "place": "埃尔瓦什老城里的餐馆"
+     }
+    }
+   ],
+   "dest": "portugal",
+   "start": [
+    2027,
+    8,
+    21
+   ]
+  },
+  "xn10c": {
+   "city": "布尔诺",
+   "label": "布尔诺 3 天",
+   "title": "三天，布尔诺、莱德尼采和奥洛穆茨",
+   "kicker": "城市 · 3 天",
+   "prep": [
+    "布拉格中央火车站到布尔诺有直达火车，约 2 到 3 小时；回程可从奥洛穆茨直接坐火车回布拉格，约 2 小时",
+    "第二天自驾，在布尔诺火车站附近的租车点取车和还车，只租一天；不开车也能坐火车加公交去",
+    "市内有轨电车和公交共用一种计时票，上车前在站台售票机或手机应用里买好",
+    "捷克小店和市集摊位常只收现金，备点克朗；餐馆小费一般凑整给"
+   ],
+   "days": [
+    {
+     "title": "自由广场 · 蔬菜市场 · 圣彼得与保罗大教堂 · 施皮尔贝格城堡",
+     "text": "到布尔诺后先走老城，逛广场和蔬菜市场，再上彼得罗夫山看大教堂，最后到施皮尔贝格城堡看城区。",
+     "stops": [
+      {
+       "name": "布尔诺自由广场",
+       "q": "Namesti Svobody, Brno",
+       "type": "street",
+       "dur": 30,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "布尔诺蔬菜市场",
+       "q": "Zelny trh, Brno",
+       "type": "street",
+       "dur": 30,
+       "via": "步行约 6 分钟"
+      },
+      {
+       "name": "圣彼得与保罗大教堂",
+       "q": "Cathedral of St Peter and Paul, Brno",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "施皮尔贝格城堡",
+       "q": "Spilberk Castle, Brno",
+       "type": "sight",
+       "dur": 90,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 230,
+     "stay": "布尔诺",
+     "city": "布尔诺",
+     "dinner": {
+      "dish": "炸奶酪",
+      "place": "老城的啤酒馆"
+     }
+    },
+    {
+     "title": "莱德尼采 · 瓦尔蒂采",
+     "text": "自驾去南摩拉维亚，看莱德尼采城堡和花园，再到瓦尔蒂采的城堡和小镇，傍晚回布尔诺还车。",
+     "stops": [
+      {
+       "name": "莱德尼采城堡",
+       "q": "Lednice Chateau, Lednice",
+       "type": "sight",
+       "dur": 120,
+       "via": "自驾约 55 分钟"
+      },
+      {
+       "name": "瓦尔蒂采城堡",
+       "q": "Valtice Chateau, Valtice",
+       "type": "sight",
+       "dur": 75,
+       "via": "自驾约 15 分钟"
+      },
+      {
+       "name": "瓦尔蒂采镇广场",
+       "q": "Namesti Svobody, Valtice",
+       "type": "street",
+       "dur": 40,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 170,
+     "stay": "布尔诺",
+     "city": "布尔诺",
+     "lunch": {
+      "dish": "烤鸭配面包团子",
+      "place": "莱德尼采镇上的餐馆"
+     }
+    },
+    {
+     "title": "奥洛穆茨上广场 · 圣三位一体柱 · 圣瓦茨拉夫大教堂",
+     "text": "坐火车去奥洛穆茨，在上广场看市政厅天文钟，再看巴洛克石柱和教堂，下午直接坐火车回布拉格。",
+     "stops": [
+      {
+       "name": "奥洛穆茨上广场",
+       "q": "Horni namesti, Olomouc",
+       "type": "street",
+       "dur": 60,
+       "via": "火车约 1 小时 20 分钟"
+      },
+      {
+       "name": "圣三位一体柱",
+       "q": "Holy Trinity Column, Olomouc",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 3 分钟"
+      },
+      {
+       "name": "圣瓦茨拉夫大教堂",
+       "q": "St Wenceslas Cathedral, Olomouc",
+       "type": "sight",
+       "dur": 50,
+       "via": "步行约 12 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 220,
+     "city": "布尔诺",
+     "lunch": {
+      "dish": "奶油酱牛里脊配面包团子",
+      "place": "上广场旁的传统餐馆"
+     }
+    }
+   ],
+   "dest": "czech",
+   "start": [
+    2027,
+    5,
+    8
+   ]
+  },
+  "xn10d": {
+   "city": "比尔森",
+   "label": "比尔森 3 天",
+   "title": "三天，比尔森、玛丽亚温泉和多玛日利采",
+   "kicker": "美食 · 3 天",
+   "prep": [
+    "布拉格 Florenc 或中央火车站坐火车到比尔森，约 1 小时 30 分钟；老城步行就够",
+    "第二、三天自驾，在比尔森火车站附近的租车点取车和还车，只租两天",
+    "比尔森啤酒厂参观和历史地下通道都是跟导览走，建议提前在网上订时段",
+    "西波西米亚山区早晚凉，带件外套；小镇餐馆收现金的多，备点克朗"
+   ],
+   "days": [
+    {
+     "title": "共和国广场 · 圣巴托洛缪大教堂 · 历史地下通道 · 比尔森啤酒厂",
+     "text": "到比尔森后先在老城广场和教堂转一圈，再下到地下通道，最后去啤酒厂参观酿造设备和酒窖。",
+     "stops": [
+      {
+       "name": "比尔森共和国广场",
+       "q": "Namesti Republiky, Plzen",
+       "type": "street",
+       "dur": 30,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "圣巴托洛缪大教堂",
+       "q": "Cathedral of St Bartholomew, Plzen",
+       "type": "sight",
+       "dur": 40,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "比尔森历史地下通道",
+       "q": "Plzen Historical Underground, Plzen",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "比尔森啤酒厂",
+       "q": "Pilsner Urquell Brewery, Plzen",
+       "type": "fun",
+       "dur": 90,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 310,
+     "stay": "比尔森",
+     "city": "比尔森",
+     "dinner": {
+      "dish": "捷克炖牛肉",
+      "place": "啤酒厂旁的传统餐厅"
+     }
+    },
+    {
+     "title": "玛丽亚温泉廊柱 · 唱歌喷泉 · 切布广场 · 切布城堡",
+     "text": "自驾去西部温泉小镇，在廊柱下喝温泉水，看唱歌喷泉，再到切布看广场和城堡，傍晚回比尔森。",
+     "stops": [
+      {
+       "name": "玛丽亚温泉廊柱",
+       "q": "Colonnade, Marianske Lazne",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 1 小时 20 分钟"
+      },
+      {
+       "name": "玛丽亚温泉唱歌喷泉",
+       "q": "Singing Fountain, Marianske Lazne",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "切布广场",
+       "q": "Namesti Krale Jiriho z Podebrad, Cheb",
+       "type": "street",
+       "dur": 60,
+       "via": "自驾约 30 分钟"
+      },
+      {
+       "name": "切布城堡",
+       "q": "Cheb Castle, Cheb",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 12 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 600,
+     "stay": "比尔森",
+     "city": "比尔森",
+     "lunch": {
+      "dish": "蒜汤",
+      "place": "温泉镇上的小餐馆"
+     }
+    },
+    {
+     "title": "多玛日利采广场 · 多玛日利采城堡 · 霍尔肖夫斯基蒂恩城堡",
+     "text": "上午自驾去多玛日利采，逛长长的广场和城边城堡，再到霍尔肖夫斯基蒂恩看城堡庭院，下午回比尔森还车。",
+     "stops": [
+      {
+       "name": "多玛日利采广场",
+       "q": "Namesti Michala Alse, Domazlice",
+       "type": "street",
+       "dur": 50,
+       "via": "自驾约 45 分钟"
+      },
+      {
+       "name": "多玛日利采城堡",
+       "q": "Chodsky hrad, Domazlice",
+       "type": "museum",
+       "dur": 60,
+       "via": "步行约 8 分钟"
+      },
+      {
+       "name": "霍尔肖夫斯基蒂恩城堡",
+       "q": "Horsovsky Tyn Castle, Horsovsky Tyn",
+       "type": "sight",
+       "dur": 75,
+       "via": "自驾约 20 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 430,
+     "city": "比尔森",
+     "lunch": {
+      "dish": "捷克炸猪排",
+      "place": "多玛日利采广场边的餐馆"
+     }
+    }
+   ],
+   "dest": "czech",
+   "start": [
+    2027,
+    8,
+    14
+   ]
+  },
+  "xn11a": {
+   "city": "克雷姆斯",
+   "label": "瓦豪河谷 3 天",
+   "title": "三天，梅尔克、杜恩施泰因和克洛斯特新堡",
+   "kicker": "自驾 · 3 天",
+   "prep": [
+    "在维也纳机场或西火车站取车，三天后在维也纳还车；瓦豪沿多瑙河一路是单行道小路，开慢点",
+    "梅尔克修道院内部要跟导览，旺季先在官网约场次；杜恩施泰因废墟要爬一段陡坡，穿防滑的鞋",
+    "小镇停车多在镇口的投币或扫码机上付，带点零钱；餐馆午餐后常歇一段时间，早点进店",
+    "河谷里风大，傍晚凉，带一件外套"
+   ],
+   "days": [
+    {
+     "title": "梅尔克修道院 · 杜恩施泰因老镇",
+     "text": "从维也纳开车沿多瑙河进瓦豪，先看梅尔克修道院的巴洛克图书馆和教堂，再到杜恩施泰因老镇走蓝色塔楼下的小街，晚上住克雷姆斯。",
+     "stops": [
+      {
+       "name": "梅尔克修道院",
+       "q": "Melk Abbey, Melk",
+       "type": "sight",
+       "dur": 120,
+       "via": "自驾约 1 小时 20 分"
+      },
+      {
+       "name": "杜恩施泰因老镇",
+       "q": "Durnstein Old Town, Austria",
+       "type": "street",
+       "dur": 75,
+       "via": "自驾约 35 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 200,
+     "stay": "克雷姆斯",
+     "city": "梅尔克",
+     "dinner": {
+      "dish": "烤猪肘",
+      "place": "克雷姆斯老城的传统酒馆"
+     }
+    },
+    {
+     "title": "克雷姆斯老城 · 格特魏格修道院 · 魏森基兴 · 施皮茨",
+     "text": "白天先逛克雷姆斯老城，再上山到格特魏格修道院看多瑙河谷，下午沿河谷去魏森基兴和施皮茨两个酿酒小镇。",
+     "stops": [
+      {
+       "name": "克雷姆斯老城",
+       "q": "Krems an der Donau Old Town",
+       "type": "street",
+       "dur": 90,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "格特魏格修道院",
+       "q": "Gottweig Abbey, Furth bei Gottweig",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 12 分钟"
+      },
+      {
+       "name": "魏森基兴",
+       "q": "Weissenkirchen in der Wachau",
+       "type": "street",
+       "dur": 60,
+       "via": "自驾约 25 分钟"
+      },
+      {
+       "name": "施皮茨",
+       "q": "Spitz an der Donau, Austria",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 30 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 200,
+     "stay": "克雷姆斯",
+     "city": "克雷姆斯",
+     "lunch": {
+      "dish": "煎鳟鱼",
+      "place": "魏森基兴的河谷餐馆"
+     }
+    },
+    {
+     "title": "克洛斯特新堡修道院 · 卡伦山",
+     "text": "最后一天开回维也纳方向，先看克洛斯特新堡修道院的教堂和金色的祭坛，再上卡伦山看维也纳城和多瑙河，下午还车。",
+     "stops": [
+      {
+       "name": "克洛斯特新堡修道院",
+       "q": "Klosterneuburg Monastery, Austria",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 1 小时"
+      },
+      {
+       "name": "卡伦山",
+       "q": "Kahlenberg, Vienna",
+       "type": "park",
+       "dur": 60,
+       "via": "自驾约 12 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 300,
+     "city": "维也纳",
+     "lunch": {
+      "dish": "匈牙利炖牛肉汤",
+      "place": "卡伦山顶的餐厅"
+     }
+    }
+   ],
+   "dest": "austria",
+   "start": [
+    2027,
+    4,
+    18
+   ]
+  },
+  "xn11b": {
+   "city": "格拉茨",
+   "label": "格拉茨 3 天",
+   "title": "三天，格拉茨老城、格拉茨大教堂和里格斯堡城堡",
+   "kicker": "古城 · 3 天",
+   "prep": [
+    "从维也纳坐火车到格拉茨约两个半小时，车次多；老城和主要景点步行加有轨电车就够",
+    "第三天去里格斯堡需要车，在格拉茨火车站附近租车，当天取还；山区路窄，开慢点",
+    "埃根贝格宫的华丽厅要跟导览团，旺季先在官网约时间；博物馆和教堂多在傍晚前关门，尽量上午去",
+    "施泰尔马克州盛产南瓜籽油，餐馆里点菜时常配着吃"
+   ],
+   "days": [
+    {
+     "title": "格拉茨老城 · 兵器库 · 施洛斯山 · 艺术馆",
+     "text": "到格拉茨先逛主广场周围的老城，看兵器库里一整面墙的盔甲，再爬施洛斯山，最后去格拉茨艺术馆看那座蓝色的外形。",
+     "stops": [
+      {
+       "name": "格拉茨老城",
+       "q": "Graz Old Town, Austria",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "格拉茨兵器库",
+       "q": "Landeszeughaus, Graz",
+       "type": "museum",
+       "dur": 60,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "施洛斯山",
+       "q": "Schlossberg, Graz",
+       "type": "park",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "格拉茨艺术馆",
+       "q": "Kunsthaus Graz",
+       "type": "museum",
+       "dur": 45,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 353,
+     "stay": "格拉茨",
+     "city": "格拉茨",
+     "dinner": {
+      "dish": "施泰尔马克炸鸡",
+      "place": "老城里的传统餐馆"
+     }
+    },
+    {
+     "title": "格拉茨大教堂 · 斐迪南二世皇陵 · 埃根贝格宫 · 市立公园",
+     "text": "上午先看格拉茨大教堂和旁边的皇陵，再坐有轨电车去郊外的埃根贝格宫，傍晚回到市立公园散步。",
+     "stops": [
+      {
+       "name": "格拉茨大教堂",
+       "q": "Graz Cathedral, Austria",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 12 分钟"
+      },
+      {
+       "name": "斐迪南二世皇陵",
+       "q": "Mausoleum of Emperor Ferdinand II, Graz",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 3 分钟"
+      },
+      {
+       "name": "埃根贝格宫",
+       "q": "Schloss Eggenberg, Graz",
+       "type": "museum",
+       "dur": 120,
+       "via": "公交约 20 分钟"
+      },
+      {
+       "name": "格拉茨市立公园",
+       "q": "Stadtpark Graz",
+       "type": "park",
+       "dur": 45,
+       "via": "公交约 25 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 353,
+     "stay": "格拉茨",
+     "city": "格拉茨",
+     "lunch": {
+      "dish": "施泰尔马克南瓜汤",
+      "place": "埃根贝格宫旁的咖啡馆"
+     }
+    },
+    {
+     "title": "里格斯堡城堡",
+     "text": "最后一天租车去东边的里格斯堡，城堡建在一座火山岩上，进去看展厅和城墙，中午在山脚吃饭，下午回格拉茨。",
+     "stops": [
+      {
+       "name": "里格斯堡城堡",
+       "q": "Riegersburg Castle, Austria",
+       "type": "sight",
+       "dur": 150,
+       "via": "自驾约 1 小时"
+      }
+     ],
+     "start": "09:00",
+     "elev": 400,
+     "city": "里格斯堡",
+     "lunch": {
+      "dish": "水煮牛肉",
+      "place": "里格斯堡山脚的餐馆"
+     }
+    }
+   ],
+   "dest": "austria",
+   "start": [
+    2027,
+    8,
+    14
+   ]
+  },
+  "xn11c": {
+   "city": "海牙",
+   "label": "海牙花园 3 天",
+   "title": "三天，和平宫、莱顿和库肯霍夫",
+   "kicker": "花园 · 3 天",
+   "prep": [
+    "海牙到莱顿、哈勒姆都有火车，刷银行卡或交通卡进站；库肯霍夫开园时间每年不同，出发前看官网",
+    "库肯霍夫的郁金香春季才开，错过就看不到；当天从海牙坐公交过去，进园后走一圈要半天",
+    "在荷兰几乎处处刷卡，小摊和厕所有时只收卡，带一张能刷的",
+    "路上骑车的人多，过自行车道时先看两边；风大爱下雨，带一件薄雨衣"
+   ],
+   "days": [
+    {
+     "title": "埃舍尔博物馆 · 和平宫 · 斯海弗宁恩海滩",
+     "text": "下午先看埃舍尔博物馆，了解他那些错觉版画，再走到和平宫外面拍照，傍晚去斯海弗宁恩海滩看北海。",
+     "stops": [
+      {
+       "name": "埃舍尔博物馆",
+       "q": "Escher in Het Paleis, The Hague",
+       "type": "museum",
+       "dur": 90,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "和平宫",
+       "q": "Peace Palace, The Hague",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 20 分钟"
+      },
+      {
+       "name": "斯海弗宁恩海滩",
+       "q": "Scheveningen Beach, The Hague",
+       "type": "park",
+       "dur": 90,
+       "via": "公交约 12 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 2,
+     "stay": "海牙",
+     "city": "海牙",
+     "dinner": {
+      "dish": "炸鱼块",
+      "place": "海滩边的鱼摊"
+     }
+    },
+    {
+     "title": "马都罗丹 · 自然生物多样性中心 · 磨坊博物馆 · 莱顿植物园",
+     "text": "早上去马都罗丹看荷兰名胜的微缩模型，再坐火车去莱顿，看自然博物馆、风车磨坊博物馆和老植物园，晚上回海牙。",
+     "stops": [
+      {
+       "name": "马都罗丹微缩城",
+       "q": "Madurodam, The Hague",
+       "type": "fun",
+       "dur": 120,
+       "via": "公交约 20 分钟"
+      },
+      {
+       "name": "莱顿自然生物多样性中心",
+       "q": "Naturalis Biodiversity Center, Leiden",
+       "type": "museum",
+       "dur": 120,
+       "via": "火车约 40 分钟"
+      },
+      {
+       "name": "莱顿德瓦尔克磨坊博物馆",
+       "q": "Molenmuseum De Valk, Leiden",
+       "type": "museum",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "莱顿植物园",
+       "q": "Hortus Botanicus Leiden",
+       "type": "park",
+       "dur": 60,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 2,
+     "stay": "海牙",
+     "city": "海牙",
+     "lunch": {
+      "dish": "荷兰薄煎饼",
+      "place": "莱顿老城的薄煎饼店"
+     }
+    },
+    {
+     "title": "库肯霍夫 · 哈勒姆大教堂 · 弗兰斯哈尔斯博物馆",
+     "text": "最后一天去库肯霍夫看春天的花海，下午到哈勒姆看大教堂和弗兰斯哈尔斯的画，之后搭火车去阿姆斯特丹。",
+     "stops": [
+      {
+       "name": "库肯霍夫",
+       "q": "Keukenhof, Lisse",
+       "type": "park",
+       "dur": 240,
+       "via": "公交约 1 小时"
+      },
+      {
+       "name": "哈勒姆大教堂",
+       "q": "Grote Kerk St Bavo, Haarlem",
+       "type": "sight",
+       "dur": 45,
+       "via": "公交约 40 分钟"
+      },
+      {
+       "name": "弗兰斯哈尔斯博物馆",
+       "q": "Frans Hals Museum, Haarlem",
+       "type": "museum",
+       "dur": 90,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 2,
+     "city": "海牙",
+     "lunch": {
+      "dish": "土豆泥炖菜",
+      "place": "库肯霍夫园内的餐厅"
+     }
+    }
+   ],
+   "dest": "netherlands",
+   "start": [
+    2027,
+    3,
+    20
+   ]
+  },
+  "xn11d": {
+   "city": "马斯特里赫特",
+   "label": "马斯特里赫特 3 天",
+   "title": "三天，圣瑟法斯大教堂、圣彼得山和法尔肯堡",
+   "kicker": "古城 · 3 天",
+   "prep": [
+    "从阿姆斯特丹坐火车到马斯特里赫特约两个多小时；老城步行就够，去法尔肯堡坐火车二十来分钟",
+    "圣彼得山的洞穴只能跟团进，提前在官网约场次；洞里凉，带件外套",
+    "马斯特里赫特离比利时和德国很近，餐馆里常见林堡当地的做法；周日一些小店休息",
+    "老城石板路多，穿好走的鞋"
+   ],
+   "days": [
+    {
+     "title": "圣瑟法斯大教堂 · 多明我会书店 · 地狱之门 · 圣瑟法斯桥",
+     "text": "到马斯特里赫特先逛维特霍夫广场，看圣瑟法斯大教堂，再去教堂改成的书店，沿城墙走到地狱之门，傍晚在老桥上看马斯河。",
+     "stops": [
+      {
+       "name": "圣瑟法斯大教堂",
+       "q": "Basilica of Saint Servatius, Maastricht",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "多明我会书店",
+       "q": "Boekhandel Dominicanen, Maastricht",
+       "type": "street",
+       "dur": 45,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "地狱之门",
+       "q": "Helpoort, Maastricht",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "圣瑟法斯桥",
+       "q": "Sint Servaasbrug, Maastricht",
+       "type": "street",
+       "dur": 30,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 50,
+     "stay": "马斯特里赫特",
+     "city": "马斯特里赫特",
+     "dinner": {
+      "dish": "荷兰豌豆汤",
+      "place": "老城的传统餐馆"
+     }
+    },
+    {
+     "title": "博内范滕博物馆 · 圣彼得堡垒 · 圣彼得山地下采石洞 · 市政厅",
+     "text": "上午去博内范滕博物馆，下午沿马斯河爬到圣彼得山，看堡垒和地下采石洞，最后回到市政厅所在的广场。",
+     "stops": [
+      {
+       "name": "博内范滕博物馆",
+       "q": "Bonnefanten Museum, Maastricht",
+       "type": "museum",
+       "dur": 90,
+       "via": "步行约 20 分钟"
+      },
+      {
+       "name": "圣彼得堡垒",
+       "q": "Fort Sint Pieter, Maastricht",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 25 分钟"
+      },
+      {
+       "name": "圣彼得山地下采石洞",
+       "q": "Caves of Mount Saint Peter, Maastricht",
+       "type": "sight",
+       "dur": 75,
+       "via": "步行约 12 分钟"
+      },
+      {
+       "name": "马斯特里赫特市政厅",
+       "q": "Stadhuis Maastricht",
+       "type": "sight",
+       "dur": 30,
+       "via": "公交约 12 分钟"
+      }
+     ],
+     "start": "10:00",
+     "elev": 50,
+     "stay": "马斯特里赫特",
+     "city": "马斯特里赫特",
+     "lunch": {
+      "dish": "酸炖牛肉",
+      "place": "老城的林堡餐馆"
+     }
+    },
+    {
+     "title": "法尔肯堡洞穴 · 法尔肯堡城堡遗址",
+     "text": "最后一天坐火车去法尔肯堡，参观老采石洞，再爬上山顶看城堡遗址，午后回马斯特里赫特。",
+     "stops": [
+      {
+       "name": "法尔肯堡洞穴",
+       "q": "Gemeentegrot Valkenburg",
+       "type": "sight",
+       "dur": 60,
+       "via": "火车约 25 分钟"
+      },
+      {
+       "name": "法尔肯堡城堡遗址",
+       "q": "Valkenburg Castle Ruins",
+       "type": "sight",
+       "dur": 75,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "09:30",
+     "elev": 100,
+     "city": "马斯特里赫特",
+     "lunch": {
+      "dish": "荷兰洋葱炖牛肉",
+      "place": "法尔肯堡老街的餐馆"
+     }
+    }
+   ],
+   "dest": "netherlands",
+   "start": [
+    2027,
+    4,
+    25
+   ]
+  },
+  "xn12a": {
+   "city": "罗维尼",
+   "label": "罗维尼 3 天",
+   "title": "三天，罗维尼、普拉和莫托文",
+   "kicker": "自驾 · 3 天",
+   "prep": [
+    "在普拉机场或罗维尼取车，最后一天回罗维尼还车；伊斯特拉山路窄，停车要找老城外的停车场",
+    "罗维尼老城是步行区，车停在港口边的大停车场，再走进去",
+    "铁罩焖肉（Peka）要提前几小时订，当天去店里问最稳",
+    "夏季海边阳光强，带帽子和防晒"
+   ],
+   "days": [
+    {
+     "title": "罗维尼老城 · 圣尤菲米娅教堂 · 金角森林公园",
+     "text": "到罗维尼先逛石板老城，爬到山顶的圣尤菲米娅教堂看钟楼和海岸，傍晚去金角森林公园沿海边松林散步。",
+     "stops": [
+      {
+       "name": "罗维尼老城",
+       "q": "Old Town, Rovinj",
+       "type": "street",
+       "dur": 90,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "圣尤菲米娅教堂",
+       "q": "Church of St. Euphemia, Rovinj",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "金角森林公园",
+       "q": "Zlatni Rt Forest Park, Rovinj",
+       "type": "park",
+       "dur": 120,
+       "via": "打车约 5 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 5,
+     "stay": "罗维尼",
+     "city": "罗维尼",
+     "dinner": {
+      "dish": "炭烤章鱼",
+      "place": "老城港口边的小餐馆"
+     }
+    },
+    {
+     "title": "普拉竞技场 · 塞尔吉乌斯凯旋门 · 奥古斯都神庙",
+     "text": "自驾去普拉，看保存得很完整的古罗马竞技场，再沿老城走过凯旋门和奥古斯都神庙，下午回罗维尼。",
+     "stops": [
+      {
+       "name": "普拉竞技场",
+       "q": "Pula Arena",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 40 分钟"
+      },
+      {
+       "name": "塞尔吉乌斯凯旋门",
+       "q": "Arch of the Sergii, Pula",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "奥古斯都神庙",
+       "q": "Temple of Augustus, Pula",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 20,
+     "stay": "罗维尼",
+     "city": "罗维尼",
+     "lunch": {
+      "dish": "伊斯特拉炖牛肉配手卷面",
+      "place": "普拉老城的家常餐馆"
+     },
+     "dinner": {
+      "dish": "铁罩焖肉",
+      "place": "罗维尼老城外的传统餐馆，需要提前预订"
+     }
+    },
+    {
+     "title": "波雷奇欧弗拉修斯圣殿 · 格罗兹尼扬 · 莫托文",
+     "text": "早上去波雷奇看拜占庭风格的圣殿和马赛克，再上山到艺术家小镇格罗兹尼扬和城墙环绕的莫托文，下午回程。",
+     "stops": [
+      {
+       "name": "波雷奇欧弗拉修斯圣殿",
+       "q": "Euphrasian Basilica, Porec",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 25 分钟"
+      },
+      {
+       "name": "格罗兹尼扬老镇",
+       "q": "Groznjan, Croatia",
+       "type": "street",
+       "dur": 75,
+       "via": "自驾约 30 分钟"
+      },
+      {
+       "name": "莫托文老城",
+       "q": "Motovun Old Town, Croatia",
+       "type": "street",
+       "dur": 90,
+       "via": "自驾约 15 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 150,
+     "city": "罗维尼",
+     "lunch": {
+      "dish": "松露手工面",
+      "place": "莫托文山上的小餐馆"
+     }
+    }
+   ],
+   "dest": "croatia",
+   "start": [
+    2027,
+    5,
+    8
+   ]
+  },
+  "xn12b": {
+   "city": "扎格拉布",
+   "label": "扎格拉布 3 天",
+   "title": "三天，扎格拉布、瓦拉日丁和萨莫博尔",
+   "kicker": "文化 · 3 天",
+   "prep": [
+    "在扎格拉布机场或市区取车，最后一天回市区还车；市中心和上城步行就行，车停在下城的停车楼",
+    "瓦拉日丁离扎格拉布约 1 小时 15 分钟，特拉科什昌在去瓦拉日丁的路上要绕一下",
+    "大城堡和博物馆多在傍晚前关门，早点出发",
+    "夏秋山上天气多变，带件外套"
+   ],
+   "days": [
+    {
+     "title": "圣母升天大教堂 · 破碎关系博物馆 · 米罗戈伊公墓",
+     "text": "到扎格拉布后先看哥特式的大教堂，再逛上城里有名的破碎关系博物馆，傍晚去米罗戈伊公墓看拱廊和花园式墓园。",
+     "stops": [
+      {
+       "name": "圣母升天大教堂",
+       "q": "Zagreb Cathedral",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "破碎关系博物馆",
+       "q": "Museum of Broken Relationships, Zagreb",
+       "type": "museum",
+       "dur": 60,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "米罗戈伊公墓",
+       "q": "Mirogoj Cemetery, Zagreb",
+       "type": "park",
+       "dur": 75,
+       "via": "公交约 15 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 130,
+     "stay": "扎格拉布",
+     "city": "扎格拉布",
+     "dinner": {
+      "dish": "烤火鸡配薄饼",
+      "place": "老城里的传统扎格列布餐馆"
+     }
+    },
+    {
+     "title": "特拉科什昌城堡 · 瓦拉日丁老城堡 · 瓦拉日丁市政厅",
+     "text": "自驾向北去山谷里的特拉科什昌城堡，再到巴洛克小城瓦拉日丁，看老城堡和市政厅，傍晚回扎格拉布。",
+     "stops": [
+      {
+       "name": "特拉科什昌城堡",
+       "q": "Trakoscan Castle, Croatia",
+       "type": "sight",
+       "dur": 120,
+       "via": "自驾约 1 小时 5 分钟"
+      },
+      {
+       "name": "瓦拉日丁老城堡",
+       "q": "Varazdin Old Town Fortress, Croatia",
+       "type": "sight",
+       "dur": 75,
+       "via": "自驾约 45 分钟"
+      },
+      {
+       "name": "瓦拉日丁市政厅",
+       "q": "Varazdin Town Hall, Croatia",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "08:00",
+     "elev": 200,
+     "stay": "扎格拉布",
+     "city": "扎格拉布",
+     "lunch": {
+      "dish": "扎戈列奶酪卷",
+      "place": "瓦拉日丁老城的家常小馆"
+     },
+     "dinner": {
+      "dish": "扎格拉布炸肉排",
+      "place": "下城的老牌餐馆"
+     }
+    },
+    {
+     "title": "萨莫博尔老城 · 梅德韦德城堡 · 斯列梅山顶",
+     "text": "上午去山脚的萨莫博尔小城走走，再到梅德韦德尼察山上看中世纪城堡，登到斯列梅山顶看扎格拉布全景，下午回城。",
+     "stops": [
+      {
+       "name": "萨莫博尔老城",
+       "q": "Samobor Old Town, Croatia",
+       "type": "street",
+       "dur": 90,
+       "via": "自驾约 30 分钟"
+      },
+      {
+       "name": "梅德韦德城堡",
+       "q": "Medvedgrad Fortress, Zagreb",
+       "type": "sight",
+       "dur": 75,
+       "via": "自驾约 25 分钟"
+      },
+      {
+       "name": "斯列梅山顶",
+       "q": "Sljeme, Medvednica",
+       "type": "park",
+       "dur": 90,
+       "via": "自驾约 15 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 150,
+     "city": "扎格拉布",
+     "lunch": {
+      "dish": "酸菜卷",
+      "place": "山上的家常餐馆"
+     }
+    }
+   ],
+   "dest": "croatia",
+   "start": [
+    2027,
+    8,
+    14
+   ]
+  },
+  "xn12c": {
+   "city": "特隆赫姆",
+   "label": "特隆赫姆 3 天",
+   "title": "三天，特隆赫姆、灵韦和斯韦雷斯堡",
+   "kicker": "城市 · 文化 · 3 天",
+   "prep": [
+    "从奥斯陆坐火车到特隆赫姆约 6 到 7 小时，建议提前订座位",
+    "市内步行为主，去灵韦和斯韦雷斯堡坐公交或打车，用手机应用买票最方便",
+    "挪威基本都刷卡，几乎不用现金",
+    "夏天夜里天亮得晚，天气变化快，带防雨外套"
+   ],
+   "days": [
+    {
+     "title": "尼达洛斯大教堂 · 巴克朗老街区 · 旧城桥",
+     "text": "到特隆赫姆先看北欧最大的中世纪教堂，再过河去巴克朗，沿木屋街和旧城桥慢慢走。",
+     "stops": [
+      {
+       "name": "尼达洛斯大教堂",
+       "q": "Nidaros Cathedral, Trondheim",
+       "type": "sight",
+       "dur": 90,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "旧城桥",
+       "q": "Gamle Bybro, Trondheim",
+       "type": "street",
+       "dur": 30,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "巴克朗老街区",
+       "q": "Bakklandet, Trondheim",
+       "type": "street",
+       "dur": 90,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 10,
+     "stay": "特隆赫姆",
+     "city": "特隆赫姆",
+     "dinner": {
+      "dish": "干鳕鱼",
+      "place": "河边的特色餐馆"
+     }
+    },
+    {
+     "title": "克里斯蒂安斯滕要塞 · 灵韦音乐博物馆 · 斯韦雷斯堡民俗博物馆",
+     "text": "先上要塞看城市和河，再去灵韦听乐器讲解，下午到斯韦雷斯堡看挪威的老木屋和牧场生活。",
+     "stops": [
+      {
+       "name": "克里斯蒂安斯滕要塞",
+       "q": "Kristiansten Fortress, Trondheim",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "灵韦音乐博物馆",
+       "q": "Ringve Museum, Trondheim",
+       "type": "museum",
+       "dur": 90,
+       "via": "打车约 5 分钟"
+      },
+      {
+       "name": "斯韦雷斯堡民俗博物馆",
+       "q": "Sverresborg Trondelag Folk Museum, Trondheim",
+       "type": "museum",
+       "dur": 90,
+       "via": "打车约 10 分钟"
+      }
+     ],
+     "start": "09:30",
+     "elev": 60,
+     "stay": "特隆赫姆",
+     "city": "特隆赫姆",
+     "lunch": {
+      "dish": "驼鹿肉",
+      "place": "灵韦附近的餐馆"
+     },
+     "dinner": {
+      "dish": "北极红点鲑",
+      "place": "河边的餐馆"
+     }
+    },
+    {
+     "title": "洛克海姆摇滚博物馆 · 索尔西登码头",
+     "text": "最后一天上午去洛克海姆看挪威流行音乐的历史，再沿索尔西登码头走一圈，中午前后回车站。",
+     "stops": [
+      {
+       "name": "洛克海姆摇滚博物馆",
+       "q": "Rockheim, Trondheim",
+       "type": "museum",
+       "dur": 90,
+       "via": "打车约 5 分钟"
+      },
+      {
+       "name": "索尔西登码头",
+       "q": "Solsiden, Trondheim",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "09:30",
+     "elev": 10,
+     "city": "特隆赫姆",
+     "lunch": {
+      "dish": "挪威鱼汤",
+      "place": "索尔西登的餐馆"
+     }
+    }
+   ],
+   "dest": "norway",
+   "start": [
+    2027,
+    6,
+    13
+   ]
+  },
+  "xn12d": {
+   "city": "利勒哈默尔",
+   "label": "利勒哈默尔 3 天",
+   "title": "三天，利勒哈默尔、汉玛尔和艾兹沃尔",
+   "kicker": "自然 · 家庭 · 3 天",
+   "prep": [
+    "从奥斯陆中央车站坐火车到利勒哈默尔约 2 小时；在车站附近租车，最后一天到奥斯陆机场还车",
+    "利勒哈默尔老城和麦哈根步行或打车就行，去汉德福森和艾兹沃尔再用车",
+    "挪威刷卡通行，山区加油站要早加满",
+    "夏天天黑得晚，下午的天气容易转雨，带雨衣"
+   ],
+   "days": [
+    {
+     "title": "麦哈根博物馆 · 比约克班克 · 利斯戈斯巴肯跳台",
+     "text": "到利勒哈默尔先去麦哈根看迁来的老木屋，再看女作家的故居，傍晚上奥运跳台看山谷。",
+     "stops": [
+      {
+       "name": "麦哈根博物馆",
+       "q": "Maihaugen, Lillehammer",
+       "type": "museum",
+       "dur": 120,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "比约克班克",
+       "q": "Bjerkebaek, Lillehammer",
+       "type": "museum",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "利斯戈斯巴肯跳台",
+       "q": "Lysgardsbakken Ski Jumping Arena, Lillehammer",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 5 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 200,
+     "stay": "利勒哈默尔",
+     "city": "利勒哈默尔",
+     "dinner": {
+      "dish": "驯鹿肉",
+      "place": "老城的餐馆"
+     }
+    },
+    {
+     "title": "斯托尔街 · 利勒哈默尔艺术博物馆 · 汉德福森乐园",
+     "text": "上午逛老城的步行街和艺术博物馆，午后自驾去北边的汉德福森，看巨人雕像和童话主题的游乐园。",
+     "stops": [
+      {
+       "name": "斯托尔街",
+       "q": "Storgata, Lillehammer",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "利勒哈默尔艺术博物馆",
+       "q": "Lillehammer Kunstmuseum",
+       "type": "museum",
+       "dur": 75,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "汉德福森乐园",
+       "q": "Hunderfossen Family Park, Norway",
+       "type": "fun",
+       "dur": 180,
+       "via": "自驾约 20 分钟"
+      }
+     ],
+     "start": "09:30",
+     "elev": 200,
+     "stay": "利勒哈默尔",
+     "city": "利勒哈默尔",
+     "lunch": {
+      "dish": "挪威肉丸",
+      "place": "老城的咖啡馆"
+     },
+     "dinner": {
+      "dish": "米约萨湖鳟鱼",
+      "place": "湖边餐馆"
+     }
+    },
+    {
+     "title": "汉玛尔主教堂遗址 · 艾兹沃尔宪法大楼",
+     "text": "告别前沿着米约萨湖南下，先看汉玛尔的主教堂遗址，再到艾兹沃尔参观 1814 年制宪的宅子，之后去奥斯陆。",
+     "stops": [
+      {
+       "name": "汉玛尔主教堂遗址",
+       "q": "Hamar Domkirkeruiner",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 1 小时 5 分钟"
+      },
+      {
+       "name": "艾兹沃尔宪法大楼",
+       "q": "Eidsvoll Building, Eidsvoll",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 1 小时 10 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 130,
+     "city": "利勒哈默尔",
+     "lunch": {
+      "dish": "羊肉炖卷心菜",
+      "place": "汉玛尔湖边餐馆"
+     }
+    }
+   ],
+   "dest": "norway",
+   "start": [
+    2027,
+    7,
+    10
+   ]
+  },
+  "xn13a": {
+   "city": "坦佩雷",
+   "label": "坦佩雷 3 天",
+   "title": "三天，坦佩雷、姆明谷博物馆和哈梅林纳",
+   "kicker": "文化 · 3 天",
+   "prep": [
+    "赫尔辛基到坦佩雷坐火车约一个半小时，车站在市中心，景点步行加有轨电车就够，不用租车",
+    "冬天白天很短，博物馆和教堂下午早早关门，要看的景点尽量排在上午和中午",
+    "冬天常在零下十几度，带羽绒服和防滑雪地靴；公共交通用手机应用买票，市区基本都刷卡",
+    "去哈梅林纳坐火车，下车后到城堡要步行一段，雪天路滑，慢点走"
+   ],
+   "days": [
+    {
+     "title": "坦佩雷大教堂 · 芬莱森 · 瓦普里基",
+     "text": "先去石砌的坦佩雷大教堂，再走到芬莱森老棉纺厂区逛红砖厂房，最后去瓦普里基博物馆看展览。晚上在市场大厅吃黑香肠。",
+     "stops": [
+      {
+       "name": "坦佩雷大教堂",
+       "q": "Tampere Cathedral, Tampere",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "芬莱森工业区",
+       "q": "Finlayson Area, Tampere",
+       "type": "street",
+       "dur": 90,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "瓦普里基博物馆",
+       "q": "Museum Centre Vapriikki, Tampere",
+       "type": "museum",
+       "dur": 90,
+       "via": "步行约 20 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 100,
+     "stay": "坦佩雷",
+     "city": "坦佩雷",
+     "dinner": {
+      "dish": "黑香肠",
+      "place": "坦佩雷市场大厅的小摊"
+     }
+    },
+    {
+     "title": "皮于尼基 · 姆明谷博物馆 · 纳西内拉",
+     "text": "上午登皮于尼基瞭望塔看雪后的湖岸，然后去姆明谷博物馆看原画和场景模型，傍晚上纳西内拉塔俯瞰全城。",
+     "stops": [
+      {
+       "name": "皮于尼基瞭望塔",
+       "q": "Pyynikki Observation Tower, Tampere",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 35 分钟"
+      },
+      {
+       "name": "姆明谷博物馆",
+       "q": "Moomin Museum, Tampere",
+       "type": "museum",
+       "dur": 90,
+       "via": "步行约 40 分钟"
+      },
+      {
+       "name": "纳西内拉观景塔",
+       "q": "Nasinneula Observation Tower, Tampere",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 25 分钟"
+      }
+     ],
+     "start": "09:30",
+     "elev": 100,
+     "stay": "坦佩雷",
+     "city": "坦佩雷",
+     "lunch": {
+      "dish": "卡累利阿炖肉",
+      "place": "市区的芬兰家常餐馆"
+     }
+    },
+    {
+     "title": "哈梅林纳城堡 · 西贝柳斯出生地 · 奥兰科",
+     "text": "坐火车去哈梅林纳，先看湖岸的红砖城堡，再去西贝柳斯的出生地，最后到奥兰科自然公园走雪径，下午回坦佩雷。",
+     "stops": [
+      {
+       "name": "哈梅林纳城堡",
+       "q": "Hameenlinna Castle, Hameenlinna",
+       "type": "sight",
+       "dur": 90,
+       "via": "火车约 50 分钟"
+      },
+      {
+       "name": "西贝柳斯出生地博物馆",
+       "q": "Sibelius Birthplace, Hameenlinna",
+       "type": "museum",
+       "dur": 45,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "奥兰科自然公园",
+       "q": "Aulanko Nature Reserve, Hameenlinna",
+       "type": "park",
+       "dur": 90,
+       "via": "打车约 10 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 80,
+     "city": "坦佩雷",
+     "lunch": {
+      "dish": "芬兰肉丸",
+      "place": "哈梅林纳老城的餐馆"
+     }
+    }
+   ],
+   "dest": "finland",
+   "start": [
+    2027,
+    0,
+    19
+   ]
+  },
+  "xn13b": {
+   "city": "图尔库",
+   "label": "图尔库 3 天",
+   "title": "三天，图尔库、楠塔利和劳马",
+   "kicker": "历史 · 3 天",
+   "prep": [
+    "赫尔辛基到图尔库坐火车约两小时，车站离河边步行约十分钟，市区景点步行加公交就够",
+    "去楠塔利和劳马坐长途巴士，先在车站查好末班车时间，冬天班次比夏天少",
+    "冬天河边风大，要戴帽子手套；城堡和教堂冬季开放时间短，尽量上午去",
+    "当地几乎都刷卡，小店也是，带少量现金备用就行"
+   ],
+   "days": [
+    {
+     "title": "奥拉河畔 · 图尔库大教堂 · 阿博瓦特斯",
+     "text": "先沿奥拉河岸走，再去中世纪的图尔库大教堂，最后到阿博瓦特斯看地下的古街遗址。晚上在河边餐厅吃煎鲱鱼。",
+     "stops": [
+      {
+       "name": "奥拉河畔步道",
+       "q": "Aura River Promenade, Turku",
+       "type": "park",
+       "dur": 60,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "图尔库大教堂",
+       "q": "Turku Cathedral, Turku",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "阿博瓦特斯博物馆",
+       "q": "Aboa Vetus Ars Nova, Turku",
+       "type": "museum",
+       "dur": 75,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 10,
+     "stay": "图尔库",
+     "city": "图尔库",
+     "dinner": {
+      "dish": "煎鲱鱼",
+      "place": "奥拉河边的餐厅"
+     }
+    },
+    {
+     "title": "图尔库城堡 · 楠塔利老城 · 楠塔利修道院",
+     "text": "上午看图尔库城堡的石墙和展厅，坐公交去楠塔利，逛木屋老街，再看中世纪修道院留下的教堂。",
+     "stops": [
+      {
+       "name": "图尔库城堡",
+       "q": "Turku Castle, Turku",
+       "type": "sight",
+       "dur": 120,
+       "via": "打车约 8 分钟"
+      },
+      {
+       "name": "楠塔利老城",
+       "q": "Naantali Old Town, Naantali",
+       "type": "street",
+       "dur": 90,
+       "via": "公交约 35 分钟"
+      },
+      {
+       "name": "楠塔利修道院教堂",
+       "q": "Naantali Convent Church, Naantali",
+       "type": "sight",
+       "dur": 40,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "09:30",
+     "elev": 10,
+     "stay": "图尔库",
+     "city": "图尔库",
+     "lunch": {
+      "dish": "腌三文鱼",
+      "place": "楠塔利老城的小餐馆"
+     }
+    },
+    {
+     "title": "旧劳马 · 圣十字教堂",
+     "text": "坐长途巴士去劳马，在列入世界遗产的木屋老城里慢慢走，再看圣十字教堂，下午回图尔库。",
+     "stops": [
+      {
+       "name": "旧劳马",
+       "q": "Old Rauma, Rauma",
+       "type": "street",
+       "dur": 150,
+       "via": "公交约 1 小时 40 分钟"
+      },
+      {
+       "name": "圣十字教堂",
+       "q": "Church of the Holy Cross, Rauma",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "08:00",
+     "elev": 10,
+     "city": "图尔库",
+     "lunch": {
+      "dish": "炸小银鱼",
+      "place": "旧劳马老街的餐馆"
+     }
+    }
+   ],
+   "dest": "finland",
+   "start": [
+    2027,
+    1,
+    2
+   ]
+  },
+  "xn13c": {
+   "city": "阿雷基帕",
+   "label": "阿雷基帕 4 天",
+   "title": "四天，阿雷基帕、契瓦和科尔卡峡谷",
+   "kicker": "风光 · 4 天",
+   "prep": [
+    "在阿雷基帕市区或机场租车，最后一天还回同一处；去契瓦的路好走但弯多，天黑前要到",
+    "去科尔卡谷要翻很高的垭口，契瓦一带海拔高，容易高原反应：头两天慢走、少喝酒，多喝古柯茶，随身带小瓶氧气，头痛严重就往低处走",
+    "秃鹰早上最活跃，要在七八点前到秃鹰十字观景台；进峡谷区要买旅游通票，现场付现金，带些小面额索尔",
+    "阿雷基帕白天晒、夜里冷，帽子、防晒和外套都要带"
+   ],
+   "days": [
+    {
+     "title": "阿雷基帕大教堂 · 耶稣会教堂 · 圣卡塔利娜",
+     "text": "午后看主广场边的白石大教堂和耶稣会教堂，再去圣卡塔利娜修道院，像在一座彩色小城里走。",
+     "stops": [
+      {
+       "name": "阿雷基帕大教堂",
+       "q": "Arequipa Cathedral, Arequipa",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "耶稣会教堂",
+       "q": "Iglesia de la Compania, Arequipa",
+       "type": "sight",
+       "dur": 40,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "圣卡塔利娜修道院",
+       "q": "Santa Catalina Monastery, Arequipa",
+       "type": "museum",
+       "dur": 120,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 2335,
+     "stay": "阿雷基帕",
+     "city": "阿雷基帕",
+     "dinner": {
+      "dish": "阿雷基帕辣椒酿肉",
+      "place": "修道院附近的老餐馆"
+     }
+    },
+    {
+     "title": "契瓦镇 · 扬克镇",
+     "text": "一早租车上路，翻过高原去科尔卡谷。到契瓦逛集市，再到扬克镇看广场上的教堂和梯田，晚上住契瓦。",
+     "stops": [
+      {
+       "name": "契瓦镇",
+       "q": "Chivay, Colca Valley",
+       "type": "street",
+       "dur": 90,
+       "via": "自驾约 3 小时 30 分钟"
+      },
+      {
+       "name": "扬克镇教堂",
+       "q": "Yanque Church, Colca Valley",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 20 分钟"
+      }
+     ],
+     "start": "08:00",
+     "elev": 3633,
+     "stay": "契瓦",
+     "city": "契瓦",
+     "lunch": {
+      "dish": "藜麦汤",
+      "place": "契瓦镇的小餐馆"
+     }
+    },
+    {
+     "title": "秃鹰十字 · 卡莱拉温泉",
+     "text": "天亮前出发去秃鹰十字，看神鹰乘热气流盘旋，回程到卡莱拉温泉泡一泡，晚上还住契瓦。",
+     "stops": [
+      {
+       "name": "秃鹰十字观景台",
+       "q": "Cruz del Condor, Colca Canyon",
+       "type": "sight",
+       "dur": 120,
+       "via": "自驾约 1 小时 30 分钟"
+      },
+      {
+       "name": "卡莱拉温泉",
+       "q": "La Calera Hot Springs, Chivay",
+       "type": "park",
+       "dur": 90,
+       "via": "自驾约 1 小时 30 分钟"
+      }
+     ],
+     "start": "06:30",
+     "elev": 3633,
+     "stay": "契瓦",
+     "city": "契瓦",
+     "lunch": {
+      "dish": "炸鳟鱼",
+      "place": "契瓦镇的小餐馆"
+     }
+    },
+    {
+     "title": "亚纳瓦拉 · 萨班迪亚",
+     "text": "从契瓦下山回阿雷基帕，先到亚纳瓦拉观景台看火山，再去萨班迪亚磨坊，下午还车。",
+     "stops": [
+      {
+       "name": "亚纳瓦拉观景台",
+       "q": "Mirador de Yanahuara, Arequipa",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 3 小时 30 分钟"
+      },
+      {
+       "name": "萨班迪亚磨坊",
+       "q": "Molino de Sabandia, Arequipa",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 25 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 3633,
+     "city": "契瓦",
+     "lunch": {
+      "dish": "阿雷基帕腌炖猪肉",
+      "place": "亚纳瓦拉的老餐馆"
+     }
+    }
+   ],
+   "dest": "peru",
+   "start": [
+    2027,
+    5,
+    8
+   ]
+  },
+  "xn13d": {
+   "city": "库斯科",
+   "label": "库斯科周边 4 天",
+   "title": "四天，库斯科、莫拉和奥扬泰坦博",
+   "kicker": "历史 · 4 天",
+   "prep": [
+    "在库斯科市区租车，最后一天还回同一处；圣谷的路好走，莫拉到马拉斯一段是土路，慢开",
+    "库斯科和圣谷海拔高，容易高原反应：第一天少走路、少喝酒，多喝古柯茶，随身带小瓶氧气，严重头痛就往低处走",
+    "圣谷多数景点可买库斯科旅游通票，在第一个景点现场买；钦切罗周日有集市，人多",
+    "白天晒、早晚冷，带帽子和防晒，薄外套随身；当地常用索尔现金，小摊不收卡"
+   ],
+   "days": [
+    {
+     "title": "库斯科大教堂 · 十二角石 · 圣布拉斯",
+     "text": "先看印加旧址上的库斯科大教堂，再去看十二角石，最后沿坡路逛圣布拉斯的手艺街。第一天走得慢一些，适应高度。",
+     "stops": [
+      {
+       "name": "库斯科大教堂",
+       "q": "Cusco Cathedral, Cusco",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "十二角石",
+       "q": "Hatun Rumiyoc Twelve Angled Stone, Cusco",
+       "type": "sight",
+       "dur": 20,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "圣布拉斯街区",
+       "q": "San Blas, Cusco",
+       "type": "street",
+       "dur": 90,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 3400,
+     "stay": "库斯科",
+     "city": "库斯科",
+     "dinner": {
+      "dish": "秘鲁炒牛肉",
+      "place": "圣布拉斯的小餐馆"
+     }
+    },
+    {
+     "title": "钦切罗 · 莫拉 · 马拉斯盐田",
+     "text": "租车去圣谷高处，先看钦切罗古镇，再到莫拉的圆形梯田，最后看马拉斯盐田，傍晚回库斯科。",
+     "stops": [
+      {
+       "name": "钦切罗古镇",
+       "q": "Chinchero Archaeological Site, Chinchero",
+       "type": "street",
+       "dur": 90,
+       "via": "自驾约 45 分钟"
+      },
+      {
+       "name": "莫拉梯田",
+       "q": "Moray Archaeological Site, Maras",
+       "type": "sight",
+       "dur": 75,
+       "via": "自驾约 40 分钟"
+      },
+      {
+       "name": "马拉斯盐田",
+       "q": "Salineras de Maras, Maras",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 15 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 3400,
+     "stay": "库斯科",
+     "city": "库斯科",
+     "lunch": {
+      "dish": "土灶烤肉",
+      "place": "圣谷路边的土灶餐馆"
+     }
+    },
+    {
+     "title": "奥扬泰坦博遗址 · 古镇 · 平库伊尤纳",
+     "text": "开车去圣谷深处的奥扬泰坦博，先爬遗址，再逛石渠老街，最后走一段上坡看对面山上的粮仓。",
+     "stops": [
+      {
+       "name": "奥扬泰坦博遗址",
+       "q": "Ollantaytambo Archaeological Park, Ollantaytambo",
+       "type": "sight",
+       "dur": 120,
+       "via": "自驾约 1 小时 45 分钟"
+      },
+      {
+       "name": "奥扬泰坦博古镇",
+       "q": "Ollantaytambo Town, Ollantaytambo",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "平库伊尤纳粮仓",
+       "q": "Pinkuylluna Ruins, Ollantaytambo",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 20 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 3400,
+     "stay": "库斯科",
+     "city": "库斯科",
+     "lunch": {
+      "dish": "烤豚鼠",
+      "place": "古镇上的老餐馆"
+     }
+    },
+    {
+     "title": "蒂蓬遗址 · 安达瓦伊利亚斯教堂",
+     "text": "往东南走库斯科南谷，先看蒂蓬遗址的灌溉梯田，再到安达瓦伊利亚斯看满墙壁画的教堂，下午回城还车。",
+     "stops": [
+      {
+       "name": "蒂蓬遗址",
+       "q": "Tipon Archaeological Park, Tipon",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 40 分钟"
+      },
+      {
+       "name": "安达瓦伊利亚斯教堂",
+       "q": "Church of Andahuaylillas, Andahuaylillas",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 35 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 3400,
+     "city": "库斯科",
+     "lunch": {
+      "dish": "鸡汤",
+      "place": "安达瓦伊利亚斯的小餐馆"
+     }
+    }
+   ],
+   "dest": "peru",
+   "start": [
+    2027,
+    6,
+    12
+   ]
+  },
+  "xn14a": {
+   "city": "布鲁塞尔",
+   "label": "布鲁塞尔 3 天",
+   "title": "三天，那慕尔、迪南和列日",
+   "kicker": "历史 · 3 天",
+   "prep": [
+    "从布鲁塞尔南站租车，第三天回布鲁塞尔还车；瓦隆地区路况好，限速牌看清，市区多是 30 或 50",
+    "迪南和那慕尔的要塞都在山上，可以坐缆车，鞋要防滑；哈恩洞穴导览按场次，建议提前在官网订时段",
+    "洞穴里气温只有十几度，带件外套；瓦隆地区说法语，点菜用手指菜单也行",
+    "停车多是路边咪表或停车楼，按当地标识付费，车里不要留包"
+   ],
+   "days": [
+    {
+     "title": "那慕尔城堡 · 圣奥班大教堂 · 罗普斯博物馆",
+     "text": "租车南下到那慕尔，先登上河口山顶的要塞看两河交汇，再下山看大教堂和一座小而精的艺术馆，晚上住迪南。",
+     "stops": [
+      {
+       "name": "那慕尔城堡",
+       "q": "Citadelle de Namur",
+       "type": "sight",
+       "dur": 120,
+       "via": "自驾约 1 小时"
+      },
+      {
+       "name": "圣奥班大教堂",
+       "q": "Cathedrale Saint-Aubain, Namur",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 20 分钟"
+      },
+      {
+       "name": "罗普斯博物馆",
+       "q": "Musee Felicien Rops, Namur",
+       "type": "museum",
+       "dur": 60,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 100,
+     "stay": "迪南",
+     "city": "那慕尔",
+     "dinner": {
+      "dish": "炖兔肉配李子",
+      "place": "迪南河边的餐馆"
+     }
+    },
+    {
+     "title": "迪南圣母教堂 · 迪南要塞 · 哈恩洞穴",
+     "text": "上午在迪南看河边的洋葱顶教堂和山上的要塞，下午去哈恩洞穴走一圈地下洞厅，晚上回迪南吃炖牛肉。",
+     "stops": [
+      {
+       "name": "迪南圣母教堂",
+       "q": "Collegiate Church of Notre-Dame de Dinant",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "迪南要塞",
+       "q": "Citadelle de Dinant",
+       "type": "sight",
+       "dur": 90,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "哈恩洞穴",
+       "q": "Grottes de Han, Han-sur-Lesse",
+       "type": "park",
+       "dur": 150,
+       "via": "自驾约 40 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 120,
+     "stay": "迪南",
+     "city": "迪南",
+     "dinner": {
+      "dish": "啤酒炖牛肉",
+      "place": "迪南老城里的比利时餐馆"
+     }
+    },
+    {
+     "title": "吉耶曼火车站 · 圣保罗大教堂 · 布恩山阶梯",
+     "text": "早上开车去列日，先看卡拉特拉瓦设计的白色车站，再到老城看圣保罗大教堂，最后爬一遍布恩山阶梯，下午回布鲁塞尔。",
+     "stops": [
+      {
+       "name": "列日吉耶曼火车站",
+       "q": "Liege-Guillemins railway station",
+       "type": "sight",
+       "dur": 45,
+       "via": "自驾约 1 小时 15 分钟"
+      },
+      {
+       "name": "列日圣保罗大教堂",
+       "q": "Cathedrale Saint-Paul, Liege",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 30 分钟"
+      },
+      {
+       "name": "布恩山阶梯",
+       "q": "Montagne de Bueren, Liege",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 70,
+     "city": "列日",
+     "lunch": {
+      "dish": "列日肉丸",
+      "place": "列日老城的家常餐馆"
+     }
+    }
+   ],
+   "dest": "belgium",
+   "start": [
+    2027,
+    4,
+    12
+   ]
+  },
+  "xn14b": {
+   "city": "布鲁塞尔",
+   "label": "布鲁塞尔 3 天",
+   "title": "三天，梅赫伦、鲁汶和伊普尔",
+   "kicker": "历史 · 3 天",
+   "prep": [
+    "全程坐火车，布鲁塞尔南站和中央站都有车；买当天往返票比单程划算，上车前别忘了在站台打票或扫码",
+    "梅赫伦和鲁汶离布鲁塞尔不到半小时，伊普尔要换车，单程约两小时，早点出发",
+    "伊普尔梅嫩门每晚有吹号仪式，白天去的话主要看纪念馆和公墓；公墓是安静的地方，注意着装和声音",
+    "比利时天气多变，随身带伞；小店多只收卡，现金备点零钱"
+   ],
+   "days": [
+    {
+     "title": "梅赫伦圣伦保德大教堂 · 梅赫伦大广场 · 梅赫伦大贝居安院",
+     "text": "坐火车二十多分钟到梅赫伦，看高塔的大教堂，逛老城中心的大广场，再去安静的大贝居安院，晚上回布鲁塞尔。",
+     "stops": [
+      {
+       "name": "梅赫伦圣伦保德大教堂",
+       "q": "Saint Rumbold Cathedral, Mechelen",
+       "type": "sight",
+       "dur": 60,
+       "via": "火车约 30 分钟"
+      },
+      {
+       "name": "梅赫伦大广场",
+       "q": "Grote Markt, Mechelen",
+       "type": "street",
+       "dur": 45,
+       "via": "步行约 5 分钟"
+      },
+      {
+       "name": "梅赫伦大贝居安院",
+       "q": "Groot Begijnhof, Mechelen",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 20 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 10,
+     "stay": "布鲁塞尔",
+     "city": "梅赫伦",
+     "dinner": {
+      "dish": "弗拉芒白芦笋配荷兰酱",
+      "place": "梅赫伦老城的餐馆"
+     }
+    },
+    {
+     "title": "鲁汶市政厅 · 圣彼得教堂 · 鲁汶大学图书馆 · 鲁汶大贝居安院",
+     "text": "坐火车到鲁汶，老城里哥特市政厅、教堂和大学图书馆都集中，最后走进大学里的贝居安院，下午回布鲁塞尔。",
+     "stops": [
+      {
+       "name": "鲁汶市政厅",
+       "q": "Leuven Town Hall",
+       "type": "sight",
+       "dur": 45,
+       "via": "火车约 30 分钟"
+      },
+      {
+       "name": "鲁汶圣彼得教堂",
+       "q": "Saint Peter Church, Leuven",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 3 分钟"
+      },
+      {
+       "name": "鲁汶大学图书馆",
+       "q": "Leuven University Library, Ladeuzeplein",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 8 分钟"
+      },
+      {
+       "name": "鲁汶大贝居安院",
+       "q": "Groot Begijnhof, Leuven",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 25 分钟"
+      }
+     ],
+     "start": "09:30",
+     "elev": 30,
+     "stay": "布鲁塞尔",
+     "city": "鲁汶",
+     "lunch": {
+      "dish": "鸡肉奶油炖菜",
+      "place": "鲁汶老城的餐馆"
+     }
+    },
+    {
+     "title": "伊普尔羊毛大厅 · 梅嫩门 · 泰恩科特公墓",
+     "text": "早上坐火车去伊普尔，参观一战博物馆，到梅嫩门看纪念拱门，再打车去泰恩科特公墓。下午回布鲁塞尔。",
+     "stops": [
+      {
+       "name": "伊普尔羊毛大厅",
+       "q": "Cloth Hall, Ypres",
+       "type": "museum",
+       "dur": 120,
+       "via": "火车约 2 小时"
+      },
+      {
+       "name": "梅嫩门",
+       "q": "Menin Gate, Ypres",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "泰恩科特公墓",
+       "q": "Tyne Cot Cemetery, Zonnebeke",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 15 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 20,
+     "city": "伊普尔",
+     "lunch": {
+      "dish": "淡菜配薯条",
+      "place": "伊普尔大广场边的餐馆"
+     }
+    }
+   ],
+   "dest": "belgium",
+   "start": [
+    2027,
+    5,
+    9
+   ]
+  },
+  "xn14c": {
+   "city": "开普敦",
+   "label": "开普敦 3 天",
+   "title": "三天，克尔斯滕博斯、弗朗斯胡克和赫曼努斯",
+   "kicker": "美食 · 3 天",
+   "prep": [
+    "在开普敦机场或市区租车点取车，第三天回开普敦还车；南非靠左行驶，加油站有人帮你加，付小费即可",
+    "弗朗斯胡克和帕尔是酒乡，品酒的话让不喝酒的人开车；酒庄多要预约",
+    "赫曼努斯海边的悬崖步道，十月到十一月常能看到海里的鲸，带望远镜更好；沿海风大，备外套",
+    "停车时不要把东西放在座位上，城镇里有看车的人，给点零钱"
+   ],
+   "days": [
+    {
+     "title": "克尔斯滕博斯国家植物园 · 大康斯坦夏酒庄",
+     "text": "自驾先到克尔斯滕博斯植物园，在桌山脚下看南非原生植物，再去开普敦最古老的酒庄之一，晚上住开普敦。",
+     "stops": [
+      {
+       "name": "克尔斯滕博斯国家植物园",
+       "q": "Kirstenbosch National Botanical Garden, Cape Town",
+       "type": "park",
+       "dur": 120,
+       "via": "自驾约 25 分钟"
+      },
+      {
+       "name": "大康斯坦夏酒庄",
+       "q": "Groot Constantia, Cape Town",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 15 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 60,
+     "stay": "开普敦",
+     "city": "开普敦",
+     "dinner": {
+      "dish": "咖喱肉末烤盘（Bobotie）",
+      "place": "开普敦老城的开普马来餐馆"
+     }
+    },
+    {
+     "title": "胡格诺纪念碑 · 弗朗斯胡克主街 · 语言纪念碑",
+     "text": "开车去酒乡弗朗斯胡克，看纪念胡格诺移民的纪念碑，逛主街，再去帕尔看语言纪念碑，晚上赶到赫曼努斯。",
+     "stops": [
+      {
+       "name": "胡格诺纪念碑",
+       "q": "Huguenot Memorial, Franschhoek",
+       "type": "sight",
+       "dur": 45,
+       "via": "自驾约 1 小时 15 分钟"
+      },
+      {
+       "name": "弗朗斯胡克主街",
+       "q": "Huguenot Road, Franschhoek",
+       "type": "street",
+       "dur": 90,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "语言纪念碑",
+       "q": "Taal Monument, Paarl",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 35 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 150,
+     "stay": "赫曼努斯",
+     "city": "弗朗斯胡克",
+     "dinner": {
+      "dish": "三脚铁锅炖肉（Potjiekos）",
+      "place": "弗朗斯胡克的餐馆"
+     }
+    },
+    {
+     "title": "赫曼努斯悬崖步道 · 赫曼努斯老港 · 哈罗德波特植物园",
+     "text": "上午沿赫曼努斯悬崖步道走一段，十月到十一月有机会在岸边看到鲸，再看老港，然后沿海岸开车到贝蒂湾看植物园，下午回开普敦。",
+     "stops": [
+      {
+       "name": "赫曼努斯悬崖步道",
+       "q": "Hermanus Cliff Path",
+       "type": "park",
+       "dur": 90,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "赫曼努斯老港",
+       "q": "Old Harbour, Hermanus",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "哈罗德波特植物园",
+       "q": "Harold Porter National Botanical Garden, Bettys Bay",
+       "type": "park",
+       "dur": 90,
+       "via": "自驾约 40 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 20,
+     "city": "赫曼努斯",
+     "lunch": {
+      "dish": "烤斯诺克鱼（Snoek）",
+      "place": "赫曼努斯老港边的海鲜餐馆"
+     }
+    }
+   ],
+   "dest": "southafrica",
+   "start": [
+    2027,
+    10,
+    9
+   ]
+  },
+  "xn14d": {
+   "city": "约翰内斯堡",
+   "label": "约翰内斯堡 3 天",
+   "title": "三天，宪法山、比勒陀利亚和人类摇篮",
+   "kicker": "历史 · 3 天",
+   "prep": [
+    "从约翰内斯堡机场取车，第三天回机场还车；红灯停车时车门锁好，手机不要放在副驾",
+    "市中心治安一般，景点之间开车，停景点内的收费停车场，别在路边长时间停",
+    "夏天下午常有雷雨，行程尽量排在上午；紫外线强，带帽子和防晒",
+    "宪法山和比勒陀利亚的纪念馆多是下午四点多关门，大景点早点到"
+   ],
+   "days": [
+    {
+     "title": "宪法山 · 起源中心 · 金矿城",
+     "text": "到约翰内斯堡先看宪法山的旧监狱和人权法院，再去大学里的起源中心了解人类的起源，傍晚去金矿城看金矿小镇的复原。",
+     "stops": [
+      {
+       "name": "宪法山",
+       "q": "Constitution Hill, Johannesburg",
+       "type": "museum",
+       "dur": 90,
+       "via": "自驾约 5 分钟"
+      },
+      {
+       "name": "起源中心",
+       "q": "Origins Centre, Wits University",
+       "type": "museum",
+       "dur": 60,
+       "via": "步行约 20 分钟"
+      },
+      {
+       "name": "金矿城",
+       "q": "Gold Reef City, Johannesburg",
+       "type": "fun",
+       "dur": 120,
+       "via": "自驾约 12 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 1750,
+     "stay": "约翰内斯堡",
+     "city": "约翰内斯堡",
+     "dinner": {
+      "dish": "玉米糊配炖牛肉",
+      "place": "约翰内斯堡的南非餐馆"
+     }
+    },
+    {
+     "title": "比勒陀利亚教堂广场 · 克鲁格故居 · 联合大厦",
+     "text": "开车去比勒陀利亚，看老城中心的教堂广场，参观克鲁格总统的故居，再去山上的联合大厦远眺全城。",
+     "stops": [
+      {
+       "name": "比勒陀利亚教堂广场",
+       "q": "Church Square, Pretoria",
+       "type": "street",
+       "dur": 45,
+       "via": "自驾约 55 分钟"
+      },
+      {
+       "name": "克鲁格故居博物馆",
+       "q": "Kruger House Museum, Pretoria",
+       "type": "museum",
+       "dur": 60,
+       "via": "步行约 15 分钟"
+      },
+      {
+       "name": "联合大厦",
+       "q": "Union Buildings, Pretoria",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 10 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 1350,
+     "stay": "约翰内斯堡",
+     "city": "比勒陀利亚",
+     "dinner": {
+      "dish": "南非炖牛尾",
+      "place": "比勒陀利亚老城的餐馆"
+     }
+    },
+    {
+     "title": "马罗彭游客中心 · 斯特克方丹洞穴",
+     "text": "开车去人类摇篮世界遗产地，在游客中心看人类演化展览，再到附近的斯特克方丹洞穴看出土古人类化石的地点，下午回约翰内斯堡。",
+     "stops": [
+      {
+       "name": "马罗彭游客中心",
+       "q": "Maropeng Visitor Centre, Cradle of Humankind",
+       "type": "museum",
+       "dur": 120,
+       "via": "自驾约 50 分钟"
+      },
+      {
+       "name": "斯特克方丹洞穴",
+       "q": "Sterkfontein Caves, Cradle of Humankind",
+       "type": "park",
+       "dur": 90,
+       "via": "自驾约 15 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 1450,
+     "city": "人类摇篮",
+     "lunch": {
+      "dish": "鸵鸟肉排",
+      "place": "人类摇篮附近的餐厅"
+     }
+    }
+   ],
+   "dest": "southafrica",
+   "start": [
+    2027,
+    10,
+    16
+   ]
+  },
+  "xn8a": {
+   "city": "马拉喀什",
+   "label": "艾特本哈杜 3 天",
+   "title": "三天，马拉喀什、艾特本哈杜和提奇卡山口",
+   "kicker": "自驾 · 3 天",
+   "prep": [
+    "自驾：在马拉喀什机场或古里兹区租车，原地还车；山路弯多，翻山口时放慢速度，天黑前赶到瓦尔扎扎特",
+    "出马拉喀什前把油加满，山区加油站少；备些迪拉姆现金，山里的小店和餐馆不一定能刷卡",
+    "艾特本哈杜古堡里仍有人居住，进民居前先问一声；上午光线好，游客也少",
+    "春季山口早晚偏凉，带一件外套"
+   ],
+   "days": [
+    {
+     "title": "萨阿德王陵 · 巴迪宫 · 秘密花园",
+     "text": "到马拉喀什，先看萨阿德王陵和巴迪宫两处旧王朝遗迹，再去老城里的秘密花园坐一会儿，晚上吃一口当地炖锅。",
+     "stops": [
+      {
+       "name": "萨阿德王陵",
+       "q": "Saadian Tombs, Marrakech",
+       "type": "sight",
+       "dur": 45,
+       "via": "打车约 10 分钟"
+      },
+      {
+       "name": "巴迪宫",
+       "q": "El Badi Palace, Marrakech",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 8 分钟"
+      },
+      {
+       "name": "马拉喀什秘密花园",
+       "q": "Le Jardin Secret, Marrakech",
+       "type": "park",
+       "dur": 60,
+       "via": "步行约 20 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 460,
+     "stay": "马拉喀什",
+     "city": "马拉喀什",
+     "dinner": {
+      "dish": "羊肉梅干塔吉锅",
+      "place": "老城里的家常餐馆"
+     }
+    },
+    {
+     "title": "艾特本哈杜 · 陶里尔特 · 阿特拉斯电影城",
+     "text": "清早租车翻过大阿特拉斯去艾特本哈杜，走进土坯古堡，下午到瓦尔扎扎特看陶里尔特卡斯巴和沙漠边的电影城。",
+     "stops": [
+      {
+       "name": "艾特本哈杜古堡",
+       "q": "Ait Benhaddou, Morocco",
+       "type": "sight",
+       "dur": 120,
+       "via": "自驾约 3 小时 30 分钟"
+      },
+      {
+       "name": "陶里尔特卡斯巴",
+       "q": "Taourirt Kasbah, Ouarzazate",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 40 分钟"
+      },
+      {
+       "name": "阿特拉斯电影城",
+       "q": "Atlas Studios, Ouarzazate",
+       "type": "fun",
+       "dur": 90,
+       "via": "自驾约 15 分钟"
+      }
+     ],
+     "start": "07:30",
+     "elev": 1150,
+     "stay": "瓦尔扎扎特",
+     "city": "瓦尔扎扎特",
+     "dinner": {
+      "dish": "七蔬古斯古斯",
+      "place": "瓦尔扎扎特的柏柏尔餐馆"
+     }
+    },
+    {
+     "title": "泰卢埃特 · 提奇卡山口",
+     "text": "早上从瓦尔扎扎特出发，先到山里的泰卢埃特卡斯巴看雕花大厅，再翻提奇卡山口回马拉喀什。",
+     "stops": [
+      {
+       "name": "泰卢埃特卡斯巴",
+       "q": "Telouet Kasbah, Morocco",
+       "type": "sight",
+       "dur": 75,
+       "via": "自驾约 2 小时 15 分钟"
+      },
+      {
+       "name": "提奇卡山口",
+       "q": "Tizi n Tichka Pass, Morocco",
+       "type": "sight",
+       "dur": 30,
+       "via": "自驾约 40 分钟"
+      }
+     ],
+     "start": "07:30",
+     "elev": 2260,
+     "city": "瓦尔扎扎特",
+     "lunch": {
+      "dish": "柏柏尔烤羊肉",
+      "place": "山口路边的烤肉店"
+     }
+    }
+   ],
+   "dest": "morocco",
+   "start": [
+    2027,
+    3,
+    14
+   ]
+  },
+  "xn8b": {
+   "city": "马拉喀什",
+   "label": "艾萨维拉 3 天",
+   "title": "三天，艾萨维拉、梅纳拉花园和马拉喀什博物馆",
+   "kicker": "海岸 · 3 天",
+   "prep": [
+    "自驾：在马拉喀什机场租车，原地还车；往西到艾萨维拉约 3 小时，路况平整，进镇后把车停在老城外的停车场",
+    "艾萨维拉风大，早晚偏凉，带件防风外套",
+    "老城巷子汽车进不去，住老城里的话，请店家到城门口接行李",
+    "港口边的烤鱼摊点之前先问清按斤还是按份算"
+   ],
+   "days": [
+    {
+     "title": "艾萨维拉老城 · 斯卡拉炮台",
+     "text": "中午从马拉喀什出发往西，下午到艾萨维拉，逛白墙蓝窗的老城，再登海边城墙看日落前的海面。",
+     "stops": [
+      {
+       "name": "艾萨维拉老城",
+       "q": "Essaouira Medina, Morocco",
+       "type": "street",
+       "dur": 75,
+       "via": "自驾约 3 小时"
+      },
+      {
+       "name": "老城斯卡拉炮台",
+       "q": "Skala de la Ville, Essaouira",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 5,
+     "stay": "艾萨维拉",
+     "city": "马拉喀什",
+     "dinner": {
+      "dish": "炭烤沙丁鱼",
+      "place": "港口边的烧烤摊"
+     }
+    },
+    {
+     "title": "艾萨维拉海滩 · 艾萨维拉渔港 · 穆莱哈桑广场",
+     "text": "在海滩吹风散步，到渔港边看鱼摊，中午吃当地做法的鱼，再到老城口的广场喝茶。",
+     "stops": [
+      {
+       "name": "艾萨维拉海滩",
+       "q": "Essaouira Beach, Morocco",
+       "type": "park",
+       "dur": 90,
+       "via": "步行约 20 分钟"
+      },
+      {
+       "name": "艾萨维拉渔港",
+       "q": "Essaouira Fishing Port, Morocco",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 25 分钟"
+      },
+      {
+       "name": "穆莱哈桑广场",
+       "q": "Place Moulay Hassan, Essaouira",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "09:30",
+     "elev": 5,
+     "stay": "艾萨维拉",
+     "city": "艾萨维拉",
+     "lunch": {
+      "dish": "鱼肉塔吉锅",
+      "place": "渔港边的小餐馆"
+     }
+    },
+    {
+     "title": "梅纳拉花园 · 马拉喀什博物馆",
+     "text": "早上从艾萨维拉开车回马拉喀什，先去梅纳拉花园的水池边看雪山，再逛老城里的马拉喀什博物馆。",
+     "stops": [
+      {
+       "name": "梅纳拉花园",
+       "q": "Menara Gardens, Marrakech",
+       "type": "park",
+       "dur": 60,
+       "via": "自驾约 3 小时"
+      },
+      {
+       "name": "马拉喀什博物馆",
+       "q": "Marrakech Museum, Dar Menebhi",
+       "type": "museum",
+       "dur": 60,
+       "via": "打车约 10 分钟"
+      }
+     ],
+     "start": "07:30",
+     "elev": 460,
+     "city": "马拉喀什",
+     "lunch": {
+      "dish": "坦吉亚炖牛肉",
+      "place": "老城里的餐馆"
+     }
+    }
+   ],
+   "dest": "morocco",
+   "start": [
+    2027,
+    9,
+    19
+   ]
+  },
+  "xn8c": {
+   "city": "苏黎世",
+   "label": "苏黎世 3 天",
+   "title": "三天，苏黎世、莱茵瀑布和于特利山",
+   "kicker": "城市 · 3 天",
+   "prep": [
+    "市内电车、公交和城铁通用同一套区票，上车前在站台售票机或手机应用里买好",
+    "去莱茵瀑布从苏黎世火车站乘区间火车到沙夫豪森，再转公交；末班车别卡得太紧",
+    "瑞士物价高，多数地方可刷卡，山上小店备一点瑞士法郎；街边喷泉的水可以直接喝",
+    "夏天午后常有雷阵雨，包里放把折叠伞"
+   ],
+   "days": [
+    {
+     "title": "林登霍夫 · 尼德多夫老街 · 苏黎世大教堂",
+     "text": "到苏黎世，先上林登霍夫小山丘看河和老城，再走尼德多夫老街，最后进双塔的大教堂。",
+     "stops": [
+      {
+       "name": "林登霍夫山丘",
+       "q": "Lindenhof, Zurich",
+       "type": "park",
+       "dur": 30,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "尼德多夫老街",
+       "q": "Niederdorf, Zurich",
+       "type": "street",
+       "dur": 90,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "苏黎世大教堂",
+       "q": "Grossmunster, Zurich",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 8 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 410,
+     "stay": "苏黎世",
+     "city": "苏黎世",
+     "dinner": {
+      "dish": "苏黎世风味小牛肉丝",
+      "place": "老城里的传统餐馆"
+     }
+    },
+    {
+     "title": "莱茵瀑布 · 穆诺堡垒 · 沙夫豪森老城",
+     "text": "坐火车去北边的莱茵瀑布，在观景平台看大水冲下，再到沙夫豪森登圆形堡垒、逛老城。",
+     "stops": [
+      {
+       "name": "莱茵瀑布",
+       "q": "Rhine Falls, Neuhausen",
+       "type": "park",
+       "dur": 120,
+       "via": "火车约 1 小时"
+      },
+      {
+       "name": "穆诺堡垒",
+       "q": "Munot, Schaffhausen",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 25 分钟"
+      },
+      {
+       "name": "沙夫豪森老城",
+       "q": "Schaffhausen Old Town",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 440,
+     "stay": "苏黎世",
+     "city": "沙夫豪森",
+     "lunch": {
+      "dish": "炸河鲈鱼",
+      "place": "沙夫豪森老城的餐馆"
+     }
+    },
+    {
+     "title": "林特巧克力之家 · 于特利山",
+     "text": "上午去湖边的巧克力主题馆，下午上于特利山，在山顶看苏黎世全景。",
+     "stops": [
+      {
+       "name": "林特巧克力之家",
+       "q": "Lindt Home of Chocolate, Kilchberg",
+       "type": "museum",
+       "dur": 120,
+       "via": "火车约 15 分钟"
+      },
+      {
+       "name": "于特利山",
+       "q": "Uetliberg, Zurich",
+       "type": "park",
+       "dur": 90,
+       "via": "打车约 15 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 870,
+     "city": "苏黎世",
+     "lunch": {
+      "dish": "圣加仑小牛香肠",
+      "place": "于特利山顶的餐厅"
+     }
+    }
+   ],
+   "dest": "switzerland",
+   "start": [
+    2027,
+    6,
+    13
+   ]
+  },
+  "xn8d": {
+   "city": "因特拉肯",
+   "label": "因特拉肯 4 天",
+   "title": "四天，伯尔尼、图恩、劳特布龙嫩和布里恩茨",
+   "kicker": "山水 · 4 天",
+   "prep": [
+    "瑞士火车准点且班次密，伯尔尼到因特拉肯约 50 分钟，用手机应用买票并核对站台",
+    "去劳特布龙嫩从因特拉肯东站乘火车，约 20 分钟，山谷里有公交连着瀑布",
+    "夏天山区天气变得快，上午晴下午下雨很常见，带件轻便雨衣",
+    "露天博物馆占地大，多为户外步行，穿舒适的鞋"
+   ],
+   "days": [
+    {
+     "title": "时钟塔 · 大教堂 · 熊园",
+     "text": "到伯尔尼，看老城地标时钟塔和大教堂，再走到河边的熊园，傍晚坐火车去因特拉肯住下。",
+     "stops": [
+      {
+       "name": "伯尔尼时钟塔",
+       "q": "Zytglogge, Bern",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "伯尔尼大教堂",
+       "q": "Bern Minster",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 8 分钟"
+      },
+      {
+       "name": "伯尔尼熊园",
+       "q": "Bear Park, Bern",
+       "type": "park",
+       "dur": 60,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 540,
+     "stay": "因特拉肯",
+     "city": "伯尔尼",
+     "lunch": {
+      "dish": "伯尔尼拼盘",
+      "place": "老城的传统餐馆"
+     }
+    },
+    {
+     "title": "施皮茨城堡 · 图恩城堡 · 图恩老城",
+     "text": "坐火车沿湖到施皮茨看山丘上的城堡，再去图恩登城堡塔楼，逛石板老城。",
+     "stops": [
+      {
+       "name": "施皮茨城堡",
+       "q": "Spiez Castle",
+       "type": "sight",
+       "dur": 75,
+       "via": "火车约 20 分钟"
+      },
+      {
+       "name": "图恩城堡",
+       "q": "Thun Castle",
+       "type": "museum",
+       "dur": 75,
+       "via": "火车约 15 分钟"
+      },
+      {
+       "name": "图恩老城",
+       "q": "Thun Old Town",
+       "type": "street",
+       "dur": 75,
+       "via": "步行约 10 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 560,
+     "stay": "因特拉肯",
+     "city": "因特拉肯",
+     "dinner": {
+      "dish": "牧人通心粉",
+      "place": "因特拉肯的瑞士餐馆"
+     }
+    },
+    {
+     "title": "施陶巴赫瀑布 · 特吕默尔巴赫瀑布 · 高地草坪",
+     "text": "坐火车进劳特布龙嫩山谷，看悬崖上直落的瀑布，沿谷底走到山体里的瀑布，傍晚回因特拉肯。",
+     "stops": [
+      {
+       "name": "施陶巴赫瀑布",
+       "q": "Staubbach Falls, Lauterbrunnen",
+       "type": "sight",
+       "dur": 60,
+       "via": "火车约 20 分钟"
+      },
+      {
+       "name": "特吕默尔巴赫瀑布",
+       "q": "Trummelbach Falls, Lauterbrunnen",
+       "type": "sight",
+       "dur": 90,
+       "via": "步行约 40 分钟"
+      },
+      {
+       "name": "因特拉肯高地草坪",
+       "q": "Hoheweg Hohematte, Interlaken",
+       "type": "park",
+       "dur": 45,
+       "via": "火车约 25 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 800,
+     "stay": "因特拉肯",
+     "city": "因特拉肯",
+     "lunch": {
+      "dish": "洛斯蒂薯饼",
+      "place": "劳特布龙嫩山谷的餐馆"
+     }
+    },
+    {
+     "title": "巴伦贝格露天博物馆 · 布里恩茨老街",
+     "text": "最后一天去巴伦贝格露天博物馆看各地搬来的老房子，再到布里恩茨的木雕老街走走，下午回程。",
+     "stops": [
+      {
+       "name": "巴伦贝格露天博物馆",
+       "q": "Ballenberg Open-Air Museum",
+       "type": "museum",
+       "dur": 150,
+       "via": "公交约 45 分钟"
+      },
+      {
+       "name": "布里恩茨老街",
+       "q": "Brienz Village, Switzerland",
+       "type": "street",
+       "dur": 60,
+       "via": "公交约 8 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 600,
+     "city": "因特拉肯",
+     "lunch": {
+      "dish": "烤湖鳟",
+      "place": "布里恩茨的餐馆"
+     }
+    }
+   ],
+   "dest": "switzerland",
+   "start": [
+    2027,
+    7,
+    17
+   ]
+  },
+  "xn9a": {
+   "city": "纳夫普利翁",
+   "label": "纳夫普利翁 3 天",
+   "title": "三天，纳夫普利翁、迈锡尼和埃皮达鲁斯",
+   "kicker": "历史 · 3 天",
+   "prep": [
+    "在雅典机场或市区的租车点取车，三天后在雅典还车；希腊自驾靠右行驶，高速和部分路段要付现金过路费",
+    "纳夫普利翁老城很小，步行就够，帕拉米迪城堡的台阶多，穿防滑的鞋、带够水",
+    "迈锡尼、埃皮达鲁斯这类遗址大多下午早早关门，尽量上午到；夏季正午很晒，备帽子和防晒",
+    "小馆和停车场常常只收现金，身上留些欧元零钱"
+   ],
+   "days": [
+    {
+     "title": "科林斯运河 · 古科林斯 · 纳夫普利翁老城",
+     "text": "从雅典向西南开，先在科林斯运河的桥上看陡直的河道，再到古科林斯看神庙石柱，傍晚住进纳夫普利翁老城。",
+     "stops": [
+      {
+       "name": "科林斯运河",
+       "q": "Corinth Canal, Greece",
+       "type": "sight",
+       "dur": 30,
+       "via": "自驾约 1 小时 15 分钟"
+      },
+      {
+       "name": "古科林斯",
+       "q": "Ancient Corinth, Greece",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 20 分钟"
+      },
+      {
+       "name": "纳夫普利翁老城",
+       "q": "Old Town, Nafplio",
+       "type": "street",
+       "dur": 90,
+       "via": "自驾约 1 小时"
+      }
+     ],
+     "start": "12:30",
+     "elev": 100,
+     "stay": "纳夫普利翁",
+     "city": "雅典",
+     "dinner": {
+      "dish": "洋葱炖牛肉",
+      "place": "老城石板巷里的小酒馆"
+     }
+    },
+    {
+     "title": "迈锡尼 · 埃皮达鲁斯 · 提林斯",
+     "text": "一天看三处古希腊遗址：迈锡尼的狮子门、埃皮达鲁斯的大剧场、提林斯的巨石城墙。",
+     "stops": [
+      {
+       "name": "迈锡尼遗址",
+       "q": "Mycenae Archaeological Site, Greece",
+       "type": "sight",
+       "dur": 120,
+       "via": "自驾约 40 分钟"
+      },
+      {
+       "name": "埃皮达鲁斯古剧场",
+       "q": "Ancient Theatre of Epidaurus, Greece",
+       "type": "sight",
+       "dur": 90,
+       "via": "自驾约 1 小时"
+      },
+      {
+       "name": "提林斯遗址",
+       "q": "Tiryns Archaeological Site, Greece",
+       "type": "sight",
+       "dur": 60,
+       "via": "自驾约 40 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 50,
+     "stay": "纳夫普利翁",
+     "city": "纳夫普利翁",
+     "lunch": {
+      "dish": "烤羊排",
+      "place": "埃皮达鲁斯附近村里的烤肉馆"
+     }
+    },
+    {
+     "title": "帕拉米迪 · 纳夫普利翁考古博物馆 · 宪法广场",
+     "text": "早上爬上帕拉米迪城堡看港湾，下山后看考古博物馆里的青铜时代展品，在宪法广场坐一会儿，中午后开车回雅典。",
+     "stops": [
+      {
+       "name": "帕拉米迪城堡",
+       "q": "Palamidi Fortress, Nafplio",
+       "type": "sight",
+       "dur": 90,
+       "via": "步行约 20 分钟"
+      },
+      {
+       "name": "纳夫普利翁考古博物馆",
+       "q": "Archaeological Museum of Nafplio",
+       "type": "museum",
+       "dur": 60,
+       "via": "步行约 20 分钟"
+      },
+      {
+       "name": "宪法广场",
+       "q": "Syntagma Square, Nafplio",
+       "type": "street",
+       "dur": 30,
+       "via": "步行约 5 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 20,
+     "city": "纳夫普利翁",
+     "lunch": {
+      "dish": "烤章鱼",
+      "place": "老城港边的小馆"
+     }
+    }
+   ],
+   "dest": "greece",
+   "start": [
+    2027,
+    4,
+    18
+   ]
+  },
+  "xn9b": {
+   "city": "雅典",
+   "label": "雅典 3 天",
+   "title": "三天，雅典古市集、国家考古博物馆和苏尼翁",
+   "kicker": "历史 · 3 天",
+   "prep": [
+    "全程不用租车：市区步行加地铁，去苏尼翁坐从雅典市区发车的 KTEL 阿提卡长途巴士，沿海岸线开约 2 小时，出发前再确认班次",
+    "雅典的古迹多在露天，正午晒得厉害，早上或傍晚出门，带水和帽子",
+    "国家考古博物馆下午较早闭馆，放在上午去；周一部分场馆的开放安排不同，出发前查一下",
+    "市区人多的地铁和广场要看管好随身的包，防扒手"
+   ],
+   "days": [
+    {
+     "title": "古市集 · 哈德良图书馆 · 蒙纳斯提拉奇",
+     "text": "下午从古市集开始，看赫菲斯托斯神庙，再走到哈德良图书馆遗址，傍晚在蒙纳斯提拉奇的老街区闲逛。",
+     "stops": [
+      {
+       "name": "雅典古市集",
+       "q": "Ancient Agora of Athens",
+       "type": "sight",
+       "dur": 90,
+       "via": "步行约 20 分钟"
+      },
+      {
+       "name": "哈德良图书馆",
+       "q": "Library of Hadrian, Athens",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 8 分钟"
+      },
+      {
+       "name": "蒙纳斯提拉奇广场",
+       "q": "Monastiraki Square, Athens",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 3 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 100,
+     "stay": "雅典",
+     "city": "雅典",
+     "dinner": {
+      "dish": "酿番茄饭",
+      "place": "蒙纳斯提拉奇附近的家常小馆"
+     }
+    },
+    {
+     "title": "国家考古博物馆 · 国家花园 · 宙斯神庙 · 帕那辛纳克体育场",
+     "text": "上午看国家考古博物馆，再沿国家花园走到宙斯神庙，最后到大理石的帕那辛纳克体育场。",
+     "stops": [
+      {
+       "name": "雅典国家考古博物馆",
+       "q": "National Archaeological Museum, Athens",
+       "type": "museum",
+       "dur": 120,
+       "via": "步行约 12 分钟"
+      },
+      {
+       "name": "国家花园",
+       "q": "National Garden, Athens",
+       "type": "park",
+       "dur": 45,
+       "via": "步行约 25 分钟"
+      },
+      {
+       "name": "奥林匹亚宙斯神庙",
+       "q": "Temple of Olympian Zeus, Athens",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 12 分钟"
+      },
+      {
+       "name": "帕那辛纳克体育场",
+       "q": "Panathenaic Stadium, Athens",
+       "type": "sight",
+       "dur": 30,
+       "via": "步行约 12 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 100,
+     "city": "雅典",
+     "lunch": {
+      "dish": "烤大白豆",
+      "place": "国家花园旁的小餐馆"
+     }
+    },
+    {
+     "title": "苏尼翁 · 凯拉米克斯",
+     "text": "清早坐巴士去苏尼翁海角看海神庙，中午回雅典，再去凯拉米克斯古墓地看古人的墓碑。",
+     "stops": [
+      {
+       "name": "苏尼翁海神庙",
+       "q": "Temple of Poseidon, Sounion",
+       "type": "sight",
+       "dur": 120,
+       "via": "公交约 2 小时"
+      },
+      {
+       "name": "凯拉米克斯古墓地",
+       "q": "Kerameikos Archaeological Site, Athens",
+       "type": "sight",
+       "dur": 60,
+       "via": "公交约 2 小时"
+      }
+     ],
+     "start": "08:00",
+     "elev": 60,
+     "city": "雅典",
+     "dinner": {
+      "dish": "炸小鱼",
+      "place": "雅典市区的海鲜小馆"
+     }
+    }
+   ],
+   "dest": "greece",
+   "start": [
+    2027,
+    5,
+    8
+   ]
+  },
+  "xn9c": {
+   "city": "亚历山大",
+   "label": "亚历山大 3 天",
+   "title": "三天，亚历山大、科姆舒盖法和开罗塔",
+   "kicker": "历史 · 3 天",
+   "prep": [
+    "不用自驾：开罗拉美西斯火车站有直达亚历山大的火车，约 2 小时半，选一等座，票提前在站里或手机上买",
+    "亚历山大市内用打车软件最省事，上车前确认走表或先谈好价格",
+    "海边风大，冬天早晚凉，带件外套；去地下墓穴和清真寺要穿能盖住肩膀和膝盖的衣服",
+    "小店和餐馆多数收现金，备些埃及镑零钱"
+   ],
+   "days": [
+    {
+     "title": "罗马剧场 · 亚历山大图书馆",
+     "text": "中午从开罗坐火车到亚历山大，下午先看罗马剧场，再走到新图书馆参观。",
+     "stops": [
+      {
+       "name": "亚历山大罗马剧场",
+       "q": "Kom El Dikka Roman Amphitheatre, Alexandria",
+       "type": "sight",
+       "dur": 60,
+       "via": "火车约 2 小时 30 分钟"
+      },
+      {
+       "name": "亚历山大图书馆",
+       "q": "Bibliotheca Alexandrina, Alexandria",
+       "type": "museum",
+       "dur": 90,
+       "via": "步行约 25 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 5,
+     "stay": "亚历山大",
+     "city": "亚历山大",
+     "dinner": {
+      "dish": "烤海鱼",
+      "place": "海滨路上的海鲜馆"
+     }
+    },
+    {
+     "title": "盖特贝城堡 · 庞贝柱 · 科姆舒盖法地下墓穴 · 蒙塔扎宫",
+     "text": "沿海岸看盖特贝城堡，再到内城看庞贝柱和地下墓穴，下午去东边的蒙塔扎宫花园散步。",
+     "stops": [
+      {
+       "name": "盖特贝城堡",
+       "q": "Citadel of Qaitbay, Alexandria",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 8 分钟"
+      },
+      {
+       "name": "庞贝柱",
+       "q": "Pompey Pillar, Alexandria",
+       "type": "sight",
+       "dur": 40,
+       "via": "打车约 10 分钟"
+      },
+      {
+       "name": "科姆舒盖法地下墓穴",
+       "q": "Catacombs of Kom El Shoqafa, Alexandria",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 12 分钟"
+      },
+      {
+       "name": "蒙塔扎宫",
+       "q": "Montaza Palace Gardens, Alexandria",
+       "type": "park",
+       "dur": 90,
+       "via": "打车约 45 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 5,
+     "stay": "亚历山大",
+     "city": "亚历山大",
+     "lunch": {
+      "dish": "萨亚迪亚鱼饭",
+      "place": "老城区的本地海鲜馆"
+     }
+    },
+    {
+     "title": "开罗塔 · 艾资哈尔公园",
+     "text": "上午坐火车回开罗，先上开罗塔看城市，再到艾资哈尔公园的高处看老城的尖塔。",
+     "stops": [
+      {
+       "name": "开罗塔",
+       "q": "Cairo Tower, Zamalek",
+       "type": "sight",
+       "dur": 60,
+       "via": "火车约 2 小时 30 分钟"
+      },
+      {
+       "name": "艾资哈尔公园",
+       "q": "Al-Azhar Park, Cairo",
+       "type": "park",
+       "dur": 90,
+       "via": "打车约 10 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 25,
+     "city": "开罗",
+     "lunch": {
+      "dish": "马赫希酿蔬菜",
+      "place": "开罗塔附近的家常馆子"
+     }
+    }
+   ],
+   "dest": "egypt",
+   "start": [
+    2027,
+    0,
+    19
+   ]
+  },
+  "xn9d": {
+   "city": "开罗",
+   "label": "开罗 3 天",
+   "title": "三天，萨拉丁城堡、达舒尔和阿兹哈尔清真寺",
+   "kicker": "历史 · 3 天",
+   "prep": [
+    "全程住开罗，市内用打车软件，上车前确认走表或先谈好价格；达舒尔和孟菲斯没有公共交通，最好包一辆车半天，让司机等你",
+    "进清真寺要脱鞋，穿能盖住肩膀和膝盖的衣服，女生带条头巾备用",
+    "萨拉丁城堡和老城的古迹下午较早关门，放在上午或午后早些时候去",
+    "红色金字塔的内部通道又窄又陡，空气闷，体力不好或怕闷的人可以只在外面看"
+   ],
+   "days": [
+    {
+     "title": "萨拉丁城堡 · 苏丹哈桑清真寺 · 伊本图伦清真寺",
+     "text": "下午登萨拉丁城堡看城内的清真寺和城市全景，再走到旁边的两座中世纪清真寺。",
+     "stops": [
+      {
+       "name": "萨拉丁城堡",
+       "q": "Citadel of Saladin, Cairo",
+       "type": "sight",
+       "dur": 120,
+       "via": "打车约 15 分钟"
+      },
+      {
+       "name": "苏丹哈桑清真寺",
+       "q": "Sultan Hassan Mosque, Cairo",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 10 分钟"
+      },
+      {
+       "name": "伊本图伦清真寺",
+       "q": "Mosque of Ibn Tulun, Cairo",
+       "type": "sight",
+       "dur": 60,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "12:30",
+     "elev": 25,
+     "stay": "开罗",
+     "city": "开罗",
+     "dinner": {
+      "dish": "炸豆饼",
+      "place": "老城街边的本地小店"
+     }
+    },
+    {
+     "title": "红色金字塔 · 弯曲金字塔 · 孟菲斯",
+     "text": "南下到达舒尔，看红色金字塔和弯曲金字塔，下午去孟菲斯的露天博物馆看拉美西斯二世巨像。",
+     "stops": [
+      {
+       "name": "达舒尔红色金字塔",
+       "q": "Red Pyramid, Dahshur",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 1 小时"
+      },
+      {
+       "name": "达舒尔弯曲金字塔",
+       "q": "Bent Pyramid, Dahshur",
+       "type": "sight",
+       "dur": 45,
+       "via": "打车约 5 分钟"
+      },
+      {
+       "name": "孟菲斯露天博物馆",
+       "q": "Open Air Museum, Memphis, Egypt",
+       "type": "museum",
+       "dur": 60,
+       "via": "打车约 20 分钟"
+      }
+     ],
+     "start": "08:30",
+     "elev": 30,
+     "stay": "开罗",
+     "city": "开罗",
+     "lunch": {
+      "dish": "莫洛海亚浓汤",
+      "place": "孟菲斯路边的本地饭馆"
+     }
+    },
+    {
+     "title": "阿兹哈尔清真寺 · 穆伊兹街 · 巴布祖维拉城门",
+     "text": "上午逛老开罗：阿兹哈尔清真寺、穆伊兹街的中世纪建筑，最后爬上祖维拉城门的宣礼塔。",
+     "stops": [
+      {
+       "name": "阿兹哈尔清真寺",
+       "q": "Al-Azhar Mosque, Cairo",
+       "type": "sight",
+       "dur": 60,
+       "via": "打车约 12 分钟"
+      },
+      {
+       "name": "穆伊兹街",
+       "q": "Al-Muizz Street, Cairo",
+       "type": "street",
+       "dur": 60,
+       "via": "步行约 8 分钟"
+      },
+      {
+       "name": "巴布祖维拉城门",
+       "q": "Bab Zuweila, Cairo",
+       "type": "sight",
+       "dur": 45,
+       "via": "步行约 15 分钟"
+      }
+     ],
+     "start": "09:00",
+     "elev": 25,
+     "city": "开罗",
+     "lunch": {
+      "dish": "科夫塔烤肉",
+      "place": "老城里的烤肉小店"
+     }
+    }
+   ],
+   "dest": "egypt",
+   "start": [
+    2027,
+    2,
+    2
+   ]
   }
  }
 }
