@@ -684,3 +684,4 @@ body{background:var(--bg);color:var(--ink)}
 :focus-visible{outline-color:var(--red)}
 }
 .toc a.allbar{color:var(--bg)}
+.mapmore{margin:8px 20px 0;font-size:13px;line-height:1.8;color:var(--sub)}.mapmore a{display:inline-block;padding:4px 2px;color:var(--red);font-weight:700}
