@@ -323,25 +323,9 @@ def natgeo():
     s.path('M60,90 L540,90 L540,710 L60,710 Z', None, 1, '#f2c230', 6); s.grain(121); return s.svg(121)
 
 
-def roc():
-    """Roc山海行（河西走廊自驾）：落日，祁连雪山，一条笔直的戈壁公路，路上一辆车。"""
-    s = S(122); vgrad(s, 0, 800, [(0, '#2a2f55'), (.42, '#d9774f'), (.62, '#f4c27a'), (1, '#e8b678')])
-    s.circ(420, 330, 64, '#fff1c4'); glow(s, 420, 330, 150, '#ffd79a', .5)
-    s.poly([(0, 470), (90, 380), (170, 430), (260, 330), (350, 440), (430, 390), (520, 450), (600, 400), (600, 520), (0, 520)], '#5a4a6a')
-    s.poly([(260, 330), (232, 372), (250, 366), (262, 388), (278, 362), (298, 376)], '#f6e9e0')
-    s.poly([(90, 380), (68, 410), (86, 404), (98, 420), (112, 398)], '#f6e9e0')
-    s.poly([(0, 520), (600, 520), (600, 800), (0, 800)], '#c99a62')
-    s.poly([(0, 640), (600, 560), (600, 800), (0, 800)], '#b5834e', .45)
-    s.poly([(270, 520), (330, 520), (560, 800), (40, 800)], '#3a3433')
-    for k in range(6):
-        y0 = 540 + k * k * 8 + k * 14; s.poly([(298 - k * 1.2, y0), (302 + k * 1.2, y0), (303 + k * 2.4, y0 + 18 + k * 4), (297 - k * 2.4, y0 + 18 + k * 4)], '#f2d68a')
-    s.rect(262, 690, 76, 30, '#c8432f'); s.rect(274, 676, 52, 20, '#d9d9d4'); s.circ(280, 724, 9, '#1c1d1a'); s.circ(320, 724, 9, '#1c1d1a')
-    s.grain(122); return s.svg(122)
-
-
 SHOWS = {'shejian': shejian, 'fengwei': fengwei, 'yuanchandi': yuanchandi, 'zaocan': zaocan, 'guobao': guobao, 'xiangchou': xiangchou, 'yichuan': yichuan, 'xiaoye': xiaoye,
          'hexi': hexi, 'shuben': shuben, 'hangpai': hangpai, 'laoguang': laoguang, 'changjiang': changjiang, 'silu': silu, 'sichou': sichou, 'yingxiang': yingxiang,
-         'phil': phil, 'weizhi': weizhi, 'roc': roc, 'jietou': jietou, 'lp': lp, 'natgeo': natgeo}
+         'phil': phil, 'weizhi': weizhi, 'jietou': jietou, 'lp': lp, 'natgeo': natgeo}
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True)
     for k, fn in SHOWS.items():

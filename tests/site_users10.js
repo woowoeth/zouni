@@ -1,0 +1,18 @@
+const p=require('/tmp/node_modules/puppeteer'); const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const B=process.argv[2]||'http://localhost:8765';
+(async()=>{ const b=await p.launch({args:['--no-sandbox','--disable-dev-shm-usage']}); const ctx=await b.createBrowserContext(); const R=[], errs=[];
+  const pg=await ctx.newPage(); pg.on('pageerror',e=>errs.push(e.message.split('\n')[0])); await pg.setViewport({width:390,height:844,isMobile:true});
+  await pg.goto(B+'/trip/xa3/',{waitUntil:'networkidle0'}); await sleep(300);
+  const nav=await pg.evaluate(()=>{ const a=[...document.querySelectorAll('.r .ic[aria-label^="导航去"]')]; return {n:a.length, h:a[0]?a[0].href:'', t:a[0]?a[0].getAttribute('aria-label'):''}; });
+  R.push({u:'46 西安：地点的地图图标就是导航',ok:nav.n>5&&/uri\.amap\.com\/navigation/.test(nav.h)&&/mode=(car|walk|bus)/.test(nav.h),find:`${nav.n} 个图标可导航；第一个“${nav.t}” → ${nav.h.slice(0,90)}…`});
+  await pg.goto(B+'/where/',{waitUntil:'networkidle0'}); await sleep(300);
+  await pg.evaluate(()=>{ document.querySelector('.mon button[data-m="1"]').click(); document.querySelector('.ftog').click(); document.querySelector('[data-f="niche"]').click(); }); await sleep(300);
+  const before=await pg.evaluate(()=>document.querySelector('.cnt').innerText);
+  await pg.evaluate(()=>document.querySelector('.card a.ch').click()); await pg.waitForNavigation({waitUntil:'networkidle0'}).catch(()=>{}); await sleep(300); const at=pg.url();
+  await pg.evaluate(()=>document.querySelector('.pagehead a').click()); await pg.waitForNavigation({waitUntil:'networkidle0'}).catch(()=>{}); await sleep(500);
+  const back=await pg.evaluate(()=>({u:location.pathname,m:document.querySelector('.mon button.on')?.dataset.m,niche:document.querySelector('[data-f="niche"]').classList.contains('on'),cnt:document.querySelector('.cnt').innerText}));
+  R.push({u:'47 去哪儿选好 1 月 + 有小众，点进目的地再返回',ok:back.u==='/where/'&&back.m==='1'&&back.niche,find:`进了 ${at.replace(B,'')}，返回后 ${back.u}：${back.m} 月、有小众 ${back.niche?'还在':'丢了'}，${back.cnt}（之前 ${before}）`});
+  await pg.goto(B+'/where/',{waitUntil:'networkidle0'}); await sleep(400);
+  const again=await pg.evaluate(()=>({m:document.querySelector('.mon button.on')?.dataset.m,niche:document.querySelector('[data-f="niche"]').classList.contains('on')}));
+  R.push({u:'48 直接再打开去哪儿',ok:again.m==='1'&&again.niche,find:`${again.m} 月、有小众 ${again.niche?'记得':'没记住'}`});
+  console.log(JSON.stringify({R,errs},null,1)); await b.close(); })().catch(e=>{console.error('ERR',e.message);process.exit(1);});

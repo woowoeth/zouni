@@ -1,0 +1,21 @@
+// 第十四组：目的地页线路分布图、路线图放大、我的行程带出发日
+const p=require('/tmp/node_modules/puppeteer'); const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const B=process.argv[2]||'http://localhost:8765';
+(async()=>{ const b=await p.launch({args:['--no-sandbox','--disable-dev-shm-usage']}); const R=[], errs=[];
+  const ctx=await b.createBrowserContext(); const pg=await ctx.newPage(); pg.on('pageerror',e=>errs.push(e.message.split('\n')[0])); await pg.setViewport({width:390,height:844,isMobile:true,hasTouch:true});
+  await pg.goto(B+'/d/sichuan/',{waitUntil:'networkidle0'}); await sleep(300);
+  const m=await pg.evaluate(()=>{ const f=document.querySelector('.dmap'); return f?{names:[...f.querySelectorAll('a text')].map(t=>t.textContent),dots:f.querySelectorAll('circle').length}:null; });
+  const go=await Promise.all([pg.waitForNavigation({waitUntil:'networkidle0'}).catch(()=>{}), pg.evaluate(()=>{ const a=document.querySelector('.dmap a'); a.dispatchEvent(new MouseEvent('click',{bubbles:true})); })]).then(()=>pg.url().replace(B,''));
+  R.push({u:'60 四川页的线路分布图',ok:!!m&&m.names.length>=4&&go.startsWith('/trip/'),find:m?`标出 ${m.names.length} 条：${m.names.slice(0,8).join('、')}…；点第一个名字进了 ${go}`:'没有图'});
+  await pg.goto(B+'/trip/xa3/',{waitUntil:'networkidle0'}); await sleep(300);
+  await pg.evaluate(()=>document.querySelector('.hmap').click()); await sleep(300);
+  const z=await pg.evaluate(()=>{ const s=document.querySelector('.hmap-zoom svg'); return s?Math.round(s.getBoundingClientRect().width):0; });
+  await pg.evaluate(()=>document.querySelector('.hz-x').click()); await sleep(200); const gone=await pg.evaluate(()=>!document.querySelector('.hmap-zoom'));
+  R.push({u:'61 西安路线图点一下放大',ok:z>600&&gone,find:`放大后图宽 ${z}（屏幕 390），关上${gone?'了':'不了'}`});
+  await pg.evaluate(()=>{ document.querySelector('.fav').click(); }); await sleep(200);
+  await pg.tap('.dtw'); await sleep(200); await pg.evaluate(()=>document.querySelector('.pk-q button[data-q="1"]').click()); await sleep(300);
+  await pg.goto(B+'/',{waitUntil:'networkidle0'}); await sleep(400);
+  await pg.evaluate(()=>document.querySelector('.minebtn').click()); await sleep(300);
+  const mine=await pg.evaluate(()=>[...document.querySelectorAll('.pk a.mr')].map(a=>a.innerText.replace(/\n/g,' ')).slice(0,1).join(''));
+  R.push({u:'62 收进西安、选下周六，首页“我的行程”',ok:/出发 · 还有 \d+ 天/.test(mine),find:mine});
+  console.log(JSON.stringify({R,errs},null,1)); await b.close(); })().catch(e=>{console.error('ERR',e.message);process.exit(1);});

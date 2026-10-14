@@ -1,0 +1,2725 @@
+{
+ "pickup": {
+  "name": "机场提车 · 验车",
+  "city": "xj:0",
+  "dur": 60,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "bazaar": {
+  "name": "新疆国际大巴扎",
+  "city": "xj:0",
+  "dur": 0,
+  "cost": 68,
+  "cat": "food",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "food",
+   "folk"
+  ],
+  "bestTime": "night",
+  "indoor": false
+ },
+ "bj-town": {
+  "name": "布尔津 · 童话边城闲逛",
+  "city": "xj:2",
+  "dur": 60,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "chill"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "bj-bank": {
+  "name": "额河河堤 · 落日长椅",
+  "city": "xj:2",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "d3-night": {
+  "name": "冷水鱼 · 烤狗鱼",
+  "city": "xj:2",
+  "dur": 90,
+  "cost": 148,
+  "cat": "food",
+  "prio": 1,
+  "type": "choice",
+  "choices": [
+   {
+    "name": "冷水鱼 · 烤狗鱼",
+    "dur": 90,
+    "cost": 148
+   },
+   {
+    "name": "家常抓饭馆",
+    "dur": 60,
+    "cost": 58
+   }
+  ],
+  "tags": [
+   "food"
+  ],
+  "bestTime": "night",
+  "indoor": false
+ },
+ "sanwan": {
+  "name": "喀纳斯三湾",
+  "city": "xj:3",
+  "dur": 150,
+  "cost": 290,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature",
+   "hike"
+  ],
+  "bestTime": "dawn",
+  "indoor": false
+ },
+ "guanyu": {
+  "name": "观鱼台",
+  "city": "xj:3",
+  "dur": 90,
+  "cost": 120,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "nature",
+   "hike"
+  ],
+  "bestTime": "afternoon",
+  "indoor": false
+ },
+ "urhe-rest": {
+  "name": "乌尔禾镇 · 进店休整",
+  "city": "xj:5",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "ghost-city": {
+  "name": "世界魔鬼城 · 黄昏场",
+  "city": "xj:5",
+  "dur": 120,
+  "cost": 106,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "sailimu-loop": {
+  "name": "环湖自驾 · 顺时针",
+  "city": "xj:6",
+  "dur": 150,
+  "cost": 145,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "sailimu-dusk": {
+  "name": "湖畔 · 等日落",
+  "city": "xj:6",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "d9-grass": {
+  "name": "空中草原 · 区间车",
+  "city": "xj:8",
+  "dur": 180,
+  "cost": 210,
+  "cat": "tix",
+  "prio": 0,
+  "type": "choice",
+  "choices": [
+   {
+    "name": "空中草原 · 区间车",
+    "dur": 180,
+    "cost": 210
+   },
+   {
+    "name": "河谷草原 · 步道",
+    "dur": 120,
+    "cost": 90
+   }
+  ],
+  "tags": [
+   "nature",
+   "folk"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "nlt-dusk": {
+  "name": "镇边草坡 · 日落",
+  "city": "xj:8",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "photo"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "dsz-canyon": {
+  "name": "独山子大峡谷",
+  "city": "xj:0",
+  "dur": 60,
+  "cost": 54,
+  "cat": "tix",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "return-car": {
+  "name": "还车 · 乌鲁木齐",
+  "city": "xj:0",
+  "dur": 45,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "hemu-vill": {
+  "name": "禾木村 · 闲逛",
+  "city": "xj:4",
+  "dur": 0,
+  "cost": 140,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "chill"
+  ],
+  "bestTime": "afternoon",
+  "indoor": false
+ },
+ "hemu-view": {
+  "name": "禾木观景台 · 日落",
+  "city": "xj:4",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "hemu-fog": {
+  "name": "禾木晨雾 · 观景台",
+  "city": "xj:5",
+  "dur": 60,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "nature"
+  ],
+  "bestTime": "dawn",
+  "indoor": false
+ },
+ "guozigou": {
+  "name": "果子沟大桥 · 观景台",
+  "city": "xj:7",
+  "dur": 30,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "d8-kzq": {
+  "name": "手工冰淇淋 ＋ 烤包子",
+  "city": "xj:7",
+  "dur": 100,
+  "cost": 45,
+  "cat": "food",
+  "prio": 1,
+  "type": "choice",
+  "choices": [
+   {
+    "name": "手工冰淇淋 ＋ 烤包子",
+    "dur": 100,
+    "cost": 45
+   },
+   {
+    "name": "馕坑肉小馆 · 正餐",
+    "dur": 100,
+    "cost": 88
+   }
+  ],
+  "tags": [
+   "food"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "six-star": {
+  "name": "六星街 · 黄昏",
+  "city": "xj:7",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "food"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "hemu-trek": {
+  "name": "禾木河谷 · 半日徒步",
+  "city": "xj:4",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "food",
+   "nature",
+   "hike",
+   "chill"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "jiuqu": {
+  "name": "九曲十八弯 · 日落",
+  "city": "xj:9",
+  "dur": 0,
+  "cost": 145,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "nature"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "qg-pickup": {
+  "name": "西宁提车 · 验车",
+  "city": "qg:0",
+  "dur": 45,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "taersi": {
+  "name": "塔尔寺",
+  "city": "qg:0",
+  "dur": 120,
+  "cost": 70,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "mojia": {
+  "name": "莫家街夜市",
+  "city": "qg:0",
+  "dur": 0,
+  "cost": 68,
+  "cat": "food",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "food",
+   "history"
+  ],
+  "bestTime": "night",
+  "indoor": false
+ },
+ "qhlake": {
+  "name": "青海湖 · 湖边牧场",
+  "city": "qg:1",
+  "dur": 0,
+  "cost": 20,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "heimahe": {
+  "name": "黑马河 · 日落",
+  "city": "qg:1",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "chaka": {
+  "name": "茶卡盐湖",
+  "city": "qg:2",
+  "dur": 150,
+  "cost": 94,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "feicui": {
+  "name": "翡翠湖 · 黄昏",
+  "city": "qg:2",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "dh-rest": {
+  "name": "敦煌 · 进店休整",
+  "city": "qg:3",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "mingsha": {
+  "name": "鸣沙山月牙泉 · 黄昏场",
+  "city": "qg:3",
+  "dur": 180,
+  "cost": 110,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "qg-night": {
+  "name": "沙洲夜市 · 烤肉套",
+  "city": "qg:3",
+  "dur": 90,
+  "cost": 98,
+  "cat": "food",
+  "prio": 1,
+  "type": "choice",
+  "choices": [
+   {
+    "name": "沙洲夜市 · 烤肉套",
+    "dur": 90,
+    "cost": 98
+   },
+   {
+    "name": "驴肉黄面 · 老店",
+    "dur": 60,
+    "cost": 45
+   }
+  ],
+  "tags": [
+   "food"
+  ],
+  "bestTime": "night",
+  "indoor": false
+ },
+ "mogao": {
+  "name": "莫高窟 · A 类票",
+  "city": "qg:4",
+  "dur": 180,
+  "cost": 238,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": true
+ },
+ "jiayuguan": {
+  "name": "嘉峪关关城",
+  "city": "qg:4",
+  "dur": 90,
+  "cost": 110,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "zy-lunch": {
+  "name": "张掖 · 搓鱼子午饭",
+  "city": "qg:5",
+  "dur": 60,
+  "cost": 38,
+  "cat": "food",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "food",
+   "nature"
+  ],
+  "bestTime": "afternoon",
+  "indoor": true
+ },
+ "danxia": {
+  "name": "七彩丹霞 · 黄昏场",
+  "city": "qg:5",
+  "dur": 150,
+  "cost": 75,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "history",
+   "nature"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "zhuoer": {
+  "name": "卓尔山",
+  "city": "qg:6",
+  "dur": 150,
+  "cost": 60,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "qilian-pot": {
+  "name": "祁连 · 牦牛肉汤锅",
+  "city": "qg:6",
+  "dur": 80,
+  "cost": 88,
+  "cat": "food",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "food"
+  ],
+  "bestTime": "night",
+  "indoor": true
+ },
+ "qg-return": {
+  "name": "还车 · 西宁",
+  "city": "qg:0",
+  "dur": 45,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "cx-pickup": {
+  "name": "成都提车 · 验车",
+  "city": "cx:1",
+  "dur": 45,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "maobiliang": {
+  "name": "猫鼻梁 · 四姑娘全景",
+  "city": "cx:1",
+  "dur": 45,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "history"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "shuangqiao": {
+  "name": "双桥沟 · 观光车全线",
+  "city": "cx:1",
+  "dur": 300,
+  "cost": 150,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "jiaju": {
+  "name": "甲居藏寨",
+  "city": "cx:2",
+  "dur": 150,
+  "cost": 50,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "cx-dinner": {
+  "name": "藏家宴 · 石锅鸡",
+  "city": "cx:2",
+  "dur": 90,
+  "cost": 88,
+  "cat": "food",
+  "prio": 2,
+  "type": "choice",
+  "choices": [
+   {
+    "name": "藏家宴 · 石锅鸡",
+    "dur": 90,
+    "cost": 88
+   },
+   {
+    "name": "牛肉面馆",
+    "dur": 45,
+    "cost": 38
+   }
+  ],
+  "tags": [
+   "food"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "tagong": {
+  "name": "塔公草原 · 寺前",
+  "city": "cx:3",
+  "dur": 75,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "history",
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "xdq-light": {
+  "name": "新都桥 · 光影长廊",
+  "city": "cx:3",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "nature"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "zheduo": {
+  "name": "折多山垭口",
+  "city": "cx:0",
+  "dur": 30,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "photo"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "cx-return": {
+  "name": "还车 · 成都",
+  "city": "cx:0",
+  "dur": 45,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "db-pickup": {
+  "name": "大理提车 · 验车",
+  "city": "dxb:0",
+  "dur": 45,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "dali-old": {
+  "name": "大理古城 · 慢逛",
+  "city": "dxb:0",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "caicun": {
+  "name": "才村码头 · 日落",
+  "city": "dxb:0",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "hike"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "erhai-loop": {
+  "name": "环洱海 · 顺时针",
+  "city": "dxb:1",
+  "dur": 240,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "dl-chill": {
+  "name": "双廊 · 海边躺平",
+  "city": "dxb:1",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "chill"
+  ],
+  "bestTime": "afternoon",
+  "indoor": false
+ },
+ "db-dinner": {
+  "name": "海景酸辣鱼",
+  "city": "dxb:1",
+  "dur": 90,
+  "cost": 128,
+  "cat": "food",
+  "prio": 1,
+  "type": "choice",
+  "choices": [
+   {
+    "name": "海景酸辣鱼",
+    "dur": 90,
+    "cost": 128
+   },
+   {
+    "name": "白族小馆",
+    "dur": 60,
+    "cost": 58
+   }
+  ],
+  "tags": [
+   "food"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "lj-old": {
+  "name": "丽江古城 · 四方街",
+  "city": "dxb:2",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "lion-hill": {
+  "name": "狮子山 · 万古楼日落",
+  "city": "dxb:2",
+  "dur": 90,
+  "cost": 50,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "hutiao": {
+  "name": "上虎跳 · 峡谷栈道",
+  "city": "dxb:3",
+  "dur": 100,
+  "cost": 45,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "dukezong": {
+  "name": "独克宗古城 · 转经",
+  "city": "dxb:3",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "pudacuo": {
+  "name": "普达措 · 属都湖线",
+  "city": "dxb:3",
+  "dur": 240,
+  "cost": 138,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "songzanlin": {
+  "name": "松赞林寺",
+  "city": "dxb:3",
+  "dur": 100,
+  "cost": 90,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "history",
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "db-return": {
+  "name": "还车 · 丽江",
+  "city": "dxb:2",
+  "dur": 45,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "taikwun": {
+  "name": "大馆",
+  "city": "hk:1",
+  "dur": 100,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": true
+ },
+ "manmo": {
+  "name": "文武庙",
+  "city": "hk:1",
+  "dur": 30,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": true
+ },
+ "hk-tea": {
+  "name": "陆羽茶室 · 港式饮茶",
+  "city": "hk:1",
+  "dur": 90,
+  "cost": 130,
+  "cat": "food",
+  "prio": 1,
+  "type": "choice",
+  "choices": [
+   {
+    "name": "陆羽茶室 · 港式饮茶",
+    "dur": 90,
+    "cost": 130
+   },
+   {
+    "name": "兰芳园 · 茶记",
+    "dur": 45,
+    "cost": 48
+   }
+  ],
+  "tags": [
+   "food"
+  ],
+  "bestTime": "afternoon",
+  "indoor": false
+ },
+ "pier-dusk": {
+  "name": "中环码头 · 黄昏",
+  "city": "hk:1",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "mplus": {
+  "name": "M+ 博物馆",
+  "city": "hk:2",
+  "dur": 180,
+  "cost": 110,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": true
+ },
+ "artpark": {
+  "name": "艺术公园 · 草坪",
+  "city": "hk:2",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "temple-st": {
+  "name": "庙街夜市",
+  "city": "hk:2",
+  "dur": 90,
+  "cost": 88,
+  "cat": "food",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "food",
+   "history"
+  ],
+  "bestTime": "night",
+  "indoor": false
+ },
+ "peak": {
+  "name": "太平山 · 山顶缆车",
+  "city": "hk:3",
+  "dur": 150,
+  "cost": 118,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [],
+  "bestTime": null,
+  "indoor": false
+ },
+ "hk-back": {
+  "name": "西九龙站 · 高铁返程",
+  "city": "hk:3",
+  "dur": 45,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "sc-pickup": {
+  "name": "成都提车 · 验车",
+  "city": "sc:1",
+  "dur": 45,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "sc-zheduo": {
+  "name": "折多山垭口",
+  "city": "sc:1",
+  "dur": 20,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [],
+  "bestTime": null,
+  "indoor": false
+ },
+ "xdq-sc": {
+  "name": "新都桥 · 光影长廊",
+  "city": "sc:1",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "nature"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "litang-town": {
+  "name": "勒通古镇",
+  "city": "sc:2",
+  "dur": 120,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "litang-yak": {
+  "name": "牦牛肉火锅 · 县城",
+  "city": "sc:2",
+  "dur": 75,
+  "cost": 68,
+  "cat": "food",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "food"
+  ],
+  "bestTime": null,
+  "indoor": true
+ },
+ "yadingvc": {
+  "name": "亚丁景区 · 购票进场",
+  "city": "sc:3",
+  "dur": 60,
+  "cost": 220,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": false
+ },
+ "chongu": {
+  "name": "冲古寺 · 仙乃日近照",
+  "city": "sc:3",
+  "dur": 120,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "history",
+   "nature"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "luorong": {
+  "name": "洛绒牛场 · 央迈勇近照",
+  "city": "sc:4",
+  "dur": 120,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "hike"
+  ],
+  "bestTime": "dawn",
+  "indoor": false
+ },
+ "shenxian-wan": {
+  "name": "珍珠海 · 夏诺多吉脚",
+  "city": "sc:4",
+  "dur": 90,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "sc-return": {
+  "name": "还车 · 成都",
+  "city": "sc:0",
+  "dur": 45,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "kangding-muta": {
+  "name": "木雅圣地 · 转经筒",
+  "city": "sc:5",
+  "dur": 60,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "tekesi": {
+  "name": "特克斯八卦城",
+  "city": "xj:10",
+  "dur": 120,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "kalajun": {
+  "name": "喀拉峻草原 · 黄昏",
+  "city": "xj:10",
+  "dur": 0,
+  "cost": 60,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "nature"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "zhaosu-tian": {
+  "name": "天鹅湖",
+  "city": "xj:11",
+  "dur": 90,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "zhaosu-grass": {
+  "name": "昭苏草原 · 马场",
+  "city": "xj:11",
+  "dur": 120,
+  "cost": 80,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "nature",
+   "folk"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "xiata": {
+  "name": "夏塔古道入口 · 停车拍照",
+  "city": "xj:8",
+  "dur": 30,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "history",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "nlt-sc": {
+  "name": "镇边草坡 · 空中草原",
+  "city": "xj:8",
+  "dur": 0,
+  "cost": 65,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "xz-arrive": {
+  "name": "拉萨到达 · 不抢行程",
+  "city": "xz:0",
+  "dur": 60,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [],
+  "bestTime": "afternoon",
+  "indoor": true
+ },
+ "barkhor": {
+  "name": "八廓街 · 转经道",
+  "city": "xz:0",
+  "dur": 90,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": "afternoon",
+  "indoor": false
+ },
+ "jokhang-night": {
+  "name": "大昭寺 · 傍晚广场",
+  "city": "xz:0",
+  "dur": 45,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "potala": {
+  "name": "布达拉宫",
+  "city": "xz:0",
+  "dur": 150,
+  "cost": 240,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "history",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": true
+ },
+ "lukhang": {
+  "name": "龙王潭 · 布宫倒影",
+  "city": "xz:0",
+  "dur": 45,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "sera": {
+  "name": "色拉寺 · 辩经院",
+  "city": "xz:0",
+  "dur": 90,
+  "cost": 50,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "history",
+   "folk"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "yamdrok": {
+  "name": "羊卓雍错",
+  "city": "xz:1",
+  "dur": 180,
+  "cost": 30,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "palkhor": {
+  "name": "白居寺 · 菊扎神变殿",
+  "city": "xz:1",
+  "dur": 90,
+  "cost": 40,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": true
+ },
+ "tashilhunpo": {
+  "name": "扎什伦布寺",
+  "city": "xz:2",
+  "dur": 150,
+  "cost": 85,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": "morning",
+  "indoor": true
+ },
+ "shigatse-market": {
+  "name": "日喀则市集 · 藏族手工区",
+  "city": "xz:2",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "food",
+   "folk"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "namtso": {
+  "name": "纳木错 · 扎西岛日落",
+  "city": "xz:3",
+  "dur": 120,
+  "cost": 80,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature",
+   "star"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "namtso-dawn": {
+  "name": "纳木错 · 日出",
+  "city": "xz:3",
+  "dur": 120,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": "dawn",
+  "indoor": false
+ },
+ "namtso-loop": {
+  "name": "纳木错 · 扎西岛绕岛",
+  "city": "xz:3",
+  "dur": 150,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "history",
+   "nature",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "xz-out": {
+  "name": "拉萨·还车·出发",
+  "city": "xz:0",
+  "dur": 60,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "nm-pickup": {
+  "name": "酒泉提车 · 验车",
+  "city": "nm:1",
+  "dur": 45,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "nm-dusk": {
+  "name": "达来呼布镇 · 傍晚",
+  "city": "nm:1",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "nm-hulun": {
+  "name": "胡杨林 · 一二三道桥",
+  "city": "nm:1",
+  "dur": 240,
+  "cost": 100,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "heicheng": {
+  "name": "黑城·西夏遗址",
+  "city": "nm:1",
+  "dur": 90,
+  "cost": 20,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "history",
+   "nature"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "nm-4bridge": {
+  "name": "四至八道桥 · 英雄林",
+  "city": "nm:1",
+  "dur": 210,
+  "cost": 80,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": "afternoon",
+  "indoor": false
+ },
+ "ghost-trees": {
+  "name": "怪树林 · 枯木滩",
+  "city": "nm:1",
+  "dur": 90,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "juyan": {
+  "name": "居延海 · 候鸟",
+  "city": "nm:1",
+  "dur": 60,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "nm-return": {
+  "name": "还车 · 酒泉",
+  "city": "nm:0",
+  "dur": 45,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "hs-pickup": {
+  "name": "杭州提车 · 验车",
+  "city": "hs:1",
+  "dur": 40,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "huizhou-old": {
+  "name": "徽州古城 · 许国石坊",
+  "city": "hs:1",
+  "dur": 90,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "bishan-food": {
+  "name": "黄山毛豆腐 · 老字号",
+  "city": "hs:1",
+  "dur": 75,
+  "cost": 68,
+  "cat": "food",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "food"
+  ],
+  "bestTime": null,
+  "indoor": true
+ },
+ "huangshan-up": {
+  "name": "黄山 · 云谷索道上山",
+  "city": "hs:1",
+  "dur": 30,
+  "cost": 270,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "xihai-valley": {
+  "name": "西海大峡谷 · 地轨列车",
+  "city": "hs:1",
+  "dur": 180,
+  "cost": 80,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "bright-peak": {
+  "name": "光明顶 · 日落",
+  "city": "hs:1",
+  "dur": 60,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "huangshan-lodge": {
+  "name": "山上住宿 · 等明日日出",
+  "city": "hs:1",
+  "dur": 60,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo"
+  ],
+  "bestTime": "dawn",
+  "indoor": true
+ },
+ "hs-dawn": {
+  "name": "黄山 · 日出",
+  "city": "hs:2",
+  "dur": 90,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo"
+  ],
+  "bestTime": "dawn",
+  "indoor": false
+ },
+ "hongcun": {
+  "name": "宏村 · 徽派古村",
+  "city": "hs:2",
+  "dur": 150,
+  "cost": 104,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "hs-return": {
+  "name": "还车 · 杭州",
+  "city": "hs:2",
+  "dur": 40,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "mls-pickup": {
+  "name": "丽江提车 · 验车",
+  "city": "mls:1",
+  "dur": 45,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "jinsha-bend": {
+  "name": "金沙江大湾",
+  "city": "mls:2",
+  "dur": 45,
+  "cost": 20,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "photo"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "feilai-dusk": {
+  "name": "飞来寺 · 梅里十三峰全景",
+  "city": "mls:2",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "history",
+   "nature",
+   "hike"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "golden-peak": {
+  "name": "日照金山 · 飞来寺",
+  "city": "mls:3",
+  "dur": 90,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "history"
+  ],
+  "bestTime": "dawn",
+  "indoor": false
+ },
+ "yubeng-in": {
+  "name": "徒步进雨崩 · 南宗垭口",
+  "city": "mls:3",
+  "dur": 360,
+  "cost": 230,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "ice-lake": {
+  "name": "冰湖 · 卡瓦格博脚下",
+  "city": "mls:3",
+  "dur": 300,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "yubeng-night": {
+  "name": "雨崩下村 · 星空",
+  "city": "mls:3",
+  "dur": 60,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "nature",
+   "star"
+  ],
+  "bestTime": "night",
+  "indoor": false
+ },
+ "ninong-out": {
+  "name": "尼农大峡谷 · 徒步出山",
+  "city": "mls:1",
+  "dur": 240,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "nature",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "mls-return": {
+  "name": "还车 · 丽江",
+  "city": "mls:0",
+  "dur": 45,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "hlb-pickup": {
+  "name": "海拉尔提车 · 验车",
+  "city": "hlb:1",
+  "dur": 45,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "mrgl-river": {
+  "name": "莫日格勒河 · 九曲十八弯",
+  "city": "hlb:1",
+  "dur": 120,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "eegn-wet": {
+  "name": "额尔古纳湿地 · 黄昏",
+  "city": "hlb:1",
+  "dur": 0,
+  "cost": 65,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "nature",
+   "hike"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "birch-forest": {
+  "name": "白桦林景区",
+  "city": "hlb:2",
+  "dur": 90,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "shiwei": {
+  "name": "室韦 · 中俄界河",
+  "city": "hlb:2",
+  "dur": 150,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "food",
+   "folk"
+  ],
+  "bestTime": "night",
+  "indoor": false
+ },
+ "medg-park": {
+  "name": "莫尔道嘎森林公园 · 龙岩山",
+  "city": "hlb:3",
+  "dur": 150,
+  "cost": 80,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "medg-town": {
+  "name": "莫尔道嘎镇 · 晚市",
+  "city": "hlb:3",
+  "dur": 0,
+  "cost": 55,
+  "cat": "food",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "food"
+  ],
+  "bestTime": null,
+  "indoor": true
+ },
+ "heishantou-horse": {
+  "name": "黑山头 · 草原骑马",
+  "city": "hlb:4",
+  "dur": 120,
+  "cost": 150,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "heishantou-sunset": {
+  "name": "黑山头 · 日落山",
+  "city": "hlb:4",
+  "dur": 90,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "nature"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "hulun-lake": {
+  "name": "呼伦湖 · 金海岸",
+  "city": "hlb:5",
+  "dur": 75,
+  "cost": 30,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "hlb-return": {
+  "name": "满洲里 · 还车",
+  "city": "hlb:5",
+  "dur": 45,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "gl-pickup": {
+  "name": "桂林提车 · 验车",
+  "city": "gl:1",
+  "dur": 40,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "longji": {
+  "name": "龙脊梯田 · 金坑大寨",
+  "city": "gl:1",
+  "dur": 180,
+  "cost": 80,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "xingping": {
+  "name": "兴坪 · 20 元人民币机位",
+  "city": "gl:2",
+  "dur": 120,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "xingping-food": {
+  "name": "啤酒鱼 · 兴坪老店",
+  "city": "gl:2",
+  "dur": 75,
+  "cost": 60,
+  "cat": "food",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "food"
+  ],
+  "bestTime": null,
+  "indoor": true
+ },
+ "yulong-raft": {
+  "name": "遇龙河 · 竹筏漂流",
+  "city": "gl:3",
+  "dur": 120,
+  "cost": 120,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [],
+  "bestTime": null,
+  "indoor": false
+ },
+ "shili-gallery": {
+  "name": "十里画廊 · 骑行",
+  "city": "gl:3",
+  "dur": 120,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "photo"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "westst-night": {
+  "name": "西街 · 夜",
+  "city": "gl:3",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "elephant": {
+  "name": "象鼻山 · 江对岸机位",
+  "city": "gl:0",
+  "dur": 45,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "photo"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "gl-return": {
+  "name": "还车 · 桂林",
+  "city": "gl:0",
+  "dur": 40,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "zjj-pickup": {
+  "name": "张家界提车 · 验车",
+  "city": "zjj:0",
+  "dur": 40,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "dayong": {
+  "name": "大庸古城 · 夜",
+  "city": "zjj:0",
+  "dur": 0,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "food",
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "tianmen": {
+  "name": "天门山 · 索道上山",
+  "city": "zjj:0",
+  "dur": 60,
+  "cost": 278,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [],
+  "bestTime": null,
+  "indoor": false
+ },
+ "glass-walk": {
+  "name": "玻璃栈道 · 西线",
+  "city": "zjj:0",
+  "dur": 60,
+  "cost": 5,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "tianmen-cave": {
+  "name": "天门洞 · 999 级天梯",
+  "city": "zjj:0",
+  "dur": 90,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "wly-in": {
+  "name": "武陵源 · 购票进山",
+  "city": "zjj:2",
+  "dur": 30,
+  "cost": 228,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": false
+ },
+ "yuanjiajie": {
+  "name": "袁家界 · 悬浮山",
+  "city": "zjj:2",
+  "dur": 150,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "tianzishan": {
+  "name": "天子山 · 御笔峰",
+  "city": "zjj:2",
+  "dur": 90,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "photo"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "shili-zjj": {
+  "name": "十里画廊 · 徒步",
+  "city": "zjj:0",
+  "dur": 120,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "zjj-return": {
+  "name": "还车 · 张家界市",
+  "city": "zjj:0",
+  "dur": 40,
+  "cost": 0,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "dujiangyan": {
+  "name": "都江堰 · 鱼嘴分水",
+  "city": "djy:1",
+  "dur": 180,
+  "cost": 80,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [],
+  "bestTime": null,
+  "indoor": false
+ },
+ "nanqiao-lunch": {
+  "name": "南桥 · 尤兔头或冷锅鱼",
+  "city": "djy:1",
+  "dur": 70,
+  "cost": 55,
+  "cat": "food",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "food"
+  ],
+  "bestTime": null,
+  "indoor": true
+ },
+ "qingcheng": {
+  "name": "青城山前山 · 索道上步行下",
+  "city": "djy:1",
+  "dur": 210,
+  "cost": 80,
+  "cat": "tix",
+  "prio": 0,
+  "type": "choice",
+  "choices": [
+   {
+    "name": "青城山前山 · 索道上步行下",
+    "dur": 180,
+    "cost": 115
+   },
+   {
+    "name": "青城山前山 · 全程步行",
+    "dur": 240,
+    "cost": 80
+   }
+  ],
+  "tags": [
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "kan-arrive": {
+  "name": "难波 · 放行李",
+  "city": "kan:1",
+  "dur": 40,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "dotonbori": {
+  "name": "道顿堀 · 格力高打卡",
+  "city": "kan:1",
+  "dur": 120,
+  "cost": 70,
+  "cat": "food",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "food"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "osaka-castle": {
+  "name": "大阪城 · 天守阁",
+  "city": "kan:1",
+  "dur": 150,
+  "cost": 30,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "chill"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "kuromon": {
+  "name": "黑门市场 · 边走边吃",
+  "city": "kan:1",
+  "dur": 90,
+  "cost": 90,
+  "cat": "food",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "food"
+  ],
+  "bestTime": null,
+  "indoor": true
+ },
+ "umeda-sky": {
+  "name": "梅田蓝天大厦 · 空中庭园",
+  "city": "kan:1",
+  "dur": 90,
+  "cost": 75,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "fushimi": {
+  "name": "伏见稻荷 · 千本鸟居",
+  "city": "kan:2",
+  "dur": 150,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "kiyomizu": {
+  "name": "清水寺 · 舞台",
+  "city": "kan:2",
+  "dur": 120,
+  "cost": 20,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "history",
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "gion": {
+  "name": "祇园 · 花见小路",
+  "city": "kan:2",
+  "dur": 90,
+  "cost": 80,
+  "cat": "food",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "food"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "nara-deer": {
+  "name": "奈良公园 · 鹿饼外交",
+  "city": "kan:3",
+  "dur": 120,
+  "cost": 15,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [],
+  "bestTime": null,
+  "indoor": false
+ },
+ "kasuga": {
+  "name": "春日大社 · 石灯笼参道",
+  "city": "kan:3",
+  "dur": 90,
+  "cost": 25,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "history"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "nara-mochi": {
+  "name": "中谷堂 · 高速捣麻糬",
+  "city": "kan:3",
+  "dur": 40,
+  "cost": 15,
+  "cat": "food",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "food"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "shinsaibashi": {
+  "name": "心斋桥筋 · 补货",
+  "city": "kan:0",
+  "dur": 150,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "kan-out": {
+  "name": "关西机场 · 返程",
+  "city": "kan:0",
+  "dur": 60,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": true
+ },
+ "basumtso": {
+  "name": "巴松措 · 湖心岛",
+  "city": "xz:5",
+  "dur": 150,
+  "cost": 120,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "history",
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "gtcanyon": {
+  "name": "雅鲁藏布大峡谷",
+  "city": "xz:6",
+  "dur": 240,
+  "cost": 290,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "photo",
+   "nature"
+  ],
+  "bestTime": "dawn",
+  "indoor": false
+ },
+ "namcha-set": {
+  "name": "索松村 · 日照金山",
+  "city": "xz:6",
+  "dur": 90,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "photo"
+  ],
+  "bestTime": "sunset",
+  "indoor": false
+ },
+ "kadinggou": {
+  "name": "卡定沟 · 天佛瀑布",
+  "city": "xz:0",
+  "dur": 90,
+  "cost": 60,
+  "cat": "tix",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "nature",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "niyang": {
+  "name": "尼洋河风光带",
+  "city": "xz:0",
+  "dur": 60,
+  "cost": 0,
+  "cat": "free",
+  "prio": 2,
+  "type": "poi",
+  "tags": [
+   "photo"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "taian": {
+  "name": "泰安古镇 · 早茶",
+  "city": "djy:0",
+  "dur": 60,
+  "cost": 25,
+  "cat": "food",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "food",
+   "history",
+   "nature"
+  ],
+  "bestTime": "morning",
+  "indoor": false
+ },
+ "houshan-in": {
+  "name": "青城后山 · 购票进山",
+  "city": "djy:0",
+  "dur": 20,
+  "cost": 20,
+  "cat": "tix",
+  "prio": 0,
+  "type": "logistics",
+  "tags": [],
+  "bestTime": null,
+  "indoor": false
+ },
+ "wulonggou": {
+  "name": "五龙沟 · 溪边栈道",
+  "city": "djy:0",
+  "dur": 150,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "youyicun": {
+  "name": "又一村 · 半山农家午饭",
+  "city": "djy:0",
+  "dur": 70,
+  "cost": 45,
+  "cat": "food",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "food"
+  ],
+  "bestTime": null,
+  "indoor": true
+ },
+ "baiyun-down": {
+  "name": "白云索道下山",
+  "city": "djy:0",
+  "dur": 60,
+  "cost": 45,
+  "cat": "tix",
+  "prio": 0,
+  "type": "choice",
+  "choices": [
+   {
+    "name": "白云索道下山",
+    "dur": 60,
+    "cost": 45
+   },
+   {
+    "name": "原路步行下山",
+    "dur": 135,
+    "cost": 0
+   }
+  ],
+  "tags": [],
+  "bestTime": null,
+  "indoor": false
+ },
+ "glass-bridge": {
+  "name": "张家界大峡谷玻璃桥",
+  "city": "zjj:2",
+  "dur": 90,
+  "cost": 259,
+  "cat": "tix",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "canyon-walk": {
+  "name": "大峡谷 · 谷底栈道",
+  "city": "zjj:2",
+  "dur": 150,
+  "cost": 0,
+  "cat": "free",
+  "prio": 0,
+  "type": "poi",
+  "tags": [
+   "nature",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ },
+ "canyon-lift": {
+  "name": "出谷 · 垂直电梯",
+  "city": "zjj:2",
+  "dur": 30,
+  "cost": 0,
+  "cat": "free",
+  "prio": 1,
+  "type": "poi",
+  "tags": [
+   "nature",
+   "hike"
+  ],
+  "bestTime": null,
+  "indoor": false
+ }
+}
