@@ -4712,7 +4712,7 @@ def icons(kw, city, app, dp=None, nav=None, navp=None, xk=None):
     q = ((city + ' ') if city else '') + kw
     ios_, and_ = amap_app(kw, city, navp[:2] if navp else None, navp[2] if navp else 'car') if app != 'google' else ('', '')
     return (f'<span class="icg"><a class="ic map" href="{E(nav or mapurl(kw, city, app))}"{(" data-ios=\"" + E(ios_) + "\" data-and=\"" + E(and_) + "\"") if ios_ else ""} rel="nofollow noopener" target="_blank" aria-label="{"导航去 " if nav else "地图上看 "}{E(kw)}">{ICON_PIN}</a>'
-            + ('' if app == 'google' else f'<a class="ic dp" href="{E(dp or dpurl(kw, city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote(q))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上看 {E(kw)}">{ICON_DP}</a>')
+            f'<a class="ic dp" href="{E(dp or dpurl(kw, city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote(q))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上看 {E(kw)}">{ICON_DP}</a>'
             + (f'<a class="ic xhs" href="https://www.xiaohongshu.com/search_result?keyword={urllib.parse.quote(xk)}&source=web_explore_feed" data-app="xhsdiscover://search/result?keyword={urllib.parse.quote(xk)}" rel="nofollow noopener" target="_blank" aria-label="小红书上看 {E(xk)} 的实景">{ICON_PHOTO}</a>' if xk else '')
             + (f'<a class="ic yt" href="https://www.youtube.com/results?search_query={urllib.parse.quote(xk + " 旅行")}" rel="nofollow noopener" target="_blank" aria-label="YouTube 上搜 {E(xk)} 的旅行视频">{ICON_YT}</a>' if xk else '') + '</span>')
 
