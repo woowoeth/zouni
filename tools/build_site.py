@@ -13002,6 +13002,15 @@ def compute_denies():
 
 SCHENGEN = {'france', 'italy', 'spain', 'iceland', 'switzerland', 'greece', 'portugal', 'czech', 'austria', 'germany', 'netherlands', 'croatia', 'norway', 'finland', 'belgium'}
 
+_GEN_PREP = lambda x: x.startswith(('护照有效期：', '买一份境外旅行保险', '外籍人士带护照，有效期最好'))      # 每个国外页都重复的套话：折成一行“出境通用须知”
+
+
+def _gen_fold(prep_items, _act, _bk):
+    g = [(i, x) for i, x in enumerate(prep_items) if _GEN_PREP(x)]
+    if not g: return ''
+    li = ''.join((f'<li><label><input type="checkbox" data-k="{i}"><span>{E(x)}</span></label></li>' if _act(x) else f'<li class="tip"><span>{E(x)}</span></li>') for i, x in g)
+    return f'<li class="gen"><details><summary>出境通用须知</summary><ul>{li}</ul></details></li>'
+
 
 def foreign_prep(r, d0, existing):
     """国外线“出发前要办的事”：签证、护照有效期、保险、自驾的驾照。只写通行的事实，政策常变，一律注明以官网为准。
@@ -13123,7 +13132,7 @@ def trip_page(rid):
             if bk and not any(bk[0] in x for x in prep_items): prep_items.append(bk[1])
     _bk = lambda x: next((k for k in BOOK if k in x), None)
     _act = lambda x: bool(re.search(r'预约|买.{0,8}票|门票|放票|抢票|船票|提前|订|办|签证|提车|还车|实名|查路况|看景区公告|身份证|证件|防晒|电池|外套|雨具|带伞|现金|保险', x)) and not re.search(r'带孩子|^[^办]*免签$', x)
-    prep = ''.join((f'<li><label><input type="checkbox" data-k="{i}"><span>{E(x)}</span></label>{book_link(_bk(x)) if _bk(x) else ""}</li>' if _act(x) else f'<li class="tip"><span>{E(x)}</span></li>') for i, x in enumerate(prep_items)) + ''.join(f'<li class="fit">{E(x)}</li>' for x in r.get('fit') or [])
+    prep = ''.join((f'<li><label><input type="checkbox" data-k="{i}"><span>{E(x)}</span></label>{book_link(_bk(x)) if _bk(x) else ""}</li>' if _act(x) else f'<li class="tip"><span>{E(x)}</span></li>') for i, x in enumerate(prep_items) if not _GEN_PREP(x)) + _gen_fold(prep_items, _act, _bk) + ''.join(f'<li class="fit">{E(x)}</li>' for x in r.get('fit') or [])
     def firstdep(d):
         w = next((w for w in d['rows'] if w['type'] == 'dep'), None); return w['t'] if w else ''
     over = ''.join(f'<li><a href="#d{i + 1}"><b>{i + 1:02d}</b><i>{md(dates[i])}</i><span class="ot"><strong>{E(d["title"])}</strong><small>{"回家" if i == n - 1 else "住" + E(d.get("navCity") or d.get("city"))}</small></span><em>{E(firstdep(d))} 走</em></a></li>' for i, d in enumerate(r['days']))

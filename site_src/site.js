@@ -856,3 +856,5 @@
     if(isOpen()){popping=true;var x=document.querySelector('.tvx')||document.querySelector('.pk-x')||document.querySelector('.pk-mask');if(x)x.click();setTimeout(function(){popping=false},80)}
   });
 })();
+  // ——— 少即是多：行程页路线图默认折成一行“看路线图” ———
+  (function(){try{var ov=document.querySelector('.overview'),hm=ov&&ov.querySelector('.hmap');if(!hm)return;var b=document.createElement('button');b.type='button';b.className='mapfold';b.textContent='看路线图';b.addEventListener('click',function(){ov.classList.toggle('mapopen');b.textContent=ov.classList.contains('mapopen')?'收起路线图':'看路线图'});hm.parentNode.insertBefore(b,hm)}catch(e){}})();
