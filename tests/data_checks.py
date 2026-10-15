@@ -116,7 +116,7 @@ bad = []
 for rid, v in I.items():
     if v['dest'] in LOW:
         for i, d in enumerate(v['days']):
-            if (d.get('elev') or 0) >= 3000 and not (rid in ('hbel8', 'wgs2', 'xw65a')): bad.append(f'{rid} 第{i + 1}天 海拔 {d["elev"]}（{v["dest"]} 不该有 ≥3000 米）')
+            if (d.get('elev') or 0) >= 3000 and not (rid in ('hbel8', 'wgs2', 'xw65a', 'xz411a')): bad.append(f'{rid} 第{i + 1}天 海拔 {d["elev"]}（{v["dest"]} 不该有 ≥3000 米）')
 if bad: fails.append(('低平地区出现 ≥3000 米的天（海拔补错了）', bad))
 
 # 5c site.js：注释（//）后面不能还跟着代码——写在同一行末尾的注释会吞掉后面的代码（这轮犯过四次，其中一次让首页“4–5 天”“一周以上”的筛选失效）

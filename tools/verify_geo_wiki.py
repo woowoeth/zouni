@@ -40,10 +40,10 @@ def wiki(name):
     u = 'https://zh.wikipedia.org/w/api.php?' + urllib.parse.urlencode({'action': 'query', 'generator': 'search', 'gsrsearch': name, 'gsrlimit': 4, 'prop': 'coordinates', 'colimit': 4, 'format': 'json', 'formatversion': 2})
     for _ in range(6):
         o = subprocess.run(['curl', '-s', '-i', '-m', '25', '-A', 'zouni-travel-data/1.0 (zouni.app; contact via site)', u], capture_output=True, text=True)
-        head, _, body = o.stdout.partition('\r\n\r\n')
-        if ' 429' in head.split('\n')[0] or head.startswith('HTTP/2 429'):
+        head, body = (re.split(r"\r?\n\r?\n", o.stdout, maxsplit=1) + [''])[:2]
+        if head.startswith(('HTTP/2 429', 'HTTP/1.1 429')):
             m = re.search(r'retry-after: (\d+)', head, re.I); time.sleep(int(m.group(1)) + 30 if m else 90); continue
-        time.sleep(1.3)
+        time.sleep(0.6)
         try:
             pages = json.loads(body).get('query', {}).get('pages', [])
             return [{'title': p['title'], 'lat': p['coordinates'][0]['lat'], 'lng': p['coordinates'][0]['lon']} for p in pages if p.get('coordinates')]
