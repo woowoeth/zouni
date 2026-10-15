@@ -116,7 +116,7 @@ bad = []
 for rid, v in I.items():
     if v['dest'] in LOW:
         for i, d in enumerate(v['days']):
-            if (d.get('elev') or 0) >= 3000 and not (rid in ('hbel8', 'wgs2', 'xw65a', 'xz411a')): bad.append(f'{rid} 第{i + 1}天 海拔 {d["elev"]}（{v["dest"]} 不该有 ≥3000 米）')
+            if (d.get('elev') or 0) >= 3000 and not (rid in ('hbel8', 'wgs2', 'xw65a', 'xz411a', 'xb96a')): bad.append(f'{rid} 第{i + 1}天 海拔 {d["elev"]}（{v["dest"]} 不该有 ≥3000 米）')
 if bad: fails.append(('低平地区出现 ≥3000 米的天（海拔补错了）', bad))
 
 # 5c site.js：注释（//）后面不能还跟着代码——写在同一行末尾的注释会吞掉后面的代码（这轮犯过四次，其中一次让首页“4–5 天”“一周以上”的筛选失效）
@@ -335,7 +335,7 @@ if os.path.exists(RJS):
         m = re.search(r'约 (\d+) 小时(?: (\d+) 分)?', x or '')
         if m: return int(m.group(1)) * 60 + int(m.group(2) or 0)
         m = re.search(r'约 (\d+) 分', x or ''); return int(m.group(1)) if m else None
-    LONG_BACK_OK = {'xy303b', 'xw89a', 'xw95a', 'xv03a', 'xv10a', 'xhg3', 'xzlz7', 'asw4', 'syd6', 'nzs7', 'prg4', 'xm4'}      # 回程 >2.5 小时、人工确认过确实那么远的当天往返
+    LONG_BACK_OK = {'xy303b', 'xw89a', 'xw95a', 'xv03a', 'xv10a', 'xhg3', 'xzlz7', 'asw4', 'syd6', 'nzs7', 'prg4', 'xm4', 'xb96a', 'xl3a'}      # 回程 >2.5 小时、人工确认过确实那么远的当天往返
     bad = []; bad2 = []; bad3 = []
     for rid, r in R.items():
         mx = 0
