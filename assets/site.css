@@ -702,3 +702,14 @@ body{background:var(--bg);color:var(--ink)}
 .mrw{display:flex;align-items:stretch}.mrw .mr{flex:1;min-width:0}.mrw .mrx{flex:none;width:56px;border:0;background:transparent;color:var(--red);font:700 13px var(--sans);cursor:pointer}
 @media (prefers-color-scheme:dark){.cv .go{border:1px solid rgba(236,235,229,.55)}.allbar i{color:var(--bg)}}
 .toast{z-index:60}
+
+/* 少即是多（2026-10-15）：行程页前言压缩。只改展示，不删功能：概览列表和每天标题重复 → 藏起来（脚本仍在用它）；路线图折成一行；“怎么去”和“出发前”合成一块 */
+.overview{padding-top:14px}
+.overview h2,.overview ol,.overview .ovmore{display:none}
+.overview .hmap{max-height:0;overflow:hidden;margin:0}
+.overview.mapopen .hmap{max-height:none;margin:10px 0 0}
+.mapfold{display:block;width:100%;text-align:left;padding:12px 0;background:none;border:0;border-top:1px solid var(--line,rgba(28,29,26,.14));border-bottom:1px solid var(--line,rgba(28,29,26,.14));font:700 14px var(--sans);color:var(--ink);cursor:pointer}
+.mapfold:after{content:" ›";color:var(--red)}.overview.mapopen .mapfold:after{content:" ‹"}
+.pre.go{margin-bottom:0;padding-bottom:6px}.pre.go + .pre{margin-top:0;padding-top:4px}.pre.go + .pre h2{display:none}
+@media print{.mapfold{display:none}.overview .hmap{max-height:none}}
+.pre li.gen details summary{cursor:pointer;font-size:14px;font-weight:700;color:var(--sub);list-style:none}.pre li.gen details summary:after{content:" ›";color:var(--red)}.pre li.gen details[open] summary:after{content:" ‹"}.pre li.gen ul{margin-top:10px}
