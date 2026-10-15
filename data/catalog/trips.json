@@ -11843,8 +11843,8 @@
    "dek": "坐索道上明月山，走栈道。 上午泡温汤温泉，中午出发。",
    "why": null,
    "price": {
-    "lo": 1200,
-    "hi": 2600,
+    "lo": 1500,
+    "hi": 3000,
     "currency": "CNY",
     "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
     "parts": {
@@ -11867,7 +11867,8 @@
      "nights": 1,
      "n": 2,
      "car": true
-    }
+    },
+    "baoFix": 1
    },
    "tags": [],
    "season": {
@@ -73012,6 +73013,2706 @@
    "anytime": false,
    "status": "ok",
    "page": "Route.dc.html#xg281a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy300a",
+   "dest": "xinjiang",
+   "name": "喀什莎车",
+   "region": "西北",
+   "days": 3,
+   "title": "喀什莎车 3 天",
+   "headline": "三天，喀什古城、牲畜巴扎和莎车老城",
+   "dek": "从东门进喀什古城，上午和傍晚东门各有一场迎宾表演；在土黄色的巷子里慢慢逛，再看三百年前富户的大宅，三层楼里有客厅、粮仓、库房，还有地下室。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      380,
+      680
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-31"
+    ],
+    "best": [
+     "09-10",
+     "10-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy300a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy300b",
+   "dest": "xinjiang",
+   "name": "独库北段",
+   "region": "西北",
+   "days": 2,
+   "title": "独库北段 2 天",
+   "headline": "两天，独山子、乔尔玛和巴音布鲁克",
+   "dek": "从乌鲁木齐一路向西到独山子，先看会喷泥的泥火山，再到独库公路起点纪念馆了解筑路官兵的故事；沿库依河谷看独山子大峡谷，然后开始爬升，路过天瀑观景台，傍晚住乔尔玛。",
+   "why": null,
+   "price": {
+    "lo": 800,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-20",
+     "09-30"
+    ],
+    "best": [
+     "07-01",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy300b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy301a",
+   "dest": "xizang",
+   "name": "那曲到拉萨自驾",
+   "region": "西南",
+   "days": 3,
+   "title": "那曲到拉萨自驾 3 天",
+   "headline": "3天(三)，那曲、卓玛圣谷和拉萨老城",
+   "dek": "到那曲落脚休整，先慢慢适应高海拔。上午去市中心的小登寺，当地人一圈圈转经，寺前是团结广场；再到中心广场对面的北藏金牛，看牦牛雕塑。中午后少走动，早点休息。",
+   "why": null,
+   "price": {
+    "lo": 1800,
+    "hi": 3900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      180,
+      380
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      640,
+      1090
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-15",
+     "09-30"
+    ],
+    "best": [
+     "06-15",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy301a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy301b",
+   "dest": "xizang",
+   "name": "芒康盐井古盐田",
+   "region": "西南",
+   "days": 1,
+   "title": "芒康盐井古盐田 1 天",
+   "headline": "1天(一)，芒康盐井古盐田",
+   "dek": "早上从芒康县城出发，沿山路下到澜沧江边的盐井，看崖壁两岸成排的晒盐平台，下到卤水井边看当地人取卤，买点雪花盐；下午原路回芒康。",
+   "why": null,
+   "price": {
+    "lo": 600,
+    "hi": 1500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      180,
+      380
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      30,
+      90
+     ],
+     "local": [
+      300,
+      500
+     ],
+     "nights": 0,
+     "n": 1,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "04-20",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy301b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy302a",
+   "dest": "qinghai",
+   "name": "青海湖日月山",
+   "region": "西北",
+   "days": 2,
+   "title": "青海湖日月山 2 天",
+   "headline": "两天，从日月山到青海湖",
+   "dek": "从西宁出发，先翻日月山：这里是农耕和游牧的分界，文成公主进藏时在此回望长安；再沿河往西到倒淌河，最后一路开到黑马河，在青海湖边看日落。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      180,
+      380
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-15"
+    ],
+    "best": [
+     "06-15",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy302a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy302b",
+   "dest": "qinghai",
+   "name": "青藏公路",
+   "region": "西北",
+   "days": 5,
+   "title": "青藏公路 5 天",
+   "headline": "五天，从格尔木走到长江源沱沱河",
+   "dek": "从格尔木出发，不到半小时就进昆仑山；先到纳赤台的昆仑圣泉，再到万极龙凤宫，中午在游客中心吃饭，傍晚住到西大滩，看玉珠峰晚霞。",
+   "why": null,
+   "price": {
+    "lo": 2600,
+    "hi": 5600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      180,
+      380
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      270,
+      810
+     ],
+     "local": [
+      1500,
+      2500
+     ],
+     "nights": 4,
+     "n": 5,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-15",
+     "10-15"
+    ],
+    "best": [
+     "06-01",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy302b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy303a",
+   "dest": "gansu",
+   "name": "张掖嘉峪关",
+   "region": "西北",
+   "days": 2,
+   "title": "张掖嘉峪关 2 天",
+   "headline": "两天，丹霞、关城和长城第一墩",
+   "dek": "在临泽落脚，先到丹霞口看石头外表的建筑和丹霞地貌，再去七彩丹霞景区，坐景区巴士逐个看观景台，中午在景区美食城吃一碗兰州牛肉面。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-15"
+    ],
+    "best": [
+     "05-15",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy303a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy303b",
+   "dest": "gansu",
+   "name": "瓜州敦煌",
+   "region": "西北",
+   "days": 2,
+   "title": "瓜州敦煌 2 天",
+   "headline": "两天，锁阳城和月牙泉",
+   "dek": "从瓜州出发先去锁阳城遗址，在荒漠里看古城墙和遗址；下午沿戈壁公路往敦煌走，沿路可以看到几处大型雕塑，晚上住敦煌。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-15"
+    ],
+    "best": [
+     "05-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy303b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy304a",
+   "dest": "gansu",
+   "name": "临夏扎尕那",
+   "region": "西北",
+   "days": 3,
+   "title": "临夏扎尕那 3 天",
+   "headline": "三天，刘家峡、黄河洮河交汇和扎尕那",
+   "dek": "从临夏出发去永靖，先在刘家峡大桥旁的观景台歇脚看水库，库水碧绿，对着黄土山。再去黄河和洮河交汇处，两条河一青一黄，界线分得很清。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      640,
+      1090
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "06-01",
+     "09-30"
+    ],
+    "best": [
+     "07-01",
+     "09-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy304a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy304b",
+   "dest": "gansu",
+   "name": "张掖嘉峪关",
+   "region": "西北",
+   "days": 2,
+   "title": "张掖嘉峪关 2 天",
+   "headline": "两天，马蹄寺石窟和嘉峪关关城",
+   "dek": "从张掖出发去肃南裕固族自治县的马蹄寺，先看北寺三十三天石窟，七层二十一窟垂直分布在一面红砾岩壁上，再回大门看千佛洞石窟。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-15"
+    ],
+    "best": [
+     "05-15",
+     "09-20"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy304b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy305a",
+   "dest": "hubei",
+   "name": "昭君村到神农架",
+   "region": "华中",
+   "days": 3,
+   "title": "昭君村到神农架 3 天",
+   "headline": "3天(三天)，昭君村、神农坛和天生桥",
+   "dek": "从宜昌出发进兴山，先到昭君故里：山腰上的仿汉建筑群，有王家老宅、昭君纪念馆和汉白玉的昭君像；下午沿古昭公路穿过南阳河峡谷，傍晚到兴山县城补给休息。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      900,
+      1500
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "05-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy305a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy305b",
+   "dest": "hubei",
+   "name": "荆州古城",
+   "region": "华中",
+   "days": 2,
+   "title": "荆州古城 2 天",
+   "headline": "2天(两天)，荆州古城墙、张居正故居和荆州博物馆",
+   "dek": "从东门宾阳楼开始，看护城河和明清城墙，在门楼里试试回音；再沿荆州古城墙走一段，晚饭吃一条煎得香的武昌鱼。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-01",
+     "11-30"
+    ],
+    "best": [
+     "04-01",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy305b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy306a",
+   "dest": "hubei",
+   "name": "宜昌三峡",
+   "region": "华中",
+   "days": 2,
+   "title": "宜昌三峡 2 天",
+   "headline": "两天，链子崖、三峡大瀑布和昭君故里",
+   "dek": "从宜昌沿长江上行到秭归，进链子崖景区：先走神道，登山川神鼎祭坛看二十八星宿，再沿石阶上山，经归乡寺、岩崩遗址园，一路走到崖上人家，下山后住秭归。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy306a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy306b",
+   "dest": "hubei",
+   "name": "利川鱼木寨",
+   "region": "华中",
+   "days": 2,
+   "title": "利川鱼木寨 2 天",
+   "headline": "两天，鱼木寨、双寿居和三阳关",
+   "dek": "从利川开到柏杨一带的鱼木寨，过石桥进寨门，看寨门、碑记和石水缸石磨，再去寨里最大的古墓双寿居，这座墓修于清同治年间，石碑雕刻精细，傍晚住在寨里。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-31"
+    ],
+    "best": [
+     "05-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy306b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy307a",
+   "dest": "shanxi",
+   "name": "晋中晋商大院自驾",
+   "region": "华北",
+   "days": 2,
+   "title": "晋中晋商大院自驾 2 天",
+   "headline": "两天，晋中晋商大院和平遥古城",
+   "dek": "从太原出发，先到榆次的常家庄园，这是晋中最大的私家庄园之一，院落成片；下午到太谷，看孔祥熙故居和曹家大院；晚上住祁县。",
+   "why": null,
+   "price": {
+    "lo": 1100,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-31"
+    ],
+    "best": [
+     "05-01",
+     "10-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy307a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy307b",
+   "dest": "shanxi",
+   "name": "悬空寺和雁门关自驾",
+   "region": "华北",
+   "days": 2,
+   "title": "悬空寺和雁门关自驾 2 天",
+   "headline": "两天，浑源悬空寺和代县雁门关",
+   "dek": "从大同往南到浑源，直奔北岳恒山脚下的悬空寺，嵌在金龙峡的崖壁上，对面看像一条龙；看完住浑源。",
+   "why": null,
+   "price": {
+    "lo": 600,
+    "hi": 1500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-15"
+    ],
+    "best": [
+     "06-01",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy307b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy308a",
+   "dest": "shanxi",
+   "name": "晋中古堡古城",
+   "region": "华北",
+   "days": 3,
+   "title": "晋中古堡古城 3 天",
+   "headline": "三天，太原、祁县、平遥和介休的古堡古宅",
+   "dek": "先到太原西边的店头古堡，一座两千多年前就有的军事堡寨，后来慢慢变成村子，如今几乎无人居住；下午去晋祠，看圣母殿和周围的古建筑。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 3100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      900,
+      1500
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-31"
+    ],
+    "best": [
+     "05-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy308a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy308b",
+   "dest": "shanxi",
+   "name": "大同云冈石窟",
+   "region": "华北",
+   "days": 1,
+   "title": "大同云冈石窟 1 天",
+   "headline": "一天，灵岩寺和云冈石窟",
+   "dek": "上午到云冈石窟景区，先走昙曜广场和石拱桥，到仿北魏风格的灵岩寺，再进石窟群，看大佛、木架建筑和满壁的造像；之后回大同。",
+   "why": null,
+   "price": {
+    "lo": 400,
+    "hi": 900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      300,
+      500
+     ],
+     "nights": 0,
+     "n": 1,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-31"
+    ],
+    "best": [
+     "05-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy308b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy309a",
+   "dest": "chongqing",
+   "name": "渝东南古镇与天坑",
+   "region": "西南",
+   "days": 3,
+   "title": "渝东南古镇与天坑 3 天",
+   "headline": "三天，天生三桥、蚩尤九黎城和龚滩古镇",
+   "dek": "今天只看一个地方：武隆天生三桥。三座天然石桥连在一起，是亚洲最大的天生桥群，也是电影里出现过的取景地。沿游步道走到天坑边，坐螺旋观光电梯下到坑底，抬头看崖壁，再沿峡谷走到另外两座桥。晚上回武隆县城住。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      900,
+      1500
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-20",
+     "11-15"
+    ],
+    "best": [
+     "04-10",
+     "06-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy309a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy309b",
+   "dest": "chongqing",
+   "name": "山城巷与丰都鬼城",
+   "region": "西南",
+   "days": 2,
+   "title": "山城巷与丰都鬼城 2 天",
+   "headline": "两天，山城巷和丰都鬼城",
+   "dek": "从渝中的老城区走进山城巷：台阶一层层往下，老宅改成的咖啡馆、小店、火锅店藏在巷子里，墙上有老照片，傍晚尤其安静；这里能看出重庆为什么叫山城。",
+   "why": null,
+   "price": {
+    "lo": 800,
+    "hi": 1600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      30,
+      90
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-01",
+     "11-30"
+    ],
+    "best": [
+     "03-20",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy309b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy310a",
+   "dest": "chongqing",
+   "name": "奉节巫溪自驾",
+   "region": "西南",
+   "days": 2,
+   "title": "奉节巫溪自驾 2 天",
+   "headline": "两天，奉节神龙瀑布、旱夔门和巫溪令牌石天路",
+   "dek": "从奉节县城走巫恩高速方向进山，先到神龙瀑布，看杜甫八阵图和李白巴女词的刻石；再往南到兴隆镇的旱夔门，两面四百多米高的石壁夹着天坑，坑底有土墙老屋和梯田，可以开车到坑底再步行进去。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-15",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy310a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy310b",
+   "dest": "chongqing",
+   "name": "丰都鬼城",
+   "region": "西南",
+   "days": 1,
+   "title": "丰都鬼城 1 天",
+   "headline": "一天，丰都鬼城牌坊、哼哈二祠、奈何桥和天子殿",
+   "dek": "从丰都县城过江到名山，先在鬼城牌坊看对联和白无常黑无常雕像，再穿过老榕树下的阴凉小路到哼哈二祠，经过奈何桥，最后上到天子殿。山下长江一览，起雾时格外朦胧。",
+   "why": null,
+   "price": {
+    "lo": 700,
+    "hi": 1800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      40,
+      90
+     ],
+     "nights": 0,
+     "n": 1,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-01",
+     "11-30"
+    ],
+    "best": [
+     "03-20",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy310b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy311a",
+   "dest": "hunan",
+   "name": "永兴国灵寺",
+   "region": "华中",
+   "days": 1,
+   "title": "永兴国灵寺 1 天",
+   "headline": "一天，永兴国灵寺",
+   "dek": "从郴州出发到永兴，看路边山崖下的国灵寺：一个大岩洞里装下一整组建筑，分上下两层，洞口有水塘，洞里有南天门和五百罗汉。建筑的白墙、粉红柱子和绿窗很有本地匠人的味道。",
+   "why": null,
+   "price": {
+    "lo": 600,
+    "hi": 1500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      30,
+      90
+     ],
+     "local": [
+      300,
+      500
+     ],
+     "nights": 0,
+     "n": 1,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy311a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy311b",
+   "dest": "hunan",
+   "name": "靖州岩脚侗寨",
+   "region": "华中",
+   "days": 1,
+   "title": "靖州岩脚侗寨 1 天",
+   "headline": "一天，飞山和岩脚侗寨",
+   "dek": "上午在靖州城里的飞山转转，了解当地苗侗的历史；然后开车去岩脚侗寨：寨子里有鼓楼、连心风雨桥、聚财井，青石板古驿道上的碑刻多是女性的名字。南门遗址外是原始次生林，适合短途走走。",
+   "why": null,
+   "price": {
+    "lo": 700,
+    "hi": 1600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      300,
+      500
+     ],
+     "nights": 0,
+     "n": 1,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "05-25",
+     "07-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy311b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy312a",
+   "dest": "hunan",
+   "name": "湘西古镇",
+   "region": "华中",
+   "days": 2,
+   "title": "湘西古镇 2 天",
+   "headline": "2天(两)，芙蓉镇土司旧地和边城茶峒赶集",
+   "dek": "从吉首进山到永顺的芙蓉镇，先看土司广场和对面的土王祠，再到旁边的溪州铜柱园，认一认公元 940 年铸的那根铜柱；下午沿古街往下走到瀑布边，傍晚留在镇上看夜景。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy312a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy313a",
+   "dest": "fujian",
+   "name": "闽西南土楼自驾",
+   "region": "华东",
+   "days": 3,
+   "title": "闽西南土楼自驾 3 天",
+   "headline": "3天(三天)，高北、云水谣和二宜楼",
+   "dek": "从龙岩开到永定，先到高北土楼群的观景台，从高处看四座土楼的布局，再下山走进承启楼，这是圆楼里规模最大的一座，一环套一环像个小迷宫。晚上住永定。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 3100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      900,
+      1500
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-15",
+     "04-30"
+    ],
+    "best": [
+     "11-01",
+     "03-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy313a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy313b",
+   "dest": "fujian",
+   "name": "武夷山",
+   "region": "华东",
+   "days": 2,
+   "title": "武夷山 2 天",
+   "headline": "2天(两天)，天游峰、虎啸岩和大红袍母树",
+   "dek": "早点进景区，先爬天游峰：台阶多、一段近乎垂直，爬上去能把九曲溪和三十六峰看个遍；峰顶吃一份梅干菜烧饼，从另一侧下山，路过止止庵。晚上住武夷山。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      80,
+      180
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-30"
+    ],
+    "best": [
+     "03-25",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy313b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy314a",
+   "dest": "fujian",
+   "name": "漳州土楼与灵通山",
+   "region": "华东",
+   "days": 2,
+   "title": "漳州土楼与灵通山 2 天",
+   "headline": "两天，从南靖土楼走到平和灵通山",
+   "dek": "从南靖县城进山，先到书洋下版寮村看裕昌楼，楼里的木柱东倒西歪，却立了几百年；再到长林村看翠林楼，是福建最小的圆形土楼，一圈只有十二个开间。晚上住书洋。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-01",
+     "11-30"
+    ],
+    "best": [
+     "10-15",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy314a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy314b",
+   "dest": "fujian",
+   "name": "华安雨伞楼",
+   "region": "华东",
+   "days": 1,
+   "title": "华安雨伞楼 1 天",
+   "headline": "一天，大地土楼群和雨伞楼",
+   "dek": "从华安县城出发，先看大地土楼群，再进山到高车乡洋竹径村。雨伞楼是内环高于外环的双环圆楼，因形如撑开的伞得名。傍晚回县城。",
+   "why": null,
+   "price": {
+    "lo": 700,
+    "hi": 1600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      300,
+      500
+     ],
+     "nights": 0,
+     "n": 1,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-01",
+     "11-30"
+    ],
+    "best": [
+     "10-15",
+     "11-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy314b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy315a",
+   "dest": "zhejiang",
+   "name": "溪口天台自驾",
+   "region": "华东",
+   "days": 3,
+   "title": "溪口天台自驾 3 天",
+   "headline": "三天，溪口、雪窦山和天台济公故居",
+   "dek": "从宁波开到溪口，先在武岭门这座老城门看古镇的入口，再进蒋氏故居，从玉泰盐铺走到丰镐房、文昌阁，最后到旁边的武岭学校；古镇街巷不收门票，傍晚慢慢逛。",
+   "why": null,
+   "price": {
+    "lo": 1100,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      900,
+      1500
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "03-25",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy315a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy315b",
+   "dest": "zhejiang",
+   "name": "杭州两处旧宅",
+   "region": "华东",
+   "days": 1,
+   "title": "杭州两处旧宅 1 天",
+   "headline": "一天，胡雪岩故居和704工程",
+   "dek": "上午逛胡雪岩故居，从元宝街的窄巷进门，看徽派的外朴内华，再看轿厅、廊道和雕刻；下午到西湖边的704工程，看地面的小楼、地下指挥部和门口的老坦克。",
+   "why": null,
+   "price": {
+    "lo": 400,
+    "hi": 1000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      40,
+      90
+     ],
+     "nights": 0,
+     "n": 1,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-30"
+    ],
+    "best": [
+     "03-25",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy315b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy316a",
+   "dest": "zhejiang",
+   "name": "南浔古镇",
+   "region": "华东",
+   "days": 1,
+   "title": "南浔古镇 1 天",
+   "headline": "一天，在南浔看四象八牛的老宅，广惠桥、小莲庄和张石铭旧宅",
+   "dek": "从湖州过来，先从南西街走到广惠桥，看桥边的丝业公所旧址；再去小莲庄，十亩荷花池和刘家的几处厅堂都在这里；下午看张石铭旧宅的中西合璧建筑，最后到庞氏旧宅收尾。",
+   "why": null,
+   "price": {
+    "lo": 400,
+    "hi": 1100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      300,
+      500
+     ],
+     "nights": 0,
+     "n": 1,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-10",
+     "11-30"
+    ],
+    "best": [
+     "03-25",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy316a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy316b",
+   "dest": "chongqing",
+   "name": "宁厂古镇",
+   "region": "西南",
+   "days": 2,
+   "title": "宁厂古镇 2 天",
+   "headline": "两天，在巫溪看荆竹坝岩棺群、宁厂古镇和龙君庙盐泉",
+   "dek": "从巫溪县城出发，先到白鹿镇的荆竹坝，看崖壁上的悬棺群；再往前开约十几公里到宁厂古镇，沿青石板路走七里半街，傍晚回县城。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2400,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "04-15",
+     "06-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy316b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy317a",
+   "dest": "henan",
+   "name": "洛阳古寺石窟",
+   "region": "华中",
+   "days": 2,
+   "title": "洛阳古寺石窟 2 天",
+   "headline": "两天，龙门石窟、关林、金龙寺和白马寺",
+   "dek": "上午去龙门石窟，从龙门桥进景区，看卢舍那大佛和奉先寺，伊河两岸的石窟走一圈。下午到关林，传说关羽的头颅埋在这里，大殿、石坊和碑刻都值得细看。晚上住洛阳。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-20",
+     "11-10"
+    ],
+    "best": [
+     "04-01",
+     "05-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy317a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy317b",
+   "dest": "henan",
+   "name": "灵宝函谷关杨公寨",
+   "region": "华中",
+   "days": 2,
+   "title": "灵宝函谷关杨公寨 2 天",
+   "headline": "两天，函谷关和杨公寨",
+   "dek": "从灵宝出发，去函谷关看老子写《道德经》的传说，关楼和景区里的老子像都在这里。下午回灵宝市区休息，晚上住灵宝。",
+   "why": null,
+   "price": {
+    "lo": 600,
+    "hi": 1500,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-20",
+     "11-10"
+    ],
+    "best": [
+     "04-01",
+     "05-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy317b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy318a",
+   "dest": "jiangxi",
+   "name": "龙南围屋",
+   "region": "华东",
+   "days": 2,
+   "title": "龙南围屋 2 天",
+   "headline": "两天，看关西新围和太平桥",
+   "dek": "从龙南出发到关西镇，看赣南规模最大、保存最完整的方形围屋：四角炮楼、夯土加青砖的墙体、三层防护的围门，进去是九井十八厅的大宅，还有祠堂、戏台和三间书院。晚上回龙南。",
+   "why": null,
+   "price": {
+    "lo": 700,
+    "hi": 1600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-01",
+     "12-15"
+    ],
+    "best": [
+     "10-15",
+     "12-10"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy318a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy318b",
+   "dest": "jiangxi",
+   "name": "宜春明月山与永新古桥",
+   "region": "华东",
+   "days": 3,
+   "title": "宜春明月山与永新古桥 3 天",
+   "headline": "三天，泡温泉、登明月山、看龙源口桥",
+   "dek": "从宜春到温汤镇，这里是有八百多年利用历史的温泉之乡。逛逛小镇，在街边泡脚喝茶，晚上泡露天温泉，池子有当归池、薰衣草池等不同的样子。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 3000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      900,
+      1500
+     ],
+     "nights": 2,
+     "n": 3,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-01",
+     "11-30"
+    ],
+    "best": [
+     "03-20",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy318b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy319a",
+   "dest": "sichuan",
+   "name": "宜宾长江起点",
+   "region": "西南",
+   "days": 4,
+   "title": "宜宾长江起点 4 天",
+   "headline": "四天，宜宾的合江门、翠屏山和川滇古镇崖墓",
+   "dek": "从合江门看金沙江与岷江汇成长江，再逛冠英古街的老巷和植物染小店，傍晚登大观楼，晚上吃一碗宜宾燃面。",
+   "why": null,
+   "price": {
+    "lo": 1300,
+    "hi": 3100,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      210,
+      630
+     ],
+     "local": [
+      680,
+      1180
+     ],
+     "nights": 3,
+     "n": 4,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "03-20",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy319a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy320a",
+   "dest": "sichuan",
+   "name": "广元石窟",
+   "region": "西南",
+   "days": 1,
+   "title": "广元石窟 1 天",
+   "headline": "1天，千佛崖和皇泽寺",
+   "dek": "上午先看千佛崖，嘉陵江边的崖壁上龛窟像蜂窝一样密，旁边有大云寺和金牛道的古道遗迹；下午去皇泽寺，这是国内唯一祭祀女皇武则天的寺庙，主殿是则天殿。",
+   "why": null,
+   "price": {
+    "lo": 400,
+    "hi": 900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      40,
+      90
+     ],
+     "nights": 0,
+     "n": 1,
+     "car": false
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy320a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy320b",
+   "dest": "sichuan",
+   "name": "青城山三苏祠",
+   "region": "西南",
+   "days": 2,
+   "title": "青城山三苏祠 2 天",
+   "headline": "2天，都江堰、青城山、三苏祠和彭山江口",
+   "dek": "上午在都江堰景区看古代水利工程，午后到青城山前山：从老山门进，走在密林和道观之间，中午在山门小广场吃碗面。晚上住都江堰。",
+   "why": null,
+   "price": {
+    "lo": 800,
+    "hi": 1900,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      120,
+      360
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-01",
+     "11-30"
+    ],
+    "best": [
+     "03-20",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy320b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy321a",
+   "dest": "ningxia",
+   "name": "中卫银川影城",
+   "region": "西北",
+   "days": 2,
+   "title": "中卫银川影城 2 天",
+   "headline": "两天，中卫高庙十八层地狱和银川镇北堡",
+   "dek": "在中卫老城里看高庙保安寺，一座建在中轴线上的三教合一古建，主殿高约二十九米，层层叠叠像凤凰展翅；殿后台阶陡，往下进地宫，就是十八层地狱，一路低头走，墙上是各种刑狱的塑像和音效，出来再爬上主殿看全景。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-15",
+     "10-15"
+    ],
+    "best": [
+     "05-01",
+     "09-30"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy321a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy322a",
+   "dest": "shaanxi",
+   "name": "西安古城与彬州",
+   "region": "西北",
+   "days": 2,
+   "title": "西安古城与彬州 2 天",
+   "headline": "2天(两)，西安城墙、大唐不夜城和彬州花果山水帘洞",
+   "dek": "上午从城门进西安城墙，看瓮城和城楼上的滚木、狼牙拍等守城器具，可以租车骑行；晚上去大唐不夜城，看灯火、雕塑和街头演出。",
+   "why": null,
+   "price": {
+    "lo": 800,
+    "hi": 1800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "10-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy322a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy322b",
+   "dest": "shaanxi",
+   "name": "青木川古镇",
+   "region": "西北",
+   "days": 2,
+   "title": "青木川古镇 2 天",
+   "headline": "2天(两)，从汉中到青木川的回龙场老街和魏氏庄园",
+   "dek": "从汉中进山，下午到青木川：先登奇峰楼看整个古镇，过飞凤桥到老街，沿回龙场老街慢慢走，看河床是整块的石头。晚上住在古镇。",
+   "why": null,
+   "price": {
+    "lo": 700,
+    "hi": 1800,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      150,
+      450
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "04-01",
+     "10-31"
+    ],
+    "best": [
+     "04-15",
+     "10-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy322b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy323a",
+   "dest": "shaanxi",
+   "name": "陕北长城边自驾",
+   "region": "西北",
+   "days": 2,
+   "title": "陕北长城边自驾 2 天",
+   "headline": "两天，榆林到定边，沿明长城看堡子和窑洞",
+   "dek": "从榆林往西南开到靖边的龙洲堡。外面看像一堆黄土，走进去才发现是明长城的堡子：墙体厚实，里面如今种满玉米，村民世代守着这片地。可以爬上墙头看长城和田野。傍晚开到定边住下。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2200,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "05-01",
+     "10-15"
+    ],
+    "best": [
+     "06-01",
+     "09-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy323a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy323b",
+   "dest": "shaanxi",
+   "name": "西安潼关",
+   "region": "西北",
+   "days": 2,
+   "title": "西安潼关 2 天",
+   "headline": "两天，西安市井美食和潼关古城",
+   "dek": "周四上午去西仓花鸟市场，沿街摆满鸟笼、玉石、文玩核桃和老物件，很有市井气。中午过去回民街，从鼓楼边的化觉巷一路逛，烤肉串和炖得软烂的羊蹄都值得尝。晚上住西安。",
+   "why": null,
+   "price": {
+    "lo": 800,
+    "hi": 1600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      250,
+      450
+     ],
+     "food": [
+      100,
+      200
+     ],
+     "tix": [
+      30,
+      90
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy323b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy324a",
+   "dest": "yunnan",
+   "name": "阿者科哈尼古村",
+   "region": "西南",
+   "days": 1,
+   "title": "阿者科哈尼古村 1 天",
+   "headline": "一天(日)，阿者科村、古树广场和长街",
+   "dek": "从元阳县城上山到阿者科，这是哈尼族传统村落，一栋栋四面坡茅草顶的蘑菇房挤在半山腰。先在村里的古树广场看那棵树干已经空心却还活着的老树，再沿着村里最宽的那条长街走，每年长街宴就摆在这里；沿路山泉水通到各家各户，水碾房还在。",
+   "why": null,
+   "price": {
+    "lo": 400,
+    "hi": 1000,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      300,
+      500
+     ],
+     "nights": 0,
+     "n": 1,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "11-01",
+     "04-30"
+    ],
+    "best": [
+     "12-01",
+     "03-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy324a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy324b",
+   "dest": "yunnan",
+   "name": "诺邓古村",
+   "region": "西南",
+   "days": 1,
+   "title": "诺邓古村 1 天",
+   "headline": "一天(日)，诺邓古村和诺邓盐井",
+   "dek": "从云龙县城到诺邓，这是依山而建的白族古村。先爬到盐井看两千多年的老卤水井，旁边的作坊里在用柴火熬盐；然后在村里吃诺邓火腿，这里的盐含钾，腌出来的火腿口感特别好。",
+   "why": null,
+   "price": {
+    "lo": 700,
+    "hi": 1600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      60,
+      180
+     ],
+     "local": [
+      300,
+      500
+     ],
+     "nights": 0,
+     "n": 1,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-10",
+     "05-31"
+    ],
+    "best": [
+     "11-01",
+     "03-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy324b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy325a",
+   "dest": "guangxi",
+   "name": "程阳八寨",
+   "region": "华南",
+   "days": 2,
+   "title": "程阳八寨 2 天",
+   "headline": "两天，侗寨风雨桥、鼓楼和老木楼",
+   "dek": "下午从柳州走高速去三江，路上两边是成片的喀斯特山。傍晚到程阳八寨，先上程阳永济桥，再到马鞍寨看三百多年的长屋，晚上住寨里的木头客栈，吃一桌侗家三宝，再喝一碗油茶。",
+   "why": null,
+   "price": {
+    "lo": 1100,
+    "hi": 2600,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      180,
+      540
+     ],
+     "local": [
+      340,
+      590
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "03-15",
+     "11-15"
+    ],
+    "best": [
+     "04-01",
+     "05-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy325a",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy325b",
+   "dest": "guangxi",
+   "name": "硕龙边境小镇",
+   "region": "华南",
+   "days": 1,
+   "title": "硕龙边境小镇 1 天",
+   "headline": "一天，硕龙街、将军山和归春河边",
+   "dek": "一早到硕龙街，从边贸街走到牌楼，再爬将军山，在山顶看边境两侧的小镇；下山沿归春河边小路走一段，在镇上吃饭。",
+   "why": null,
+   "price": {
+    "lo": 700,
+    "hi": 1700,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      300,
+      500
+     ],
+     "nights": 0,
+     "n": 1,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "09-15",
+     "05-15"
+    ],
+    "best": [
+     "10-15",
+     "04-15"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy325b",
+   "engineRoute": null,
+   "poster": null
+  },
+  {
+   "id": "xy326a",
+   "dest": "hainan",
+   "name": "三亚到五指山黎乡",
+   "region": "华南",
+   "days": 2,
+   "title": "三亚到五指山黎乡 2 天",
+   "headline": "两天，中廖村、博后村和初保村",
+   "dek": "上午到中廖村，村里是小楼配椰子树的海岛景象，可以买一个现摘的椰子喝，看村民爬椰树摘果；再到博后村，茅草屋样式的民宿和黎族风格的院子值得走一圈。晚上回三亚住。",
+   "why": null,
+   "price": {
+    "lo": 1000,
+    "hi": 2300,
+    "currency": "CNY",
+    "basis": "参考价：两人同行，含往返大交通（按离最近的大城市估）、住、吃、门票、当地交通",
+    "parts": {
+     "stay": [
+      150,
+      320
+     ],
+     "food": [
+      80,
+      160
+     ],
+     "tix": [
+      90,
+      270
+     ],
+     "local": [
+      600,
+      1000
+     ],
+     "nights": 1,
+     "n": 2,
+     "car": true
+    }
+   },
+   "tags": [],
+   "season": {
+    "ok": [
+     "10-15",
+     "04-15"
+    ],
+    "best": [
+     "11-01",
+     "03-31"
+    ]
+   },
+   "anytime": false,
+   "status": "ok",
+   "page": "Route.dc.html#xy326a",
    "engineRoute": null,
    "poster": null
   }

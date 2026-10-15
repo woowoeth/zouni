@@ -12,14 +12,15 @@ for n in [int(x) for x in sys.argv[1:]]:
     o = subprocess.run(['python3', 'tools/check_new_routes.py', rp], capture_output=True, text=True).stdout
     errs = [l for l in o.splitlines() if l.startswith('    ') and 'id 重复' not in l]
     if errs: bad.append((n, '; '.join(e.strip() for e in errs[:6]))); continue
-    r = walk(json.load(open(rp, encoding='utf-8'))[0])
-    h = sorted(set(PAT.findall(json.dumps(r, ensure_ascii=False))))
+    rs = [walk(x) for x in json.load(open(rp, encoding='utf-8'))]
+    h = sorted({m for r in rs for m in PAT.findall(json.dumps(r, ensure_ascii=False))})
     if h: bad.append((n, f'仍有来源措辞 {h}')); continue
-    if r['id'] in IT: bad.append((n, 'id 已存在')); continue
-    for k in ('video',): r.pop(k, None)
-    json.dump([r], open(f'data/auto_routes/video_{n}.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1); ok_n.append((n, r))
+    rs = [r for r in rs if r['id'] not in IT]
+    if not rs: bad.append((n, 'id 已存在')); continue
+    for r in rs: r.pop('video', None)
+    json.dump(rs, open(f'data/auto_routes/video_{n}.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=1); ok_n.append((n, rs))
 if ok_n:
     out = subprocess.run(['python3', 'tools/add_routes_json.py'] + [f'data/auto_routes/video_{n}.json' for n, _ in ok_n], capture_output=True, text=True)
     print(out.stdout.strip().splitlines()[-1] if out.stdout.strip() else out.stderr[-300:])
-    for n, r in ok_n: print('第', n, '个：', r['label'])
+    for n, rs in ok_n: print('第', n, '个：', ' / '.join(r['label'] for r in rs))
 for n, why in bad: print('✗ 第', n, '个没入库：', why)

@@ -335,7 +335,7 @@ if os.path.exists(RJS):
         m = re.search(r'约 (\d+) 小时(?: (\d+) 分)?', x or '')
         if m: return int(m.group(1)) * 60 + int(m.group(2) or 0)
         m = re.search(r'约 (\d+) 分', x or ''); return int(m.group(1)) if m else None
-    LONG_BACK_OK = {'xw89a', 'xw95a', 'xv03a', 'xv10a', 'xhg3', 'xzlz7', 'asw4', 'syd6', 'nzs7', 'prg4', 'xm4'}      # 回程 >2.5 小时、人工确认过确实那么远的当天往返
+    LONG_BACK_OK = {'xy303b', 'xw89a', 'xw95a', 'xv03a', 'xv10a', 'xhg3', 'xzlz7', 'asw4', 'syd6', 'nzs7', 'prg4', 'xm4'}      # 回程 >2.5 小时、人工确认过确实那么远的当天往返
     bad = []; bad2 = []; bad3 = []
     for rid, r in R.items():
         mx = 0
