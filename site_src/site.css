@@ -796,3 +796,39 @@ body{background:var(--bg);color:var(--ink)}
 .now .datebar .hdt i{font:700 13px var(--sans);color:var(--red)}
 .home .cover:after{inset:20% 0 0 0;background:linear-gradient(to bottom,rgba(20,18,24,0),rgba(20,18,24,.55) 45%,rgba(20,18,24,.9))}
 .home .toc.now{margin-top:14px}
+
+/* ——— 首页栅格与节奏（2026-10-16 首页对齐检查；规则见 docs/handoff/02-UI规范.md「首页」，判据 tests/home_layout_check.py）———
+   版心：左右 20px，所有区块左右缘同一条线；竖向间距只用 8/12/16/24/32：
+   控件叠放 8 · 标题到内容 12 · 分区线到标题 12 · 搜索上方 16 · 挑三条到分区 24 · 区块之间 32；控件高 44（频道两行格 56） ——— */
+article.home{--s1:8px;--s2:12px;--s3:16px;--s4:24px;--s5:32px}
+.home .mast{top:var(--s3)}
+.home .cv{bottom:var(--s3)}
+.home .mast .minebtn{position:relative;display:inline-flex;align-items:center;gap:6px}
+.home .mast .minebtn span{display:inline;height:auto;padding:0;background:none}
+.home .mast .minebtn:after{content:"";position:absolute;left:0;right:0;top:-4px;bottom:-4px}
+.home .hsearch{margin:var(--s3) 20px 0;gap:var(--s1)}
+.home .hsearch input::placeholder{font-size:14px}
+.home .chan2{margin:var(--s1) 20px 0;gap:var(--s1)}
+.home .chan2 a{min-height:56px;padding:var(--s1) var(--s2)}
+.home .chan2 small{text-wrap:balance}
+@media (max-width:374px){.home .chan2 a{padding-left:var(--s1);padding-right:var(--s1)}}
+.home .pick{margin-top:var(--s1);padding:0 20px}
+.home .pick .pkh{min-height:44px}
+.home .pick .pkb{padding-top:0}
+.home .pick .pkrow{margin-top:var(--s1);gap:var(--s1)}
+.home .pick .pkr{gap:var(--s1)}
+.home .pick .pkr button{height:44px}
+.home .pick .pkhint{margin:var(--s2) 0 0}
+.home .toc{margin:0 20px var(--s5);padding:0}
+.home .toc.now{margin-top:var(--s4)}
+.home .toc h2{margin:0 0 var(--s2);padding:var(--s2) 0 0}
+.home .now .datebar{margin-top:0}
+.home .now .datebar .hdt{height:44px}
+.home .dchips{gap:var(--s1);margin:var(--s1) -20px 0;padding:0 20px;scrollbar-width:none}
+.home .dchips::-webkit-scrollbar{display:none}
+.home .dchips button{height:44px}
+.home .items{margin-top:var(--s1)}
+.home .items li{padding:var(--s2) 0}
+.home .items .tx{gap:4px}
+.home .moreb{margin-top:var(--s1);height:44px}
+.home .toc a.allbar{height:44px;margin:var(--s1) 0 0;padding:0 14px;align-items:center}
