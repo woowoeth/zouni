@@ -13,6 +13,7 @@
  4 缺城市中心键：编译器会回退成整个目的地的基准点，当天距离全错
  5 站点纬度符号：南半球国家里纬度不能为正
  6 页面：每页都有 data-n0 / data-start；默认出发日晚于今天；天数和 section 数一致；默认日期不让“周一闭馆”的那天落在周一
+ 22 长线检索 /long/：trips.json 里每条 days>=15 的线路都在页面里、首页有入口、搜“105”命中 xb96a、没有悬空链接
  7 串线：被串线闸拒绝的（build/denies.txt）不得出现在页面里（抽查几条已知案例）
 """
 import datetime, glob, json, math, os, re, sys
@@ -383,6 +384,42 @@ if os.path.exists(RJS):
             n = len(re.findall(r'第[一二三四五六七八九十]季', open(f, encoding='utf-8').read()))
             if n: bad.append(f'/{pth}/ 里出现 {n} 处“第几季”')
         if bad: fails.append(('单季纪录片页面写了“第几季”', bad))
+
+
+# 22 长线检索 /long/（2026-10-16）：从 trips.json 出发反向查，每条 days>=15 的线路都得在 /long/ 里；首页要有入口；搜 105 得到 xb96a；不得有不存在的 trip 链接
+if site:
+    bad = []
+    TJ = json.load(open('data/catalog/trips.json', encoding='utf-8'))['trips']
+    longs = [t for t in TJ if (t.get('days') or 0) >= 15]
+    lf = os.path.join(site, 'long', 'index.html')
+    if not longs: bad.append('trips.json 里没有 days>=15 的线路（判据本身失效）')
+    if not os.path.exists(lf): bad.append('/long/ 页面不存在')
+    else:
+        lh = open(lf, encoding='utf-8').read()
+        cards = re.findall(r'<li class="lc"[^>]*?data-n="(\d+)"[^>]*?data-q="([^"]*)">\s*<a href="/trip/([^/"]+)/"', lh)
+        ids = [c[2] for c in cards]
+        for t in longs:
+            if t['id'] not in ids: bad.append(f'{t["id"]}（{t["days"]} 天）不在 /long/ 页面里')
+        if len(ids) != len(set(ids)): bad.append('/long/ 里有重复的卡片')
+        for i_ in ids:
+            if not os.path.exists(os.path.join(site, 'trip', i_, 'index.html')): bad.append(f'/long/ 链到不存在的 /trip/{i_}/')
+        for i_ in re.findall(r'href="/trip/([^/"]+)/"', lh):
+            if i_ not in ids: bad.append(f'/long/ 里有卡片之外的 trip 链接 {i_}')
+        hit = [c for c in cards if '105' in c[1] and c[2] == 'xb96a']
+        if 'xb96a' in [t['id'] for t in longs] and not hit: bad.append('/long/ 里搜“105”命不中 xb96a（卡片 data-q 里没有 105 天）')
+        mm = [c for c in cards if '边境' in c[1] and c[2] == 'xb96a']
+        if 'xb96a' in [t['id'] for t in longs] and not mm: bad.append('/long/ 里搜“边境”命不中 xb96a')
+    hf = os.path.join(site, 'index.html')
+    if not os.path.exists(hf) or 'href="/long/"' not in open(hf, encoding='utf-8').read(): bad.append('首页没有指向 /long/ 的链接')
+    for pth in ('where', ):
+        f = os.path.join(site, pth, 'index.html')
+        if not os.path.exists(f) or 'href="/long/"' not in open(f, encoding='utf-8').read(): bad.append(f'/{pth}/ 没有指向 /long/ 的链接')
+    ti = os.path.join(site, 'assets', 'tidx.js')
+    if not os.path.exists(ti): bad.append('线路搜索索引 assets/tidx.js 不存在')
+    else:
+        IDX = json.loads(open(ti, encoding='utf-8').read().split('=', 1)[1].rstrip().rstrip(';'))
+        if not any(x[0] == 'xb96a' and '105天' in x[5] and '边境线' in x[5] for x in IDX): bad.append('线路搜索索引里 xb96a 搜不到“105天”“边境线”')
+    if bad: fails.append(('长线检索 /long/ 不完整', bad))
 
 if fails:
     for title, items in fails:
