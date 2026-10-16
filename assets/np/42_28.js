@@ -1,0 +1,1 @@
+(window.ZNP=window.ZNP||{})['42_28']=[{"i":"5cde22f9","n":"伍迪格思里中心","c":"俄克拉何马城","a":36.157,"o":-95.984,"t":"ms","d":75,"s":"民谣歌手格思里的馆","q":"Woody Guthrie Center, Tulsa","p":1,"ds":"usa","ap":1},{"i":"e492ba2f","n":"卡托萨蓝鲸","c":"俄克拉何马城","a":36.194,"o":-95.733,"t":"sg","d":45,"s":"66 号公路边的蓝色鲸雕","q":"Blue Whale of Catoosa, Oklahoma","p":1,"ds":"usa","ap":1}];

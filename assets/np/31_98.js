@@ -1,0 +1,1 @@
+(window.ZNP=window.ZNP||{})['31_98']=[{"i":"958a00fe","n":"加雅街","c":"亚庇","a":5.985,"o":116.077,"t":"st","d":60,"s":"亚庇的老街，周日有集市","q":"Gaya Street","p":1,"ds":"malaysia","ap":1},{"i":"00f51ff7","n":"亚庇市立清真寺","c":"亚庇","a":5.997,"o":116.09,"t":"sg","d":45,"s":"建在水上的清真寺，倒影很美","q":"Kota Kinabalu City Mosque","p":1,"ds":"malaysia","ap":1}];

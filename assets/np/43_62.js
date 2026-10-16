@@ -1,0 +1,1 @@
+(window.ZNP=window.ZNP||{})['43_62']=[{"i":"80ed8a97","n":"苏努拉克西巴鲁米尼（撒丁岛）","c":"卡利亚里","a":39.706,"o":8.992,"t":"sg","d":120,"s":"撒丁岛最完整的石塔遗址","q":"Su Nuraxi di Barumini, Sardinia","p":1,"ds":"italy","ap":1}];

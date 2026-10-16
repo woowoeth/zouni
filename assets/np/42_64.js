@@ -1,0 +1,1 @@
+(window.ZNP=window.ZNP||{})['42_64']=[{"i":"345d8dfe","n":"西西里埃特纳火山","c":"卡塔尼亚","a":37.7,"o":14.997,"t":"pk","d":240,"s":"欧洲最活跃的火山之一","q":"Mount Etna Rifugio Sapienza, Sicily","p":1,"ds":"italy","ap":1}];

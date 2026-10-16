@@ -1,0 +1,1 @@
+(window.ZNP=window.ZNP||{})['16_108']=[{"i":"5f2559d8","n":"鸭嘴兽之家（塔玛河谷）","c":"朗塞斯顿","a":-41.154,"o":146.816,"t":"fn","d":90,"s":"能近距离看鸭嘴兽","q":"Platypus House, Beauty Point, Tasmania","p":1,"ds":"australia","ap":1},{"i":"3301eb94","n":"洛海德灯塔","c":"朗塞斯顿","a":-41.063,"o":146.79,"t":"sg","d":60,"s":"塔玛河口的老灯塔","q":"Low Head Lighthouse, Tasmania","p":1,"ds":"australia","ap":1}];

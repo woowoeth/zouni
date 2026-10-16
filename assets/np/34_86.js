@@ -1,0 +1,1 @@
+(window.ZNP=window.ZNP||{})['34_86']=[{"i":"c7a3ed63","n":"黎明之城","c":"本地治里","a":12.007,"o":79.811,"t":"sg","d":150,"s":"国际实验社区，有金色大圆球","q":"Auroville Matrimandir Viewing Point, Auroville","p":1,"ds":"india","ap":1}];

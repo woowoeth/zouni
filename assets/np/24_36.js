@@ -1,0 +1,1 @@
+(window.ZNP=window.ZNP||{})['24_36']=[{"i":"618776ab","n":"耶稣会教堂","c":"阿雷基帕","a":-16.399,"o":-71.536,"t":"sg","d":40,"s":"安第斯巴洛克风格的雕花正面","q":"Iglesia de la Compania, Arequipa","p":1,"ds":"peru","ap":1},{"i":"8adbf96a","n":"圣卡塔利娜修道院","c":"阿雷基帕","a":-16.396,"o":-71.535,"t":"ms","d":120,"s":"像小城一样的彩色修道院","q":"Santa Catalina Monastery, Arequipa","p":1,"ds":"peru","ap":1}];

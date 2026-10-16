@@ -1,0 +1,1 @@
+(window.ZNP=window.ZNP||{})['42_24']=[{"i":"3da936f7","n":"陶斯普韦布洛","c":"陶斯","a":36.439,"o":-105.545,"t":"sg","d":120,"s":"千年土坯村，世界遗产","q":"Taos Pueblo, New Mexico","p":1,"ds":"usa","ap":1},{"i":"7b94c685","n":"里奥格兰德峡谷桥","c":"陶斯","a":36.474,"o":-105.697,"t":"sg","d":45,"s":"横跨深峡谷的大桥","q":"Rio Grande Gorge Bridge, Taos, New Mexico","p":1,"ds":"usa","ap":1}];

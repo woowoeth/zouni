@@ -1,0 +1,1 @@
+(window.ZNP=window.ZNP||{})['44_82']=[{"i":"194324e1","n":"亚萨维陵","c":"突厥斯坦","a":43.297,"o":68.273,"t":"sg","d":120,"s":"中亚大型中世纪陵墓，蓝色穹顶","q":"Mausoleum of Khoja Ahmed Yasawi, Turkestan","p":1,"ds":"kazakhstan","ap":1,"al":["拉比娅苏丹别古姆陵"]}];

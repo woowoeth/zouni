@@ -1,0 +1,1 @@
+(window.ZNP=window.ZNP||{})['41_27']=[{"i":"2b678847","n":"阿卡迪亚圆谷仓","c":"塔尔萨","a":35.66,"o":-97.318,"t":"sg","d":45,"s":"一九〇年代建的圆谷仓","q":"Arcadia Round Barn, Oklahoma","p":1,"ds":"usa","ap":1},{"i":"ee74356f","n":"波普 66 汽水牧场","c":"塔尔萨","a":35.666,"o":-97.329,"t":"fn","d":60,"s":"墙上摆满各国汽水的店","q":"Pops 66 Soda Ranch, Arcadia, Oklahoma","p":1,"ds":"usa","ap":1}];

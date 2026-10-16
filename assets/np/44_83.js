@@ -1,0 +1,1 @@
+(window.ZNP=window.ZNP||{})['44_83']=[{"i":"ef4a4f9a","n":"欧达巴西广场","c":"奇姆肯特","a":42.316,"o":69.597,"t":"st","d":50,"s":"奇姆肯特的主广场，立有纪念碑","q":"Ordabasy Square, Shymkent","p":1,"ds":"kazakhstan","ap":1},{"i":"5d4a04d4","n":"奇姆肯特树木公园","c":"奇姆肯特","a":42.33,"o":69.58,"t":"pk","d":80,"s":"市区里的大片林园","q":"Dendrological Park, Shymkent","p":1,"ds":"kazakhstan","ap":1}];

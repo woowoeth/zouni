@@ -1,0 +1,1 @@
+(window.ZNP=window.ZNP||{})['42_103']=[{"i":"4fb46e03","n":"东西步道正东津段","c":"江陵","a":37.692,"o":129.034,"t":"pk","d":120,"s":"沿海边走的步道，一边是东海","q":"Haeparang Trail Jeongdongjin, Gangneung","p":1,"ds":"korea","ap":1,"al":["正东津沙时计公园"]}];

@@ -1,0 +1,1 @@
+(window.ZNP=window.ZNP||{})['17_108']=[{"i":"05067ffd","n":"联邦广场","c":"墨尔本","a":-37.818,"o":144.969,"t":"st","d":60,"s":"墨尔本的城市广场","q":"Federation Square","p":1,"ds":"australia","ap":1,"al":["霍西尔涂鸦巷"]},{"i":"ded8e9a5","n":"维多利亚女王市场","c":"墨尔本","a":-37.808,"o":144.957,"t":"st","d":90,"s":"南半球最大的露天市场","q":"Queen Victoria Market","p":1,"ds":"australia","ap":1}];

@@ -1,0 +1,1 @@
+(window.ZNP=window.ZNP||{})['45_94']=[{"i":"cb362f9f","n":"哈拉和林博物馆","c":"哈拉和林","a":47.199,"o":102.842,"t":"ms","d":60,"s":"讲蒙古帝国旧都的历史","q":"Kharkhorin Museum, Mongolia","p":1,"ds":"mongolia","ap":1},{"i":"735c7521","n":"额尔德尼召","c":"哈拉和林","a":47.202,"o":102.844,"t":"sg","d":120,"s":"蒙古最早的藏传佛教大寺院","q":"Erdene Zuu Monastery, Kharkhorin","p":1,"ds":"mongolia","ap":1}];
