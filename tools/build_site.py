@@ -15423,9 +15423,13 @@ def long_page():
     infos.sort(key=lambda x: (x['until'], 0 if x['bestnow'] else 1, -x['n']))      # 静态顺序 = 网页没选月份时的默认排序“最近能出发的在前”
     maxn = max([x['n'] for x in infos] + [0])
     m0 = TODAY.month
-    def ends(ch):
+    LONG_END = {'xb96a': '深圳', 'xl1a': '西宁', 'xl2a': '成都', 'xl3a': '喀什', 'xl4a': '成都', 'xl5a': '长春', 'xl6a': '贵阳', 'xl7a': '景德镇', 'xl8a': '深圳', 'xl9a': '丽江',
+                'xl10a': '额济纳', 'xl11a': '洛阳', 'xl12a': '丽江', 'xl13a': '海口', 'xl14a': '深圳', 'xl15a': '敦煌', 'xl16a': '阿尔山', 'xl17a': '福州', 'xl18a': '格尔木',
+                'xl19a': '重庆', 'xl20a': '北京', 'xl21a': '成都', 'xl22a': '乌鲁木齐'}      # 长线的真正终点（每天 city 是前一晚住处，推不出来），新增长线要在这里补
+    def ends(ch, rid=''):
         if not ch: return ''
-        return f'{ch[0]} 出发，绕回 {ch[0]}' if ch[0] == ch[-1] or len(ch) < 2 else f'{ch[0]} 出发，末晚 {ch[-1]}'
+        end_ = LONG_END.get(rid) or (ch[-1] if len(ch) > 1 else ch[0])
+        return f'{ch[0]} 出发，绕回 {ch[0]}' if ch[0] == end_ else f'{ch[0]} 出发，到 {end_}'
     cards = []
     for x in infos:
         diff = '上高原' if x['hi'] else '山路多' if x['peak'] >= 1500 else '平路'
@@ -15435,7 +15439,7 @@ def long_page():
             f'<li class="lc" data-n="{x["n"]}" data-ok="{",".join(map(str, x["okm"]))}" data-bm="{",".join(map(str, x["bestm"]))}" data-os="{(x["ok"] or ["", ""])[0]}" data-oe="{(x["ok"] or ["", ""])[1]}" '
             f'data-bs="{(x["best"] or ["", ""])[0]}" data-be="{(x["best"] or ["", ""])[1]}" data-q="{E(x["q"].lower().replace(" ", ""))}">'
             f'<a href="/trip/{x["id"]}/"><span class="ld"><b>{x["n"]}</b>天</span><span class="lb"><h3>{E(x["label"])}</h3>'
-            f'<span class="lm">{E(ends(x["chain"]))}</span>'
+            f'<span class="lm">{E(ends(x["chain"], x["id"]))}</span>'
             f'<span class="lm">{E(best)}{" · " if best else ""}人均 {E(x["price"])}</span>'
             f'<span class="lt">{"".join(tags)}</span></span></a></li>')
     mons = ''.join(f'<button type="button" data-m="{m_}">{m_}月</button>' for m_ in range(1, 13))
