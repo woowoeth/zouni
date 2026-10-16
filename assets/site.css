@@ -667,7 +667,7 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .dtw .dt i{position:relative}.dtw .dt i:after{content:"";position:absolute;inset:-14px -10px}
 .adj{position:relative}.adj:after{content:"";position:absolute;inset:-12px -8px}
 .rmnote .rmback{min-height:44px;height:44px}
-.r .ic{width:42px;height:42px;margin:-10px 0 -10px 0}
+.r .ic{width:44px;height:44px;margin:-11px 0 -11px 0}
 .toast .toast-act{margin-left:12px;height:32px;padding:0 10px;border:1px solid currentColor;background:transparent;color:inherit;font:700 14px var(--sans);cursor:pointer}
 img[loading=lazy]{background-color:var(--card)}
 .orgnote{margin:6px 0 0;font-size:13px;color:var(--sub)}.orgnote .orgx{height:44px;padding:0 6px;border:0;background:transparent;color:var(--red);font:700 13px var(--sans);cursor:pointer}
@@ -846,3 +846,51 @@ article.home{--s1:8px;--s2:12px;--s3:16px;--s4:24px;--s5:32px}
 .npd.ok{background:var(--okbg);color:var(--okfg)}
 .xd button.npc small{display:block;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .xnote.npe{padding:14px 0 6px;font-size:14px;color:var(--ink)}
+
+/* ——— 触控目标 ≥44×44、提示条、弹层按钮（2026-10-17；规则见 docs/handoff/02-UI规范.md「触控目标」「提示条」）——— */
+/* 提示条：同一时刻只有一条；“撤销”按钮 44 高；放在 dock 上方 */
+.toast{display:flex;align-items:center;gap:12px;width:max-content;max-width:calc(100vw - 32px);min-height:48px;padding:2px 4px 2px 16px;line-height:1.45;box-sizing:border-box}
+.toast .toast-t{padding:8px 0}
+.toast:not(.act) .toast-t{padding-right:12px}
+.toast .toast-act{flex:none;min-width:64px;height:44px;margin:0;padding:0 14px}
+/* 弹层：右上“关上”44×44，底部再放一个整行的“关上”（单手够得着）；按钮文字上下居中 */
+.pk-x{min-width:44px;height:44px;margin-right:-8px;padding:0 8px;display:inline-flex;align-items:center;justify-content:flex-end}
+.pk-xb{display:block;width:100%;min-height:48px;margin:10px 0 0;padding:0;border:0;border-top:1px solid var(--line);background:transparent;font:700 15px var(--sans);color:var(--sub);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}
+.pk-m button{height:44px}.pk-g button{height:44px}
+.xd button{justify-content:center}
+.pk-q button,.stg button{display:flex;align-items:center;justify-content:center;line-height:1.2}
+.pk-q button{flex-direction:column}
+.xd .rmgo{justify-content:center}
+@media print{.pk-xb{display:none}}
+/* 小字按钮：视觉不变，点击区放大到 ≥44（伪元素补）；有真实高度的直接给 44 */
+.glance .dt:after{top:-14px;bottom:-14px}
+.r .s .adj:after,.adj:after{inset:-14px -10px}
+.latewarn .reset{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;margin:-14px -6px;padding:0 10px;text-decoration:underline}
+.latewarn .reset:after{display:none}
+.minebtn{min-height:44px}
+.ic:after{content:"";position:absolute;inset:-8px -4px}.ic{position:relative}
+.r .s a.bkl,.pre li a.bkl{position:relative}.r .s a.bkl:after,.pre li a.bkl:after{content:"";position:absolute;inset:-14px -6px}
+.stays .tog{min-height:44px}
+.pre li label{min-height:44px;align-items:center}
+/* 每天底部两个按钮：高 44、间距 16，“去掉这一天”（破坏性）放最右、不抢眼；点它还有确认弹层，确认后有 5 秒“撤销” */
+.dayact{gap:16px}
+.dayact .rmday,.dayact .addafter{min-height:44px;height:44px}
+.dayact .rmday{order:2;background:transparent;box-shadow:inset 0 0 0 1px var(--line);justify-content:center}
+.dayact .addafter{order:1}
+.xday>.rmday{min-height:44px;height:44px}
+.dnote{margin:10px 20px 0;font-size:12px;line-height:1.5;color:var(--sub)}
+.pk-jump{margin:8px 0 0;text-align:center}.pk-jump button{min-height:44px;padding:0 16px;border:0;background:transparent;font:700 13px var(--sans);color:var(--blue);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}
+@media print{.pk-jump{display:none}}
+/* 离线横幅放在文档流最上面（原来 position:fixed 盖住返回/首页/分享的上半截） */
+.offline{position:static;z-index:auto;left:auto;right:auto;top:auto;padding:10px 16px;line-height:1.4}
+.hsmsg{margin:8px 20px 0;padding:10px 12px;background:var(--warnbg);color:var(--ink);font-size:13px;line-height:1.5}
+.fav.saved span:after{content:" ✓";font-weight:700}
+.xd button[aria-disabled=true]{opacity:.55;cursor:default}
+/* 我的行程：每行写“N 天 · 出发日期 · 还有几天”，右边有明确的“打开 ›” */
+.xd a.mr{flex-direction:row;align-items:center;gap:8px;justify-content:space-between}
+.xd a.mr .mt{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1;font-size:12px;color:var(--sub)}.xd a.mr .mt b{font-size:14px;color:var(--ink)}.xd a.mr .mt span{font-size:12px;color:var(--sub)}
+.xd a.mr .mo{flex:none;font:700 13px var(--sans);font-style:normal;color:var(--ink);padding-left:8px}
+.mrw .mrx{min-width:56px;min-height:44px}
+/* 首页封面标题：底图的大圆环线会从字中间穿过去，字压在浅色底上看不清——遮罩提前铺开、更深，字再加一圈暗影（tests/ux_batch1_check.py 量标题背后的最亮像素和字色的对比度 ≥ 4.5） */
+.home .cover:after{inset:0;background:linear-gradient(to bottom,rgba(20,18,24,0) 18%,rgba(20,18,24,.62) 44%,rgba(20,18,24,.9) 66%,rgba(20,18,24,.96))}
+.home .cv h2,.home .cv .kick{text-shadow:0 0 14px rgba(20,18,24,.8),0 1px 3px rgba(20,18,24,.9)}

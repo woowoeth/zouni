@@ -1,0 +1,20 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex"><title>没有网络 | 走你</title><link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png">
+<style>:root{--bg:#f4f2ec;--ink:#1c1d1a;--sub:#5d5f59;--card:#ebe8df;--line:rgba(28,29,26,.12);--red:#a63d27}@media (prefers-color-scheme:dark){:root{--bg:#161714;--ink:#ecebe5;--sub:#b3b5ad;--card:#21221f;--line:rgba(236,235,229,.16);--red:#e27a62}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.7 "Noto Sans SC",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif}main{max-width:430px;margin:0 auto;padding:40px 20px calc(40px + env(safe-area-inset-bottom,0))}
+.k{margin:0;font-size:13px;letter-spacing:.1em;color:var(--sub)}h1{margin:8px 0 12px;font:900 30px/1.3 "Noto Serif SC","Songti SC",serif}p{margin:0 0 12px;color:var(--ink)}.sub{color:var(--sub);font-size:14px}
+.row{display:flex;gap:12px;margin:24px 0 8px}.b,.b2{flex:1;display:flex;align-items:center;justify-content:center;min-height:48px;font-weight:700;font-size:15px;text-decoration:none}.b{background:var(--ink);color:var(--bg)}.b2{background:var(--card);color:var(--ink)}
+h2{margin:32px 0 8px;font:900 18px "Noto Serif SC","Songti SC",serif}ul{list-style:none;margin:0;padding:0}li{border-top:1px solid var(--line)}li a,li span.n{display:flex;flex-direction:column;justify-content:center;min-height:56px;padding:8px 0;color:var(--ink);text-decoration:none}li b{font-size:15px}li small{font-size:12px;color:var(--sub)}li.no{opacity:.55}.e{padding:12px 0;color:var(--sub);font-size:14px}</style></head><body><main>
+<p class="k">走你 · 现在没有网络</p><h1>这条线路还没存到手机里</h1><p id="want" class="sub" hidden></p>
+<p>联网后再打开就能看。想没网也能看的行程，先在有网时打开一次，再点底栏的「收进行程」，会一起存到手机里。</p>
+<div class="row"><a class="b" href="/">回首页</a><a class="b2" href="#saved" id="sv">已存的行程</a></div>
+<section id="saved"><h2>已存的行程</h2><ul id="list"><li class="e">正在看手机里存了哪些…</li></ul></section></main>
+<script>(function(){function ld(k){try{return JSON.parse(localStorage.getItem(k)||'[]')}catch(e){return[]}}
+var want=location.pathname.replace(/\/+$/,''),m=/^\/trip\/([^\/]+)/.exec(want),all=ld('zouni_fav').concat(ld('zouni_seen')),seen={},xs=all.filter(function(x){if(!x||!x.id||seen[x.id])return false;seen[x.id]=1;return true}),ul=document.getElementById('list');
+if(m){var w=document.getElementById('want'),nm=null;xs.forEach(function(x){if(x.id===m[1])nm=x.label});w.textContent='你想打开的：'+(nm||location.pathname);w.hidden=false}
+function esc(t){return String(t).replace(/[<>&]/g,function(c){return{'<':'&lt;','>':'&gt;','&':'&amp;'}[c]})}
+if(!xs.length){ul.innerHTML='<li class="e">还没有收进的行程。有网的时候打开一条线路，点「收进行程」，下次没网也能看。</li>'}
+else if(!window.caches){ul.innerHTML='<li class="e">这个浏览器不能离线存页面。</li>'}
+else{ul.innerHTML='';var n=0;xs.forEach(function(x){var u='/trip/'+encodeURIComponent(x.id)+'/';caches.match(u).then(function(r){var li=document.createElement('li');
+ if(r){li.innerHTML='<a href="'+u+'"><b>'+esc(x.label||x.id)+'</b><small>'+esc(x.title||'')+' · 已存在手机里</small></a>';ul.insertBefore(li,ul.firstChild);n++}
+ else{li.className='no';li.innerHTML='<span class="n"><b>'+esc(x.label||x.id)+'</b><small>还没存到手机里，联网后再看</small></span>';ul.appendChild(li)}})})}
+window.addEventListener('online',function(){location.reload()})})();</script></body></html>
