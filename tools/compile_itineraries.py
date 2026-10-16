@@ -296,7 +296,19 @@ for rid, it in IT.items():
         carry = (lastg['lat'], lastg['lng']) if lastg else carry
         if d.get('stay'):   # 第二天从住的地方出发：住处查得到就用住处
             sg = (GEO.get(d['stay'] + '|' + d['stay']) or GEO.get(dcity + '|' + d['stay'])) if 'GEO' in globals() else None   # “城市|住处”也认（北京西城、凤凰古城这类）
-            if sg and carry and km((sg['lat'], sg['lng']), carry) <= 400: carry = (sg['lat'], sg['lng'])  # stay_carry：只认核对过的城市中心
+            # 住处坐标要在“今天的城、明天的城、今天最后一站”任何一处 100 公里内才收（真搬家：当晚住斋浦尔、明天就是斋浦尔；住隔壁镇、丽江古城这类也是真的远）。
+            # 在线查询会把“新街口附近”“上野附近”“古城”这类泛称解析到合肥(153 公里)、岐阜(206)、清盛(201)，原来只要离上一站 ≤400 公里就收，
+            # 第二天“出发 → 中山陵”就成了 200 公里包车（check_fake_legs.py 守着）。
+            _nc = None
+            if di + 1 < n:
+                _ng = GEO.get(it['days'][di + 1].get('city', city) + '|' + it['days'][di + 1].get('city', city))
+                _nc = (_ng['lat'], _ng['lng']) if _ng and _ng.get('lat') is not None else None
+            if sg and carry and min(km((sg['lat'], sg['lng']), x_) for x_ in (dbase, carry) + ((_nc,) if _nc else ())) < 100: carry = (sg['lat'], sg['lng'])
+            elif carry and dcity in d['stay'] and not last and (GEO.get(dcity + '|' + dcity) or {}).get('lat') is not None and km(carry, (GEO[dcity + '|' + dcity]['lat'], GEO[dcity + '|' + dcity]['lng'])) >= 55:
+                # 住处没有可用坐标，但名字里就带着今天的城市（“拉萨老城区”“九寨沟口”）：人睡在城里，明天从城中心出发，不从今天最后一站出发
+                # （原来取最后一站：羊八井出发去布达拉宫成了 150 公里自驾）。只在住处坐标缺失或被上面那把尺拒绝、而且最后一站离城中心 ≥55 公里（去了远处的景点）时用；
+                # 最后一站就在城里时不动它——有的线“当天城市”只是个枢纽名，人其实在隔壁城（nx3 中卫线住进银川），拉回枢纽中心会凭空多出两百公里。
+                _c0 = GEO[dcity + '|' + dcity]; carry = (_c0['lat'], _c0['lng'])
         days.append({'title': d['title'], 'text': d['text'], 'lat': round(lat, 2), 'lng': round(lng, 2), 'elev': d.get('elev', dest['base']['elev']),
                      'clim': {m: dest['climate'][str(m)] for m in (9, 10, 11)}, 'city': dcity, 'navCity': dcity, 'rows': rows, 'stay': [],
                      'driveMin': drive, 'stayName': '' if last else d.get('stay', dcity), 'stayNote': '', 'story': d.get('story'), 'manners': [], 'notes': []})

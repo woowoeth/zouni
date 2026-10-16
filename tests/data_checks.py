@@ -15,6 +15,7 @@
  6 页面：每页都有 data-n0 / data-start；默认出发日晚于今天；天数和 section 数一致；默认日期不让“周一闭馆”的那天落在周一
  22 长线检索 /long/：trips.json 里每条 days>=15 的线路都在页面里、首页有入口、搜“105”命中 xb96a、没有悬空链接
  7 串线：被串线闸拒绝的（build/denies.txt）不得出现在页面里（抽查几条已知案例）
+23 SIGHT/DEEP 字典不得有重复键（ast 扫 tools/build_site.py；不需要建好的站）
 """
 import datetime, glob, json, math, os, re, sys
 
@@ -128,6 +129,20 @@ for n, l in enumerate(open('site_src/site.js', encoding='utf-8').read().split('\
     m_ = re.search(r'(?<![:\w])//', s_)
     if m_ and re.search(r'\belse\s*(if\s*\(|\{)|\}\s*else\b|\bfunction\s*\w*\s*\(|\)\s*\{|;\s*\w+\s*\(\w*', s_[m_.end():]): bad.append(f'site_src/site.js 第 {n} 行：注释后面还有代码（会被吞掉）：{l.strip()[:90]}')
 if bad: fails.append(('site.js 里注释吞掉了后面的代码', bad))
+
+# 23 SIGHT/DEEP 重复键（2026-10-16）：Python 字典后写的悄悄覆盖前面的，前面的文案丢了，还可能把别处的文案盖到现在的位置上
+#    （镇国寺：河内的、高邮的、平遥的三条互相盖；红石峡：榆林的盖掉云台山的）。同名但在不同城市的景点，用“限定词|景点名”的键（限定词用 / 分隔，
+#    出现在当天上下文里任一个即可，见 build_site.sight_of），不要写成两个同名键。用 ast 扫源码，不 import（build_site 一 import 就开始建站）。
+import ast, collections
+bad = []
+for n_ in ast.parse(open('tools/build_site.py', encoding='utf-8').read()).body:
+    if isinstance(n_, ast.Assign) and isinstance(n_.value, ast.Dict) and any(getattr(t_, 'id', None) in ('SIGHT', 'DEEP') for t_ in n_.targets):
+        nm_ = next(t_.id for t_ in n_.targets if getattr(t_, 'id', None) in ('SIGHT', 'DEEP')); seen_ = collections.defaultdict(list)
+        for k_ in n_.value.keys:
+            if isinstance(k_, ast.Constant): seen_[k_.value].append(k_.lineno)
+            if isinstance(k_, ast.Constant) and '|' in k_.value and not all(x_.strip() for x_ in k_.value.split('|', 1)[0].split('/') + [k_.value.split('|', 1)[1]]): bad.append(f'{nm_}「{k_.value}」第 {k_.lineno} 行：限定词或景点名是空的')
+        bad += [f'{nm_}「{k_}」重复 {len(v_)} 次（第 {"、".join(map(str, v_))} 行）：合并成一条；同名不同城市改用“限定词|景点名”' for k_, v_ in seen_.items() if len(v_) > 1]
+if bad: fails.append(('SIGHT/DEEP 字典里有重复键（后面的悄悄覆盖前面的）', bad))
 
 # 6/7 页面
 site = sys.argv[1] if len(sys.argv) > 1 else None
@@ -427,6 +442,12 @@ if site:
         IDX = json.loads(open(ti, encoding='utf-8').read().split('=', 1)[1].rstrip().rstrip(';'))
         if not any(x[0] == 'xb96a' and '105天' in x[5] and '边境线' in x[5] for x in IDX): bad.append('线路搜索索引里 xb96a 搜不到“105天”“边境线”')
     if bad: fails.append(('长线检索 /long/ 不完整', bad))
+
+# 24 假长车程（2026-10-16）：页面写了 ≥60 公里的包车/自驾，用 pois 坐标重算却不到一半（住处坐标被在线地名解析到外地、站点坐标落在别的城市）
+if site:
+    import subprocess as _sp
+    _r = _sp.run([sys.executable, 'tools/check_fake_legs.py', 'build/routes.js'], capture_output=True, text=True, cwd=ROOT)
+    if _r.returncode: fails.append(('假长车程（写的公里数与坐标重算对不上）', [l for l in (_r.stdout + _r.stderr).splitlines() if l.strip()][:20]))
 
 if fails:
     for title, items in fails:
