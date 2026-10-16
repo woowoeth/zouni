@@ -832,3 +832,17 @@ article.home{--s1:8px;--s2:12px;--s3:16px;--s4:24px;--s5:32px}
 .home .items .tx{gap:4px}
 .home .moreb{margin-top:var(--s1);height:44px}
 .home .toc a.allbar{height:44px;margin:var(--s1) 0 0;padding:0 14px;align-items:center}
+
+/* ——— 调整里的顺路景点：换成 / 在这之后加一个（2026-10-16；规则见 docs/handoff/02-UI规范.md「调整里的顺路景点」）——— */
+.npk .pk-x,.npk .pk-bk{min-width:44px;min-height:44px}
+.npk .pk-h{gap:4px}.npk .pk-h b{flex:1;min-width:0;font-size:16px;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pk-bk{padding:0;margin-left:-10px;border:0;background:transparent;font-size:26px;line-height:1;color:var(--ink);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}
+.xd button:disabled{opacity:.55;cursor:default}.xd button.had small{color:var(--sub)}
+.xd button.npc{gap:4px;min-height:56px;width:100%}
+.npr{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%}
+.npn{display:flex;align-items:center;gap:8px;min-width:0}.npn b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.npt{flex:none;display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;font:700 11px var(--sans);font-style:normal;color:var(--sub);box-shadow:inset 0 0 0 1px var(--line)}
+.npd{flex:none;padding:2px 8px;background:var(--bg);color:var(--ink);font-size:12px;font-style:normal;font-weight:700}
+.npd.ok{background:var(--okbg);color:var(--okfg)}
+.xd button.npc small{display:block;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.xnote.npe{padding:14px 0 6px;font-size:14px;color:var(--ink)}

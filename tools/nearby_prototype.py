@@ -145,7 +145,7 @@ def route_known(W, rid):
 
 
 def already_in_route(c, known):
-    """名字相同且 15 公里内；名字互相包含（≥3 字）且 1.5 公里内；任何站 120 米内"""
+    """名字相同且 15 公里内；名字互相包含（≥3 字）且 15 公里内（二郎剑 / 青海湖二郎剑景区：两处坐标差十几公里，是同一处）；任何站 120 米内"""
     cn = {c['n']} | set(c.get('al') or [])
     cpt = (c['a'], c['o'])
     for seg, pt in known:
@@ -160,7 +160,7 @@ def already_in_route(c, known):
         for a in cn:
             if a == seg and d <= 15:
                 return True
-            if a != seg and min(len(a), len(seg)) >= 3 and (a in seg or seg in a) and d <= 1.5:
+            if a != seg and min(len(a), len(seg)) >= 3 and (a in seg or seg in a) and d <= 15:
                 return True
     return False
 
@@ -327,34 +327,37 @@ def show(W, rid, day=None):
 
 
 def empty_stats(W, limit=None):
-    """全站空状态占比：每个 see/fun 锚点的“在它后面加”候选数"""
-    per = {'domestic': [], 'foreign': []}
-    line_any = {'domestic': [], 'foreign': []}
+    """全站空状态占比：每个 see/fun 锚点的“在它后面加”（insert）和“换成”（replace）的候选数"""
+    per = {(g, k): [] for g in ('domestic', 'foreign') for k in ('insert', 'replace')}
+    line_max = {'domestic': [], 'foreign': []}
     full_only = {'domestic': 0, 'foreign': 0}
     n_routes = 0
     for rid in W.IT:
         n_routes += 1
         known = route_known(W, rid)
         cnts = []
+        g = 'foreign' if W.IT[rid]['dest'] in W.foreign else 'domestic'
         for di in range(len(W.IT[rid]['days'])):
             dm = day_model(W, rid, di)
             for i in anchors(dm):
                 cs = candidates_for(W, rid, di, i, 'insert', known)
-                g = 'foreign' if dm['foreign'] else 'domestic'
-                per[g].append(len(cs))
+                per[(g, 'insert')].append(len(cs))
                 cnts.append(len(cs))
                 if not cs and candidates_for(W, rid, di, i, 'insert', known, with_budget=False):
                     full_only[g] += 1
+                per[(g, 'replace')].append(len(candidates_for(W, rid, di, i, 'replace', known)))
         if cnts:
-            line_any['foreign' if W.IT[rid]['dest'] in W.foreign else 'domestic'].append(1 if max(cnts) > 0 else 0)
+            line_max[g].append(max(cnts))
         if limit and n_routes >= limit:
             break
     res = {}
     for g in ('domestic', 'foreign'):
-        v = per[g]
-        res[g] = {'stops': len(v), 'median': statistics.median(v) if v else 0, 'zero_share': (sum(1 for x in v if x == 0) / len(v)) if v else 0,
-                  'ge3_share': (sum(1 for x in v if x >= 3) / len(v)) if v else 0, 'zero_because_full': full_only[g],
-                  'lines': len(line_any[g]), 'lines_with_none': sum(1 for x in line_any[g] if x == 0)}
+        res[g] = {'zero_because_full': full_only[g], 'lines': len(line_max[g]), 'lines_with_none': sum(1 for x in line_max[g] if x == 0),
+                  'line_max_median': statistics.median(line_max[g]) if line_max[g] else 0}
+        for k in ('insert', 'replace'):
+            v = per[(g, k)]
+            res[g][k] = {'stops': len(v), 'median': statistics.median(v) if v else 0, 'zero_share': (sum(1 for x in v if x == 0) / len(v)) if v else 0,
+                         'ge3_share': (sum(1 for x in v if x >= 3) / len(v)) if v else 0}
     return res
 
 
@@ -375,8 +378,11 @@ def main():
         print('空状态占比（每个可调整的站，“在它后面加”的候选数；已过滤 同处/本线已有/跨城/关门/当天预算）')
         for g, lab in (('domestic', '国内'), ('foreign', '国外')):
             s = st[g]
-            print('  %s：%d 个站 · 每站候选数中位 %s · 0 个的占 %.0f%%（其中因“当天已排满”为 0 的 %d 个）· ≥3 个的占 %.0f%% · %d 条线里一个站都没候选的 %d 条' % (
-                lab, s['stops'], s['median'], s['zero_share'] * 100, s['zero_because_full'], s['ge3_share'] * 100, s['lines'], s['lines_with_none']))
+            for k, kl in (('insert', '在它后面加'), ('replace', '换成')):
+                x = s[k]
+                print('  %s · %s：%d 个站 · 每站候选数中位 %s · 0 个的占 %.0f%% · ≥3 个的占 %.0f%%' % (lab, kl, x['stops'], x['median'], x['zero_share'] * 100, x['ge3_share'] * 100))
+            print('  %s · 整条线：%d 条线里，一个站都没有“加”候选的 %d 条（%.0f%%）· 每条线最多一站的候选数中位 %s · “加”为 0 里因当天已排满的站 %d 个' % (
+                lab, s['lines'], s['lines_with_none'], 100.0 * s['lines_with_none'] / max(1, s['lines']), s['line_max_median'], s['zero_because_full']))
 
 
 if __name__ == '__main__':

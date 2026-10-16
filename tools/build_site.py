@@ -6431,7 +6431,7 @@ def tz_of(dest, lng):
     if dest == 'australia' and lng <= 141: rule = ''     # 只有东南沿海（悉尼、墨尔本）有夏令时
     return z, rule
 import hashlib as _hl
-ASSET_V = _hl.md5((open('site_src/site.css', encoding='utf-8').read() + open('site_src/site.js', encoding='utf-8').read()).encode()).hexdigest()[:8]
+ASSET_V = _hl.md5((open('site_src/site.css', encoding='utf-8').read() + open('site_src/site.js', encoding='utf-8').read() + open('site_src/np_model.js', encoding='utf-8').read()).encode()).hexdigest()[:8]   # np_model.js 也进哈希：它被 site.js 懒加载（?v=ASSET_V），改了模型要让手机上的旧缓存失效
 STATUS = {'open': '可以去', 'restricted': '有条件', 'paused': '暂停开放', 'check': '出发前查'}
 TRIP_OF_ROUTE = {}
 for t in TRIPS:
@@ -14359,6 +14359,69 @@ for _a, _b in (('故宫博物院', '故宫'), ('天坛公园', '天坛'), ('颐�
 STORY_NOW = ['']   # 当前这一天的“懂一点”原文
 
 
+# ——— 「顺路加一站 / 换一站」（2026-10-16）要用的行属性 ———
+# 行程页每一行原来没有坐标、数值时长、类型，车程只存在 dep 行的文字里；site.js 的候选和重排都要读这些。
+# 只加 data-* 属性，不改可见内容和 DOM 顺序（旧测试不能变）。属性含义见 docs/handoff/02-UI规范.md「调整里的顺路景点」。
+import nearby_model as NM
+from build_nearby_pool import TYPE_CODE as NP_TYPE_CODE
+NP_CTX = {'day': 0, 'mode': 'city', 'rid': None}   # row_html 读：当前第几天、当天出行方式（city/rural/drive）
+_NP_IT = {}
+
+
+def np_it(rid):
+    """data/itineraries.json 里这条线（站点类型、目的地 id 只在那里）；读不到返回空 dict"""
+    if not _NP_IT:
+        try: _NP_IT.update(json.load(open('data/itineraries.json', encoding='utf-8')).get('itineraries') or {})
+        except Exception: _NP_IT['_'] = {}
+    return _NP_IT.get(rid) or {}
+
+
+def np_minutes(txt):
+    h = re.search(r'(\d+)\s*小时', txt or ''); m = re.search(r'(\d+)\s*分', txt or '')
+    return (int(h.group(1)) * 60 if h else 0) + (int(m.group(1)) if m else 0)
+
+
+def np_type_code(rid, di, name):
+    """这一站在 itineraries.json 里的 type → 候选池同口径的 2 字码；对不上返回 ''"""
+    try:
+        for st in np_it(rid)['days'][di]['stops']:
+            if st.get('name') == name: return NP_TYPE_CODE.get(st.get('type'), '')
+    except Exception: pass
+    return ''
+
+
+def np_pid(name, city, ll):
+    """和 tools/build_nearby_pool.py 候选池 id 同一个哈希公式（名字 | 城市 | 取整到 0.01° 的坐标）：对得上就是同一处"""
+    return _hl.md5(('%s|%s|%.2f|%.2f' % (re.split(r'\s*·\s*', name or '')[0].strip(), city or '', ll[0], ll[1])).encode('utf-8')).hexdigest()[:8]
+
+
+def np_row_attrs(w, city):
+    """see / fun / 有地点的吃饭行：data-ll 坐标；see / fun 再加 data-dm 停留分钟、data-ty 类型码、data-pid 候选池同口径 id"""
+    t = w.get('type')
+    if t not in ('see', 'fun', 'eat') or not w.get('poi') or '沿途' in (w.get('name') or ''): return ''
+    ll = coord(w['poi'], city)
+    if not ll: return ''
+    s = f' data-ll="{ll[0]:.5f},{ll[1]:.5f}"'
+    if t in ('see', 'fun'):
+        dm = np_minutes(w.get('d'))
+        if dm: s += f' data-dm="{dm}"'
+        ty = np_type_code(NP_CTX['rid'], NP_CTX['day'], w.get('name'))
+        if ty: s += f' data-ty="{ty}"'
+        s += f' data-pid="{np_pid(w.get("name"), city, ll)}"'
+    return s
+
+
+def np_dep_attrs(w):
+    """dep 行：data-mode 当天出行方式（和 nearby_model.mode_of_day 同口径）、data-min 这一段的分钟、data-km 公里"""
+    s = f' data-mode="{NP_CTX["mode"]}"'
+    how = w.get('how') or ''
+    mn = np_minutes(how)
+    if mn: s += f' data-min="{mn}"'
+    km_ = re.search(r'(\d+)\s*公里', how)
+    if km_: s += f' data-km="{km_.group(1)}"'
+    return s
+
+
 CLOSING_RE = re.compile(r'博物馆|博物院|美术馆|纪念馆|故居|旧址|陈列馆|科技馆|展览馆|寺|庙|祠|观$|道观|文庙|孔庙|府$|衙|石窟|陵|馆$')
 NOT_CLOSING_RE = re.compile(r'夜|市场|老街|步行街|公园|广场|码头|观景|日落|夜游|演出|灯光|夜景')
 
@@ -14367,7 +14430,7 @@ def row_html(w, city, app):
     t = w['type']
     if t == 'dep':
         sub = E(w.get('how')) if w.get('how') else ''
-        return f'<li class="r dep"><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">出发 → {E(w.get("to"))}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
+        return f'<li class="r dep"{np_dep_attrs(w)}><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">出发 → {E(w.get("to"))}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
     if t == 'eat':
         place = w.get('place') if w.get('place') not in ('随意', '住的地方附近', '附近', '车站或机场里吃', '沿途', '路上') else ''
         main = f'{E(w.get("slot"))} · {E(w.get("dish"))}'
@@ -14409,7 +14472,7 @@ def row_html(w, city, app):
     if t == 'eat' and not kw:   # 没有具体地方的饭：只放点评，按“城市 + 菜名”找
         ic = f'<a class="ic dp" href="{E(dpurl(w.get("dish") or "", city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote((city or "") + " " + (w.get("dish") or "")))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上找 {E(w.get("dish"))}">{ICON_DP}</a>'
     da = (f' data-at="{E(w["at"])}"' if w.get('at') else '') + (f' data-meal="{"l" if w.get("slot") == "午饭" else "d" if w.get("slot") == "晚饭" else "b"}"' if t == 'eat' else '') + (' data-in="1"' if t in ('see', 'fun') and INDOOR_RE.search(w.get('name') or '') else '') + (f' data-cw="{(FOREIGN_CLOSED[w["name"]] + 1) % 7}"' if t in ('see', 'fun') and app != 'amap' and (w.get('name') or '') in FOREIGN_CLOSED else '')
-    return f'<li class="r {t}"{da}><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">{main}{ic}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
+    return f'<li class="r {t}"{da}{np_row_attrs(w, city)}><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">{main}{ic}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
 
 
 WEEK = '一二三四五六日'
@@ -15153,7 +15216,7 @@ def trip_page(rid):
     has_cost = bool(cost and cost.get('trans'))
     sub3 = ('<button type="button" class="pp">2 人 · 每人 ›</button>' if has_cost else f'<small>{"每人 · 含往返" + (" · 参考价" if price.startswith("约") else "") if "¥" in price else "价格另算"}</small>')
     glance = (f'<div class="glance"><div class="g1"><b class="big">{n}<small> 天</small></b><span class="dtw dt" role="button" tabindex="0" data-best="{",".join(s0) if s0 else ""}" aria-label="改出发日期">{yp}{md(dates[0])}{("–" + (str(dates[-1].day) if dates[-1].month == dates[0].month else md(dates[-1]))) if n > 1 else ""} <i>改</i></span><input type="hidden" class="dpk" data-min="{TODAY.isoformat()}" value="{dates[0].isoformat()}"></div>'
-              f'<div><b>{E(r.get("driveTop"))}</b><small>{E(r.get("driveSub"))}</small></div>'
+              f'<div data-gd="1"><b>{E(r.get("driveTop"))}</b><small>{E(r.get("driveSub"))}</small></div>'
               f'<div><b class="price" data-cost=\'{E(json.dumps(cost)) if has_cost else ""}\'>{E(price_k(price))}</b>{sub3}</div></div>')
     if has_cost:
         glance += f'<div class="ppl" hidden><span>{"租车按车分摊，两人一间" if cost.get("perCar") else "两人一间，一个人单独一间"}</span><div><button type="button" data-d="-1" aria-label="少一个人">−</button><b>2 人</b><button type="button" data-d="1" aria-label="多一个人">+</button></div></div>'
@@ -15181,6 +15244,15 @@ def trip_page(rid):
     for i, d in enumerate(r['days']):
         STORY_NOW[0] = d.get('story') or ''
         city = d.get('navCity') or d.get('city'); rows = list(d['rows'])
+        NP_CTX.update(rid=rid, day=i, mode=NM.mode_of_day(bool(r.get('drive')), app == 'amap', d.get('city') or ''))      # 顺路加一站：当天出行方式（和 compile_itineraries 的 SELF/RURAL 同口径），row_html 写进 dep 行
+        _cc_ = GEO.get((city or '') + '|' + (city or '')); _ccp_ = (_cc_['lat'], _cc_['lng']) if _cc_ and _cc_.get('lat') is not None else None
+        _sp_ = navprev or _ccp_                                                # 这天第一段车程从哪出发：上一天最后一个点，没有就城市中心（compile 里 prev = carry or dbase）
+        _ep_ = None
+        if i < n - 1 and STAYFIX[i][0]:                                         # 这天晚上回哪：住处坐标（离城市中心 ≤60 公里才认），没有就城市中心
+            _sn_ = STAYFIX[i][0]; _pt_ = coord(GENERIC_STAY.sub('', _sn_).strip(), city) or coord(_sn_, city)
+            if _pt_ and _ccp_ and _km(_pt_, _ccp_) > 60: _pt_ = None
+            _ep_ = _pt_ or _ccp_
+        _npd_ = f' data-lm="{NP_CTX["mode"]}" data-pc="{E(d.get("city") or "")}" data-drv="{d.get("driveMin") or 0}"' + (f' data-sp="{_sp_[0]:.5f},{_sp_[1]:.5f}"' if _sp_ else '') + (f' data-ep="{_ep_[0]:.5f},{_ep_[1]:.5f}"' if _ep_ else '')
         LONG = is_long(rid); LONG_ON[0] = LONG; DAY_CTX_CITIES[0] = tuple(x_ for x_ in (d.get('stayName'), d.get('city'), d.get('navCity'), (r['days'][i - 1].get('stayName') if i else None)) if x_)
         SIGHT_CTX[0] = ' '.join([str(r.get(f_) or '') for f_ in ('label', 'city', 'title')] + [d.get('text') or '', d.get('title') or '', d.get('stayName') or '', (r['days'][i - 1].get('stayName') or '') if i else '', d.get('city') or '', d.get('navCity') or ''] + [str(w.get(f) or '') for w in d['rows'] for f in ('name', 'to', 'poi')])
         DAY_CTX[0] = ' '.join([d.get('text') or '', d.get('title') or '', d.get('stayName') or '', (r['days'][i - 1].get('stayName') or '') if i else '', d.get('city') or '', d.get('navCity') or ''] + [str(w.get(f) or '') for w in d['rows'] for f in ('name', 'to', 'poi')]) if LONG else ''
@@ -15284,7 +15356,7 @@ def trip_page(rid):
         _fe = ferry_note(d, not FERRY_SEEN[0], rid, ''.join(row_html(w, city, app) for w in rows))
         if _fe and 'alt ferry"><b>今天要坐船' in _fe: FERRY_SEEN[0] = True
         _alt_html += _fe + mosque_note(d) + weather_note(d)
-        days.append(f'<section class="day" id="d{i + 1}" data-city="{E(d.get("navCity") or d.get("city") or "")}" data-stay="{E(stay_city(r, d))}"><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
+        days.append(f'<section class="day" id="d{i + 1}" data-city="{E(d.get("navCity") or d.get("city") or "")}" data-stay="{E(stay_city(r, d))}"{_npd_}><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
                     f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({} if LONG else {**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (not LONG and (d.get("clim") or {}).get(str(dates[i].month))) else ""}</p>' + sj_lines(_sj.get(i, [])) + f'{_alt_html}{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
         sights += [w['name'] for w in d['rows'] if w['type'] == 'see' and w.get('poi')]
     LONG_ON[0] = False
@@ -15301,7 +15373,7 @@ def trip_page(rid):
     near_html = ('<section class="nearr"><h2>附近还能去</h2><ul>' + ''.join(f'<li><a href="/trip/{o}/"><b>{E(ROUTES[o].get("label"))} ›</b><span>{E(day_line(ROUTES[o]))}</span><small>离这里约 {round(dk / 10) * 10 if dk >= 20 else round(dk)} 公里 · {E(price_k(ROUTES[o].get("price")))}</small></a></li>' for dk, o in _nb) + '</ul></section>') if _nb else ''
     dest_link = faq_html + near_html + (f'<p class="morelink"><a href="/d/{E(t["dest"])}/">{E(d0.get("name", ""))}的其他去处 ›</a></p>' if t.get('dest') in DEST else '')
     dock = f'<div class="dock"><div><b>{yp}{md(dates[0])} 出发 · {n} 天</b><small>2 人 · 每人 {E(price_k(price))}</small></div><button type="button" class="fav" data-id="{rid}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{FAV_ICON}<span>收进行程</span></button></div>'
-    body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-n0="{n}" data-mon="{",".join(str(x) for x in mon_days(r))}" data-start="{dates[0].isoformat()}" data-cl="{",".join(f"{i}:{(wd + 1) % 7}" for i, wd in fclosed_days(r))}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
+    body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-dest="{E(np_it(rid).get("dest") or t.get("dest") or "")}" data-sv="{1 if (r.get("drive") or any((w_.get("how") or "").startswith("自驾") for d_ in r["days"] for w_ in d_["rows"] if w_["type"] == "dep")) else 0}" data-lg="{1 if is_long(rid) else 0}" data-n0="{n}" data-mon="{",".join(str(x) for x in mon_days(r))}" data-start="{dates[0].isoformat()}" data-cl="{",".join(f"{i}:{(wd + 1) % 7}" for i, wd in fclosed_days(r))}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
             + (f'<section class="pre go" data-go=\'{E(json.dumps(_g, ensure_ascii=False))}\'><h2>怎么去、怎么回</h2><ul><li class="tip gw"><span>{E(go_text(_g))}。'
                + (f'第一天 {E(_g["first"])} 开始，按{"中午出发、下午到" if _g["first"] >= "15:00" else "上午出发、中午前到"}算的。' if _g['first'] and _g['first'] >= '12:00' else (f'第一天 {E(_g["first"])} 就开始，最好头天晚上到。' if _g['first'] else '')) + '</span></li>'
 
@@ -15656,6 +15728,23 @@ def long_page():
     return len(infos)
 
 
+def nearby_shards():
+    """「顺路加一站 / 换一站」的候选池分片 → assets/np/（点开“调整 → 换成 / 在这之后加一个”才加载，不进任何页面）。
+    先跑 tools/build_nearby_pool.py（离线、确定性、约 2 秒；它读 build/denies.txt，所以要在串线闸之后），再把 build/np/*.js（含 _index.js，不含 pool.json / stats.json）拷过去。
+    .js 后缀：sw.js 对 .js 是“先走网络、断网用缓存”，片天然得到正确的缓存策略，sw.js 不用升版本。"""
+    import subprocess
+    r_ = subprocess.run([sys.executable, 'tools/build_nearby_pool.py', '--quiet'], capture_output=True, text=True)
+    if r_.returncode != 0: raise SystemExit('tools/build_nearby_pool.py 失败：' + (r_.stderr or r_.stdout)[-800:])
+    src, dst = os.path.join('build', 'np'), os.path.join(OUT, 'assets', 'np')
+    os.makedirs(dst, exist_ok=True)
+    sizes = []
+    for f in sorted(os.listdir(src)):
+        if not f.endswith('.js'): continue
+        shutil.copy(os.path.join(src, f), os.path.join(dst, f)); sizes.append(os.path.getsize(os.path.join(src, f)))
+    if not os.path.exists(os.path.join(dst, '_index.js')): raise SystemExit('assets/np/_index.js 没生成')
+    return len(sizes), sum(sizes), max(sizes)
+
+
 def trips_index():
     """全站搜索的线路索引（/assets/tidx.js，搜索时才加载）：每条线 [id, 名字, 天数, 价格, 搜索文本]；短线长线都在"""
     out = []
@@ -15842,7 +15931,7 @@ if __name__ == '__main__':
         if os.path.exists('site_src/' + f): shutil.copy('site_src/' + f, os.path.join(OUT, f))
     for f in ('icon-192.png', 'icon-512.png'):
         if os.path.exists('site_src/' + f): shutil.copy('site_src/' + f, os.path.join(OUT, 'img', f))
-    for f in ('site.css', 'site.js', 'favicon.svg', 'og.png', 'qr.js', 'apple-touch-icon.png', 'favicon-32.png'):
+    for f in ('site.css', 'site.js', 'np_model.js', 'favicon.svg', 'og.png', 'qr.js', 'apple-touch-icon.png', 'favicon-32.png'):
         src = os.path.join('site_src', f)
         if os.path.exists(src): shutil.copy(src, os.path.join(OUT, 'img' if f in ('favicon.svg', 'og.png', 'apple-touch-icon.png', 'favicon-32.png') else 'assets', f))
     import mapdraw; print('底图脚本', mapdraw.export_basemap(os.path.join(OUT, 'assets', 'basemap.js')) // 1024, 'KB')
@@ -15856,6 +15945,8 @@ if __name__ == '__main__':
         h_ = shejian_page(show_, path_, (nxt[0], nxt[1])); sj_hit = sj_hit or h_
     where_page(); n_long = long_page(); n_tidx = trips_index(); home_page(); extras(trip_desc, dest_desc)
     print('长线检索 /long/', n_long, '条 · 线路搜索索引', n_tidx, '条')
+    n_np, sz_np, mx_np = nearby_shards()
+    print('顺路候选分片 assets/np/', n_np, '片（含 _index.js）· 合计', sz_np // 1024, 'KB · 最大一片', mx_np // 1024, 'KB（点开“调整 → 换成/加一个”才加载）')
     n = sum(len(fs) for _, _, fs in os.walk(OUT))
     open('build/long_collisions.txt', 'w', encoding='utf-8').write('\n'.join('\t'.join(map(str, c_)) for c_ in sorted(set(COLL))) + '\n')
     print('长线文案串位（被拒绝）', len(set(COLL)), '条（详见 build/long_collisions.txt）')

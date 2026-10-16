@@ -2,7 +2,7 @@
    和 tools/nearby_model.py 逐位一致：tests/nearby_parity.py 用 node 跑这个文件，随机 500 对坐标 × 3 种出行方式，
    差值必须为 0 分钟。改任何数字，两边一起改。
    浏览器里挂 ZNP_MODEL（全局），node 里 module.exports。
-   不要用 ?. ?? flatMap .at() 等高版本语法（微信 X5 老内核）。 */
+   只用 ES5 语法（微信 X5 老内核）：不用箭头函数、let/const、模板字符串、可选链、空值合并、数组的 flat 系列方法。 */
 (function (root) {
   'use strict';
 
@@ -14,9 +14,9 @@
     F_MIN: 0.8,
     F_MAX: 2.0,
     SHOW_STEP: 5,
-    MAX_NONMEAL: 4,
-    END_LIMIT: 22 * 60 + 30,
-    SPAN_LIMIT: 10 * 60,
+    MAX_NONMEAL: 5,
+    END_LIMIT: 21 * 60 + 30,
+    SPAN_LIMIT: 13 * 60,
     SAME_SPOT_KM: 0.25,
     BESIDE_KM: 0.6,
     REACH_KM: 35,

@@ -16,6 +16,10 @@
  22 长线检索 /long/：trips.json 里每条 days>=15 的线路都在页面里、首页有入口、搜“105”命中 xb96a、没有悬空链接
  7 串线：被串线闸拒绝的（build/denies.txt）不得出现在页面里（抽查几条已知案例）
 23 SIGHT/DEEP 字典不得有重复键（ast 扫 tools/build_site.py；不需要建好的站）
+25 顺路加一站的候选池质量闸（先重建池再跑 tests/nearby_pool_check.py；退出码 1、2 都算红）
+26 车程模型三方一致（tests/nearby_parity.py；退出码 1、2 都算红）
+27 site.js 里的 NP_LIM 和 np_model.js 的三个硬规则上限一致
+28 页面行属性覆盖率、dep 行 data-mode、分片和模型文件、版本指纹含 np_model.js（要建好的站）
 """
 import datetime, glob, json, math, os, re, sys
 
@@ -324,8 +328,9 @@ if site:
     # 20 site.js 语法：node --check（行内注释吞掉后面的代码这类错，字符串 lint 抓不全：2026-10 又吞了一次，整个页面脚本报错）
     import subprocess, shutil as _sh
     if _sh.which('node'):
-        _p = subprocess.run(['node', '--check', os.path.join(ROOT, 'site_src', 'site.js')], capture_output=True, text=True)
-        if _p.returncode: fails.append(('site.js 语法错误', [next((l for l in _p.stderr.splitlines() if 'Error' in l and 'Node.js' not in l), 'node --check 失败')]))
+        for _f in ('site.js', 'np_model.js'):      # np_model.js：顺路加一站的车程模型（site.js 点开才懒加载它，语法错了只有点开才爆）
+            _p = subprocess.run(['node', '--check', os.path.join(ROOT, 'site_src', _f)], capture_output=True, text=True)
+            if _p.returncode: fails.append((_f + ' 语法错误', [next((l for l in _p.stderr.splitlines() if 'Error' in l and 'Node.js' not in l), 'node --check 失败')]))
     deny = os.path.join(ROOT, 'build', 'denies.txt')
     if os.path.exists(deny):
         # 抽查：串线闸拒绝的“文案 → 线”，页面里不得再出现该文案的原文
@@ -448,6 +453,76 @@ if site:
     import subprocess as _sp
     _r = _sp.run([sys.executable, 'tools/check_fake_legs.py', 'build/routes.js'], capture_output=True, text=True, cwd=ROOT)
     if _r.returncode: fails.append(('假长车程（写的公里数与坐标重算对不上）', [l for l in (_r.stdout + _r.stderr).splitlines() if l.strip()][:20]))
+
+# 25-26 「顺路加一站 / 换一站」的候选池和车程模型（2026-10-16；设计 docs/handoff/design-nearby-stops.md）
+#   25 候选池质量闸：先重建池（确定性、约 2 秒），再跑 tests/nearby_pool_check.py。退出码 1 = 池有问题，2 = 没有 node（闸没法跑）——两种都算红，不当跳过
+#   26 Python ↔ JS ↔ compile_itineraries.leg 三方一致性：tests/nearby_parity.py（同样 1、2 都算红）
+import subprocess as _sp2
+_r0 = _sp2.run([sys.executable, 'tools/build_nearby_pool.py', '--quiet'], capture_output=True, text=True, cwd=ROOT)
+if _r0.returncode: fails.append(('候选池构建失败（tools/build_nearby_pool.py）', [l for l in (_r0.stdout + _r0.stderr).splitlines() if l.strip()][-8:]))
+else:
+    for _title, _cmd in (('候选池质量闸不过（tests/nearby_pool_check.py；退出码 2 = 没 node，也算红）', 'tests/nearby_pool_check.py'), ('车程模型三方不一致（tests/nearby_parity.py；退出码 2 = 没 node，也算红）', 'tests/nearby_parity.py')):
+        _r1 = _sp2.run([sys.executable, _cmd], capture_output=True, text=True, cwd=ROOT)
+        if _r1.returncode != 0: fails.append((_title + f'，退出码 {_r1.returncode}', [l for l in (_r1.stdout + _r1.stderr).splitlines() if l.strip() and ('红' in l or '不一致' in l or 'node' in l or '没有' in l or 'Error' in l)][:12] or [(_r1.stdout + _r1.stderr)[-400:]]))
+
+# 27 site.js 里复制的三个硬规则数字（弹层里看“这天是不是排满”时模型还没加载，用的是同样的数）必须和 np_model.js 一致
+_nm = open('site_src/np_model.js', encoding='utf-8').read(); _sj = open('site_src/site.js', encoding='utf-8').read()
+_lim = re.search(r'NP_LIM=\{MAX:(\d+),END:(\d+),SPAN:(\d+)\}', _sj)
+_mx = re.search(r'MAX_NONMEAL:\s*(\d+)', _nm); _en = re.search(r'END_LIMIT:\s*(\d+)\s*\*\s*60\s*\+\s*(\d+)', _nm); _sp = re.search(r'SPAN_LIMIT:\s*(\d+)\s*\*\s*60', _nm)
+if not (_lim and _mx and _en and _sp): fails.append(('site.js 的 NP_LIM 或 np_model.js 的三个上限找不到', ['格式变了，改这条判据']))
+elif (int(_lim.group(1)), int(_lim.group(2)), int(_lim.group(3))) != (int(_mx.group(1)), int(_en.group(1)) * 60 + int(_en.group(2)), int(_sp.group(1)) * 60):
+    fails.append(('site.js 的 NP_LIM 和 np_model.js 的上限（非吃饭站 / 结束时间 / 首尾分钟）不一致', [f'site.js {_lim.groups()} ≠ np_model.js {(_mx.group(1), int(_en.group(1)) * 60 + int(_en.group(2)), int(_sp.group(1)) * 60)}']))
+
+# 28a sw.js 的缓存策略：.js 必须“先走网络、断网才用缓存”。候选分片（assets/np/*.js）和 np_model.js 靠这一条保证不会永远旧；有人把 .js 改成“先用缓存”，这里就红
+_sw = open('site_src/sw.js', encoding='utf-8').read()
+if not re.search(r"\\\.\(css\|js\|webmanifest\)\$/\.test\(u\.pathname\)", _sw) or 'fresh(r)' not in _sw: fails.append(('sw.js 不再对 .js 先走网络（候选分片会被缓存成旧的）', ['site_src/sw.js 里 /\\.(css|js|webmanifest)$/ 那一条不见了']))
+
+# 28b 微信老内核（X5）只认 ES5：np_model.js 和 site.js 里顺路加一站那一块（从“⑧ 顺路加一站”到“⑦ 带老人孩子”）不许用 => 模板字符串 ?. ?? flatMap .at() let const 展开 Object.assign includes startsWith Array.from find
+_np_js = [('site_src/np_model.js', open('site_src/np_model.js', encoding='utf-8').read())]
+_i0 = _sj.find('// ⑧ 顺路加一站'); _i1 = _sj.find('// ⑦ 带老人孩子')
+if _i0 < 0 or _i1 < _i0: fails.append(('site.js 里找不到“⑧ 顺路加一站”到“⑦ 带老人孩子”这一块', ['标记注释被改了，改这条判据']))
+else: _np_js.append(('site_src/site.js 顺路加一站块', _sj[_i0:_i1]))
+_badsyn = []
+for _nm_, _src in _np_js:
+    for _pat, _what in ((r'=>', '箭头函数'), (r'`', '模板字符串'), (r'\?\.', '?.'), (r'\?\?', '??'), (r'flatMap', 'flatMap'), (r'\.at\(', '.at()'), (r'(?<![\w.$])(?:let|const)\s', 'let/const'), (r'\.\.\.', '展开/剩余'), (r'Object\.assign|\.includes\(|\.startsWith\(|\.endsWith\(|Array\.from|\.find\(|\.findIndex\(|\.padStart\(|\.repeat\(', 'ES6 方法')):
+        for _m in re.finditer(_pat, re.sub(r"'(?:[^'\\\n]|\\.)*'|\"(?:[^\"\\\n]|\\.)*\"", lambda m: 'S' * len(m.group(0)), re.sub(r'/\*.*?\*/', '', _src, flags=re.S))):
+            _badsyn.append(f'{_nm_}：{_what}')
+            break
+if _badsyn: fails.append(('顺路加一站的 JS 用了 ES5 之外的语法（微信老内核会整页脚本报错）', _badsyn))
+
+# 28 页面和资源（要建好的站）：行属性覆盖率、dep 行 data-mode 和当天 data-lm 一致、分片和模型文件在、版本指纹含 np_model.js、没有把 pool.json/stats.json 发布出去
+if site:
+    import hashlib as _hl2
+    _bad = []; _tot = _cov = 0
+    for _f in sorted(glob.glob(os.path.join(site, 'trip', '*', 'index.html'))):
+        _h = open(_f, encoding='utf-8').read(); _rid = _f.split('/')[-2]
+        for _sec in _h.split('<section class="day"')[1:]:
+            _sec = _sec.split('</section>')[0]
+            _lm = re.search(r'data-lm="(\w+)"', _sec)
+            if not _lm: _bad.append(f'{_rid}：有一天没有 data-lm'); break
+            for _m in re.finditer(r'<li class="r (see|fun)"([^>]*)><time>[^<]*</time><span class="dot"></span><div class="rb"><p class="m">([^<]+)', _sec):
+                if '沿途' in _m.group(3): continue
+                _tot += 1; _cov += ('data-ll="' in _m.group(2) and 'data-dm="' in _m.group(2) and 'data-pid="' in _m.group(2))
+            for _m in re.finditer(r'<li class="r dep"([^>]*)>', _sec):
+                _dm = re.search(r'data-mode="(\w+)"', _m.group(1))
+                if not _dm or _dm.group(1) != _lm.group(1): _bad.append(f'{_rid}：dep 行 data-mode={_dm and _dm.group(1)} ≠ 当天 data-lm={_lm.group(1)}'); break
+    if _tot and _cov / _tot < 0.98: _bad.append(f'看点/玩的行里带坐标、停留、id 的只有 {_cov}/{_tot}（{100 * _cov / _tot:.1f}%），低于 98%')
+    _np = os.path.join(site, 'assets', 'np')
+    if not os.path.exists(os.path.join(_np, '_index.js')): _bad.append('assets/np/_index.js 不存在（点开“换成/加一个”会永远“没网”）')
+    else:
+        _cells = re.findall(r'"(\d+_\d+)"', open(os.path.join(_np, '_index.js'), encoding='utf-8').read())
+        _miss = [c_ for c_ in _cells if not os.path.exists(os.path.join(_np, c_ + '.js'))]
+        if _miss: _bad.append(f'_index.js 里的格缺分片文件：{_miss[:5]}')
+        _big = [(f_, os.path.getsize(os.path.join(_np, f_))) for f_ in os.listdir(_np) if os.path.getsize(os.path.join(_np, f_)) > 30 * 1024]
+        if _big: _bad.append(f'分片超过 30 KB：{_big[:3]}')
+        _extra = [f_ for f_ in os.listdir(_np) if not f_.endswith('.js')]
+        if _extra: _bad.append(f'assets/np 里有不该发布的文件：{_extra}')
+    if not os.path.exists(os.path.join(site, 'assets', 'np_model.js')): _bad.append('assets/np_model.js 不存在')
+    elif open(os.path.join(site, 'assets', 'np_model.js'), encoding='utf-8').read() != open('site_src/np_model.js', encoding='utf-8').read(): _bad.append('站里的 assets/np_model.js 和 site_src/np_model.js 不一样（建站后改过源码，没重建）')
+    _ver = _hl2.md5((open('site_src/site.css', encoding='utf-8').read() + open('site_src/site.js', encoding='utf-8').read() + open('site_src/np_model.js', encoding='utf-8').read()).encode()).hexdigest()[:8]
+    _pg = open(os.path.join(site, 'trip', 'xa3', 'index.html'), encoding='utf-8').read()
+    if f'/assets/site.js?v={_ver}' not in _pg: _bad.append(f'xa3 页面里的 site.js 版本指纹不是源码（site.css + site.js + np_model.js）的哈希 {_ver}：线上跑的是不是这一版看不出来')
+    if _bad: fails.append(('顺路加一站：页面属性 / 资源 / 版本指纹', _bad[:30]))
 
 if fails:
     for title, items in fails:

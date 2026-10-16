@@ -11,6 +11,7 @@
       build/denies.txt（串线闸的拒绝名单，有就用）
 输出：build/np/pool.json          全部候选（带调试字段 k，不进页面）
       build/np/<纬格>_<经格>.js    3° 网格分片：(window.ZNP=window.ZNP||{})['34_36']=[…];
+      build/np/_index.js           有数据的格的清单 window.ZNP_CELLS=['34_100',…]（客户端只请求清单里的格）
       build/np/stats.json          漏斗、类型、国内外、分片体积
 
 每个候选（分片里的字段）：
@@ -44,8 +45,9 @@ DUR_BY_TYPE = {'sight': 120, 'museum': 150, 'street': 90, 'park': 60, 'fun': 90,
 DUR_DEFAULT = 90
 # 非景点：机场、车站、公路、码头、酒店、营地、商场、餐厅、医院…（名字和 q 都查）
 NON_ATTR = re.compile(r'机场|航站|火车站|高铁站|动车站|客运站|汽车站|地铁站|车站|公路|环线|沿途|提车|还车|码头|渡口|渡轮|轮渡|口岸|边检|检查站|服务区|加油站|收费站|停车场|'
-                      r'酒店|宾馆|民宿|客栈|青旅|旅馆|营地|住宿|超市|商场|购物中心|百货|奥特莱斯|餐厅|饭店|酒楼|火锅店|咖啡馆|夜市|美食街|医院|学校|大学城|航班|总站|巴士站|公交')
-TOWN_ONLY = re.compile(r'(?<!古)(县城|乡镇)$')     # 县城本身是落脚点，不是景点（“古县城”是景点）
+                      r'酒店|宾馆|民宿|客栈|青旅|旅馆|营地|住宿|超市|商场|购物中心|百货|奥特莱斯|餐厅|饭店|酒楼|火锅店|咖啡馆|夜市|美食街|医院|学校|大学城|航班|总站|巴士站|公交|[东南西北]站|高铁|动车|地铁|索道|缆车|军港|军事')
+BOAT_ONLY = re.compile(r'(?<!半)岛$|列岛|群岛|屿$')      # 名字本身是岛：要过水（渡轮），直线车程模型看不出来，不进池
+TOWN_ONLY = re.compile(r'(?<!古)(县城|乡镇)$|(?<!保护)(?<!观测)(?<!气象)站$')     # 县城本身是落脚点，不是景点（“古县城”是景点）
 MALL_TEXT = re.compile(r'商场|购物中心|百货|奥特莱斯')
 BASE_TEXT = re.compile(r'落脚|补给|加油|歇脚|中转|换乘|过夜|住宿|出发点|吃饭的地方')
 ALT_NAME = re.compile(r'垭口|雪山|冰川|大本营|纳木错|羊卓|冈仁波齐|昆仑山口|唐古拉|珠峰|可可西里|布达拉|乃琼|玉龙雪山|海拔|5[0-9]{3}米|4[0-9]{3}米')
@@ -322,7 +324,7 @@ def build(quiet=False):
             drop('类型不是景点（food/station/mall/city/district/market/shop/cafe/camp…）'); continue
         if not u['free']:
             drop('只有定点 at（日出日落、演出、开船）'); continue
-        if NON_ATTR.search(core) or NON_ATTR.search(u['q']) or any(NON_ATTR.search(n) for n in names) or TOWN_ONLY.search(core):
+        if NON_ATTR.search(core) or NON_ATTR.search(u['q']) or any(NON_ATTR.search(n) for n in names) or TOWN_ONLY.search(core) or BOAT_ONLY.search(core):
             drop('名字像机场/车站/酒店/营地/商场/餐厅/码头…'); continue
         ds = u['dest'].most_common(1)[0][0]
         cc = P.get(u['city'] + '|' + u['city'])
@@ -376,13 +378,15 @@ def build(quiet=False):
             continue
         n_niche_open += 1
         core = short(re.sub(r'（.*?）', '', x['name']))
-        if NON_ATTR.search(core):
-            drop('niche：名字像车站/营地…'); continue
+        if NON_ATTR.search(core) or TOWN_ONLY.search(core) or BOAT_ONLY.search(core):
+            drop('niche：名字像车站/营地/岛…'); continue
         if ALT_NAME.search(core) or ALT_NAME.search(x['name']):
             drop('niche：高海拔名字'); continue
         s = clip(re.split(r'[。；]', x.get('note') or '')[0])
-        if SEASONAL.search(core):
+        if SEASONAL.search(core) or SEASONAL.search(s):
             drop('niche：季节限定'); continue
+        if MALL_TEXT.search(s) or BASE_TEXT.search(s):
+            s = ''
         c = {'k': 'niche|' + x['id'], 'i': '', 'n': core, 'c': x.get('prov') or '', 'a': round(x['lat'], 3), 'o': round(x['lng'], 3), 't': 'sg', 'd': DUR_DEFAULT,
              's': s, 'q': core, 'x': {}, 'p': 0, 'ds': x['dest'], '_rids': set(), '_names': {core}, '_qtok': set(), '_skey': '', '_niche': 1}
         cands.append(c)
@@ -423,7 +427,7 @@ def build(quiet=False):
             L = into
             L['_rids'] |= c['_rids']
             L['_names'] |= c['_names']
-            if not L['s'] and c['s']:
+            if not L['s'] and c['s'] and not (SEASONAL.search(c['s']) or MALL_TEXT.search(c['s']) or BASE_TEXT.search(c['s'])):
                 L['s'] = c['s']
             if not L['x'] and c['x']:
                 L['x'] = c['x']
@@ -449,7 +453,7 @@ def build(quiet=False):
         shards[M.cell_key(c['a'], c['o'])].append(c)
     os.makedirs(OUT, exist_ok=True)
     for f in os.listdir(OUT):
-        if f.endswith('.js') or f in ('pool.json', 'stats.json'):
+        if f.endswith('.js') or f in ('pool.json', 'stats.json'):   # 这个目录是本脚本独占的
             os.remove(os.path.join(OUT, f))
     KEYS = ('i', 'n', 'c', 'a', 'o', 't', 'd', 's', 'q', 'x', 'p', 'ds', 'ev', 'ap', 'al')
     sizes = {}
@@ -468,6 +472,9 @@ def build(quiet=False):
         open(os.path.join(OUT, key + '.js'), 'wb').write(data)
         sizes[key] = len(data)
         gz_total += len(gzip.compress(data, 9))
+    # 有数据的格的清单：客户端只请求清单里的格（没有清单就分不清“这格没有景点（404）”和“没网”）
+    idx = "window.ZNP_CELLS=%s;\n" % json.dumps(sorted(sizes), separators=(',', ':'))
+    open(os.path.join(OUT, '_index.js'), 'w', encoding='utf-8').write(idx)
     full = [{k: c[k] for k in ('k',) + KEYS if k in c} for c in pool]
     json.dump(full, open(os.path.join(OUT, 'pool.json'), 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
 

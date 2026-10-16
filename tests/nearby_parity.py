@@ -174,7 +174,7 @@ def main():
     if sorted(ns['BIG_CITIES']) != sorted(M.BIG_CITIES):
         bad.append('BIG_CITIES：nearby_model 与 compile_itineraries 不同')
     # 硬性写死的阈值（用户 2026-10-16 拍板）：任何一边被悄悄改了都红
-    for name, want in (('DETOUR_MAX', 30), ('MAX_NONMEAL', 4), ('END_LIMIT', 22 * 60 + 30), ('SPAN_LIMIT', 600)):
+    for name, want in (('DETOUR_MAX', 30), ('MAX_NONMEAL', 5), ('END_LIMIT', 21 * 60 + 30), ('SPAN_LIMIT', 13 * 60)):
         if getattr(M, name) != want or J['consts'].get(name) != want:
             bad.append('拍板的阈值 %s 应为 %s，现在 Python=%r JS=%r' % (name, want, getattr(M, name), J['consts'].get(name)))
 
