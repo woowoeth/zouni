@@ -164,8 +164,11 @@ if site:
             if '护照' not in _t: bad.append(f'{rid} 国外线“出发前”里没有护照/签证事项')
             _deps = ' '.join(re.sub(r'<[^>]+>', ' ', x) for x in re.findall(r'<li class="r dep"[^>]*>(.*?)</li>', h, flags=re.S))      # 只看时间轴里的“出发 →”行
             if re.search(r'→[^自开]{0,30}(自驾约|开车约|自驾 |开车 )', _deps) and not re.search(r'驾照|国际驾', _t): bad.append(f'{rid} 国外自驾线没有驾照提示')
-        dt = re.search(r'class="dtw dt"[^>]*>([^<]*)', h)
-        if st.year > today.year and dt and '明年' not in dt.group(1): bad.append(f'{rid} 默认出发日在明年（{st}）但页头没写“明年”')
+        # 日期写法（2026-10-17 起）：不出现“明年”；默认日期是建议值，页头底栏和说明行都写“建议”；跨年的写完整“2027 年 M/D”
+        dk_ = re.search(r'<div class="dock"><div><b>([^<]*)</b>', h); dn_ = re.search(r'<p class="dnote">([^<]*)</p>', h)
+        if '明年' in (dk_.group(1) if dk_ else '') or '明年' in (dn_.group(1) if dn_ else ''): bad.append(f'{rid} 日期里还写着“明年”')
+        if not (dk_ and dk_.group(1).startswith('建议 ')) or not (dn_ and dn_.group(1).startswith('建议 ')): bad.append(f'{rid} 默认日期没写“建议”（底栏/说明行）')
+        if st.year > today.year and not (dn_ and f'{st.year} 年' in dn_.group(1)): bad.append(f'{rid} 默认出发日在明年（{st}）但说明行没写完整年份')   # 底栏窄，只写 M/D
         # 文案里写了“海拔 N 米 / 海拔三千多米”（N≥3000）的页面，必须有氧气/高反提示（天标没给海拔时靠这条兜底；“水洞长三千多米”这种长度不算）
         _txt = re.sub(r'<[^>]+>', ' ', re.sub(r'<p class="alt">.*?</p>', '', h, flags=re.S))
         _CN = {'一': 1, '两': 2, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9}
@@ -523,6 +526,62 @@ if site:
     _pg = open(os.path.join(site, 'trip', 'xa3', 'index.html'), encoding='utf-8').read()
     if f'/assets/site.js?v={_ver}' not in _pg: _bad.append(f'xa3 页面里的 site.js 版本指纹不是源码（site.css + site.js + np_model.js）的哈希 {_ver}：线上跑的是不是这一版看不出来')
     if _bad: fails.append(('顺路加一站：页面属性 / 资源 / 版本指纹', _bad[:30]))
+
+# 29 site.js 全文件 ES5（微信老内核 X5）：不许 => 模板字符串 ?. ?? flatMap .at() let const 展开（2026-10-17：整文件扫，不只顺路那一块；修掉了两处 [...NodeList]）
+_san = re.sub(r"'(?:[^'\\\n]|\\.)*'|\"(?:[^\"\\\n]|\\.)*\"", lambda m: 'S' * len(m.group(0)), re.sub(r'/\*.*?\*/', '', _sj, flags=re.S))
+_san = re.sub(r'//[^\n]*', '', _san)
+_bad29 = []
+for _pat, _what in ((r'=>', '箭头函数'), (r'`', '模板字符串'), (r'\?\.[A-Za-z_\[(]', '?.'), (r'\?\?', '??'), (r'flatMap', 'flatMap'), (r'\.at\(', '.at()'), (r'(?<![\w.$])(?:let|const)\s', 'let/const'), (r'\.\.\.[A-Za-z\[(]', '展开/剩余')):
+    if re.search(_pat, _san): _bad29.append(_what)
+if _bad29: fails.append(('site.js 用了 ES5 之外的语法（微信老内核会整页脚本报错）', _bad29))
+
+# 30 离线与缓存：sw.js 的缓存名、预存清单、没存过的页面给离线页、第一次安装不刷新；site.js 里“收进行程”存进的是同一个缓存名；offline.html 在站里且有该有的字和入口
+_V = re.search(r"const V = '([^']+)'", _sw); _bad30 = []
+if not _V: _bad30.append('sw.js 里找不到 const V')
+else:
+    if f"caches.open('{_V.group(1)}')" not in _sj: _bad30.append(f'site.js 里“收进行程”存缓存用的名字不是 sw.js 的 {_V.group(1)}：存进去的页面 sw 读不到')
+for _u in ('/offline.html', '/manifest.webmanifest', '/img/icon-192.png', '/img/icon-512.png', '/img/apple-touch-icon.png', '/img/favicon.svg'):
+    if f"'{_u}'" not in _sw.split('self.addEventListener')[0]: _bad30.append(f'sw.js 预存清单缺 {_u}')
+if "caches.match('/offline.html')" not in _sw: _bad30.append('sw.js 没存过的页面不给 /offline.html（会悄悄变首页）')
+if 'upgrade' not in _sw or 'c.navigate(c.url)' in _sw.split('upgrade ?')[0]: _bad30.append('sw.js 第一次安装也会刷新页面（应只在从旧版升级时刷新）')
+if site:
+    _off = os.path.join(site, 'offline.html')
+    if not os.path.exists(_off): _bad30.append('站里没有 offline.html')
+    else:
+        _o = open(_off, encoding='utf-8').read()
+        for _w in ('还没存到手机里', '回首页', '已存的行程', 'zouni_fav'):
+            if _w not in _o: _bad30.append(f'offline.html 里没有“{_w}”')
+        if 'href="/"' not in _o: _bad30.append('offline.html 没有回首页的链接')
+    for _u in ('/manifest.webmanifest', '/img/icon-192.png', '/img/icon-512.png', '/img/apple-touch-icon.png', '/offline.html'):
+        if not os.path.exists(os.path.join(site, _u.lstrip('/'))): _bad30.append(f'预存清单里的 {_u} 在站里不存在')
+if _bad30: fails.append(('离线与缓存', _bad30))
+
+# 31 首页体积与数据：首页 HTML ≤ 400KB、“现在去正好”只有 8 张卡的 HTML、home-a.js 在 site.js 前面且 defer、A+B+8 = 全部卡片、每条线路在目录里有链接、sitemap 里的行程都在目录里
+if site:
+    import gzip as _gz
+    _hp = open(os.path.join(site, 'index.html'), encoding='utf-8').read(); _bad31 = []
+    if len(_hp.encode('utf-8')) > 400 * 1024: _bad31.append(f'首页 HTML {len(_hp.encode("utf-8")) // 1024}KB > 400KB')
+    _now = _hp[_hp.index('id="now"'):]; _now = _now[:_now.index('</section>')]
+    if len(re.findall(r'<li data-band=', _now)) != 8: _bad31.append(f'“现在去正好”首屏 HTML 里卡片 {len(re.findall(r"<li data-band=", _now))} 张，应为 8')
+    _ia, _isj = _hp.find('/assets/home-a.js'), _hp.find('/assets/site.js')
+    if not (0 < _ia < _isj): _bad31.append('home-a.js 没放在 site.js 前面（site.js 读不到数据）')
+    if not re.search(r'<script src="/assets/home-a\.js\?v=\w+" defer[^>]*data-b="/assets/home-b\.js\?v=\w+"', _hp): _bad31.append('home-a.js 的 script 标签不对（要 defer，带 data-b 指向 home-b.js）')
+    if not re.search(r'<script src="/assets/site\.js\?v=\w+" defer', _hp): _bad31.append('site.js 不是 defer')
+    try:
+        _A = json.loads(open(os.path.join(site, 'assets', 'home-a.js'), encoding='utf-8').read().split('window.ZHA=')[1].rsplit(';', 1)[0])
+        _Bd = json.loads(open(os.path.join(site, 'assets', 'home-b.js'), encoding='utf-8').read().split('window.ZHB=')[1].rsplit(';', 1)[0])
+        _cnt = int(re.search(r'<button type="button" data-b="" class="on">全部 (\d+)</button>', _hp).group(1))
+        if len(_A) + 8 != _cnt: _bad31.append(f'A 组 {len(_A)} + 8 ≠ 页面上写的“全部 {_cnt}”')
+        if any(len(r) != 26 for r in _A + _Bd): _bad31.append('A/B 数据行不是 26 列')
+        _ids = {r[0] for r in _A + _Bd} | set(re.findall(r'href="/trip/([^/"]+)/"', _now))
+        _idx = set(re.findall(r'href="/trip/([^/"]+)/"', _hp[_hp.index('class="allidx"'):]))
+        _miss = [i for i in _ids if i not in _idx]
+        if _miss: _bad31.append(f'首页上出现过的 {len(_miss)} 条线路在“全部线路目录”里没链接：{_miss[:5]}')
+    except Exception as _e: _bad31.append(f'读不了 home-a/b.js：{_e}')
+    _sm = set(re.findall(r'/trip/([^/<]+)/', open(os.path.join(site, 'sitemap.xml'), encoding='utf-8').read()))
+    _idx2 = set(re.findall(r'href="/trip/([^/"]+)/"', _hp[_hp.index('class="allidx"'):])) if 'class="allidx"' in _hp else set()
+    if _sm - _idx2: _bad31.append(f'sitemap 里有 {len(_sm - _idx2)} 条线路不在首页的“全部线路目录”里：{sorted(_sm - _idx2)[:5]}')
+    if _bad31: fails.append(('首页体积与数据补齐', _bad31))
 
 if fails:
     for title, items in fails:

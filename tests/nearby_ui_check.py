@@ -17,7 +17,7 @@
   ⑥ 已排满的天，“加一个”置灰并写原因；候选不让超限（东京第 1 天浅草寺后面唯一的候选会晚于 21:30，必须不出现）
   ⑦ 巴黎空状态“附近没有顺路的”
   ⑧ 复制行程、日历导出、今天视图都含新站；导航链接（国内高德 / 国外谷歌）指向新站，后一站的导航起点换成新站
-  ⑨ 分享链接（#mine=）带上 zouni_np_，朋友打开看到同样的行
+  ⑨ 分享链接（#m= 压缩格式；旧的 #mine= 也认）带上 zouni_np_，朋友打开看到同样的行
   ⑩ 无控制台报错（含脏数据：存了乱码、旧版本号、对不上的锚点，页面回到原版不报错）
   ⑪ 390 宽弹层不溢出、可点元素 ≥44px
   叠加  去掉一天 / 加一天 / 下雨换室内 / 改出发时间 / 去掉这一站 / 恢复 / 多待少待，和顺路站一起用不乱
@@ -256,10 +256,9 @@ with sync_playwright() as p:
         ics = pg.evaluate('window.zIcs?window.zIcs():""')
         check('⑧ 日历文件里有新站', X_name in ics)
         link = share_do(pg, 'link')
-        check('⑨ 分享链接带上 zouni_np_', '#mine=' in link)
-        if '#mine=' in link:
-            import base64
-            st = json.loads(base64.urlsafe_b64decode(link.split('#mine=')[1] + '===').decode('utf-8'))
+        check('⑨ 分享链接带上 zouni_np_', '#m=' in link or '#mine=' in link)      # 2026-10-17 起新链接是 #m=（压缩），旧的 #mine= 仍认
+        if '#m=' in link or '#mine=' in link:
+            st = pg.evaluate('(h)=>window.zLink.dec(h)', '#' + link.split('#', 1)[1])      # 用页面自己的解码（旧格式、新格式都走它）
             check('⑨ 链接里的状态含 zouni_np_ 且是 v1', 'zouni_np_' in st and st['zouni_np_'].get('v') == 1, list(st))
             c2, pg2 = new_page()
             pg2.goto(link.replace('http://127.0.0.1:%d' % srv.server_address[1], B), wait_until='networkidle'); pg2.wait_for_timeout(1500)
