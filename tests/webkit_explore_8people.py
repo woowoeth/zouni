@@ -58,6 +58,7 @@ with sync_playwright() as p:
     # 5 小马：替我挑“一周以上 + 带老人孩子”不能推高原；点进去的都不是高原
     try:
         c,pg,errs=ctx(); pg.goto(B+'/',wait_until='networkidle'); pg.wait_for_timeout(300)
+        pg.evaluate("(()=>{const s=document.querySelector('.pick');if(s&&!s.classList.contains('open'))s.querySelector('.pkh').click()})()")  # 替我挑默认折叠（2026-10-16），先点开
         for k,v in (('o','成都'),('d','l'),('w','o')): pg.locator(f'.pkr[data-k="{k}"] button[data-v="{v}"]').click(); pg.wait_for_timeout(150)
         res=pg.evaluate("[...document.querySelectorAll('.pkres a')].map(a=>a.getAttribute('href'))"); hi=[]
         for h in res:

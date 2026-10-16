@@ -4,6 +4,7 @@ B=sys.argv[1] if len(sys.argv)>1 else 'http://localhost:8765'
 with sync_playwright() as p:
     b=p.webkit.launch(); c=b.new_context(**p.devices['iPhone 13'],timezone_id='Asia/Shanghai'); pg=c.new_page(); out={}; errs=[]; pg.on('pageerror',lambda e:errs.append(str(e)[:100]))
     pg.goto(B+'/',wait_until='networkidle'); pg.wait_for_timeout(400); out['封面（没选出发地）']=pg.evaluate("document.querySelector('.cv .kick').innerText+' ｜ '+document.querySelector('.cv h2').innerText.replace(/\\n/g,'')")
+    pg.evaluate("(()=>{const s=document.querySelector('.pick');if(s&&!s.classList.contains('open'))s.querySelector('.pkh').click()})()")  # 替我挑默认折叠（2026-10-16），先点开
     pg.locator('.pkr[data-k="o"] button[data-v="上海"]').click(); pg.wait_for_timeout(500)
     out['封面（选了上海）']=pg.evaluate("document.querySelector('.cv .kick').innerText+' ｜ '+document.querySelector('.cv h2').innerText.replace(/\\n/g,'')")
     pg.goto(B+'/trip/wy3/',wait_until='networkidle'); pg.wait_for_timeout(500)

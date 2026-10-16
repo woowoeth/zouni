@@ -15504,10 +15504,14 @@ def home_page():
     inseason = [rid for rid in ROUTE_IDS if TRIP_OF_ROUTE.get(rid) and days_left(TRIP_OF_ROUTE[rid]) is not None]
     anytime = [rid for rid in ROUTE_IDS if TRIP_OF_ROUTE.get(rid) and TRIP_OF_ROUTE[rid].get('anytime')]
     # 封面：当季、有海报、离过季还有一段时间的里面挑最好看的那条
-    cov = sorted([r for r in inseason if ROUTES[r].get('img')], key=lambda r: (0 if '小众' not in (TRIP_OF_ROUTE[r].get('tags') or []) else 1, -min(days_left(TRIP_OF_ROUTE[r]), 40)))
+    def _has_poster(rid_):
+        im_ = (ROUTES[rid_].get('img') or '').replace('/_blob/', '')
+        return bool((im_ and os.path.exists(os.path.join(POSTER_SRC, im_ + '.svg'))) or os.path.exists(os.path.join('site_src', 'posters', rid_ + '.svg')))
+    cov = sorted([r for r in inseason if _has_poster(r)], key=lambda r: (0 if '小众' not in (TRIP_OF_ROUTE[r].get('tags') or []) else 1, -min(days_left(TRIP_OF_ROUTE[r]), 40)))
     cover = (cov or inseason or ROUTE_IDS)[0]; r = ROUTES[cover]; tc = TRIP_OF_ROUTE[cover]; dc = DEST.get(tc['dest'], {})
     clim = lambda d: (d.get('climate') or {}).get(str(m)) or ['', '']
     cimg = (r.get('img') or '').replace('/_blob/', '')
+    if not (cimg and os.path.exists(os.path.join(POSTER_SRC, cimg + '.svg'))): cimg = ('p/' + cover) if os.path.exists(os.path.join('site_src', 'posters', cover + '.svg')) else ''     # 封面和列表同一套回退（原来没有 img 字段的线封面整块是暗色）
     mnames = '一二三四五六七八九十'
     mname = (mnames[m - 1] if m <= 10 else '十' + mnames[m - 11]) + '月'
     def wtxt(t):
@@ -15529,17 +15533,17 @@ def home_page():
                  f' data-t="{E(rr["title"])}" data-n="{n}" data-pr="{E(price_k(rr.get("price")))}" data-src="{E(_src)}" data-h="/trip/{rid}/"')
         img = (rr.get('img') or '').replace('/_blob/', '')
         if not (img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg'))) and os.path.exists(os.path.join('site_src', 'posters', rid + '.svg')): img = 'p/' + rid
-        tile = (f'<a class="tile img" href="/trip/{rid}/"><img src="/img/{img}.svg" alt="" loading="lazy"></a>' if img and (img.startswith('p/') or os.path.exists(os.path.join(POSTER_SRC, img + '.svg')))
-                else f'<a class="tile" href="/trip/{rid}/" style="background:{["#c8432f", "#2e5b6b", "#4f6233", "#5a4a6b", "#8a5a2b", "#3b5a7a"][i % 6]}">{E(re.sub(r"\s*\d+\s*天$", "", rr.get("label") or ""))}</a>')
+        tile = (f'<a class="tile img" href="/trip/{rid}/" tabindex="-1" aria-hidden="true"><img src="/img/{img}.svg" alt="" loading="lazy"></a>' if img and (img.startswith('p/') or os.path.exists(os.path.join(POSTER_SRC, img + '.svg')))
+                else f'<a class="tile" href="/trip/{rid}/" tabindex="-1" aria-hidden="true" style="background:{["#c8432f", "#2e5b6b", "#4f6233", "#5a4a6b", "#8a5a2b", "#3b5a7a"][i % 6]}">{E(re.sub(r"\s*\d+\s*天$", "", rr.get("label") or ""))}</a>')
         dl = days_left(tt)
-        when = (f'<span class="left{" urgent" if dl is not None and dl <= 14 else ""}">{("今天最后一天" if dl == 0 else "最后 " + str(dl) + " 天") if dl is not None and dl <= 14 else "最好 " + wtxt(tt) + (" · 还剩 " + str(dl) + " 天" if dl is not None else "")}</span>' if window(tt) else '<span class="left">一年四季都能去</span>')
+        when = (f'<span class="left{" urgent" if dl is not None and dl <= 14 else ""}">{("今天最后一天" if dl == 0 else "最后 " + str(dl) + " 天") if dl is not None and dl <= 14 else "最好 " + wtxt(tt)}</span>' if window(tt) else '<span class="left">四季都能去</span>')
         band = 'd1' if n <= 3 else 'd2' if n <= 5 else 'd3'
-        return (f'<li data-band="{band}"{extra}{" hidden" if hide else ""}><span class="num">{i:02d}</span><div class="tx"><span class="k">{kicker}</span><h3>{(E(dd.get("name", "")) + " · ") if not (rr.get("label") or "").startswith(dd.get("name", "") or "@") else ""}{E(re.sub(r"\s*\d+\s*天$", "", rr.get("label") or ""))}</h3><p>{E(day_line(rr))}</p>'
-                f'<small>{n} 天 · 人均 {E(price_k(rr.get("price")))}</small>{when}<span class="c">{mo_} 月白天 {c[0]}℃，夜里 {c[1]}℃</span><a class="open" href="/trip/{rid}/">翻开 ›</a></div>{tile}</li>')
+        return (f'<li data-band="{band}"{extra}{" hidden" if hide else ""}><span class="num">{i:02d}</span><div class="tx"><div class="kl"><span class="k">{kicker}</span>{when}</div><h3><a href="/trip/{rid}/">{(E(dd.get("name", "")) + " · ") if not (rr.get("label") or "").startswith(dd.get("name", "") or "@") else ""}{E(re.sub(r"\s*\d+\s*天$", "", rr.get("label") or ""))}</a></h3><p>{E(day_line(rr))}</p>'
+                f'<small>{n} 天 · 人均 {E(price_k(rr.get("price")))}<span class="c">{(" · " + str(c[0]) + "°/" + str(c[1]) + "°") if c[0] != "" else ""}</span></small></div>{tile}</li>')
     TAGS = {t['id']: (t.get('tags') or []) for t in TRIPS_ALL} if 'TRIPS_ALL' in globals() else {}
     drv = [r_ for r_ in ROUTES if ROUTES[r_].get('drive') and r_ in TRIP_OF_ROUTE]
     drv.sort(key=lambda r_: (0 if '全国' in (TRIP_OF_ROUTE[r_].get('tags') or []) else 1 if '跨省' in (TRIP_OF_ROUTE[r_].get('tags') or []) else 2, -len(ROUTES[r_]['days'])))
-    ditems = ''.join(item(k + 1, r_, ('全国环线' if '全国' in (TRIP_OF_ROUTE[r_].get('tags') or []) else '跨省长线' if '跨省' in (TRIP_OF_ROUTE[r_].get('tags') or []) else '自驾环线' if ROUTES[r_].get('loop') else '自驾长线') + ' · ' + str(len(ROUTES[r_]['days'])) + ' 天', hide=k >= 8) for k, r_ in enumerate(drv))
+    ditems = ''.join(item(k + 1, r_, ('全国环线' if '全国' in (TRIP_OF_ROUTE[r_].get('tags') or []) else '跨省长线' if '跨省' in (TRIP_OF_ROUTE[r_].get('tags') or []) else '自驾环线' if ROUTES[r_].get('loop') else '自驾长线') , hide=k >= 8) for k, r_ in enumerate(drv))
     rest = [x for x in inseason if x != cover]
     urgent = sorted([x for x in rest if days_left(TRIP_OF_ROUTE[x]) <= 14], key=lambda x: (0 if ROUTES[x].get('img') else 1, days_left(TRIP_OF_ROUTE[x])))[:3]
     # 其余：有海报的精编线路先，再按离过季远近
@@ -15549,7 +15553,7 @@ def home_page():
     toc = ''.join(item(i + 2, rid, '小众' if '小众' in (TRIP_OF_ROUTE[rid].get('tags') or []) else '正当季', hide=i >= 8, mo=m) for i, rid in enumerate(order)) + \
           ''.join(item(0, rid, '小众' if '小众' in (TRIP_OF_ROUTE[rid].get('tags') or []) else '过季', hide=True, mo=m) for rid in others)   # 这些不在最好的日子里：只给按月份筛选用，不能写“正当季”
     chips = (f'<div class="dchips" role="group" aria-label="我有几天"><button type="button" data-b="" class="on">全部 {len(order)}</button>'
-             f'<button type="button" data-b="d1">周末 2–3 天 · {counts["d1"]}</button><button type="button" data-b="d2">4–5 天 · {counts["d2"]}</button><button type="button" data-b="d3">一周以上 · {counts["d3"]}</button><a class="lk" href="/long/">{LONG_MIN_DAYS} 天以上 · {len(LONG_TRIPS)}</a></div>')
+             f'<button type="button" data-b="d1">周末 2–3 天 · {counts["d1"]}</button><button type="button" data-b="d2">4–5 天 · {counts["d2"]}</button><button type="button" data-b="d3">一周以上 · {counts["d3"]}</button></div>')
     nxt = (m % 12) + 1
     nextm = [rid for rid in ROUTE_IDS if TRIP_OF_ROUTE.get(rid) and window(TRIP_OF_ROUTE[rid]) and int(window(TRIP_OF_ROUTE[rid])[0][:2]) == nxt and rid not in inseason]
     nextm.sort(key=lambda x: (0 if ROUTES[x].get('img') else 1, 0 if not ROUTES[x].get('compiled') else 1))
@@ -15557,17 +15561,14 @@ def home_page():
     anyt = sorted([x for x in ROUTE_IDS if TRIP_OF_ROUTE.get(x) and TRIP_OF_ROUTE[x].get('anytime')], key=lambda x: (0 if ROUTES[x].get('img') else 1, 0 if not ROUTES[x].get('compiled') else 1))
     aitems = ''.join(item(i + 1, rid, '随时') for i, rid in enumerate(anyt[:6]))
     c0 = clim(dc); dl0 = days_left(tc)
+    datebar = (f'<div class="datebar"><button type="button" class="hdt" aria-label="改出发日期"><b>{TODAY.month}/{TODAY.day} 周{"一二三四五六日"[TODAY.weekday()]} 出发</b><i>改</i></button><input type="hidden" class="hdpk" data-min="{TODAY.isoformat()}" value="{TODAY.isoformat()}"></div>')
     body = (f'<article class="home"><div class="cover">{f"<img src=/img/{cimg}.svg alt=>" if cimg else ""}'
             f'<div class="mast"><div><h1>走你</h1><small>{TODAY.year} · {mname}</small></div><button type="button" class="minebtn">{FAV_ICON}<span>我的行程</span></button></div>'
-            f'<div class="datebar"><button type="button" class="hdt" aria-label="改出发日期"><b>{TODAY.month}/{TODAY.day} 周{"一二三四五六日"[TODAY.weekday()]} 出发</b><i>改</i></button><input type="hidden" class="hdpk" data-min="{TODAY.isoformat()}" value="{TODAY.isoformat()}"></div>'
             f'<div class="cv"><span class="kick">封面故事 · 正当季{((" · 今天最后一天" if dl0 == 0 else " · 还剩 " + str(dl0) + " 天")) if dl0 is not None else ""}</span><h2>{tsplit(r["title"])}</h2><div class="chips"><span>{len(r["days"])} 天 · 人均 {E(price_k(r.get("price")))}</span><span>{m} 月 {c0[0]}°C / {c0[1]}°C</span></div><a class="go" href="/trip/{cover}/">翻开 →</a></div></div>'
-            f'<nav class="chan2" aria-label="频道"><a href="/where/"><b>走哪儿</b><small>按月份挑目的地</small></a><a href="/pian/"><b>跟片走</b><small>纪录片和杂志里的地方</small></a><a href="/long/"><b>长线自驾</b><small>{LONG_MIN_DAYS} 天以上</small></a></nav>'
             f'<form class="hsearch" action="/where/" method="get" role="search"><input type="search" name="q" placeholder="搜地名、线路，如 川藏、105 天" aria-label="搜地名、景点或线路"><button type="submit">搜</button></form>'
-            f'<a class="longbar" href="/long/"><span><b>长线自驾 · {len(LONG_TRIPS)} 条 {LONG_MIN_DAYS} 天以上</b><small>最长 {max([t_["days"] for t_ in LONG_TRIPS] + [0])} 天，按出发月份找</small></span><i>›</i></a>'
-
-            f'<section class="toc now" id="now"><h2><span class="nt">现在去正好</span><small class="ns">{len(order) + 1} 条，快过季的先看</small></h2>{chips}<ol class="items">{toc}</ol>'
-            f'{("<button type=button class=moreb>再看 " + str(max(0, len(order) - 8)) + " 条</button>") if len(order) > 8 else ""}</section>'
-            f'<a class="allbar" href="/where/"><span>全部目的地 · 按月份挑</span><span>›</span></a>'
+            f'<nav class="chan2" aria-label="频道"><a href="/where/"><b>走哪儿</b><small>按月份挑目的地</small></a><a href="/pian/"><b>跟片走</b><small>纪录片和杂志</small></a><a href="/long/"><b>长线自驾</b><small>{LONG_MIN_DAYS} 天以上</small></a></nav>'
+            f'<section class="toc now" id="now"><h2><span class="nt">现在去正好</span><small class="ns">{len(order) + 1} 条，快过季的先看</small></h2>{datebar}{chips}<ol class="items">{toc}</ol>'
+            f'{("<button type=button class=moreb>再看 8 条</button>") if len(order) > 8 else ""}</section>'
             + (f'<section class="toc"><h2>下个月正好<small>{nxt} 月开始</small></h2><ol class="items">{nitems}</ol></section>' if nitems else '')
             + (f'<section class="toc" id="drive"><h2>长途和自驾<small>{len(drv)} 条环线和长线</small></h2><ol class="items">{ditems}</ol>{f'<button type="button" class="moreb dmore">再看 {len(drv) - 8} 条</button>' if len(drv) > 8 else ''}<a class="allbar" href="/where/?f=drive"><span>按目的地看全部自驾线路</span><i>›</i></a></section>' if ditems else '')
             + (f'<section class="toc"><h2>什么时候去都行<small>城市、古城、博物馆</small></h2><ol class="items">{aitems}</ol></section>' if aitems else '')

@@ -5,6 +5,7 @@ with sync_playwright() as p:
     b=p.webkit.launch(); ctx=b.new_context(**p.devices['iPhone 13']); pg=ctx.new_page(); out={}
     # ③ 首页替我挑三条
     pg.goto(B+'/', wait_until='networkidle'); pg.wait_for_timeout(500)
+    pg.evaluate("(()=>{const s=document.querySelector('.pick');if(s&&!s.classList.contains('open'))s.querySelector('.pkh').click()})()")  # 替我挑默认折叠（2026-10-16），先点开
     for k,v in (('o','上海'),('d','w'),('w','o')):
         pg.locator(f'.pkr[data-k="{k}"] button[data-v="{v}"]').click(); pg.wait_for_timeout(150)
     out['上海周末带老人孩子']=pg.evaluate("[...document.querySelectorAll('.pkres li')].map(l=>l.innerText.replace(/\\n/g,' '))")

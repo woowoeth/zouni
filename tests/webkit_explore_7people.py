@@ -62,6 +62,7 @@ with sync_playwright() as p:
     # 4 阿May：当前位置没给权限 → 提示；选城市 → 结果 → 进行程 → 返回首页答案还在
     try:
         c,pg,errs=ctx(); pg.goto(B+'/',wait_until='networkidle'); pg.wait_for_timeout(400)
+        pg.evaluate("(()=>{const s=document.querySelector('.pick');if(s&&!s.classList.contains('open'))s.querySelector('.pkh').click()})()")  # 替我挑默认折叠（2026-10-16），先点开
         pg.locator('.pkr[data-k="o"] button').first.click(); pg.wait_for_timeout(1500); t1=pg.evaluate("(document.querySelector('.toast')||{}).innerText||''")
         pg.locator('.pkr[data-k="o"] button[data-v="北京"]').click(); pg.locator('.pkr[data-k="d"] button[data-v="m"]').click(); pg.locator('.pkr[data-k="w"] button[data-v="c"]').click(); pg.wait_for_timeout(300)
         res=pg.evaluate("[...document.querySelectorAll('.pkres li')].map(l=>l.querySelector('b').innerText)")

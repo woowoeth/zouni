@@ -19,6 +19,7 @@ with sync_playwright() as p:
     # 首页当前位置
     pg.goto(B+'/', wait_until='networkidle'); pg.wait_for_timeout(400)
     out['第一个出发地']=pg.evaluate("document.querySelector('.pkr[data-k=\"o\"] button').innerText")
+    pg.evaluate("(()=>{const s=document.querySelector('.pick');if(s&&!s.classList.contains('open'))s.querySelector('.pkh').click()})()")  # 替我挑默认折叠（2026-10-16），先点开
     pg.locator('.pkr[data-k="o"] button').first.click(); pg.wait_for_timeout(800)
     pg.locator('.pkr[data-k="d"] button[data-v="w"]').click(); pg.locator('.pkr[data-k="w"] button[data-v="f"]').click(); pg.wait_for_timeout(300)
     out['当前位置（上海）推荐']=pg.evaluate("[...document.querySelectorAll('.pkres li')].map(l=>l.innerText.replace(/\\n/g,' '))")

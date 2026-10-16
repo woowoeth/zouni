@@ -235,7 +235,6 @@ a,button{-webkit-tap-highlight-color:transparent}
 .dpk{position:absolute;left:0;bottom:0;width:1px;height:1px;opacity:0;pointer-events:none;border:0;padding:0}
 .stays .bk{grid-template-columns:minmax(0,1.3fr) 52px minmax(0,1fr)}
 .mk{height:44px;border:0;background:var(--bg);font-size:13px;font-weight:700;color:var(--ink);cursor:pointer}.mk.on{background:var(--green);color:var(--bg)}
-.datebar{position:absolute;z-index:2;left:20px;right:20px;top:118px}
 .hdt{width:100%;height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border:0;background:var(--bg);color:var(--ink);cursor:pointer}
 .hdt b{font-size:15px}.hdt i{font-style:normal;font-size:13px;font-weight:700;color:var(--red)}
 .hdpk{position:absolute;left:0;bottom:0;width:1px;height:1px;opacity:0;pointer-events:none;border:0;padding:0}
@@ -253,7 +252,7 @@ a,button{-webkit-tap-highlight-color:transparent}
 .dtw .dt{display:inline-flex;align-items:center;height:40px;padding:0;font:13px var(--sans);color:var(--sub)}
 .dtw .dt i{font-style:normal;font-weight:700;color:var(--red);margin-left:2px}
 .dtw .dpk,.datebar .hdpk{position:absolute;left:0;top:0;width:100%;height:100%;margin:0;padding:0;border:0;opacity:0;font-size:16px;cursor:pointer;-webkit-appearance:none;appearance:none;pointer-events:auto}
-.datebar{display:block}.datebar .hdt{width:100%;height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:var(--bg);color:var(--ink)}
+.datebar{display:block}
 .dh h1{padding:0}
 .dtw.dt{align-self:flex-start;display:inline-flex;align-items:center;height:40px;margin:-10px 0 -10px -4px;padding:0 4px;border:0;background:transparent;font:13px var(--sans);color:var(--sub);cursor:pointer}
 .dtw.dt i{font-style:normal;font-weight:700;color:var(--red);margin-left:3px}
@@ -748,12 +747,8 @@ body{background:var(--bg);color:var(--ink)}
 .lpg .lempty{margin:24px 20px 0;padding:16px;background:var(--card)}
 .lpg .lempty p{margin:0 0 8px;font-size:14px;line-height:1.7;color:var(--ink2)}
 .lpg .lempty .lclr{width:100%}
-/* 首页：搜索框下面的长线入口、频道第三格、天数 chip；走哪儿页的入口；全站搜索里的“线路”分组 */
-.longbar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:56px;margin:10px 20px 0;padding:8px 14px;background:var(--card);color:var(--ink);text-decoration:none;box-shadow:inset 3px 0 0 var(--ink)}
-.longbar span{display:flex;flex-direction:column;gap:2px}.longbar b{font-size:15px;font-weight:900}.longbar small{font-size:12px;color:var(--sub)}.longbar i{font-style:normal;font-size:20px;font-weight:700}
-.longbar:active{background:rgba(28,29,26,.08)}
+/* 走哪儿页的入口；全站搜索里的“线路”分组（首页只留频道那一格进 /long/，2026-10-16 去掉了 .longbar 和天数 chip 末尾的链接） */
 .chan2 a{min-width:0}
-.dchips a.lk{flex:none;height:36px;padding:0 12px;display:flex;align-items:center;background:var(--card);font-size:13px;font-weight:700;color:var(--ink);text-decoration:none;white-space:nowrap;box-shadow:inset 0 0 0 1px var(--ink)}
 .where .wlong{display:flex;align-items:center;min-height:44px;margin:0 20px 8px;font-size:14px;font-weight:700;color:var(--ink);text-decoration:none}
 .where .wtr{margin:12px 20px 0;padding-bottom:6px}
 .where .wtr .rh{margin:0 0 4px}
@@ -761,3 +756,43 @@ body{background:var(--bg);color:var(--ink)}
 .where .wtr li a{display:flex;align-items:baseline;justify-content:space-between;gap:12px;min-height:44px;padding:10px 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none}
 .where .wtr li b{font-size:15px;font-weight:700}.where .wtr li span{flex:none;font-size:12px;color:var(--sub)}
 .where .wtr .wtm{display:block;width:100%;height:44px;margin-top:6px;border:0;background:var(--card);color:var(--ink);font:700 13px var(--sans);cursor:pointer}
+
+/* ——— 首页第三轮（2026-10-16）：首屏要同时看到搜索和三个频道；顺序 封面（矮）→ 搜索 → 频道 → 替我挑（折叠）→ 现在去正好；卡片去掉“翻开”按钮，整张卡可点 ——— */
+.home .cover{min-height:330px}
+.home .mast h1{font-size:44px}
+.home .mast small{margin-top:6px}
+.home .cv{bottom:18px;gap:8px}
+.home .cv h2{font-size:30px}
+.home .cv .go{height:44px;margin-top:4px}
+.hsearch{margin:14px 20px 0}
+.chan2{margin:10px 20px 8px}
+.chan2 a{min-height:52px}
+.now .datebar{position:relative;margin-top:10px}
+.now .datebar .hdt{display:flex;align-items:center;justify-content:space-between;width:100%;height:44px;padding:0 14px;border:0;background:var(--card);color:var(--ink);font:inherit;cursor:pointer}
+.pick{padding:12px 20px 0}
+.pick .pkh{display:flex;align-items:center;gap:8px;width:100%;min-height:52px;padding:0 14px;border:0;border-radius:0;background:var(--card);color:var(--ink);font:inherit;text-align:left;cursor:pointer;-webkit-appearance:none;appearance:none}
+.pick .pkh b{flex:none;font:900 17px var(--serif)}
+.pick .pkh small{flex:1;min-width:0;font:12px var(--sans);color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pick .pkh i{flex:none;font-style:normal;font-size:13px;font-weight:700;color:var(--red)}
+.pick .pkb{padding-top:6px}
+.pick .pkrow{display:flex;align-items:center;gap:8px;margin-top:6px}
+.pick .pkq{flex:none;width:36px;margin:0;font-size:12px;line-height:1.25;color:var(--sub);letter-spacing:0}
+.pick .pkq small{display:block;font-size:10px;font-weight:400}
+.pick .pkrow .pkr{flex:1;min-width:0;margin:0 -20px 0 0;padding:0 20px 0 0}
+.pick .pkr button{height:40px}
+.items li{position:relative;gap:12px;padding:14px 0}
+.items li:active{background:rgba(28,29,26,.04)}
+.items .tx{gap:3px}
+.items .kl{display:flex;align-items:baseline;gap:8px}
+.items h3 a{color:inherit}
+.items h3 a:after{content:"";position:absolute;inset:0}
+.items p{line-height:1.5}
+.items .tile{width:76px;height:100px;font-size:16px}
+.items small .c{font-size:inherit;color:inherit}
+@media (prefers-color-scheme:dark){.now .datebar .hdt,.pick .pkh{background:var(--card)}}
+.items h3 a{display:block;padding:0;min-height:0}
+.items .tx>small{margin:0}
+.now .datebar .hdt b{font:700 14px var(--sans)}
+.now .datebar .hdt i{font:700 13px var(--sans);color:var(--red)}
+.home .cover:after{inset:20% 0 0 0;background:linear-gradient(to bottom,rgba(20,18,24,0),rgba(20,18,24,.55) 45%,rgba(20,18,24,.9))}
+.home .toc.now{margin-top:14px}

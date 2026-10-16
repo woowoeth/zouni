@@ -8,6 +8,7 @@
 // 用法：把这段贴到浏览器控制台；返回 {组数, 失败: [...], 中位数: {...}}。无头环境（puppeteer）里同样可以 page.evaluate 这段。
 (async()=>{
   const w=ms=>new Promise(r=>setTimeout(r,ms)), pk=document.querySelector('.pick'); if(!pk) return {错误:'没找到 .pick'};
+  if(!pk.classList.contains('open')) pk.querySelector('.pkh').click();   // 2026-10-16：替我挑默认折叠，先点开
   const cities=[...pk.querySelectorAll('.pkr[data-k="o"] button')].map(b=>b.dataset.v).filter(v=>v!=='here');
   const click=(k,v)=>{const b=pk.querySelector('.pkr[data-k="'+k+'"] button[data-v="'+v+'"]'); if(b) b.click()};
   const fails=[], med={}; let n=0;

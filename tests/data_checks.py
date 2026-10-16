@@ -410,7 +410,14 @@ if site:
         mm = [c for c in cards if '边境' in c[1] and c[2] == 'xb96a']
         if 'xb96a' in [t['id'] for t in longs] and not mm: bad.append('/long/ 里搜“边境”命不中 xb96a')
     hf = os.path.join(site, 'index.html')
-    if not os.path.exists(hf) or 'href="/long/"' not in open(hf, encoding='utf-8').read(): bad.append('首页没有指向 /long/ 的链接')
+    # 首页进 /long/ 只留频道那一格（页脚里也有 /long/ 链接，所以不能只数 href）；.longbar 和天数 chip 末尾的链接是重复入口，2026-10-16 去掉，不许回来
+    hh = open(hf, encoding='utf-8').read() if os.path.exists(hf) else ''
+    chan = re.search(r'<nav class="chan2"[^>]*>(.*?)</nav>', hh, re.S)
+    if not chan or 'href="/long/"' not in chan.group(1): bad.append('首页频道（.chan2）里没有“长线自驾”那一格（指向 /long/）')
+    if 'class="longbar"' in hh: bad.append('首页又出现了 .longbar（长线自驾重复入口）')
+    if re.search(r'<div class="dchips".*?</div>', hh, re.S) and 'href="/long/"' in re.search(r'<div class="dchips".*?</div>', hh, re.S).group(0): bad.append('首页天数 chip 里又出现了指向 /long/ 的链接')
+    n_lg = hh.count('href="/long/"')
+    if n_lg > 2: bad.append(f'首页指向 /long/ 的链接有 {n_lg} 处（频道一格 + 页脚一处，多了就是重复入口）')
     for pth in ('where', ):
         f = os.path.join(site, pth, 'index.html')
         if not os.path.exists(f) or 'href="/long/"' not in open(f, encoding='utf-8').read(): bad.append(f'/{pth}/ 没有指向 /long/ 的链接')

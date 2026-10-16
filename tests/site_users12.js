@@ -12,7 +12,7 @@ const B=process.argv[2]||'http://localhost:8765';
   { const pg=await fresh(); await go(pg,'/');
     await pg.tap('.hdt'); await sleep(250); const r=await pg.evaluate(()=>!!document.querySelector('.pk'));
     R.push({u:'52 首页点日期条',ok:r,find:r?'弹出站内日期面板':'没反应'}); await pg.close(); }
-  { const pg=await fresh(); await go(pg,'/'); const t=await nav(pg,()=>document.querySelector('.now .items li:not([hidden]) .open').click()); const back=await nav(pg,()=>document.querySelector('a.back').click());
+  { const pg=await fresh(); await go(pg,'/'); const t=await nav(pg,()=>document.querySelector('.now .items li:not([hidden]) h3 a').click()); const back=await nav(pg,()=>document.querySelector('a.back').click());
     R.push({u:'53 首页→行程→返回',ok:t.startsWith('/trip/')&&back==='/',find:`${t} → 返回到 ${back}`}); await pg.close(); }
   { const pg=await fresh(); await go(pg,'/trip/sz3/'); const back=await nav(pg,()=>document.querySelector('a.back').click());
     R.push({u:'54 直接打开行程再返回',ok:back==='/',find:`返回到 ${back}`}); await pg.close(); }

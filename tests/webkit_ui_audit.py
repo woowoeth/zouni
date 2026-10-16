@@ -10,6 +10,7 @@ with sync_playwright() as p:
     b=p.webkit.launch(); ctx=b.new_context(**p.devices['iPhone 13'],geolocation={'latitude':31.23,'longitude':121.47},permissions=['geolocation']); pg=ctx.new_page()
     pg.route('**/api.open-meteo.com/**', lambda r: r.fulfill(status=200, content_type='application/json', headers={'Access-Control-Allow-Origin':'*'}, body=json.dumps({'daily':{'time':['x'],'weathercode':[63],'temperature_2m_max':[16],'temperature_2m_min':[9],'precipitation_probability_max':[85]}})))
     pg.goto(B+'/', wait_until='networkidle'); pg.wait_for_timeout(500)
+    pg.evaluate("(()=>{const s=document.querySelector('.pick');if(s&&!s.classList.contains('open'))s.querySelector('.pkh').click()})()")  # 替我挑默认折叠（2026-10-16），先点开
     for k,v in (('o','上海'),('d','w'),('w','f')): pg.locator(f'.pkr[data-k="{k}"] button[data-v="{v}"]').click(); pg.wait_for_timeout(150)
     snap(pg,'首页 替我挑三条','.pick')
     pg.goto(B+'/trip/hz3/', wait_until='networkidle'); pg.wait_for_timeout(500)
