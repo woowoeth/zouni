@@ -139,7 +139,8 @@ with sync_playwright() as p:
         check('F4 横幅是细的（高 ≤56）又够点（≥44）', bb and 44 <= bb['height'] <= 56, bb)
         notes = pg.evaluate("[...document.querySelectorAll('.r .rb p.fnote')].map(p=>({t:p.textContent,v:p.getBoundingClientRect().height>0&&getComputedStyle(p).display!=='none'}))")
         check('F4 线路页有站点小字，且看得见', notes and all(n['v'] for n in notes), notes[:2])
-        check('F4 小字都是“苏轼：…”', all(n['t'].startswith(name_of(SU) + '：') for n in notes), [n['t'][:20] for n in notes][:3])
+        EXH_ = {re.sub(r'^(相传|传说)[，,]?', '', (v.get('line') or '').strip().rstrip('。')).replace(' ', '') for k, v in (SU.get('notes') or {}).items() if re.search(r'博物馆|博物院|纪念馆|陈列馆|纪念园|展览馆|美术馆|科技馆', k) and re.search(r'陈列|展陈|展出|展示|展览|馆藏|收藏|馆里|馆内|设有|辟有|专题博物馆|综合博物馆', v.get('line') or '')}
+        check('F4 小字都是“苏轼：…”（馆内展陈介绍除外：不加前缀、不写“相传”，2026-10-18）', all(n['t'].startswith(name_of(SU) + '：') or n['t'].replace(' ', '').replace('\xa0', '') in {x.replace('\xa0', '') for x in EXH_} for n in notes), [n['t'][:20] for n in notes if not n['t'].startswith(name_of(SU) + '：')][:3])
         body = pg.inner_text('body'); html_ = pg.content()
         leak = [s for s in SRCS if s in body or s in html_]
         check('F4 线路页里没有任何 src 原文', not leak, leak[:2])

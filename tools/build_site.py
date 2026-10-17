@@ -20,6 +20,8 @@ def jsvar(path, name):
 
 
 ROUTES = jsvar('build/routes.js', 'ZOUNI_ROUTES'); ORDER = jsvar('build/routes.js', 'ZOUNI_ORDER')
+import wd_scrub
+WD_SCRUBBED = sum(wd_scrub.scrub_route(r_) for r_ in ROUTES.values())     # 静态文案里“这条线哪天是周几”的说法一律删掉（星期来自出发日期，见 tools/wd_scrub.py）
 CAT = jsvar('build/catalog.js', 'ZOUNI_CATALOG'); ATLAS = jsvar('build/catalog.js', 'ZOUNI_ATLAS')
 DEST = {d['id']: d for d in CAT['destinations']}
 
@@ -7011,7 +7013,7 @@ def extras(trip_desc, dest_desc):
         ''.join(f'<url><loc>{BASE}{u}</loc><lastmod>{lm}</lastmod></url>\n' for u in urls) + '</urlset>\n')
     open(os.path.join(OUT, 'robots.txt'), 'w', encoding='utf-8').write(f'User-agent: *\nAllow: /\n\nSitemap: {BASE}/sitemap.xml\n')
     lines = ['# 走你（zouni.app）', '', '> 中文旅行行程网站：按季节挑目的地，按天排好每一站——几点出发、怎么去、吃什么、住哪；覆盖国内 34 个省级行政区和亚洲 22 国。', '',
-             '每条行程都是按天、按时间排的：出发时间、交通方式和时长、饭点、住宿片区或三档酒店；每个地点带地图和大众点评链接。目的地页给出最好的月份、12 个月平均气温、看什么吃什么，以及该省全部国家 5A 级旅游景区和世界遗产。', '',
+             '每条行程都是按天、按时间排的：出发时间、交通方式和时长、饭点、住宿的大概位置或三档酒店；每个地点带地图和大众点评链接。目的地页给出最好的月份、12 个月平均气温、看什么吃什么，以及该省全部国家 5A 级旅游景区和世界遗产。', '',
              '## 主要页面', f'- [全部线路]({BASE}/all/)：全部 {len(ROUTE_IDS)} 条行程的文字目录', f'- [走哪儿]({BASE}/where/)：按月份看国内、亚洲和更远的目的地哪儿正好去', f'- [长线自驾]({BASE}/long/)：{len(LONG_TRIPS)} 条 {LONG_MIN_DAYS} 天以上的长线自驾，按出发月份、天数、地区挑', f'- [跟片走]({BASE}/shejian/)：纪录片里拍过的地方，排进了哪条行程的哪一天', f'- [跟谁走]({BASE}/follow/)：按人物或事件（苏轼、徐霞客、玄奘、红军长征……）把他们到过、现在还能去的地方排成行程', '', '## 跟谁走'] + [f'- [{fname(HIST[t_])}]({BASE}/follow/{t_}/)：{HIST[t_].get("tagline") or ""}' for t_ in follow_topics()] + ['', '## 目的地']
     lines += [f'- [{d["name"]}]({BASE}/d/{d["id"]}/)：{dest_desc[d["id"]]}' for d in CAT['destinations']]
     _drv = [r_ for r_ in ROUTE_IDS if ROUTES[r_].get('drive')]
@@ -15274,6 +15276,9 @@ HIST = load_history()
 HIST_OF_ROUTE = {rid_: tid_ for tid_, h_ in HIST.items() for rid_ in (h_.get('routes') or [])}
 FNOTE = {}      # 正在生成的线路页：{站点名: 一行小字}（row_html 用）
 FMUS = set()    # 正在生成的线路页：type=museum 的站点名（row_html 用：周一闭馆红字、软提示）
+MEMO_ON = [False]    # 正在生成的线路页是不是红色 / 抗战 / 革命类的纪念性主题线（row_html、trip_page 用：不放点评入口、境外视频入口、酒店星级和订房）
+MEMO_TOPIC_RE = re.compile(r'长征|红军|延安|井冈山|中央苏区|西柏坡|辛亥|陪都|重庆|台儿庄|卢沟桥|南京|抗战|抗日|革命|解放战争')
+MEMO_SITE_RE = re.compile(r'纪念馆|纪念园|纪念碑|纪念地|烈士|陵园|遗址|遇难|大屠杀|战役|旧址|革命博物馆')     # 纪念馆 / 烈士陵园 / 遗址类站点：不当“下雨了去哪”的备选
 _HMUS = {}
 
 
@@ -15289,6 +15294,21 @@ def hist_mus(rid):
     return _HMUS[rid]
 
 
+def is_memorial_route(rid):
+    """跟谁走里 kind=event、名字属于红色 / 抗战 / 革命类的主题线（长征、延安、井冈山、西柏坡、辛亥、重庆陪都、台儿庄、卢沟桥、南京…）"""
+    h = HIST.get(HIST_OF_ROUTE.get(rid))
+    return bool(h and h.get('kind') == 'event' and MEMO_TOPIC_RE.search(h.get('name') or ''))
+
+
+VENUE_RE = re.compile(r'博物馆|博物院|纪念馆|陈列馆|纪念园|展览馆|美术馆|科技馆')
+EXH_RE = re.compile(r'陈列|展陈|展出|展示|展览|馆藏|收藏|馆里|馆内|设有|辟有|专题博物馆|综合博物馆')
+
+
+def exhibit_note(station, line):
+    """馆的展陈介绍（不是“他在这里做了什么”）"""
+    return bool(VENUE_RE.search(station or '') and EXH_RE.search(line or ''))
+
+
 def hist_note_texts(rid):
     """{站点名: '苏轼：相传…'}：conf=medium 的前面加“相传”（line 里已有就不加）；src 不进页面"""
     tid = HIST_OF_ROUTE.get(rid)
@@ -15297,6 +15317,9 @@ def hist_note_texts(rid):
     for k_, v_ in (h.get('notes') or {}).items():
         line = (v_.get('line') or '').strip().rstrip('。')
         if not line: continue
+        if exhibit_note(k_, line):      # 馆内展陈一句：不加“某某：”前缀，也不写“相传”（馆是确切存在的，“相传”只留给传说类说法）
+            out[k_] = re.sub(r'^(相传|传说)[，,]?', '', line)
+            continue
         if v_.get('conf') == 'medium' and '相传' not in line: line = '相传' + line
         out[k_] = f'{nm}：{line}'
     return out
@@ -15364,12 +15387,14 @@ def row_html(w, city, app):
     _xk = (f'{city} {_core}' if city and city not in _core else _core) if (t in ('see', 'fun') and _core and re.search(r'[\u4e00-\u9fff]', _core) and '沿途' not in _core) else None   # 小红书按“城市 景点名”搜，用中文名，不用导航用的查询词
     _fnm = w.get('name') or (w.get('place') if t == 'eat' else '') or ''; _fcore = re.split(r'\s*[·（(]\s*', _fnm)[0].strip()
     _fmus = t in ('see', 'fun') and bool(FMUS) and (_fnm in FMUS or _fcore in FMUS)      # 主题线路里 type=museum 的站：周一闭馆红字（site.js monday()）；没有门票/预约数据时给一句软提示
-    if _fmus and not re.search(r'class="(tix|bkn)|周一闭馆|周一陵寝闭馆', sub or ''): sub = (sub + ' · ' if sub else '') + '<span class="tix">多数馆周一休馆，热门馆要提前订票，以官网为准</span>'
+    # （2026-10-18）原来每个馆行都重复一句“多数馆周一休馆，热门馆要提前订票”：改成整页只在“出发前”顶部写一次；行内只在“这天确实闭馆（site.js clw）/ 确实要预约（bkn 标签）”时才有字
     _fnote = ''
     if t in ('see', 'fun', 'eat') and FNOTE:      # 吃饭的站（咸亨酒店）注释挂在 eat 行上，站点名取 place
         _k = _fnm if _fnm in FNOTE else (_fcore if _fcore in FNOTE else None)
         if _k: _fnote = f'<p class="fnote">{E(FNOTE[_k])}</p>'
     ic = icons(kw, city, app, w.get('dp'), w.get('nav'), w.get('navp'), _xk) if kw else ''
+    if ic and (MEMO_ON[0] or (t in ('see', 'fun') and MEMO_SITE_RE.search(w.get('name') or ''))):      # 纪念类主题线（以及任何线路里的纪念馆 / 烈士陵园 / 遗址类站点）：没有点评评分入口和境外视频搜索入口
+        ic = re.sub(r'<a class="ic yt".*?</a>', '', ic if t == 'eat' else re.sub(r'<a class="ic dp".*?</a>', '', ic))
     if t == 'eat' and not kw:   # 没有具体地方的饭：只放点评，按“城市 + 菜名”找
         ic = f'<a class="ic dp" href="{E(dpurl(w.get("dish") or "", city))}" data-app="{E("dianping://searchshoplist?keyword=" + urllib.parse.quote((city or "") + " " + (w.get("dish") or "")))}" rel="nofollow noopener" target="_blank" aria-label="大众点评上找 {E(w.get("dish"))}">{ICON_DP}</a>'
     da = (f' data-at="{E(w["at"])}"' if w.get('at') else '') + (f' data-meal="{"l" if w.get("slot") == "午饭" else "d" if w.get("slot") == "晚饭" else "b"}"' if t == 'eat' else '') + (' data-in="1"' if t in ('see', 'fun') and INDOOR_RE.search(w.get('name') or '') else '') + (f' data-cw="{(FOREIGN_CLOSED[w["name"]] + 1) % 7}"' if t in ('see', 'fun') and app != 'amap' and (w.get('name') or '') in FOREIGN_CLOSED else '')
@@ -15419,8 +15444,15 @@ def mon_days(r):
 
 def start_date(r):
     st = r.get('start') or [TODAY.year, TODAY.month - 1, TODAY.day]
-    d = datetime.date(st[0], st[1] + 1, min(st[2], calendar.monthrange(st[0], st[1] + 1)[1]))
-    while d < TODAY: d = d.replace(year=d.year + 1)
+    # 默认出发日统一规则（2026-10-18，历史爱好者发现各页不一致）：
+    #   1. 先取 start 的“月 + 日”在今天之后最近的一次（不看 start 里写的年：专栏入库的线路写的是 2027，会让“今年 11 月就能去”的线路默认跳到明年）
+    #   2. 今天正落在“最好的日子”窗口里 → 下一个周六（至少两天后），不出窗口
+    #   3. 窗口 30 天内就开 → 窗口里的第一个周六
+    #   4. 其余（窗口还远）→ 1 的结果
+    #   之后统一避开：周一闭馆落在周一、假日高峰
+    def occ_(y): return datetime.date(y, st[1] + 1, min(st[2], calendar.monthrange(y, st[1] + 1)[1]))
+    d = occ_(TODAY.year)
+    if d < TODAY: d = occ_(TODAY.year + 1)
     # 正当季（今天落在“最好的日子”里）：默认出发日要落在窗口内，不能顺延到明年（首页封面写着“还剩 7 天”，点进去却是明年）
     t = TRIP_OF_ROUTE.get(r.get('id')) or {}
     b = (t.get('season') or {}).get('best')
@@ -15432,6 +15464,13 @@ def start_date(r):
             cand = TODAY + datetime.timedelta(days=(5 - TODAY.weekday()) % 7)      # 下一个周六，且至少两天后
             if (cand - TODAY).days < 2: cand += datetime.timedelta(days=7)
             d = cand if cand <= end else max(TODAY + datetime.timedelta(days=1), end)
+        else:
+            wlo = datetime.date(TODAY.year, int(b[0][:2]), int(b[0][3:]))
+            if wlo < TODAY: wlo = datetime.date(TODAY.year + 1, int(b[0][:2]), int(b[0][3:]))
+            if 0 < (wlo - TODAY).days <= 30:      # 窗口很快就开：默认放在窗口里第一个周六（原来用线路自己写的日期，同一个季节的几条线能差出两周）
+                wend = datetime.date(wlo.year + (1 if wrap else 0), int(b[1][:2]), int(b[1][3:]))
+                cand = wlo + datetime.timedelta(days=(5 - wlo.weekday()) % 7)
+                d = cand if cand <= wend else wlo; end = wend
     # 行程里有“周一闭馆”的去处：默认日期要避开让那一天落在周一（先试后一天、前一天，再远一点；不出窗口、不早于明天）
     mons = mon_days(r); fcl = fclosed_days(r); own_hol = any(x in ' '.join(r.get('prep') or []) for x in ('春节', '国庆', '五一', '中秋', '端午', '清明'))     # 线路本来就为假日做的（蔚县打树花）不避
     if mons or fcl or not own_hol:
@@ -15628,7 +15667,7 @@ def indoor_list():
             c = d.get('navCity') or d.get('city')
             for w in d['rows']:
                 nm = w.get('name') or ''
-                if w['type'] in ('see', 'fun') and INDOOR_RE.search(nm) and w.get('poi'):
+                if w['type'] in ('see', 'fun') and INDOOR_RE.search(nm) and not MEMO_SITE_RE.search(nm) and w.get('poi'):      # 纪念馆、陵园、遗址类不当“下雨了去哪”的备选
                     core = re.split(r'\s*·\s*', nm)[0]
                     if core in seen: continue
                     pt = coord(w['poi'], c)
@@ -15645,7 +15684,11 @@ def indoor_near(r):
         dmin = min((_km((x['lat'], x['lng']), p_) for p_ in pts), default=999)
         if dmin <= 60: out.append(dict(x, km=round(dmin)))
     out.sort(key=lambda x: x['km'])
-    return out[:20]
+    ded = []      # 同一座馆的两种叫法（名字互相包含，或两点相距 <200 米）只列一次
+    for x in out:
+        if any(x['n'] in y['n'] or y['n'] in x['n'] or _km((x['lat'], x['lng']), (y['lat'], y['lng'])) < 0.2 for y in ded): continue
+        ded.append(x)
+    return ded[:20]
 
 
 NEAR = []
@@ -16108,6 +16151,7 @@ def openjaw_note(r):
 def trip_page(rid):
     CUR_RID[0] = rid
     hist_ctx(rid)      # 跟谁走：这条线的站点注释和博物馆集合（row_html 读）
+    MEMO_ON[0] = is_memorial_route(rid)
     r = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}; d0 = DEST.get(t.get('dest'), {})
     _g = go_info(r, t, d0, rid)   # 不能传临时拷贝：day_point 按对象 id 缓存，临时对象的 id 会被别的线复用，算出别的线的坐标
     _sj = sj_for_trip(rid, r)
@@ -16140,6 +16184,14 @@ def trip_page(rid):
     _oj = openjaw_note(r)
     if _oj: prep_items = [_oj] + prep_items
     prep_items = list(dict.fromkeys(prep_items))      # 同一句话出现两次（护照有效期在国外线里写了两遍）：按原文去重
+    top_li = ''      # “出发前”最前面的两句平实的话（不是待办，没有复选框、不加粗）：参观礼仪 + 预约闭馆的总提醒（整页只写一次）
+    _etq = [x for x in prep_items if x.startswith('参观礼仪')]
+    if _etq:
+        prep_items = [x for x in prep_items if x not in _etq]
+        _t = re.sub(r'[，,]?\s*开放(和预约)?以(官方)?公告为准\s*$', '', _etq[0].replace('参观礼仪：', '')).strip('，。 ')
+        top_li += f'<li class="tip etq"><span>{E("参观礼仪：" + _t + "；要预约的馆请提前预约，开放以官方公告为准。")}</span></li>'
+    if FMUS and not any(re.search(r'周[一二]\s*(多)?(闭馆|休馆|休园)|多数.{0,8}(闭馆|休馆)', x) for x in prep_items):
+        top_li += '<li class="tip mus"><span>多数博物馆、纪念馆周一休馆，热门馆要提前订票，以各馆官网为准。</span></li>'
     _mx = r.get('maxElev') or max([(d_.get('elev') or 0) for d_ in r['days']] + [0])
     if _mx >= 3000 and not any(re.search(r'高反|高原反应|氧气|高海拔', x) for x in prep_items):
         prep_items.append(f'行程最高到 {_mx:,} 米：提前问问医生，备好便携氧气瓶和常用药，头一天别洗澡、别剧烈运动')
@@ -16236,6 +16288,10 @@ def trip_page(rid):
             stays = (f'<div class="stays"><div class="sh"><span class="lbl">今晚住</span><span>{E(area)}{" · 连住 " + str(run) + " 晚" if run > 1 else ""}</span></div><ul>{lis}</ul><button type="button" class="tog">{"再看两家" if (not HT and TOP) else "看另外两档"}</button>'
                      f'<div class="bk" hidden><a class="btn" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(((HT or {}).get("lux") or (HT or {}).get("mid") or (HT or {}).get("eco") or (TOP or [{}])[0]).get("id")) if (HT or TOP) else tiers[0][3])}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpurl(area + " 酒店", city))}" aria-label="在大众点评看附近酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
         city = _city_row
+        if MEMO_ON[0] and stays:      # 纪念类主题线：不放星级、携程订房、点评评分，只留住处名称和一句“住处自行预订”
+            _m_ = re.search(r'<span class="lbl">今晚住</span><span>(.*?)</span>', stays)
+            _nm_ = E(d.get('stayName') or stay_city(r, d)) if not (_m_ and _m_.group(1).strip() and not _m_.group(1).strip().startswith('连住')) else ''
+            stays = f'<div class="stays memo"><div class="sh"><span class="lbl">今晚住</span><span>{_nm_}{" · " if _nm_ and _m_ and _m_.group(1).strip() else ""}{_m_.group(1) if _m_ else ""}</span></div><p class="stn">住处自行预订</p></div>'
         _base = d.get('story') or ''; _more = []; _bk = ''
         for w_ in d['rows']:
             if w_['type'] not in ('see', 'fun'): continue
@@ -16250,7 +16306,7 @@ def trip_page(rid):
             _more.append((re.sub(r'(博物院|景区|公园)$', '', k_) if k_ != '秦始皇帝陵博物院' else '兵马俑', DEEP[kq_]))
         _more = _more[:2]
         STORY_NOW[0] = _base + _bk + ''.join(a + b for a, b in _more) + ' ' + ' '.join(k.split('|', 1)[-1] for k in DEEP if DEEP[k] in [x[1] for x in _more] or DEEP[k] == _base)   # 讲到的景点，时间轴里不再重复那一句
-        story = (f'<aside class="story"><span class="lbl">懂一点</span>' + ((f'<p>' + (f'<b>{E(_bk)}</b>' if _bk else '') + f'{E(_base)}</p>') if _base else '') + ''.join(f'<p><b>{E(a)}</b>{E(b)}</p>' for a, b in _more) + '</aside>') if (_base or _more) else ''
+        story = (f'<aside class="story"><span class="lbl">背景</span>' + ((f'<p>' + (f'<b>{E(_bk)}</b>' if _bk else '') + f'{E(_base)}</p>') if _base else '') + ''.join(f'<p><b>{E(a)}</b>{E(b)}</p>' for a, b in _more) + '</aside>') if (_base or _more) else ''
         mlist = (CULT.get('manners') or {}).get(t.get('dest'), []) if i == 0 else []
         if mlist: story = f'<div class="mn"><span class="lbl">当地讲究</span><ul>' + ''.join(f'<li>{E(x)}</li>' for x in mlist) + '</ul></div>' + story
         notes = ''.join(f'<p class="note"><b>路上</b>{E(x)}</p>' for x in d.get('notes') or [])
@@ -16275,9 +16331,9 @@ def trip_page(rid):
         if _fe and 'alt ferry"><b>今天要坐船' in _fe: FERRY_SEEN[0] = True
         _alt_html += _fe + mosque_note(d) + weather_note(d)
         days.append(f'<section class="day" id="d{i + 1}" data-city="{E(d.get("navCity") or d.get("city") or "")}" data-stay="{E(stay_city(r, d))}"{_npd_}><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
-                    f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({} if LONG else {**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (not LONG and (d.get("clim") or {}).get(str(dates[i].month))) else ""}</p>' + sj_lines(_sj.get(i, [])) + f'{_alt_html}{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
+                    f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({} if LONG else {**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (not LONG and (d.get("clim") or {}).get(str(dates[i].month))) else ""}</p>' + ('' if MEMO_ON[0] else sj_lines(_sj.get(i, []))) + f'{_alt_html}{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{"".join(row_html(w, city, app) for w in rows)}</ol>{stays}{story}</section>')
         sights += [w['name'] for w in d['rows'] if w['type'] == 'see' and w.get('poi')]
-    LONG_ON[0] = False
+    LONG_ON[0] = False; MEMO_ON[0] = False
     desc = f'{r["title"]}：{n} 天按天排好，' + '、'.join(dict.fromkeys(re.split(r'\s*·\s*', ' · '.join(x['title'] for x in r['days']))))[:70] + '。' + season_text(t)
     ld = {'@context': 'https://schema.org', '@type': 'TouristTrip', 'name': r['title'], 'description': desc, 'url': BASE + f'/trip/{rid}/', 'inLanguage': 'zh-CN',
           'itinerary': {'@type': 'ItemList', 'numberOfItems': len(dict.fromkeys(sights)), 'itemListElement': [
@@ -16296,7 +16352,7 @@ def trip_page(rid):
                + (f'第一天 {E(_g["first"])} 开始，按{"中午出发、下午到" if _g["first"] >= "15:00" else "上午出发、中午前到"}算的。' if _g['first'] and _g['first'] >= '12:00' else (f'第一天 {E(_g["first"])} 就开始，最好头天晚上到。' if _g['first'] else '')) + '</span></li>'
 
                + '</ul></section>' if _g else '') +
-            f'<section class="pre"><h2>出发前</h2><ul>{prep or "<li class=fit>没有特别要提前办的</li>"}</ul></section>'
+            f'<section class="pre"><h2>出发前</h2><ul>{top_li}{prep or ("" if top_li else "<li class=fit>没有特别要提前办的</li>")}</ul></section>'
             f'<script type="application/json" id="cands">{json.dumps(add_cands(rid, r), ensure_ascii=False).replace("</", "<\\/")}</script>'
             f'<script type="application/json" id="indoor">{json.dumps(indoor_near(r), ensure_ascii=False).replace("</", "<\\/")}</script>'
             f'<script type="application/json" id="nearby">{json.dumps(near_for(r), ensure_ascii=False).replace("</", "<\\/")}</script>'
@@ -16944,6 +17000,9 @@ FOLLOW_CAT_RULES = [
     ('帝王', r'秦始皇|汉武帝?|唐太宗|武则天|康熙|乾隆|雍正|朱元璋|朱棣|永乐|嬴政|刘邦|光武帝|隋炀帝|隋文帝|李世民|赵匡胤|成吉思汗|忽必烈|努尔哈赤|皇太极|慈禧|帝$|皇帝'),
 ]
 FOLLOW_CAT_ID = {}      # {主题 id: 类别}，规则判错的例外写在这里
+# “常看”一行（/follow/ 顶部，2026-10-18）：规则 = 下面这张表按顺序取前 6 个（不在专栏里的 id 跳过、补不满就少显示）。热门人物 / 事件由人定，不按点击数（站里没有统计）
+FOLLOW_HOT = ['sushi', 'libai', 'dufu', 'zhenghe', 'cz1', 'qinshihuang', 'kangxi', 'xuanzang']
+FOLLOW_HOT_N = 6
 
 
 def follow_cat(h):
@@ -16983,12 +17042,16 @@ def follow_pages():
         days = f'{min(ns)}–{max(ns)} 天' if min(ns) != max(ns) else f'{ns[0]} 天'
         cats.setdefault(follow_cat(h), []).append(
             f'<li class="fcd" data-q="{E(q)}"><a href="/follow/{E(tid)}/"><b>{E(fname(h))}</b><span class="ft">{E(h.get("tagline") or "")}</span><em>{len(rids)} 条线路 · {days}</em></a></li>')
-    secs = ''.join(f'<section class="fgrp"><h2 class="ph">{E(c_)}<small>{len(cats[c_])} 个</small></h2><ul class="fcards">{"".join(cats[c_])}</ul></section>' for c_ in FOLLOW_CAT_ORDER + sorted(set(cats) - set(FOLLOW_CAT_ORDER)) if c_ in cats)
+    cat_list = [c_ for c_ in FOLLOW_CAT_ORDER + sorted(set(cats) - set(FOLLOW_CAT_ORDER)) if c_ in cats]
+    secs = ''.join(f'<section class="fgrp" id="fcat-{i_}"><h2 class="ph">{E(c_)}<small>{len(cats[c_])} 个</small></h2><ul class="fcards">{"".join(cats[c_])}</ul></section>' for i_, c_ in enumerate(cat_list))
+    chips = '<nav class="fchips" aria-label="按类别找">' + ''.join(f'<button type="button" class="fchip" data-c="fcat-{i_}">{E(c_)}</button>' for i_, c_ in enumerate(cat_list)) + '</nav>'
+    hot = [t_ for t_ in FOLLOW_HOT if t_ in HIST and t_ in tids][:FOLLOW_HOT_N]
+    hot_html = ('<div class="fhot"><span class="fhl">常看</span>' + ''.join(f'<a href="/follow/{E(t_)}/">{E(fname(HIST[t_]))}</a>' for t_ in hot) + '</div>') if hot else ''
     body = (f'<article class="chan fpg fidx"><div class="pagehead"><a class="back" href="/">{BACK_ICON}返回</a><a class="home" href="/">本期</a></div>'
             f'<p class="kick">走你 · {TODAY.year} · {_fmon()}月 · 频道</p><h1>跟谁走</h1>'
             f'<p class="deck">跟着一个人或一件事走：把他到过的、现在还能去的地方，排成能照着走的行程。</p>'
             f'<form class="fsearch" role="search" onsubmit="return false"><input type="search" placeholder="搜人物或事件，比如 苏轼、长征、乾隆" aria-label="搜人物或事件" autocomplete="off"></form>'
-            f'<p class="fcnt" aria-live="polite">共 {len(tids)} 个人物和事件</p>{secs}'
+            f'{chips}{hot_html}<p class="fcnt" aria-live="polite">共 {len(tids)} 个人物和事件</p>{secs}'
             f'<div class="fempty" hidden><p>这里没有「<span class="fq"></span>」。可以去走哪儿，按地名搜线路。</p><a class="btn" href="/where/">去走哪儿搜 ›</a></div></article>')
     ld = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': '跟谁走', 'numberOfItems': len(tids),
           'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'name': fname(HIST[t_]), 'url': BASE + f'/follow/{t_}/'} for i, t_ in enumerate(tids)]}
@@ -17001,7 +17064,11 @@ def follow_pages():
 def follow_topic_page(tid):
     h = HIST[tid]; nm = fname(h); rids = hist_routes(tid)
     tl = h.get('timeline') or []
-    def _li(x): return f'<li><time>{E(x.get("when") or "")}</time><div><b>{E(x.get("where") or "")}</b><span>{E(x.get("what") or "")}</span></div></li>'      # 不显示 src（审计字段）
+    def _li(x):
+        w_ = (x.get('when') or '').strip(); pre_ = ''
+        m_ = re.match(r'^(.*?)\s*[（(]([^）)]*)[）)]\s*$', w_)
+        if m_ and len(w_) > 13: w_, pre_ = m_.group(1), '（' + m_.group(2) + '）'      # 日期列固定宽度、不折行：太长的括号说明挪到正文前面
+        return f'<li><time>{E(w_)}</time><div><b>{E(x.get("where") or "")}</b><span>{E(pre_ + (x.get("what") or ""))}</span></div></li>'      # 不显示 src（审计字段）
     tl_html = ''
     if tl:
         head_ = ''.join(_li(x) for x in tl[:6])

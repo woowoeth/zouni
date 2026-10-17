@@ -114,6 +114,9 @@ def expected_notes(S, tid):
     for k, v in (h.get('notes') or {}).items():
         line = (v.get('line') or '').strip().rstrip('。')
         if not line: continue
+        if re.search(r'博物馆|博物院|纪念馆|陈列馆|纪念园|展览馆|美术馆|科技馆', k) and re.search(r'陈列|展陈|展出|展示|展览|馆藏|收藏|馆里|馆内|设有|辟有|专题博物馆|综合博物馆', line):
+            out[k] = _html.escape(_NB.sub('\\1\u00a0\\2', re.sub(r'^(相传|传说)[，,]?', '', line)))     # 2026-10-18：馆内展陈介绍不加“某某：”前缀、不写“相传”
+            continue
         if v.get('conf') == 'medium' and '相传' not in line: line = '相传' + line
         out[k] = _html.escape(_NB.sub('\\1\u00a0\\2', f'{nm}：{line}'))     # 页面里 E() 会把“1 月”这类数字+单位中间的空格换成不换行空格
     return out

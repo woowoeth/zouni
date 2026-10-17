@@ -246,7 +246,10 @@ with sync_playwright() as p:
         el1 = pg.evaluate("document.querySelector('.hero').getBoundingClientRect().top")
         check('M2c 全屏时滚轮 / 翻页键不会让背景页面动（hero 位置 %.0f → %.0f）' % (el0, el1), abs(el1 - el0) < 2 or abs(el1 - (-y0)) < 2, (el0, el1, y0))
         vis = pg.evaluate("(function(){function v(s){var e=document.querySelector('.rm '+s);if(!e)return false;var r=e.getBoundingClientRect();return r.height>10&&r.bottom<=innerHeight+1&&r.top>=0}return {tabs:v('.rm-tabs'),panel:v('.rm-panel'),nav:v('.rm-navd')||document.querySelector('.rm-navd').hidden}})()")
-        check('M2d 全屏时仍能看到天数标签条和站点列表', vis['tabs'] and vis['panel'], vis)
+        check('M2d 全屏时能看到天数标签条；站点列表在底部抽屉里，上拉后出现（2026-10-18）', vis['tabs'] and not vis['panel'], vis)
+        pg.click('.rm-tl'); pg.wait_for_timeout(400)
+        vis2 = pg.evaluate("(function(){var e=document.querySelector('.rm .rm-panel');var r=e.getBoundingClientRect();return r.height>10&&r.bottom<=innerHeight+1&&r.top>=0})()")
+        check('M2d2 上拉抽屉后站点列表在视口里', vis2, vis2)
         pg.click('.rm-tb[data-i="1"]'); pg.wait_for_timeout(500)
         nv = pg.evaluate("(function(){var e=document.querySelector('.rm .rm-navd');if(!e||e.hidden)return null;var r=e.getBoundingClientRect();return {t:r.top,b:r.bottom,ih:innerHeight}})()")
         check('M2e 全屏时选一天后“导航这一天”在视口里', bool(nv) and nv['b'] <= nv['ih'] + 1 and nv['t'] >= 0, nv)
@@ -395,8 +398,8 @@ with sync_playwright() as p:
         open_ov(pg); pg.click('.mapfold'); pg.wait_for_timeout(200)
         c.set_offline(True)
         pg.click('.mapfold'); pg.wait_for_timeout(600)
-        st = pg.evaluate("(function(){var h=document.querySelector('.hmap'),r=h.getBoundingClientRect(),n=h.querySelector('.rm-fbn');return {vis:r.height>50,svg:!!h.querySelector('svg'),note:n?n.textContent:'',rm:!!document.querySelector('.rm')}})()")
-        check('M7a 断网点“看路线图”：退回自画示意图 + “街道地图需要联网”', st['vis'] and st['svg'] and st['note'] == '街道地图需要联网' and not st['rm'], st)
+        st = pg.evaluate("(function(){var r=document.querySelector('.rm.rm-sch'),n=r&&r.querySelector('.rm-note');return {sch:!!r,svg:!!(r&&r.querySelector('svg')),note:n?n.textContent:'',vis:!!n&&!n.hidden,marks:r?r.querySelectorAll('.rm-pts .rm-mk').length:0,cv:!!(r&&r.querySelector('canvas'))}})()")
+        check('M7a 断网点“看路线图”：退回示意图（取景到站点）+ “街道地图加载失败，已改用示意图”（2026-10-18：总览也用示意图版，提示在地图里面）', st['sch'] and st['svg'] and st['note'] == '街道地图加载失败，已改用示意图' and st['vis'] and st['marks'] > 0 and not st['cv'], st)
         shot(pg, 'ov_offline_fallback.png')
         c.set_offline(False); c.close()
         # b. 总览：routemap.js 从来没加载过 + 断网
@@ -405,7 +408,7 @@ with sync_playwright() as p:
         c.set_offline(True)
         pg.evaluate("document.querySelector('.mapfold').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('.mapfold'); pg.wait_for_timeout(800)
         st = pg.evaluate("(function(){var h=document.querySelector('.hmap'),n=h.querySelector('.rm-fbn');return {vis:h.getBoundingClientRect().height>50,note:n?n.textContent:''}})()")
-        check('M7b 脚本都没取到（断网）：仍显示静态示意图和“街道地图需要联网”', st['vis'] and st['note'] == '街道地图需要联网', st)
+        check('M7b 脚本都没取到（断网）：仍显示静态示意图和“街道地图加载失败，已改用示意图”（提示在图的上面，不被底部栏盖住）', st['vis'] and st['note'] == '街道地图加载失败，已改用示意图', st)
         c.set_offline(False); c.close()
         # c. 每天的图：断网 → 示意图版（纸色底 + 线 + 编号点）
         c, cnt = mk_ctx(br); pg = new_page(env, c)
@@ -415,7 +418,7 @@ with sync_playwright() as p:
         pg.evaluate("document.querySelector('#d2 .rm-open').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('#d2 .rm-open'); ready(pg); pg.wait_for_timeout(400)
         d = pg.evaluate("(function(){var r=document.querySelector('#d2 .rm');return {sch:r.classList.contains('rm-sch'),cv:!!r.querySelector('canvas'),note:r.querySelector('.rm-note').textContent,vis:!r.querySelector('.rm-note').hidden,marks:r.querySelectorAll('.rm-mk[data-n]').length,lines:r.querySelectorAll('.rm-ln').length,why:ZRM.cur().why}})()")
         n = row_count(pg, 2)
-        check('M7c 每天的图断网：示意图版（无底图 canvas）、写“街道地图需要联网”、点和线都在（%s）' % d, d['sch'] and not d['cv'] and d['note'] == '街道地图需要联网' and d['vis'] and d['marks'] == n and d['lines'] >= 1, d)
+        check('M7c 每天的图断网：示意图版（无底图 canvas）、写“街道地图加载失败，已改用示意图”、点和线都在（%s）' % d, d['sch'] and not d['cv'] and d['note'] == '街道地图加载失败，已改用示意图' and d['vis'] and d['marks'] == n and d['lines'] >= 1, d)
         shot(pg, 'day_offline_fallback.png')
         c.set_offline(False); c.close()
         # d. 瓦片请求全部失败
@@ -428,7 +431,7 @@ with sync_playwright() as p:
         except Exception:
             pass
         d = pg.evaluate("(function(){var r=document.querySelector('#d2 .rm');var c=window.ZRM&&ZRM.cur();return {sch:!!r&&r.classList.contains('rm-sch'),note:r&&r.querySelector('.rm-note').textContent,why:c&&c.why}})()")
-        check('M7d 瓦片请求全部失败：自动退回示意图并写说明（原因 %s）' % d.get('why'), d['sch'] and d['note'] == '街道地图需要联网' and d['why'] == 'tiles', d)
+        check('M7d 瓦片请求全部失败：自动退回示意图并写说明（原因 %s）' % d.get('why'), d['sch'] and d['note'] == '街道地图加载失败，已改用示意图' and d['why'] == 'tiles', d)
         c.close()
         # e. 样式取不到
         c, cnt = mk_ctx(br, mode='style'); pg = new_page(env, c)
@@ -498,7 +501,7 @@ with sync_playwright() as p:
         links = pg.evaluate("Array.prototype.map.call(document.querySelectorAll('.rm-sheet a.rm-seg'),function(a){return a.getAttribute('href')})")
         note = pg.inner_text('.rm-sheet .xnote')
         check('M8g 多段：弹出选择层，列出 %d 段，链接和 ZRM.segs 一致' % len(links), links == segs, (len(links), len(segs)))
-        check('M8h 文案写清分几段：%s' % note[:60], '最多带 1 个途经点' in note and '超过 3 个点' in note and re.search(r'分 %d 段' % len(segs), note) is not None, note)
+        check('M8h 文案写清分几段：%s' % note[:60], '按顺序一段一段点' in note and re.search(r'分 %d 段' % len(segs), note) is not None, note)
         shot(pg, 'nav_sheet.png')
         hits.clear(); pg.click('.rm-sheet a.rm-seg >> nth=0'); pg.wait_for_timeout(500)
         check('M8i 点第 1 段：真发出同一条高德链接', hits and hits[0] == segs[0], hits[:1])
@@ -556,8 +559,9 @@ with sync_playwright() as p:
                 if not h or h['w'] < 43 or h['h'] < 43: small0.append((sel, h))
             check('M9z %s：页面里的入口按钮（本日地图、导航这一天、看路线图）点击区 ≥44×44' % tag, not small0, small0)
             pg.evaluate("document.querySelector('#d2 .rm-fsb').click()"); pg.wait_for_timeout(700)
+            pg.click('.rm-tl'); pg.wait_for_timeout(400)      # 站点列表在底部抽屉里，上拉后才量
             small = []
-            for sel in ('.rm-rs', '.rm-fsb', '.rm-zi', '.rm-zo', '.rm-sv', '.rm-ai', '.rm-tb', '.rm-hd', '.rm-row', '.rm-navd', '.rm-pts .rm-mk[data-n]'):
+            for sel in ('.rm-rs', '.rm-fsb', '.rm-zi', '.rm-zo', '.rm-sv', '.rm-ai', '.rm-tb', '.rm-tl', '.rm-hd', '.rm-row', '.rm-navd'):      # 标记不再接收指针（点按按“最近的标记”挑，见 route_map2_check R12）
                 for i in range(min(pg.locator('.rm ' + sel).count(), 3)):
                     h = pg.evaluate(HIT, pg.locator('.rm ' + sel).nth(i).element_handle())
                     if sel.endswith('.rm-mk[data-n]'):      # 标记：自己的盒子 44×44；点击区会被紧挨着的另一个标记盖住一部分，那不算“点击区太小”（两点离得近是地理决定的）
