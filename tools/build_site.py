@@ -6846,7 +6846,7 @@ def tz_of(dest, lng):
     if dest == 'australia' and lng <= 141: rule = ''     # 只有东南沿海（悉尼、墨尔本）有夏令时
     return z, rule
 import hashlib as _hl
-ASSET_V = _hl.md5((open('site_src/site.css', encoding='utf-8').read() + open('site_src/site.js', encoding='utf-8').read() + open('site_src/np_model.js', encoding='utf-8').read()).encode()).hexdigest()[:8]   # np_model.js 也进哈希：它被 site.js 懒加载（?v=ASSET_V），改了模型要让手机上的旧缓存失效
+ASSET_V = _hl.md5((open('site_src/site.css', encoding='utf-8').read() + open('site_src/site.js', encoding='utf-8').read() + open('site_src/np_model.js', encoding='utf-8').read() + open('site_src/routemap.js', encoding='utf-8').read() + open('site_src/maplibre/maplibre-gl.js', encoding='utf-8').read() + open('site_src/maplibre/maplibre-gl.css', encoding='utf-8').read()).encode()).hexdigest()[:8]   # np_model.js / routemap.js / maplibre 也进哈希：它们都被 site.js 懒加载（点开才取）（?v=ASSET_V），改了模型要让手机上的旧缓存失效
 STATUS = {'open': '可以去', 'restricted': '有条件', 'paused': '暂停开放', 'check': '出发前查'}
 TRIP_OF_ROUTE = {}
 for t in TRIPS:
@@ -17046,9 +17046,10 @@ if __name__ == '__main__':
         if os.path.exists('site_src/' + f): shutil.copy('site_src/' + f, os.path.join(OUT, f))
     for f in ('icon-192.png', 'icon-512.png'):
         if os.path.exists('site_src/' + f): shutil.copy('site_src/' + f, os.path.join(OUT, 'img', f))
-    for f in ('site.css', 'site.js', 'np_model.js', 'favicon.svg', 'og.png', 'qr.js', 'apple-touch-icon.png', 'favicon-32.png'):
+    for f in ('site.css', 'site.js', 'np_model.js', 'routemap.js', 'favicon.svg', 'og.png', 'qr.js', 'apple-touch-icon.png', 'favicon-32.png'):
         src = os.path.join('site_src', f)
         if os.path.exists(src): shutil.copy(src, os.path.join(OUT, 'img' if f in ('favicon.svg', 'og.png', 'apple-touch-icon.png', 'favicon-32.png') else 'assets', f))
+    if os.path.isdir('site_src/maplibre'): shutil.copytree('site_src/maplibre', os.path.join(OUT, 'assets', 'maplibre'))      # 路线地图的街道底图（MapLibre GL JS，BSD-3-Clause，LICENSE.txt 一起带）：自托管，点开地图才取
     import mapdraw; print('底图脚本', mapdraw.export_basemap(os.path.join(OUT, 'assets', 'basemap.js')) // 1024, 'KB')
     print('串线闸：拒绝', compute_denies(), '条（详见 build/denies.txt）')
     trip_desc = {rid: trip_page(rid) for rid in ROUTE_IDS}

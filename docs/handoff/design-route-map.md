@@ -427,3 +427,35 @@ OpenStreetMap + Overpass API（`overpass-api.de`，公共实例，只用于调�
 - `data/geo/base/cn_prov.json` 有 35 个要素，其中 1 个名字为空（可能是南海诸岛或脏数据）——核对合规时一并看。
 - `hand_map` 对 149 页不画图（跨度/名字规则），其中包含大量 2–3 天的城里线；每天小图可以补上这一块，不需要改总览规则。
 - Overpass 公共实例对批量请求会 502（“All query workers are busy”），第三期的抓取脚本必须带指数退避，且不能放进建站流程。
+
+---
+
+## 实现进度 · 路线地图（2026-10-17，用户拍板版）
+
+**用户拍板（覆盖本文 §0 / §4 的推荐）**：默认**真实街道底图**（MapLibre GL JS + OpenFreeMap 免费矢量瓦片，样式 `https://tiles.openfreemap.org/styles/liberty`，不用任何要 Key / 注册 / 付费的服务）；自画示意图降为断网 / 失败兜底；合规上隐藏边界线与国家 / 省级标注、标注改中文；署名默认收起成 44×44 的 i；杂志风（方形 44×44、细线、无圆角胶囊 / 浮层卡片 / 阴影）；每天小图默认折叠、打开吸顶、与页面行双向联动；总览分天切换；灰点“顺路可去”；导航这一天（国内高德 GCJ-02 分段、国外谷歌分段）；存图；**不做**打印、停车区 / 高速出口 / 免费观景台、纸质地图。§5（沿途点）整节不做。
+
+**做了什么 / 在哪**：见 `02-UI规范.md「路线地图」`（样子和规矩）、`04`（命令）、`05`（坑）。代码：`site_src/routemap.js`（渲染，新）、`site_src/maplibre/`（自托管，新）、`site_src/site.js`（入口 +2.4KB、三个导出）、`site_src/site.css`（末尾一块）、`tools/build_site.py`（拷贝文件 + 进 `ASSET_V`）、`tests/route_map_check.py` + `tests/fixtures/`（新）、`tests/data_checks.py` 第 33 项、`tests/run_site_checks.sh`。`tools/mapdraw.py` 没改（静态图仍是总览的兜底）。
+
+**决策（和 §0–§10 不同或本文没写死的）**
+| # | 决策 | 为什么 / 放弃了什么 |
+|---|---|---|
+| D1 | 线和标记画在底图**上面的叠层**（SVG + 按钮），不用 maplibre 图层 | 深色滤镜只作用在底图 canvas、标记不被反色；示意图兜底共用同一套；DOM 标记自带 44×44 点击区和 aria-label。放弃：GeoJSON 图层 / maplibre Marker（深色下线会被滤镜反色；兜底要另写一套） |
+| D2 | 同一时间只开一个地图实例，开另一张就拆掉上一张 | 省 WebGL 上下文（iOS / 低端安卓有上限）；也符合“翻到下一天，上一天的图自然顶掉” |
+| D3 | 非全屏用 `cooperativeGestures`（单指滚页面、双指动地图），全屏才全手势 | 吸顶的 200px 小图否则会吃掉手指滚动；用户要求的“可拖动”在全屏里满足。放弃：非全屏也单指拖（会让页面滚不动） |
+| D4 | 地图从页面 DOM 读，`MutationObserver` 同步，不改 `replan` | 设计 §2.2 的主要理由；放弃：在 `replan` 里加钩子（碰全站时间表核心，基线风险） |
+| D5 | 页面行编号用 CSS 计数器 `::after`（`.day.rm-on`），不写 `data-n`，不改复制行程 | 用户要求（覆盖设计 §7.2 的“复制行程加 ①②③”）；基线 16 个文件 0 差异 |
+| D6 | 总览加一个“全程”标签放第一位；选某天才编号，其余天线变淡、点变小 | 105 天长线：默认只高亮当天；全程时每天只留一个天数章，按像素剔除 |
+| D7 | 国内多点导航只走 `uri.amap.com/navigation?…&via=`（每段 ≤1 个途经点）；谷歌多站统一 `travelmode=driving` | 高德 App scheme 文档没写途经点；`waypoints` 在 transit 下可能被忽略 |
+| D8 | 灰点候选 = 每个可当锚点的行调 `npCands`，同一候选取最小绕路；“加到这天”先 `npTry` 真试算再 `npCommit` | 复用顺路功能的现有规则、预算和撤销，不另写一套 |
+| D9 | 酒店只标“住 · 约”片区点（`data-ep`），不连线；起点 `data-sp` 只用于导航 | 酒店没有坐标，不假装 |
+| D10 | 瓦片失败判据：1.5 秒内没有任何一块成功（而不是“错 N 次”）；25 秒一块都没来也退 | 视口里只有 2–3 块瓦片时“错 4 次”不可靠（测试里抓到过） |
+
+**假设清单（没问用户，每轮展示）**
+| # | 假设 | 如果错了 |
+|---|---|---|
+| R1 | OpenFreeMap 的 liberty 样式和 fixture 同一套图层 id（边界 / 国家 / 省级图层都含 `boundary|country|state|disputed`） | 换版本后隐藏会失效，换 fixture 重跑 M4；`--live` 目前只验“取到瓦片”，不验图层 id |
+| R2 | 高德 `uri.amap.com/navigation` 认 `via=lng,lat,名` 且只认 1 个 | 真机验证；不认就退回逐段两点 |
+| R3 | 手机 UA（Android / iPhone / iPad / iPod / Mobile）里谷歌最多 3 个途经点，其他 9 个（谷歌文档） | 文档变了就改 `viaMax()` |
+| R4 | 微信内置浏览器能跑 WebGL + MapLibre 4.x（X5 内核可能不行）→ 失败走兜底 | 没有 WebGL / 脚本报错都退示意图；真机没测 |
+| R5 | 国内访问 `tiles.openfreemap.org` 够用；不够就走 25 秒 `slow` 兜底 | 未实测，是最大风险 |
+| R6 | 总览里没有“看路线图”的 149 条线路现在补上入口（≥2 个带坐标点）不违背“少即是多” | 要回去：glue 里 `ov.querySelector('.mapfold')||…` 那行 |

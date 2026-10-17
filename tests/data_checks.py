@@ -19,7 +19,7 @@
 25 顺路加一站的候选池质量闸（先重建池再跑 tests/nearby_pool_check.py；退出码 1、2 都算红）
 26 车程模型三方一致（tests/nearby_parity.py；退出码 1、2 都算红）
 27 site.js 里的 NP_LIM 和 np_model.js 的三个硬规则上限一致
-28 页面行属性覆盖率、dep 行 data-mode、分片和模型文件、版本指纹含 np_model.js（要建好的站）
+28 页面行属性覆盖率、dep 行 data-mode、分片和模型文件、版本指纹含 np_model.js / routemap.js / maplibre（要建好的站）
 32 「跟谁走」专栏数据闸（tests/follow_data_checks.py：线路与页面都在、notes 键等于 stop.name、src 不外泄、评价性词表、/follow/ 含全部 follow 线路、注释落页、museum 站带周一挂点；缺纪念馆类站点只警告）
 """
 import datetime, glob, json, math, os, re, sys
@@ -523,9 +523,9 @@ if site:
         if _extra: _bad.append(f'assets/np 里有不该发布的文件：{_extra}')
     if not os.path.exists(os.path.join(site, 'assets', 'np_model.js')): _bad.append('assets/np_model.js 不存在')
     elif open(os.path.join(site, 'assets', 'np_model.js'), encoding='utf-8').read() != open('site_src/np_model.js', encoding='utf-8').read(): _bad.append('站里的 assets/np_model.js 和 site_src/np_model.js 不一样（建站后改过源码，没重建）')
-    _ver = _hl2.md5((open('site_src/site.css', encoding='utf-8').read() + open('site_src/site.js', encoding='utf-8').read() + open('site_src/np_model.js', encoding='utf-8').read()).encode()).hexdigest()[:8]
+    _ver = _hl2.md5((open('site_src/site.css', encoding='utf-8').read() + open('site_src/site.js', encoding='utf-8').read() + open('site_src/np_model.js', encoding='utf-8').read() + open('site_src/routemap.js', encoding='utf-8').read() + open('site_src/maplibre/maplibre-gl.js', encoding='utf-8').read() + open('site_src/maplibre/maplibre-gl.css', encoding='utf-8').read()).encode()).hexdigest()[:8]
     _pg = open(os.path.join(site, 'trip', 'xa3', 'index.html'), encoding='utf-8').read()
-    if f'/assets/site.js?v={_ver}' not in _pg: _bad.append(f'xa3 页面里的 site.js 版本指纹不是源码（site.css + site.js + np_model.js）的哈希 {_ver}：线上跑的是不是这一版看不出来')
+    if f'/assets/site.js?v={_ver}' not in _pg: _bad.append(f'xa3 页面里的 site.js 版本指纹不是源码（site.css + site.js + np_model.js + routemap.js + maplibre js/css）的哈希 {_ver}：线上跑的是不是这一版看不出来')
     if _bad: fails.append(('顺路加一站：页面属性 / 资源 / 版本指纹', _bad[:30]))
 
 # 29 site.js 全文件 ES5（微信老内核 X5）：不许 => 模板字符串 ?. ?? flatMap .at() let const 展开（2026-10-17：整文件扫，不只顺路那一块；修掉了两处 [...NodeList]）
@@ -608,6 +608,49 @@ if _rf.returncode != 0: fails.append(('跟谁走数据闸不过（tests/follow_d
 else:
     for _l in _fol_out:
         if _l.startswith('警告'): print(_l)
+
+# 33 路线地图（2026-10-17；行为判据在 tests/route_map_check.py）：自托管的 maplibre 在站里且和源码一致、进版本指纹；样式里隐藏边界 / 国家 / 省级图层的逻辑、署名文字、固定的样式地址在；
+#    routemap.js 全文件 ES5；点开才取（首页 / 行程页 HTML 里没有它们）；断网存进缓存的清单里有 routemap.js；不用要 Key 的服务
+_bad33 = []
+_rm = open('site_src/routemap.js', encoding='utf-8').read()
+for _w in ('maplibre-gl.js', 'maplibre-gl.css', 'LICENSE.txt'):
+    if not os.path.exists('site_src/maplibre/' + _w): _bad33.append(f'site_src/maplibre/{_w} 不存在')
+if os.path.exists('site_src/maplibre/LICENSE.txt') and 'BSD' not in open('site_src/maplibre/LICENSE.txt', encoding='utf-8').read(): _bad33.append('maplibre 的许可证文件不是 BSD（没带对）')
+_mh = re.search(r"var HIDE_RE = /([^/]+)/;", _rm)
+if not _mh or not all(w_ in _mh.group(1) for w_ in ('boundary', 'country', 'state', 'disputed')): _bad33.append('routemap.js 里没有隐藏 boundary|country|state|disputed 图层的 HIDE_RE')
+if not re.search(r"if \(HIDE_RE\.test\(l\.id\)\) \{[^\n]{0,120}visibility = 'none'", _rm): _bad33.append('routemap.js 的 tuneStyle 没有把边界 / 国家 / 省级图层设成 visibility none')
+if "'name:zh-Hans'" not in _rm or "['coalesce', ['get', 'name:zh-Hans']" not in _rm: _bad33.append('routemap.js 的标注没改成中文优先（name:zh-Hans → name:zh → name）')
+for _w in ('OpenFreeMap', 'OpenMapTiles', 'OpenStreetMap', 'Data from'):
+    if _w not in _rm: _bad33.append(f'routemap.js 里没有署名文字“{_w}”')
+if "var STYLE_URL = 'https://tiles.openfreemap.org/styles/liberty';" not in _rm: _bad33.append('样式地址不是 https://tiles.openfreemap.org/styles/liberty')
+if re.search(r'[?&](key|api_?key|access_?token|token|apikey)=', _rm, re.I): _bad33.append('routemap.js 里有带 Key / token 的地址（不许用要 Key 的服务）')
+if re.search(r'mapbox|maptiler|stadia|amap\.com/maps|webapi\.amap|api\.map\.baidu|googleapis\.com/maps', _rm, re.I): _bad33.append('routemap.js 引用了要 Key / 付费的地图服务')
+_san33 = re.sub(r"'(?:[^'\\\n]|\\.)*'|\"(?:[^\"\\\n]|\\.)*\"", lambda m_: 'S' * len(m_.group(0)), re.sub(r'/\*.*?\*/', '', _rm, flags=re.S))
+_san33 = re.sub(r'(?<![:\w/"\'])//[^\n]*', '', _san33)
+_es33 = [w_ for pat_, w_ in ((r'=>', '箭头函数'), (r'`', '模板字符串'), (r'\?\.[A-Za-z_\[(]', '?.'), (r'\?\?', '??'), (r'flatMap', 'flatMap'), (r'\.at\(', '.at()'), (r'(?<![\w.$])(?:let|const)\s', 'let/const'), (r'\.\.\.[A-Za-z\[(]', '展开/剩余')) if re.search(pat_, _san33)]
+if _es33: _bad33.append('routemap.js 用了 ES5 之外的语法：' + '、'.join(_es33))
+_mlj = open('site_src/maplibre/maplibre-gl.js', encoding='utf-8').read() if os.path.exists('site_src/maplibre/maplibre-gl.js') else ''
+for _k in re.findall(r"'(CooperativeGesturesHandler\.\w+)'", _rm):      # 单指留给页面滚动的提示文字：键名写错了 maplibre 会悄悄退回英文
+    if _k not in _mlj: _bad33.append(f'routemap.js 的 locale 键 {_k} 在 maplibre-gl.js 里不存在（提示会是英文）')
+if len(re.findall(r"'CooperativeGesturesHandler\.\w+'", _rm)) != 3: _bad33.append('routemap.js 的合作手势提示应有 3 个 locale 键（手机 / Windows / Mac）')
+if "'/assets/routemap.js'+q" not in _sj: _bad33.append("site.js 的“收进行程”存缓存清单里没有 /assets/routemap.js（断网看不了每天的示意图）")
+if 'window.zGcj=npGcj' not in _sj or 'window.zNpMap=' not in _sj or 'window.ZRM_HOST=' not in _sj: _bad33.append('site.js 没有给路线地图留的出口（zGcj / zNpMap / ZRM_HOST）：导航会退回不转坐标、灰点没有')
+if site:
+    for _u in ('assets/routemap.js', 'assets/maplibre/maplibre-gl.js', 'assets/maplibre/maplibre-gl.css', 'assets/maplibre/LICENSE.txt'):
+        _sp_ = os.path.join(site, _u); _src_ = 'site_src/' + _u.replace('assets/', '', 1)
+        if not os.path.exists(_sp_): _bad33.append(f'站里没有 {_u}')
+        elif open(_sp_, 'rb').read() != open(_src_, 'rb').read(): _bad33.append(f'站里的 {_u} 和源码不一样（建站后改过源码，没重建）')
+    import hashlib as _hl3
+    _v_old = _hl3.md5((open('site_src/site.css', encoding='utf-8').read() + open('site_src/site.js', encoding='utf-8').read() + open('site_src/np_model.js', encoding='utf-8').read()).encode()).hexdigest()[:8]
+    _pg33 = open(os.path.join(site, 'trip', 'xa3', 'index.html'), encoding='utf-8').read()
+    if f'/assets/site.js?v={_v_old}' in _pg33: _bad33.append('版本指纹没带上 routemap.js / maplibre（改了它们手机上的旧缓存不会失效）')
+    for _pp in ('trip/xa3/index.html', 'trip/xb96a/index.html', 'index.html', 'where/index.html'):
+        if os.path.exists(os.path.join(site, _pp)):
+            _t_ = open(os.path.join(site, _pp), encoding='utf-8').read()
+            if re.search(r'maplibre|routemap|openfreemap', _t_, re.I): _bad33.append(f'{_pp} 的 HTML 里出现了 maplibre / routemap / openfreemap（应该只在点开后才取）')
+    _sjs = open(os.path.join(site, 'assets', 'site.js'), encoding='utf-8').read()
+    if re.search(r'maplibre|openfreemap', _sjs, re.I): _bad33.append('site.js 里出现了 maplibre / openfreemap（入口之外不该有）')
+if _bad33: fails.append(('路线地图：资源 / 合规处理 / 署名 / ES5 / 点开才取', _bad33))
 
 if fails:
     for title, items in fails:
