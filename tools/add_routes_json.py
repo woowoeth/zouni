@@ -44,7 +44,7 @@ i = s.index('SIGHT = {'); j = s.index('\n}\n', i); block = s[i:j]
 si = {k: v for k, v in SIGHT.items() if "'%s':" % k not in block and "'" not in k}
 a = "'拜将坛': '汉中刘邦拜韩信为大将的地方',"
 assert s.count(a) == 1
-s = s.replace(a, a + '\n' + ''.join("    '%s': '%s',\n" % kv for kv in si.items() if "'" not in kv[1]).rstrip('\n'))
+if any("'" not in kv[1] for kv in si.items()): s = s.replace(a, a + '\n' + ''.join("    '%s': '%s',\n" % kv for kv in si.items() if "'" not in kv[1]).rstrip('\n'))   # 没有新增就不动文件（原来每次白加一个空行，入库不幂等）
 i = s.index('DEEP = {'); j = s.index('\n}\n', i); block = s[i:j]
 de = {k: v for k, v in DEEP.items() if "'%s':" % k not in block and "'" not in k and "'" not in v}
 a = "DEEP = {   # “懂一点”的补充段落：时间轴那一行只是一句话，这里讲来历和看点；只写核对过的\n"

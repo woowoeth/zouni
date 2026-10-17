@@ -254,7 +254,7 @@ def candidates_for(W, rid, di, i, kind, known=None, with_budget=True):
             shift = int(round(delta)) + c['d']
             new_row = {'s': arrive, 'e': arrive + c['d'], 'k': 'fun'}
             rows_ = trial_rows(dm, i, shift, new_row)
-            inputs = {'A': Spt, 'B': C, 'X': X, 't0': t0c, 'mode': mode}
+            inputs = {'A': Spt, 'B': C, 'X': X, 't0': t0c, 'mode': mode, 'P': A}      # P：S 的前一个点——“离参照点 ≤35 公里”的参照点是 [S, P, B]（和 site.js 一致）
         else:
             if not M.replace_near(Spt, X, mode):
                 continue

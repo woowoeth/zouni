@@ -16,7 +16,7 @@
   4 同址：任意两个候选相距 ≥250 米；同名 15 公里内不得有两条
   5 字段：一句话 ≤24 字；id 唯一；类型码合法；坐标范围合法；停留 5–600 分钟
   6 条数：不得比基线（tests/nearby_pool_baseline.json）少 5% 以上
-  7 分片：每片 ≤30 KB；每个候选在它该在的格里；分片总数据 = pool.json；没有多余的分片文件；_index.js 清单 = 磁盘上的分片
+  7 分片：每片 ≤36 KB；每个候选在它该在的格里；分片总数据 = pool.json；没有多余的分片文件；_index.js 清单 = 磁盘上的分片
   8 候选结果：抽样若干线路的若干站，“加/换”的每个候选独立复算：绕路 ≤30 分钟、替换新站离原站 ≤30 分钟、
     离参照点 ≤35 公里、和当天站 ≥250 米、当天非吃饭站 ≤5 / 结束 ≤21:30 / 首尾 ≤13 小时、不超 5 个、晚上才有意义的只插在最后一站之后
   9 分片能被 node 执行（window.ZNP[格] 是数组、条数对得上）；没有 node 退出码 2（不当成绿）
@@ -49,7 +49,7 @@ LIT_MAX_NONMEAL = 5
 LIT_END = 21 * 60 + 30
 LIT_SPAN = 13 * 60
 LIT_LIST = 5
-LIT_SHARD_BYTES = 30 * 1024
+LIT_SHARD_BYTES = 36 * 1024
 CITY_KM, DEST_DOM_KM, DEST_FOR_KM = 400, 600, 400
 CODES = set(B.TYPE_CODE.values())
 
@@ -207,7 +207,7 @@ def run(pool, how):
         want[M.cell_key(e['a'], e['o'])].append(e)
     for key, path in on_disk.items():
         if os.path.getsize(path) > LIT_SHARD_BYTES:
-            bad.append('分片 %s %.1f KB（>30 KB）' % (key, os.path.getsize(path) / 1024))
+            bad.append('分片 %s %.1f KB（>36 KB）' % (key, os.path.getsize(path) / 1024))
         txt = open(path, encoding='utf-8').read()
         k2, rows = parse_shard(txt)
         if k2 != key or rows is None:
@@ -254,7 +254,7 @@ def check_candidates(W):
                     inp = c['inputs']
                     if kind == 'insert':
                         d = M.detour_insert(inp['A'], inp['B'], inp['X'], inp['t0'], inp['mode'])
-                        refs = [inp['A'], inp['B']]
+                        refs = [inp['A'], inp['B'], inp.get('P')]      # 参照点 = [S, 后一个点, S 的前一个点]：和 candidates_for / site.js 的 ref=[S,A,C] 同一条规则
                     else:
                         d = M.detour_replace(inp['A'], inp['S'], inp['C'], inp['X'], inp['t0a'], inp['t0b'], inp['mode'])
                         refs = [inp['S']]

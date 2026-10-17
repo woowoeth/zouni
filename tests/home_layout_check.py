@@ -96,7 +96,7 @@ o.gaps=gaps;
 // c 等高 / d 对齐
 const eq=[];
 const H=(name,els)=>{els=els.filter(vis);if(els.length>1)eq.push({name,hs:els.map(e=>+e.getBoundingClientRect().height.toFixed(1))})};
-H('频道三格等高',qa('.chan2 a'));H('天数chip 等高',qa('.dchips button'));
+H('频道四格等高',qa('.chan2 a'));H('天数chip 等高',qa('.dchips button'));
 qa('.pick .pkr').forEach((r,i)=>H('挑三条 第'+(i+1)+'行 chip 等高',[...r.querySelectorAll('button')]));
 const si=q('.hsearch input'),sb=q('.hsearch button');
 eq.push({name:'搜索框和“搜”等高',hs:[si.getBoundingClientRect().height,sb.getBoundingClientRect().height]});
@@ -112,6 +112,7 @@ o.chipc=chipc;o.al=al;
 const mb0=q('.minebtn');if(mb0){const sv=mb0.querySelector('svg'),sp=txt(mb0.querySelector('span')),br=mb0.getBoundingClientRect(),sr=sv.getBoundingClientRect();o.mine={gap:sp.l-sr.right,pl:sr.left-br.left,pr:br.right-sp.r}};
 // 搜索框文字 / 搜 中线
 o.search_txt={d:Math.abs(cy(si)-cy(sb))};
+o.grid=qa('.chan2 a').map(R);   // 频道 2×2 的四个格
 // 频道格内字左缘
 o.chan=qa('.chan2 a').map(a=>{const ar=a.getBoundingClientRect();const b=txt(a.querySelector('b')),s=txt(a.querySelector('small'));return {pl:b.l-ar.left,dl:Math.abs(b.l-s.l),sh:a.querySelector('small').getBoundingClientRect().height,sfs:parseFloat(getComputedStyle(a.querySelector('small')).fontSize),slh:parseFloat(getComputedStyle(a.querySelector('small')).lineHeight)||0}});
 // 卡片
@@ -128,7 +129,7 @@ o.clip=[];qa('article.home .tx *, article.home .chan2 *, article.home .cv *, art
 // f 触控（有效点击高度）
 const sels=['.minebtn','.cv .go','.hsearch input','.hsearch button','.chan2 a','.pick .pkh','.pick .pkr button','.datebar .hdt','.dchips button','#now .items li:not([hidden]) h3 a','.moreb','.allbar','footer.foot a,.foot a'];
 o.tap=[];
-sels.forEach(s=>{qa(s).filter(vis).slice(0,3).forEach(e=>{e.scrollIntoView({block:'center',inline:'nearest'});const b=e.getBoundingClientRect();let x=(b.left+b.right)/2;if(x<2||x>innerWidth-2)return;
+sels.forEach(s=>{qa(s).filter(vis).slice(0,3).forEach(e=>{e.scrollIntoView({block:'center',inline:'nearest',behavior:'instant'});const b=e.getBoundingClientRect();let x=(b.left+b.right)/2;if(x<2||x>innerWidth-2)return;
  let cyy=(b.top+b.bottom)/2;const inEl=y=>{const h=document.elementFromPoint(x,y);return !!h&&(h===e||e.contains(h))};
  if(!inEl(cyy))return;let up=cyy,dn=cyy;while(inEl(up-1)&&cyy-up<80)up--;while(inEl(dn+1)&&dn-cyy<80)dn++;
  o.tap.push({name:s+' '+e.textContent.trim().slice(0,8),h:dn-up+1,w:b.width})})});
@@ -192,7 +193,10 @@ def judge(o, ctx, w, state):
         rec('d “我的行程”按钮：图标和字的间距 <= 8，左右内边距相等', m['gap'] <= 8 and abs(m['pl'] - m['pr']) <= 2, ctx, f"图标到字 {m['gap']:.0f}，左 {m['pl']:.0f} 右 {m['pr']:.0f}")
     rec('d 搜索框和“搜”中线一致', o['search_txt']['d'] <= TOL, ctx)
     ch = o['chan']
-    rec('d 频道格里字的左内边距三格相同', len(set(round(c['pl'], 1) for c in ch)) == 1, ctx, str([round(c['pl'], 1) for c in ch]))
+    gr = o['grid']
+    rec('b 频道是 2×2：四格，第一行两格同顶、第二行两格同顶、两列左缘各自对齐', len(gr) == 4 and abs(gr[0]['t'] - gr[1]['t']) <= TOL and abs(gr[2]['t'] - gr[3]['t']) <= TOL and abs(gr[0]['l'] - gr[2]['l']) <= TOL and abs(gr[1]['l'] - gr[3]['l']) <= TOL and gr[2]['t'] > gr[0]['b'] - TOL, ctx, str([(round(x['l']), round(x['t'])) for x in gr]))
+    rec('b 频道 2×2 的行距、列距都是 8，四格等宽', len(gr) == 4 and abs(gr[2]['t'] - gr[0]['b'] - 8) <= TOL and abs(gr[1]['l'] - gr[0]['r'] - 8) <= TOL and max(x['w'] for x in gr) - min(x['w'] for x in gr) <= TOL, ctx, str([(round(x['w']), round(x['h'])) for x in gr]))
+    rec('d 频道格里字的左内边距四格相同', len(set(round(c['pl'], 1) for c in ch)) == 1, ctx, str([round(c['pl'], 1) for c in ch]))
     rec('d 频道格里标题和副标题左缘一致', all(c['dl'] <= TOL for c in ch), ctx)
     rec('d 频道格副标题不换行（不出现落单字）', all(c['sh'] <= c['sfs'] * 1.6 for c in ch), ctx, str([round(c['sh'], 1) for c in ch]))
     # e 溢出
@@ -213,6 +217,8 @@ INJECTIONS = {
     # 名称: (css, 应该变红的判据前缀)
     '搜索→频道 间距 8→10': ('.chan2{margin-top:10px!important}', 'b 同一种关系'),
     '频道格左缘 +3': ('.chan2{margin-left:23px!important}', 'a 左缘'),
+    '频道变回一行': ('.chan2{flex-wrap:nowrap!important}', 'b 频道是 2×2'),
+    '频道行距 8→12': ('.chan2{row-gap:12px!important}', 'b 频道 2×2 的行距'),
     '搜索框高度 44→40': ('.hsearch input{height:40px!important}', 'c 搜索框和“搜”等高'),
     '“改”下沉 6px': ('.datebar .hdt i{position:relative;top:6px}', 'd 日期条'),
     '天数 chip 铺不到边缘': ('.dchips{margin-right:0!important;padding-right:0!important}', 'e 横向滚动的行'),

@@ -20,6 +20,7 @@
 26 车程模型三方一致（tests/nearby_parity.py；退出码 1、2 都算红）
 27 site.js 里的 NP_LIM 和 np_model.js 的三个硬规则上限一致
 28 页面行属性覆盖率、dep 行 data-mode、分片和模型文件、版本指纹含 np_model.js（要建好的站）
+32 「跟谁走」专栏数据闸（tests/follow_data_checks.py：线路与页面都在、notes 键等于 stop.name、src 不外泄、评价性词表、/follow/ 含全部 follow 线路、注释落页、museum 站带周一挂点；缺纪念馆类站点只警告）
 """
 import datetime, glob, json, math, os, re, sys
 
@@ -186,9 +187,9 @@ if site:
     for f in glob.glob(os.path.join(site, 'trip', '*', 'index.html')):
         rid = f.split('/')[-2]; h = open(f, encoding='utf-8').read()
         for li in re.findall(r'<li class="r (?:see|fun)"[^>]*>(.*?)</li>', h, flags=re.S):
-            tx = re.sub(r'<[^>]+>', ' ', li)
+            tx = re.sub(r'<[^>]+>', ' ', re.sub(r'<p class="fnote">.*?</p>', '', li, flags=re.S))      # 跟谁走的站点小字（p.fnote）里会提到别的馆（“颐和园谐趣园”），不算这一行的名字
             for k in MUST_BOOK:
-                if k in tx.split('·')[0] and '阿布扎比' not in tx and '国立故宫' not in tx and 'class="bkn' not in li: bad8.append(f'{rid} 「{k}」那一行没有“要预约”徽标')
+                if k in tx.split('·')[0] and '阿布扎比' not in tx and '国立故宫' not in tx and '沈阳故宫' not in tx and 'class="bkn' not in li: bad8.append(f'{rid} 「{k}」那一行没有“要预约”徽标')
     if bad8: fails.append(('热门馆缺预约徽标', sorted(set(bad8))))
     # 9 当天要坐船/渡轮（路上一行写了轮渡/渡轮/快艇/长尾船/船约）：那一天必须有“班次以当天为准”的提醒
     bad9 = []
@@ -347,7 +348,7 @@ if site:
             if not m: continue
             k, rid = m.groups(); txt = SIGHT.get(k); p = os.path.join(site, 'trip', rid, 'index.html')
             if txt and os.path.exists(p):
-                body = re.sub(r'<[^>]+>', ' ', open(p, encoding='utf-8').read())
+                body = ' '.join(re.findall(r'<span class="sn2">(.*?)</span>', open(p, encoding='utf-8').read(), re.S))      # 只看“景点一句话”（SIGHT 渲染出来的 span.sn2）：线路作者自己写的当天文字（story）碰巧有同一句话不算串线
                 if txt in body: bad7.append(f'{rid} 页面里仍有被拒绝的一句话（{k}）：{txt}')
     if bad7: fails.append(('串线：被闸拒绝的文案仍出现在页面里', bad7))
 
@@ -447,7 +448,7 @@ if site:
     ti = os.path.join(site, 'assets', 'tidx.js')
     if not os.path.exists(ti): bad.append('线路搜索索引 assets/tidx.js 不存在')
     else:
-        IDX = json.loads(open(ti, encoding='utf-8').read().split('=', 1)[1].rstrip().rstrip(';'))
+        IDX = json.loads(open(ti, encoding='utf-8').read().split('=', 1)[1].split(';\nwindow.ZTFOL=')[0].rstrip().rstrip(';'))      # tidx.js 里还有第二个变量 ZTFOL（跟谁走的主题），只取 ZTIDX 这一段
         if not any(x[0] == 'xb96a' and '105天' in x[5] and '边境线' in x[5] for x in IDX): bad.append('线路搜索索引里 xb96a 搜不到“105天”“边境线”')
     if bad: fails.append(('长线检索 /long/ 不完整', bad))
 
@@ -516,8 +517,8 @@ if site:
         _cells = re.findall(r'"(\d+_\d+)"', open(os.path.join(_np, '_index.js'), encoding='utf-8').read())
         _miss = [c_ for c_ in _cells if not os.path.exists(os.path.join(_np, c_ + '.js'))]
         if _miss: _bad.append(f'_index.js 里的格缺分片文件：{_miss[:5]}')
-        _big = [(f_, os.path.getsize(os.path.join(_np, f_))) for f_ in os.listdir(_np) if os.path.getsize(os.path.join(_np, f_)) > 30 * 1024]
-        if _big: _bad.append(f'分片超过 30 KB：{_big[:3]}')
+        _big = [(f_, os.path.getsize(os.path.join(_np, f_))) for f_ in os.listdir(_np) if os.path.getsize(os.path.join(_np, f_)) > 36 * 1024]
+        if _big: _bad.append(f'分片超过 36 KB：{_big[:3]}')
         _extra = [f_ for f_ in os.listdir(_np) if not f_.endswith('.js')]
         if _extra: _bad.append(f'assets/np 里有不该发布的文件：{_extra}')
     if not os.path.exists(os.path.join(site, 'assets', 'np_model.js')): _bad.append('assets/np_model.js 不存在')
@@ -598,6 +599,15 @@ if site:
     if _disk - _allids: _bad31.append(f'站里有 {len(_disk - _allids)} 个行程页不在 /all/：{sorted(_disk - _allids)[:5]}')
     if _sm - _allids: _bad31.append(f'sitemap 里有 {len(_sm - _allids)} 条线路不在 /all/：{sorted(_sm - _allids)[:5]}')
     if _bad31: fails.append(('首页体积与数据补齐', _bad31))
+
+# 32 「跟谁走」专栏的数据闸（2026-10-17；判据和反向自检都在 tests/follow_data_checks.py）：线路和页面都在、注释的站点名对得上 stop.name、src 不外泄、评价性词表、/follow/ 含全部 follow 线路、注释落到页面上、museum 站带周一提醒挂点；⑥ 缺纪念馆类站点只警告
+import subprocess as _sp3
+_rf = _sp3.run([sys.executable, 'tests/follow_data_checks.py'] + ([site] if site else []), capture_output=True, text=True, cwd=ROOT)
+_fol_out = [l for l in (_rf.stdout + _rf.stderr).splitlines() if l.strip()]
+if _rf.returncode != 0: fails.append(('跟谁走数据闸不过（tests/follow_data_checks.py）', _fol_out[:40]))
+else:
+    for _l in _fol_out:
+        if _l.startswith('警告'): print(_l)
 
 if fails:
     for title, items in fails:

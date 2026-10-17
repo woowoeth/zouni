@@ -4,9 +4,10 @@
 用法（项目根目录；先 bash build/pipe.sh build/site 建好站）：
     python3 tests/home_ux_check.py build/site            # 全部通过退出码 0，否则 1 并列出每条
     python3 tests/home_ux_check.py build/site --shots /tmp/home_shots   # 同时存截图（给人看，不参与判定）
+    python3 tests/home_ux_check.py build/site --inject chan_flat|chan_missing   # 反向自检（2026-10-17，2×2 频道）：只改送到浏览器的页面，必须有判据变红
 
 自己起一个本地静态服务（不占固定端口），用 playwright chromium：
-  场景 A  手机第一次打开：390×844 首屏必须同时看到 搜索框 + 频道三格；封面不吃掉整屏；封面有图
+  场景 A  手机第一次打开：390×844 首屏必须同时看到 搜索框 + 频道四格（2×2：走哪儿 / 跟片走 / 跟谁走 / 长线自驾）；封面不吃掉整屏；封面有图
   场景 B  我有 N 天：天数 chip 在“现在去正好”里；点“周末”只剩周末的卡；列表首屏只露 8 张，有“再看”，点一下再多露一批，不丢功能
   场景 C  我知道去哪：搜索框在“替我挑三条”之前；输入后提交到 /where/?q=
   场景 D  逛逛：卡片没有“翻开 ›”按钮、没有重复的“正当季/今天最后一天/xx 月白天…夜里…”多行；整张卡可点
@@ -22,6 +23,9 @@ from playwright.sync_api import sync_playwright
 site = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 and not sys.argv[1].startswith('--') else os.path.abspath('build/site')
 shots = sys.argv[sys.argv.index('--shots') + 1] if '--shots' in sys.argv else None
 if shots: os.makedirs(shots, exist_ok=True)
+INJECT = sys.argv[sys.argv.index('--inject') + 1] if '--inject' in sys.argv else None
+INJ_CSS = {'chan_flat': '.chan2{flex-wrap:nowrap!important}', 'chan_missing': '.chan2 a[href="/follow/"]{display:none!important}'}
+if INJECT and INJECT not in INJ_CSS: sys.exit('--inject 只认 ' + ' / '.join(INJ_CSS))
 
 class Q(http.server.SimpleHTTPRequestHandler):
     def log_message(self, *a): pass
@@ -55,6 +59,7 @@ with sync_playwright() as p:
         return c, pg
     def load(pg):
         pg.goto(B + '/', wait_until='networkidle'); pg.wait_for_timeout(600)
+        if INJECT: pg.add_style_tag(content=INJ_CSS[INJECT]); pg.wait_for_timeout(100)
     R = lambda pg, sel: pg.evaluate("(s)=>{const e=document.querySelector(s);if(!e)return null;const r=e.getBoundingClientRect();return {t:r.top+scrollY,b:r.bottom+scrollY,l:r.left,r:r.right,h:r.height,w:r.width,vis:!e.hidden&&r.height>0}}", sel)
 
     # ———— 手机 · 亮色 ————
@@ -67,11 +72,12 @@ with sync_playwright() as p:
     n_w = pg.evaluate("document.querySelectorAll('article.home a[href=\"/where/\"]').length")
     check('通用 首页内容区只有 1 处指向 /where/（频道那一格；列表后面的“全部目的地”长条是重复入口，已去掉）', n_w == 1, f'{n_w} 处')
     chan = pg.evaluate("[...document.querySelectorAll('.chan2 a')].map(a=>a.getAttribute('href'))")
-    check('通用 频道三格 = /where/ /pian/ /long/', chan == ['/where/', '/pian/', '/long/'], str(chan))
+    check('通用 频道四格 = /where/ /pian/ /follow/ /long/（走哪儿 / 跟片走 / 跟谁走 / 长线自驾）', chan == ['/where/', '/pian/', '/follow/', '/long/'], str(chan))
     # A：首屏
-    s, ch = R(pg, '.hsearch'), [R(pg, f'.chan2 a:nth-child({i})') for i in (1, 2, 3)]
+    s, ch = R(pg, '.hsearch'), [R(pg, f'.chan2 a:nth-child({i})') for i in (1, 2, 3, 4)]
     check('A 390×844 首屏看得到搜索框', bool(s) and s['b'] <= 844, str(s))
-    check('A 390×844 首屏看得到频道三格', all(x and x['b'] <= 844 for x in ch), str([x and x['b'] for x in ch]))
+    check('A 频道是 2×2（第 1、2 格同一行，第 3、4 格在下一行，两列各自左对齐）', all(ch) and abs(ch[0]['t'] - ch[1]['t']) <= 1 and abs(ch[2]['t'] - ch[3]['t']) <= 1 and ch[2]['t'] >= ch[0]['b'] - 1 and abs(ch[0]['l'] - ch[2]['l']) <= 1 and abs(ch[1]['l'] - ch[3]['l']) <= 1, str([x and (round(x['l']), round(x['t'])) for x in ch]))
+    check('A 390×844 首屏看得到频道四格', all(x and x['b'] <= 844 for x in ch), str([x and x['b'] for x in ch]))
     cov = R(pg, '.cover')
     check('A 封面不吃掉整屏（高 <= 380）', cov and cov['h'] <= 380, str(cov and cov['h']))
     img = pg.evaluate("(()=>{const i=document.querySelector('.cover img');return i?{ok:i.complete&&i.naturalWidth>0,src:i.getAttribute('src')}:null})()")
@@ -161,8 +167,8 @@ with sync_playwright() as p:
 
     # 桌面 1280
     c, pg = ctx(1280, 800, mobile=False); load(pg)
-    s, ch = R(pg, '.hsearch'), [R(pg, f'.chan2 a:nth-child({i})') for i in (1, 2, 3)]
-    check('通用 桌面 1280×800 首屏看得到搜索和频道三格', s['b'] <= 800 and all(x['b'] <= 800 for x in ch))
+    s, ch = R(pg, '.hsearch'), [R(pg, f'.chan2 a:nth-child({i})') for i in (1, 2, 3, 4)]
+    check('通用 桌面 1280×800 首屏看得到搜索和频道四格', s['b'] <= 800 and all(x['b'] <= 800 for x in ch))
     check('通用 桌面无横向溢出', pg.evaluate("document.documentElement.scrollWidth-innerWidth") <= 0)
     if shots: pg.screenshot(path=f'{shots}/home_1280_fold.png')
     c.close()
@@ -172,4 +178,7 @@ check('通用 控制台没有报错', not errs, '; '.join(errs[:5]))
 for x in oks: print('✓', x)
 for x in fails: print('✗', x)
 print(f'\n{len(oks)} 过 · {len(fails)} 红')
+if INJECT:
+    hit = [f for f in fails if '频道' in f or '2×2' in f]
+    print(('红（正确）' if hit else '没红（判据有洞）'), '·', INJECT, '→', hit[:1]); sys.exit(0 if hit else 2)
 sys.exit(1 if fails else 0)

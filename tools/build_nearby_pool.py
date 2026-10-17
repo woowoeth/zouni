@@ -61,7 +61,7 @@ MERGE_CONTAIN_KM = 1.5     # 名字互相包含 1.5 公里内合并
 MERGE_SPOT_KM = 0.25       # 250 米内视为同处，合并（大雁塔 + 大慈恩寺）
 SENT_MAX = 24
 GENERIC2 = set('景区 公园 风景 名胜 旅游 博物 物馆 纪念 念馆 古城 古镇 老街 步行 街区 中心 广场 大街 遗址 保护 国家 森林 湿地 地质 世界 文化 历史 风情 度假 大桥 故居 公馆 美术 术馆 景点 国家森林 风景区 旅游区 自然 保护区 管理 管理局'.split())
-SHARD_MAX_BYTES = 30 * 1024
+SHARD_MAX_BYTES = 36 * 1024
 
 
 def load(p):
@@ -506,7 +506,7 @@ def build(quiet=False):
     print('  类型：' + ' '.join('%s %d' % kv for kv in bytype.most_common()))
     print('  有一句话 %d · 有门票/时间信息 %d · 要预约 %d · 晚上才有意义 %d · 坐标近似 %d' % (
         stats['with_sentence'], stats['with_ticket'], stats['with_booking'], stats['evening'], stats['approx']))
-    print('分片（3° 网格）：%d 片 · 共 %.1f KB（gzip %.1f KB）· 中位 %.1f KB · 最大 %s = %.1f KB · 超过 30 KB 的片 %d' % (
+    print('分片（3° 网格）：%d 片 · 共 %.1f KB（gzip %.1f KB）· 中位 %.1f KB · 最大 %s = %.1f KB · 超过 36 KB 的片 %d' % (
         stats['shards'], stats['shard_total_bytes'] / 1024, gz_total / 1024, stats['shard_median_bytes'] / 1024, stats['shard_max_key'], stats['shard_max_bytes'] / 1024, len(stats['shard_over_limit'])))
     print('输出：%s' % os.path.relpath(OUT, ROOT))
     return stats
