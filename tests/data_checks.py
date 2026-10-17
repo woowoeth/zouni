@@ -574,13 +574,29 @@ if site:
         if len(_A) + 8 != _cnt: _bad31.append(f'A 组 {len(_A)} + 8 ≠ 页面上写的“全部 {_cnt}”')
         if any(len(r) != 26 for r in _A + _Bd): _bad31.append('A/B 数据行不是 26 列')
         _ids = {r[0] for r in _A + _Bd} | set(re.findall(r'href="/trip/([^/"]+)/"', _now))
-        _idx = set(re.findall(r'href="/trip/([^/"]+)/"', _hp[_hp.index('class="allidx"'):]))
+        _ap = open(os.path.join(site, 'all', 'index.html'), encoding='utf-8').read() if os.path.exists(os.path.join(site, 'all', 'index.html')) else ''
+        _idx = set(re.findall(r'href="/trip/([^/"]+)/"', _ap))
         _miss = [i for i in _ids if i not in _idx]
-        if _miss: _bad31.append(f'首页上出现过的 {len(_miss)} 条线路在“全部线路目录”里没链接：{_miss[:5]}')
+        if _miss: _bad31.append(f'首页上出现过的 {len(_miss)} 条线路在 /all/ 里没链接：{_miss[:5]}')
     except Exception as _e: _bad31.append(f'读不了 home-a/b.js：{_e}')
     _sm = set(re.findall(r'/trip/([^/<]+)/', open(os.path.join(site, 'sitemap.xml'), encoding='utf-8').read()))
-    _idx2 = set(re.findall(r'href="/trip/([^/"]+)/"', _hp[_hp.index('class="allidx"'):])) if 'class="allidx"' in _hp else set()
-    if _sm - _idx2: _bad31.append(f'sitemap 里有 {len(_sm - _idx2)} 条线路不在首页的“全部线路目录”里：{sorted(_sm - _idx2)[:5]}')
+    if '全部线路目录' in _hp or 'allidx' in _hp: _bad31.append('首页上不该再有“全部线路目录”（只留 /all/ 给搜索引擎）')
+    _smt = open(os.path.join(site, 'sitemap.xml'), encoding='utf-8').read()
+    if '/all/</loc>' not in _smt: _bad31.append('sitemap.xml 里没有 /all/')
+    if '/all/' not in open(os.path.join(site, 'llms.txt'), encoding='utf-8').read(): _bad31.append('llms.txt 里没有 /all/')
+    _ap = open(os.path.join(site, 'all', 'index.html'), encoding='utf-8').read() if os.path.exists(os.path.join(site, 'all', 'index.html')) else ''
+    if not _ap: _bad31.append('没有 /all/index.html')
+    elif re.search(r'<meta name="robots"[^>]*noindex', _ap): _bad31.append('/all/ 不该 noindex')
+    # 从 trips.json 出发：每条在站里有行程页的线路，/all/ 里都要有链接（缺一条就红）
+    _allids = set(re.findall(r'href="/trip/([^/"]+)/"', _ap))
+    _tj = json.load(open('data/catalog/trips.json', encoding='utf-8'))['trips']
+    _tids = {(t_.get('engineRoute') or (re.match(r'Route\.dc\.html#(\w+)', t_.get('page') or '') or [None, t_['id']])[1]) for t_ in _tj}
+    _have = {i for i in _tids if os.path.exists(os.path.join(site, 'trip', i, 'index.html'))}
+    if len(_have) < 1000: _bad31.append(f'trips.json 对得上行程页的只有 {len(_have)} 条，判据可能失效')
+    if _have - _allids: _bad31.append(f'trips.json 里有 {len(_have - _allids)} 条有行程页的线路不在 /all/：{sorted(_have - _allids)[:5]}')
+    _disk = {d_ for d_ in os.listdir(os.path.join(site, 'trip')) if os.path.exists(os.path.join(site, 'trip', d_, 'index.html'))}
+    if _disk - _allids: _bad31.append(f'站里有 {len(_disk - _allids)} 个行程页不在 /all/：{sorted(_disk - _allids)[:5]}')
+    if _sm - _allids: _bad31.append(f'sitemap 里有 {len(_sm - _allids)} 条线路不在 /all/：{sorted(_sm - _allids)[:5]}')
     if _bad31: fails.append(('首页体积与数据补齐', _bad31))
 
 if fails:

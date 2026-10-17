@@ -139,6 +139,28 @@ def _offseason(c, month):
         if w_ in h and not (a_ <= month <= b_): return True
     return False
 CUR_CITY = [None]
+# ——— 2026-10-17 国外线时间表常识 ———
+# 晚饭默认时间：欧洲多数餐厅 19:00 后才开（欧洲 19:30，西班牙/意大利 20:00）；日本、东南亚、国内维持原来的 18:30（“出发 → 吃晚饭”18:10，饭 18:30）。
+# 只改默认：作者在数据里写明的 at（定点）不动。MEAL0 = 最早开饭的钟点（分钟）；DEP_T = 从住处出发去吃晚饭的钟点 = 饭点 - 20 分钟（国内保持 18:10）
+EU_REGION = {x['id'] for x in json.load(open('data/destinations.json')).get('world', []) if x.get('region') == '欧洲'}
+def meal0_of(dest):
+    if dest in ('spain', 'italy'): return 20 * 60
+    if dest in EU_REGION: return 19 * 60 + 30
+    return 18 * 60
+# 机场/车站 → 住处的默认分钟（按城市类型，不写具体班次）：市区机场远的大城市 60；机场离市区很近的紧凑城市 30；山、岛、湖、村、镇这类要转车的 75；其余 45
+AIR_FAR = {'东京', '大阪', '京都', '首尔', '伦敦', '伊斯坦布尔', '雷克雅未克', '吉隆坡', '开罗', '米兰', '纽约', '曼谷', '札幌', '釜山', '福冈', '广岛', '慕尼黑', '布鲁塞尔'}
+AIR_NEAR = {'新加坡', '迪拜', '马德里', '里斯本', '阿姆斯特丹', '维也纳', '马累', '马拉喀什', '悉尼', '拉斯维加斯', '旧金山', '赫尔辛基', '都柏林', '布拉格', '巴塞罗那', '多哈', '塔什干', '第比利斯', '安曼', '雅典'}
+AIR_REMOTE = re.compile(r'岛|湖|村|镇|谷|山|沙漠|港$|角$|格伦达')
+def air_min(city):
+    c = city or ''
+    if c in AIR_FAR: return 60
+    if c in AIR_NEAR: return 30
+    if AIR_REMOTE.search(c): return 75
+    return 45
+# 瑞士、奥地利：缆车、齿轨火车、登山火车是山里的常态，自动配的“打车”不对
+ALPINE = {'switzerland', 'austria'}
+MOUNT_RE = re.compile(r'缆车|齿轨|索道|登山|山顶|少女峰|铁力士|马特洪|皮拉图斯|里吉|格拉特|冰川|山$|峰$|观景台')
+TRAIL_RE = re.compile(r'步道|徒步|小径|栈道|环湖')
 _DISH_PLACE = {}
 for _p_, _l_ in REGION_FOOD.items():
     for _f_, _pl_ in _l_:
@@ -169,6 +191,7 @@ GENERIC_MEAL = ['当地家常菜', '时令蔬菜小炒', '街边小吃', '本地
 for rid, it in IT.items():
     dest = CAT[it['dest']]; city = it['city']; CUR_CC[0] = CC.get(it['dest'], 'cn'); SELF[0] = bool(it.get('drive')); SELFV[0] = SELF[0] or any((st_.get('via') or '').startswith('自驾') for d_ in it['days'] for st_ in d_['stops'])
     base = (dest['base']['lat'], dest['base']['lng'])
+    MEAL0 = meal0_of(it['dest']); DEP_T = MEAL0 - 20 if MEAL0 > 18 * 60 else 18 * 60 + 10; AT_EVE = MEAL0 + 60 if MEAL0 > 18 * 60 else 18 * 60; ABROAD = it['dest'] in ASIA_CC; ALP = it['dest'] in ALPINE
     cg = geocode(city, city, None)                      # 以行程所在城市为中心，不用省会
     if cg and km(base, (cg['lat'], cg['lng'])) < 2500: base = (cg['lat'], cg['lng'])   # 离省会远的城市（喀什、札幌、天水）也认
     eat_pool = list(dest['eat']); days = []; n = len(it['days']); drive_tot = 0; longest = 0; carry = None
@@ -191,6 +214,8 @@ for rid, it in IT.items():
         far = lambda p: p and km(p, dbase) > 60   # 当天已经到了另一座城：回住处就留在当地
         RURAL[0] = it['dest'] not in ASIA_CC and dcity not in BIG_CITIES
         t = mm(d.get('start', '09:00')); prev = carry or dbase; rows = []; lunched = t >= 13 * 60; dined = False; drive = 0
+        if di == 0 and ABROAD:      # 到达日：第一行写“抵达 + 机场到住处”，之后的行整体顺延这段路（作者写的 start 当作落地的钟点）
+            _am = air_min(dcity); rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': f'抵达后从机场到住处约 {_am} 分钟', 'arr': 1}); t += _am
         legmax = 0; legmax_how = ''
         rt_ = (not last) and (it['days'][di + 1].get('city', city) == dcity) and (not d.get('stay') or stay_ok or (sc is None and dcity in d['stay'])) and (not prev or km(prev, stay_pt) < 60)     # 今天出发时就在今晚住处附近（前一晚住在别处的搬家日不算）；第二天还以同一座城为基点、而且今晚住的就是这座城（或没写住处）：今天是当天来回；写明住在远处的是搬家日
         meal_i = di
@@ -229,24 +254,26 @@ for rid, it in IT.items():
         for si, st in enumerate(d['stops']):
             g = geocode(st.get('q') or st['name'], dcity, dbase, short(st['name'])); pt = (g['lat'], g['lng']) if g else None
             # 晚上的点：先吃晚饭
-            dine_there = bool(st.get('at') and mm(st['at']) >= 18 * 60 and (d.get('dinner') or {}).get('place') and (d['dinner']['place'] in st['name'] or d['dinner']['place'] in (st.get('q') or '')))
-            if st.get('at') and mm(st['at']) >= 18 * 60 and not dined and not last and not dine_there:
-                if t < 17 * 60 + 30:
-                    _bl = back_leg(prev, stay_pt, far, rt_, 0 if di == 0 else legmax, '' if di == 0 else legmax_how); rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': _bl[0] if _bl else '回去歇一下'}); drive += (_bl[1] if _bl and _bl[2] else 0); t = max(18 * 60 + 10, t + (_bl[1] if _bl else 0)); prev = stay_pt if (stay_ok or _bl) else (prev if far(prev) else stay_pt)
-                rows.append(meal('晚饭', d.get('dinner'), max(t, 18 * 60))); t = max(t, 18 * 60) + 75; dined = True
+            dine_there = bool(st.get('at') and mm(st['at']) >= AT_EVE and (d.get('dinner') or {}).get('place') and (d['dinner']['place'] in st['name'] or d['dinner']['place'] in (st.get('q') or '')))
+            if st.get('at') and mm(st['at']) >= AT_EVE and not dined and not last and not dine_there:
+                if t < DEP_T - 40:
+                    _bl = back_leg(prev, stay_pt, far, rt_, 0 if di == 0 else legmax, '' if di == 0 else legmax_how); rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': _bl[0] if _bl else '回去歇一下'}); drive += (_bl[1] if _bl and _bl[2] else 0); t = max(DEP_T, t + (_bl[1] if _bl else 0)); prev = stay_pt if (stay_ok or _bl) else (prev if far(prev) else stay_pt)
+                rows.append(meal('晚饭', d.get('dinner'), max(t, MEAL0))); t = max(t, MEAL0) + 75; dined = True
             # 到了饭点先吃午饭
             if not lunched and t >= 11 * 60 + 40 and st['type'] != 'food':
                 if t <= 14 * 60 + 30: rows.append(meal('午饭', d.get('lunch'), t)); t += 60
                 lunched = True                                           # 过了两点半就不排“午饭”了，晚上再吃
             how, mins, dist = leg(prev, pt, st.get('via'))
+            if ALP and not st.get('via') and how.startswith(('打车', '包车')) and MOUNT_RE.search(st['name']): how, dist = '火车或缆车', None      # 山里：缆车、齿轨火车上去，不打车
+            elif ALP and not st.get('via') and how.startswith(('打车', '包车')) and TRAIL_RE.search(st['name']): how, dist = '步行或公交', None
             if dine_there and not dined:
-                at0 = max(t + mins, 18 * 60)
+                at0 = max(t + mins, MEAL0)
                 if at0 - mins - t >= 60:
                     if not lunched and 11 * 60 <= t <= 14 * 60:          # 先吃午饭再回去歇
                         rows.append(meal('午饭', d.get('lunch'), max(t, 11 * 60 + 30))); t = max(t, 11 * 60 + 30) + 60; lunched = True
                     _bl = back_leg(prev, stay_pt, far, rt_, 0 if di == 0 else legmax, '' if di == 0 else legmax_how); rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': _bl[0] if _bl else '回去歇一下'}); drive += (_bl[1] if _bl and _bl[2] else 0); t += (_bl[1] if _bl else 0); prev = stay_pt if (stay_ok or _bl) else (prev if far(prev) else stay_pt)
                     how, mins, dist = leg(prev, pt, st.get('via'))     # 歇完从住处出发，路程按住处算
-                    at0 = max(t + mins, 18 * 60)
+                    at0 = max(t + mins, MEAL0)
                 t = at0 - mins
             elif st.get('at'):
                 gap = mm(st['at']) - mins - t
@@ -278,13 +305,13 @@ for rid, it in IT.items():
         if not lunched and 12 * 60 <= t <= 14 * 60 + 30:
             rows.append(meal('午饭', d.get('lunch'), t)); t += 60; lunched = True
         if last:
-            rows.append({'t': hm(t + 10), 'type': 'dep', 'to': '回程', 'how': '去车站或机场'})
+            rows.append({'t': hm(t + 10), 'type': 'dep', 'to': '回程', 'how': (f'前往机场约 {air_min(dcity)} 分钟，提前 3 小时到' if ABROAD else '去车站或机场：高铁提前 40 分钟到，飞机提前 2 小时到')})
         else:
             if not dined:
-                if t < 17 * 60 + 30:
-                    _bl = back_leg(prev, stay_pt, far, rt_, 0 if di == 0 else legmax, '' if di == 0 else legmax_how); rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': _bl[0] if _bl else '回去歇一下'}); drive += (_bl[1] if _bl and _bl[2] else 0); t = max(18 * 60 + 10, t + (_bl[1] if _bl else 0)); prev = stay_pt if (stay_ok or _bl) else (prev if far(prev) else stay_pt)
-                rows.append({'t': hm(max(t, 18 * 60 + 10)), 'type': 'dep', 'to': '吃晚饭', 'how': '开车或步行' if SELF[0] else '打车或步行'})
-                rows.append(meal('晚饭', d.get('dinner'), max(t, 18 * 60 + 10) + 20)); t = max(t, 18 * 60 + 10) + 95
+                if t < DEP_T - 40:
+                    _bl = back_leg(prev, stay_pt, far, rt_, 0 if di == 0 else legmax, '' if di == 0 else legmax_how); rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': _bl[0] if _bl else '回去歇一下'}); drive += (_bl[1] if _bl and _bl[2] else 0); t = max(DEP_T, t + (_bl[1] if _bl else 0)); prev = stay_pt if (stay_ok or _bl) else (prev if far(prev) else stay_pt)
+                rows.append({'t': hm(max(t, DEP_T)), 'type': 'dep', 'to': '吃晚饭', 'how': '开车或步行' if SELF[0] else '打车或步行'})
+                rows.append(meal('晚饭', d.get('dinner'), max(t, DEP_T) + 20)); t = max(t, DEP_T) + 95
             _bl = back_leg(prev, stay_pt, far, rt_, 0 if di == 0 else legmax, '' if di == 0 else legmax_how); rows.append({'t': hm(t), 'type': 'dep', 'to': '住处', 'how': _bl[0] if _bl else ('开车或步行' if SELF[0] else '打车或步行')}); drive += (_bl[1] if _bl and _bl[2] else 0)
         # 时间必须单调递增
         ts = [mm(w['t']) for w in rows]

@@ -13,6 +13,7 @@ run ux_dates_share   python3 tests/ux_dates_share_check.py "$SITE"
 run ux_toast_touch   python3 tests/ux_toast_touch_check.py "$SITE"
 run ux_state_offline python3 tests/ux_state_offline_check.py "$SITE"
 run ux_home_search   python3 tests/ux_home_search_check.py "$SITE"
+run ux_batch2        python3 tests/ux_batch2_check.py "$SITE"
 run slow3g           python3 tests/slow3g_check.py "$SITE"
 # 首页“替我挑”666 组矩阵：改动前的站上乌鲁木齐周末/4–5 天距离中位数就超限（当季近线少，数据问题，不是代码），所以只对“新增失败”红
 echo "═══ home_matrix"; python3 tests/home_matrix_run.py "$SITE" > /tmp/zouni_check_home_matrix.log 2>&1; tail -4 /tmp/zouni_check_home_matrix.log

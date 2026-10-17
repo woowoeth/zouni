@@ -6590,19 +6590,22 @@ def fit_label(best, m):
 
 
 def extras(trip_desc, dest_desc):
-    urls = ['/', '/where/', '/long/', '/pian/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/yichuan/', '/xiaoye/', '/hexi/', '/shuben/', '/hangpai/', '/laoguang/', '/changjiang/', '/sichou/', '/yingxiang/', '/silu/', '/phil/', '/weizhi/', '/lp/', '/natgeo/', '/jietou/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
+    urls = ['/', '/where/', '/long/', '/pian/', '/all/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/yichuan/', '/xiaoye/', '/hexi/', '/shuben/', '/hangpai/', '/laoguang/', '/changjiang/', '/sichou/', '/yingxiang/', '/silu/', '/phil/', '/weizhi/', '/lp/', '/natgeo/', '/jietou/'] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
     lm = TODAY.isoformat()
     open(os.path.join(OUT, 'sitemap.xml'), 'w', encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         ''.join(f'<url><loc>{BASE}{u}</loc><lastmod>{lm}</lastmod></url>\n' for u in urls) + '</urlset>\n')
     open(os.path.join(OUT, 'robots.txt'), 'w', encoding='utf-8').write(f'User-agent: *\nAllow: /\n\nSitemap: {BASE}/sitemap.xml\n')
     lines = ['# 走你（zouni.app）', '', '> 中文旅行行程网站：按季节挑目的地，按天排好每一站——几点出发、怎么去、吃什么、住哪；覆盖国内 34 个省级行政区和亚洲 22 国。', '',
              '每条行程都是按天、按时间排的：出发时间、交通方式和时长、饭点、住宿片区或三档酒店；每个地点带地图和大众点评链接。目的地页给出最好的月份、12 个月平均气温、看什么吃什么，以及该省全部国家 5A 级旅游景区和世界遗产。', '',
-             '## 主要页面', f'- [走哪儿]({BASE}/where/)：按月份看国内、亚洲和更远的目的地哪儿正好去', f'- [长线自驾]({BASE}/long/)：{len(LONG_TRIPS)} 条 {LONG_MIN_DAYS} 天以上的长线自驾，按出发月份、天数、地区挑', f'- [跟片走]({BASE}/shejian/)：纪录片里拍过的地方，排进了哪条行程的哪一天', '', '## 目的地']
+             '## 主要页面', f'- [全部线路]({BASE}/all/)：全部 {len(ROUTE_IDS)} 条行程的文字目录', f'- [走哪儿]({BASE}/where/)：按月份看国内、亚洲和更远的目的地哪儿正好去', f'- [长线自驾]({BASE}/long/)：{len(LONG_TRIPS)} 条 {LONG_MIN_DAYS} 天以上的长线自驾，按出发月份、天数、地区挑', f'- [跟片走]({BASE}/shejian/)：纪录片里拍过的地方，排进了哪条行程的哪一天', '', '## 目的地']
     lines += [f'- [{d["name"]}]({BASE}/d/{d["id"]}/)：{dest_desc[d["id"]]}' for d in CAT['destinations']]
     _drv = [r_ for r_ in ROUTE_IDS if ROUTES[r_].get('drive')]
     lines += ['', '## 长途和自驾（环线、跨省长线、全国环线）'] + [f'- [{ROUTES[r_].get("label")}]({BASE}/trip/{r_}/)：{len(ROUTES[r_]["days"])} 天，{day_line(ROUTES[r_])}' for r_ in _drv]
     lines += ['', '## 行程'] + [f'- [{ROUTES[rid].get("label")}]({BASE}/trip/{rid}/)：{len(ROUTES[rid]["days"])} 天，{day_line(ROUTES[rid])}。{trip_desc[rid]}' for rid in ROUTE_IDS if rid not in _drv]
     open(os.path.join(OUT, 'llms.txt'), 'w', encoding='utf-8').write('\n'.join(lines) + '\n')
+    _all = '<article class="allpg"><h1>全部线路</h1><p>共 ' + str(len(ROUTE_IDS)) + ' 条按天排好的行程。</p><ul>' + ''.join(f'<li><a href="/trip/{rid_}/">{E(ROUTES[rid_].get("label") or rid_)}</a></li>' for rid_ in ROUTE_IDS) + '</ul></article>'
+    os.makedirs(os.path.join(OUT, 'all'), exist_ok=True)
+    open(os.path.join(OUT, 'all', 'index.html'), 'w', encoding='utf-8').write(page('/all/', '全部线路 | 走你', f'走你全部 {len(ROUTE_IDS)} 条行程的文字目录。', _all, crumbs=(('走你', '/'), ('全部线路', '/all/'))))
     open(os.path.join(OUT, 'CNAME'), 'w').write('zouni.app\n')
     for f in glob.glob('site_src/*.txt'):   # indexnow 密钥文件（公开的，按协议要放在站点根目录）
         if re.fullmatch(r'[0-9a-f]{32}\.txt', os.path.basename(f)): shutil.copy(f, os.path.join(OUT, os.path.basename(f)))
@@ -6655,7 +6658,7 @@ def page(path, title, desc, body, jsonld=(), image=None, crumbs=(), head=''):
 <main>
 {body}
 </main>
-<footer class="foot"><p>走你：按季节挑地方，按天排好每一站。</p><p><a href="/">本期</a><a href="/where/">走哪儿</a><a href="/long/">长线自驾</a><a href="/pian/">跟片走</a><a href="/sitemap.xml">网站地图</a></p></footer>
+<footer class="foot"><p>走你：按季节挑地方，按天排好每一站。</p><p><a href="/">本期</a><a href="/where/">走哪儿</a><a href="/long/">长线自驾</a><a href="/pian/">跟片走</a><a href="/all/">全部线路</a><a href="/sitemap.xml">网站地图</a></p></footer>
 </body>
 </html>
 """
@@ -14430,7 +14433,7 @@ def row_html(w, city, app):
     t = w['type']
     if t == 'dep':
         sub = E(w.get('how')) if w.get('how') else ''
-        return f'<li class="r dep"{np_dep_attrs(w)}><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">出发 → {E(w.get("to"))}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
+        return f'<li class="r dep"{np_dep_attrs(w)}><time>{E(w["t"])}</time><span class="dot"></span><div class="rb"><p class="m">{"抵达" if w.get("arr") else "出发"} → {E(w.get("to"))}</p>{f"<p class=s>{sub}</p>" if sub else ""}</div></li>'
     if t == 'eat':
         place = w.get('place') if w.get('place') not in ('随意', '住的地方附近', '附近', '车站或机场里吃', '沿途', '路上') else ''
         main = f'{E(w.get("slot"))} · {E(w.get("dish"))}'
@@ -14447,8 +14450,9 @@ def row_html(w, city, app):
         main = E(w.get('name')); sub = ' · '.join(x for x in [E(w.get('d')), E(w.get('kb'))] if x); kw = w.get('poi')
         mu = museum_of(w.get('name')) or museum_of(w.get('poi'))
         bk_ = book_of(w.get('name')); sg_ = sight_of(w.get('name')); tx_ = tix_of(w.get('name'))
+        tbk_ = (not bk_) and bool(tx_ and re.search(r'要(实名)?预约', tx_.get('t') or ''))      # 门票表里写了“要预约”、但不在 BOOK 名单里的馆：也落成行内标签（2026-10-17）
         if tx_:   # 时长、门票、一句话并成一行：门票写短（“约 100 元”），开放时间不写，只留“周一闭馆”这种
-            _tt = re.sub(r'（要(实名)?预约）', '', tx_.get('t') or '') if bk_ else (tx_.get('t') or '')   # 上面已经写了“要预约”
+            _tt = re.sub(r'（要(实名)?预约）', '', tx_.get('t') or '') if (bk_ or tbk_) else (tx_.get('t') or '')   # 上面已经写了“要预约”
             _tt = re.sub(r'(\d[\d,]*)\s*元左右', r'约 \1 元', _tt); _tt = re.sub(r'^门票\s*', '', _tt)
             _tx = ' · '.join(x for x in [(_tt if '免费' in _tt[:6] else '门票' + ('' if _tt.startswith(('约', '旺季')) else ' ') + _tt) if _tt else '', tx_.get('c', '')] if x)
             if _tx: sub = (sub + ' · ' if sub else '') + '<span class="tix">' + E(_tx) + '</span>'
@@ -14458,6 +14462,8 @@ def row_html(w, city, app):
             main += '<span class="gb">国宝</span>'
             note_ = re.sub(r'，?(要提前预约|要预约)', '', mu.get('note') or '').strip('，')
             sub = (sub + '</p><p class="s tre">' if sub else '') + '<b>镇馆之宝</b>' + E('、'.join(mu['treasures'])) + (('，' + E(note_)) if note_ else '')
+        if tbk_:
+            sub = '<em class="bkn" data-how="">要预约</em>' + (' · ' if sub else '') + sub
         if bk_:
             u_ = BOOK_URL.get(bk_[0]); h_ = BOOK_HOW.get(bk_[0], '')
             tag_ = (f'<a class="bkn bkl" href="{E(u_)}" rel="nofollow noopener" target="_blank">要预约 ›</a>' if u_ else f'<em class="bkn" data-how="{E(h_)}">要预约{("（" + ("小程序" if "小程序" in h_ else "公众号") + "）") if h_ else ""}</em>')
@@ -14599,7 +14605,7 @@ def stay_fix(r):
         sp = coord(core, city) or coord(nm, city) or (ccp if core in ('', city) else None)
         if sp and ccp and _km(sp, ccp) > 80: sp = None
         if last and sp and 30 < _km(last, sp) <= 120:
-            out0 = next((w['how'] for w in d['rows'] if w['type'] == 'dep' and w.get('how')), '') or ''
+            out0 = next((w['how'] for w in d['rows'] if w['type'] == 'dep' and not w.get('arr') and w.get('how')), '') or ''
             if plast and P[i] and _km(plast, P[i][0]) > 100: out0 = ''       # 转场日：第一段是从上一座城过来的高铁，不是“当天往返”的去程，回住处不能照抄（slgt8 晚上 3 小时 30 分高铁回住处）
             if re.search(r'JR|高铁|动车|火车|地铁|轮渡|坐船|公交|大巴|快艇', out0):
                 how = re.split(r'\s*·\s*', out0)[0]            # 去的时候坐什么，回来也坐什么
@@ -14844,7 +14850,7 @@ def go_info(r, t, d0, rid=None):
     first = next((w['t'] for w in r['days'][0]['rows'] if re.match(r'^\d\d:\d\d$', w.get('t') or '')), '')
     last = next((w['t'] for w in reversed(r['days'][-1]['rows']) if w.get('type') == 'dep' and re.match(r'^\d\d:\d\d$', w.get('t') or '')), '')
     return {'lat': round(p0[0], 3), 'lng': round(p0[1], 3), 'city': (GO_ARRIVE.get(rid) or (None,))[0] or r['days'][0].get('city') or d0.get('name', ''), 'ab': 0 if d0.get('scope') == 'domestic' else 1,
-            'legs': _legs(r), 'nh': 1 if ((GO_ARRIVE.get(rid) or (None,))[0] or r['days'][0].get('navCity') or r['days'][0].get('city')) in NO_HSR else 0, 'isl': 1 if (t.get('dest') == 'hainan') else 0, 'dst': t.get('dest'), 'fx': _go_fixed(r), 'drv': 1 if r.get('drive') else 0, 'car': 1 if re.search(r'包车|大巴|自驾', str(next(((w.get('how') or w.get('via')) for w in r['days'][0]['rows'] if w.get('type') == 'dep' and (w.get('how') or w.get('via'))), '') or '')) else 0, 'first': first, 'last': last, 'o': o, 'km': round(dk)}   # car：第一天就要包车、坐大巴去的小地方，不写“坐高铁”
+            'legs': _legs(r), 'nh': 1 if ((GO_ARRIVE.get(rid) or (None,))[0] or r['days'][0].get('navCity') or r['days'][0].get('city')) in NO_HSR else 0, 'isl': 1 if (t.get('dest') == 'hainan') else 0, 'dst': t.get('dest'), 'fx': _go_fixed(r), 'drv': 1 if r.get('drive') else 0, 'car': 1 if re.search(r'包车|大巴|自驾', str(next(((w.get('how') or w.get('via')) for w in r['days'][0]['rows'] if w.get('type') == 'dep' and not w.get('arr') and (w.get('how') or w.get('via'))), '') or '')) else 0, 'first': first, 'last': last, 'o': o, 'km': round(dk)}   # car：第一天就要包车、坐大巴去的小地方，不写“坐高铁”
 
 
 NO_HSR = {'榆林', '敦煌', '喀什', '伊宁', '阿勒泰', '格尔木', '香格里拉', '腾冲', '稻城', '九寨沟', '阿尔山', '漠河', '额济纳', '海拉尔', '满洲里', '拉萨', '林芝', '日喀则', '塔县', '和田', '库车', '若尔盖', '康定', '泸沽湖', '德钦', '丙中洛', '阿坝', '甘孜', '玛多', '果洛', '那曲', '巴音布鲁克', '禾木', '喀纳斯', '布尔津', '芒康', '左贡', '八宿', '波密', '然乌'}   # 不通高铁的旅游地，“怎么去”不写坐高铁
@@ -14883,7 +14889,7 @@ def _go_fixed(r):
     m2 = re.match(r'^从([\u4e00-\u9fff]{2,7}?)(坐高铁|坐火车|坐大巴|坐船|坐飞机)到([\u4e00-\u9fff]{2,5}?)[，,。、]', txt)
     if m2: return f'先到{m2.group(1)}，再{m2.group(2)}到{m2.group(3)}'   # “从昆明坐高铁到弥勒”：交通方式写在说明里
     m = re.match(r'^从([\u4e00-\u9fff]{2,5}?)(包车|打车|自驾|坐|去|到|开|出发|飞)', txt)
-    via = next(((w.get('how') or w.get('via')) for w in d['rows'] if w.get('type') == 'dep' and (w.get('how') or w.get('via'))), '') or ''
+    via = next(((w.get('how') or w.get('via')) for w in d['rows'] if w.get('type') == 'dep' and not w.get('arr') and (w.get('how') or w.get('via'))), '') or ''
     if not m or not re.search(r'\d', via): return ''
     o = m.group(1); v = re.sub(r'^(包车|自驾|打车)', r'\1', via)
     v = v if v.startswith(('包车', '自驾', '打车')) else '坐' + v
@@ -15192,6 +15198,17 @@ def weather_note(d):
     return ''
 
 
+def openjaw_note(r):
+    """国外线“一地进、另一地出”：首末两天所在城市相距 ≥250 公里（曼谷到芭堤雅、大阪到关西机场这种同一个机场圈的不算；查不到坐标宁可不提醒，错的提示比没有更糟），出发前提醒可以订开口程"""
+    if r.get('navApp') != 'google' or len(r['days']) < 2: return ''
+    c0, c1 = (r['days'][0].get('city') or ''), (r['days'][-1].get('city') or '')
+    if not c0 or not c1 or c0 == c1: return ''
+    g0, g1 = GEO.get(c0 + '|' + c0), GEO.get(c1 + '|' + c1)
+    if not (g0 and g1 and g0.get('lat') is not None and g1.get('lat') is not None): return ''
+    if _km((g0['lat'], g0['lng']), (g1['lat'], g1['lng'])) < 250: return ''
+    return f'这条线是 {c0} 进、{c1} 出，两地相距较远：机票可以订开口程（去程飞 {c0}，回程从 {c1} 飞），比同城往返省回头路；先比价再定'
+
+
 def trip_page(rid):
     CUR_RID[0] = rid
     r = ROUTES[rid]; t = TRIP_OF_ROUTE.get(rid) or {}; d0 = DEST.get(t.get('dest'), {})
@@ -15223,6 +15240,9 @@ def trip_page(rid):
     glance += f'<p class="dnote">建议 {yp}{md(dates[0])} 周{"一二三四五六日"[dates[0].weekday()]} 出发（按最佳季节），点日期可改</p>'     # 用户选过日期后由 site.js 改成“按你选的 …”
     prep_items = list(r.get('prep') or [])
     prep_items = foreign_prep(r, dict(d0, id=t.get('dest')), prep_items) + prep_items     # 国外线：签证、护照、保险、驾照放在最前面
+    _oj = openjaw_note(r)
+    if _oj: prep_items = [_oj] + prep_items
+    prep_items = list(dict.fromkeys(prep_items))      # 同一句话出现两次（护照有效期在国外线里写了两遍）：按原文去重
     _mx = r.get('maxElev') or max([(d_.get('elev') or 0) for d_ in r['days']] + [0])
     if _mx >= 3000 and not any(re.search(r'高反|高原反应|氧气|高海拔', x) for x in prep_items):
         prep_items.append(f'行程最高到 {_mx:,} 米：提前问问医生，备好便携氧气瓶和常用药，头一天别洗澡、别剧烈运动')
@@ -15232,7 +15252,7 @@ def trip_page(rid):
             if bk and not any(bk[0] in x for x in prep_items): prep_items.append(bk[1])
     _bk = lambda x: next((k for k in BOOK if k in x), None)
     _act = lambda x: bool(re.search(r'预约|买.{0,8}票|门票|放票|抢票|船票|提前|订|办|签证|提车|还车|实名|查路况|看景区公告|身份证|证件|防晒|电池|外套|雨具|带伞|现金|保险', x)) and not re.search(r'带孩子|^[^办]*免签$', x)
-    prep = ''.join((f'<li><label><input type="checkbox" data-k="{i}"><span>{E(x)}</span></label>{book_link(_bk(x)) if _bk(x) else ""}</li>' if _act(x) else f'<li class="tip"><span>{E(x)}</span></li>') for i, x in enumerate(prep_items) if not _GEN_PREP(x)) + _gen_fold(prep_items, _act, _bk) + ''.join(f'<li class="fit">{E(x)}</li>' for x in r.get('fit') or [])
+    prep = ''.join((f'<li><label><input type="checkbox" data-k="{i}"><span>{E(x)}</span></label>{book_link(_bk(x)) if _bk(x) else ""}</li>' if _act(x) else f'<li class="tip{" kid" if "带孩子" in x else ""}"><span>{E(x)}</span></li>') for i, x in enumerate(prep_items) if not _GEN_PREP(x)) + _gen_fold(prep_items, _act, _bk) + ''.join(f'<li class="fit{" kid" if "带孩子" in x else ""}">{E(x)}</li>' for x in r.get('fit') or [])
     def firstdep(d):
         w = next((w for w in d['rows'] if w['type'] == 'dep'), None); return w['t'] if w else ''
     over = ''.join(f'<li><a href="#d{i + 1}"><b>{i + 1:02d}</b><i>{md(dates[i])}</i><span class="ot"><strong>{E(d["title"])}</strong><small>{"回家" if i == n - 1 else "住" + E(stay_city(r, d))}</small></span><em>{E(firstdep(d))} 走</em></a></li>' for i, d in enumerate(r['days']))
@@ -15263,7 +15283,7 @@ def trip_page(rid):
         if i < n - 1 and (d.get('stayName') or d.get('stay')):
             nm = STAYFIX[i][0] if not d.get('stay') else d['stay'][0]['name']
             if STAYFIX[i][1] and not any((w_.get('how') or '').startswith('回住处') for w_ in rows):   # 一日游跑远了：回住处那段写清楚车程（编译时已经写过“回住处 · …”的天不再补，免得同一天出现两段回程）
-                _hm = [w_ for w_ in rows if w_['type'] == 'dep' and w_.get('to') == '住处']      # 白天已经“回去歇一下”过的：车程写在那一段上，晚饭在住处附近吃，晚上不再开夜路
+                _hm = [w_ for w_ in rows if w_['type'] == 'dep' and w_.get('to') == '住处' and not w_.get('arr')]      # 白天已经“回去歇一下”过的：车程写在那一段上，晚饭在住处附近吃，晚上不再开夜路
                 _tgt = next((w_ for w_ in _hm if w_['t'] < '17:30'), _hm[-1] if _hm else None)
                 if _tgt: _tgt['how'] = STAYFIX[i][1]
             rows.append({'t': '晚上', 'type': 'stay', 'name': nm, 'd': d['stay'][0].get('sell', '') if d.get('stay') else d.get('stayNote', ''), 'poi': nm, 'dp': d['stay'][0].get('dp') if d.get('stay') else None})
@@ -15720,13 +15740,59 @@ def long_page():
             f'<form class="lsearch" role="search" onsubmit="return false"><input type="search" placeholder="搜地名、线路名或天数，比如 川藏、边境线、105 天" aria-label="搜地名、线路名或天数" autocomplete="off"></form>'
             f'<div class="lflt">'
             f'<div class="lrow"><span>天数</span><div class="lchips" data-k="d"><button type="button" data-d="" class="on">不限</button>{"".join(f"<button type=button data-d={k_}>{lab_}</button>" for k_, lab_ in bands)}</div></div>'
-            f'<div class="lrow"><span>出发</span><div class="lchips" data-k="m"><button type="button" data-m="" class="on">不限</button><button type="button" data-m="now">本月能出发</button>{mons}</div></div>'
+            f'<div class="lrow"><span>出发</span><div class="lfix" data-k="m"><button type="button" data-m="" class="on">不限</button><button type="button" data-m="now">本月能出发</button></div><div class="lchips" data-k="m">{mons}</div></div>'
             f'</div><div class="lhead"><p class="lcnt" aria-live="polite">找到 {len(infos)} 条</p></div>'
             f'<ul class="lcards">{"".join(cards)}</ul>'
             f'<div class="lempty" hidden><p>没有符合的线路。</p><button type="button" class="lclr">清除条件</button></div></article>')
     write('/long/', page('/long/', f'长线自驾：{LONG_MIN_DAYS} 天以上的自驾线路，按出发月份挑 | 走你',
                          f'{len(infos)} 条 {LONG_MIN_DAYS} 天以上的长线自驾，最长 {maxn} 天：按天数、出发月份挑，每天住哪、开多久都排好了。', body, [], None, [('首页', '/'), ('长线自驾', '/long/')]))
     return len(infos)
+
+
+LOAD_SH = {'pk': .5, 'st': .6, 'tn': .5, 'lk': .4, 'bc': .4, 'tp': .4, 'nt': .4, 'sg': .3, 'ms': .25, 'cl': .3, 'fn': .3}      # 和 site.js 的 ZLSH 同一张表（每天负荷：景点停留里算步行的占比）
+
+
+def _zmin(t):
+    h = re.search(r'(\d+)\s*小时', t or ''); m = re.search(r'(\d+)\s*分', t or '')
+    return ((int(h.group(1)) * 60 if h else 0) + (int(m.group(1)) if m else 0)) if (h or m) else 0
+
+
+def day_load_html(sec):
+    """一天的 HTML 片段 → (走路分钟, 开车分钟)。口径和 site.js 的 zDayLoad 一致：开车 = 打车/包车/自驾/开车/大巴行写的分钟；走路 = 步行行 + 景点停留 × 步行占比"""
+    walk = drive = 0.0
+    for m in re.finditer(r'<li class="r (\w+)"([^>]*)>(.*?)</li>', sec, re.S):
+        ty, at, body = m.groups()
+        sm = re.search(r'<p class=s>(.*?)</p>', body, re.S)
+        sub = sm.group(1) if sm else ''
+        if ty == 'dep':
+            tx = re.sub(r'<[^>]+>', '', sub); tx = re.sub(r'^回住处\s*·\s*', '', tx).split('·')[0].strip()
+            if tx.startswith('步行'): walk += _zmin(tx)
+            elif re.match(r'(打车|包车|自驾|开车|大巴)', tx): drive += _zmin(tx)
+        elif ty in ('see', 'fun') and sm:
+            top = re.sub(r'<(span|em|a|b|button)\b[^>]*>.*?</\1>', '', sub, flags=re.S); top = re.sub(r'<[^>]+>', '', top)
+            tm = re.search(r'\d+ (小时|分)', top)
+            if tm:
+                # 取第一个含时长的文本段（和 JS 的“第一个含时长的文本节点”同口径）
+                seg = next((x for x in re.split(r'<[^>]+>', re.sub(r'<(span|em|a|b|button)\b[^>]*>.*?</\1>', '<>', sub, flags=re.S)) if re.search(r'\d+ (小时|分)', x)), '')
+                ty_ = re.search(r'data-ty="(\w+)"', at)
+                walk += _zmin(seg) * LOAD_SH.get(ty_.group(1) if ty_ else '', .3)
+    return int(walk + .5), int(drive + .5)      # 四舍五入取“半向上”（和 JS 的 Math.round 一致；Python 的 round 是银行家舍入，差 1 分钟）
+
+
+def cmp_stats():
+    """assets/cmp.js：每条线路一行（天数、人均价、最长一天开车/走路分钟、最高海拔、要预约的行数、建议出发日），“我的行程”里选两条对比时才按需取"""
+    out = {}
+    for rid in ROUTE_IDS:
+        h = open(os.path.join(OUT, 'trip', rid, 'index.html'), encoding='utf-8').read()
+        wl = [day_load_html(m.group(0)) for m in re.finditer(r'<section class="day".*?</section>', h, re.S)]
+        r = ROUTES[rid]
+        el = r.get('maxElev') or max([(d_.get('elev') or 0) for d_ in r['days']] + [0])
+        nb = len(re.findall(r'<li class="r (?:see|fun)"[^>]*>(?:(?!</li>).)*?class="bkn', h, re.S))
+        sd = re.search(r'data-start="(\d{4}-\d\d-\d\d)"', h)
+        out[rid] = [len(r['days']), price_k(r.get('price') or ''), max([w for w, d in wl] + [0]), max([d for w, d in wl] + [0]), el, nb, sd.group(1) if sd else '']
+    body = 'window.ZCMP=' + json.dumps(out, ensure_ascii=False, separators=(',', ':')) + ';\n'
+    open(os.path.join(OUT, 'assets', 'cmp.js'), 'w', encoding='utf-8').write(body)
+    return len(out), len(body.encode('utf-8'))
 
 
 def nearby_shards():
@@ -15887,10 +15953,9 @@ def home_page():
     open(os.path.join(OUT, 'assets', 'home-a.js'), 'w', encoding='utf-8').write(_a); open(os.path.join(OUT, 'assets', 'home-b.js'), 'w', encoding='utf-8').write(_b)
     _va, _vb = _hl.md5(_a.encode()).hexdigest()[:8], _hl.md5(_b.encode()).hexdigest()[:8]
     head = f'<script src="/assets/home-a.js?v={_va}" defer fetchpriority="high" data-b="/assets/home-b.js?v={_vb}"></script>'
-    # 全部线路的文字目录：搜索引擎要看得到每条线路的链接（卡片本身改成数据后不在 HTML 里了）；折起来，不占版面
-    allidx = ('<nav class="allidx" aria-label="全部线路目录"><details><summary>全部线路目录 · ' + str(len(ROUTE_IDS)) + ' 条</summary><ul>'
-              + ''.join(f'<li><a href="/trip/{rid_}/">{E(ROUTES[rid_].get("label") or rid_)}</a></li>' for rid_ in ROUTE_IDS) + '</ul></details></nav>')
-    body = body.replace('</article><script>', allidx + '</article><script>', 1)
+    if os.path.exists('site_src/fonts/home.css'):      # 首页专用小字体（只含首页渲染的字，tools/make_home_fonts.py）：排在 serif.css / sans.css 之后，重叠的字优先用它，其余字仍走原切片
+        # 不要给这两个字体加 <link rel=preload>：它们会和 serif.css（挡渲染）、site.js 一起抢 400kbps 的带宽，量过：脚本就绪 5.0s → 9.4s，首次绘制 4.7s → 7.1s；去掉后字体仍在 serif.css 到了以后马上开始下，全部到位 17s（原来 64s）
+        head = '<link rel="stylesheet" href="/assets/fonts/home.css">' + head
     write('/', page('/', '走你：按季节挑目的地，按天排好每一站', f'{len(ROUTE_IDS)} 条按天排好的行程，现在正当季的 {len(inseason)} 条，国内 34 个省级行政区和亚洲 22 国的目的地按月份看。', body, [ld], '/img/' + cimg + '.svg' if cimg else None, head=head))
 
 
@@ -15988,6 +16053,8 @@ if __name__ == '__main__':
     import mapdraw; print('底图脚本', mapdraw.export_basemap(os.path.join(OUT, 'assets', 'basemap.js')) // 1024, 'KB')
     print('串线闸：拒绝', compute_denies(), '条（详见 build/denies.txt）')
     trip_desc = {rid: trip_page(rid) for rid in ROUTE_IDS}
+    n_cmp, sz_cmp = cmp_stats()
+    print('对比数据 assets/cmp.js', n_cmp, '条 ·', sz_cmp // 1024, 'KB（“我的行程”里选两条对比时才取）')
     dest_desc = {d['id']: dest_page(d) for d in CAT['destinations']}
     sj_hit = 0
     pian_page()

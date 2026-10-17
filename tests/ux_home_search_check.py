@@ -15,7 +15,7 @@
   H4 搜索：从首页提交 → /where/?q=土楼：落在“搜「土楼」· 符合的 N 个”这一行（吸顶栏下面 ≤ 40px），线路索引慢 3 秒到也不把落点顶走（位移 ≤2px）；
      线路按相关度排：名字里有的在前，只在正文里提到的收起来（点“再看”才展开）；西安：前几条名字里都有“西安”
   H5 我的行程：每行写“N 天 · M/D 周X 出发 · 还有 N 天”，没定日期的写“出发日期还没定”，右边有“打开 ›”；点了进到线路页
-  H6 数据补齐：补齐后列表条数 ≥ 1400；首屏 HTML 里只有 8 条 + 其它区块；每条 li 的数据属性齐全；静态 HTML 里仍有每条线路的链接（目录），关掉 JS 也能被搜索引擎看到
+  H6 数据补齐：补齐后列表条数 ≥ 1400；首屏 HTML 里只有 8 条 + 其它区块；每条 li 的数据属性齐全；首页没有“全部线路目录”，/all/ 页有每条线路的链接（sitemap 也有），关掉 JS 首屏 8 张卡片仍在
 """
 import itertools, json, os, re, sys
 from playwright.sync_api import sync_playwright
@@ -53,17 +53,19 @@ with sync_playwright() as p:
         vis = pg.evaluate("document.querySelectorAll('.now .items li:not([hidden])').length")
         check('H6 补齐后首屏仍只露 8 条', vis == 8, vis)
         raw = pg.request.get(env.B + '/').text()
-        links = set(re.findall(r'href="/trip/([^/"]+)/"', raw))
-        total = len(json.load(open(os.path.join(env.site, 'assets', 'np', '_index.js'), encoding='utf-8')) if False else []) or 1489
-        check('H6 静态 HTML 里有 ≥1450 条线路链接（目录；关掉 JS 搜索引擎也看得到）', len(links) >= 1450, len(links))
+        check('H6 首页不再有“全部线路目录”', '全部线路目录' not in raw and 'allidx' not in raw, '')
+        allp = pg.request.get(env.B + '/all/'); allt = allp.text()
+        alinks = set(re.findall(r'href="/trip/([^/"]+)/"', allt))
+        check('H6 /all/ 有 ≥1450 条线路链接（给搜索引擎）', allp.status == 200 and len(alinks) >= 1450, (allp.status, len(alinks)))
+        check('H6 sitemap.xml 含 /all/', '/all/</loc>' in pg.request.get(env.B + '/sitemap.xml').text(), '')
         check('H6 首页 HTML 原始 ≤ 400KB', len(raw.encode('utf-8')) <= 400 * 1024, len(raw.encode('utf-8')))
         now_sec = raw[raw.index('id="now"'):]; now_sec = now_sec[:now_sec.index('</section>')]
         li_in_html = len(re.findall(r'<li data-band=', now_sec))
         check('H6 HTML 里“现在去正好”的卡片只有 8 张（%d）' % li_in_html, li_in_html == 8, li_in_html)
         c.close()
         c = new_ctx(br, p, java_script_enabled=False); pg2 = c.new_page(); pg2.goto(env.B + '/', wait_until='load')
-        nl = pg2.evaluate("document.querySelectorAll('a[href^=\"/trip/\"]').length")
-        check('H6 关掉 JS：页面上有 %d 个线路链接（≥1450）' % nl, nl >= 1450, nl)
+        nl = pg2.evaluate("document.querySelectorAll('.now .items li:not([hidden]) a[href^=\"/trip/\"]').length")
+        check('H6 关掉 JS：首屏 8 张卡片的线路链接都在（%d ≥ 8）' % nl, nl >= 8, nl)
         c.close()
 
     # ———— H1 替我挑三条 ————

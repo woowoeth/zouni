@@ -164,6 +164,8 @@ with sync_playwright() as p:
         # O7 预存清单
         pre = pg.evaluate("Promise.all(['/manifest.webmanifest','/img/icon-192.png','/img/icon-512.png','/img/apple-touch-icon.png','/img/favicon.svg','/offline.html','/','/where/'].map(u=>caches.match(u).then(r=>[u,!!r])))")
         check('O7 manifest、图标、离线页、首页、走哪儿都在预存缓存里', all(x[1] for x in pre), [x for x in pre if not x[1]])
+        # 收进行程现在会一并存候选模型和分片（2026-10-17 第二批，断网也能“加一个”，见 ux_batch2_check G6）；这里要测的是“没存候选数据时”的断网提示，所以先把它们从缓存里删掉
+        pg.evaluate("caches.open('zouni-v3').then(c=>c.keys().then(ks=>Promise.all(ks.filter(k=>/assets\\/np/.test(k.url)).map(k=>c.delete(k)))))"); pg.wait_for_timeout(300)
         # 断网
         c.set_offline(True)
         pg.goto(env.B + '/trip/gqhx10/', wait_until='load'); pg.wait_for_timeout(600)
