@@ -1,4 +1,4 @@
-:root{--onimg:#f4f2ec;--lead:#2b2c28;--okfg:#3a4a24;--line2:rgba(28,29,26,.16);--ink2:#3d3f3a;--okbg:#e4e9d8;--warnbg:#f3e3dd;--bg:#f4f2ec;--ink:#1c1d1a;--sub:#5d5f59;--mute:#8d8f88;--red:#a63d27;--pink:#f2c9bf;--card:#ebe8df;--green:#4f6233;--blue:#2f5f74;--line:rgba(28,29,26,.12);
+:root{--amb:#8a5a00;--onimg:#f4f2ec;--lead:#2b2c28;--okfg:#3a4a24;--line2:rgba(28,29,26,.16);--ink2:#3d3f3a;--okbg:#e4e9d8;--warnbg:#f3e3dd;--bg:#f4f2ec;--ink:#1c1d1a;--sub:#5d5f59;--mute:#8d8f88;--red:#a63d27;--pink:#f2c9bf;--card:#ebe8df;--green:#4f6233;--blue:#2f5f74;--line:rgba(28,29,26,.12);
   --serif:"Noto Serif SC","Source Han Serif SC","Songti SC","STSong",serif;
   --sans:"Noto Sans SC",-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
 *{box-sizing:border-box}
@@ -677,7 +677,7 @@ img[loading=lazy]{background-color:var(--card)}
 
 /* 深色模式：跟系统。只换变量；海报、封面是图片，保持原样 */
 @media (prefers-color-scheme:dark){
-:root{--lead:#e2e0d8;--okfg:#b5d494;--line2:rgba(236,235,229,.26);--ink2:#d6d4cc;--okbg:#2a3424;--warnbg:#3a2722;--bg:#161714;--ink:#ecebe5;--sub:#b3b5ad;--mute:#8b8d86;--red:#e27a62;--card:#21221f;--green:#9bbf78;--blue:#7bb8d2;--line:rgba(236,235,229,.16)}
+:root{--amb:#e0b25a;--lead:#e2e0d8;--okfg:#b5d494;--line2:rgba(236,235,229,.26);--ink2:#d6d4cc;--okbg:#2a3424;--warnbg:#3a2722;--bg:#161714;--ink:#ecebe5;--sub:#b3b5ad;--mute:#8b8d86;--red:#e27a62;--card:#21221f;--green:#9bbf78;--blue:#7bb8d2;--line:rgba(236,235,229,.16)}
 body{background:var(--bg);color:var(--ink)}
 @media (min-width:600px){body{background:#0e0f0d}main{box-shadow:0 0 0 1px rgba(236,235,229,.08)}}
 :focus-visible{outline-color:var(--red)}
@@ -894,3 +894,36 @@ article.home{--s1:8px;--s2:12px;--s3:16px;--s4:24px;--s5:32px}
 /* 首页封面标题：底图的大圆环线会从字中间穿过去，字压在浅色底上看不清——遮罩提前铺开、更深，字再加一圈暗影（tests/ux_batch1_check.py 量标题背后的最亮像素和字色的对比度 ≥ 4.5） */
 .home .cover:after{inset:0;background:linear-gradient(to bottom,rgba(20,18,24,0) 18%,rgba(20,18,24,.62) 44%,rgba(20,18,24,.9) 66%,rgba(20,18,24,.96))}
 .home .cv h2,.home .cv .kick{text-shadow:0 0 14px rgba(20,18,24,.8),0 1px 3px rgba(20,18,24,.9)}
+
+/* 2026-10-17 第二批用户反馈：每天负荷一行小字、行内闭馆红字、出发地选择、候选里的“要预约”不被截断 */
+.pre li[hidden]{display:none}
+.day .dload{margin:8px 0 0;font-size:13px;line-height:1.5;color:var(--sub)}
+.day .dload.warn{color:var(--amb);font-weight:700}
+.r .rb p.clw{margin:2px 0 0;font-size:13px;font-weight:700;line-height:1.5;color:var(--red)}
+.pre li.og{display:block;padding:6px 0 0}
+.pre li.og label{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:13px;font-weight:700;color:var(--ink2)}
+.pre li.og select{flex:1 1 auto;min-width:0;max-width:240px;height:44px;padding:0 12px;border:0;background:var(--bg);color:var(--ink);font:700 14px var(--sans);-webkit-appearance:menulist;appearance:menulist}
+.xd button.npc small em.npg{font-style:normal;font-weight:700;color:var(--blue)}
+
+/* 我的行程：选两条对比（只读） */
+.mrw .mrc{flex:none;width:44px;min-height:44px;border:0;background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.mrw .mrc i{display:block;width:18px;height:18px;border:2px solid var(--ink);background:var(--bg)}
+.mrw .mrc.on i{background:var(--ink);box-shadow:inset 0 0 0 3px var(--bg)}
+.mcbar{padding:12px 0 0}
+.mcbar .mcmp{display:block;width:100%;height:44px;border:0;background:var(--card);color:var(--mute);font:700 14px var(--sans);cursor:pointer}
+.mcbar .mcmp.on{background:var(--ink);color:var(--bg)}
+.cmpv .cmpb{height:44px;padding:0 4px;border:0;background:transparent;color:var(--blue);font:700 14px var(--sans);cursor:pointer}
+.cmpt{width:100%;border-collapse:collapse;table-layout:fixed;font-size:13px;line-height:1.5}
+.cmpt th,.cmpt td{padding:10px 8px;text-align:left;vertical-align:top;border-top:1px solid var(--line);overflow-wrap:anywhere}
+.cmpt thead th{border-top:0;font-size:14px}.cmpt thead th a{color:var(--ink)}
+.cmpt tbody th{width:28%;font-weight:700;color:var(--sub)}
+.cmpt td{font-weight:700;color:var(--ink)}
+.cmpn{margin:10px 0 0;font-size:12px;color:var(--sub)}
+
+/* 长线筛选：“不限”“本月能出发”固定在月份条左边，不跟着横向滚走；选中的月份滚到可见位置 */
+.lpg .lfix{flex:none;display:flex;gap:4px}
+.lpg .lfix button{flex:none;height:44px;padding:0 14px;border:0;border-radius:0;background:var(--card);color:var(--ink);font:700 14px var(--sans);cursor:pointer;white-space:nowrap}
+.lpg .lfix button.on{background:var(--ink);color:var(--bg)}
+.lpg .lchips{position:relative}
+
+.hmap .mapoff{margin:8px 0 0;font-size:12px;line-height:1.5;color:var(--sub)}
