@@ -120,6 +120,7 @@
 
   // 打开 App：没装的话，过一会儿页面还在前台，就提示一句（不退回网页）
   function zOpen(u,name){var t0=Date.now();location.href=u;setTimeout(function(){if(!document.hidden&&Date.now()-t0<3000&&typeof toast==='function')toast('没打开'+name+'，可能还没装这个 App')},1600)}
+  window.ZRM_HOST={toast:toast,jump:zjump,open:zOpen,track:ztrack};   // 路线地图（routemap.js，点开才加载）要用的几个页面函数
   // ——— 导航、订酒店、点评、小红书只走 App：电脑上和微信里打不开 App，就不放这些入口 ———
   var MOB=/iPhone|iPad|Android/i.test(navigator.userAgent),WXB=/MicroMessenger/i.test(navigator.userAgent);
   if(!MOB||WXB)document.documentElement.classList.add('noapp');
@@ -267,7 +268,7 @@
     function saveOffline(cb){if(!window.caches){if(cb)cb(false);return}var urls=[location.pathname];try{[].slice.call(performance.getEntriesByType('resource')).forEach(function(e){var u=new URL(e.name);if(u.origin===location.origin&&/\.(css|js|svg|png|woff2?|webp|jpg)$/.test(u.pathname)&&urls.indexOf(u.pathname+u.search)<0)urls.push(u.pathname+u.search)})}catch(e){}
       caches.open('zouni-v3').then(function(c){return Promise.all(urls.slice(0,90).map(function(u,i){return(i?c.match(u).then(function(m){return m||c.add(u)}):c.add(u)).catch(function(){})})).then(function(){return offlineExtras(c)})}).then(function(){if(cb)cb(true)},function(){if(cb)cb(false)})}
     // 收进行程时一并存：顺路候选的模型和索引、这条线所在 3° 格及相邻格的候选分片（断网也能“在这之后加一个”）、走哪儿的底图
-    function offlineExtras(c){var v=/[?&]v=(\w+)/.exec((document.querySelector('script[src*="site.js"]')||{}).src||''),q=v?'?v='+v[1]:'',ex=['/assets/np_model.js'+q,'/assets/np/_index.js','/assets/basemap.js'],cells={},pts=[];
+    function offlineExtras(c){var v=/[?&]v=(\w+)/.exec((document.querySelector('script[src*="site.js"]')||{}).src||''),q=v?'?v='+v[1]:'',ex=['/assets/np_model.js'+q,'/assets/np/_index.js','/assets/basemap.js','/assets/routemap.js'+q],cells={},pts=[];
       [].slice.call(document.querySelectorAll('.tl > .r[data-ll]')).forEach(function(r){pts.push(r.dataset.ll)});[].slice.call(document.querySelectorAll('.day')).forEach(function(d){if(d.dataset.sp)pts.push(d.dataset.sp);if(d.dataset.ep)pts.push(d.dataset.ep)});
       pts.forEach(function(t){var m=/^(-?[\d.]+),(-?[\d.]+)$/.exec(t||'');if(!m)return;var a=Math.floor((+m[1]+90)/3),b=Math.floor((+m[2]+180)/3),i,j;for(i=-1;i<=1;i++)for(j=-1;j<=1;j++)cells[(a+i)+'_'+(b+j)]=1});
       function put(u){return c.match(u).then(function(m){return m||c.add(u)}).catch(function(){})}
@@ -568,6 +569,7 @@
         function tg(x,y){return 300.0+x+2.0*y+0.1*x*x+0.1*x*y+0.1*Math.sqrt(Math.abs(x))+(20.0*Math.sin(6.0*x*pi)+20.0*Math.sin(2.0*x*pi))*2.0/3.0+(20.0*Math.sin(x*pi)+40.0*Math.sin(x/3.0*pi))*2.0/3.0+(150.0*Math.sin(x/12.0*pi)+300.0*Math.sin(x/30.0*pi))*2.0/3.0}
         var dl=tl(lng-105.0,lat-35.0),dg=tg(lng-105.0,lat-35.0),rl=lat/180.0*pi,mg=1-ee*Math.pow(Math.sin(rl),2),sm=Math.sqrt(mg);
         dl=(dl*180.0)/((a*(1-ee))/(mg*sm)*pi);dg=(dg*180.0)/(a/sm*Math.cos(rl)*pi);return[Math.round((lat+dl)*1e6)/1e6,Math.round((lng+dg)*1e6)/1e6]}
+      window.zGcj=npGcj;   // 路线地图（routemap.js）的“导航这一天”复用同一个 WGS84→GCJ-02，不再写第三份
       // 两点之间一段车程：模型 leg()（和 compile_itineraries 同一张表）× 作者写的那一段和模型的比例 f；返回 {how,min,dist,txt}
       function npLeg(a,b,mode,f,sv,pre){var L=NPM.leg(a,b,mode),how=L[0],mins=L[1],dist=L[2];if(f&&f!==1&&how!=='步行')mins=Math.max(5,NPM.r5(mins*f));if(sv&&how.indexOf('包车')===0)how='自驾'+how.slice(2);
         return{how:how,min:mins,dist:dist,txt:(pre||'')+how+' '+npDur(mins)+(dist&&dist>=5?' · '+dist+' 公里':'')}}
@@ -740,6 +742,7 @@
         if(row){zjump(Math.max(0,row.getBoundingClientRect().top+(window.pageYOffset||0)-Math.round(window.innerHeight/3)));row.classList.add('flash');setTimeout(function(){row.classList.remove('flash')},1600)}
         ztrack(kind==='ins'?'顺路·加一站':'顺路·换一站');
         toast((kind==='ins'?'加上了「':'换成了「')+c.n+'」，后面的时间重排了','撤销',function(){try{if(prev==null)localStorage.removeItem(NK);else localStorage.setItem(NK,prev);if(prevA==null)localStorage.removeItem(AK);else localStorage.setItem(AK,prevA)}catch(e){}replan(sec);toast('撤销了')});return true}
+      window.zNpMap={load:npLoadCells,pool:npPool,cands:npCands,label:npLabel,tryIns:function(sec,S,c){return npTry(sec,S,'ins',c)},commit:function(sec,S,c){return npCommit(sec,S,'ins',c)}};   // 路线地图的“顺路可去”灰点：同一套候选、试算、加站和撤销
       // ① 每一站可以调：多待、少待、去掉，后面的时间按同样规则重排
       function addAdj(sec){[].slice.call(sec.querySelectorAll('.tl > .r.see, .tl > .r.fun')).forEach(function(r){if(r.querySelector('.adj')||/沿途慢慢走/.test(nm(r)))return;var rb=r.querySelector('.rb');if(!rb)return;var s=rb.querySelector('.s');if(!s){s=document.createElement('p');s.className='s';rb.appendChild(s)}
           s.insertAdjacentHTML('beforeend','<button type="button" class="adj" aria-label="调整这一站">调整</button>')})}
@@ -1312,8 +1315,18 @@
     if(isOpen()){popping=true;var x=document.querySelector('.tvx')||document.querySelector('.pk-x')||document.querySelector('.pk-mask');if(x)x.click();setTimeout(function(){popping=false},80)}
   });
 })();
-  // ——— 少即是多：行程页路线图默认折成一行“看路线图” ———
-  (function(){try{var ov=document.querySelector('.overview'),hm=ov&&ov.querySelector('.hmap');if(!hm)return;var b=document.createElement('button');b.type='button';b.className='mapfold';b.textContent='看路线图';b.addEventListener('click',function(){ov.classList.toggle('mapopen');b.textContent=ov.classList.contains('mapopen')?'收起路线图':'看路线图'});hm.parentNode.insertBefore(b,hm)}catch(e){}})();
+  // ——— 少即是多：行程页路线图默认折成一行“看路线图”；点开是街道地图（routemap.js 和它要的底图脚本都按需加载），取不到就退回下面那张静态示意图 ———
+  (function(){try{var art=document.querySelector('article.trip');if(!art)return;
+    var sv=document.querySelector('script[src*="/assets/site.js"]'),vm=sv&&/[?&]v=(\w+)/.exec(sv.src),qq=null;
+    function load(cb){if(window.ZRM)return cb(window.ZRM);if(qq){qq.push(cb);return}qq=[cb];var s=document.createElement('script'),fin=function(){var a=qq;qq=null;a.forEach(function(f){f(window.ZRM||null)})};s.src='/assets/routemap.js'+(vm?'?v='+vm[1]:'');s.onload=fin;s.onerror=fin;document.head.appendChild(s)}
+    function dayBtns(){[].slice.call(art.querySelectorAll('section.day')).forEach(function(s){if(s.querySelector('.rm-row2')||s.querySelectorAll('.tl > .r[data-ll]').length<2)return;var r=document.createElement('div'),a=s.querySelector('.facts')||s.querySelector('header');r.className='rm-row2';r.innerHTML='<button type="button" class="rm-open" aria-expanded="false">本日地图 ›</button><button type="button" class="rm-nb">导航这一天 ›</button>';a.parentNode.insertBefore(r,a.nextSibling)})}
+    dayBtns();var tm=0;new MutationObserver(function(){clearTimeout(tm);tm=setTimeout(dayBtns,200)}).observe(art,{childList:true});
+    document.addEventListener('click',function(e){var b=e.target.closest('.rm-open,.rm-nb');if(!b)return;var s=b.closest('.day');load(function(R){if(!R){toast('地图需要联网');return}if(b.classList.contains('rm-nb'))R.nav(s);else R.toggleDay(s,b)})});
+    var ov=document.querySelector('.overview'),hm=ov&&ov.querySelector('.hmap');if(!ov||ov.querySelector('.mapfold')||(!hm&&art.querySelectorAll('.tl > .r[data-ll]').length<2))return;
+    var b=document.createElement('button');b.type='button';b.className='mapfold';b.textContent='看路线图';
+    b.addEventListener('click',function(){var on=!ov.classList.contains('mapopen');ov.classList.toggle('mapopen',on);b.textContent=on?'收起路线图':'看路线图';
+      load(function(R){if(R)R.ov(on);else if(on&&hm&&!hm.querySelector('.rm-fbn')){var p=document.createElement('p');p.className='rm-fbn';p.textContent='街道地图需要联网';hm.appendChild(p)}})});
+    if(hm)hm.parentNode.insertBefore(b,hm);else ov.appendChild(b)}catch(e){}})();
 
 // ——— 长线检索 /long/：三个控件（搜索、天数、出发月份），状态写进 URL hash ———
 (function(){
