@@ -830,11 +830,12 @@
       function monday(){var inp=document.querySelector('.dpk'),s0=(inp&&inp.value)||art.dataset.start;if(!s0)return;var d0=new Date(s0+'T12:00:00');
         [].slice.call(document.querySelectorAll('.day')).forEach(function(sec,i){var old=sec.querySelector('.mon');if(old)old.remove();[].slice.call(sec.querySelectorAll('.clw')).forEach(function(x){x.remove()});var d=new Date(d0.getTime()+i*864e5);var wk=d.getDay();
           var rs=[].slice.call(sec.querySelectorAll('.tl > .r')).filter(function(r){return!r.hidden}),nm=function(r){return r.querySelector('.m').childNodes[0].textContent.trim()},
-              sureR=rs.filter(function(r){return/周一(陵寝)?闭馆/.test(r.innerText)}),sure=sureR.map(nm),
+              sureR=rs.filter(function(r){return/周一(陵寝)?闭馆/.test(r.innerText)||r.dataset.mc==='1'}),sure=sureR.map(nm),   // data-mc：跟谁走主题线路里 type=museum 的站（多数馆周一休馆，没有具体数据，红字写“多半”）
+
               maybe=(art.dataset.app==='amap')?rs.filter(function(r){return r.dataset.in&&!/周一闭馆/.test(r.innerText)&&!/秦始皇帝陵|兵马俑/.test(nm(r))}).map(nm):[];   // 没标周一闭馆的只给软提示，国外不提示（各国不一样）
           var fclR=rs.filter(function(r){return r.dataset.cw===String(wk)}),fcl=fclR.map(nm),WN='日一二三四五六',cl0=sec.querySelector('[data-clim]');
           function clw(r,txt){var rb=r.querySelector('.rb');if(!rb||rb.querySelector('.clw'))return;var q=document.createElement('p');q.className='clw';q.textContent=txt;rb.appendChild(q)}   // 行内红字：这一站这一天闭馆（不用翻到页头才知道）
-          if(wk===1)sureR.forEach(function(r){var m=/周一(陵寝)?闭馆/.exec(r.innerText);clw(r,'这天是周一，'+m[0])});
+          if(wk===1)sureR.forEach(function(r){var m=/周一(陵寝)?闭馆/.exec(r.innerText);clw(r,'这天是周一，'+(m?m[0]:'博物馆周一多半闭馆，以官网为准'))});
           fclR.forEach(function(r){clw(r,'这天是周'+WN[wk]+'，周'+WN[wk]+'闭馆')});   // 国外去处每周固定闭馆日（表在 build_site.FOREIGN_CLOSED）
           if(fcl.length&&cl0){var ls=wk===0&&d.getDate()+7>new Date(d.getFullYear(),d.getMonth()+1,0).getDate(),pf=document.createElement('p');pf.className='fc mon';
             pf.innerHTML='<b>这天是周'+WN[wk]+'</b>'+(ls&&fcl.length===1&&/梵蒂冈/.test(fcl[0])?'今天是月底周日，「'+fcl[0]+'」免费开放，但人极多、要排很久；想看得舒服就把出发日期改一天':'「'+fcl.slice(0,2).join('」「')+'」周'+WN[wk]+'闭馆，出发前以官网为准，或者把出发日期改一天');cl0.parentNode.insertBefore(pf,cl0.nextSibling);return}
@@ -1140,12 +1141,14 @@
   if(flt&&mon){
     var st={fit:true,d:'',low:false,q:'',niche:false,near:false,bud:0,tab:'domestic',drive:false,tag:'',map:false,zoom:''},inp=flt.querySelector('input'),cnt=document.querySelector('.cnt'),gl=document.querySelector('.goodline');
     // ——— 搜索也搜线路（短线长线都在）：索引 /assets/tidx.js 第一次搜索时才加载；每项 [id,名字,天数,价格,名字|标题,全文] ———
-    var tr_=document.querySelector('.wtr'),tmore=false;
+    var tr_=document.querySelector('.wtr'),tf_=document.querySelector('.wtf'),tmore=false;
     var tripSearch=function(){if(!tr_)return;
-      if(!st.q){tr_.hidden=true;return}
+      if(!st.q){tr_.hidden=true;if(tf_)tf_.hidden=true;return}
       if(!window.ZTIDX&&!navigator.onLine){tr_.hidden=false;tr_.querySelector('.rh').textContent='线路 · 没网，搜不了「'+st.q+'」';tr_.querySelector('ul').innerHTML='';tr_.querySelector('.wtm').hidden=true;return}   // 断网：词留着，明说搜不了
       if(!window.ZTIDX){if(!tripSearch.ld){tripSearch.ld=1;var sc=document.createElement('script');sc.src='/assets/tidx.js';sc.onload=function(){tripSearch()};sc.onerror=function(){tripSearch.ld=0;tr_.hidden=false;tr_.querySelector('.rh').textContent='线路 · 没连上网，搜不了「'+st.q+'」';tr_.querySelector('ul').innerHTML='';tr_.querySelector('.wtm').hidden=true};document.head.appendChild(sc)}return}
       var t=st.q.toLowerCase().replace(/[\u3000]/g,' ').split(/\s+/).filter(Boolean),hits=window.ZTIDX.filter(function(x){return t.every(function(k){return x[5].indexOf(k)>=0})});
+      // 跟谁走的主题（苏轼、长征…）：名字命中的主题页排在线路前面（ZTFOL 和 ZTIDX 在同一个 tidx.js 里）
+      if(tf_){var th=(window.ZTFOL||[]).filter(function(x){return t.every(function(k){return x[4].indexOf(k)>=0})});tf_.hidden=!th.length;if(th.length){tf_.querySelector('.rh').textContent='跟谁走 · '+th.length+' 个';tf_.querySelector('ul').innerHTML=th.map(function(x){return'<li><a href="/follow/'+x[0]+'/"><b>'+String(x[1]).replace(/</g,'&lt;')+'</b><span>'+x[3]+' 条线路</span></a></li>'}).join('')}}
       // 相关度：名字里有（0）> 名字或标题里有（1）> 只在正文里提到（2，收起来，点“再看”才展开）；同一档里短线在前，15 天以上的长线靠后
       hits.forEach(function(x){x._t=t.every(function(k){return String(x[1]).toLowerCase().indexOf(k)>=0})?0:t.every(function(k){return x[4].indexOf(k)>=0})?1:2});
       hits.sort(function(a,b){return(a._t-b._t)||((a[2]>=15)-(b[2]>=15))||(a[2]-b[2])});
@@ -1353,3 +1356,17 @@
   load(readHash());render();
 })();
 try{if(window.performance&&performance.mark)performance.mark('zouni:ready')}catch(e){}   // 脚本就绪标记：tests/slow3g_check.py 量“多久能点”
+
+// ——— 跟谁走 /follow/：搜索框按名字、一句话、线路名、站点名过滤卡片（卡片上的 data-q 是建站时算好的小写文本）———
+(function(){
+  var root=document.querySelector('.fidx');if(!root)return;
+  var inp=root.querySelector('.fsearch input'),cnt=root.querySelector('.fcnt'),empty=root.querySelector('.fempty'),cards=[].slice.call(root.querySelectorAll('.fcd')),grps=[].slice.call(root.querySelectorAll('.fgrp'));
+  function run(){var q=(inp.value||'').toLowerCase().replace(/[\u3000]/g,' ').split(/\s+/).filter(Boolean),n=0;
+    cards.forEach(function(c){var ok=q.every(function(k){return c.dataset.q.indexOf(k)>=0});c.hidden=!ok;if(ok)n++});
+    grps.forEach(function(g){g.hidden=!g.querySelector('.fcd:not([hidden])')});
+    cnt.textContent=q.length?'找到 '+n+' 个':'共 '+cards.length+' 个人物和事件';
+    empty.hidden=n>0;if(!n)empty.querySelector('.fq').textContent=inp.value;
+    try{if(q.length)history.replaceState(null,'','#q='+encodeURIComponent(inp.value));else history.replaceState(null,'',location.pathname)}catch(e){}}
+  inp.addEventListener('input',run);
+  var m=location.hash.match(/#q=([^&]*)/);if(m){try{inp.value=decodeURIComponent(m[1])}catch(e){}run()}
+})();
