@@ -19,6 +19,7 @@ class Env:
         if self.shots: os.makedirs(self.shots, exist_ok=True)
         self.injects = injects or {}
         self.delays = {}
+        self.hits = {}      # 本地服务收到的请求次数（相对站目录的路径）：测“第二次不再请求”用
         if self.inject and self.inject not in self.injects: sys.exit('--inject 只认 ' + ' / '.join(self.injects))
         self.fails, self.oks, self.errs, self.notes = [], [], [], []
         env = self
@@ -27,7 +28,8 @@ class Env:
             def log_message(self, *a): pass
             def send_head(self):
                 p = self.translate_path(self.path.split('?')[0].split('#')[0])
-                for suf_, sec_ in getattr(env, 'delays', {}).items():      # 慢网模拟：某个文件让服务端晚几秒再回（threading 服务，只卡这一条连接）
+                _rel = os.path.relpath(p, env.site) if p.startswith(env.site) else p; env.hits[_rel] = env.hits.get(_rel, 0) + 1
+                for suf_, sec_ in list(getattr(env, 'delays', {}).items()):      # list(...)：测试线程在别处 clear() 时，服务线程正在遍历会报“dictionary changed size”      # 慢网模拟：某个文件让服务端晚几秒再回（threading 服务，只卡这一条连接）
                     if p.endswith(suf_): import time; time.sleep(sec_)
                 if env.inject:
                     f, old, new = env.injects[env.inject]
@@ -48,6 +50,7 @@ class Env:
         self.B = 'http://127.0.0.1:%d' % self.srv.server_address[1]
 
     def check(self, name, cond, detail=''):
+        if os.environ.get('UX_LIVE'): print(('✓ ' if cond else '✗ ') + name[:120], flush=True)      # UX_LIVE=1：每条判据一出结果就打印（排查“卡在哪一步”用）
         (self.oks if cond else self.fails).append(name + ('  → ' + str(detail)[:400] if detail != '' and not cond else ''))
 
     def note(self, s):

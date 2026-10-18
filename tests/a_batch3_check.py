@@ -10,7 +10,7 @@ A1  “累不累”同源：每天的“走路约 / 开车约（不开车线写�
 A2  “出发前”：说明（没有复选框、不加粗）和待办（复选框）分开；一条里说明和待办混着的按分句拆开，不会有一条几十字的粗体复选框
 A3  “去掉这一天”确认弹层：确认键墨色实心方形，取消描边，不是灰底
 A4  /follow/ 主题页年表“看其余 N 条”展开状态记在本机（按主题、7 天过期）
-A5  点时间线行本体：高亮这一行；已打开的本日地图 / 总览聚焦这一站；没开地图只高亮、不弹地图、不弹“改这一站”
+A5  点时间线行本体：高亮这一行；没开地图只高亮、不弹地图、不弹“改这一站”（2026-10-18 地图 App 化：整屏地图盖住页面，不再有“页面行 ↔ 内嵌地图”的联动，改成：地图里选的站，关闭后页面滚到那一行——判据在 map_app_check M4）
 A6  sans.css 每个字体块都是 font-display: swap，且是不挡渲染的（media=print onload）；serif.css 仍是 block
 A7  慢网：脚本 + 样式各自要十几秒、地图建好后瓦片很快到 → 不能退示意图（以收到的瓦片数为准，不是从点开算总时间）
 A8  跟谁走的线路每天的“影视和美食里的这一带”默认折叠；选了“带老人孩子”的人，别的线路也折
@@ -29,10 +29,9 @@ INJ = {
     'cancel_plain': ('assets/site.css', ".pk-h .pk-x.pk-cancel{min-height:44px;padding:0 16px;border:1px solid var(--ink);", ".pk-h .pk-x.pk-cancel{min-height:44px;padding:0 16px;border:0;"),
     'ftl_forget': ('assets/site.js', "if(o&&o.t&&Date.now()-o.t<7*864e5)d.open=true;", "if(0)d.open=true;"),
     'ftl_forever': ('assets/site.js', "Date.now()-o.t<7*864e5", "Date.now()-o.t<7000*864e5"),
-    'row_nofocus': ('assets/site.js', "if(li.hasAttribute('data-ll')&&window.ZRM&&window.ZRM.focus)window.ZRM.focus(li)", ""),
     'row_nohl': ('assets/site.js', "if(li.classList.contains('dep'))return;li.classList.add('rsel');", "if(li.classList.contains('dep'))return;"),
     'sans_block': ('assets/fonts/sans.css', "font-display: swap", "font-display: block"),
-    'hard_total': ('assets/routemap.js', ["      arm();\n      getStyle(", "        arm();\n        var map;"], ["      getStyle(", "        var map;"]),
+    'hard_total': ('assets/routemap.js', ["      arm(); setProg(inst, .3);\n      getStyle(", "        arm(); setProg(inst, .5);\n        var map, cam"], ["      setProg(inst, .3);\n      getStyle(", "        setProg(inst, .5);\n        var map, cam"]),
     'sj_open': ('assets/site.js', "var w=(JSON.parse(localStorage.getItem('zouni_pick')||'{}')||{}).w;if(w!=='o')return;", "var w=(JSON.parse(localStorage.getItem('zouni_pick')||'{}')||{}).w;if(w!=='x')return;"),
     'sug_off': ('assets/site.js', "inp.addEventListener('input',show);", ""),
     'sug_order': ('assets/site.js', "th.slice(0,3).forEach(function(x){out.push(['/follow/'+x[0]+'/',x[1],'人物和事件 · '+x[3]+' 条线路'])});", ""),
@@ -45,14 +44,11 @@ FX = os.path.join(ROOT_, 'tests', 'fixtures')
 STYLE = open(os.path.join(FX, 'ofm_liberty_style.json'), 'rb').read(); PNG = open(os.path.join(FX, 'ofm_blank.png'), 'rb').read(); CORS = {'access-control-allow-origin': '*'}
 
 
-def stub(c, style_delay=0):
-    def sty(r):
-        if style_delay: time.sleep(style_delay)
-        r.fulfill(status=200, content_type='application/json', headers=CORS, body=STYLE)
-    c.route('https://tiles.openfreemap.org/styles/liberty', sty)
+def stub(c):
+    """OpenFreeMap 的瓦片索引 / 瓦片 / 栅格（样式、sprite、西文字形已自托管，走本地站）"""
     c.route(re.compile(r'https://tiles\.openfreemap\.org/planet$'), lambda r: r.fulfill(status=200, content_type='application/json', headers=CORS, body=json.dumps({'tilejson': '2.2.0', 'tiles': ['https://tiles.openfreemap.org/planet/t/{z}/{x}/{y}.pbf'], 'minzoom': 0, 'maxzoom': 14})))
     c.route(re.compile(r'https://tiles\.openfreemap\.org/planet/.+'), lambda r: r.fulfill(status=200, content_type='application/x-protobuf', headers=CORS, body=b''))
-    c.route(re.compile(r'https://tiles\.openfreemap\.org/(natural_earth|sprites)/.+'), lambda r: r.fulfill(status=200, content_type='image/png', headers=CORS, body=PNG) if not r.request.url.split('?')[0].endswith('.json') else r.fulfill(status=200, content_type='application/json', headers=CORS, body='{}'))
+    c.route(re.compile(r'https://tiles\.openfreemap\.org/(natural_earth|sprites|fonts)/.+'), lambda r: r.fulfill(status=200, content_type='image/png', headers=CORS, body=PNG))
 
 
 def want(k): return ONLY is None or k in ONLY
@@ -158,18 +154,11 @@ with sync_playwright() as p:
             row = pg.evaluate_handle(HL, 1).as_element(); row.scroll_into_view_if_needed(); row.click(position={'x': 6, 'y': 6}); pg.wait_for_timeout(400)
             st = pg.evaluate("({hl:document.querySelectorAll('.tl > li.r.rsel').length,map:document.querySelectorAll('.rm').length,sheet:document.querySelectorAll('.pk-mask,.pk').length,adj:!!document.querySelector('.xd .rmgo,.npk')})")
             check('A5a 地图没开：点行本体 → 高亮这一行（%d 行）、不弹地图（%d）、不弹“改这一站”/层（%d）' % (st['hl'], st['map'], st['sheet']), st['hl'] == 1 and st['map'] == 0 and st['sheet'] == 0, st)
-            # 打开本日地图后点另一行
-            pg.click('#d1 .rm-open'); pg.wait_for_function("window.ZRM&&ZRM.cur()&&ZRM.cur().view", timeout=15000); pg.wait_for_timeout(500)
-            row = pg.evaluate_handle(HL, 2 if n_rows > 2 else 0).as_element(); row.scroll_into_view_if_needed(); row.click(position={'x': 6, 'y': 6}); pg.wait_for_timeout(500)
-            r = pg.evaluate("""(i)=>{var c=ZRM.cur(),d=c.days[c.sel],rs=[].filter.call(document.querySelectorAll('#d1 .tl > li.r.see'),function(r){return r.hasAttribute('data-ll')}),li=rs[i],p=d.pts.filter(function(q){return q.row===li})[0];return {cur:c.cur,want:p&&p.n,hl:li.classList.contains('rsel'),sheet:document.querySelectorAll('.pk-mask,.pk').length}}""", 2 if n_rows > 2 else 0)
-            check('A5b 本日地图已开：点另一行 → 地图聚焦那一站（第 %s 站，选中 %s）、行高亮、没弹层' % (r['want'], r['cur']), r['cur'] == r['want'] and r['hl'] and r['sheet'] == 0, r)
-            shot(pg, 'a5_day_focus.png')
-            # 总览
-            goto(env, pg, '/trip/hzh1/', 500)
-            pg.click('.mapgo'); pg.wait_for_function("window.ZRM&&ZRM.cur()&&ZRM.cur().view", timeout=15000); pg.wait_for_timeout(500)
-            row = pg.evaluate_handle("()=>{var rs=[].filter.call(document.querySelectorAll('#d2 .tl > li.r.see'),function(r){return r.hasAttribute('data-ll')});return rs[0]}").as_element(); row.scroll_into_view_if_needed(); row.click(position={'x': 6, 'y': 6}); pg.wait_for_timeout(600)
-            r = pg.evaluate("""()=>{var c=ZRM.cur(),d=c.days[c.sel],li=[].filter.call(document.querySelectorAll('#d2 .tl > li.r.see'),function(r){return r.hasAttribute('data-ll')})[0],p=d&&d.pts.filter(function(q){return q.row===li})[0];return {type:c.type,sel:c.sel,cur:c.cur,want:p&&p.n}}""")
-            check('A5c 总览已开：点第 2 天的一行 → 总览切到第 2 天并聚焦那一站（%s）' % r, r['type'] == 'ov' and r['sel'] == 1 and r['cur'] == r['want'] and r['want'], r)
+            # 打开本日地图（整屏）后按返回：页面回到原位置
+            row.scroll_into_view_if_needed(); y0 = pg.evaluate("window.scrollY")
+            pg.evaluate("document.querySelector('#d1 .rm-open').click()"); pg.wait_for_function("window.ZRM&&ZRM.cur()&&ZRM.cur().view", timeout=15000); pg.wait_for_timeout(500)
+            pg.go_back(); pg.wait_for_timeout(700)
+            check('A5b 开本日地图（整屏）再按返回：页面回到原来的位置（%d → %d）、点过的行高亮还在（%d）' % (y0, pg.evaluate("window.scrollY"), pg.evaluate("document.querySelectorAll('.tl > li.r.rsel').length")), abs(pg.evaluate("window.scrollY") - y0) <= 2 and pg.evaluate("document.querySelectorAll('.tl > li.r.rsel').length") == 1, y0)
 
     # ───────── A6 sans.css swap
     if want('A6'):
@@ -185,15 +174,29 @@ with sync_playwright() as p:
     # ───────── A7 慢网：以收到的瓦片数为准
     if want('A7'):
         with guard('A7'):
-            env.delays['assets/maplibre/maplibre-gl.js'] = 11
-            c = new_ctx(br, None); stub(c, style_delay=10); pg = new_page(env, c); goto(env, pg, '/trip/hzh1/', 500)
-            pg.click('#d1 .rm-open'); t0 = time.time()
+            # 地图脚本 14 秒才到；瓦片被扣住直到第 24 秒才放（>20 秒：如果超时是“从点开算一个总时间”，早就退示意图了）；每一步各自有窗口、瓦片还在路上就继续等
+            env.delays['assets/maplibre/maplibre-gl.js'] = 14
+            c = new_ctx(br, None); held = []; go = {'on': False}
+            def tile(r):
+                if go['on']: r.fulfill(status=200, content_type='application/x-protobuf', headers=CORS, body=b'')
+                else: held.append(r)
+            c.route(re.compile(r'https://tiles\.openfreemap\.org/planet$'), lambda r: r.fulfill(status=200, content_type='application/json', headers=CORS, body=json.dumps({'tilejson': '2.2.0', 'tiles': ['https://tiles.openfreemap.org/planet/t/{z}/{x}/{y}.pbf'], 'minzoom': 0, 'maxzoom': 14})))
+            c.route(re.compile(r'https://tiles\.openfreemap\.org/planet/.+'), tile)
+            c.route(re.compile(r'https://tiles\.openfreemap\.org/(natural_earth|sprites|fonts)/.+'), lambda r: r.fulfill(status=200, content_type='image/png', headers=CORS, body=PNG))
+            pg = new_page(env, c); goto(env, pg, '/trip/hzh1/', 500)
+            pg.evaluate("document.querySelector('#d1 .rm-open').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('#d1 .rm-open'); t0 = time.time()
+            while time.time() - t0 < 24: pg.wait_for_timeout(500)
+            mid = pg.evaluate("(function(){var c=window.ZRM&&ZRM.cur();return c?{failed:!!c.failed,why:c.why||'',tiles:c.tiles||0}:null})()")
+            go['on'] = True
+            for r in held:
+                try: r.fulfill(status=200, content_type='application/x-protobuf', headers=CORS, body=b'')
+                except Exception: pass
             ok = True
-            try: pg.wait_for_function("window.ZRM&&ZRM.cur()&&(ZRM.cur().failed||ZRM.cur().tiles>0)", timeout=40000)
+            try: pg.wait_for_function("window.ZRM&&ZRM.cur()&&(ZRM.cur().failed||ZRM.cur().tiles>0)", timeout=15000)
             except Exception: ok = False
             dt = time.time() - t0
             r = pg.evaluate("(function(){var c=window.ZRM&&ZRM.cur();return c?{failed:!!c.failed,why:c.why||'',tiles:c.tiles||0}:null})()")
-            check('A7 脚本 11 秒 + 样式 10 秒才到、瓦片随后立刻到（%.0f 秒时）：不退示意图（%s）' % (dt, r), ok and bool(r) and not r['failed'] and r['tiles'] > 0, r)
+            check('A7 脚本 14 秒才到、瓦片 24 秒才到（%.0f 秒时）：24 秒时还没退示意图（%s），瓦片到了以后正常显示（%s）' % (dt, mid, r), ok and bool(mid) and not mid['failed'] and bool(r) and not r['failed'] and r['tiles'] > 0, (mid, r))
             env.delays.clear()
 
     # ───────── A8 影视美食挂钩行折叠

@@ -146,8 +146,8 @@ with sync_playwright() as p:
         check('P6b “调整”弹层标题是“改这一站”，站名在下面一行（%s）' % ti, ti['t'] == '改这一站' and bool(ti['n']), ti)
         pg.evaluate("document.querySelector('.pk .pk-x').click()"); pg.wait_for_timeout(200)
         pg.evaluate("document.querySelector('#d1 .rm-open').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('#d1 .rm-open'); pg.wait_for_function("window.ZRM&&ZRM.cur()&&ZRM.cur().view", timeout=15000); pg.wait_for_timeout(600)
-        pg.click('.rm-fsb'); pg.wait_for_timeout(800); pg.click('.rm-tl'); pg.wait_for_timeout(400)
-        tx = pg.inner_text('.rm-panel')
+        pg.wait_for_timeout(600)      # 2026-10-18 地图 App 化：点开就是整屏，面板默认半屏，列表在 .rm-body 里
+        tx = pg.inner_text('.rm-body')
         check('P6c 地图里“住”那一行写“大概位置，不是酒店”，没有“片区”（%s）' % tx.replace('\n', ' ')[-30:], '大概位置，不是酒店' in tx and '片区' not in tx, tx[-60:])
         # 导航分段层（高德一次 1 个中途点）：说明里没有“途经点”
         pg.click('.rm-tb[data-i="0"]'); pg.wait_for_timeout(300)

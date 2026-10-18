@@ -32,10 +32,10 @@ INJ = {
     'dnote_long': ('assets/site.js', "dataset.when||'';return isSugg?'建议 '+yp(d0)+fmt(d0)+' '+WD(d0)+' 出发'+(wn?' · '+wn:'')", "dataset.when||'';return isSugg?'建议 '+yp(d0)+fmt(d0)+' '+WD(d0)+' 出发（按最佳季节），点日期可改'"),
     'pre_open': ('assets/site.js', "// ——— 底部固定栏：页头", "[].forEach.call(document.querySelectorAll('.premore'),function(d){d.open=true});\n// ——— 底部固定栏：页头"),
     'pre_dup': ('assets/site.js', "// ——— 底部固定栏：页头", "(function(){var u=document.querySelector('.pre:not(.go) ul');if(u)u.insertAdjacentHTML('beforeend','<li class=\"tip\"><span>多数博物馆、纪念馆周一休馆，热门馆要提前订票，以各馆官网为准。</span></li>')})();\n// ——— 底部固定栏：页头"),
-    'mapfold_show': ('assets/site.css', ".overview:not(.mapopen) .mapfold{display:none}", ".overview:not(.mapopen) .mapfold{display:block}"),
+    'mapfold_back': ('assets/site.js', "go.addEventListener('click',function(){start(null)});", "go.addEventListener('click',function(){start(null)});var mf=document.createElement('button');mf.type='button';mf.className='mapfold';mf.textContent='看路线图';mf.addEventListener('click',function(){start(null)});ov.insertBefore(mf,ov.firstChild.nextSibling);"),
     'row_two_notes': ('assets/site.js', "// ——— 底部固定栏：页头", "[].forEach.call(document.querySelectorAll('li.r .fnote'),function(f){var p=document.createElement('p');p.className='s tre';p.textContent='镇馆之宝';f.parentNode.insertBefore(p,f)});\n// ——— 底部固定栏：页头"),
-    'leg_day': ('assets/routemap.js', "if (d) h = '';", "if (d) h = sq(inst.sel, '第 ' + (inst.sel + 1) + ' 天');"),
-    'leg_color': ('assets/routemap.js', "<span class=\"rm-lg2\">点下面的数字看那一天</span>", "<span class=\"rm-lg2\">共 ' + n + ' 天，每天一种颜色，点下面的数字看那一天</span>"),
+    'leg_color': ('assets/routemap.js', "<span class=\"rm-hdt\"><small>全程</small>", "<span class=\"rm-hdt\"><small>全程 · 每天一种颜色</small>"),
+    'leg_day': ('assets/routemap.js', "<small>第 ' + (d.i + 1) + ' 天</small><b>' + esc(d.title)", "<small>第 ' + (d.i + 1) + ' 天</small><b class=\"rm-lgx\">每天一种颜色 · ' + esc(d.title)"),
     'nav_two_close': ('assets/site.css', ".rm-sheet .pk-h .pk-x{display:none}", ".rm-sheet .pk-h .pk-x{display:inline-flex}"),
     'nav_no_primary': ('assets/site.css', ".rm-sheet .xd .rm-seg:first-child{background:var(--ink);color:var(--bg)}", ".rm-sheet .xd .rm-seg:first-child{background:var(--bg)}"),
     'nav_note_long': ('assets/routemap.js', "<p class=\"xnote\">' + esc(navHint(d)) + '</p>", "<p class=\"xnote\">' + esc(navHint(d)) + '路线按驾车排好，到了地图里可以改成步行或公交。</p>"),
@@ -117,16 +117,16 @@ with sync_playwright() as p:
             o = pg.evaluate("""()=>{var H=innerHeight,vh=function(e){if(!e)return false;var r=e.getBoundingClientRect();return r.width>0&&r.height>0&&r.top<H&&r.bottom>0},dk=document.querySelector('.dock b'),
               fb=document.querySelector('.fbn'),dn=document.querySelector('.dnote'),pre=document.querySelector('section.pre:not(.go)'),ms=document.querySelector('.premore'),
               lis=pre?[].slice.call(pre.querySelectorAll(':scope > ul > li')):[],all=pre?[].slice.call(pre.querySelectorAll('li')):[],
-              mf=document.querySelector('.mapfold'),gos=document.querySelectorAll('.mapgo').length;
+              mf=document.querySelectorAll('.mapfold').length,gos=document.querySelectorAll('.mapgo').length;
               var rp=all.filter(function(l){var t=l.textContent;return /预约/.test(t)&&/官方|官网/.test(t)&&!l.querySelector('input')});
               return {dockVis:vh(dk)&&dk.getBoundingClientRect().width>0,fbnTop:fb?Math.round(fb.getBoundingClientRect().top+scrollY):-1,dn:dn?dn.textContent.trim():'',visLi:lis.filter(vh).length,ms:ms?{open:ms.open,sum:ms.querySelector('summary').textContent.trim(),hid:ms.querySelectorAll('li').length}:null,
-                nli:all.length,rp:rp.length,mfVis:vh(mf),gos:gos,follow:(document.body.innerText.match(/这条线路跟着/g)||[]).length,hasFbn:!!fb}}""")
+                nli:all.length,rp:rp.length,mfVis:mf,gos:gos,follow:(document.body.innerText.match(/这条线路跟着/g)||[]).length,hasFbn:!!fb}}""")
             check('L2a %s 底栏在页头日期价格还看得见时不重复写（底栏文字不可见）' % rid, not o['dockVis'], o['dockVis'])
             check('L2b %s “这条线路跟着…”横幅不在第一屏（离页顶 %s px，视口 844；没有横幅=-1）、整页只写一遍（%d）' % (rid, o['fbnTop'], o['follow']), (o['fbnTop'] == -1 or o['fbnTop'] >= 844) and o['follow'] <= 1, o)
             check('L2c %s 建议出发一句（%s）：≤40 字、没有“按最佳季节”“点日期可改”' % (rid, o['dn']), 0 < len(o['dn']) <= 40 and '点日期可改' not in o['dn'] and '按最佳季节' not in o['dn'], o['dn'])
             check('L2d %s “出发前”默认露 ≤2 条（露 %d），其余折在“更多 N 条”（%s），N = 折起来的条数' % (rid, o['visLi'], o['ms']), o['visLi'] <= 2 and (o['ms'] is None or (not o['ms']['open'] and o['ms']['sum'] == '更多 %d 条' % o['ms']['hid'])), o)
             check('L2e %s 礼仪 / 预约 / 闭馆的总提醒整页只有一条（说“预约”又说“官方/官网”的非待办行 %d）' % (rid, o['rp']), o['rp'] <= 1, o['rp'])
-            check('L2f %s “看路线图”只有一个入口在外面（.mapgo %d 个，折叠里的 .mapfold 地图没开时不显示）' % (rid, o['gos']), o['gos'] == 1 and not o['mfVis'], o)
+            check('L2f %s “看路线图”只有一个入口（.mapgo %d 个）：没有第二个“折叠里的看路线图”（.mapfold %d 个）；点它一步直达整屏地图，页面里没有内嵌地图' % (rid, o['gos'], o['mfVis']), o['gos'] == 1 and o['mfVis'] == 0, o)
             if rid == 'hzh1': shot('l2_trip_hzh1.png')
 
     # ─────────── L3 站点行注释
@@ -136,16 +136,18 @@ with sync_playwright() as p:
             n = pg.evaluate("(function(){var m=0,t=0;[].forEach.call(document.querySelectorAll('.tl > li.r'),function(r){var f=r.querySelectorAll('p.fnote').length,g=r.querySelectorAll('p.s.tre').length;t++;if(f+g>1)m++});return [m,t,document.querySelectorAll('.tl p.fnote').length]})()")
             check('L3 %s 一行下面最多一条注释（%d 行里 %d 行有两条以上；有注释的 %d 行）' % (rid, n[1], n[0], n[2]), n[0] == 0, n)
 
-    # ─────────── L4 地图图例
+    # ─────────── L4 地图图例（2026-10-18 地图 App 化：整屏里不写图例 / 颜色说明；只留一句“线是直线示意”，和导航按钮放一起）
     with guard('L4'):
         goto(env, pg, '/trip/hzh1/', 600)
-        pg.click('#d1 .rm-open'); pg.wait_for_function("window.ZRM&&ZRM.cur()&&ZRM.cur().view", timeout=15000); pg.wait_for_timeout(400)
-        leg = pg.inner_text('.rm-leg'); shot('l4_day_map.png')
-        check('L4a 每天小图的图例不再写“第 N 天”（%s）、仍说明是直线示意' % leg.replace('\n', ' '), not re.search(r'第 \d+ 天', leg) and '直线示意' in leg, leg)
+        pg.evaluate("document.querySelector('#d1 .rm-open').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('#d1 .rm-open'); pg.wait_for_function("window.ZRM&&ZRM.cur()&&ZRM.cur().view", timeout=15000); pg.wait_for_timeout(500)
+        tx = pg.inner_text('.rm-sht'); shot('l4_day_map.png')
+        check('L4a 每天的整屏地图：没有图例（.rm-leg 不存在）、不写“每天一种颜色”、不写“第 N 天”色块说明，仍说明是直线示意（%s）' % tx.replace('\n', ' ')[-60:], pg.evaluate("!document.querySelector('.rm-leg')") and '每天一种颜色' not in tx and '直线示意' in pg.inner_text('.rm-hint'), tx[-80:])
+        pg.go_back(); pg.wait_for_timeout(500)
         goto(env, pg, '/trip/hcz4/', 600)
-        pg.click('.mapgo'); pg.wait_for_function("window.ZRM&&ZRM.cur()&&ZRM.cur().view", timeout=15000); pg.wait_for_timeout(400)
-        leg = pg.inner_text('.rm-leg'); shot('l4_ov_map.png')
-        check('L4b 总览（8 天）图例不写“每天一种颜色”（颜色本来就会重复）（%s）' % leg.replace('\n', ' '), '每天一种颜色' not in leg and '点下面的数字' in leg, leg)
+        pg.click('.mapgo'); pg.wait_for_function("window.ZRM&&ZRM.cur()&&ZRM.cur().view", timeout=15000); pg.wait_for_timeout(500)
+        tx = pg.inner_text('.rm-sht'); shot('l4_ov_map.png')
+        check('L4b 总览（8 天）不写“每天一种颜色”（颜色本来就会重复）；点天数章 / 列表行进那一天（%s）' % tx.replace('\n', ' ')[:50], '每天一种颜色' not in tx and pg.evaluate("document.querySelectorAll('.rm-dr').length") == 8, tx[:80])
+        pg.go_back(); pg.wait_for_timeout(300)
 
     # ─────────── L5 导航分段层
     with guard('L5'):
@@ -195,7 +197,7 @@ with sync_playwright() as p:
             goto(env, pg, path, 300); t = pg.evaluate("document.body.innerText")
             hit += [(path, w) for w in bad if w in t]
         goto(env, pg, '/trip/hcz4/', 400); pg.click('.mapgo'); pg.wait_for_function("window.ZRM&&ZRM.cur()&&ZRM.cur().view", timeout=15000); pg.wait_for_timeout(300)
-        t = pg.evaluate("document.body.innerText"); hit += [('hcz4 总览图', w) for w in bad if w in t]
+        t = pg.evaluate("document.querySelector('.rm').innerText"); hit += [('hcz4 总览图', w) for w in bad if w in t]
         check('L8 新增文案里的套话一条都没回来（%s）' % hit, not hit, hit)
 
     # ─────────── L9 步数

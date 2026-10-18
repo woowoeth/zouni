@@ -6848,7 +6848,7 @@ def tz_of(dest, lng):
     if dest == 'australia' and lng <= 141: rule = ''     # 只有东南沿海（悉尼、墨尔本）有夏令时
     return z, rule
 import hashlib as _hl
-ASSET_V = _hl.md5((open('site_src/site.css', encoding='utf-8').read() + open('site_src/site.js', encoding='utf-8').read() + open('site_src/np_model.js', encoding='utf-8').read() + open('site_src/routemap.js', encoding='utf-8').read() + open('site_src/maplibre/maplibre-gl.js', encoding='utf-8').read() + open('site_src/maplibre/maplibre-gl.css', encoding='utf-8').read()).encode()).hexdigest()[:8]   # np_model.js / routemap.js / maplibre 也进哈希：它们都被 site.js 懒加载（点开才取）（?v=ASSET_V），改了模型要让手机上的旧缓存失效
+ASSET_V = _hl.md5((open('site_src/site.css', encoding='utf-8').read() + open('site_src/site.js', encoding='utf-8').read() + open('site_src/np_model.js', encoding='utf-8').read() + open('site_src/routemap.js', encoding='utf-8').read() + open('site_src/maplibre/maplibre-gl.js', encoding='utf-8').read() + open('site_src/maplibre/maplibre-gl.css', encoding='utf-8').read() + open('site_src/map/style.json', encoding='utf-8').read()).encode()).hexdigest()[:8]   # np_model.js / routemap.js / maplibre 也进哈希：它们都被 site.js 懒加载（点开才取）（?v=ASSET_V），改了模型要让手机上的旧缓存失效
 STATUS = {'open': '可以去', 'restricted': '有条件', 'paused': '暂停开放', 'check': '出发前查'}
 TRIP_OF_ROUTE = {}
 for t in TRIPS:
@@ -17162,7 +17162,9 @@ if __name__ == '__main__':
     for f in ('site.css', 'site.js', 'np_model.js', 'routemap.js', 'favicon.svg', 'og.png', 'qr.js', 'apple-touch-icon.png', 'favicon-32.png'):
         src = os.path.join('site_src', f)
         if os.path.exists(src): shutil.copy(src, os.path.join(OUT, 'img' if f in ('favicon.svg', 'og.png', 'apple-touch-icon.png', 'favicon-32.png') else 'assets', f))
-    if os.path.isdir('site_src/maplibre'): shutil.copytree('site_src/maplibre', os.path.join(OUT, 'assets', 'maplibre'))      # 路线地图的街道底图（MapLibre GL JS，BSD-3-Clause，LICENSE.txt 一起带）：自托管，点开地图才取
+    if os.path.isdir('site_src/maplibre'): shutil.copytree('site_src/maplibre', os.path.join(OUT, 'assets', 'maplibre'))
+    import subprocess as _sp; _sp.run([sys.executable, 'tools/map_assets.py'], check=True, capture_output=True)      # site_src/map/ 已齐就不联网；缺了才从 OpenFreeMap 取（--refresh 手动重取）
+    shutil.copytree('site_src/map', os.path.join(OUT, 'assets', 'map'))      # 自托管的地图样式 / sprite / 西文字形（tools/map_assets.py 从 OpenFreeMap 取来，已隐藏边界、标注改中文）：点开地图时和 routemap.js 一起走本站，不再串着去 openfreemap 取      # 路线地图的街道底图（MapLibre GL JS，BSD-3-Clause，LICENSE.txt 一起带）：自托管，点开地图才取
     import mapdraw; print('底图脚本', mapdraw.export_basemap(os.path.join(OUT, 'assets', 'basemap.js')) // 1024, 'KB')
     print('串线闸：拒绝', compute_denies(), '条（详见 build/denies.txt）')
     trip_desc = {rid: trip_page(rid) for rid in ROUTE_IDS}

@@ -15,8 +15,8 @@ run ux_toast_touch   python3 tests/ux_toast_touch_check.py "$SITE"
 run ux_state_offline python3 tests/ux_state_offline_check.py "$SITE"
 run ux_home_search   python3 tests/ux_home_search_check.py "$SITE"
 run ux_batch2        python3 tests/ux_batch2_check.py "$SITE"
-run route_map        python3 tests/route_map_check.py "$SITE"
-run route_map2       python3 tests/route_map2_check.py "$SITE"
+run map_app          python3 tests/map_app_check.py "$SITE"       # 2026-10-18 地图 App 化：取代了 route_map_check / route_map2_check（旧内嵌地图的判据，已删，能保留的并进 M1–M12）
+run map_perf         python3 tests/map_perf.py --target fixture --site "$SITE" --cases 4g:cold,4g:warm,3g:cold --assert      # 点开地图的耗时（稳定版：本机服务 + 共享链路模型）
 run weekday          python3 tests/weekday_check.py "$SITE"
 run memorial         python3 tests/memorial_check.py "$SITE"
 run default_date     python3 tests/default_date_check.py "$SITE"
