@@ -23,8 +23,8 @@ from ux_common import *
 
 ROOT_ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INJ = {
-    'road_old': ('assets/site.js', "if(/^(步行|徒步)/.test(tx))walk+=mn;else drive+=mn}", "if(/^(步行|徒步)/.test(tx))walk+=mn;else if(/^(打车|包车|自驾|开车|大巴)/.test(tx))drive+=mn}"),
-    'label_old': ('assets/site.js', "(sv_&&own>0&&own>=drive-.5?'开车约 ':'路上约 ')", "'开车约 '"),
+    'road_old': ('assets/site.js', "if(/^(步行|徒步)/.test(tx))walk+=mn;else{drive+=mn;", "if(/^(步行|徒步)/.test(tx))walk+=mn;else if(/^(打车|包车|自驾|开车|大巴)/.test(tx)){drive+=mn;"),
+    'label_old': ('assets/site.js', "(sv&&f.own>0&&f.own>=f.drive-.5?'开车约 ':'路上约 ')", "'开车约 '"),
     'confirm_grey': ('assets/site.css', ".xd .rmgo{background:var(--ink);color:var(--bg);min-height:48px}", ".xd .rmgo{min-height:48px}"),
     'ftl_forget': ('assets/site.js', "if(o&&o.t&&Date.now()-o.t<7*864e5)d.open=true;", "if(0)d.open=true;"),
     'ftl_forever': ('assets/site.js', "Date.now()-o.t<7*864e5", "Date.now()-o.t<7000*864e5"),

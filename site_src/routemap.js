@@ -25,6 +25,7 @@
   var NOTE_LOAD = '街道地图加载中…';
   var SLOW_MS = 12000, HARD_MS = 20000;      // 以收到的瓦片数为准：地图建好后 12 秒内一块瓦片都没收到才退示意图（有瓦片在到就一直等）；脚本 / 样式每一步各等 20 秒（取到一步重新计时）
   var IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  var BAR_H = 168;      // 底部条高（不含 safe-area），和 site.css 的 .rm-sht 一样；起步壳（site.js）里也是这个数
   var WS = 512;      // 世界宽度（zoom 0）像素，和 maplibre 一致
   var ICON_RS = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>';
   var ICON_CP = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M12 3l4 9h-8z" fill="currentColor"/><path d="M8 12l4 9 4-9"/></svg>';
@@ -39,7 +40,6 @@
   function kmd(a, b) { var dl = rad(b[1] - a[1]), p1 = rad(a[0]), p2 = rad(b[0]); return 2 * 6371 * Math.asin(Math.sqrt(Math.pow(Math.sin((p2 - p1) / 2), 2) + Math.cos(p1) * Math.cos(p2) * Math.pow(Math.sin(dl / 2), 2))); }
   function toast(t, l, f) { if (HOST.toast) HOST.toast(t, l, f); }
   function jump(y) { if (HOST.jump) HOST.jump(y); else { try { W.scrollTo({ top: y, behavior: 'instant' }); } catch (e) { W.scrollTo(0, y); } } }
-  function fmt(m) { m = Math.round(m); if (m < 60) return m + ' 分钟'; var h = Math.floor(m / 60), r = m % 60; return h + ' 小时' + (r ? ' ' + r + ' 分' : ''); }
   function dayLabel(i, n) { return n <= 7 ? '第 ' + (i + 1) + ' 天' : String(i + 1); }
   function noStr(n) { return n < 100 ? ('0' + n).slice(-2) : String(n); }
   function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
@@ -47,52 +47,11 @@
   function raf(f) { return (W.requestAnimationFrame || function (g) { return setTimeout(g, 16); })(f); }
   function kmTxt(k) { return k < 1 ? Math.round(k * 10) * 100 + ' 米' : (k < 10 ? (Math.round(k * 10) / 10) : Math.round(k)) + ' 公里'; }
 
-  // ——— 模型：从页面读（所以去掉一站 / 顺路加站 / 换景点 / 加一天 / 去掉一天后，重读一遍就是对的，不另存状态）———
-  function titleOf(sec) { var h = qs('h2', sec); if (!h) return ''; var t = ''; [].forEach.call(h.childNodes, function (n) { if (n.nodeType === 3) t += n.textContent; }); return (t || h.textContent).trim(); }
-  function nameOf(r) { var m = qs('.rb > .m', r) || qs('.m', r); if (!m) return ''; var t = ''; [].forEach.call(m.childNodes, function (n) { if (n.nodeType === 3) t += n.textContent; }); return t.replace(/\s+/g, ' ').trim(); }
-  function loadOf(sec) {
-    var w = 0, d = 0;
-    qsa('.tl > .r.dep', sec).forEach(function (r) {
-      if (r.hidden) return; var mn = +r.getAttribute('data-min') || 0, s = (qs('.s', r) || {}).textContent || '';
-      if (/^步行/.test(s)) w += mn; else if (/^(自驾|开车|打车|包车)/.test(s)) d += mn;
-    });
-    var p = []; if (w >= 5) p.push('走路约 ' + fmt(w)); if (d >= 5) p.push('开车约 ' + fmt(d)); return p;
+  // ——— 模型：读当天模型 ZD（site.js 里的 window.ZD：页面时间轴、按天看、复制行程、日历读的是同一份）。面板里的每一行、地图上的点和线、数字都从它来；不另存状态 ———
+  function readDays() { return W.ZD ? W.ZD.days() : []; }
+  function sig(days) {      // 面板上看得见的东西的指纹：它变了才重画（ZD 通知很勤，多数通知里什么都没变）
+    return days.map(function (d) { return d.title + '#' + ZD.loadText(ZD.facts(d)) + '#' + d.items.map(function (x) { return x.zid + '@' + x.t + x.name + '|' + x.sub + x.legTxt + x.clw + x.treT + (x.book ? 'b' : '') + x.added + (x.adj ? 'a' : '') + (x.ll ? x.ll.join(',') : ''); }).join('~'); }).join('^');
   }
-  function stayOf(sec) { var s = qs('.stays .sh span:not(.lbl)', sec); var t = s ? s.textContent.split(' · ')[0].trim() : ''; return t; }
-  function siblingRow(r, dir) { var x = dir > 0 ? r.nextElementSibling : r.previousElementSibling; while (x) { if (x.classList && x.classList.contains('r') && !x.hidden) return x; x = dir > 0 ? x.nextElementSibling : x.previousElementSibling; } return null; }
-  function legOf(r, dir) {      // 这一站前 / 后那一格“步行 15 分钟 / 开车 40 分钟”（站与站之间的 dep 行，名字写成“A → B”）；回住处那一格、中间隔着别的站的不算
-    var x = siblingRow(r, dir);
-    while (x && !x.classList.contains('dep') && !x.getAttribute('data-ll')) x = siblingRow(x, dir);
-    if (!x || !x.classList.contains('dep') || nameOf(x).indexOf('→') < 0) return null;
-    var s = ((qs('.s', x) || {}).textContent || '').replace(/\s+/g, ' ').trim(), mn = +x.getAttribute('data-min') || 0;
-    if (!s || (!mn && !/\d+ ?(分钟|小时|分)/.test(s))) return null;      // “回去歇一下”“打车或步行”这种不是“到下一站多久”
-    return { txt: s, min: mn };
-  }
-  function plain(p) { var c = p.cloneNode(true); qsa('.adj,button,a,.bkn,.bkl,.bkh', c).forEach(function (n) { n.parentNode.removeChild(n); }); return (c.textContent || '').replace(/\s+/g, ' ').replace(/^[\s·]+|[\s·]+$/g, ''); }
-  function oneOf(r) {      // 一句话：时间格里除“待多久”以外的第一条说明（镇馆之宝 / 老店 …）；没有就只写待多久（去掉“调整”按钮、预约链接这些）
-    var dur = '', extra = '';
-    qsa('.rb > p', r).forEach(function (p) {
-      if (p.classList.contains('m') || p.classList.contains('clw')) return;
-      var t = plain(p); if (!t) return;
-      if (/^\d+(\.\d+)? ?(小时|分)/.test(t) && !/[一-鿿]{3}/.test(t.replace(/小时|分钟|分/g, ''))) { if (!dur) dur = t; } else if (!extra) extra = t;
-    });
-    return [dur, extra].filter(Boolean).join(' · ');
-  }
-  function readDay(sec, i) {
-    var pts = [];
-    qsa('.tl > .r[data-ll]', sec).forEach(function (r) {
-      if (r.hidden) return; var p = pll(r.getAttribute('data-ll')); if (!p) return;
-      var eat = r.classList.contains('eat'), ty = r.getAttribute('data-ty') || '', txt = r.textContent || '', cl = /周[一二三四五六日](?:陵寝)?闭馆/.exec(txt), tm = qs('time', r);
-      pts.push({ n: pts.length + 1, row: r, ll: p, name: nameOf(r), kind: eat ? 'eat' : (ty === 'ms' ? 'mu' : 'sg'), dm: +r.getAttribute('data-dm') || 0, book: !!qs('.bkn,.bkl', r), closed: cl ? cl[0] : '', one: oneOf(r), tm: tm ? tm.textContent.trim() : '', next: legOf(r, 1), prev: legOf(r, -1), nav: qs('a.ic.map', r) });
-    });
-    var nopos = qsa('.tl > .r.see, .tl > .r.fun', sec).filter(function (r) { return !r.hidden && !r.getAttribute('data-ll') && !/沿途/.test(nameOf(r)); }).length;
-    var pv = sec.previousElementSibling; while (pv && !(pv.matches && pv.matches('section.day'))) pv = pv.previousElementSibling;
-    var ps = pv ? stayOf(pv) : '', cy = sec.getAttribute('data-city') || '';
-    var spName = pv ? (ps ? '昨晚住处（' + ps + '）' : '昨晚住处') : (cy ? '起点（' + cy + '）' : '起点');      // 导航起点：不叫“出发地”，写昨晚住处或具体名
-    return { i: i, sec: sec, title: titleOf(sec), pts: pts, sp: pll(sec.getAttribute('data-sp')), ep: pll(sec.getAttribute('data-ep')), stay: stayOf(sec), load: loadOf(sec), nopos: nopos, spName: spName };
-  }
-  function readDays() { return qsa('section.day').filter(function (s) { return !s.hidden && !s.closest('[hidden]'); }).map(readDay); }
-  function sig(days) { return days.map(function (d) { return d.title + '#' + d.pts.map(function (p) { return p.ll.join(',') + p.name; }).join('|'); }).join('~'); }
 
   // ——— 摄像机数学（Web 墨卡托，和 maplibre 同一套：512 像素世界，zoom z 时世界宽 512·2^z）———
   function lx(lng) { return (lng + 180) / 360; }
@@ -262,10 +221,10 @@
       '<button type="button" class="rm-b rm-rs" aria-label="回到当天 / 全程视野" title="回到视野">' + ICON_RS + '</button>' +
       '<button type="button" class="rm-b rm-zi" aria-label="放大">+</button><button type="button" class="rm-b rm-zo" aria-label="缩小">−</button></div>' +
       '<div class="rm-at"><p class="rm-atx" hidden>' + ATTR_HTML + '<button type="button" class="rm-b rm-ax" aria-label="关闭署名">×</button></p><button type="button" class="rm-b rm-ai" aria-label="地图数据署名" aria-expanded="false">i</button></div>' +
-      '<div class="rm-sht m-list"><div class="rm-grab" aria-hidden="true"><i></i></div><div class="rm-tabs"></div><div class="rm-sum"></div><div class="rm-body"></div>' +
+      '<div class="rm-sht m-day"><div class="rm-tabs"></div><div class="rm-body"></div>' +
       '<div class="rm-foot"><a class="btn rm-navd" href="#" role="button">导航这一天 ›</a><p class="rm-hint"></p></div></div>';
     inst.root = root; inst.stage = qs('.rm-stage', root); inst.mapEl = qs('.rm-map', root); inst.gr = qs('.rm-gr', root); inst.cv = qs('.rm-cv', root); inst.pts = qs('.rm-pts', root);
-    inst.note = qs('.rm-note', root); inst.load = qs('.rm-load', root); inst.prog = qs('.rm-prog i', root); inst.sheet = qs('.rm-sht', root); inst.tabs = qs('.rm-tabs', root); inst.sum = qs('.rm-sum', root);
+    inst.note = qs('.rm-note', root); inst.load = qs('.rm-load', root); inst.prog = qs('.rm-prog i', root); inst.sheet = qs('.rm-sht', root); inst.tabs = qs('.rm-tabs', root);
     inst.bodyEl = qs('.rm-body', root); inst.foot = qs('.rm-foot', root); inst.navd = qs('.rm-navd', root); inst.hint = qs('.rm-hint', root); inst.col = qs('.rm-col', root);
     return root;
   }
@@ -282,23 +241,16 @@
     var cs = getComputedStyle(p), r = { t: parseFloat(cs.paddingTop) || 0, b: parseFloat(cs.paddingBottom) || 0 }; B.removeChild(p); return r;
   }
   function measure(inst) {
-    var r = inst.root, sf = safe(); inst.st = sf.t; inst.sb = sf.b; inst.vw = r.clientWidth || W.innerWidth; inst.vh = r.clientHeight || W.innerHeight;
-    inst.sw = inst.stage.clientWidth || inst.vw; inst.sh2 = inst.stage.clientHeight || inst.vh; inst.mh = inst.sh2 - (inst.mb || 0);
+    var r = inst.root, sf = safe(); inst.st = sf.t; inst.sb = sf.b; inst.sheetH = BAR_H + sf.b; r.style.setProperty('--sh', inst.sheetH + 'px');      // 底部条高度固定
+    inst.vw = r.clientWidth || W.innerWidth; inst.vh = r.clientHeight || W.innerHeight;
+    inst.sw = inst.stage.clientWidth || inst.vw; inst.sh2 = inst.stage.clientHeight || inst.vh; inst.mh = inst.sh2 - inst.sheetH;
     var dpr = Math.min(W.devicePixelRatio || 1, 2); inst.dpr = dpr;
     [inst.cv, inst.gr].forEach(function (c) { var w = Math.round(inst.sw * dpr), h = Math.round(inst.sh2 * dpr); if (c.width !== w || c.height !== h) { c.width = w; c.height = h; } });
     inst.cx = inst.cv.getContext('2d'); inst.gx = inst.gr.getContext('2d');
   }
 
-  // 摄像机留边：四周让出 ×、右侧控件、底部面板的位置，站点落在能看到的那一块里
-  function padFor(inst) { var ov = Math.max(0, (inst.sheetH || 0) - (inst.mb || 0)); return { t: inst.st + 60, b: Math.min(ov + 20, inst.mh - 140), l: 36, r: 88 }; }      // 面板盖住地图容器的那一截（容器已经缩到面板上方时是 0）
-  // 地图容器的高：刚打开时只到面板上沿（半屏时 6 块瓦片变 4 块，慢网下省一半字节）；面板一往下拖 / 收到卡片 / 收起，就长到整屏（growMap）。长大时摄像机中心会跟着容器中心挪，要把内容挪回去
-  function growMap(inst) {
-    if (!inst.mb) return; var old = inst.mh; inst.mb = 0; inst.mh = inst.sh2; inst.mapEl.style.bottom = '0px';
-    var v = inst.view, d = (inst.mh - old) / 2;
-    if (v && v.kind === 'ml') { try { v.map.resize(); v.map.panBy([0, d], { animate: false }); } catch (e) {} }
-    else if (v) v.panBy(0, -d);
-    if (inst.sch && v !== inst.sch) { /* 示意图的摄像机在街道底图出来时已同步过，不再动 */ }
-  }
+  // 摄像机留边：四周让出 ×、右侧控件的位置；地图容器只到底部条的上沿（条高固定），所以下边只留 20
+  function padFor(inst) { return { t: inst.st + 60, b: 20, l: 36, r: 88 }; }
   function fitView(inst, anim) {
     if (!inst.view) return; var a = dayPts(inst); if (!a.length) return;
     var b = bbox(a), cam = fitCam(b, inst.sw, inst.mh, padFor(inst), FITMAX);
@@ -361,7 +313,7 @@
       (inst.gray || []).forEach(function (g, gi) { var e = el('button', 'rm-mk rm-gy' + (inst.curG === gi + 1 ? ' rm-cur' : ''), '<i></i>'); e.type = 'button'; e.setAttribute('data-g', gi); e.tabIndex = -1; e.setAttribute('aria-label', '顺路可去：' + g.c.n); add(e, g.ll, { kind: 'g', gi: gi, label: '顺路可去：' + g.c.n, small: true }); });
       if (d.ep) { var h = el('button', 'rm-mk rm-hm ' + dayCls(sel) + (inst.curH ? ' rm-cur' : ''), '<i>住</i>'); h.type = 'button'; h.setAttribute('data-hm', '1'); h.tabIndex = -1; h.setAttribute('aria-label', '住 · 约' + (d.stay ? '（' + d.stay + '，大概位置）' : '')); add(h, d.ep, { kind: 'hm', label: '住 · 约' + (d.stay ? ' ' + d.stay : '') }); }   // 先画住：和某一站重叠时站在上面
       d.pts.forEach(function (p) {
-        var cls = 'rm-mk ' + dayCls(sel) + (p.kind === 'mu' ? ' rm-mu' : '') + (p.kind === 'eat' ? ' rm-eat' : '') + (inst.cur === p.n ? ' rm-cur' : '');
+        var cls = 'rm-mk ' + dayCls(sel) + (p.mk === 'mu' ? ' rm-mu' : '') + (p.mk === 'eat' ? ' rm-eat' : '') + (inst.cur === p.n ? ' rm-cur' : '');
         var b = el('button', cls, '<i>' + p.n + '</i>'); b.type = 'button'; b.setAttribute('data-n', p.n); b.tabIndex = -1; b.setAttribute('aria-label', p.n + ' ' + p.name); add(b, p.ll, { kind: 'n', n: p.n, label: p.n + ' ' + p.name });
       });
     }
@@ -441,7 +393,7 @@
   }
   function pickMark(inst, m) {
     if (m.kind === 'day') return selectDay(inst, m.day);
-    if (m.kind === 'n') return selectStop(inst, m.n, { fly: true });
+    if (m.kind === 'n') return selectStop(inst, m.n, { fly: true });      // 列表模式：点一下 = 行高亮并滚到可见；已经选中的再点一下 = 站点卡片
     if (m.kind === 'g') return selectGray(inst, m.gi);
     if (m.kind === 'hm') return selectHome(inst);
   }
@@ -460,58 +412,36 @@
     inst.tabs.innerHTML = h; inst.tabs.className = 'rm-tabs' + (n > 6 ? ' long' : '');
     var on = qs('.rm-tb.on', inst.tabs); if (on && inst.tabs.scrollWidth > inst.tabs.clientWidth) inst.tabs.scrollLeft = Math.max(0, on.offsetLeft - inst.tabs.clientWidth / 2 + on.offsetWidth / 2);      // 选中项始终可见
   }
-  function paintSum(inst) {      // 收起时露出来的一条：选中的站名，没有就写今天 / 全程的标题
-    var d = curDay(inst), p = curPt(inst), t;
-    if (p) t = '<b>' + p.n + '</b><span>' + esc(p.name) + '</span>';
-    else if (inst.curH && d) t = '<b>住</b><span>住 · 约' + (d.stay ? ' ' + esc(d.stay) : '') + '</span>';
-    else if (d) t = '<b>' + noStr(d.i + 1) + '</b><span>' + esc(d.title || '第 ' + (d.i + 1) + ' 天') + '</span>';
-    else t = '<b>' + noStr(inst.days.length) + '</b><span>全程 共 ' + inst.days.length + ' 天</span>';
-    inst.sum.innerHTML = t;
+  // 当天那一行信息：第 N 天 · 标题 · 今天：走路约 … · 路上约 …（数字和页面每天那一行是同一个 ZD.loadText）
+  function paintDayLine(inst) {
+    var d = curDay(inst), n = inst.days.length, h;
+    if (!d) h = '<p class="rm-ld"><b>全程 · 共 ' + n + ' 天</b>　点上面的天数，看那一天的路线</p>';
+    else h = '<p class="rm-ld"><b>第 ' + (d.i + 1) + ' 天 · ' + esc(d.title) + '</b>　今天：' + esc(ZD.loadText(ZD.facts(d))) + '</p>';
+    inst.bodyEl.innerHTML = h; inst.bodyEl.className = 'rm-body rm-day';
   }
-  function paintList(inst) {
-    var d = curDay(inst), h = '', n = inst.days.length;
-    if (!d) {
-      h = '<div class="rm-hd"><span class="rm-no">' + (n < 100 ? noStr(n) : n) + '</span><span class="rm-hdt"><small>全程</small><b>共 ' + n + ' 天</b></span></div><div class="rm-rows">';
-      inst.days.forEach(function (x, i) { h += '<button type="button" class="rm-row rm-dr" data-i="' + i + '"><b>' + noStr(i + 1) + '</b><span class="rm-t"><strong>' + esc(x.title || '第 ' + (i + 1) + ' 天') + '</strong><small>' + x.pts.length + ' 个有位置的地方' + (x.stay ? ' · 住 ' + esc(x.stay) : '') + '</small></span></button>'; });
-      h += '</div>';
-    } else {
-      var info = d.load.slice(); if (d.stay) info.push('住 ' + d.stay);
-      h = '<div class="rm-hd"><span class="rm-no">' + noStr(d.i + 1) + '</span><span class="rm-hdt"><small>第 ' + (d.i + 1) + ' 天</small><b>' + esc(d.title) + '</b></span></div>' + (info.length ? '<p class="rm-ld">今天：' + esc(info.join(' · ')) + '</p>' : '') + '<div class="rm-rows">';
-      d.pts.forEach(function (p) {
-        var tags = (p.book ? '<em>要预约</em>' : '') + (p.closed ? '<em class="rm-cl">' + esc(p.closed) + '</em>' : '');
-        h += '<button type="button" class="rm-row' + (inst.cur === p.n ? ' on' : '') + '" data-n="' + p.n + '"><b>' + p.n + '</b><span class="rm-t"><strong>' + esc(p.name) + '</strong><small>' + esc(p.one || (p.kind === 'mu' ? '博物馆' : (p.kind === 'eat' ? '吃饭' : ''))) + '</small></span><span class="rm-r">' + tags + (p.next ? '<i>' + esc(p.next.txt) + '</i>' : '') + '</span></button>';
-      });
-      if (d.ep) h += '<button type="button" class="rm-row rm-hrow" data-hm="1"><b>住</b><span class="rm-t"><strong>住 · 约' + (d.stay ? ' ' + esc(d.stay) : '') + '</strong><small>大概位置，不是酒店</small></span></button>';
-      h += '</div>';
-    }
-    inst.bodyEl.innerHTML = h; inst.bodyEl.scrollTop = 0; inst.bodyEl.className = 'rm-body rm-list';
-  }
-  function cardOf(inst, p, i, total) {
-    var tags = (p.book ? '<em>要预约</em>' : '') + (p.closed ? '<em class="rm-cl">' + esc(p.closed) + '</em>' : '') + (p.kind === 'mu' ? '<em class="rm-q">博物馆</em>' : (p.kind === 'eat' ? '<em class="rm-q">吃饭</em>' : ''));
+  function clearSel(inst) { inst.cur = 0; inst.curG = 0; inst.curH = false; }
+  function cardOf(inst, p, i, total) {      // 站点卡片（读 ZD 的站）：名字 / 一句话 / 小标签 + 前后车程 / 两个按钮；高度和底部条一样，放得下
+    var tags = (p.book ? '<em>要预约</em>' : '') + (p.closed ? '<em class="rm-cl">' + esc(p.closed) + '</em>' : '') + (p.mk === 'mu' ? '<em class="rm-q">博物馆</em>' : (p.mk === 'eat' ? '<em class="rm-q">吃饭</em>' : ''));
     var legs = [];
-    if (p.prev) legs.push('<span>上一站 · ' + esc(p.prev.txt) + '</span>'); else if (i === 0) legs.push('<span>第一站</span>');
-    if (p.next) legs.push('<span>下一站 · ' + esc(p.next.txt) + '</span>'); else if (i === total - 1) legs.push('<span>这天最后一站</span>');
-    var d = curDay(inst), prevLL = i > 0 ? d.pts[i - 1].ll : null, nextLL = i < total - 1 ? d.pts[i + 1].ll : null, km = [];
-    if (prevLL) km.push('离上一站 ' + kmTxt(kmd(prevLL, p.ll))); if (nextLL) km.push('离下一站 ' + kmTxt(kmd(p.ll, nextLL)));
-    return '<article class="rm-card" data-n="' + p.n + '"><div class="rm-ch"><b>' + p.n + '</b><span class="rm-cname">' + esc(p.name) + '</span><button type="button" class="rm-cb" data-act="list">全部站点</button></div>' +
-      (p.one ? '<p class="rm-c1">' + esc(p.one) + '</p>' : '') + (tags ? '<p class="rm-c2">' + tags + '</p>' : '') +
-      '<p class="rm-c3">' + legs.join('') + (km.length ? '<small>直线：' + km.join(' · ') + '</small>' : '') + '</p>' +
-      '<div class="rm-ca"><button type="button" class="rm-go" data-act="go">导航到这里</button><button type="button" class="rm-adj2" data-act="adj">调整这一站</button></div>' +
-      '<p class="rm-cn2">' + p.n + ' / ' + total + (total > 1 ? '　左右滑动换一站' : '') + '</p></article>';
+    if (p.prev) legs.push('距上一站 ' + p.prev.txt); else if (i === 0) legs.push('第一站');
+    if (p.next) legs.push('距下一站 ' + p.next.txt); else if (i === total - 1) legs.push('这天最后一站');
+    return '<article class="rm-card" data-n="' + p.n + '"><div class="rm-ch"><b>' + p.n + '</b><span class="rm-cname">' + esc(p.name) + '</span><button type="button" class="rm-cb" data-act="list">' + p.n + ' / ' + total + ' · 回当天</button></div>' +
+      (p.one ? '<p class="rm-c1">' + esc(p.one) + '</p>' : '') +
+      '<p class="rm-c3">' + tags + '<span>' + esc(legs.join(' · ')) + '</span></p>' +
+      '<div class="rm-ca"><button type="button" class="rm-adj2" data-act="see">在行程里看 ›</button><button type="button" class="rm-go" data-act="go">导航到这里</button></div></article>';
   }
   function paintCards(inst) {
     var d = curDay(inst), h = '', k = 0;
     if (inst.curG) {
       var g = inst.gray[inst.curG - 1]; if (!g) return;
-      h = '<div class="rm-cards one"><article class="rm-card rm-gcard"><div class="rm-ch"><b class="rm-gq"></b><span class="rm-cname">' + esc(g.c.n) + '</span><button type="button" class="rm-cb" data-act="list">全部站点</button></div><p class="rm-c1">顺路可去 · ' + esc(g.label) + '</p><div class="rm-ca"><button type="button" class="rm-go" data-act="addg">加到这天</button></div></article></div>';
+      h = '<div class="rm-cards one"><article class="rm-card rm-gcard"><div class="rm-ch"><b class="rm-gq"></b><span class="rm-cname">' + esc(g.c.n) + '</span><button type="button" class="rm-cb" data-act="list">回当天</button></div><p class="rm-c1">顺路可去 · ' + esc(g.label) + '</p><div class="rm-ca"><button type="button" class="rm-go" data-act="addg">加到这天</button></div></article></div>';
     } else if (inst.curH && d) {
-      h = '<div class="rm-cards one"><article class="rm-card"><div class="rm-ch"><b>住</b><span class="rm-cname">住 · 约' + (d.stay ? ' ' + esc(d.stay) : '') + '</span><button type="button" class="rm-cb" data-act="list">全部站点</button></div><p class="rm-c1">大概位置，不是酒店</p></article></div>';
+      h = '<div class="rm-cards one"><article class="rm-card"><div class="rm-ch"><b>住</b><span class="rm-cname">住 · 约' + (d.stay ? ' ' + esc(d.stay) : '') + '</span><button type="button" class="rm-cb" data-act="list">回当天</button></div><p class="rm-c1">大概位置，不是酒店</p></article></div>';
     } else if (d) {
       h = '<div class="rm-cards">'; d.pts.forEach(function (p, i) { h += cardOf(inst, p, i, d.pts.length); }); h += '</div>';
     }
     inst.bodyEl.innerHTML = h; inst.bodyEl.className = 'rm-body rm-cardsw';
-    var cs = qs('.rm-cards', inst.bodyEl); inst.cards = cs; inst.cardH = 0;
-    if (cs) qsa('.rm-card', cs).forEach(function (c) { inst.cardH = Math.max(inst.cardH, c.offsetHeight); });
+    var cs = qs('.rm-cards', inst.bodyEl); inst.cards = cs;
     if (cs && inst.cur && !inst.curG && !inst.curH) { cs.scrollLeft = (inst.cur - 1) * cs.clientWidth; }
     wireCards(inst);
   }
@@ -529,7 +459,7 @@
   }
   function paintFoot(inst) {
     var d = curDay(inst), nv = !!d && navSegs(d).length > 0; inst.navd.hidden = !nv; inst.hint.hidden = !nv; inst.foot.hidden = !nv;
-    if (nv) { var sg = navSegs(d), ht = navHint(d); inst.hint.textContent = (ht ? ht + ' ' : '') + '图上的线是站与站之间的直线示意，不是行车路线。'; inst.hint.hidden = false; inst.navd.setAttribute('href', sg.length === 1 ? sg[0].url : '#'); navState(inst); }
+    if (nv) { var sg = navSegs(d), ht = navHint(d); inst.hint.textContent = '图上的线是站与站之间的直线示意，不是行车路线。'; inst.hint.hidden = false; inst.navd.setAttribute('href', sg.length === 1 ? sg[0].url : '#'); navState(inst); }
   }
   // 断网：“导航这一天”置灰写明原因，点它不弹分段层
   function navState(inst) {
@@ -540,106 +470,30 @@
   W.addEventListener('offline', function () { navState(CUR); });
   function paintSheet(inst) {
     var card = inst.mode === 'card';
-    inst.sheet.className = 'rm-sht ' + (card ? 'm-card' : 'm-list') + (inst.sheetCls || '');
-    paintTabs(inst); paintSum(inst);
-    if (card) paintCards(inst); else paintList(inst);
-    paintFoot(inst); if (inst.sheetH) setSheet(inst, inst.sheetH, false);      // className 整个重写了，把 s0 / sfull 等状态类补回来
+    inst.sheet.className = 'rm-sht ' + (card ? 'm-card' : 'm-day');
+    paintTabs(inst);
+    if (card) paintCards(inst); else paintDayLine(inst);
+    paintFoot(inst);
   }
-  // 三档吸附：收起 / 半屏 / 拉满（高度，px）。卡片模式两档：卡片 / 收起一条名字
-  function dets(inst) {
-    var H = inst.vh, grab = 20, tabs = 44, sum = 46, sb = inst.sb;
-    var c = grab + tabs + sum + sb, full = H - inst.st - 64, half = Math.round(H * .5);
-    half = clamp(half, c + 150, Math.max(c + 150, full - 90));
-    var cardH = grab + 218 + sb, s1 = grab + 46 + sb;
-    if (inst.cardH > 80) cardH = grab + inst.cardH + sb;
-    cardH = Math.min(cardH, Math.max(c, half));
-    return inst.mode === 'card' ? [s1, cardH] : [c, half, full];
-  }
-  function setSheet(inst, h, anim) {
-    var s = inst.sheet; s.classList.toggle('snap', !!anim); s.classList.toggle('drag', !anim);
-    inst.sheetH = Math.round(h); s.style.height = inst.sheetH + 'px'; inst.root.style.setProperty('--sh', inst.sheetH + 'px');
-    var d = dets(inst), lowest = d[0];
-    inst.root.classList.toggle('rm-drg', !anim);
-    s.classList.toggle('s0', inst.sheetH < lowest + 30); s.classList.toggle('sfull', inst.mode === 'list' && inst.sheetH > inst.vh * .8);
-    inst.root.classList.toggle('rm-sfull', inst.mode === 'list' && inst.sheetH > inst.vh * .8);
-  }
-  function snapTo(inst, idx, anim) {
-    var d = dets(inst); idx = clamp(idx, 0, d.length - 1); inst.snap = idx; if (inst.mode === 'list') inst.lastList = idx;
-    if (inst.mb && d[idx] < inst.mb) growMap(inst);
-    setSheet(inst, d[idx], anim !== false);
-    if (anim !== false) settle(inst);
-  }
-  function settle(inst) { [0, 330].forEach(function (t) { setTimeout(function () { if (inst.alive) { measure(inst); place(inst); } }, t); }); }
-  function defaultSnap(inst) { return inst.vh >= 700 ? 1 : 0; }      // 按屏高选：够高半屏（地图露上半），矮屏收起，保证地图主体可见
 
-  // 面板手势：touch + 鼠标。标题条 / 手柄 / 标签条竖向拖 = 拉面板；列表：拉满时正常滚，滚到顶继续下拉才收起；没拉满时往上拉先把面板拉起来
-  function wireSheet(inst) {
-    var sh = inst.sheet, g = null;
-    function inBody(t) { return !!(t.closest && t.closest('.rm-body')); }
-    function ts(ev) { return ev && ev.timeStamp ? ev.timeStamp : now(); }      // 用事件自带的时间戳算速度（主线程忙的时候“处理时间”会挤在一起，速度就算成 0）
-    function start(y, x, target, ev) {
-      g = { y0: y, x0: x, y: y, h0: inst.sheetH, mode: null, t: target, samples: [{ y: y, t: ts(ev) }], lastY: y, list: inst.mode === 'list' && inBody(target), cards: !!(target.closest && target.closest('.rm-cards')), tabs: !!(target.closest && target.closest('.rm-tabs')), top: inst.bodyEl.scrollTop <= 0 };
-    }
-    function move(y, x, ev) {
-      if (!g) return false;
-      var dy = y - g.y0, dx = x - g.x0, d = dets(inst), max = d[d.length - 1], min = d[0];
-      if (g.mode === null) {
-        if (Math.abs(dy) < 6 && Math.abs(dx) < 6) return false;
-        if ((g.tabs || g.cards) && Math.abs(dx) > Math.abs(dy)) g.mode = 'native';
-        else if (g.list && inst.snap === d.length - 1 && !(dy > 0 && g.top)) g.mode = 'native';      // 拉满了：列表自己滚
-        else g.mode = 'drag';
-        if (g.mode === 'drag') { g.y0 = y; g.h0 = inst.sheetH; dy = 0; g.samples = [{ y: y, t: ts(ev) }]; growMap(inst); }      // 一开始拖面板就把地图容器长到整屏（面板往下走会露出下面的地图）
-      }
-      if (g.mode === 'native') {
-        if (g.list && inst.snap === d.length - 1 && inst.bodyEl.scrollTop <= 0 && y > g.lastY + 1) { g.mode = 'drag'; g.y0 = y; g.h0 = inst.sheetH; dy = 0; g.samples = [{ y: y, t: ts(ev) }]; }      // 滚到顶了还在下拉：交给面板
-        else { g.lastY = y; return false; }
-      }
-      g.lastY = y; if (ev && ev.cancelable) ev.preventDefault();
-      var h = g.h0 - dy;
-      if (h > max) h = max + (h - max) * .3; else if (h < min) h = min - (min - h) * .3;      // 阻尼
-      setSheet(inst, h, false); g.samples.push({ y: y, t: ts(ev) }); if (g.samples.length > 8) g.samples.shift();
-      return true;
-    }
-    function end() {
-      if (!g) return; var was = g; g = null; if (was.mode !== 'drag') return;
-      var d = dets(inst), s = was.samples, v = 0, a = s[0], b = s[s.length - 1];
-      for (var i = s.length - 1; i >= 0; i--) { if (b.t - s[i].t > 90) break; a = s[i]; }
-      if (b.t - a.t > 1) v = (b.y - a.y) / (b.t - a.t);      // px/ms，向上为负
-      var proj = inst.sheetH - v * 240, best = 0, bd = 1e9, k;
-      for (k = 0; k < d.length; k++) { var dd = Math.abs(d[k] - proj); if (dd < bd) { bd = dd; best = k; } }
-      if (Math.abs(v) > .35) { var cur = 0; for (k = 0; k < d.length; k++) if (Math.abs(d[k] - inst.sheetH) < Math.abs(d[cur] - inst.sheetH)) cur = k; best = clamp(v < 0 ? Math.max(cur + 1, best) : Math.min(cur - 1, best), 0, d.length - 1); }
-      snapTo(inst, best, true);
-      if (inst.mode === 'list') { inst.bodyEl.scrollTop = best === d.length - 1 ? inst.bodyEl.scrollTop : 0; }
-    }
-    sh.addEventListener('touchstart', function (e) { if (e.touches.length !== 1) { g = null; return; } start(e.touches[0].clientY, e.touches[0].clientX, e.target, e); }, { passive: true });
-    sh.addEventListener('touchmove', function (e) { if (e.touches.length !== 1) return; move(e.touches[0].clientY, e.touches[0].clientX, e); }, { passive: false });
-    sh.addEventListener('touchend', end, { passive: true }); sh.addEventListener('touchcancel', end, { passive: true });
-    var mouse = false;
-    sh.addEventListener('mousedown', function (e) { if (e.button !== 0 || e.target.closest('button,a,input')) return; mouse = true; start(e.clientY, e.clientX, e.target, e); });
-    W.addEventListener('mousemove', function (e) { if (mouse && g) move(e.clientY, e.clientX, e); });
-    W.addEventListener('mouseup', function () { if (mouse) { mouse = false; end(); } });
-  }
+  function settle(inst) { [0, 330].forEach(function (t) { setTimeout(function () { if (inst.alive) { measure(inst); place(inst); } }, t); }); }      // 布局变了（示意图 ↔ 街道底图、横竖屏）：稍后重新量一遍、重新定位
 
   // ——— 选天 / 选站 ———
   function paintAll(inst) { paintSheet(inst); }
-  function selectDay(inst, i, anim) {
+  function selectDay(inst, i) {
     if (i >= inst.days.length) i = -1;
-    inst.sel = i; inst.cur = 0; inst.curG = 0; inst.curH = false; inst.gray = []; closeAt(inst); markOn(inst); inst.mode = 'list';
-    paintAll(inst); draw(inst);
-    var d = dets(inst); var k = clamp(inst.lastList != null ? inst.lastList : defaultSnap(inst), 0, d.length - 1); snapTo(inst, k, anim !== false);
-    fitView(inst, anim !== false); loadGray(inst);
+    inst.sel = i; clearSel(inst); inst.gray = []; closeAt(inst); markOn(inst); inst.mode = 'day';
+    paintAll(inst); draw(inst); fitView(inst, true); loadGray(inst);
   }
   function markOn(inst) {
     qsa('section.day.rm-on').forEach(function (s) { s.className = s.className.replace(/\s*rm-(on|c\d|s\d)\b/g, ''); });
   }
-  function selectStop(inst, n, opt) {
+  function selectStop(inst, n, opt) {      // 点图上的站点：底部条换成这一站的卡片，地图飞过去
     var d = curDay(inst); if (!d || !d.pts[n - 1]) return; opt = opt || {};
-    inst.cur = n; inst.curG = 0; inst.curH = false; closeAt(inst); inst.lastSel = d.pts[n - 1];
+    clearSel(inst); inst.cur = n; closeAt(inst); inst.lastSel = d.pts[n - 1];
     var was = inst.mode; inst.mode = 'card';
-    if (opt.keepCards && was === 'card' && inst.cards) paintSum(inst); else paintSheet(inst);
+    if (!(opt.keepCards && was === 'card' && inst.cards)) paintSheet(inst);
     paintTagsAndMarks(inst);
-    if (was !== 'card') { inst.lastList = inst.snap; snapTo(inst, 1, true); }
-    else if (inst.snap === 0) snapTo(inst, 1, true);
     if (opt.fly !== false) flyToPt(inst, d.pts[n - 1].ll);
     if (inst.cards && !opt.keepCards && inst.cards.className.indexOf('one') < 0) { inst.progScroll = true; inst.cards.scrollLeft = (n - 1) * inst.cards.clientWidth; setTimeout(function () { inst.progScroll = false; }, 160); }      // 用户自己滑卡片时不要再去动卡片
   }
@@ -651,27 +505,25 @@
     paintTag(inst);
   }
   function selectGray(inst, gi) {
-    var g = inst.gray[gi]; if (!g) return; inst.cur = 0; inst.curH = false; inst.curG = gi + 1; closeAt(inst);
-    var was = inst.mode; inst.mode = 'card'; paintSheet(inst); paintTagsAndMarks(inst);
-    if (was !== 'card') inst.lastList = inst.snap; snapTo(inst, 1, true); flyToPt(inst, g.ll);
+    var g = inst.gray[gi]; if (!g) return; clearSel(inst); inst.curG = gi + 1; closeAt(inst);
+    inst.mode = 'card'; paintSheet(inst); paintTagsAndMarks(inst); flyToPt(inst, g.ll);
   }
   function selectHome(inst) {
-    var d = curDay(inst); if (!d || !d.ep) return; inst.cur = 0; inst.curG = 0; inst.curH = true; closeAt(inst);
-    var was = inst.mode; inst.mode = 'card'; paintSheet(inst); paintTagsAndMarks(inst);
-    if (was !== 'card') inst.lastList = inst.snap; snapTo(inst, 1, true); flyToPt(inst, d.ep);
+    var d = curDay(inst); if (!d || !d.ep) return; clearSel(inst); inst.curH = true; closeAt(inst);
+    var st = d.items.filter(function (x) { return x.kind === 'stay'; })[0]; inst.lastSel = st ? { zid: st.zid } : null;
+    inst.mode = 'card'; paintSheet(inst); paintTagsAndMarks(inst); flyToPt(inst, d.ep);
   }
-  function deselect(inst) {      // 点空白 / “全部站点”：回到列表，回到进卡片前的那一档
+  function deselect(inst) {      // 点空白 / “回当天”：回到当天那一行信息
     if (inst.mode !== 'card' && !inst.cur && !inst.curG && !inst.curH) return;
-    inst.cur = 0; inst.curG = 0; inst.curH = false; inst.mode = 'list'; closeAt(inst);
-    paintSheet(inst); paintTagsAndMarks(inst);
-    var d = dets(inst); snapTo(inst, clamp(inst.lastList != null ? inst.lastList : 1, 0, d.length - 1), true);
+    clearSel(inst); inst.mode = 'day'; closeAt(inst); paintSheet(inst); paintTagsAndMarks(inst);
   }
 
   // ——— 顺路可去（灰点）：复用顺路加一站的候选、试算、加站和撤销（site.js 里 window.zNpMap）———
   function anchorsOf(d) {
-    return d.pts.map(function (p) { return p.row; }).filter(function (r) {
-      return (r.classList.contains('see') || r.classList.contains('fun')) && r.getAttribute('data-np') !== 'v' && !r.getAttribute('data-at') && !r.getAttribute('data-rain') && !r.getAttribute('data-fo') && !r.getAttribute('data-on') && !/沿途慢慢走/.test(nameOf(r));
-    });
+    return d.pts.filter(function (p) {
+      var r = p.row;
+      return (p.kind === 'see' || p.kind === 'fun') && r.getAttribute('data-np') !== 'v' && !r.getAttribute('data-at') && !r.getAttribute('data-rain') && !r.getAttribute('data-fo') && !r.getAttribute('data-on') && !/沿途慢慢走/.test(p.name);
+    }).map(function (p) { return p.row; });
   }
   function loadGray(inst) {
     var d = curDay(inst), N = W.zNpMap; inst.gray = [];
@@ -707,15 +559,15 @@
     W.addEventListener('popstate', pop); setTimeout(function () { W.removeEventListener('popstate', pop); try { if (inst.sr) history.scrollRestoration = inst.sr; } catch (e) {} }, 1500);      // 返回键触发的历史回退完成后浏览器可能再恢复一次滚动位置：popstate 之后再校正；整屏期间 scrollRestoration 设成 manual，浏览器自己不乱滚
     [60, 200, 500].forEach(function (t) { setTimeout(function () { if (!B.classList.contains('rm-lock') && Math.abs((W.pageYOffset || 0) - inst.y) > 1 && !CUR) back(); }, t); });      // 返回键会让浏览器按“上一条历史的位置”再滚一次：稍后校正
   }
-  function toRowAfterClose(inst) {      // 关闭后：页面滚到刚才选中的那一站对应行，高亮一下
-    var p = inst.lastSel; if (!p || !p.row || !p.row.getBoundingClientRect) return;
-    var r = p.row.getBoundingClientRect(); if (!r.height) return;
+  function toRowAfterClose(inst) {      // 关闭后：页面滚到刚才选中的那一行（按 ZD 的行 id 找，行被重画过也找得到），高亮一下
+    var p = inst.lastSel, row = p && p.zid ? qs('[data-zid="' + p.zid + '"]', ART) : (p && p.row); if (!row || !row.getBoundingClientRect) return;
+    var r = row.getBoundingClientRect(); if (!r.height) return;
     inst.y = Math.max(0, r.top + inst.y - Math.round((W.innerHeight || 600) / 3));
-    p.row.classList.add('flash'); setTimeout(function () { p.row.classList.remove('flash'); }, 1600);
+    row.classList.add('flash'); setTimeout(function () { row.classList.remove('flash'); }, 1600);
   }
   function closeInst(inst) {
     if (!inst || !inst.alive) return;
-    inst.alive = false; clearTimeout(inst.timer); clearTimeout(inst.tchk); clearTimeout(inst.hard); if (inst.mo) inst.mo.disconnect();
+    inst.alive = false; clearTimeout(inst.timer); clearTimeout(inst.tchk); clearTimeout(inst.hard); clearTimeout(inst.rft); if (inst.off) inst.off();
     if (inst.mq && inst.mq.removeListener) inst.mq.removeListener(inst.onScheme);
     W.removeEventListener('resize', inst.onResize); W.removeEventListener('orientationchange', inst.onResize);
     toRowAfterClose(inst);
@@ -818,7 +670,7 @@
       }
       inst.days.forEach(function (d, i) {
         var col = PAL[i % 3];
-        if (inst.sel === i) { d.pts.forEach(function (p) { sqr(P(p.ll), String(p.n), col, p.kind === 'eat', p.kind === 'mu'); }); if (d.ep) sqr(P(d.ep), '住', col, true, false); }
+        if (inst.sel === i) { d.pts.forEach(function (p) { sqr(P(p.ll), String(p.n), col, p.mk === 'eat', p.mk === 'mu'); }); if (d.ep) sqr(P(d.ep), '住', col, true, false); }
         else if (inst.sel < 0 && d.pts.length) sqr(P(d.pts[0].ll), String(i + 1), col, false, false);
       });
       x.restore(); x.textAlign = 'left'; x.textBaseline = 'alphabetic';
@@ -847,7 +699,7 @@
   // ——— 事件 ———
   function wire(inst) {
     var root = inst.root;
-    wireSch(inst); wireSheet(inst);
+    wireSch(inst);
     root.addEventListener('gesturestart', function (e) { e.preventDefault(); });
     root.addEventListener('click', function (e) {
       var t = e.target, b;
@@ -861,27 +713,17 @@
       if (t.closest('.rm-ai')) { var x = qs('.rm-atx', root), open = x.hidden; x.hidden = !open; qs('.rm-ai', root).setAttribute('aria-expanded', open ? 'true' : 'false'); return; }
       if (t.closest('.rm-ax')) { qs('.rm-atx', root).hidden = true; qs('.rm-ai', root).setAttribute('aria-expanded', 'false'); return; }
       if ((b = t.closest('.rm-tb'))) { selectDay(inst, +b.getAttribute('data-i')); return; }
-      if ((b = t.closest('.rm-dr'))) { selectDay(inst, +b.getAttribute('data-i')); return; }
       if ((b = t.closest('.rm-navd'))) { var d = curDay(inst); if (!d) return; e.preventDefault(); navDay(d, inst); return; }
       if ((b = t.closest('.rm-pi'))) { var pm = inst.pick && inst.pick[+b.getAttribute('data-pi')]; closeAt(inst); if (pm) pickMark(inst, pm); return; }
-      if ((b = t.closest('.rm-row'))) {
-        if (b.hasAttribute('data-n')) selectStop(inst, +b.getAttribute('data-n'), { fly: true });
-        if (b.hasAttribute('data-hm')) selectHome(inst);
-        return;
-      }
       if ((b = t.closest('[data-act]')) && t.closest('.rm-card')) {
         var act = b.getAttribute('data-act'), p = curPt(inst);
         if (act === 'list') { deselect(inst); return; }
+        if (act === 'see' && p) { closeInst(inst); return; }      // 在行程里看：关掉地图，页面滚到这一站那一行并高亮（closeInst 里的 toRowAfterClose）
         if (act === 'go' && p) { navHere(inst, p); return; }
-        if (act === 'adj' && p) { adjustRow(inst, p); return; }
         if (act === 'addg') { addGray(inst); return; }
       }
     });
   }
-  function adjustRow(inst, p) {      // 调整这一站：打开页面里原有的“调整”半屏（多待 / 少待 / 去掉 / 换成 / 在这之后加一个）；改完图自己重画
-    var a = p.row && qs('.adj', p.row); if (!a) { toast('这一站没有可调整的项'); return; } a.click();
-  }
-
   // ——— 加载 / 兜底 ———
   function setProg(inst, v) { if (inst.prog) inst.prog.style.width = Math.round(clamp(v, 0, 1) * 100) + '%'; inst.pv = v; }
   function showLoad(inst) { inst.load.textContent = NOTE_LOAD; inst.load.hidden = false; inst.root.classList.add('rm-loading'); }
@@ -955,33 +797,26 @@
       });
     });
   }
-  function watch(inst) {
-    var timer = null;
-    inst.mo = new MutationObserver(function (recs) {
-      var rel = recs.some(function (r) { var t = r.target.nodeType === 1 ? r.target : r.target.parentNode; return !(t && t.closest && t.closest('.rm,.pk,.pk-mask,.toast')); });
-      if (!rel) return; clearTimeout(timer); timer = setTimeout(function () { refresh(inst); }, 160);
-    });
-    inst.mo.observe(ART, { childList: true, subtree: true, attributes: true, attributeFilter: ['hidden', 'data-ll'] });
+  function watch(inst) {      // 页面这边（或面板自己）改了行程：ZD 通知，面板按新的 ZD 重画（和页面时间轴永远是同一份）
+    inst.off = ZD.on(function () { clearTimeout(inst.rft); inst.rft = setTimeout(function () { refresh(inst); }, 0); });
   }
-  function refresh(inst) {
-    if (!inst.alive) return; var days = readDays(), s0 = sig(inst.days), s1 = sig(days);
-    var sec0 = inst.sel >= 0 && inst.days[inst.sel] ? inst.days[inst.sel].sec : null;
-    if (s0 === s1) return;
-    var p0 = curPt(inst), row0 = p0 ? p0.row : null;
+  function refresh(inst) {      // 页面这边改了行程（ZD 通知）：重读，底部条和图上的点线按新的重画
+    if (!inst.alive) return; var days = readDays(), s1 = sig(days);
+    if (s1 === inst.sig) return; inst.sig = s1;
+    var sec0 = inst.sel >= 0 && inst.days[inst.sel] ? inst.days[inst.sel].sec : null, p0 = curPt(inst), z0 = p0 ? p0.zid : '';
     inst.days = days;
     if (sec0) { var k2 = days.map(function (d) { return d.sec; }).indexOf(sec0); inst.sel = k2; }
     if (inst.sel >= days.length) inst.sel = days.length - 1;
     var d = curDay(inst);
-    if (!d) { inst.cur = 0; inst.curG = 0; inst.curH = false; if (inst.mode === 'card') inst.mode = 'list'; }
-    else if (inst.cur) { var k = -1; d.pts.forEach(function (q) { if (q.row === row0) k = q.n; }); inst.cur = k > 0 ? k : 0; if (!inst.cur && inst.mode === 'card' && !inst.curG && !inst.curH) inst.mode = 'list'; }
+    if (!d) { clearSel(inst); inst.mode = 'day'; }
+    else if (inst.cur) { var k = 0; d.pts.forEach(function (q) { if (q.zid === z0) k = q.n; }); inst.cur = k; if (!k && inst.mode === 'card' && !inst.curG && !inst.curH) inst.mode = 'day'; }
     paintAll(inst); draw(inst); loadGray(inst);
-    var dd = dets(inst); snapTo(inst, clamp(inst.snap, 0, dd.length - 1), false);
   }
 
   function open(type, sec, boot) {
     if (CUR) closeInst(CUR);
     var days = readDays(); if (!days.length) return null;
-    var inst = { type: type, sec: sec || null, days: days, sel: -1, cur: 0, curG: 0, curH: false, gray: [], alive: true, mode: 'list', snap: 1, tiles: 0, sheetH: 0, marks: [] };
+    var inst = { type: type, sec: sec || null, days: days, sel: -1, cur: 0, curG: 0, curH: false, gray: [], alive: true, mode: 'day', tiles: 0, sheetH: 0, marks: [] };
     var k = sec ? days.map(function (d) { return d.sec; }).indexOf(sec) : -1;
     if (type === 'day') { if (k < 0) return null; inst.sel = k; inst.home = k; }
     build(inst); CUR = inst; inst.y = boot && boot.y != null ? boot.y : (W.pageYOffset || 0);
@@ -994,13 +829,12 @@
     measure(inst); readPal(inst);
     inst.sch = schView(inst); inst.view = inst.sch; inst.sch.onMove(function () { place(inst); });
     inst.mq = W.matchMedia ? W.matchMedia('(prefers-color-scheme: dark)') : null; inst.onScheme = function () { readPal(inst); place(inst); }; if (inst.mq && inst.mq.addListener) inst.mq.addListener(inst.onScheme);
-    inst.onResize = function () { if (!inst.alive) return; measure(inst); if (inst.view) inst.view.resize(); var d = dets(inst); snapTo(inst, clamp(inst.snap, 0, d.length - 1), false); place(inst); };
+    inst.onResize = function () { if (!inst.alive) return; measure(inst); if (inst.view) inst.view.resize(); place(inst); };
     W.addEventListener('resize', inst.onResize); W.addEventListener('orientationchange', function () { setTimeout(inst.onResize, 300); });
     wire(inst); paintAll(inst);
-    snapTo(inst, defaultSnap(inst), false); inst.lastList = inst.snap;
-    inst.mb = inst.sheetH; inst.mh = inst.sh2 - inst.mb; inst.mapEl.style.bottom = inst.mb + 'px';
+    inst.mapEl.style.bottom = inst.sheetH + 'px';      // 地图容器只到底部条的上沿（条高固定，不会再长）
     fitView(inst, false); draw(inst);
-    watch(inst); startMap(inst); loadGray(inst);
+    inst.sig = sig(inst.days); watch(inst); startMap(inst); loadGray(inst);
     if (HOST.track) HOST.track('路线地图·' + (type === 'ov' ? '总览' : '每天'));
     return inst;
   }
@@ -1014,6 +848,7 @@
     segs: function (sec) { var days = readDays(), k = days.map(function (d) { return d.sec; }).indexOf(sec); return k >= 0 ? navSegs(days[k]).map(function (s) { return s.url; }) : []; },
     model: readDays,
     select: function (n) { if (CUR) selectStop(CUR, n, { fly: true }); },
-    selectDay: function (i) { if (CUR) selectDay(CUR, i); }
+    selectDay: function (i) { if (CUR) selectDay(CUR, i); },
+    stop: function (zid) { if (!CUR) return false; var d = curDay(CUR), n = 0; if (d) d.pts.forEach(function (p) { if (p.zid === zid) n = p.n; }); if (n) selectStop(CUR, n, { fly: true }); return !!n; }      // 页面上的某一行 → 地图聚焦到这一站
   };
 })();

@@ -1024,8 +1024,6 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .rm .rm-atx[hidden]{display:none}
 .rm .rm-atx a{margin-right:.3em;color:var(--ink2);text-decoration:underline}
 .rm .rm-ax{position:static;width:44px;border:0;background:none;font:700 20px var(--sans)}
-.rm.rm-drg .rm-col,.rm.rm-drg .rm-at{transition:none}
-.rm.rm-sfull .rm-col,.rm.rm-sfull .rm-at{opacity:0;visibility:hidden;pointer-events:none}
 .rm .rm-prog{position:absolute;z-index:9;left:0;right:0;top:env(safe-area-inset-top,0px);height:3px;pointer-events:none}
 .rm .rm-prog i{display:block;height:100%;width:0;background:var(--red);transition:width .25s}
 .rm .rm-load{position:absolute;z-index:8;left:60px;right:60px;top:calc(8px + env(safe-area-inset-top,0px));height:28px;margin:0;padding:0 8px;display:flex;align-items:center;justify-content:center;background:var(--bg);border:1px solid var(--line2);font:700 12px var(--sans);color:var(--sub);pointer-events:none;white-space:nowrap}
@@ -1046,65 +1044,40 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .rm .rm-bm text{fill:var(--bg);font:900 14px var(--serif)}
 .rm-boot .rm-tb:disabled{opacity:1}
 /* 底部面板：高度由 JS 给（style.height）；收起 / 半屏 / 拉满三档，松手吸附 */
-.rm .rm-sht{position:absolute;z-index:7;left:50%;bottom:0;width:100%;max-width:430px;transform:translateX(-50%);display:flex;flex-direction:column;overflow:hidden;background:var(--bg);border-top:1px solid var(--ink);padding-bottom:env(safe-area-inset-bottom,0px);touch-action:none}
-.rm .rm-sht.snap{transition:height .3s cubic-bezier(.2,.9,.25,1)}
-.rm .rm-grab{flex:none;height:20px;display:flex;align-items:center;justify-content:center;touch-action:none}
-.rm .rm-grab i{display:block;width:36px;height:4px;background:var(--mute);opacity:.6}
-.rm .rm-tabs{flex:none;display:flex;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.rm .rm-sht{position:absolute;z-index:7;left:50%;bottom:0;width:100%;max-width:430px;height:calc(168px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box;background:var(--bg);border-top:1px solid var(--ink);padding-bottom:env(safe-area-inset-bottom,0px);touch-action:none}
+/* 底部一条固定高度的条（2026-10-18，用户：地图下面的行程去掉，用页面里每天的就够了）：天标签条 + 一行当天信息 + 一个主按钮；点站点时同一条换成站点卡片 */
+.rm .rm-tabs{flex:none;display:flex;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain;border-bottom:1px solid var(--line)}
 .rm .rm-tabs::-webkit-scrollbar{display:none}
 .rm .rm-tb{flex:1 1 0;min-width:44px;height:44px;margin:0;padding:0 8px;border:0;background:none;color:var(--ink);font:900 15px var(--serif);display:flex;align-items:center;justify-content:center;white-space:nowrap;cursor:pointer;border-radius:0}
 .rm .rm-tabs.long .rm-tb{flex:0 0 auto;padding:0 12px}
 .rm .rm-tb.on{background:var(--ink);color:var(--bg)}
-.rm .rm-sum{flex:none;display:none;align-items:center;gap:12px;height:46px;padding:0 20px;min-width:0}
-.rm .rm-sum b{flex:none;font:900 20px var(--serif);color:var(--red)}
-.rm .rm-sum span{flex:1;min-width:0;font:900 16px var(--serif);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rm .rm-sht.s0 .rm-sum{display:flex}
-.rm .rm-sht.s0 .rm-body,.rm .rm-sht.s0 .rm-foot{display:none}
 .rm .rm-sht.m-card .rm-tabs,.rm .rm-sht.m-card .rm-foot{display:none}
-.rm .rm-body{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:0 20px;touch-action:none}
-.rm .rm-sht.sfull .rm-body.rm-list{touch-action:pan-y}
-.rm .rm-hd{display:flex;align-items:flex-end;gap:14px;margin:12px 0 0}
-.rm .rm-hd .rm-no{flex:none;font:900 44px/.88 var(--serif);color:var(--red)}
-.rm .rm-hd .rm-hdt{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
-.rm .rm-hd small{font-size:12px;letter-spacing:.18em;color:var(--sub)}
-.rm .rm-hd b{font:900 19px/1.25 var(--serif);color:var(--ink)}
-.rm .rm-ld{margin:8px 0 0;font-size:13px;line-height:1.6;color:var(--sub)}
-.rm .rm-rows{margin-top:6px;padding-bottom:6px}
-.rm .rm-row{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;margin:0;padding:6px 0;border:0;border-top:1px solid var(--line);background:none;color:var(--ink);text-align:left;font:inherit;cursor:pointer;border-radius:0;-webkit-appearance:none;appearance:none}
-.rm .rm-row.on{background:var(--card)}
-.rm .rm-row b{flex:none;width:24px;font:900 18px var(--serif);color:var(--red)}
-.rm .rm-row .rm-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
-.rm .rm-row strong{font-size:15px;line-height:1.3}
-.rm .rm-row small{font-size:12px;line-height:1.4;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rm .rm-row .rm-r{flex:none;max-width:34%;display:flex;flex-direction:column;align-items:flex-end;gap:2px}
-.rm .rm-row .rm-r em{font-style:normal;font-size:11px;font-weight:700;color:var(--red)}
-.rm .rm-row .rm-r em.rm-cl{color:var(--amb)}
-.rm .rm-row .rm-r i{font-style:normal;font-size:11px;color:var(--sub);white-space:nowrap}
-.rm .rm-foot{flex:none;padding:8px 20px 10px;background:var(--bg);border-top:1px solid var(--line)}
+.rm .rm-body{flex:1 1 auto;min-height:0;overflow:hidden;padding:0 20px;display:flex;flex-direction:column;justify-content:center}
+.rm .rm-ld{margin:0;font-size:13px;line-height:1.5;color:var(--sub);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.rm .rm-ld b{font:900 15px var(--serif);color:var(--ink)}
+.rm .rm-foot{flex:none;padding:0 20px 8px;background:var(--bg)}
 .rm .rm-foot[hidden]{display:none}
-.rm .rm-navd{display:flex;align-items:center;justify-content:center;height:48px;margin:0;padding:0 16px;background:var(--ink);color:var(--bg);font:700 15px var(--sans);border-radius:0}
-.rm .rm-hint{margin:6px 0 0;font-size:12px;line-height:1.5;color:var(--sub)}
+.rm .rm-navd{display:flex;align-items:center;justify-content:center;height:44px;margin:0;padding:0 16px;background:var(--ink);color:var(--bg);font:700 15px var(--sans);border-radius:0}
+.rm .rm-hint{margin:4px 0 0;font-size:11px;line-height:14px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rm .rm-hint[hidden],.rm .rm-navd[hidden]{display:none}
-.rm .rm-body.rm-cardsw{padding:0;overflow:hidden}
-.rm .rm-cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain}
+.rm .rm-body.rm-cardsw{padding:0}
+.rm .rm-cards{flex:1;min-height:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain}
 .rm .rm-cards::-webkit-scrollbar{display:none}
-.rm .rm-card{flex:0 0 100%;min-width:0;scroll-snap-align:center;scroll-snap-stop:always;padding:0 20px 6px}
+.rm .rm-card{flex:0 0 100%;min-width:0;scroll-snap-align:center;scroll-snap-stop:always;padding:0 20px 8px;display:flex;flex-direction:column;justify-content:center}
 .rm .rm-ch{display:flex;align-items:center;gap:10px;min-height:44px}
-.rm .rm-ch b{flex:none;min-width:22px;font:900 22px var(--serif);color:var(--red)}
+.rm .rm-ch b{flex:none;min-width:22px;font:900 20px var(--serif);color:var(--red)}
 .rm .rm-ch .rm-gq{display:inline-block;width:10px;height:10px;min-width:10px;background:var(--mute)}
-.rm .rm-cname{flex:1;min-width:0;font:900 20px/1.25 var(--serif)}
-.rm .rm-cb{flex:none;height:44px;padding:0 0 0 8px;border:0;background:none;color:var(--sub);font:700 13px var(--sans);cursor:pointer;border-radius:0}
-.rm .rm-c1{margin:0;font-size:14px;line-height:1.55;color:var(--ink2);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.rm .rm-c2{margin:6px 0 0;display:flex;flex-wrap:wrap;gap:6px}
-.rm .rm-c2 em{font-style:normal;font:700 12px/1.4 var(--sans);padding:1px 6px;color:var(--red);border:1px solid var(--red)}
-.rm .rm-c2 em.rm-cl{color:var(--amb);border-color:var(--amb)}
-.rm .rm-c2 em.rm-q{color:var(--sub);border-color:var(--line2)}
-.rm .rm-c3{margin:8px 0 0;display:flex;flex-wrap:wrap;gap:2px 14px;font-size:13px;line-height:1.5;color:var(--sub)}
-.rm .rm-c3 small{flex-basis:100%;font-size:12px;color:var(--mute)}
-.rm .rm-ca{display:flex;gap:8px;margin:10px 0 0}
-.rm .rm-go{flex:1;height:48px;border:0;background:var(--ink);color:var(--bg);font:700 15px var(--sans);cursor:pointer;border-radius:0}
-.rm .rm-adj2{flex:none;min-width:108px;height:48px;border:1px solid var(--ink);background:var(--bg);color:var(--ink);font:700 14px var(--sans);cursor:pointer;border-radius:0}
-.rm .rm-cn2{margin:6px 0 0;text-align:center;font-size:12px;color:var(--mute)}
+.rm .rm-cname{flex:1;min-width:0;font:900 19px/1.25 var(--serif);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rm .rm-cb{flex:none;height:44px;margin:0 -8px 0 0;padding:0 8px;border:0;background:none;color:var(--sub);font:700 13px var(--sans);cursor:pointer;border-radius:0}
+.rm .rm-c1{margin:0;font-size:13px;line-height:1.5;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rm .rm-c3{margin:2px 0 0;display:flex;align-items:center;gap:6px;font-size:12px;line-height:20px;color:var(--sub);white-space:nowrap;overflow:hidden}
+.rm .rm-c3 em{flex:none;font-style:normal;font:700 11px/16px var(--sans);padding:0 5px;color:var(--red);border:1px solid var(--red)}
+.rm .rm-c3 em.rm-cl{color:var(--amb);border-color:var(--amb)}
+.rm .rm-c3 em.rm-q{color:var(--sub);border-color:var(--line2)}
+.rm .rm-c3 span{overflow:hidden;text-overflow:ellipsis}
+.rm .rm-ca{display:flex;gap:8px;margin:6px 0 0}
+.rm .rm-go{flex:1;height:44px;border:0;background:var(--ink);color:var(--bg);font:700 15px var(--sans);cursor:pointer;border-radius:0}
+.rm .rm-adj2{flex:none;min-width:116px;height:44px;border:1px solid var(--ink);background:var(--bg);color:var(--ink);font:700 14px var(--sans);cursor:pointer;border-radius:0}
 @media (prefers-color-scheme:dark){
   .rm-c0.rm-s1{--dc:#f0a08b}.rm-c0.rm-s2{--dc:#cc6a52}.rm-c1.rm-s1{--dc:#c8c7c0}.rm-c1.rm-s2{--dc:#9a9992}.rm-c2.rm-s1{--dc:#f0cd8a}.rm-c2.rm-s2{--dc:#b38a38}
   .rm .rm-map canvas{filter:invert(.92) hue-rotate(180deg) saturate(.55) brightness(.92) sepia(.12)}

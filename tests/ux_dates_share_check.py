@@ -27,7 +27,7 @@ from ux_common import *
 
 INJ = {
     'date_home': ('assets/site.js', "if(ef_){isSugg=false;srcTxt=ef_[1];if(ef_[0]!==dk.value)dk.value=ef_[0];applyStart(ef_[0])}", "if(false){}"),            # 线路页不认首页的日期
-    'copy_hidden': ("assets/site.js", "var rows=[].slice.call(d.querySelectorAll('.tl .r')).filter(function(r){return!r.hidden&&!r.closest('[hidden]')});", "var rows=[].slice.call(d.querySelectorAll('.tl .r'));"),   # 复制时把去掉的站也写进去
+    'copy_hidden': ("assets/site.js", "ZD.dayOf(d).items.forEach(function(x){   // 读当天模型", "ZD.dayOf(d).items.concat([].slice.call(d.querySelectorAll('.tl .r[hidden]')).map(function(r){return{kind:'see',t:'00:00',mtext:r.querySelector('.m').textContent,lines:[],bkUrl:''}})).forEach(function(x){   // 读当天模型"),   # 复制时把去掉的站也写进去
     'title_days': ("assets/site.js", "if(dn===n0)document.title=T0;else document.title=", "if(true)document.title=T0;else document.title="),                            # <title> 的天数不跟着改
     'link_nolz': ("assets/site.js", "return(z&&z.length+2<a.length+5)?'#m='+z:'#mine='+a}", "return'#mine='+a}"),                                                       # 分享链接不压缩
     'backrow': ("assets/site.js", "if(backRow&&left.length&&", "if(false&&backRow&&left.length&&"),                                                                   # 去掉最后一天后不补“回程”

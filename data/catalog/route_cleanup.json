@@ -1,0 +1,9739 @@
+{
+ "version": 1,
+ "built_for": {
+  "itineraries": 1590,
+  "trips": 1605
+ },
+ "note": "线路层面清理补丁（纯数据）。落地：python3 tools/apply_route_cleanup.py（先 --dry / --check）；还原 --revert。依据 /private/tmp/.../overdesign2/routes.md（2026-10-18 线路盘点）。不删任何线路、不改 id、不改站点。",
+ "renames": {
+  "src": "routes.md 发现 2（18 组 37 条同标签）",
+  "conf": "high",
+  "rule": "label = 区别词 + \" N 天\"，≤18 字，同目的地唯一；title 不动（两条的 title 本来就不同）",
+  "items": {
+   "sz2x": {
+    "label": "深圳世界之窗观澜湖 2 天",
+    "title": null,
+    "old_label": "深圳 2 天",
+    "old_title": "两天，世界之窗和观澜湖",
+    "group": "guangdong|深圳 2 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "szh2": {
+    "label": "深圳湾和大鹏所城 2 天",
+    "title": null,
+    "old_label": "深圳 2 天",
+    "old_title": "两天，深圳的海和城",
+    "group": "guangdong|深圳 2 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "cy2": {
+    "label": "程阳风雨桥和侗寨 2 天",
+    "title": null,
+    "old_label": "程阳八寨 2 天",
+    "old_title": "两天，程阳风雨桥和侗寨",
+    "group": "guangxi|程阳八寨 2 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xy325a": {
+    "label": "程阳八寨鼓楼老木楼 2 天",
+    "title": null,
+    "old_label": "程阳八寨 2 天",
+    "old_title": "两天，侗寨风雨桥、鼓楼和老木楼",
+    "group": "guangxi|程阳八寨 2 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "ae4": {
+    "label": "迪拜阿布扎比卢浮宫 4 天",
+    "title": null,
+    "old_label": "迪拜阿布扎比 4 天",
+    "old_title": "四天，迪拜和阿布扎比",
+    "group": "uae|迪拜阿布扎比 4 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xw115a": {
+    "label": "迪拜阿布扎比酋长宫 4 天",
+    "title": null,
+    "old_label": "迪拜阿布扎比 4 天",
+    "old_title": "4天(四天)，迪拜老城、哈利法塔和阿布扎比清真寺",
+    "group": "uae|迪拜阿布扎比 4 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "wnn2": {
+    "label": "万宁日月湾和兴隆 2 天",
+    "title": null,
+    "old_label": "万宁 2 天",
+    "old_title": "两天，日月湾冲浪和兴隆",
+    "group": "hainan|万宁 2 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "wn2": {
+    "label": "万宁石梅湾和兴隆 2 天",
+    "title": null,
+    "old_label": "万宁 2 天",
+    "old_title": "两天，石梅湾和兴隆",
+    "group": "hainan|万宁 2 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "lsb6": {
+    "label": "里斯本罗卡角波尔图 6 天",
+    "title": null,
+    "old_label": "里斯本波尔图 6 天",
+    "old_title": "六天，里斯本到波尔图",
+    "group": "portugal|里斯本波尔图 6 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xw109a": {
+    "label": "里斯本贝伦波尔图 6 天",
+    "title": null,
+    "old_label": "里斯本波尔图 6 天",
+    "old_title": "六天，里斯本、贝伦和波尔图",
+    "group": "portugal|里斯本波尔图 6 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "bcn6": {
+    "label": "巴塞罗那高迪普拉多 6 天",
+    "title": null,
+    "old_label": "巴塞罗那马德里 6 天",
+    "old_title": "六天，高迪和普拉多",
+    "group": "spain|巴塞罗那马德里 6 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xw101a": {
+    "label": "巴塞罗那音乐宫丽池 6 天",
+    "title": null,
+    "old_label": "巴塞罗那马德里 6 天",
+    "old_title": "六天，巴塞罗那高迪建筑和马德里老城",
+    "group": "spain|巴塞罗那马德里 6 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "zj2b": {
+    "label": "湛江吃海鲜 2 天",
+    "title": null,
+    "old_label": "湛江 2 天",
+    "old_title": "两天，湛江吃海鲜",
+    "group": "guangdong|湛江 2 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "zgd1f": {
+    "label": "湛江廉江和茂名 2 天",
+    "title": null,
+    "old_label": "湛江 2 天",
+    "old_title": "两天，廉江和茂名",
+    "group": "guangdong|湛江 2 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "ams4": {
+    "label": "阿姆斯特丹运河梵高 4 天",
+    "title": null,
+    "old_label": "阿姆斯特丹 4 天",
+    "old_title": "四天，运河、梵高和风车",
+    "group": "netherlands|阿姆斯特丹 4 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xw110a": {
+    "label": "阿姆斯特丹北荷兰小镇 4 天",
+    "title": null,
+    "old_label": "阿姆斯特丹 4 天",
+    "old_title": "4天(四天)，阿姆斯特丹、风车村和北荷兰小镇",
+    "group": "netherlands|阿姆斯特丹 4 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "mo3": {
+    "label": "澳门老城和路环 3 天",
+    "title": null,
+    "old_label": "澳门 3 天",
+    "old_title": "三天，澳门的老城和路环",
+    "group": "macau|澳门 3 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xo1c": {
+    "label": "澳门玫瑰堂和氹仔 3 天",
+    "title": null,
+    "old_label": "澳门 3 天",
+    "old_title": "三天，玫瑰堂、东望洋炮台和氹仔",
+    "group": "macau|澳门 3 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xo1d": {
+    "label": "澳门艺术博物馆新马路 3 天",
+    "title": null,
+    "old_label": "澳门 3 天",
+    "old_title": "三天，澳门艺术博物馆、路环和新马路",
+    "group": "macau|澳门 3 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "zgd1a": {
+    "label": "汕头老城澄海潮阳 5 天",
+    "title": null,
+    "old_label": "汕头 5 天",
+    "old_title": "五天，汕头的老城、澄海、潮阳和濠江",
+    "group": "guangdong|汕头 5 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "zgd2b": {
+    "label": "汕头老城澄海普宁 5 天",
+    "title": null,
+    "old_label": "汕头 5 天",
+    "old_title": "五天，汕头的老城、澄海、濠江和普宁惠来",
+    "group": "guangdong|汕头 5 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "zgd1c": {
+    "label": "汕尾红海湾和陆河 4 天",
+    "title": null,
+    "old_label": "汕尾 4 天",
+    "old_title": "四天，汕尾的红海湾、陆丰和陆河",
+    "group": "guangdong|汕尾 4 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "zgd2d": {
+    "label": "汕尾海丰陆丰陆河 4 天",
+    "title": null,
+    "old_label": "汕尾 4 天",
+    "old_title": "四天，汕尾红海湾、海丰、陆丰和陆河",
+    "group": "guangdong|汕尾 4 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xn3c": {
+    "label": "康提佩拉德尼亚埃拉 3 天",
+    "title": null,
+    "old_label": "康提 3 天",
+    "old_title": "三天，佩拉德尼亚、努沃勒埃利耶和埃拉",
+    "group": "srilanka|康提 3 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xn3d": {
+    "label": "康提阿努拉德普勒 3 天",
+    "title": null,
+    "old_label": "康提 3 天",
+    "old_title": "三天，皮杜朗加拉、阿努拉德普勒和米欣特莱",
+    "group": "srilanka|康提 3 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xn6a": {
+    "label": "阿拉木图大阿拉木图湖 3 天",
+    "title": null,
+    "old_label": "阿拉木图 3 天",
+    "old_title": "三天，共和国广场、大阿拉木图湖和第一总统公园",
+    "group": "kazakhstan|阿拉木图 3 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xw95a": {
+    "label": "阿拉木图恰伦峡谷 3 天",
+    "title": null,
+    "old_label": "阿拉木图 3 天",
+    "old_title": "三天(三)，第一总统公园、恰伦峡谷和奇姆布拉克",
+    "group": "kazakhstan|阿拉木图 3 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xn7c": {
+    "label": "雷克雅未克雷克雅内斯 3 天",
+    "title": null,
+    "old_label": "雷克雅未克 3 天",
+    "old_title": "三天，珍珠楼、雷克雅内斯半岛和哈夫纳菲厄泽",
+    "group": "iceland|雷克雅未克 3 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xn7d": {
+    "label": "雷克雅未克亨拉瀑布 3 天",
+    "title": null,
+    "old_label": "雷克雅未克 3 天",
+    "old_title": "三天，阿克拉内斯、亨拉瀑布和格林姆瀑布",
+    "group": "iceland|雷克雅未克 3 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xn14a": {
+    "label": "布鲁塞尔那慕尔迪南 3 天",
+    "title": null,
+    "old_label": "布鲁塞尔 3 天",
+    "old_title": "三天，那慕尔、迪南和列日",
+    "group": "belgium|布鲁塞尔 3 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xn14b": {
+    "label": "布鲁塞尔梅赫伦鲁汶 3 天",
+    "title": null,
+    "old_label": "布鲁塞尔 3 天",
+    "old_title": "三天，梅赫伦、鲁汶和伊普尔",
+    "group": "belgium|布鲁塞尔 3 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xn14c": {
+    "label": "开普敦弗朗斯胡克 3 天",
+    "title": null,
+    "old_label": "开普敦 3 天",
+    "old_title": "三天，克尔斯滕博斯、弗朗斯胡克和赫曼努斯",
+    "group": "southafrica|开普敦 3 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xw113a": {
+    "label": "开普敦桌山好望角 3 天",
+    "title": null,
+    "old_label": "开普敦 3 天",
+    "old_title": "三天，桌山、好望角和企鹅滩",
+    "group": "southafrica|开普敦 3 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xo1a": {
+    "label": "香港九龙黄大仙西九 3 天",
+    "title": null,
+    "old_label": "香港 3 天",
+    "old_title": "三天，九龙、黄大仙和西九文化区",
+    "group": "hongkong|香港 3 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xo1b": {
+    "label": "香港上环浅水湾赤柱 3 天",
+    "title": null,
+    "old_label": "香港 3 天",
+    "old_title": "三天，上环、浅水湾和赤柱",
+    "group": "hongkong|香港 3 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xy303a": {
+    "label": "张掖丹霞和嘉峪关 2 天",
+    "title": null,
+    "old_label": "张掖嘉峪关 2 天",
+    "old_title": "两天，丹霞、关城和长城第一墩",
+    "group": "gansu|张掖嘉峪关 2 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   },
+   "xy304b": {
+    "label": "张掖马蹄寺和嘉峪关 2 天",
+    "title": null,
+    "old_label": "张掖嘉峪关 2 天",
+    "old_title": "两天，马蹄寺石窟和嘉峪关关城",
+    "group": "gansu|张掖嘉峪关 2 天",
+    "conf": "high",
+    "how": "用该线 title 后半句或点位关键词区分；保留“ N 天”结尾（build_site 多处用 \\s*\\d+\\s*天$ 取店名）"
+   }
+  }
+ },
+ "title_fix": {
+  "src": "routes.md 发现 3（“5天(五天)”）；digit_paren 为盘点里的 52 条，cn_paren/digit_plain 是同一类写法的延伸",
+  "conf": "high",
+  "rule": "汉字天数 + \"天，\" + 原后半句；2 写“两”，与站内其余标题一致",
+  "items": {
+   "xv02a": {
+    "title": "五天，从西安到太白山，穿越秦岭看南北分界",
+    "old_title": "5天(五天)，从西安到太白山，穿越秦岭看南北分界",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xv04a": {
+    "title": "五天，理塘、兴伊错、泸沽湖和木里",
+    "old_title": "5天(五天)，理塘、兴伊错、泸沽湖和木里",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xv05a": {
+    "title": "四天，孟屯河谷、红原煨桑节和莲宝叶则",
+    "old_title": "4天(四)，孟屯河谷、红原煨桑节和莲宝叶则",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xv10a": {
+    "title": "九天，墨脱雨林、雅江河谷和羊卓雍措",
+    "old_title": "9天(九天)，墨脱雨林、雅江河谷和羊卓雍措",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xv12a": {
+    "title": "八天，从建水走到芒市：哀牢山、版纳和边境",
+    "old_title": "8天(八天)，从建水走到芒市：哀牢山、版纳和边境",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xv22a": {
+    "title": "三天，塔钦、玛旁雍错和科迦寺",
+    "old_title": "3天(三天)，塔钦、玛旁雍错和科迦寺",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xv24a": {
+    "title": "四天，白桦沟、热阿线和阿斯哈图",
+    "old_title": "4天(四天)，白桦沟、热阿线和阿斯哈图",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xv29a": {
+    "title": "两天，洗脸盆垭口、牧场和阿布吉措",
+    "old_title": "2天(两日)，洗脸盆垭口、牧场和阿布吉措",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xv30a": {
+    "title": "两天，涂鸦街、老茶馆和民主村",
+    "old_title": "2天(两天)，涂鸦街、老茶馆和民主村",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xv31a": {
+    "title": "三天，从改则穿羌塘无人区到民丰",
+    "old_title": "3天(三段)，从改则穿羌塘无人区到民丰",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xv32a": {
+    "title": "七天，纳木错、当惹雍错和冈仁波齐",
+    "old_title": "7天(七天)，纳木错、当惹雍错和冈仁波齐",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xv13a": {
+    "title": "六天，从北海走到那坡，沿G219进十万大山",
+    "old_title": "6天(六天)，从北海走到那坡，沿G219进十万大山",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xv15a": {
+    "title": "五天，凯里、镇远、榕江和荔波",
+    "old_title": "5天(五天)，凯里、镇远、榕江和荔波",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xv18a": {
+    "title": "五天，羊湖、普莫雍错和库拉岗日",
+    "old_title": "5天(五天)，羊湖、普莫雍错和库拉岗日",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xv19a": {
+    "title": "四天，从映秀走到四姑娘山、色达和德格",
+    "old_title": "4天(四)，从映秀走到四姑娘山、色达和德格",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xv34a": {
+    "title": "十八天，从抚仙湖、哀牢山到怒江、梅里和泸沽湖",
+    "old_title": "18天，从抚仙湖、哀牢山到怒江、梅里和泸沽湖",
+    "kind": "digit_plain",
+    "conf": "mid",
+    "how": "阿拉伯数字开头，站内其余标题都用汉字"
+   },
+   "xw40a": {
+    "title": "七天，西安、宝鸡和汉中",
+    "old_title": "7天(七天)，西安、宝鸡和汉中",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xw45a": {
+    "title": "四天，赤峰、霍林郭勒和阿尔山",
+    "old_title": "4天(四天)，赤峰、霍林郭勒和阿尔山",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xw64a": {
+    "title": "三天，港岛径、红香炉峰和狮子山",
+    "old_title": "3天(三天)，港岛径、红香炉峰和狮子山",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xw65a": {
+    "title": "两天，吉田口上山、山顶火山口和御殿场口大砂走下山",
+    "old_title": "2天(两日一夜)，吉田口上山、山顶火山口和御殿场口大砂走下山",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xw67a": {
+    "title": "六天，牛津、侏罗纪海岸和多佛白崖",
+    "old_title": "6天(六)，牛津、侏罗纪海岸和多佛白崖",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xw69a": {
+    "title": "四天，赤崁楼、安平和曾文水库",
+    "old_title": "4天(四天)，赤崁楼、安平和曾文水库",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xw70a": {
+    "title": "七天，吃遍港岛、九龙、大屿山和屯门",
+    "old_title": "7天(七天)，吃遍港岛、九龙、大屿山和屯门",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xw71a": {
+    "title": "五天，川越、横滨、镰仓和富士山",
+    "old_title": "5天(五日)，川越、横滨、镰仓和富士山",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xw74a": {
+    "title": "七天，静安、法租界和外滩",
+    "old_title": "七天(上海)，静安、法租界和外滩",
+    "kind": "cn_paren",
+    "conf": "mid",
+    "how": "汉字天数+括号里的杂字（城市/序号等，label 已有地名）"
+   },
+   "xw86a": {
+    "title": "两天，库斯科和彩虹山",
+    "old_title": "2天(二天)，库斯科和彩虹山",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xw91a": {
+    "title": "三天，路氹、老城和路环",
+    "old_title": "3天(三天)，路氹、老城和路环",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xw95a": {
+    "title": "三天，第一总统公园、恰伦峡谷和奇姆布拉克",
+    "old_title": "三天(三)，第一总统公园、恰伦峡谷和奇姆布拉克",
+    "kind": "cn_paren",
+    "conf": "mid",
+    "how": "汉字天数+括号里的杂字（城市/序号等，label 已有地名）"
+   },
+   "xw102a": {
+    "title": "六天，皇后镇、蒂卡波湖和基督城",
+    "old_title": "6天(六天)，皇后镇、蒂卡波湖和基督城",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xw108a": {
+    "title": "三天，阿兹鲁、齐兹河谷和梅尔祖卡沙漠",
+    "old_title": "3天(三天)，阿兹鲁、齐兹河谷和梅尔祖卡沙漠",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xw110a": {
+    "title": "四天，阿姆斯特丹、风车村和北荷兰小镇",
+    "old_title": "4天(四天)，阿姆斯特丹、风车村和北荷兰小镇",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xw112a": {
+    "title": "四天，里西通图里、圣诞老人村和莱维",
+    "old_title": "4天(四天)，里西通图里、圣诞老人村和莱维",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xw114a": {
+    "title": "两天，奥尔盖、湖边营地和鹰猎人家庭",
+    "old_title": "2天，奥尔盖、湖边营地和鹰猎人家庭",
+    "kind": "digit_plain",
+    "conf": "mid",
+    "how": "阿拉伯数字开头，站内其余标题都用汉字"
+   },
+   "xw115a": {
+    "title": "四天，迪拜老城、哈利法塔和阿布扎比清真寺",
+    "old_title": "4天(四天)，迪拜老城、哈利法塔和阿布扎比清真寺",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xw121a": {
+    "title": "五天，从喀什古城到慕士塔格和班迪尔蓝湖",
+    "old_title": "5天(五天)，从喀什古城到慕士塔格和班迪尔蓝湖",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xg263a": {
+    "title": "四天，克诺索斯、费斯托斯和埃拉丰尼西",
+    "old_title": "四天(克里特)，克诺索斯、费斯托斯和埃拉丰尼西",
+    "kind": "cn_paren",
+    "conf": "mid",
+    "how": "汉字天数+括号里的杂字（城市/序号等，label 已有地名）"
+   },
+   "xg264a": {
+    "title": "三天，门农巨像、丹达拉和埃德富",
+    "old_title": "三天(上埃及)，门农巨像、丹达拉和埃德富",
+    "kind": "cn_paren",
+    "conf": "mid",
+    "how": "汉字天数+括号里的杂字（城市/序号等，label 已有地名）"
+   },
+   "xg265a": {
+    "title": "三天，马弗拉、奥比多斯和托马尔",
+    "old_title": "三天(中部)，马弗拉、奥比多斯和托马尔",
+    "kind": "cn_paren",
+    "conf": "mid",
+    "how": "汉字天数+括号里的杂字（城市/序号等，label 已有地名）"
+   },
+   "xg281a": {
+    "title": "四天，康戈洞穴、奈斯纳和斯托姆斯河口",
+    "old_title": "4天(四天)，康戈洞穴、奈斯纳和斯托姆斯河口",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xy301a": {
+    "title": "三天，那曲、卓玛圣谷和拉萨老城",
+    "old_title": "3天(三)，那曲、卓玛圣谷和拉萨老城",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xy301b": {
+    "title": "一天，芒康盐井古盐田",
+    "old_title": "1天(一)，芒康盐井古盐田",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xy305a": {
+    "title": "三天，昭君村、神农坛和天生桥",
+    "old_title": "3天(三天)，昭君村、神农坛和天生桥",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xy305b": {
+    "title": "两天，荆州古城墙、张居正故居和荆州博物馆",
+    "old_title": "2天(两天)，荆州古城墙、张居正故居和荆州博物馆",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xy312a": {
+    "title": "两天，芙蓉镇土司旧地和边城茶峒赶集",
+    "old_title": "2天(两)，芙蓉镇土司旧地和边城茶峒赶集",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xy313a": {
+    "title": "三天，高北、云水谣和二宜楼",
+    "old_title": "3天(三天)，高北、云水谣和二宜楼",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xy313b": {
+    "title": "两天，天游峰、虎啸岩和大红袍母树",
+    "old_title": "2天(两天)，天游峰、虎啸岩和大红袍母树",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xy320a": {
+    "title": "一天，千佛崖和皇泽寺",
+    "old_title": "1天，千佛崖和皇泽寺",
+    "kind": "digit_plain",
+    "conf": "mid",
+    "how": "阿拉伯数字开头，站内其余标题都用汉字"
+   },
+   "xy320b": {
+    "title": "两天，都江堰、青城山、彭山江口和三苏祠",
+    "old_title": "2天，都江堰、青城山、彭山江口和三苏祠",
+    "kind": "digit_plain",
+    "conf": "mid",
+    "how": "阿拉伯数字开头，站内其余标题都用汉字",
+    "headline": {
+     "old": "2天，都江堰、青城山、三苏祠和彭山江口",
+     "new": "两天，都江堰、青城山、三苏祠和彭山江口"
+    }
+   },
+   "xy322a": {
+    "title": "两天，西安城墙、大唐不夜城和彬州花果山水帘洞",
+    "old_title": "2天(两)，西安城墙、大唐不夜城和彬州花果山水帘洞",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xy322b": {
+    "title": "两天，从汉中到青木川的回龙场老街和魏氏庄园",
+    "old_title": "2天(两)，从汉中到青木川的回龙场老街和魏氏庄园",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xy324a": {
+    "title": "一天，阿者科村、古树广场和长街",
+    "old_title": "一天(日)，阿者科村、古树广场和长街",
+    "kind": "cn_paren",
+    "conf": "mid",
+    "how": "汉字天数+括号里的杂字（城市/序号等，label 已有地名）"
+   },
+   "xy324b": {
+    "title": "一天，诺邓古村和诺邓盐井",
+    "old_title": "一天(日)，诺邓古村和诺邓盐井",
+    "kind": "cn_paren",
+    "conf": "mid",
+    "how": "汉字天数+括号里的杂字（城市/序号等，label 已有地名）"
+   },
+   "xy330a": {
+    "title": "两天，花大门、明长城和圣容寺",
+    "old_title": "2天(两)，花大门、明长城和圣容寺",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xy330b": {
+    "title": "两天，大众巷、城隍庙和永泰龟城",
+    "old_title": "2天(两)，大众巷、城隍庙和永泰龟城",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xy332a": {
+    "title": "一天，古县城、晋阳湖和纯阳宫",
+    "old_title": "1天(一)，古县城、晋阳湖和纯阳宫",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xy332b": {
+    "title": "一天，湘峪古堡、砥洎城和郭峪古城",
+    "old_title": "1天(一)，湘峪古堡、砥洎城和郭峪古城",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xy335a": {
+    "title": "两天，南昌舰、红谷滩和海昏侯墓",
+    "old_title": "2天，南昌舰、红谷滩和海昏侯墓",
+    "kind": "digit_plain",
+    "conf": "mid",
+    "how": "阿拉伯数字开头，站内其余标题都用汉字"
+   },
+   "xy335b": {
+    "title": "一天，吉州窑、本觉寺塔和后河梦回庐陵",
+    "old_title": "1天，吉州窑、本觉寺塔和后河梦回庐陵",
+    "kind": "digit_plain",
+    "conf": "mid",
+    "how": "阿拉伯数字开头，站内其余标题都用汉字"
+   },
+   "xy337a": {
+    "title": "两天，黑井古镇、武家大院和五马桥",
+    "old_title": "两天(盐)，黑井古镇、武家大院和五马桥",
+    "kind": "cn_paren",
+    "conf": "mid",
+    "how": "汉字天数+括号里的杂字（城市/序号等，label 已有地名）"
+   },
+   "xy337b": {
+    "title": "两天，彩凤桥、顺荡盐井和通京桥",
+    "old_title": "两天(桥)，彩凤桥、顺荡盐井和通京桥",
+    "kind": "cn_paren",
+    "conf": "mid",
+    "how": "汉字天数+括号里的杂字（城市/序号等，label 已有地名）"
+   },
+   "xy339a": {
+    "title": "两天，从梅溪牌坊到孙中山故居",
+    "old_title": "2天，从梅溪牌坊到孙中山故居",
+    "kind": "digit_plain",
+    "conf": "mid",
+    "how": "阿拉伯数字开头，站内其余标题都用汉字"
+   },
+   "xy339b": {
+    "title": "两天，从昂塘洋楼到双月湾和大星山",
+    "old_title": "2天，从昂塘洋楼到双月湾和大星山",
+    "kind": "digit_plain",
+    "conf": "mid",
+    "how": "阿拉伯数字开头，站内其余标题都用汉字"
+   },
+   "xy340a": {
+    "title": "三天，西江、占里和隆里",
+    "old_title": "3天(三天)，西江、占里和隆里",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xz400a": {
+    "title": "两天，刘山东、龙山寺和胡椒饼",
+    "old_title": "两天(二)，刘山东、龙山寺和胡椒饼",
+    "kind": "cn_paren",
+    "conf": "mid",
+    "how": "汉字天数+括号里的杂字（城市/序号等，label 已有地名）"
+   },
+   "xz400b": {
+    "title": "一天，坐森林小火车上阿里山",
+    "old_title": "一天(一)，坐森林小火车上阿里山",
+    "kind": "cn_paren",
+    "conf": "mid",
+    "how": "汉字天数+括号里的杂字（城市/序号等，label 已有地名）"
+   },
+   "xz401a": {
+    "title": "三天，台北老街、九份和花莲",
+    "old_title": "3天(三天)，台北老街、九份和花莲",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xz401b": {
+    "title": "两天，合欢山、埔里老街和大甲镇澜宫",
+    "old_title": "2天(两天)，合欢山、埔里老街和大甲镇澜宫",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xz410a": {
+    "title": "三天，河内老城、水上木偶和萨帕山城",
+    "old_title": "3天(三)，河内老城、水上木偶和萨帕山城",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法",
+    "headline": {
+     "old": "3天(三)，河内老城、水上木偶和沙巴山城",
+     "new": "三天，河内老城、水上木偶和沙巴山城"
+    }
+   },
+   "xz410b": {
+    "title": "三天，岘港海滩、会安古镇和美山圣地",
+    "old_title": "3天(三)，岘港海滩、会安古镇和美山圣地",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xz409a": {
+    "title": "四天，圣克鲁斯、大苏尔、圣巴巴拉和洛杉矶",
+    "old_title": "4天(四)，圣克鲁斯、大苏尔、圣巴巴拉和洛杉矶",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   },
+   "xz409b": {
+    "title": "两天，隧道观景点、新娘面纱瀑布和半圆顶",
+    "old_title": "2天(二)，隧道观景点、新娘面纱瀑布和半圆顶",
+    "kind": "digit_paren",
+    "conf": "high",
+    "how": "阿拉伯数字+括号重复写法"
+   }
+  }
+ },
+ "sisters": {
+  "src": "routes.md 发现 4、5、7、9、11、20、23",
+  "conf": "mid",
+  "rule": "同目的地（或同一人物主题）、<15 天、点位重合 ≥0.70 的连通分量；ids 按天数升序；main 默认 3–5 天基础线",
+  "groups": [
+   {
+    "id": "sis_bj4",
+    "dest": "beijing",
+    "cross_dest": false,
+    "ids": [
+     "bj4",
+     "bj5d"
+    ],
+    "days": [
+     4,
+     5
+    ],
+    "main": "bj4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.8,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_cq3",
+    "dest": "chongqing",
+    "cross_dest": false,
+    "ids": [
+     "cq3",
+     "cq4d"
+    ],
+    "days": [
+     3,
+     4
+    ],
+    "main": "cq3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 1.0,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_cql5",
+    "dest": "chongqing",
+    "cross_dest": false,
+    "ids": [
+     "cql5",
+     "yudn5"
+    ],
+    "days": [
+     5,
+     5
+    ],
+    "main": "cql5",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 1.0,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_prg4",
+    "dest": "czech",
+    "cross_dest": false,
+    "ids": [
+     "prg4",
+     "xw89a"
+    ],
+    "days": [
+     4,
+     6
+    ],
+    "main": "prg4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 1.0,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_xmtl5",
+    "dest": "fujian",
+    "cross_dest": false,
+    "ids": [
+     "xmtl5",
+     "fjgt7"
+    ],
+    "days": [
+     5,
+     7
+    ],
+    "main": "xmtl5",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_zl2g",
+    "dest": "fujian",
+    "cross_dest": false,
+    "ids": [
+     "xm4d",
+     "zl2g"
+    ],
+    "days": [
+     4,
+     5
+    ],
+    "main": "zl2g",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_dh4",
+    "dest": "gansu",
+    "cross_dest": false,
+    "ids": [
+     "dh4",
+     "hsilu1",
+     "zl4m"
+    ],
+    "days": [
+     4,
+     5,
+     7
+    ],
+    "main": "dh4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.71,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_zgsh",
+    "dest": "gansu",
+    "cross_dest": false,
+    "ids": [
+     "zgsh",
+     "hx7v"
+    ],
+    "days": [
+     5,
+     10
+    ],
+    "main": "zgsh",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_zy4",
+    "dest": "gansu",
+    "cross_dest": false,
+    "ids": [
+     "xy303a",
+     "zy4"
+    ],
+    "days": [
+     2,
+     4
+    ],
+    "main": "zy4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.8,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_gz3",
+    "dest": "guangdong",
+    "cross_dest": false,
+    "ids": [
+     "gz3",
+     "gz4d"
+    ],
+    "days": [
+     3,
+     4
+    ],
+    "main": "gz3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_hhumen1",
+    "dest": "guangdong",
+    "cross_dest": false,
+    "ids": [
+     "hhumen1",
+     "hhumen2"
+    ],
+    "days": [
+     3,
+     6
+    ],
+    "main": "hhumen1",
+    "main_rule": "3–5 天里天数最少的一条（只有深度/课本版可选）",
+    "min_overlap": 1.0,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_zgd1b",
+    "dest": "guangdong",
+    "cross_dest": false,
+    "ids": [
+     "czh2",
+     "zgd1b",
+     "csh5",
+     "gdgt7"
+    ],
+    "days": [
+     2,
+     3,
+     5,
+     7
+    ],
+    "main": "zgd1b",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": false,
+    "split_from_component": "czh2",
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_gl4",
+    "dest": "guangxi",
+    "cross_dest": false,
+    "ids": [
+     "kbgl3",
+     "gl4",
+     "gxgt7"
+    ],
+    "days": [
+     3,
+     4,
+     7
+    ],
+    "main": "gl4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.8,
+    "clique": false,
+    "split_from_component": null,
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_gzgt7",
+    "dest": "guizhou",
+    "cross_dest": false,
+    "ids": [
+     "gzgt7",
+     "gzl7"
+    ],
+    "days": [
+     7,
+     7
+    ],
+    "main": "gzgt7",
+    "main_rule": "没有 3–5 天的线，取最接近 4 天的",
+    "min_overlap": 0.7,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_xx3",
+    "dest": "heilongjiang",
+    "cross_dest": false,
+    "ids": [
+     "xx3",
+     "hrb4",
+     "hljl6"
+    ],
+    "days": [
+     3,
+     4,
+     6
+    ],
+    "main": "xx3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.71,
+    "clique": false,
+    "split_from_component": null,
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_hjkang1",
+    "dest": "henan",
+    "cross_dest": false,
+    "ids": [
+     "hjkang1",
+     "hjkang2"
+    ],
+    "days": [
+     4,
+     6
+    ],
+    "main": "hjkang1",
+    "main_rule": "3–5 天里天数最少的一条（只有深度/课本版可选）",
+    "min_overlap": 0.71,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_hwzt1",
+    "dest": "henan",
+    "cross_dest": true,
+    "ids": [
+     "hwzt1",
+     "hwzt2"
+    ],
+    "days": [
+     3,
+     8
+    ],
+    "main": "hwzt1",
+    "main_rule": "3–5 天里天数最少的一条（只有深度/课本版可选）",
+    "min_overlap": 1.0,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_ly3",
+    "dest": "henan",
+    "cross_dest": false,
+    "ids": [
+     "zzds2",
+     "ly3",
+     "hngd6"
+    ],
+    "days": [
+     2,
+     3,
+     6
+    ],
+    "main": "ly3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": false,
+    "split_from_component": null,
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_hlisz1",
+    "dest": "hubei",
+    "cross_dest": false,
+    "ids": [
+     "hlisz1",
+     "hlisz2"
+    ],
+    "days": [
+     3,
+     6
+    ],
+    "main": "hlisz1",
+    "main_rule": "3–5 天里天数最少的一条（只有深度/课本版可选）",
+    "min_overlap": 0.83,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_hqy1",
+    "dest": "hubei",
+    "cross_dest": false,
+    "ids": [
+     "hqy1",
+     "hqy2"
+    ],
+    "days": [
+     3,
+     6
+    ],
+    "main": "hqy1",
+    "main_rule": "3–5 天里天数最少的一条（只有深度/课本版可选）",
+    "min_overlap": 0.75,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_wd4",
+    "dest": "hubei",
+    "cross_dest": false,
+    "ids": [
+     "xh504b",
+     "hyl1",
+     "wd4",
+     "zl2l"
+    ],
+    "days": [
+     2,
+     3,
+     4,
+     5
+    ],
+    "main": "wd4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": false,
+    "split_from_component": null,
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_zl2j",
+    "dest": "hubei",
+    "cross_dest": false,
+    "ids": [
+     "wh2",
+     "wh4d",
+     "zl2j",
+     "hbgt6"
+    ],
+    "days": [
+     2,
+     4,
+     5,
+     6
+    ],
+    "main": "zl2j",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.8,
+    "clique": false,
+    "split_from_component": "wh2",
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_zl2m",
+    "dest": "hunan",
+    "cross_dest": false,
+    "ids": [
+     "xh504c",
+     "zl2m",
+     "hngt6"
+    ],
+    "days": [
+     2,
+     5,
+     6
+    ],
+    "main": "zl2m",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": false,
+    "split_from_component": null,
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_xw66a",
+    "dest": "japan",
+    "cross_dest": false,
+    "ids": [
+     "hrs2",
+     "xw66a"
+    ],
+    "days": [
+     2,
+     4
+    ],
+    "main": "xw66a",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_hnanj1",
+    "dest": "jiangsu",
+    "cross_dest": false,
+    "ids": [
+     "hnanj1",
+     "hnanj2"
+    ],
+    "days": [
+     3,
+     6
+    ],
+    "main": "hnanj1",
+    "main_rule": "3–5 天里天数最少的一条（只有深度/课本版可选）",
+    "min_overlap": 1.0,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_hzh1",
+    "dest": "jiangsu",
+    "cross_dest": false,
+    "ids": [
+     "hzh1",
+     "hzh2"
+    ],
+    "days": [
+     3,
+     6
+    ],
+    "main": "hzh1",
+    "main_rule": "3–5 天里天数最少的一条（只有深度/课本版可选）",
+    "min_overlap": 1.0,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_hzhu1",
+    "dest": "jiangsu",
+    "cross_dest": true,
+    "ids": [
+     "hzhu1",
+     "hzhu2"
+    ],
+    "days": [
+     3,
+     7
+    ],
+    "main": "hzhu1",
+    "main_rule": "3–5 天里天数最少的一条（只有深度/课本版可选）",
+    "min_overlap": 0.9,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_nj3",
+    "dest": "jiangsu",
+    "cross_dest": false,
+    "ids": [
+     "nj3",
+     "jsgt6"
+    ],
+    "days": [
+     3,
+     6
+    ],
+    "main": "nj3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.83,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_njqd3",
+    "dest": "jiangsu",
+    "cross_dest": false,
+    "ids": [
+     "njqd3",
+     "nj4d"
+    ],
+    "days": [
+     3,
+     4
+    ],
+    "main": "njqd3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_sz4d",
+    "dest": "jiangsu",
+    "cross_dest": false,
+    "ids": [
+     "sz4d",
+     "zl1j"
+    ],
+    "days": [
+     4,
+     7
+    ],
+    "main": "sz4d",
+    "main_rule": "3–5 天里天数最少的一条（只有深度/课本版可选）",
+    "min_overlap": 0.8,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_xzlyg3",
+    "dest": "jiangsu",
+    "cross_dest": false,
+    "ids": [
+     "xzlyg3",
+     "zl1k"
+    ],
+    "days": [
+     3,
+     6
+    ],
+    "main": "xzlyg3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 1.0,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_yz3",
+    "dest": "jiangsu",
+    "cross_dest": false,
+    "ids": [
+     "zj2",
+     "yz3",
+     "zl1l"
+    ],
+    "days": [
+     2,
+     3,
+     6
+    ],
+    "main": "yz3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": false,
+    "split_from_component": null,
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_hjgs1",
+    "dest": "jiangxi",
+    "cross_dest": false,
+    "ids": [
+     "hjgs1",
+     "hjgs3"
+    ],
+    "days": [
+     3,
+     8
+    ],
+    "main": "hjgs1",
+    "main_rule": "3–5 天里天数最少的一条（只有深度/课本版可选）",
+    "min_overlap": 1.0,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_jgs4",
+    "dest": "jiangxi",
+    "cross_dest": false,
+    "ids": [
+     "jgs2",
+     "jgs4"
+    ],
+    "days": [
+     2,
+     4
+    ],
+    "main": "jgs4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_lus4",
+    "dest": "jiangxi",
+    "cross_dest": false,
+    "ids": [
+     "xh503c",
+     "lus4",
+     "zl2e"
+    ],
+    "days": [
+     2,
+     4,
+     5
+    ],
+    "main": "lus4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": false,
+    "split_from_component": null,
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_cbs3x",
+    "dest": "jilin",
+    "cross_dest": false,
+    "ids": [
+     "xh501d",
+     "cbs3x"
+    ],
+    "days": [
+     2,
+     4
+    ],
+    "main": "cbs3x",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_zl5p",
+    "dest": "jilin",
+    "cross_dest": false,
+    "ids": [
+     "ja2",
+     "zl5p"
+    ],
+    "days": [
+     2,
+     5
+    ],
+    "main": "zl5p",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 1.0,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_bxi4",
+    "dest": "liaoning",
+    "cross_dest": false,
+    "ids": [
+     "bxi4",
+     "zl5l"
+    ],
+    "days": [
+     4,
+     6
+    ],
+    "main": "bxi4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_dl3",
+    "dest": "liaoning",
+    "cross_dest": false,
+    "ids": [
+     "dl3",
+     "dlc4"
+    ],
+    "days": [
+     3,
+     4
+    ],
+    "main": "dl3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_syfx4",
+    "dest": "liaoning",
+    "cross_dest": false,
+    "ids": [
+     "hnurh1",
+     "syfx4",
+     "hnurh2"
+    ],
+    "days": [
+     3,
+     4,
+     6
+    ],
+    "main": "syfx4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.8,
+    "clique": false,
+    "split_from_component": null,
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_zlnd",
+    "dest": "liaoning",
+    "cross_dest": false,
+    "ids": [
+     "zlnd",
+     "zl5m"
+    ],
+    "days": [
+     3,
+     5
+    ],
+    "main": "zlnd",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 1.0,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_xw91a",
+    "dest": "macau",
+    "cross_dest": false,
+    "ids": [
+     "mo2",
+     "xw91a"
+    ],
+    "days": [
+     2,
+     3
+    ],
+    "main": "xw91a",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.8,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_hlb4",
+    "dest": "neimenggu",
+    "cross_dest": false,
+    "ids": [
+     "hlb4",
+     "hlbel8"
+    ],
+    "days": [
+     4,
+     8
+    ],
+    "main": "hlb4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.83,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_hzhaoj1",
+    "dest": "neimenggu",
+    "cross_dest": true,
+    "ids": [
+     "hzhaoj1",
+     "hzhaoj2"
+    ],
+    "days": [
+     3,
+     6
+    ],
+    "main": "hzhaoj1",
+    "main_rule": "3–5 天里天数最少的一条（只有深度/课本版可选）",
+    "min_overlap": 1.0,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_nmhc6",
+    "dest": "neimenggu",
+    "cross_dest": false,
+    "ids": [
+     "nmhc6",
+     "zl5h"
+    ],
+    "days": [
+     6,
+     6
+    ],
+    "main": "nmhc6",
+    "main_rule": "没有 3–5 天的线，取最接近 4 天的",
+    "min_overlap": 0.75,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_yinc4",
+    "dest": "ningxia",
+    "cross_dest": false,
+    "ids": [
+     "yinc4",
+     "zl5c"
+    ],
+    "days": [
+     4,
+     5
+    ],
+    "main": "yinc4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.86,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_zmsc",
+    "dest": "ningxia",
+    "cross_dest": false,
+    "ids": [
+     "zmsc",
+     "nxgt5",
+     "nxl5",
+     "zl5a"
+    ],
+    "days": [
+     4,
+     5,
+     5,
+     5
+    ],
+    "main": "zmsc",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.8,
+    "clique": false,
+    "split_from_component": null,
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_qhxn5",
+    "dest": "qinghai",
+    "cross_dest": false,
+    "ids": [
+     "hwc1",
+     "qhxn5",
+     "zl4j"
+    ],
+    "days": [
+     3,
+     5,
+     5
+    ],
+    "main": "qhxn5",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.71,
+    "clique": false,
+    "split_from_component": null,
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_hanshi1",
+    "dest": "shaanxi",
+    "cross_dest": true,
+    "ids": [
+     "hanshi1",
+     "hanshi2"
+    ],
+    "days": [
+     4,
+     7
+    ],
+    "main": "hanshi1",
+    "main_rule": "3–5 天里天数最少的一条（只有深度/课本版可选）",
+    "min_overlap": 1.0,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_htaiz1",
+    "dest": "shaanxi",
+    "cross_dest": true,
+    "ids": [
+     "htaiz1",
+     "htaiz2"
+    ],
+    "days": [
+     4,
+     7
+    ],
+    "main": "htaiz1",
+    "main_rule": "3–5 天里天数最少的一条（只有深度/课本版可选）",
+    "min_overlap": 0.71,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_sb3",
+    "dest": "shaanxi",
+    "cross_dest": false,
+    "ids": [
+     "sb3",
+     "zl1f"
+    ],
+    "days": [
+     3,
+     6
+    ],
+    "main": "sb3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.8,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_xa3",
+    "dest": "shaanxi",
+    "cross_dest": false,
+    "ids": [
+     "kbxa3",
+     "xa3",
+     "xa5d",
+     "zl1d"
+    ],
+    "days": [
+     3,
+     3,
+     5,
+     6
+    ],
+    "main": "xa3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.8,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_hliqz1",
+    "dest": "shandong",
+    "cross_dest": false,
+    "ids": [
+     "hliqz1",
+     "hliqz2"
+    ],
+    "days": [
+     3,
+     6
+    ],
+    "main": "hliqz1",
+    "main_rule": "3–5 天里天数最少的一条（只有深度/课本版可选）",
+    "min_overlap": 0.89,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_qd3",
+    "dest": "shandong",
+    "cross_dest": false,
+    "ids": [
+     "qd3",
+     "sdgt6"
+    ],
+    "days": [
+     3,
+     6
+    ],
+    "main": "qd3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.71,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_zl0d",
+    "dest": "shanghai",
+    "cross_dest": false,
+    "ids": [
+     "sh2",
+     "zl0d"
+    ],
+    "days": [
+     2,
+     5
+    ],
+    "main": "zl0d",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.8,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_hdu1",
+    "dest": "sichuan",
+    "cross_dest": false,
+    "ids": [
+     "hdu1",
+     "cd5d"
+    ],
+    "days": [
+     3,
+     5
+    ],
+    "main": "hdu1",
+    "main_rule": "3–5 天里天数最少的一条（只有深度/课本版可选）",
+    "min_overlap": 0.83,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_hshuili1",
+    "dest": "sichuan",
+    "cross_dest": true,
+    "ids": [
+     "hshuili1",
+     "hshuili2"
+    ],
+    "days": [
+     3,
+     6
+    ],
+    "main": "hshuili1",
+    "main_rule": "3–5 天里天数最少的一条（只有深度/课本版可选）",
+    "min_overlap": 0.8,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_tjbh4",
+    "dest": "tianjin",
+    "cross_dest": false,
+    "ids": [
+     "tj2",
+     "tjbh4",
+     "zl0a",
+     "zl0b",
+     "zl0c"
+    ],
+    "days": [
+     2,
+     4,
+     5,
+     5,
+     6
+    ],
+    "main": "tjbh4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": false,
+    "split_from_component": "tj2",
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_tjl3",
+    "dest": "tianjin",
+    "cross_dest": false,
+    "ids": [
+     "tjl3",
+     "tj4"
+    ],
+    "days": [
+     3,
+     4
+    ],
+    "main": "tjl3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.83,
+    "clique": true,
+    "split_from_component": "tj2",
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_ist3",
+    "dest": "turkey",
+    "cross_dest": false,
+    "ids": [
+     "ist3",
+     "tr6"
+    ],
+    "days": [
+     3,
+     6
+    ],
+    "main": "ist3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.71,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_kc4",
+    "dest": "xinjiang",
+    "cross_dest": false,
+    "ids": [
+     "kc4",
+     "hjmls2"
+    ],
+    "days": [
+     4,
+     6
+    ],
+    "main": "kc4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.8,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_ks3",
+    "dest": "xinjiang",
+    "cross_dest": false,
+    "ids": [
+     "ks3",
+     "xw121a",
+     "nj9"
+    ],
+    "days": [
+     3,
+     5,
+     9
+    ],
+    "main": "ks3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.71,
+    "clique": false,
+    "split_from_component": null,
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_tlf3",
+    "dest": "xinjiang",
+    "cross_dest": false,
+    "ids": [
+     "tlf3",
+     "xhg3",
+     "zxjh",
+     "xjhc8"
+    ],
+    "days": [
+     3,
+     3,
+     3,
+     8
+    ],
+    "main": "tlf3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": false,
+    "split_from_component": null,
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_zxje",
+    "dest": "xinjiang",
+    "cross_dest": false,
+    "ids": [
+     "zxje",
+     "alt5"
+    ],
+    "days": [
+     3,
+     5
+    ],
+    "main": "zxje",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_lsnmc4",
+    "dest": "xizang",
+    "cross_dest": false,
+    "ids": [
+     "lsnmc4",
+     "zl4i",
+     "zl4g",
+     "xzlz7",
+     "xzl12"
+    ],
+    "days": [
+     4,
+     5,
+     6,
+     7,
+     12
+    ],
+    "main": "lsnmc4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.78,
+    "clique": false,
+    "split_from_component": "lsnmc4",
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_bn4",
+    "dest": "yunnan",
+    "cross_dest": false,
+    "ids": [
+     "bn4",
+     "zl4f"
+    ],
+    "days": [
+     4,
+     5
+    ],
+    "main": "bn4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_yn4",
+    "dest": "yunnan",
+    "cross_dest": false,
+    "ids": [
+     "yn4",
+     "dnl8"
+    ],
+    "days": [
+     4,
+     8
+    ],
+    "main": "yn4",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.83,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_zynp",
+    "dest": "yunnan",
+    "cross_dest": false,
+    "ids": [
+     "zynp",
+     "xg4",
+     "dxl10"
+    ],
+    "days": [
+     3,
+     4,
+     10
+    ],
+    "main": "zynp",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": false,
+    "split_from_component": null,
+    "conf": "mid",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   },
+   {
+    "id": "sis_tz3",
+    "dest": "zhejiang",
+    "cross_dest": false,
+    "ids": [
+     "tz3",
+     "zl2b"
+    ],
+    "days": [
+     3,
+     6
+    ],
+    "main": "tz3",
+    "main_rule": "3–5 天里天数最少的基础线（不含“深度”、课本皮肤、跟谁走的人物线）",
+    "min_overlap": 0.75,
+    "clique": true,
+    "split_from_component": null,
+    "conf": "high",
+    "src": "routes.md 发现 4/5/7/9/11/20/23 + aux/routes/pairs_ge70.tsv（重合 ≥0.70 的 138 对中同目的地或同人物主题的）"
+   }
+  ],
+  "dropped_pairs": {
+   "≥15天长线（交给“这一段=某线”的标注，不进梯子）": 23,
+   "跨目的地且不是同一人物主题": 1
+  }
+ },
+ "covered_by": {
+  "src": "routes.md 发现 25（20 条）",
+  "conf": "mid",
+  "rule": "只做将来的跳转/canonical 用，不删页面；apply=false 的先不写进 trips.json",
+  "items": {
+   "cq3": {
+    "to": "cq4d",
+    "overlap": 1.0,
+    "shared": "8/8",
+    "days": "3→4",
+    "kind": "same-days",
+    "apply": true,
+    "hold_reason": null,
+    "conf": "high",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "kbxa3": {
+    "to": "xa3",
+    "overlap": 1.0,
+    "shared": "5/5",
+    "days": "3→3",
+    "kind": "same-days",
+    "apply": true,
+    "hold_reason": null,
+    "conf": "high",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "kbjnn2": {
+    "to": "jn2",
+    "overlap": 1.0,
+    "shared": "3/3",
+    "days": "2→2",
+    "kind": "same-days",
+    "apply": true,
+    "hold_reason": null,
+    "conf": "high",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "kbgl3": {
+    "to": "gl4",
+    "overlap": 0.8,
+    "shared": "4/5",
+    "days": "3→4",
+    "kind": "same-days",
+    "apply": false,
+    "hold_reason": "对 gl4 只有 80%（遇龙河不在）；它 100% 在 gxgt7（7 天高铁线）里，指向 7 天线又太远——先留着不跳",
+    "conf": "mid",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "lsnmc4": {
+    "to": "zl4i",
+    "overlap": 1.0,
+    "shared": "5/5",
+    "days": "4→5",
+    "kind": "same-days",
+    "apply": false,
+    "hold_reason": "4 天对 5 天，天数不同，先不并（保守口径）",
+    "conf": "high",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "nx3": {
+    "to": "zmsc",
+    "overlap": 1.0,
+    "shared": "3/3",
+    "days": "3→4",
+    "kind": "same-days",
+    "apply": true,
+    "hold_reason": null,
+    "conf": "high",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "eds3": {
+    "to": "znmb",
+    "overlap": 1.0,
+    "shared": "3/3",
+    "days": "3→4",
+    "kind": "same-days",
+    "apply": true,
+    "hold_reason": null,
+    "conf": "high",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "wdlc2": {
+    "to": "xh501c",
+    "overlap": 1.0,
+    "shared": "3/3",
+    "days": "2→2",
+    "kind": "same-days",
+    "apply": true,
+    "hold_reason": null,
+    "conf": "high",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "xh504b": {
+    "to": "hyl1",
+    "overlap": 1.0,
+    "shared": "4/4",
+    "days": "2→3",
+    "kind": "same-days",
+    "apply": false,
+    "hold_reason": "它是“徒步”风格 2 天，hyl1 是“永乐大修武当”的人物线 3 天：同一批点、不同需求，且 hyl1 属于跟谁走",
+    "conf": "high",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "zlnd": {
+    "to": "zl5m",
+    "overlap": 1.0,
+    "shared": "5/5",
+    "days": "3→5",
+    "kind": "ladder",
+    "apply": false,
+    "hold_reason": "3 天对 5 天阶梯：只互链",
+    "conf": "mid",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "prg4": {
+    "to": "xw89a",
+    "overlap": 1.0,
+    "shared": "7/7",
+    "days": "4→6",
+    "kind": "ladder",
+    "apply": false,
+    "hold_reason": "4 天对 6 天、点 7/7，是阶梯不是重复：想去 4 天的人不该被送去 6 天",
+    "conf": "mid",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "zl0a": {
+    "to": "zl0b",
+    "overlap": 0.88,
+    "shared": "7/8",
+    "days": "5→5",
+    "kind": "same-days",
+    "apply": false,
+    "hold_reason": "覆盖度 8/9：zl0a 独有“大悲禅院”，先把它补进 zl0b 再并，否则少一个点",
+    "conf": "mid",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "hhumen1": {
+    "to": "hhumen2",
+    "overlap": 1.0,
+    "shared": "8/8",
+    "days": "3→6",
+    "kind": "ladder",
+    "apply": false,
+    "hold_reason": "3 天对 6 天阶梯：只互链（sisters），不跳转",
+    "conf": "mid",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "hanshi1": {
+    "to": "hanshi2",
+    "overlap": 1.0,
+    "shared": "8/8",
+    "days": "4→7",
+    "kind": "ladder",
+    "apply": false,
+    "hold_reason": "4 天对 7 天阶梯：只互链",
+    "conf": "mid",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "hzh1": {
+    "to": "hzh2",
+    "overlap": 1.0,
+    "shared": "6/6",
+    "days": "3→6",
+    "kind": "ladder",
+    "apply": false,
+    "hold_reason": "3 天对 6 天阶梯：只互链",
+    "conf": "mid",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "hwzt1": {
+    "to": "hwzt2",
+    "overlap": 1.0,
+    "shared": "6/6",
+    "days": "3→8",
+    "kind": "ladder",
+    "apply": false,
+    "hold_reason": "3 天对 8 天阶梯：只互链",
+    "conf": "mid",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "hjgs1": {
+    "to": "hjgs3",
+    "overlap": 1.0,
+    "shared": "7/7",
+    "days": "3→8",
+    "kind": "ladder",
+    "apply": false,
+    "hold_reason": "3 天对 8 天阶梯：只互链",
+    "conf": "mid",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "hnanj1": {
+    "to": "hnanj2",
+    "overlap": 1.0,
+    "shared": "6/6",
+    "days": "3→6",
+    "kind": "ladder",
+    "apply": false,
+    "hold_reason": "3 天对 6 天阶梯：只互链",
+    "conf": "mid",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "hnurh1": {
+    "to": "hnurh2",
+    "overlap": 1.0,
+    "shared": "5/5",
+    "days": "3→6",
+    "kind": "ladder",
+    "apply": false,
+    "hold_reason": "3 天对 6 天阶梯：只互链",
+    "conf": "mid",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   },
+   "hzhaoj1": {
+    "to": "hzhaoj2",
+    "overlap": 1.0,
+    "shared": "7/7",
+    "days": "3→6",
+    "kind": "ladder",
+    "apply": false,
+    "hold_reason": "3 天对 6 天阶梯：只互链",
+    "conf": "mid",
+    "src": "routes.md 发现 25（aux/routes/dominated.tsv + 发现 5 的跟谁走 8 条）"
+   }
+  }
+ },
+ "group_city": {
+  "src": "routes.md 发现 1",
+  "conf": "mid",
+  "rule": "线路 city（缺则第一个有 city 的天；引擎线用 trips.name）；≥15 天的线归“长线”；只出现 1 次且 label 以另一组城市名开头的并入那组；每个目的地最多 12 组（含“长线”“其他”）",
+  "max_groups": 12,
+  "items": {
+   "xa3": {
+    "g": "西安",
+    "how": "city"
+   },
+   "ly3": {
+    "g": "洛阳",
+    "how": "city"
+   },
+   "sx4": {
+    "g": "平遥",
+    "how": "city"
+   },
+   "wy3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 婺源）"
+   },
+   "gz3": {
+    "g": "广州",
+    "how": "city"
+   },
+   "xm4": {
+    "g": "厦门",
+    "how": "city"
+   },
+   "nj3": {
+    "g": "南京",
+    "how": "city"
+   },
+   "tj2": {
+    "g": "天津",
+    "how": "city"
+   },
+   "bj4": {
+    "g": "北京",
+    "how": "city"
+   },
+   "hs2": {
+    "g": "黄山",
+    "how": "city"
+   },
+   "qd3": {
+    "g": "青岛",
+    "how": "city"
+   },
+   "es4": {
+    "g": "恩施",
+    "how": "city"
+   },
+   "gl4": {
+    "g": "桂林",
+    "how": "city"
+   },
+   "cq3": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "dali5": {
+    "g": "大理",
+    "how": "city"
+   },
+   "dh4": {
+    "g": "敦煌",
+    "how": "city"
+   },
+   "nx3": {
+    "g": "中卫",
+    "how": "city"
+   },
+   "mo2": {
+    "g": "澳门",
+    "how": "city"
+   },
+   "tc4": {
+    "g": "其他",
+    "how": "top11 之外并入（原 腾冲）"
+   },
+   "sy4": {
+    "g": "三亚",
+    "how": "city"
+   },
+   "dl3": {
+    "g": "大连",
+    "how": "city"
+   },
+   "kr4": {
+    "g": "首尔",
+    "how": "city"
+   },
+   "tk4": {
+    "g": "东京",
+    "how": "city"
+   },
+   "vn5": {
+    "g": "河内",
+    "how": "city"
+   },
+   "sg3": {
+    "g": "新加坡",
+    "how": "city"
+   },
+   "ts4": {
+    "g": "泰安",
+    "how": "city"
+   },
+   "dt3": {
+    "g": "大同",
+    "how": "city"
+   },
+   "cd4": {
+    "g": "承德",
+    "how": "city"
+   },
+   "wys4": {
+    "g": "武夷山",
+    "how": "city"
+   },
+   "lus4": {
+    "g": "其他",
+    "how": "top11 之外并入（原 庐山）"
+   },
+   "em4": {
+    "g": "乐山",
+    "how": "city"
+   },
+   "wd4": {
+    "g": "十堰",
+    "how": "city"
+   },
+   "dz3": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "cbs3x": {
+    "g": "长春",
+    "how": "city"
+   },
+   "hrb4": {
+    "g": "哈尔滨",
+    "how": "city"
+   },
+   "wz3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 桐乡）"
+   },
+   "gz4x": {
+    "g": "安顺",
+    "how": "city"
+   },
+   "zy4": {
+    "g": "张掖",
+    "how": "city"
+   },
+   "gd4": {
+    "g": "其他",
+    "how": "top11 之外并入（原 开平）"
+   },
+   "qh4": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "hlb4": {
+    "g": "海拉尔",
+    "how": "city"
+   },
+   "eds3": {
+    "g": "鄂尔多斯",
+    "how": "city"
+   },
+   "gx3": {
+    "g": "南宁",
+    "how": "city"
+   },
+   "yn4": {
+    "g": "昆明",
+    "how": "city"
+   },
+   "hn4": {
+    "g": "开封",
+    "how": "city"
+   },
+   "fh3": {
+    "g": "凤凰",
+    "how": "city"
+   },
+   "sh2": {
+    "g": "上海",
+    "how": "city"
+   },
+   "yz3": {
+    "g": "扬州",
+    "how": "city"
+   },
+   "wx4": {
+    "g": "无锡",
+    "how": "city"
+   },
+   "pt3": {
+    "g": "舟山",
+    "how": "city"
+   },
+   "lz2": {
+    "g": "杭州",
+    "how": "city"
+   },
+   "yds3": {
+    "g": "温州",
+    "how": "city"
+   },
+   "jh4": {
+    "g": "池州",
+    "how": "city"
+   },
+   "sy3": {
+    "g": "沈阳",
+    "how": "city"
+   },
+   "tlf3": {
+    "g": "乌鲁木齐",
+    "how": "city"
+   },
+   "ks3": {
+    "g": "喀什",
+    "how": "city"
+   },
+   "fjs3": {
+    "g": "铜仁",
+    "how": "city"
+   },
+   "xg4": {
+    "g": "香格里拉",
+    "how": "city"
+   },
+   "sgn3": {
+    "g": "成都",
+    "how": "city"
+   },
+   "gzc2": {
+    "g": "广州",
+    "how": "city"
+   },
+   "hzlf2": {
+    "g": "惠州",
+    "how": "city"
+   },
+   "bdc3": {
+    "g": "奉节",
+    "how": "city"
+   },
+   "pl3": {
+    "g": "烟台",
+    "how": "city"
+   },
+   "wh2": {
+    "g": "武汉",
+    "how": "city"
+   },
+   "yc3": {
+    "g": "宜昌",
+    "how": "city"
+   },
+   "hkp3": {
+    "g": "太原",
+    "how": "city"
+   },
+   "jdz2": {
+    "g": "景德镇",
+    "how": "city"
+   },
+   "tn3": {
+    "g": "福州",
+    "how": "city"
+   },
+   "wdlc2": {
+    "g": "五大连池",
+    "how": "city"
+   },
+   "bjc3": {
+    "g": "漠河",
+    "how": "city"
+   },
+   "jsl2": {
+    "g": "承德",
+    "how": "city"
+   },
+   "huiz3": {
+    "g": "黄山",
+    "how": "city"
+   },
+   "ttz2": {
+    "g": "六安",
+    "how": "city"
+   },
+   "hf2": {
+    "g": "合肥",
+    "how": "city"
+   },
+   "jgs2": {
+    "g": "井冈山",
+    "how": "city"
+   },
+   "lhs2": {
+    "g": "鹰潭",
+    "how": "city"
+   },
+   "wgs2": {
+    "g": "萍乡",
+    "how": "city"
+   },
+   "nc2": {
+    "g": "南昌",
+    "how": "city"
+   },
+   "jfs2": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "wls2": {
+    "g": "涪陵",
+    "how": "city"
+   },
+   "tsm3": {
+    "g": "天水",
+    "how": "city"
+   },
+   "qdh3": {
+    "g": "杭州",
+    "how": "city"
+   },
+   "sxnx2": {
+    "g": "绍兴",
+    "how": "city"
+   },
+   "hd2": {
+    "g": "金华",
+    "how": "city"
+   },
+   "jn2": {
+    "g": "济南",
+    "how": "city"
+   },
+   "ls2": {
+    "g": "青岛",
+    "how": "city"
+   },
+   "tez2": {
+    "g": "枣庄",
+    "how": "city"
+   },
+   "css3": {
+    "g": "长沙",
+    "how": "city"
+   },
+   "nyhs2": {
+    "g": "衡阳",
+    "how": "city"
+   },
+   "lns2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 邵阳）"
+   },
+   "qdn5": {
+    "g": "凯里",
+    "how": "city"
+   },
+   "chs2": {
+    "g": "遵义",
+    "how": "city"
+   },
+   "bjx2": {
+    "g": "北京",
+    "how": "city"
+   },
+   "ysd3": {
+    "g": "锡林浩特",
+    "how": "city"
+   },
+   "sc5": {
+    "g": "成都",
+    "how": "city"
+   },
+   "hlg2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 泸定）"
+   },
+   "anr2": {
+    "g": "成都",
+    "how": "city"
+   },
+   "fszq2": {
+    "g": "佛山",
+    "how": "city"
+   },
+   "zs2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 中山）"
+   },
+   "sz2x": {
+    "g": "深圳",
+    "how": "city"
+   },
+   "mz2": {
+    "g": "梅州",
+    "how": "city"
+   },
+   "nd3": {
+    "g": "宁德",
+    "how": "city"
+   },
+   "mzd2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 莆田）"
+   },
+   "ly2": {
+    "g": "龙岩",
+    "how": "city"
+   },
+   "ljs2": {
+    "g": "洛阳",
+    "how": "city"
+   },
+   "lz2x": {
+    "g": "安阳",
+    "how": "city"
+   },
+   "jgs2x": {
+    "g": "信阳",
+    "how": "city"
+   },
+   "ys2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 平顶山）"
+   },
+   "ja2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 集安）"
+   },
+   "cc2": {
+    "g": "长春",
+    "how": "city"
+   },
+   "cgh2": {
+    "g": "松原",
+    "how": "city"
+   },
+   "aes4": {
+    "g": "其他",
+    "how": "top11 之外并入（原 阿尔山）"
+   },
+   "bdjl3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 阿拉善）"
+   },
+   "jm2": {
+    "g": "普洱",
+    "how": "city"
+   },
+   "cj2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 玉溪）"
+   },
+   "yc2": {
+    "g": "盐城",
+    "how": "city"
+   },
+   "bn4": {
+    "g": "其他",
+    "how": "top11 之外并入（原 西双版纳）"
+   },
+   "km2": {
+    "g": "昆明",
+    "how": "city"
+   },
+   "pzh2": {
+    "g": "文山",
+    "how": "city"
+   },
+   "my2": {
+    "g": "门源",
+    "how": "city"
+   },
+   "bd3": {
+    "g": "保定",
+    "how": "city"
+   },
+   "sjz3": {
+    "g": "石家庄",
+    "how": "city"
+   },
+   "as2": {
+    "g": "鞍山",
+    "how": "city"
+   },
+   "sys2": {
+    "g": "三亚",
+    "how": "city"
+   },
+   "nxyc2": {
+    "g": "银川",
+    "how": "city"
+   },
+   "nsk2": {
+    "g": "乌鲁木齐",
+    "how": "city"
+   },
+   "nb2": {
+    "g": "宁波",
+    "how": "city"
+   },
+   "tz3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 台州）"
+   },
+   "qz2": {
+    "g": "衢州",
+    "how": "city"
+   },
+   "lsx3": {
+    "g": "丽水",
+    "how": "city"
+   },
+   "rj2": {
+    "g": "赣州",
+    "how": "city"
+   },
+   "jc3": {
+    "g": "晋城",
+    "how": "city"
+   },
+   "wzd3": {
+    "g": "北海",
+    "how": "city"
+   },
+   "cy2": {
+    "g": "柳州",
+    "how": "city"
+   },
+   "hyg2": {
+    "g": "贺州",
+    "how": "city"
+   },
+   "yy3x": {
+    "g": "彭水",
+    "how": "city"
+   },
+   "xaw2": {
+    "g": "西安",
+    "how": "city"
+   },
+   "sb3": {
+    "g": "延安",
+    "how": "city"
+   },
+   "xy2": {
+    "g": "襄阳",
+    "how": "city"
+   },
+   "szth2": {
+    "g": "苏州",
+    "how": "city"
+   },
+   "csh2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 常熟）"
+   },
+   "czh3": {
+    "g": "常州",
+    "how": "city"
+   },
+   "nttz2": {
+    "g": "南通",
+    "how": "city"
+   },
+   "xzlyg3": {
+    "g": "徐州",
+    "how": "city"
+   },
+   "ha2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 淮安）"
+   },
+   "gyqy2": {
+    "g": "贵阳",
+    "how": "city"
+   },
+   "zjd2": {
+    "g": "安顺",
+    "how": "city"
+   },
+   "wfl2": {
+    "g": "兴义",
+    "how": "city"
+   },
+   "bldj2": {
+    "g": "毕节",
+    "how": "city"
+   },
+   "wlh2": {
+    "g": "河源",
+    "how": "city"
+   },
+   "hld2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 阳江）"
+   },
+   "yl4": {
+    "g": "伊宁",
+    "how": "city"
+   },
+   "kel3": {
+    "g": "库尔勒",
+    "how": "city"
+   },
+   "aks3": {
+    "g": "阿克苏",
+    "how": "city"
+   },
+   "jbl2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 昌吉）"
+   },
+   "lx3": {
+    "g": "兰州",
+    "how": "city"
+   },
+   "gegs2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 陇南）"
+   },
+   "zl2": {
+    "g": "齐齐哈尔",
+    "how": "city"
+   },
+   "ych2": {
+    "g": "伊春",
+    "how": "city"
+   },
+   "shz2": {
+    "g": "上海",
+    "how": "city"
+   },
+   "lzhi4": {
+    "g": "林芝",
+    "how": "city"
+   },
+   "yy2": {
+    "g": "岳阳",
+    "how": "city"
+   },
+   "djh2": {
+    "g": "郴州",
+    "how": "city"
+   },
+   "lyi2": {
+    "g": "临沂",
+    "how": "city"
+   },
+   "zb2": {
+    "g": "淄博",
+    "how": "city"
+   },
+   "dyhk2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 东营）"
+   },
+   "lt2": {
+    "g": "洛阳",
+    "how": "city"
+   },
+   "bq2": {
+    "g": "新乡",
+    "how": "city"
+   },
+   "cys2": {
+    "g": "驻马店",
+    "how": "city"
+   },
+   "mds2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 周口）"
+   },
+   "xxk2": {
+    "g": "南阳",
+    "how": "city"
+   },
+   "chb2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 赤壁）"
+   },
+   "lcw2": {
+    "g": "利川",
+    "how": "city"
+   },
+   "bdsx2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 巴东）"
+   },
+   "mlgf2": {
+    "g": "武汉",
+    "how": "city"
+   },
+   "whms2": {
+    "g": "芜湖",
+    "how": "city"
+   },
+   "lys2": {
+    "g": "滁州",
+    "how": "city"
+   },
+   "wcmx2": {
+    "g": "成都",
+    "how": "city"
+   },
+   "gayl2": {
+    "g": "广安",
+    "how": "city"
+   },
+   "qlt2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 邛崃）"
+   },
+   "tbs2": {
+    "g": "宝鸡",
+    "how": "city"
+   },
+   "jsx2": {
+    "g": "商洛",
+    "how": "city"
+   },
+   "bjo2": {
+    "g": "北京",
+    "how": "city"
+   },
+   "psh2": {
+    "g": "天津",
+    "how": "city"
+   },
+   "lps2": {
+    "g": "固原",
+    "how": "city"
+   },
+   "htx2": {
+    "g": "虎林",
+    "how": "city"
+   },
+   "ash2": {
+    "g": "赤峰",
+    "how": "city"
+   },
+   "lnw2": {
+    "g": "呼和浩特",
+    "how": "city"
+   },
+   "dhld2": {
+    "g": "敦化",
+    "how": "city"
+   },
+   "glcx2": {
+    "g": "桂林",
+    "how": "city"
+   },
+   "smsh2": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "bss2": {
+    "g": "保定",
+    "how": "city"
+   },
+   "mys2": {
+    "g": "宜春",
+    "how": "city"
+   },
+   "lzdx2": {
+    "g": "清远",
+    "how": "city"
+   },
+   "zp2": {
+    "g": "喀什",
+    "how": "city"
+   },
+   "jrms2": {
+    "g": "句容",
+    "how": "city"
+   },
+   "jhsl2": {
+    "g": "金华",
+    "how": "city"
+   },
+   "msjx2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 介休）"
+   },
+   "ydl2": {
+    "g": "株洲",
+    "how": "city"
+   },
+   "qzx4": {
+    "g": "格尔木",
+    "how": "city"
+   },
+   "hhy4": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "gn5": {
+    "g": "成都",
+    "how": "city"
+   },
+   "lbyz3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 阿坝）"
+   },
+   "zgn3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 迭部）"
+   },
+   "yb4": {
+    "g": "其他",
+    "how": "top11 之外并入（原 德钦）"
+   },
+   "xt3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 昭苏）"
+   },
+   "rw3": {
+    "g": "林芝",
+    "how": "city"
+   },
+   "zf4": {
+    "g": "日喀则",
+    "how": "city"
+   },
+   "xp3": {
+    "g": "宁德",
+    "how": "city"
+   },
+   "jbtt2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 从江）"
+   },
+   "wsd2": {
+    "g": "吉林",
+    "how": "city"
+   },
+   "bzl4": {
+    "g": "其他",
+    "how": "top11 之外并入（原 泸水）"
+   },
+   "ali8": {
+    "g": "日喀则",
+    "how": "city"
+   },
+   "reg3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 若尔盖）"
+   },
+   "dg3": {
+    "g": "成都",
+    "how": "city"
+   },
+   "bhb2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 布尔津）"
+   },
+   "kc4": {
+    "g": "库尔勒",
+    "how": "city"
+   },
+   "ht2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 和田）"
+   },
+   "ljslm2": {
+    "g": "丽江",
+    "how": "city"
+   },
+   "hb2": {
+    "g": "香格里拉",
+    "how": "city"
+   },
+   "dbdl3": {
+    "g": "丹巴",
+    "how": "city"
+   },
+   "mssl2": {
+    "g": "北京",
+    "how": "city"
+   },
+   "hsh2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 衡水）"
+   },
+   "blh2": {
+    "g": "阜阳",
+    "how": "city"
+   },
+   "djs2": {
+    "g": "抚州",
+    "how": "city"
+   },
+   "bs2": {
+    "g": "百色",
+    "how": "city"
+   },
+   "lgy2": {
+    "g": "云阳",
+    "how": "city"
+   },
+   "slmh2": {
+    "g": "博乐",
+    "how": "city"
+   },
+   "hkd5": {
+    "g": "札幌",
+    "how": "city"
+   },
+   "mn5": {
+    "g": "乌兰巴托",
+    "how": "city"
+   },
+   "cm5": {
+    "g": "清迈",
+    "how": "city"
+   },
+   "pg4": {
+    "g": "乔治市",
+    "how": "city"
+   },
+   "bali5": {
+    "g": "巴厘岛",
+    "how": "city"
+   },
+   "sr4": {
+    "g": "暹粒",
+    "how": "city"
+   },
+   "lpb4": {
+    "g": "琅勃拉邦",
+    "how": "city"
+   },
+   "plw5": {
+    "g": "爱妮岛",
+    "how": "city"
+   },
+   "np8": {
+    "g": "加德满都",
+    "how": "city"
+   },
+   "bt6": {
+    "g": "帕罗",
+    "how": "city"
+   },
+   "in7": {
+    "g": "德里",
+    "how": "city"
+   },
+   "mv5": {
+    "g": "马累",
+    "how": "city"
+   },
+   "uz6": {
+    "g": "塔什干",
+    "how": "city"
+   },
+   "tr6": {
+    "g": "伊斯坦布尔",
+    "how": "city"
+   },
+   "ae4": {
+    "g": "迪拜",
+    "how": "city"
+   },
+   "qhx4": {
+    "g": "格尔木",
+    "how": "city"
+   },
+   "dcrl3": {
+    "g": "昆明",
+    "how": "city"
+   },
+   "gyl2": {
+    "g": "郴州",
+    "how": "city"
+   },
+   "wxg2": {
+    "g": "上饶",
+    "how": "city"
+   },
+   "djd3": {
+    "g": "舟山",
+    "how": "city"
+   },
+   "xx3": {
+    "g": "哈尔滨",
+    "how": "city"
+   },
+   "lgh3": {
+    "g": "丽江",
+    "how": "city"
+   },
+   "mgs2": {
+    "g": "湖州",
+    "how": "city"
+   },
+   "czh2": {
+    "g": "潮州",
+    "how": "city"
+   },
+   "nao2": {
+    "g": "汕头",
+    "how": "city"
+   },
+   "zhh2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 珠海）"
+   },
+   "chl2": {
+    "g": "张家口",
+    "how": "city"
+   },
+   "zg2": {
+    "g": "自贡",
+    "how": "city"
+   },
+   "snzh2": {
+    "g": "宜宾",
+    "how": "city"
+   },
+   "xc2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 西昌）"
+   },
+   "hzh3": {
+    "g": "汉中",
+    "how": "city"
+   },
+   "mshi3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 芒市）"
+   },
+   "dxg2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 防城港）"
+   },
+   "hkou2": {
+    "g": "海口",
+    "how": "city"
+   },
+   "dd2": {
+    "g": "丹东",
+    "how": "city"
+   },
+   "yj3": {
+    "g": "延吉",
+    "how": "city"
+   },
+   "sxd2": {
+    "g": "成都",
+    "how": "city"
+   },
+   "jzh2": {
+    "g": "荆州",
+    "how": "city"
+   },
+   "wwi2": {
+    "g": "武威",
+    "how": "city"
+   },
+   "btu2": {
+    "g": "包头",
+    "how": "city"
+   },
+   "hhe2": {
+    "g": "黑河",
+    "how": "city"
+   },
+   "xcg2": {
+    "g": "葫芦岛",
+    "how": "city"
+   },
+   "wnn2": {
+    "g": "万宁",
+    "how": "city"
+   },
+   "snn2": {
+    "g": "山南",
+    "how": "city"
+   },
+   "zzh2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 漳州）"
+   },
+   "rzh2": {
+    "g": "日照",
+    "how": "city"
+   },
+   "wfg2": {
+    "g": "潍坊",
+    "how": "city"
+   },
+   "hmi2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 哈密）"
+   },
+   "weh2": {
+    "g": "克拉玛依",
+    "how": "city"
+   },
+   "tch2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 塔城）"
+   },
+   "hcxd2": {
+    "g": "黄山",
+    "how": "city"
+   },
+   "sri6": {
+    "g": "科伦坡",
+    "how": "city"
+   },
+   "geo5": {
+    "g": "第比利斯",
+    "how": "city"
+   },
+   "jor5": {
+    "g": "安曼",
+    "how": "city"
+   },
+   "kz4": {
+    "g": "阿拉木图",
+    "how": "city"
+   },
+   "pzf2": {
+    "g": "攀枝花",
+    "how": "city"
+   },
+   "jmgw4": {
+    "g": "其他",
+    "how": "top11 之外并入（原 阆中）"
+   },
+   "bm2x": {
+    "g": "其他",
+    "how": "top11 之外并入（原 广南）"
+   },
+   "ssi3": {
+    "g": "舟山",
+    "how": "city"
+   },
+   "dlne2": {
+    "g": "赤峰",
+    "how": "city"
+   },
+   "dgx3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 甘孜）"
+   },
+   "ajh2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 石河子）"
+   },
+   "qkst2": {
+    "g": "伊宁",
+    "how": "city"
+   },
+   "gmc2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 康定）"
+   },
+   "fzh2": {
+    "g": "福州",
+    "how": "city"
+   },
+   "gyh2": {
+    "g": "贵阳",
+    "how": "city"
+   },
+   "hhht2": {
+    "g": "呼和浩特",
+    "how": "city"
+   },
+   "szh2": {
+    "g": "深圳",
+    "how": "city"
+   },
+   "zzds2": {
+    "g": "郑州",
+    "how": "city"
+   },
+   "bkk3": {
+    "g": "曼谷",
+    "how": "city"
+   },
+   "dng4": {
+    "g": "岘港",
+    "how": "city"
+   },
+   "jju3": {
+    "g": "济州",
+    "how": "city"
+   },
+   "jog3": {
+    "g": "日惹",
+    "how": "city"
+   },
+   "kul3": {
+    "g": "吉隆坡",
+    "how": "city"
+   },
+   "hkt4": {
+    "g": "普吉岛",
+    "how": "city"
+   },
+   "hkl2": {
+    "g": "香港",
+    "how": "city"
+   },
+   "hnhl3": {
+    "g": "河内",
+    "how": "city"
+   },
+   "ist3": {
+    "g": "伊斯坦布尔",
+    "how": "city"
+   },
+   "lsnmc4": {
+    "g": "拉萨",
+    "how": "city"
+   },
+   "nxj2": {
+    "g": "温州",
+    "how": "city"
+   },
+   "cdo2": {
+    "g": "烟台",
+    "how": "city"
+   },
+   "cb4": {
+    "g": "承德",
+    "how": "city"
+   },
+   "frz2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 湘西）"
+   },
+   "wws2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 济源）"
+   },
+   "bama2": {
+    "g": "河池",
+    "how": "city"
+   },
+   "whs2": {
+    "g": "渭南",
+    "how": "city"
+   },
+   "bjl4": {
+    "g": "北京",
+    "how": "city"
+   },
+   "tjl3": {
+    "g": "天津",
+    "how": "city"
+   },
+   "hbl6": {
+    "g": "张家口",
+    "how": "city"
+   },
+   "sxl8": {
+    "g": "太原",
+    "how": "city"
+   },
+   "hlbel8": {
+    "g": "海拉尔",
+    "how": "city"
+   },
+   "lnl6": {
+    "g": "沈阳",
+    "how": "city"
+   },
+   "jll6": {
+    "g": "长春",
+    "how": "city"
+   },
+   "hljl6": {
+    "g": "哈尔滨",
+    "how": "city"
+   },
+   "g331d12": {
+    "g": "丹东",
+    "how": "city"
+   },
+   "shl3": {
+    "g": "上海",
+    "how": "city"
+   },
+   "jsl5": {
+    "g": "苏州",
+    "how": "city"
+   },
+   "zjl8": {
+    "g": "杭州",
+    "how": "city"
+   },
+   "ahl6": {
+    "g": "宣城",
+    "how": "city"
+   },
+   "fjl8": {
+    "g": "厦门",
+    "how": "city"
+   },
+   "jxl6": {
+    "g": "南昌",
+    "how": "city"
+   },
+   "sdl7": {
+    "g": "济南",
+    "how": "city"
+   },
+   "jnsx8": {
+    "g": "其他",
+    "how": "top11 之外并入（原 上海）"
+   },
+   "hnl7": {
+    "g": "郑州",
+    "how": "city"
+   },
+   "hbel8": {
+    "g": "武汉",
+    "how": "city"
+   },
+   "hunl7": {
+    "g": "长沙",
+    "how": "city"
+   },
+   "gdl7": {
+    "g": "广州",
+    "how": "city"
+   },
+   "gxl8": {
+    "g": "南宁",
+    "how": "city"
+   },
+   "hainl7": {
+    "g": "海口",
+    "how": "city"
+   },
+   "cql5": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "cxx7": {
+    "g": "成都",
+    "how": "city"
+   },
+   "cxd12": {
+    "g": "成都",
+    "how": "city"
+   },
+   "gzl7": {
+    "g": "贵阳",
+    "how": "city"
+   },
+   "dxl10": {
+    "g": "昆明",
+    "how": "city"
+   },
+   "dnl8": {
+    "g": "昆明",
+    "how": "city"
+   },
+   "xzl12": {
+    "g": "拉萨",
+    "how": "city"
+   },
+   "lzl5": {
+    "g": "拉萨",
+    "how": "city"
+   },
+   "sxlh7": {
+    "g": "西安",
+    "how": "city"
+   },
+   "gnl6": {
+    "g": "兰州",
+    "how": "city"
+   },
+   "qhl5": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "nxl5": {
+    "g": "银川",
+    "how": "city"
+   },
+   "ylx8": {
+    "g": "乌鲁木齐",
+    "how": "city"
+   },
+   "nj9": {
+    "g": "喀什",
+    "how": "city"
+   },
+   "gqhx10": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "g318": {
+    "g": "成都",
+    "how": "city"
+   },
+   "g214": {
+    "g": "大理",
+    "how": "city"
+   },
+   "g109": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "xbdh30": {
+    "g": "长线",
+    "how": "long"
+   },
+   "dbdh24": {
+    "g": "长线",
+    "how": "long"
+   },
+   "kyt3": {
+    "g": "京都",
+    "how": "city"
+   },
+   "oki4": {
+    "g": "其他",
+    "how": "top11 之外并入（原 那霸）"
+   },
+   "lxh3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 泰州）"
+   },
+   "xsm2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 象山）"
+   },
+   "scy2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 遂昌）"
+   },
+   "ndc2": {
+    "g": "云龙",
+    "how": "city"
+   },
+   "sbt2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 崇义）"
+   },
+   "smx2": {
+    "g": "三门峡",
+    "how": "city"
+   },
+   "xh2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 新会）"
+   },
+   "zj2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 镇江）"
+   },
+   "sx2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 沙县）"
+   },
+   "yw2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 义乌）"
+   },
+   "jhpy2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 天门）"
+   },
+   "ssx2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 韶山）"
+   },
+   "shgl2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 梁山）"
+   },
+   "qinz2": {
+    "g": "钦州",
+    "how": "city"
+   },
+   "zgxy2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 兰溪）"
+   },
+   "tl2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 桐庐）"
+   },
+   "syjy2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 松阳）"
+   },
+   "lcpt2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 连城）"
+   },
+   "szxs2": {
+    "g": "苏州",
+    "how": "city"
+   },
+   "par5": {
+    "g": "巴黎",
+    "how": "city"
+   },
+   "rmfl6": {
+    "g": "罗马",
+    "how": "city"
+   },
+   "svl5": {
+    "g": "塞维利亚",
+    "how": "city"
+   },
+   "isl6": {
+    "g": "雷克雅未克",
+    "how": "city"
+   },
+   "mrk4": {
+    "g": "马拉喀什",
+    "how": "city"
+   },
+   "ldn5": {
+    "g": "伦敦",
+    "how": "city"
+   },
+   "sui6": {
+    "g": "卢塞恩",
+    "how": "city"
+   },
+   "grc6": {
+    "g": "雅典",
+    "how": "city"
+   },
+   "egy6": {
+    "g": "开罗",
+    "how": "city"
+   },
+   "lsb6": {
+    "g": "里斯本",
+    "how": "city"
+   },
+   "prg4": {
+    "g": "布拉格",
+    "how": "city"
+   },
+   "vie5": {
+    "g": "维也纳",
+    "how": "city"
+   },
+   "usw7": {
+    "g": "其他",
+    "how": "top11 之外并入（原 旧金山）"
+   },
+   "syd6": {
+    "g": "悉尼",
+    "how": "city"
+   },
+   "nzs7": {
+    "g": "基督城",
+    "how": "city"
+   },
+   "yyzgy2": {
+    "g": "岳阳",
+    "how": "city"
+   },
+   "nhqt2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 宁海）"
+   },
+   "fs2": {
+    "g": "佛山",
+    "how": "city"
+   },
+   "jxyj2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 井陉）"
+   },
+   "zcmz2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 邹城）"
+   },
+   "gzbl2": {
+    "g": "赣州",
+    "how": "city"
+   },
+   "prv5": {
+    "g": "阿维尼翁",
+    "how": "city"
+   },
+   "vnm4": {
+    "g": "威尼斯",
+    "how": "city"
+   },
+   "bcn6": {
+    "g": "巴塞罗那",
+    "how": "city"
+   },
+   "sco5": {
+    "g": "爱丁堡",
+    "how": "city"
+   },
+   "nyc5": {
+    "g": "其他",
+    "how": "top11 之外并入（原 纽约）"
+   },
+   "cns4": {
+    "g": "凯恩斯",
+    "how": "city"
+   },
+   "nzn5": {
+    "g": "奥克兰",
+    "how": "city"
+   },
+   "mtr4": {
+    "g": "雅典",
+    "how": "city"
+   },
+   "asw4": {
+    "g": "阿斯旺",
+    "how": "city"
+   },
+   "gva4": {
+    "g": "日内瓦",
+    "how": "city"
+   },
+   "snf3": {
+    "g": "雷克雅未克",
+    "how": "city"
+   },
+   "fes4": {
+    "g": "舍夫沙万",
+    "how": "city"
+   },
+   "alg3": {
+    "g": "拉古什",
+    "how": "city"
+   },
+   "fuji2": {
+    "g": "河口湖",
+    "how": "city"
+   },
+   "kvk3": {
+    "g": "布拉格",
+    "how": "city"
+   },
+   "inn3": {
+    "g": "因斯布鲁克",
+    "how": "city"
+   },
+   "dsd2": {
+    "g": "东山",
+    "how": "city"
+   },
+   "pt2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 平潭）"
+   },
+   "any2": {
+    "g": "秦皇岛",
+    "how": "city"
+   },
+   "zj2b": {
+    "g": "湛江",
+    "how": "city"
+   },
+   "qys2": {
+    "g": "黄山",
+    "how": "city"
+   },
+   "ms2": {
+    "g": "郴州",
+    "how": "city"
+   },
+   "tms2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 临安）"
+   },
+   "syw2": {
+    "g": "惠州",
+    "how": "city"
+   },
+   "hjgs2": {
+    "g": "怀化",
+    "how": "city"
+   },
+   "wxs2": {
+    "g": "新乡",
+    "how": "city"
+   },
+   "ysp2": {
+    "g": "保定",
+    "how": "city"
+   },
+   "bcy4": {
+    "g": "长滩岛",
+    "how": "city"
+   },
+   "ceb4": {
+    "g": "宿务",
+    "how": "city"
+   },
+   "lgk4": {
+    "g": "兰卡威",
+    "how": "city"
+   },
+   "hkn2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 箱根）"
+   },
+   "sjg3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 高山）"
+   },
+   "hrs2": {
+    "g": "广岛",
+    "how": "city"
+   },
+   "kys3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 福冈）"
+   },
+   "pus4": {
+    "g": "釜山",
+    "how": "city"
+   },
+   "ntg5": {
+    "g": "芽庄",
+    "how": "city"
+   },
+   "cri4": {
+    "g": "清莱",
+    "how": "city"
+   },
+   "kbi4": {
+    "g": "甲米",
+    "how": "city"
+   },
+   "ksm4": {
+    "g": "苏梅岛",
+    "how": "city"
+   },
+   "yunc2": {
+    "g": "运城",
+    "how": "city"
+   },
+   "xlxs2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 大邑）"
+   },
+   "cdgz2": {
+    "g": "成都",
+    "how": "city"
+   },
+   "zhjm2": {
+    "g": "广元",
+    "how": "city"
+   },
+   "hs2c": {
+    "g": "其他",
+    "how": "top11 之外并入（原 石柱）"
+   },
+   "hcdy2": {
+    "g": "合川",
+    "how": "city"
+   },
+   "ayt2": {
+    "g": "大城",
+    "how": "city"
+   },
+   "pnh2": {
+    "g": "金边",
+    "how": "city"
+   },
+   "vv3": {
+    "g": "万荣",
+    "how": "city"
+   },
+   "vns3": {
+    "g": "瓦拉纳西",
+    "how": "city"
+   },
+   "ws2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 巍山）"
+   },
+   "ml2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 弥勒）"
+   },
+   "hz2y": {
+    "g": "其他",
+    "how": "top11 之外并入（原 会泽）"
+   },
+   "ctw3": {
+    "g": "索拉哈",
+    "how": "city"
+   },
+   "pmk4": {
+    "g": "代尼兹利",
+    "how": "city"
+   },
+   "kmd4": {
+    "g": "拉布安巴焦",
+    "how": "city"
+   },
+   "sp3": {
+    "g": "沙坝",
+    "how": "city"
+   },
+   "bki4": {
+    "g": "亚庇",
+    "how": "city"
+   },
+   "spn4": {
+    "g": "仙本那",
+    "how": "city"
+   },
+   "nara2": {
+    "g": "奈良",
+    "how": "city"
+   },
+   "pqc4": {
+    "g": "富国岛",
+    "how": "city"
+   },
+   "mn3": {
+    "g": "美奈",
+    "how": "city"
+   },
+   "hue2": {
+    "g": "顺化",
+    "how": "city"
+   },
+   "btn2": {
+    "g": "民丹岛",
+    "how": "city"
+   },
+   "hhn3": {
+    "g": "华欣",
+    "how": "city"
+   },
+   "kch3": {
+    "g": "象岛",
+    "how": "city"
+   },
+   "kto3": {
+    "g": "涛岛",
+    "how": "city"
+   },
+   "pks3": {
+    "g": "巴色",
+    "how": "city"
+   },
+   "lpsd2": {
+    "g": "六盘水",
+    "how": "city"
+   },
+   "shdsn2": {
+    "g": "上海",
+    "how": "city"
+   },
+   "bjus2": {
+    "g": "北京",
+    "how": "city"
+   },
+   "yl2s": {
+    "g": "榆林",
+    "how": "city"
+   },
+   "gms2": {
+    "g": "本溪",
+    "how": "city"
+   },
+   "wn2": {
+    "g": "万宁",
+    "how": "city"
+   },
+   "lc2s": {
+    "g": "聊城",
+    "how": "city"
+   },
+   "hzmd2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 菏泽）"
+   },
+   "sq2": {
+    "g": "宿迁",
+    "how": "city"
+   },
+   "gy2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 高邮）"
+   },
+   "nt2s": {
+    "g": "南通",
+    "how": "city"
+   },
+   "slgt8": {
+    "g": "其他",
+    "how": "top11 之外并入（原 西安）"
+   },
+   "shwz6": {
+    "g": "苏州",
+    "how": "city"
+   },
+   "hngt6": {
+    "g": "长沙",
+    "how": "city"
+   },
+   "yngt8": {
+    "g": "昆明",
+    "how": "city"
+   },
+   "cdcq6": {
+    "g": "成都",
+    "how": "city"
+   },
+   "gdgt7": {
+    "g": "广州",
+    "how": "city"
+   },
+   "fjgt7": {
+    "g": "武夷山",
+    "how": "city"
+   },
+   "dbdj5": {
+    "g": "哈尔滨",
+    "how": "city"
+   },
+   "sxgt7": {
+    "g": "太原",
+    "how": "city"
+   },
+   "jjj6": {
+    "g": "北京",
+    "how": "city"
+   },
+   "hnhd6": {
+    "g": "海口",
+    "how": "city"
+   },
+   "gxgt7": {
+    "g": "桂林",
+    "how": "city"
+   },
+   "jxgt6": {
+    "g": "南昌",
+    "how": "city"
+   },
+   "gzgt7": {
+    "g": "贵阳",
+    "how": "city"
+   },
+   "xjhc8": {
+    "g": "乌鲁木齐",
+    "how": "city"
+   },
+   "ahgt6": {
+    "g": "黄山",
+    "how": "city"
+   },
+   "nmhc6": {
+    "g": "呼和浩特",
+    "how": "city"
+   },
+   "xzlz7": {
+    "g": "拉萨",
+    "how": "city"
+   },
+   "db3s7": {
+    "g": "沈阳",
+    "how": "city"
+   },
+   "hbgt6": {
+    "g": "武汉",
+    "how": "city"
+   },
+   "jsgt6": {
+    "g": "南京",
+    "how": "city"
+   },
+   "sdgt6": {
+    "g": "济南",
+    "how": "city"
+   },
+   "hngd6": {
+    "g": "郑州",
+    "how": "city"
+   },
+   "nxgt5": {
+    "g": "银川",
+    "how": "city"
+   },
+   "qhxn5": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "zjgt6": {
+    "g": "杭州",
+    "how": "city"
+   },
+   "xa5d": {
+    "g": "西安",
+    "how": "city"
+   },
+   "yudn5": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "cd5d": {
+    "g": "成都",
+    "how": "city"
+   },
+   "xmtl5": {
+    "g": "厦门",
+    "how": "city"
+   },
+   "bj5d": {
+    "g": "北京",
+    "how": "city"
+   },
+   "sh5d": {
+    "g": "上海",
+    "how": "city"
+   },
+   "gz4d": {
+    "g": "广州",
+    "how": "city"
+   },
+   "cq4d": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "njqd3": {
+    "g": "南京",
+    "how": "city"
+   },
+   "chwq2": {
+    "g": "广州",
+    "how": "city"
+   },
+   "szqt3": {
+    "g": "苏州",
+    "how": "city"
+   },
+   "jlhx4": {
+    "g": "吉林",
+    "how": "city"
+   },
+   "hrqt2": {
+    "g": "北京",
+    "how": "city"
+   },
+   "whyh3": {
+    "g": "武汉",
+    "how": "city"
+   },
+   "xhg3": {
+    "g": "伊宁",
+    "how": "city"
+   },
+   "sgnh3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 韶关）"
+   },
+   "dyh7": {
+    "g": "其他",
+    "how": "top11 之外并入（原 北京）"
+   },
+   "sxyl4": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "khv3": {
+    "g": "希瓦",
+    "how": "city"
+   },
+   "aqb3": {
+    "g": "亚喀巴",
+    "how": "city"
+   },
+   "gobi4": {
+    "g": "达兰扎达嘎德",
+    "how": "city"
+   },
+   "kbbj4": {
+    "g": "北京",
+    "how": "city"
+   },
+   "kbjn5": {
+    "g": "苏州",
+    "how": "city"
+   },
+   "kbgl3": {
+    "g": "桂林",
+    "how": "city"
+   },
+   "kbxa3": {
+    "g": "西安",
+    "how": "city"
+   },
+   "kbjnn2": {
+    "g": "济南",
+    "how": "city"
+   },
+   "kbyy2": {
+    "g": "岳阳",
+    "how": "city"
+   },
+   "muc4": {
+    "g": "慕尼黑",
+    "how": "city"
+   },
+   "ams4": {
+    "g": "阿姆斯特丹",
+    "how": "city"
+   },
+   "dbv5": {
+    "g": "杜布罗夫尼克",
+    "how": "city"
+   },
+   "banff5": {
+    "g": "班夫",
+    "how": "city"
+   },
+   "htxgl2": {
+    "g": "丽江",
+    "how": "city"
+   },
+   "nanji2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 平阳）"
+   },
+   "nor5": {
+    "g": "卑尔根",
+    "how": "city"
+   },
+   "rvn4": {
+    "g": "罗瓦涅米",
+    "how": "city"
+   },
+   "mex5": {
+    "g": "墨西哥城",
+    "how": "city"
+   },
+   "cuz5": {
+    "g": "库斯科",
+    "how": "city"
+   },
+   "lnl2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 锦屏）"
+   },
+   "bga2": {
+    "g": "赤水",
+    "how": "city"
+   },
+   "bru3": {
+    "g": "布鲁塞尔",
+    "how": "city"
+   },
+   "dub4": {
+    "g": "都柏林",
+    "how": "city"
+   },
+   "cpt5": {
+    "g": "开普敦",
+    "how": "city"
+   },
+   "zd2": {
+    "g": "石家庄",
+    "how": "city"
+   },
+   "yx2": {
+    "g": "张家口",
+    "how": "city"
+   },
+   "wml2": {
+    "g": "晋城",
+    "how": "city"
+   },
+   "jzbj2": {
+    "g": "锦州",
+    "how": "city"
+   },
+   "luzhi2": {
+    "g": "苏州",
+    "how": "city"
+   },
+   "aj2": {
+    "g": "湖州",
+    "how": "city"
+   },
+   "tph2": {
+    "g": "黄山",
+    "how": "city"
+   },
+   "ysd2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 福鼎）"
+   },
+   "ln2": {
+    "g": "清远",
+    "how": "city"
+   },
+   "lyas2": {
+    "g": "忻州",
+    "how": "city"
+   },
+   "hel3": {
+    "g": "赫尔辛基",
+    "how": "city"
+   },
+   "yvr4": {
+    "g": "温哥华",
+    "how": "city"
+   },
+   "ber4": {
+    "g": "柏林",
+    "how": "city"
+   },
+   "kz3": {
+    "g": "阿拉木图",
+    "how": "city"
+   },
+   "sri4": {
+    "g": "科伦坡",
+    "how": "city"
+   },
+   "auh3": {
+    "g": "阿布扎比",
+    "how": "city"
+   },
+   "geo4": {
+    "g": "库塔伊西",
+    "how": "city"
+   },
+   "rtm3": {
+    "g": "鹿特丹",
+    "how": "city"
+   },
+   "osl3": {
+    "g": "奥斯陆",
+    "how": "city"
+   },
+   "cun4": {
+    "g": "坎昆",
+    "how": "city"
+   },
+   "plt4": {
+    "g": "扎格拉布",
+    "how": "city"
+   },
+   "gnt3": {
+    "g": "根特",
+    "how": "city"
+   },
+   "lim3": {
+    "g": "利马",
+    "how": "city"
+   },
+   "edj5": {
+    "g": "其他",
+    "how": "top11 之外并入（原 嘉峪关）"
+   },
+   "alt5": {
+    "g": "阿勒泰",
+    "how": "city"
+   },
+   "zyc4": {
+    "g": "遵义",
+    "how": "city"
+   },
+   "ny4": {
+    "g": "南阳",
+    "how": "city"
+   },
+   "smx4": {
+    "g": "三门峡",
+    "how": "city"
+   },
+   "pt4": {
+    "g": "贵阳",
+    "how": "city"
+   },
+   "cb5": {
+    "g": "绵阳",
+    "how": "city"
+   },
+   "xc4": {
+    "g": "其他",
+    "how": "top11 之外并入（原 泾县）"
+   },
+   "ys5": {
+    "g": "玉树",
+    "how": "city"
+   },
+   "tj4": {
+    "g": "天津",
+    "how": "city"
+   },
+   "hk4": {
+    "g": "香港",
+    "how": "city"
+   },
+   "mo3": {
+    "g": "澳门",
+    "how": "city"
+   },
+   "syfx4": {
+    "g": "沈阳",
+    "how": "city"
+   },
+   "yz5": {
+    "g": "其他",
+    "how": "top11 之外并入（原 永州）"
+   },
+   "ww5": {
+    "g": "武威",
+    "how": "city"
+   },
+   "zt5": {
+    "g": "昭通",
+    "how": "city"
+   },
+   "cx4": {
+    "g": "其他",
+    "how": "top11 之外并入（原 楚雄）"
+   },
+   "qy4": {
+    "g": "庆阳",
+    "how": "city"
+   },
+   "jnb5": {
+    "g": "约翰内斯堡",
+    "how": "city"
+   },
+   "kry4": {
+    "g": "基拉尼",
+    "how": "city"
+   },
+   "oax4": {
+    "g": "瓦哈卡",
+    "how": "city"
+   },
+   "str4": {
+    "g": "斯特拉斯堡",
+    "how": "city"
+   },
+   "nap5": {
+    "g": "那不勒斯",
+    "how": "city"
+   },
+   "oxf4": {
+    "g": "牛津",
+    "how": "city"
+   },
+   "hnl5": {
+    "g": "其他",
+    "how": "top11 之外并入（原 檀香山）"
+   },
+   "ayq3": {
+    "g": "乌鲁鲁",
+    "how": "city"
+   },
+   "rhi4": {
+    "g": "科隆",
+    "how": "city"
+   },
+   "tsc4": {
+    "g": "锡耶纳",
+    "how": "city"
+   },
+   "dlm4": {
+    "g": "科尔蒂纳丹佩佐",
+    "how": "city"
+   },
+   "sbg4": {
+    "g": "萨尔茨堡",
+    "how": "city"
+   },
+   "hz5d": {
+    "g": "杭州",
+    "how": "city"
+   },
+   "nj4d": {
+    "g": "南京",
+    "how": "city"
+   },
+   "xm4d": {
+    "g": "厦门",
+    "how": "city"
+   },
+   "qd4d": {
+    "g": "青岛",
+    "how": "city"
+   },
+   "wh4d": {
+    "g": "武汉",
+    "how": "city"
+   },
+   "sz4d": {
+    "g": "苏州",
+    "how": "city"
+   },
+   "wzs4": {
+    "g": "五指山",
+    "how": "city"
+   },
+   "hnw5": {
+    "g": "儋州",
+    "how": "city"
+   },
+   "tjbh4": {
+    "g": "天津",
+    "how": "city"
+   },
+   "jgs4": {
+    "g": "井冈山",
+    "how": "city"
+   },
+   "csh5": {
+    "g": "潮州",
+    "how": "city"
+   },
+   "mz4": {
+    "g": "梅州",
+    "how": "city"
+   },
+   "hh4": {
+    "g": "怀化",
+    "how": "city"
+   },
+   "ybl4": {
+    "g": "宜宾",
+    "how": "city"
+   },
+   "hc4": {
+    "g": "韩城",
+    "how": "city"
+   },
+   "qk4": {
+    "g": "离石",
+    "how": "city"
+   },
+   "hd4": {
+    "g": "邯郸",
+    "how": "city"
+   },
+   "bzsx4": {
+    "g": "亳州",
+    "how": "city"
+   },
+   "as4": {
+    "g": "安顺",
+    "how": "city"
+   },
+   "jcsx4": {
+    "g": "其他",
+    "how": "top11 之外并入（原 剑川）"
+   },
+   "chd4": {
+    "g": "常德",
+    "how": "city"
+   },
+   "lyx4": {
+    "g": "辽阳",
+    "how": "city"
+   },
+   "lz4": {
+    "g": "兰州",
+    "how": "city"
+   },
+   "ay4": {
+    "g": "安阳",
+    "how": "city"
+   },
+   "gdtr4": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "km4": {
+    "g": "昆明",
+    "how": "city"
+   },
+   "wlmq4": {
+    "g": "乌鲁木齐",
+    "how": "city"
+   },
+   "cf4": {
+    "g": "赤峰",
+    "how": "city"
+   },
+   "fy3": {
+    "g": "抚远",
+    "how": "city"
+   },
+   "yinc4": {
+    "g": "银川",
+    "how": "city"
+   },
+   "tyuan4": {
+    "g": "太原",
+    "how": "city"
+   },
+   "dlc4": {
+    "g": "大连",
+    "how": "city"
+   },
+   "mdj4": {
+    "g": "牡丹江",
+    "how": "city"
+   },
+   "gyn4": {
+    "g": "固原",
+    "how": "city"
+   },
+   "byb4": {
+    "g": "琼海",
+    "how": "city"
+   },
+   "hdl4": {
+    "g": "海东",
+    "how": "city"
+   },
+   "tlq4": {
+    "g": "通辽",
+    "how": "city"
+   },
+   "baic3": {
+    "g": "白城",
+    "how": "city"
+   },
+   "trh3": {
+    "g": "同仁",
+    "how": "city"
+   },
+   "wlcb4": {
+    "g": "其他",
+    "how": "top11 之外并入（原 乌兰察布）"
+   },
+   "cm3": {
+    "g": "崇明",
+    "how": "city"
+   },
+   "mtg4": {
+    "g": "门头沟",
+    "how": "city"
+   },
+   "wuzh3": {
+    "g": "吴忠",
+    "how": "city"
+   },
+   "jms4": {
+    "g": "佳木斯",
+    "how": "city"
+   },
+   "lsh4": {
+    "g": "陵水",
+    "how": "city"
+   },
+   "bxi4": {
+    "g": "本溪",
+    "how": "city"
+   },
+   "xyg4": {
+    "g": "咸阳",
+    "how": "city"
+   },
+   "plg2": {
+    "g": "平凉",
+    "how": "city"
+   },
+   "cj3": {
+    "g": "昌江",
+    "how": "city"
+   },
+   "wuha3": {
+    "g": "乌海",
+    "how": "city"
+   },
+   "fsh3": {
+    "g": "房山",
+    "how": "city"
+   },
+   "shsj2": {
+    "g": "松江",
+    "how": "city"
+   },
+   "byne2": {
+    "g": "巴彦淖尔",
+    "how": "city"
+   },
+   "ghe3": {
+    "g": "共和",
+    "how": "city"
+   },
+   "bzh2": {
+    "g": "北镇",
+    "how": "city"
+   },
+   "rch3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 荣成）"
+   },
+   "lyg2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 浏阳）"
+   },
+   "hc2": {
+    "g": "珲春",
+    "how": "city"
+   },
+   "jsh2": {
+    "g": "金山",
+    "how": "city"
+   },
+   "pg2": {
+    "g": "平谷",
+    "how": "city"
+   },
+   "fsg2": {
+    "g": "抚松",
+    "how": "city"
+   },
+   "hyn2": {
+    "g": "海原",
+    "how": "city"
+   },
+   "zgd1a": {
+    "g": "汕头",
+    "how": "city"
+   },
+   "zgd1b": {
+    "g": "潮州",
+    "how": "city"
+   },
+   "zgd1c": {
+    "g": "其他",
+    "how": "top11 之外并入（原 汕尾）"
+   },
+   "zgd1d": {
+    "g": "其他",
+    "how": "top11 之外并入（原 揭阳）"
+   },
+   "zgd1e": {
+    "g": "湛江",
+    "how": "city"
+   },
+   "zgd1f": {
+    "g": "湛江",
+    "how": "city"
+   },
+   "zgd1g": {
+    "g": "佛山",
+    "how": "city"
+   },
+   "zgd1h": {
+    "g": "其他",
+    "how": "top11 之外并入（原 东莞）"
+   },
+   "zgd1i": {
+    "g": "清远",
+    "how": "city"
+   },
+   "zgd1j": {
+    "g": "其他",
+    "how": "top11 之外并入（原 云浮）"
+   },
+   "zgd2a": {
+    "g": "湛江",
+    "how": "city"
+   },
+   "zgd2b": {
+    "g": "汕头",
+    "how": "city"
+   },
+   "zgd2c": {
+    "g": "潮州",
+    "how": "city"
+   },
+   "zgd2d": {
+    "g": "其他",
+    "how": "top11 之外并入（原 汕尾）"
+   },
+   "zgd2e": {
+    "g": "河源",
+    "how": "city"
+   },
+   "zgd2f": {
+    "g": "梅州",
+    "how": "city"
+   },
+   "zgd2g": {
+    "g": "其他",
+    "how": "top11 之外并入（原 韶关）"
+   },
+   "zgd2h": {
+    "g": "其他",
+    "how": "top11 之外并入（原 肇庆）"
+   },
+   "zgd2i": {
+    "g": "其他",
+    "how": "top11 之外并入（原 茂名）"
+   },
+   "zgd2j": {
+    "g": "其他",
+    "how": "top11 之外并入（原 阳江）"
+   },
+   "zgd2k": {
+    "g": "其他",
+    "how": "top11 之外并入（原 江门）"
+   },
+   "zgd2l": {
+    "g": "惠州",
+    "how": "city"
+   },
+   "zgd2m": {
+    "g": "清远",
+    "how": "city"
+   },
+   "zsca": {
+    "g": "成都",
+    "how": "city"
+   },
+   "zscb": {
+    "g": "雅安",
+    "how": "city"
+   },
+   "zscc": {
+    "g": "雅安",
+    "how": "city"
+   },
+   "zscd": {
+    "g": "其他",
+    "how": "top11 之外并入（原 眉山）"
+   },
+   "zsce": {
+    "g": "乐山",
+    "how": "city"
+   },
+   "zscf": {
+    "g": "绵阳",
+    "how": "city"
+   },
+   "zscg": {
+    "g": "其他",
+    "how": "top11 之外并入（原 德阳）"
+   },
+   "zsch": {
+    "g": "成都",
+    "how": "city"
+   },
+   "zsci": {
+    "g": "广元",
+    "how": "city"
+   },
+   "zscj": {
+    "g": "其他",
+    "how": "top11 之外并入（原 达州）"
+   },
+   "zsck": {
+    "g": "广安",
+    "how": "city"
+   },
+   "zscl": {
+    "g": "自贡",
+    "how": "city"
+   },
+   "zscm": {
+    "g": "其他",
+    "how": "top11 之外并入（原 资阳）"
+   },
+   "zscn": {
+    "g": "宜宾",
+    "how": "city"
+   },
+   "zsco": {
+    "g": "其他",
+    "how": "top11 之外并入（原 泸州）"
+   },
+   "zscp": {
+    "g": "攀枝花",
+    "how": "city"
+   },
+   "zscq": {
+    "g": "成都",
+    "how": "city"
+   },
+   "zscr": {
+    "g": "其他",
+    "how": "top11 之外并入（原 稻城）"
+   },
+   "zhba": {
+    "g": "石家庄",
+    "how": "city"
+   },
+   "zhbb": {
+    "g": "石家庄",
+    "how": "city"
+   },
+   "zhbc": {
+    "g": "其他",
+    "how": "top11 之外并入（原 霸州）"
+   },
+   "zhbd": {
+    "g": "沧州",
+    "how": "city"
+   },
+   "zhbe": {
+    "g": "其他",
+    "how": "top11 之外并入（原 邢台）"
+   },
+   "zhbf": {
+    "g": "邯郸",
+    "how": "city"
+   },
+   "zhbg": {
+    "g": "秦皇岛",
+    "how": "city"
+   },
+   "zhbh": {
+    "g": "承德",
+    "how": "city"
+   },
+   "zhbi": {
+    "g": "怀来",
+    "how": "city"
+   },
+   "zgxa": {
+    "g": "北海",
+    "how": "city"
+   },
+   "zgxb": {
+    "g": "南宁",
+    "how": "city"
+   },
+   "zgxc": {
+    "g": "南宁",
+    "how": "city"
+   },
+   "zgxd": {
+    "g": "南宁",
+    "how": "city"
+   },
+   "zgxe": {
+    "g": "南宁",
+    "how": "city"
+   },
+   "zgxf": {
+    "g": "百色",
+    "how": "city"
+   },
+   "zgxg": {
+    "g": "百色",
+    "how": "city"
+   },
+   "zgxh": {
+    "g": "柳州",
+    "how": "city"
+   },
+   "zgxi": {
+    "g": "柳州",
+    "how": "city"
+   },
+   "zgxj": {
+    "g": "桂林",
+    "how": "city"
+   },
+   "zgxk": {
+    "g": "桂林",
+    "how": "city"
+   },
+   "zgxl": {
+    "g": "梧州",
+    "how": "city"
+   },
+   "zgxm": {
+    "g": "玉林",
+    "how": "city"
+   },
+   "zsda": {
+    "g": "济南",
+    "how": "city"
+   },
+   "zsdb": {
+    "g": "其他",
+    "how": "top11 之外并入（原 济宁）"
+   },
+   "zsdc": {
+    "g": "泰安",
+    "how": "city"
+   },
+   "zsdd": {
+    "g": "枣庄",
+    "how": "city"
+   },
+   "zsde": {
+    "g": "临沂",
+    "how": "city"
+   },
+   "zsdf": {
+    "g": "日照",
+    "how": "city"
+   },
+   "zsdg": {
+    "g": "潍坊",
+    "how": "city"
+   },
+   "zsdh": {
+    "g": "青岛",
+    "how": "city"
+   },
+   "zsdi": {
+    "g": "烟台",
+    "how": "city"
+   },
+   "zsdj": {
+    "g": "烟台",
+    "how": "city"
+   },
+   "zsdk": {
+    "g": "淄博",
+    "how": "city"
+   },
+   "zsdl": {
+    "g": "聊城",
+    "how": "city"
+   },
+   "zsxa": {
+    "g": "太原",
+    "how": "city"
+   },
+   "zsxb": {
+    "g": "太原",
+    "how": "city"
+   },
+   "zsxc": {
+    "g": "其他",
+    "how": "top11 之外并入（原 阳泉）"
+   },
+   "zsxd": {
+    "g": "其他",
+    "how": "top11 之外并入（原 长治）"
+   },
+   "zsxe": {
+    "g": "晋城",
+    "how": "city"
+   },
+   "zsxf": {
+    "g": "临汾",
+    "how": "city"
+   },
+   "zsxg": {
+    "g": "运城",
+    "how": "city"
+   },
+   "zsxh": {
+    "g": "运城",
+    "how": "city"
+   },
+   "zsxi": {
+    "g": "大同",
+    "how": "city"
+   },
+   "zsxj": {
+    "g": "大同",
+    "how": "city"
+   },
+   "zsxk": {
+    "g": "忻州",
+    "how": "city"
+   },
+   "zsxl": {
+    "g": "临汾",
+    "how": "city"
+   },
+   "zhna": {
+    "g": "长沙",
+    "how": "city"
+   },
+   "zhnb": {
+    "g": "其他",
+    "how": "top11 之外并入（原 湘潭）"
+   },
+   "zhnc": {
+    "g": "其他",
+    "how": "top11 之外并入（原 永兴）"
+   },
+   "zhnd": {
+    "g": "郴州",
+    "how": "city"
+   },
+   "zhnf": {
+    "g": "衡阳",
+    "how": "city"
+   },
+   "zhng": {
+    "g": "其他",
+    "how": "top11 之外并入（原 祁东）"
+   },
+   "zhnh": {
+    "g": "其他",
+    "how": "top11 之外并入（原 隆回）"
+   },
+   "zhni": {
+    "g": "其他",
+    "how": "top11 之外并入（原 冷水江）"
+   },
+   "zhnk": {
+    "g": "常德",
+    "how": "city"
+   },
+   "zhnl": {
+    "g": "其他",
+    "how": "top11 之外并入（原 湘阴）"
+   },
+   "zhnm": {
+    "g": "其他",
+    "how": "top11 之外并入（原 龙山）"
+   },
+   "zhnn": {
+    "g": "怀化",
+    "how": "city"
+   },
+   "zyna": {
+    "g": "昆明",
+    "how": "city"
+   },
+   "zynb": {
+    "g": "昆明",
+    "how": "city"
+   },
+   "zync": {
+    "g": "大理",
+    "how": "city"
+   },
+   "zynd": {
+    "g": "大理",
+    "how": "city"
+   },
+   "zyne": {
+    "g": "其他",
+    "how": "top11 之外并入（原 芒市）"
+   },
+   "zynf": {
+    "g": "大理",
+    "how": "city"
+   },
+   "zyng": {
+    "g": "临沧",
+    "how": "city"
+   },
+   "zynh": {
+    "g": "临沧",
+    "how": "city"
+   },
+   "zyni": {
+    "g": "普洱",
+    "how": "city"
+   },
+   "zynj": {
+    "g": "景洪",
+    "how": "city"
+   },
+   "zynk": {
+    "g": "昆明",
+    "how": "city"
+   },
+   "zynl": {
+    "g": "文山",
+    "how": "city"
+   },
+   "zynm": {
+    "g": "其他",
+    "how": "top11 之外并入（原 曲靖）"
+   },
+   "zynn": {
+    "g": "昭通",
+    "how": "city"
+   },
+   "zyno": {
+    "g": "昭通",
+    "how": "city"
+   },
+   "zynp": {
+    "g": "丽江",
+    "how": "city"
+   },
+   "zfja": {
+    "g": "泉州",
+    "how": "city"
+   },
+   "zfjb": {
+    "g": "泉州",
+    "how": "city"
+   },
+   "zfjc": {
+    "g": "厦门",
+    "how": "city"
+   },
+   "zfjd": {
+    "g": "龙岩",
+    "how": "city"
+   },
+   "zfje": {
+    "g": "福州",
+    "how": "city"
+   },
+   "zfjf": {
+    "g": "福州",
+    "how": "city"
+   },
+   "zfjg": {
+    "g": "宁德",
+    "how": "city"
+   },
+   "zfjh": {
+    "g": "南平",
+    "how": "city"
+   },
+   "zfji": {
+    "g": "南平",
+    "how": "city"
+   },
+   "zfjj": {
+    "g": "其他",
+    "how": "top11 之外并入（原 三明）"
+   },
+   "zhua": {
+    "g": "襄阳",
+    "how": "city"
+   },
+   "zhub": {
+    "g": "荆州",
+    "how": "city"
+   },
+   "zhuc": {
+    "g": "恩施",
+    "how": "city"
+   },
+   "zhud": {
+    "g": "武汉",
+    "how": "city"
+   },
+   "zhue": {
+    "g": "咸宁",
+    "how": "city"
+   },
+   "zhuf": {
+    "g": "武汉",
+    "how": "city"
+   },
+   "zjsa": {
+    "g": "徐州",
+    "how": "city"
+   },
+   "zjsb": {
+    "g": "盐城",
+    "how": "city"
+   },
+   "zjsc": {
+    "g": "无锡",
+    "how": "city"
+   },
+   "zjsd": {
+    "g": "南京",
+    "how": "city"
+   },
+   "zjse": {
+    "g": "无锡",
+    "how": "city"
+   },
+   "zjsf": {
+    "g": "南通",
+    "how": "city"
+   },
+   "zaha": {
+    "g": "阜阳",
+    "how": "city"
+   },
+   "zahb": {
+    "g": "其他",
+    "how": "top11 之外并入（原 宿州）"
+   },
+   "zahc": {
+    "g": "其他",
+    "how": "top11 之外并入（原 蚌埠）"
+   },
+   "zahd": {
+    "g": "滁州",
+    "how": "city"
+   },
+   "zahe": {
+    "g": "其他",
+    "how": "top11 之外并入（原 马鞍山）"
+   },
+   "zahf": {
+    "g": "芜湖",
+    "how": "city"
+   },
+   "zahg": {
+    "g": "安庆",
+    "how": "city"
+   },
+   "zahh": {
+    "g": "黄山",
+    "how": "city"
+   },
+   "zahi": {
+    "g": "池州",
+    "how": "city"
+   },
+   "zgza": {
+    "g": "凯里",
+    "how": "city"
+   },
+   "zgzb": {
+    "g": "凯里",
+    "how": "city"
+   },
+   "zgzc": {
+    "g": "贵阳",
+    "how": "city"
+   },
+   "zgzd": {
+    "g": "贵阳",
+    "how": "city"
+   },
+   "zgze": {
+    "g": "铜仁",
+    "how": "city"
+   },
+   "zgzf": {
+    "g": "遵义",
+    "how": "city"
+   },
+   "zzja": {
+    "g": "杭州",
+    "how": "city"
+   },
+   "zzjb": {
+    "g": "湖州",
+    "how": "city"
+   },
+   "zzjc": {
+    "g": "绍兴",
+    "how": "city"
+   },
+   "zzjd": {
+    "g": "金华",
+    "how": "city"
+   },
+   "zzje": {
+    "g": "衢州",
+    "how": "city"
+   },
+   "zzjf": {
+    "g": "宁波",
+    "how": "city"
+   },
+   "zzjg": {
+    "g": "温州",
+    "how": "city"
+   },
+   "zzjh": {
+    "g": "温州",
+    "how": "city"
+   },
+   "zzji": {
+    "g": "丽水",
+    "how": "city"
+   },
+   "zhea": {
+    "g": "郑州",
+    "how": "city"
+   },
+   "zheb": {
+    "g": "郑州",
+    "how": "city"
+   },
+   "zhec": {
+    "g": "驻马店",
+    "how": "city"
+   },
+   "zhed": {
+    "g": "信阳",
+    "how": "city"
+   },
+   "zhee": {
+    "g": "开封",
+    "how": "city"
+   },
+   "zhef": {
+    "g": "洛阳",
+    "how": "city"
+   },
+   "zheg": {
+    "g": "三门峡",
+    "how": "city"
+   },
+   "zhei": {
+    "g": "其他",
+    "how": "top11 之外并入（原 焦作）"
+   },
+   "zhej": {
+    "g": "新乡",
+    "how": "city"
+   },
+   "zgsa": {
+    "g": "兰州",
+    "how": "city"
+   },
+   "zgsb": {
+    "g": "平凉",
+    "how": "city"
+   },
+   "zgsc": {
+    "g": "庆阳",
+    "how": "city"
+   },
+   "zgsd": {
+    "g": "天水",
+    "how": "city"
+   },
+   "zgse": {
+    "g": "天水",
+    "how": "city"
+   },
+   "zgsf": {
+    "g": "兰州",
+    "how": "city"
+   },
+   "zgsg": {
+    "g": "兰州",
+    "how": "city"
+   },
+   "zgsh": {
+    "g": "张掖",
+    "how": "city"
+   },
+   "zgsi": {
+    "g": "敦煌",
+    "how": "city"
+   },
+   "zjxa": {
+    "g": "九江",
+    "how": "city"
+   },
+   "zjxb": {
+    "g": "南昌",
+    "how": "city"
+   },
+   "zjxc": {
+    "g": "景德镇",
+    "how": "city"
+   },
+   "zjxd": {
+    "g": "上饶",
+    "how": "city"
+   },
+   "zjxe": {
+    "g": "抚州",
+    "how": "city"
+   },
+   "zjxf": {
+    "g": "赣州",
+    "how": "city"
+   },
+   "zjxg": {
+    "g": "其他",
+    "how": "top11 之外并入（原 宁都）"
+   },
+   "zjxh": {
+    "g": "萍乡",
+    "how": "city"
+   },
+   "zjxi": {
+    "g": "吉安",
+    "how": "city"
+   },
+   "zsna": {
+    "g": "西安",
+    "how": "city"
+   },
+   "zsnb": {
+    "g": "西安",
+    "how": "city"
+   },
+   "zsnc": {
+    "g": "汉中",
+    "how": "city"
+   },
+   "zsnd": {
+    "g": "汉中",
+    "how": "city"
+   },
+   "zsnh": {
+    "g": "安康",
+    "how": "city"
+   },
+   "zsne": {
+    "g": "榆林",
+    "how": "city"
+   },
+   "zsnf": {
+    "g": "延安",
+    "how": "city"
+   },
+   "zsng": {
+    "g": "洛川",
+    "how": "city"
+   },
+   "znma": {
+    "g": "呼和浩特",
+    "how": "city"
+   },
+   "znmb": {
+    "g": "包头",
+    "how": "city"
+   },
+   "znmc": {
+    "g": "巴彦淖尔",
+    "how": "city"
+   },
+   "znmd": {
+    "g": "其他",
+    "how": "top11 之外并入（原 阿拉善左旗）"
+   },
+   "znme": {
+    "g": "乌海",
+    "how": "city"
+   },
+   "znmf": {
+    "g": "海拉尔",
+    "how": "city"
+   },
+   "znmg": {
+    "g": "锡林浩特",
+    "how": "city"
+   },
+   "znmh": {
+    "g": "锡林浩特",
+    "how": "city"
+   },
+   "znmi": {
+    "g": "其他",
+    "how": "top11 之外并入（原 多伦）"
+   },
+   "znmj": {
+    "g": "通辽",
+    "how": "city"
+   },
+   "znmk": {
+    "g": "其他",
+    "how": "top11 之外并入（原 乌兰浩特）"
+   },
+   "znmn": {
+    "g": "其他",
+    "how": "top11 之外并入（原 乌兰察布）"
+   },
+   "znml": {
+    "g": "赤峰",
+    "how": "city"
+   },
+   "zhla": {
+    "g": "佳木斯",
+    "how": "city"
+   },
+   "zhlb": {
+    "g": "伊春",
+    "how": "city"
+   },
+   "zhlc": {
+    "g": "哈尔滨",
+    "how": "city"
+   },
+   "zhld": {
+    "g": "塔河",
+    "how": "city"
+   },
+   "zqha": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "zqhb": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "zqhc": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "zxza": {
+    "g": "拉萨",
+    "how": "city"
+   },
+   "zxzb": {
+    "g": "日喀则",
+    "how": "city"
+   },
+   "zxzc": {
+    "g": "林芝",
+    "how": "city"
+   },
+   "zxzd": {
+    "g": "昌都",
+    "how": "city"
+   },
+   "zlna": {
+    "g": "沈阳",
+    "how": "city"
+   },
+   "zlnb": {
+    "g": "沈阳",
+    "how": "city"
+   },
+   "zlnc": {
+    "g": "朝阳",
+    "how": "city"
+   },
+   "zlnd": {
+    "g": "锦州",
+    "how": "city"
+   },
+   "zmsa": {
+    "g": "吉林",
+    "how": "city"
+   },
+   "zmsb": {
+    "g": "通化",
+    "how": "city"
+   },
+   "zmsc": {
+    "g": "银川",
+    "how": "city"
+   },
+   "zmsd": {
+    "g": "固原",
+    "how": "city"
+   },
+   "zmse": {
+    "g": "北京",
+    "how": "city"
+   },
+   "zmsf": {
+    "g": "海口",
+    "how": "city"
+   },
+   "zmsg": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "zmsh": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "zxja": {
+    "g": "乌鲁木齐",
+    "how": "city"
+   },
+   "zxjb": {
+    "g": "乌鲁木齐",
+    "how": "city"
+   },
+   "zxjc": {
+    "g": "喀什",
+    "how": "city"
+   },
+   "zxjd": {
+    "g": "克拉玛依",
+    "how": "city"
+   },
+   "zxje": {
+    "g": "阿勒泰",
+    "how": "city"
+   },
+   "zxjf": {
+    "g": "乌鲁木齐",
+    "how": "city"
+   },
+   "zxjg": {
+    "g": "阿克苏",
+    "how": "city"
+   },
+   "zxjh": {
+    "g": "伊宁",
+    "how": "city"
+   },
+   "zusa": {
+    "g": "其他",
+    "how": "top11 之外并入（原 新奥尔良）"
+   },
+   "zusb": {
+    "g": "其他",
+    "how": "top11 之外并入（原 芝加哥）"
+   },
+   "zusc": {
+    "g": "其他",
+    "how": "top11 之外并入（原 费城）"
+   },
+   "zusd": {
+    "g": "匹兹堡",
+    "how": "city"
+   },
+   "zuse": {
+    "g": "休斯敦",
+    "how": "city"
+   },
+   "zusf": {
+    "g": "其他",
+    "how": "top11 之外并入（原 纳什维尔）"
+   },
+   "zusg": {
+    "g": "华盛顿",
+    "how": "city"
+   },
+   "zush": {
+    "g": "其他",
+    "how": "top11 之外并入（原 巴尔的摩）"
+   },
+   "zusi": {
+    "g": "奥兰多",
+    "how": "city"
+   },
+   "zusj": {
+    "g": "其他",
+    "how": "top11 之外并入（原 迈阿密）"
+   },
+   "zusk": {
+    "g": "其他",
+    "how": "top11 之外并入（原 波士顿）"
+   },
+   "zusl": {
+    "g": "其他",
+    "how": "top11 之外并入（原 缅因波特兰）"
+   },
+   "zusm": {
+    "g": "拉斯维加斯",
+    "how": "city"
+   },
+   "zusn": {
+    "g": "其他",
+    "how": "top11 之外并入（原 波特兰）"
+   },
+   "zuso": {
+    "g": "卡利斯佩尔",
+    "how": "city"
+   },
+   "zusp": {
+    "g": "圣菲",
+    "how": "city"
+   },
+   "zusq": {
+    "g": "其他",
+    "how": "top11 之外并入（原 尤里卡）"
+   },
+   "zusr": {
+    "g": "其他",
+    "how": "top11 之外并入（原 梅多拉）"
+   },
+   "zuss": {
+    "g": "卡胡鲁伊",
+    "how": "city"
+   },
+   "zust": {
+    "g": "俄克拉何马城",
+    "how": "city"
+   },
+   "zeua": {
+    "g": "圣塞巴斯蒂安",
+    "how": "city"
+   },
+   "zeub": {
+    "g": "奥维耶多",
+    "how": "city"
+   },
+   "zeuc": {
+    "g": "加的斯",
+    "how": "city"
+   },
+   "zeud": {
+    "g": "帕尔马",
+    "how": "city"
+   },
+   "zeue": {
+    "g": "波尔图",
+    "how": "city"
+   },
+   "zeuf": {
+    "g": "霞慕尼",
+    "how": "city"
+   },
+   "zeug": {
+    "g": "里昂",
+    "how": "city"
+   },
+   "zeuh": {
+    "g": "卡利亚里",
+    "how": "city"
+   },
+   "zeui": {
+    "g": "热那亚",
+    "how": "city"
+   },
+   "zeuj": {
+    "g": "卡塔尼亚",
+    "how": "city"
+   },
+   "zeuk": {
+    "g": "剑桥",
+    "how": "city"
+   },
+   "zeul": {
+    "g": "赫尔",
+    "how": "city"
+   },
+   "zeum": {
+    "g": "斯托诺韦",
+    "how": "city"
+   },
+   "zeun": {
+    "g": "都柏林",
+    "how": "city"
+   },
+   "zeuo": {
+    "g": "多尼戈尔",
+    "how": "city"
+   },
+   "zeup": {
+    "g": "柏林",
+    "how": "city"
+   },
+   "zeuq": {
+    "g": "阿姆斯特丹",
+    "how": "city"
+   },
+   "zeur": {
+    "g": "希贝尼克",
+    "how": "city"
+   },
+   "zeus": {
+    "g": "奥卢",
+    "how": "city"
+   },
+   "zota": {
+    "g": "蒙特利尔",
+    "how": "city"
+   },
+   "zotb": {
+    "g": "夏洛特敦",
+    "how": "city"
+   },
+   "zotc": {
+    "g": "埃德蒙顿",
+    "how": "city"
+   },
+   "zotd": {
+    "g": "特威德海德斯",
+    "how": "city"
+   },
+   "zote": {
+    "g": "霍克",
+    "how": "city"
+   },
+   "zotf": {
+    "g": "朗塞斯顿",
+    "how": "city"
+   },
+   "zotg": {
+    "g": "金斯科特",
+    "how": "city"
+   },
+   "zoth": {
+    "g": "米尔迪拉",
+    "how": "city"
+   },
+   "zoti": {
+    "g": "但尼丁",
+    "how": "city"
+   },
+   "zotj": {
+    "g": "派希亚",
+    "how": "city"
+   },
+   "zotk": {
+    "g": "恩塞纳达",
+    "how": "city"
+   },
+   "zotl": {
+    "g": "瓜达拉哈拉",
+    "how": "city"
+   },
+   "zotm": {
+    "g": "德班",
+    "how": "city"
+   },
+   "zotn": {
+    "g": "丹吉尔",
+    "how": "city"
+   },
+   "zoto": {
+    "g": "奥尔杜",
+    "how": "city"
+   },
+   "zotp": {
+    "g": "伊兹密尔",
+    "how": "city"
+   },
+   "zotq": {
+    "g": "安曼",
+    "how": "city"
+   },
+   "zasa": {
+    "g": "孟买",
+    "how": "city"
+   },
+   "zasb": {
+    "g": "阿姆利则",
+    "how": "city"
+   },
+   "zasc": {
+    "g": "大吉岭",
+    "how": "city"
+   },
+   "zasd": {
+    "g": "艾哈迈达巴德",
+    "how": "city"
+   },
+   "zase": {
+    "g": "本地治里",
+    "how": "city"
+   },
+   "zasf": {
+    "g": "德里",
+    "how": "city"
+   },
+   "zasg": {
+    "g": "苏鲁山谷",
+    "how": "city"
+   },
+   "zash": {
+    "g": "马尼拉",
+    "how": "city"
+   },
+   "zasi": {
+    "g": "雅加达",
+    "how": "city"
+   },
+   "zasj": {
+    "g": "索龙",
+    "how": "city"
+   },
+   "zask": {
+    "g": "其他",
+    "how": "top11 之外并入（原 金泽）"
+   },
+   "zasl": {
+    "g": "山形",
+    "how": "city"
+   },
+   "zasm": {
+    "g": "江陵",
+    "how": "city"
+   },
+   "zasn": {
+    "g": "归仁",
+    "how": "city"
+   },
+   "zaso": {
+    "g": "吉隆坡",
+    "how": "city"
+   },
+   "zasp": {
+    "g": "贾夫纳",
+    "how": "city"
+   },
+   "zasq": {
+    "g": "阿斯塔纳",
+    "how": "city"
+   },
+   "zl0a": {
+    "g": "天津",
+    "how": "city"
+   },
+   "zl0b": {
+    "g": "天津",
+    "how": "city"
+   },
+   "zl0c": {
+    "g": "天津",
+    "how": "city"
+   },
+   "zl0d": {
+    "g": "上海",
+    "how": "city"
+   },
+   "zl0e": {
+    "g": "上海",
+    "how": "city"
+   },
+   "zl0f": {
+    "g": "上海",
+    "how": "city"
+   },
+   "zl0g": {
+    "g": "北京",
+    "how": "city"
+   },
+   "zl0h": {
+    "g": "北京",
+    "how": "city"
+   },
+   "zl0i": {
+    "g": "北京",
+    "how": "city"
+   },
+   "zl0j": {
+    "g": "石家庄",
+    "how": "city"
+   },
+   "zl0k": {
+    "g": "秦皇岛",
+    "how": "city"
+   },
+   "zl0l": {
+    "g": "张家口",
+    "how": "city"
+   },
+   "zl0m": {
+    "g": "太原",
+    "how": "city"
+   },
+   "zl0n": {
+    "g": "大同",
+    "how": "city"
+   },
+   "zl0o": {
+    "g": "太原",
+    "how": "city"
+   },
+   "zl1a": {
+    "g": "郑州",
+    "how": "city"
+   },
+   "zl1b": {
+    "g": "郑州",
+    "how": "city"
+   },
+   "zl1c": {
+    "g": "洛阳",
+    "how": "city"
+   },
+   "zl1d": {
+    "g": "西安",
+    "how": "city"
+   },
+   "zl1e": {
+    "g": "西安",
+    "how": "city"
+   },
+   "zl1f": {
+    "g": "西安",
+    "how": "city"
+   },
+   "zl1g": {
+    "g": "青岛",
+    "how": "city"
+   },
+   "zl1h": {
+    "g": "济南",
+    "how": "city"
+   },
+   "zl1i": {
+    "g": "济南",
+    "how": "city"
+   },
+   "zl1j": {
+    "g": "南京",
+    "how": "city"
+   },
+   "zl1k": {
+    "g": "徐州",
+    "how": "city"
+   },
+   "zl1l": {
+    "g": "南京",
+    "how": "city"
+   },
+   "zl1m": {
+    "g": "合肥",
+    "how": "city"
+   },
+   "zl1n": {
+    "g": "其他",
+    "how": "top11 之外并入（原 屯溪）"
+   },
+   "zl1o": {
+    "g": "合肥",
+    "how": "city"
+   },
+   "zl2a": {
+    "g": "杭州",
+    "how": "city"
+   },
+   "zl2b": {
+    "g": "宁波",
+    "how": "city"
+   },
+   "zl2c": {
+    "g": "杭州",
+    "how": "city"
+   },
+   "zl2d": {
+    "g": "南昌",
+    "how": "city"
+   },
+   "zl2e": {
+    "g": "九江",
+    "how": "city"
+   },
+   "zl2f": {
+    "g": "鹰潭",
+    "how": "city"
+   },
+   "zl2g": {
+    "g": "厦门",
+    "how": "city"
+   },
+   "zl2h": {
+    "g": "福州",
+    "how": "city"
+   },
+   "zl2i": {
+    "g": "厦门",
+    "how": "city"
+   },
+   "zl2j": {
+    "g": "武汉",
+    "how": "city"
+   },
+   "zl2k": {
+    "g": "武汉",
+    "how": "city"
+   },
+   "zl2l": {
+    "g": "襄阳",
+    "how": "city"
+   },
+   "zl2m": {
+    "g": "张家界",
+    "how": "city"
+   },
+   "zl2n": {
+    "g": "长沙",
+    "how": "city"
+   },
+   "zl2o": {
+    "g": "凤凰",
+    "how": "city"
+   },
+   "zl3a": {
+    "g": "广州",
+    "how": "city"
+   },
+   "zl3b": {
+    "g": "广州",
+    "how": "city"
+   },
+   "zl3c": {
+    "g": "广州",
+    "how": "city"
+   },
+   "zl3d": {
+    "g": "桂林",
+    "how": "city"
+   },
+   "zl3e": {
+    "g": "南宁",
+    "how": "city"
+   },
+   "zl3f": {
+    "g": "南宁",
+    "how": "city"
+   },
+   "zl3g": {
+    "g": "海口",
+    "how": "city"
+   },
+   "zl3h": {
+    "g": "三亚",
+    "how": "city"
+   },
+   "zl3i": {
+    "g": "海口",
+    "how": "city"
+   },
+   "zl3j": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "zl3k": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "zl3l": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "zl3m": {
+    "g": "贵阳",
+    "how": "city"
+   },
+   "zl3n": {
+    "g": "贵阳",
+    "how": "city"
+   },
+   "zl3o": {
+    "g": "贵阳",
+    "how": "city"
+   },
+   "zl4a": {
+    "g": "成都",
+    "how": "city"
+   },
+   "zl4b": {
+    "g": "成都",
+    "how": "city"
+   },
+   "zl4c": {
+    "g": "成都",
+    "how": "city"
+   },
+   "zl4d": {
+    "g": "昆明",
+    "how": "city"
+   },
+   "zl4e": {
+    "g": "大理",
+    "how": "city"
+   },
+   "zl4f": {
+    "g": "景洪",
+    "how": "city"
+   },
+   "zl4g": {
+    "g": "拉萨",
+    "how": "city"
+   },
+   "zl4h": {
+    "g": "拉萨",
+    "how": "city"
+   },
+   "zl4i": {
+    "g": "拉萨",
+    "how": "city"
+   },
+   "zl4j": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "zl4k": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "zl4l": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "zl4m": {
+    "g": "张掖",
+    "how": "city"
+   },
+   "zl4n": {
+    "g": "兰州",
+    "how": "city"
+   },
+   "zl4o": {
+    "g": "兰州",
+    "how": "city"
+   },
+   "zl5a": {
+    "g": "银川",
+    "how": "city"
+   },
+   "zl5b": {
+    "g": "银川",
+    "how": "city"
+   },
+   "zl5c": {
+    "g": "银川",
+    "how": "city"
+   },
+   "zl5d": {
+    "g": "乌鲁木齐",
+    "how": "city"
+   },
+   "zl5e": {
+    "g": "伊宁",
+    "how": "city"
+   },
+   "zl5f": {
+    "g": "喀什",
+    "how": "city"
+   },
+   "zl5g": {
+    "g": "阿勒泰",
+    "how": "city"
+   },
+   "zl5h": {
+    "g": "呼和浩特",
+    "how": "city"
+   },
+   "zl5i": {
+    "g": "海拉尔",
+    "how": "city"
+   },
+   "zl5j": {
+    "g": "呼和浩特",
+    "how": "city"
+   },
+   "zl5k": {
+    "g": "沈阳",
+    "how": "city"
+   },
+   "zl5l": {
+    "g": "丹东",
+    "how": "city"
+   },
+   "zl5m": {
+    "g": "沈阳",
+    "how": "city"
+   },
+   "zl5n": {
+    "g": "长春",
+    "how": "city"
+   },
+   "zl5o": {
+    "g": "延吉",
+    "how": "city"
+   },
+   "zl5p": {
+    "g": "通化",
+    "how": "city"
+   },
+   "zl5q": {
+    "g": "哈尔滨",
+    "how": "city"
+   },
+   "zl5r": {
+    "g": "哈尔滨",
+    "how": "city"
+   },
+   "zl5s": {
+    "g": "牡丹江",
+    "how": "city"
+   },
+   "ztwa": {
+    "g": "台北",
+    "how": "city"
+   },
+   "ztwb": {
+    "g": "高雄",
+    "how": "city"
+   },
+   "ztwc": {
+    "g": "花莲",
+    "how": "city"
+   },
+   "ztwd": {
+    "g": "台中",
+    "how": "city"
+   },
+   "ztwe": {
+    "g": "高雄",
+    "how": "city"
+   },
+   "ztwf": {
+    "g": "台北",
+    "how": "city"
+   },
+   "ztwg": {
+    "g": "台东",
+    "how": "city"
+   },
+   "ztwh": {
+    "g": "嘉义",
+    "how": "city"
+   },
+   "xn1a": {
+    "g": "乌兰巴托",
+    "how": "city"
+   },
+   "xn1b": {
+    "g": "乌兰巴托",
+    "how": "city"
+   },
+   "xn1c": {
+    "g": "新加坡",
+    "how": "city"
+   },
+   "xn1d": {
+    "g": "新加坡",
+    "how": "city"
+   },
+   "xn2a": {
+    "g": "暹粒",
+    "how": "city"
+   },
+   "xn2b": {
+    "g": "贡布",
+    "how": "city"
+   },
+   "xn2c": {
+    "g": "万象",
+    "how": "city"
+   },
+   "xn2d": {
+    "g": "琅勃拉邦",
+    "how": "city"
+   },
+   "xn3a": {
+    "g": "博卡拉",
+    "how": "city"
+   },
+   "xn3b": {
+    "g": "加德满都",
+    "how": "city"
+   },
+   "xn3c": {
+    "g": "康提",
+    "how": "city"
+   },
+   "xn3d": {
+    "g": "康提",
+    "how": "city"
+   },
+   "xn4c": {
+    "g": "迪拜",
+    "how": "city"
+   },
+   "xn4d": {
+    "g": "艾因",
+    "how": "city"
+   },
+   "xn5a": {
+    "g": "特拉维",
+    "how": "city"
+   },
+   "xn5b": {
+    "g": "斯特潘茨明达",
+    "how": "city"
+   },
+   "xn5c": {
+    "g": "安曼",
+    "how": "city"
+   },
+   "xn5d": {
+    "g": "卡拉克",
+    "how": "city"
+   },
+   "xn6a": {
+    "g": "阿拉木图",
+    "how": "city"
+   },
+   "xn6b": {
+    "g": "奇姆肯特",
+    "how": "city"
+   },
+   "xn6c": {
+    "g": "撒马尔罕",
+    "how": "city"
+   },
+   "xn6d": {
+    "g": "布哈拉",
+    "how": "city"
+   },
+   "xn7a": {
+    "g": "廷布",
+    "how": "city"
+   },
+   "xn7b": {
+    "g": "帕罗",
+    "how": "city"
+   },
+   "xn7c": {
+    "g": "雷克雅未克",
+    "how": "city"
+   },
+   "xn7d": {
+    "g": "雷克雅未克",
+    "how": "city"
+   },
+   "xn10a": {
+    "g": "科英布拉",
+    "how": "city"
+   },
+   "xn10b": {
+    "g": "埃武拉",
+    "how": "city"
+   },
+   "xn10c": {
+    "g": "布尔诺",
+    "how": "city"
+   },
+   "xn10d": {
+    "g": "比尔森",
+    "how": "city"
+   },
+   "xn11a": {
+    "g": "克雷姆斯",
+    "how": "city"
+   },
+   "xn11b": {
+    "g": "格拉茨",
+    "how": "city"
+   },
+   "xn11c": {
+    "g": "海牙",
+    "how": "city"
+   },
+   "xn11d": {
+    "g": "马斯特里赫特",
+    "how": "city"
+   },
+   "xn12a": {
+    "g": "罗维尼",
+    "how": "city"
+   },
+   "xn12b": {
+    "g": "扎格拉布",
+    "how": "city"
+   },
+   "xn12c": {
+    "g": "特隆赫姆",
+    "how": "city"
+   },
+   "xn12d": {
+    "g": "利勒哈默尔",
+    "how": "city"
+   },
+   "xn13a": {
+    "g": "坦佩雷",
+    "how": "city"
+   },
+   "xn13b": {
+    "g": "图尔库",
+    "how": "city"
+   },
+   "xn13c": {
+    "g": "阿雷基帕",
+    "how": "city"
+   },
+   "xn13d": {
+    "g": "库斯科",
+    "how": "city"
+   },
+   "xn14a": {
+    "g": "布鲁塞尔",
+    "how": "city"
+   },
+   "xn14b": {
+    "g": "布鲁塞尔",
+    "how": "city"
+   },
+   "xn14c": {
+    "g": "开普敦",
+    "how": "city"
+   },
+   "xn14d": {
+    "g": "约翰内斯堡",
+    "how": "city"
+   },
+   "xn8a": {
+    "g": "马拉喀什",
+    "how": "city"
+   },
+   "xn8b": {
+    "g": "马拉喀什",
+    "how": "city"
+   },
+   "xn8c": {
+    "g": "苏黎世",
+    "how": "city"
+   },
+   "xn8d": {
+    "g": "因特拉肯",
+    "how": "city"
+   },
+   "xn9a": {
+    "g": "纳夫普利翁",
+    "how": "city"
+   },
+   "xn9b": {
+    "g": "雅典",
+    "how": "city"
+   },
+   "xn9c": {
+    "g": "亚历山大",
+    "how": "city"
+   },
+   "xn9d": {
+    "g": "开罗",
+    "how": "city"
+   },
+   "xo1a": {
+    "g": "香港",
+    "how": "city"
+   },
+   "xo1b": {
+    "g": "香港",
+    "how": "city"
+   },
+   "xo1c": {
+    "g": "澳门",
+    "how": "city"
+   },
+   "xo1d": {
+    "g": "澳门",
+    "how": "city"
+   },
+   "xo2a": {
+    "g": "全州",
+    "how": "city"
+   },
+   "xo2b": {
+    "g": "大邱",
+    "how": "city"
+   },
+   "xo2c": {
+    "g": "纽伦堡",
+    "how": "city"
+   },
+   "xo2d": {
+    "g": "德累斯顿",
+    "how": "city"
+   },
+   "xo3a": {
+    "g": "波尔多",
+    "how": "city"
+   },
+   "xo3b": {
+    "g": "图尔",
+    "how": "city"
+   },
+   "xo3c": {
+    "g": "安塔利亚",
+    "how": "city"
+   },
+   "xo3d": {
+    "g": "安卡拉",
+    "how": "city"
+   },
+   "xo4a": {
+    "g": "惠灵顿",
+    "how": "city"
+   },
+   "xo4b": {
+    "g": "基督城",
+    "how": "city"
+   },
+   "xo4c": {
+    "g": "碧瑶",
+    "how": "city"
+   },
+   "xo4d": {
+    "g": "维甘",
+    "how": "city"
+   },
+   "xo5a": {
+    "g": "新加坡",
+    "how": "city"
+   },
+   "xo5b": {
+    "g": "新加坡",
+    "how": "city"
+   },
+   "xo5c": {
+    "g": "都柏林",
+    "how": "city"
+   },
+   "xo5d": {
+    "g": "戈尔韦",
+    "how": "city"
+   },
+   "xo6a": {
+    "g": "多伦多",
+    "how": "city"
+   },
+   "xo6b": {
+    "g": "渥太华",
+    "how": "city"
+   },
+   "xo6c": {
+    "g": "瓜纳华托",
+    "how": "city"
+   },
+   "xo6d": {
+    "g": "普埃布拉",
+    "how": "city"
+   },
+   "xo7a": {
+    "g": "廷布",
+    "how": "city"
+   },
+   "xo7b": {
+    "g": "廷布",
+    "how": "city"
+   },
+   "xo7c": {
+    "g": "马六甲",
+    "how": "city"
+   },
+   "xo7d": {
+    "g": "怡保",
+    "how": "city"
+   },
+   "hx7v": {
+    "g": "兰州",
+    "how": "city"
+   },
+   "xv01a": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "xv02a": {
+    "g": "西安",
+    "how": "city"
+   },
+   "xv04a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 理塘）"
+   },
+   "xv05a": {
+    "g": "成都",
+    "how": "city"
+   },
+   "xv06a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 巴塘）"
+   },
+   "xv03a": {
+    "g": "玛多",
+    "how": "city"
+   },
+   "xv10a": {
+    "g": "林芝",
+    "how": "city"
+   },
+   "xv12a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 建水）"
+   },
+   "xv17a": {
+    "g": "拉萨",
+    "how": "city"
+   },
+   "xv20a": {
+    "g": "萍乡",
+    "how": "city"
+   },
+   "xv21a": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "xv22a": {
+    "g": "塔钦",
+    "how": "city"
+   },
+   "xv23a": {
+    "g": "库车",
+    "how": "city"
+   },
+   "xv24a": {
+    "g": "经棚",
+    "how": "city"
+   },
+   "xv25a": {
+    "g": "新乡",
+    "how": "city"
+   },
+   "xv26a": {
+    "g": "北京",
+    "how": "city"
+   },
+   "xv27a": {
+    "g": "鄂尔多斯",
+    "how": "city"
+   },
+   "xv29a": {
+    "g": "香格里拉",
+    "how": "city"
+   },
+   "xv30a": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "xv31a": {
+    "g": "改则",
+    "how": "city"
+   },
+   "xv32a": {
+    "g": "拉萨",
+    "how": "city"
+   },
+   "xv07a": {
+    "g": "喀什",
+    "how": "city"
+   },
+   "xv08a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 吉隆）"
+   },
+   "xv09a": {
+    "g": "江孜",
+    "how": "city"
+   },
+   "xv11a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 贡山）"
+   },
+   "xv13a": {
+    "g": "北海",
+    "how": "city"
+   },
+   "xv15a": {
+    "g": "凯里",
+    "how": "city"
+   },
+   "xv16a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 边坝）"
+   },
+   "xv18a": {
+    "g": "拉萨",
+    "how": "city"
+   },
+   "xv19a": {
+    "g": "成都",
+    "how": "city"
+   },
+   "xv28a": {
+    "g": "大理",
+    "how": "city"
+   },
+   "xv14a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xv35a": {
+    "g": "张掖",
+    "how": "city"
+   },
+   "xv33a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 泸沽湖）"
+   },
+   "xv36a": {
+    "g": "兰州",
+    "how": "city"
+   },
+   "xv37a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 石棉）"
+   },
+   "xv34a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xw40a": {
+    "g": "西安",
+    "how": "city"
+   },
+   "xw42a": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "xw43a": {
+    "g": "兰州",
+    "how": "city"
+   },
+   "xw45a": {
+    "g": "赤峰",
+    "how": "city"
+   },
+   "xw61a": {
+    "g": "梅窝",
+    "how": "city"
+   },
+   "xw62a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 西貢）"
+   },
+   "xw63a": {
+    "g": "油塘",
+    "how": "city"
+   },
+   "xw64a": {
+    "g": "中环",
+    "how": "city"
+   },
+   "xw65a": {
+    "g": "河口湖",
+    "how": "city"
+   },
+   "xw66a": {
+    "g": "广岛",
+    "how": "city"
+   },
+   "xw67a": {
+    "g": "伦敦",
+    "how": "city"
+   },
+   "xw68a": {
+    "g": "台北",
+    "how": "city"
+   },
+   "xw69a": {
+    "g": "台南",
+    "how": "city"
+   },
+   "xw70a": {
+    "g": "香港",
+    "how": "city"
+   },
+   "xw71a": {
+    "g": "东京",
+    "how": "city"
+   },
+   "xw72a": {
+    "g": "大阪",
+    "how": "city"
+   },
+   "xw73a": {
+    "g": "曼谷",
+    "how": "city"
+   },
+   "xw74a": {
+    "g": "上海",
+    "how": "city"
+   },
+   "xw81a": {
+    "g": "雷克雅未克",
+    "how": "city"
+   },
+   "xw82a": {
+    "g": "雅典",
+    "how": "city"
+   },
+   "xw83a": {
+    "g": "阿斯旺",
+    "how": "city"
+   },
+   "xw84a": {
+    "g": "塔什干",
+    "how": "city"
+   },
+   "xw85a": {
+    "g": "奥勒松",
+    "how": "city"
+   },
+   "xw86a": {
+    "g": "库斯科",
+    "how": "city"
+   },
+   "xw87a": {
+    "g": "加德满都",
+    "how": "city"
+   },
+   "xw88a": {
+    "g": "琅勃拉邦",
+    "how": "city"
+   },
+   "xw89a": {
+    "g": "布拉格",
+    "how": "city"
+   },
+   "xw90a": {
+    "g": "布鲁塞尔",
+    "how": "city"
+   },
+   "xw91a": {
+    "g": "澳门",
+    "how": "city"
+   },
+   "xw92a": {
+    "g": "帕罗",
+    "how": "city"
+   },
+   "xw93a": {
+    "g": "锡吉里耶",
+    "how": "city"
+   },
+   "xw95a": {
+    "g": "阿拉木图",
+    "how": "city"
+   },
+   "xw94a": {
+    "g": "安曼",
+    "how": "city"
+   },
+   "xw100a": {
+    "g": "新加坡",
+    "how": "city"
+   },
+   "xw101a": {
+    "g": "巴塞罗那",
+    "how": "city"
+   },
+   "xw102a": {
+    "g": "皇后镇",
+    "how": "city"
+   },
+   "xw103a": {
+    "g": "慕尼黑",
+    "how": "city"
+   },
+   "xw104a": {
+    "g": "内夫谢希尔",
+    "how": "city"
+   },
+   "xw105a": {
+    "g": "尼斯",
+    "how": "city"
+   },
+   "xw106a": {
+    "g": "卡尔加里",
+    "how": "city"
+   },
+   "xw107a": {
+    "g": "第比利斯",
+    "how": "city"
+   },
+   "xw108a": {
+    "g": "菲斯",
+    "how": "city"
+   },
+   "xw109a": {
+    "g": "里斯本",
+    "how": "city"
+   },
+   "xw110a": {
+    "g": "阿姆斯特丹",
+    "how": "city"
+   },
+   "xw111a": {
+    "g": "扎达尔",
+    "how": "city"
+   },
+   "xw112a": {
+    "g": "罗瓦涅米",
+    "how": "city"
+   },
+   "xw113a": {
+    "g": "开普敦",
+    "how": "city"
+   },
+   "xw114a": {
+    "g": "奥尔盖",
+    "how": "city"
+   },
+   "xw115a": {
+    "g": "迪拜",
+    "how": "city"
+   },
+   "xw116a": {
+    "g": "大理",
+    "how": "city"
+   },
+   "xw117a": {
+    "g": "西安",
+    "how": "city"
+   },
+   "xw118a": {
+    "g": "厦门",
+    "how": "city"
+   },
+   "xw119a": {
+    "g": "贵阳",
+    "how": "city"
+   },
+   "xw120a": {
+    "g": "三亚",
+    "how": "city"
+   },
+   "xw121a": {
+    "g": "喀什",
+    "how": "city"
+   },
+   "xg200a": {
+    "g": "北京",
+    "how": "city"
+   },
+   "xg201a": {
+    "g": "天津",
+    "how": "city"
+   },
+   "xg202a": {
+    "g": "保定",
+    "how": "city"
+   },
+   "xg203a": {
+    "g": "晋城",
+    "how": "city"
+   },
+   "xg204a": {
+    "g": "经棚",
+    "how": "city"
+   },
+   "xg206a": {
+    "g": "长春",
+    "how": "city"
+   },
+   "xg207a": {
+    "g": "哈尔滨",
+    "how": "city"
+   },
+   "xg208a": {
+    "g": "上海",
+    "how": "city"
+   },
+   "xg209a": {
+    "g": "苏州",
+    "how": "city"
+   },
+   "xg210a": {
+    "g": "杭州",
+    "how": "city"
+   },
+   "xg211a": {
+    "g": "合肥",
+    "how": "city"
+   },
+   "xg212a": {
+    "g": "泉州",
+    "how": "city"
+   },
+   "xg213a": {
+    "g": "南昌",
+    "how": "city"
+   },
+   "xg214a": {
+    "g": "淄博",
+    "how": "city"
+   },
+   "xg215a": {
+    "g": "开封",
+    "how": "city"
+   },
+   "xg216a": {
+    "g": "武汉",
+    "how": "city"
+   },
+   "xg217a": {
+    "g": "长沙",
+    "how": "city"
+   },
+   "xg218a": {
+    "g": "广州",
+    "how": "city"
+   },
+   "xg219a": {
+    "g": "桂林",
+    "how": "city"
+   },
+   "xg220a": {
+    "g": "海口",
+    "how": "city"
+   },
+   "xg221a": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "xg222a": {
+    "g": "成都",
+    "how": "city"
+   },
+   "xg223a": {
+    "g": "贵阳",
+    "how": "city"
+   },
+   "xg224a": {
+    "g": "丽江",
+    "how": "city"
+   },
+   "xg225a": {
+    "g": "拉萨",
+    "how": "city"
+   },
+   "xg226a": {
+    "g": "西安",
+    "how": "city"
+   },
+   "xg227a": {
+    "g": "兰州",
+    "how": "city"
+   },
+   "xg228a": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "xg229a": {
+    "g": "银川",
+    "how": "city"
+   },
+   "xg230a": {
+    "g": "乌鲁木齐",
+    "how": "city"
+   },
+   "xg231a": {
+    "g": "尖沙咀",
+    "how": "city"
+   },
+   "xg232a": {
+    "g": "澳门",
+    "how": "city"
+   },
+   "xg233a": {
+    "g": "台北",
+    "how": "city"
+   },
+   "xg234a": {
+    "g": "松本",
+    "how": "city"
+   },
+   "xg235a": {
+    "g": "首尔",
+    "how": "city"
+   },
+   "xg236a": {
+    "g": "乌兰巴托",
+    "how": "city"
+   },
+   "xg237a": {
+    "g": "胡志明市",
+    "how": "city"
+   },
+   "xg238a": {
+    "g": "素可泰",
+    "how": "city"
+   },
+   "xg239a": {
+    "g": "新加坡",
+    "how": "city"
+   },
+   "xg240a": {
+    "g": "古晋",
+    "how": "city"
+   },
+   "xg241a": {
+    "g": "万隆",
+    "how": "city"
+   },
+   "xg242a": {
+    "g": "碧瑶",
+    "how": "city"
+   },
+   "xg243a": {
+    "g": "暹粒",
+    "how": "city"
+   },
+   "xg244a": {
+    "g": "川圹",
+    "how": "city"
+   },
+   "xg245a": {
+    "g": "加德满都",
+    "how": "city"
+   },
+   "xg246a": {
+    "g": "科伦坡",
+    "how": "city"
+   },
+   "xg247a": {
+    "g": "马累",
+    "how": "city"
+   },
+   "xg248a": {
+    "g": "迪拜",
+    "how": "city"
+   },
+   "xg249a": {
+    "g": "布尔萨",
+    "how": "city"
+   },
+   "xg250a": {
+    "g": "第比利斯",
+    "how": "city"
+   },
+   "xg251a": {
+    "g": "安曼",
+    "how": "city"
+   },
+   "xg252a": {
+    "g": "阿拉木图",
+    "how": "city"
+   },
+   "xg253a": {
+    "g": "科坎德",
+    "how": "city"
+   },
+   "xg254a": {
+    "g": "廷布",
+    "how": "city"
+   },
+   "xg255a": {
+    "g": "奥兰加巴德",
+    "how": "city"
+   },
+   "xg256a": {
+    "g": "巴黎",
+    "how": "city"
+   },
+   "xg257a": {
+    "g": "维罗纳",
+    "how": "city"
+   },
+   "xg258a": {
+    "g": "马德里",
+    "how": "city"
+   },
+   "xg259a": {
+    "g": "阿克雷里",
+    "how": "city"
+   },
+   "xg260a": {
+    "g": "卡萨布兰卡",
+    "how": "city"
+   },
+   "xg261a": {
+    "g": "利物浦",
+    "how": "city"
+   },
+   "xg262a": {
+    "g": "苏黎世",
+    "how": "city"
+   },
+   "xg263a": {
+    "g": "伊拉克利翁",
+    "how": "city"
+   },
+   "xg264a": {
+    "g": "卢克索",
+    "how": "city"
+   },
+   "xg265a": {
+    "g": "里斯本",
+    "how": "city"
+   },
+   "xg266a": {
+    "g": "布拉格",
+    "how": "city"
+   },
+   "xg267a": {
+    "g": "萨尔茨堡",
+    "how": "city"
+   },
+   "xg268a": {
+    "g": "拉斯维加斯",
+    "how": "city"
+   },
+   "xg269a": {
+    "g": "霍巴特",
+    "how": "city"
+   },
+   "xg270a": {
+    "g": "奥克兰",
+    "how": "city"
+   },
+   "xg271a": {
+    "g": "慕尼黑",
+    "how": "city"
+   },
+   "xg272a": {
+    "g": "豪达",
+    "how": "city"
+   },
+   "xg273a": {
+    "g": "里耶卡",
+    "how": "city"
+   },
+   "xg274a": {
+    "g": "温哥华",
+    "how": "city"
+   },
+   "xg275a": {
+    "g": "斯塔万格",
+    "how": "city"
+   },
+   "xg276a": {
+    "g": "赫尔辛基",
+    "how": "city"
+   },
+   "xg277a": {
+    "g": "梅里达",
+    "how": "city"
+   },
+   "xg278a": {
+    "g": "利马",
+    "how": "city"
+   },
+   "xg279a": {
+    "g": "布鲁塞尔",
+    "how": "city"
+   },
+   "xg280a": {
+    "g": "都柏林",
+    "how": "city"
+   },
+   "xg281a": {
+    "g": "乔治",
+    "how": "city"
+   },
+   "xy300a": {
+    "g": "喀什",
+    "how": "city"
+   },
+   "xy300b": {
+    "g": "乌鲁木齐",
+    "how": "city"
+   },
+   "xy301a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 那曲）"
+   },
+   "xy301b": {
+    "g": "芒康",
+    "how": "city"
+   },
+   "xy302a": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "xy302b": {
+    "g": "格尔木",
+    "how": "city"
+   },
+   "xy303a": {
+    "g": "张掖",
+    "how": "label 开头匹配（原 city=临泽）"
+   },
+   "xy303b": {
+    "g": "其他",
+    "how": "top11 之外并入（原 瓜州）"
+   },
+   "xy304a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 临夏）"
+   },
+   "xy304b": {
+    "g": "张掖",
+    "how": "city"
+   },
+   "xy305a": {
+    "g": "宜昌",
+    "how": "city"
+   },
+   "xy305b": {
+    "g": "荆州",
+    "how": "city"
+   },
+   "xy306a": {
+    "g": "宜昌",
+    "how": "city"
+   },
+   "xy306b": {
+    "g": "利川",
+    "how": "city"
+   },
+   "xy307a": {
+    "g": "太原",
+    "how": "city"
+   },
+   "xy307b": {
+    "g": "大同",
+    "how": "city"
+   },
+   "xy308a": {
+    "g": "太原",
+    "how": "city"
+   },
+   "xy308b": {
+    "g": "大同",
+    "how": "city"
+   },
+   "xy309a": {
+    "g": "武隆",
+    "how": "city"
+   },
+   "xy309b": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "xy310a": {
+    "g": "奉节",
+    "how": "city"
+   },
+   "xy310b": {
+    "g": "丰都",
+    "how": "city"
+   },
+   "xy311a": {
+    "g": "郴州",
+    "how": "city"
+   },
+   "xy311b": {
+    "g": "其他",
+    "how": "top11 之外并入（原 靖州）"
+   },
+   "xy312a": {
+    "g": "吉首",
+    "how": "city"
+   },
+   "xy313a": {
+    "g": "龙岩",
+    "how": "city"
+   },
+   "xy313b": {
+    "g": "武夷山",
+    "how": "city"
+   },
+   "xy314a": {
+    "g": "南靖",
+    "how": "city"
+   },
+   "xy314b": {
+    "g": "华安",
+    "how": "city"
+   },
+   "xy315a": {
+    "g": "宁波",
+    "how": "city"
+   },
+   "xy315b": {
+    "g": "杭州",
+    "how": "city"
+   },
+   "xy316a": {
+    "g": "湖州",
+    "how": "city"
+   },
+   "xy316b": {
+    "g": "巫溪",
+    "how": "city"
+   },
+   "xy317a": {
+    "g": "洛阳",
+    "how": "city"
+   },
+   "xy317b": {
+    "g": "其他",
+    "how": "top11 之外并入（原 灵宝）"
+   },
+   "xy318a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 龙南）"
+   },
+   "xy318b": {
+    "g": "宜春",
+    "how": "city"
+   },
+   "xy319a": {
+    "g": "宜宾",
+    "how": "city"
+   },
+   "xy320a": {
+    "g": "广元",
+    "how": "city"
+   },
+   "xy320b": {
+    "g": "成都",
+    "how": "city"
+   },
+   "xy321a": {
+    "g": "中卫",
+    "how": "city"
+   },
+   "xy322a": {
+    "g": "西安",
+    "how": "city"
+   },
+   "xy322b": {
+    "g": "汉中",
+    "how": "city"
+   },
+   "xy323a": {
+    "g": "榆林",
+    "how": "city"
+   },
+   "xy323b": {
+    "g": "西安",
+    "how": "city"
+   },
+   "xy324a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 元阳）"
+   },
+   "xy324b": {
+    "g": "云龙",
+    "how": "city"
+   },
+   "xy325a": {
+    "g": "柳州",
+    "how": "city"
+   },
+   "xy325b": {
+    "g": "其他",
+    "how": "top11 之外并入（原 崇左）"
+   },
+   "xy326a": {
+    "g": "三亚",
+    "how": "city"
+   },
+   "xy330a": {
+    "g": "永昌",
+    "how": "city"
+   },
+   "xy330b": {
+    "g": "兰州",
+    "how": "city"
+   },
+   "xy331a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 红坪镇）"
+   },
+   "xy331b": {
+    "g": "恩施",
+    "how": "city"
+   },
+   "xy332a": {
+    "g": "太原",
+    "how": "city"
+   },
+   "xy332b": {
+    "g": "其他",
+    "how": "top11 之外并入（原 阳城）"
+   },
+   "xy333a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 万州）"
+   },
+   "xy333b": {
+    "g": "丰都",
+    "how": "city"
+   },
+   "xy334a": {
+    "g": "岳阳",
+    "how": "city"
+   },
+   "xy334b": {
+    "g": "其他",
+    "how": "top11 之外并入（原 江永）"
+   },
+   "xy335a": {
+    "g": "南昌",
+    "how": "city"
+   },
+   "xy335b": {
+    "g": "吉安",
+    "how": "city"
+   },
+   "xy336a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 武胜）"
+   },
+   "xy337a": {
+    "g": "昆明",
+    "how": "city"
+   },
+   "xy337b": {
+    "g": "大理",
+    "how": "city"
+   },
+   "xy338a": {
+    "g": "柳州",
+    "how": "city"
+   },
+   "xy339a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 珠海）"
+   },
+   "xy339b": {
+    "g": "其他",
+    "how": "top11 之外并入（原 陆河）"
+   },
+   "xy340a": {
+    "g": "凯里",
+    "how": "city"
+   },
+   "xz400a": {
+    "g": "台北",
+    "how": "city"
+   },
+   "xz400b": {
+    "g": "嘉义",
+    "how": "city"
+   },
+   "xz401a": {
+    "g": "台北",
+    "how": "city"
+   },
+   "xz401b": {
+    "g": "埔里",
+    "how": "city"
+   },
+   "xz402a": {
+    "g": "首尔",
+    "how": "city"
+   },
+   "xz403a": {
+    "g": "首尔",
+    "how": "city"
+   },
+   "xz403b": {
+    "g": "釜山",
+    "how": "city"
+   },
+   "xz404a": {
+    "g": "札幌",
+    "how": "city"
+   },
+   "xz404b": {
+    "g": "仙台",
+    "how": "city"
+   },
+   "xz405a": {
+    "g": "东京",
+    "how": "city"
+   },
+   "xz406a": {
+    "g": "曼谷",
+    "how": "city"
+   },
+   "xz407a": {
+    "g": "曼谷",
+    "how": "city"
+   },
+   "xz407b": {
+    "g": "清迈",
+    "how": "city"
+   },
+   "xz408a": {
+    "g": "拉斯维加斯",
+    "how": "city"
+   },
+   "xz408b": {
+    "g": "其他",
+    "how": "top11 之外并入（原 洛杉矶）"
+   },
+   "xz410a": {
+    "g": "河内",
+    "how": "city"
+   },
+   "xz410b": {
+    "g": "岘港",
+    "how": "city"
+   },
+   "xz411a": {
+    "g": "亚庇",
+    "how": "city"
+   },
+   "xz409a": {
+    "g": "圣克鲁斯",
+    "how": "city"
+   },
+   "xz409b": {
+    "g": "优胜美地谷",
+    "how": "city"
+   },
+   "xh500a": {
+    "g": "北京",
+    "how": "city"
+   },
+   "xh500b": {
+    "g": "石家庄",
+    "how": "city"
+   },
+   "xh500c": {
+    "g": "大同",
+    "how": "city"
+   },
+   "xh500d": {
+    "g": "天津",
+    "how": "city"
+   },
+   "xh501a": {
+    "g": "鞍山",
+    "how": "city"
+   },
+   "xh501b": {
+    "g": "凤城",
+    "how": "city"
+   },
+   "xh501c": {
+    "g": "五大连池",
+    "how": "city"
+   },
+   "xh501d": {
+    "g": "二道白河",
+    "how": "city"
+   },
+   "xh502a": {
+    "g": "泰安",
+    "how": "city"
+   },
+   "xh502b": {
+    "g": "南京",
+    "how": "city"
+   },
+   "xh502c": {
+    "g": "黄山",
+    "how": "city"
+   },
+   "xh502d": {
+    "g": "其他",
+    "how": "top11 之外并入（原 潜山）"
+   },
+   "xh503a": {
+    "g": "杭州",
+    "how": "city"
+   },
+   "xh503b": {
+    "g": "福州",
+    "how": "city"
+   },
+   "xh503c": {
+    "g": "九江",
+    "how": "city"
+   },
+   "xh504a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 登封）"
+   },
+   "xh504b": {
+    "g": "其他",
+    "how": "top11 之外并入（原 武当山）"
+   },
+   "xh504c": {
+    "g": "其他",
+    "how": "top11 之外并入（原 武陵源）"
+   },
+   "xh504d": {
+    "g": "北碚",
+    "how": "city"
+   },
+   "xh505a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 肇庆）"
+   },
+   "xh505b": {
+    "g": "桂林",
+    "how": "city"
+   },
+   "xh505c": {
+    "g": "保亭",
+    "how": "city"
+   },
+   "xh505d": {
+    "g": "香港",
+    "how": "label 开头匹配（原 city=荃湾）"
+   },
+   "xh506a": {
+    "g": "成都",
+    "how": "city"
+   },
+   "xh506b": {
+    "g": "荔波",
+    "how": "city"
+   },
+   "xh506c": {
+    "g": "大理",
+    "how": "city"
+   },
+   "xh507a": {
+    "g": "西安",
+    "how": "city"
+   },
+   "xh507b": {
+    "g": "西安",
+    "how": "city"
+   },
+   "xh507c": {
+    "g": "台北",
+    "how": "city"
+   },
+   "xh507d": {
+    "g": "银川",
+    "how": "city"
+   },
+   "xb96a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl1a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl2a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl3a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl4a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl5a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl6a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl7a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl8a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl9a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl10a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl11a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl12a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl13a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl14a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl15a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl16a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl17a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl18a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl19a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl20a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl21a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl22a": {
+    "g": "乌鲁木齐",
+    "how": "city"
+   },
+   "xl23a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl24a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl25a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl26a": {
+    "g": "成都",
+    "how": "city"
+   },
+   "xl27a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "xl28a": {
+    "g": "长线",
+    "how": "long"
+   },
+   "hanshi1": {
+    "g": "西安",
+    "how": "city"
+   },
+   "hanshi2": {
+    "g": "商丘",
+    "how": "city"
+   },
+   "hbaijy1": {
+    "g": "西安",
+    "how": "city"
+   },
+   "hbaijy2": {
+    "g": "九江",
+    "how": "city"
+   },
+   "hbanc1": {
+    "g": "洛阳",
+    "how": "city"
+   },
+   "hbanc2": {
+    "g": "喀什",
+    "how": "city"
+   },
+   "hcm1": {
+    "g": "大理",
+    "how": "city"
+   },
+   "hcm2": {
+    "g": "成都",
+    "how": "city"
+   },
+   "hcc1": {
+    "g": "山海关",
+    "how": "city"
+   },
+   "hcc2": {
+    "g": "大同",
+    "how": "city"
+   },
+   "hcq1": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "hcq2": {
+    "g": "重庆",
+    "how": "city"
+   },
+   "hchuhan1": {
+    "g": "西安",
+    "how": "city"
+   },
+   "hchuhan2": {
+    "g": "徐州",
+    "how": "city"
+   },
+   "hcz1": {
+    "g": "其他",
+    "how": "top11 之外并入（原 瑞金）"
+   },
+   "hcz2": {
+    "g": "遵义",
+    "how": "city"
+   },
+   "hcz3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 会理）"
+   },
+   "hcz4": {
+    "g": "岷县",
+    "how": "city"
+   },
+   "hdu1": {
+    "g": "成都",
+    "how": "city"
+   },
+   "hdu2": {
+    "g": "天水",
+    "how": "city"
+   },
+   "hfanzy1": {
+    "g": "苏州",
+    "how": "city"
+   },
+   "hfanzy2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 青州）"
+   },
+   "hhanwu1": {
+    "g": "西安",
+    "how": "city"
+   },
+   "hhanwu2": {
+    "g": "兰州",
+    "how": "city"
+   },
+   "hhubl1": {
+    "g": "北京",
+    "how": "city"
+   },
+   "hhubl2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 北京）"
+   },
+   "hhumen1": {
+    "g": "广州",
+    "how": "city"
+   },
+   "hhumen2": {
+    "g": "广州",
+    "how": "city"
+   },
+   "hjz1": {
+    "g": "扬州",
+    "how": "city"
+   },
+   "hjz2": {
+    "g": "广州",
+    "how": "city"
+   },
+   "hjgs1": {
+    "g": "井冈山",
+    "how": "city"
+   },
+   "hjgs3": {
+    "g": "南昌",
+    "how": "city"
+   },
+   "hjkang1": {
+    "g": "开封",
+    "how": "city"
+   },
+   "hjkang2": {
+    "g": "开封",
+    "how": "city"
+   },
+   "hjmls1": {
+    "g": "西安",
+    "how": "city"
+   },
+   "hjmls2": {
+    "g": "库车",
+    "how": "city"
+   },
+   "hkang1": {
+    "g": "北京",
+    "how": "city"
+   },
+   "hkang2": {
+    "g": "南京",
+    "how": "city"
+   },
+   "hkx1": {
+    "g": "郑州",
+    "how": "city"
+   },
+   "hkx2": {
+    "g": "郑州",
+    "how": "city"
+   },
+   "hkz1": {
+    "g": "其他",
+    "how": "top11 之外并入（原 曲阜）"
+   },
+   "hkz2": {
+    "g": "郑州",
+    "how": "city"
+   },
+   "hlia": {
+    "g": "成都",
+    "how": "city"
+   },
+   "hlib": {
+    "g": "九江",
+    "how": "city"
+   },
+   "hlzx1": {
+    "g": "福州",
+    "how": "city"
+   },
+   "hlzx2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 西安）"
+   },
+   "hliqz1": {
+    "g": "济南",
+    "how": "city"
+   },
+   "hliqz2": {
+    "g": "济南",
+    "how": "city"
+   },
+   "hlisz1": {
+    "g": "蕲春",
+    "how": "city"
+   },
+   "hlisz2": {
+    "g": "蕲春",
+    "how": "city"
+   },
+   "hlugq1": {
+    "g": "北京",
+    "how": "city"
+   },
+   "hlugq2": {
+    "g": "北京",
+    "how": "city"
+   },
+   "hlx1": {
+    "g": "绍兴",
+    "how": "city"
+   },
+   "hlx2": {
+    "g": "北京",
+    "how": "city"
+   },
+   "hly1": {
+    "g": "绍兴",
+    "how": "city"
+   },
+   "hly2": {
+    "g": "西安",
+    "how": "city"
+   },
+   "hnanj1": {
+    "g": "南京",
+    "how": "city"
+   },
+   "hnanj2": {
+    "g": "南京",
+    "how": "city"
+   },
+   "hnurh1": {
+    "g": "沈阳",
+    "how": "city"
+   },
+   "hnurh2": {
+    "g": "沈阳",
+    "how": "city"
+   },
+   "hqian1": {
+    "g": "北京",
+    "how": "city"
+   },
+   "hqian2": {
+    "g": "扬州",
+    "how": "city"
+   },
+   "hqin1": {
+    "g": "西安",
+    "how": "city"
+   },
+   "hqin2": {
+    "g": "泰安",
+    "how": "city"
+   },
+   "hqy1": {
+    "g": "宜昌",
+    "how": "city"
+   },
+   "hqy2": {
+    "g": "宜昌",
+    "how": "city"
+   },
+   "hshuili1": {
+    "g": "成都",
+    "how": "city"
+   },
+   "hshuili2": {
+    "g": "西安",
+    "how": "city"
+   },
+   "hsilu1": {
+    "g": "嘉峪关",
+    "how": "city"
+   },
+   "hsilu2": {
+    "g": "西安",
+    "how": "city"
+   },
+   "hss1a": {
+    "g": "其他",
+    "how": "top11 之外并入（原 黄冈）"
+   },
+   "hss2a": {
+    "g": "杭州",
+    "how": "city"
+   },
+   "hss3a": {
+    "g": "成都",
+    "how": "city"
+   },
+   "htaierz1": {
+    "g": "其他",
+    "how": "top11 之外并入（原 徐州）"
+   },
+   "htaiz1": {
+    "g": "西安",
+    "how": "city"
+   },
+   "htaiz2": {
+    "g": "太原",
+    "how": "city"
+   },
+   "hwym1": {
+    "g": "贵阳",
+    "how": "city"
+   },
+   "hwym2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 余姚）"
+   },
+   "hwanli1": {
+    "g": "太原",
+    "how": "city"
+   },
+   "hwanli2": {
+    "g": "武夷山",
+    "how": "city"
+   },
+   "hwc1": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "hwc2": {
+    "g": "西宁",
+    "how": "city"
+   },
+   "hwzt1": {
+    "g": "洛阳",
+    "how": "city"
+   },
+   "hwzt2": {
+    "g": "广元",
+    "how": "city"
+   },
+   "hxinh1": {
+    "g": "武汉",
+    "how": "city"
+   },
+   "hxinh2": {
+    "g": "广州",
+    "how": "city"
+   },
+   "hxz1": {
+    "g": "西安",
+    "how": "city"
+   },
+   "hxx1": {
+    "g": "其他",
+    "how": "top11 之外并入（原 江阴）"
+   },
+   "hxx2": {
+    "g": "昆明",
+    "how": "city"
+   },
+   "hya1": {
+    "g": "延安",
+    "how": "city"
+   },
+   "hya2": {
+    "g": "西安",
+    "how": "city"
+   },
+   "hyl1": {
+    "g": "十堰",
+    "how": "city"
+   },
+   "hyl2": {
+    "g": "南京",
+    "how": "city"
+   },
+   "hyh1": {
+    "g": "扬州",
+    "how": "city"
+   },
+   "hyh2": {
+    "g": "通州",
+    "how": "city"
+   },
+   "hzq1": {
+    "g": "汉中",
+    "how": "city"
+   },
+   "hzq2": {
+    "g": "西安",
+    "how": "city"
+   },
+   "hzh1": {
+    "g": "南京",
+    "how": "city"
+   },
+   "hzh2": {
+    "g": "南京",
+    "how": "city"
+   },
+   "hzhux1": {
+    "g": "武夷山",
+    "how": "city"
+   },
+   "hzhux2": {
+    "g": "其他",
+    "how": "top11 之外并入（原 尤溪）"
+   },
+   "hzhu1": {
+    "g": "南京",
+    "how": "city"
+   },
+   "hzhu2": {
+    "g": "凤阳",
+    "how": "city"
+   },
+   "hsg1": {
+    "g": "武汉",
+    "how": "city"
+   },
+   "hsg2": {
+    "g": "成都",
+    "how": "city"
+   },
+   "htangxz1": {
+    "g": "西安",
+    "how": "city"
+   },
+   "htangxz2": {
+    "g": "西安",
+    "how": "city"
+   },
+   "hxbp1": {
+    "g": "石家庄",
+    "how": "city"
+   },
+   "hxbp2": {
+    "g": "石家庄",
+    "how": "city"
+   },
+   "hzhaoj1": {
+    "g": "呼和浩特",
+    "how": "city"
+   },
+   "hzhaoj2": {
+    "g": "兴山",
+    "how": "city"
+   },
+   "xz7": {
+    "g": "其他",
+    "how": "top11 之外并入（原 西藏）"
+   },
+   "njg8": {
+    "g": "南疆",
+    "how": "trips.name（引擎线，没有 itineraries 条目）"
+   },
+   "nm4": {
+    "g": "其他",
+    "how": "top11 之外并入（原 额济纳）"
+   },
+   "jz4": {
+    "g": "其他",
+    "how": "top11 之外并入（原 九寨沟）"
+   },
+   "xj10": {
+    "g": "其他",
+    "how": "top11 之外并入（原 北疆环线）"
+   },
+   "cd3": {
+    "g": "成都",
+    "how": "trips.name（引擎线，没有 itineraries 条目）"
+   },
+   "sh3": {
+    "g": "上海",
+    "how": "trips.name（引擎线，没有 itineraries 条目）"
+   },
+   "hz3": {
+    "g": "杭州",
+    "how": "trips.name（引擎线，没有 itineraries 条目）"
+   },
+   "sz3": {
+    "g": "苏州",
+    "how": "trips.name（引擎线，没有 itineraries 条目）"
+   },
+   "zjj4": {
+    "g": "张家界",
+    "how": "trips.name（引擎线，没有 itineraries 条目）"
+   },
+   "hk2": {
+    "g": "香港",
+    "how": "trips.name（引擎线，没有 itineraries 条目）"
+   },
+   "kansai4": {
+    "g": "大阪京都",
+    "how": "trips.name（引擎线，没有 itineraries 条目）"
+   },
+   "cbs3": {
+    "g": "其他",
+    "how": "top11 之外并入（原 长白山）"
+   },
+   "hrb3": {
+    "g": "哈尔滨",
+    "how": "trips.name（引擎线，没有 itineraries 条目）"
+   },
+   "qh5": {
+    "g": "青海湖",
+    "how": "trips.name（引擎线，没有 itineraries 条目）"
+   }
+  },
+  "stats": {
+   "anhui": {
+    "黄山": 8,
+    "其他": 6,
+    "合肥": 4,
+    "池州": 2,
+    "滁州": 2,
+    "芜湖": 2,
+    "阜阳": 2,
+    "亳州": 1,
+    "六安": 1,
+    "凤阳": 1,
+    "安庆": 1,
+    "宣城": 1
+   },
+   "australia": {
+    "乌鲁鲁": 1,
+    "凯恩斯": 1,
+    "悉尼": 1,
+    "朗塞斯顿": 1,
+    "特威德海德斯": 1,
+    "米尔迪拉": 1,
+    "金斯科特": 1,
+    "霍克": 1,
+    "霍巴特": 1
+   },
+   "austria": {
+    "萨尔茨堡": 2,
+    "克雷姆斯": 1,
+    "因斯布鲁克": 1,
+    "格拉茨": 1,
+    "维也纳": 1
+   },
+   "beijing": {
+    "北京": 19,
+    "平谷": 1,
+    "房山": 1,
+    "通州": 1,
+    "长线": 1,
+    "门头沟": 1
+   },
+   "belgium": {
+    "布鲁塞尔": 5,
+    "根特": 1
+   },
+   "bhutan": {
+    "廷布": 4,
+    "帕罗": 3
+   },
+   "cambodia": {
+    "暹粒": 3,
+    "贡布": 1,
+    "金边": 1
+   },
+   "canada": {
+    "温哥华": 2,
+    "卡尔加里": 1,
+    "埃德蒙顿": 1,
+    "夏洛特敦": 1,
+    "多伦多": 1,
+    "渥太华": 1,
+    "班夫": 1,
+    "蒙特利尔": 1
+   },
+   "chongqing": {
+    "重庆": 19,
+    "丰都": 2,
+    "其他": 2,
+    "奉节": 2,
+    "云阳": 1,
+    "北碚": 1,
+    "合川": 1,
+    "巫溪": 1,
+    "彭水": 1,
+    "武隆": 1,
+    "涪陵": 1,
+    "长线": 1
+   },
+   "croatia": {
+    "扎格拉布": 2,
+    "希贝尼克": 1,
+    "扎达尔": 1,
+    "杜布罗夫尼克": 1,
+    "罗维尼": 1,
+    "里耶卡": 1
+   },
+   "czech": {
+    "布拉格": 4,
+    "布尔诺": 1,
+    "比尔森": 1
+   },
+   "egypt": {
+    "开罗": 2,
+    "阿斯旺": 2,
+    "亚历山大": 1,
+    "卢克索": 1
+   },
+   "finland": {
+    "罗瓦涅米": 2,
+    "赫尔辛基": 2,
+    "图尔库": 1,
+    "坦佩雷": 1,
+    "奥卢": 1
+   },
+   "france": {
+    "巴黎": 2,
+    "图尔": 1,
+    "尼斯": 1,
+    "斯特拉斯堡": 1,
+    "波尔多": 1,
+    "里昂": 1,
+    "阿维尼翁": 1,
+    "霞慕尼": 1
+   },
+   "fujian": {
+    "其他": 8,
+    "厦门": 8,
+    "福州": 7,
+    "武夷山": 5,
+    "宁德": 3,
+    "泉州": 3,
+    "龙岩": 3,
+    "南平": 2,
+    "东山": 1,
+    "华安": 1,
+    "南靖": 1,
+    "长线": 1
+   },
+   "gansu": {
+    "兰州": 14,
+    "张掖": 6,
+    "其他": 5,
+    "天水": 4,
+    "平凉": 2,
+    "庆阳": 2,
+    "敦煌": 2,
+    "武威": 2,
+    "嘉峪关": 1,
+    "岷县": 1,
+    "永昌": 1,
+    "长线": 1
+   },
+   "georgia": {
+    "第比利斯": 3,
+    "库塔伊西": 1,
+    "斯特潘茨明达": 1,
+    "特拉维": 1
+   },
+   "germany": {
+    "慕尼黑": 3,
+    "柏林": 2,
+    "德累斯顿": 1,
+    "科隆": 1,
+    "纽伦堡": 1
+   },
+   "greece": {
+    "雅典": 4,
+    "伊拉克利翁": 1,
+    "纳夫普利翁": 1
+   },
+   "guangdong": {
+    "其他": 20,
+    "广州": 14,
+    "清远": 4,
+    "湛江": 4,
+    "潮州": 4,
+    "佛山": 3,
+    "惠州": 3,
+    "梅州": 3,
+    "汕头": 3,
+    "河源": 2,
+    "深圳": 2,
+    "长线": 1
+   },
+   "guangxi": {
+    "桂林": 9,
+    "南宁": 8,
+    "柳州": 5,
+    "北海": 3,
+    "百色": 3,
+    "其他": 2,
+    "梧州": 1,
+    "河池": 1,
+    "玉林": 1,
+    "贺州": 1,
+    "钦州": 1,
+    "长线": 1
+   },
+   "guizhou": {
+    "贵阳": 13,
+    "凯里": 5,
+    "遵义": 4,
+    "安顺": 3,
+    "其他": 2,
+    "铜仁": 2,
+    "六盘水": 1,
+    "兴义": 1,
+    "毕节": 1,
+    "荔波": 1,
+    "赤水": 1,
+    "长线": 1
+   },
+   "hainan": {
+    "海口": 7,
+    "三亚": 5,
+    "万宁": 2,
+    "五指山": 1,
+    "保亭": 1,
+    "儋州": 1,
+    "昌江": 1,
+    "琼海": 1,
+    "长线": 1,
+    "陵水": 1
+   },
+   "hebei": {
+    "石家庄": 8,
+    "保定": 4,
+    "其他": 4,
+    "张家口": 4,
+    "承德": 4,
+    "北京": 3,
+    "秦皇岛": 3,
+    "邯郸": 2,
+    "山海关": 1,
+    "怀来": 1,
+    "沧州": 1,
+    "长线": 1
+   },
+   "heilongjiang": {
+    "哈尔滨": 9,
+    "五大连池": 2,
+    "伊春": 2,
+    "佳木斯": 2,
+    "牡丹江": 2,
+    "塔河": 1,
+    "抚远": 1,
+    "漠河": 1,
+    "虎林": 1,
+    "黑河": 1,
+    "齐齐哈尔": 1
+   },
+   "henan": {
+    "郑州": 10,
+    "洛阳": 8,
+    "其他": 6,
+    "开封": 5,
+    "三门峡": 3,
+    "新乡": 3,
+    "信阳": 2,
+    "南阳": 2,
+    "安阳": 2,
+    "驻马店": 2,
+    "商丘": 1,
+    "长线": 1
+   },
+   "hongkong": {
+    "香港": 7,
+    "中环": 1,
+    "尖沙咀": 1,
+    "梅窝": 1,
+    "油塘": 1
+   },
+   "hubei": {
+    "武汉": 13,
+    "其他": 6,
+    "宜昌": 5,
+    "恩施": 3,
+    "荆州": 3,
+    "襄阳": 3,
+    "利川": 2,
+    "十堰": 2,
+    "蕲春": 2,
+    "长线": 2,
+    "兴山": 1,
+    "咸宁": 1
+   },
+   "hunan": {
+    "其他": 15,
+    "长沙": 6,
+    "郴州": 5,
+    "岳阳": 4,
+    "怀化": 3,
+    "凤凰": 2,
+    "常德": 2,
+    "张家界": 2,
+    "衡阳": 2,
+    "吉首": 1,
+    "株洲": 1,
+    "长线": 1
+   },
+   "iceland": {
+    "雷克雅未克": 5,
+    "阿克雷里": 1
+   },
+   "india": {
+    "德里": 2,
+    "大吉岭": 1,
+    "奥兰加巴德": 1,
+    "孟买": 1,
+    "本地治里": 1,
+    "瓦拉纳西": 1,
+    "艾哈迈达巴德": 1,
+    "苏鲁山谷": 1,
+    "阿姆利则": 1
+   },
+   "indonesia": {
+    "万隆": 1,
+    "巴厘岛": 1,
+    "拉布安巴焦": 1,
+    "日惹": 1,
+    "民丹岛": 1,
+    "索龙": 1,
+    "雅加达": 1
+   },
+   "ireland": {
+    "都柏林": 4,
+    "基拉尼": 1,
+    "多尼戈尔": 1,
+    "戈尔韦": 1
+   },
+   "italy": {
+    "卡利亚里": 1,
+    "卡塔尼亚": 1,
+    "威尼斯": 1,
+    "热那亚": 1,
+    "科尔蒂纳丹佩佐": 1,
+    "维罗纳": 1,
+    "罗马": 1,
+    "那不勒斯": 1,
+    "锡耶纳": 1
+   },
+   "japan": {
+    "其他": 5,
+    "东京": 3,
+    "广岛": 2,
+    "札幌": 2,
+    "河口湖": 2,
+    "京都": 1,
+    "仙台": 1,
+    "大阪": 1,
+    "大阪京都": 1,
+    "奈良": 1,
+    "山形": 1,
+    "松本": 1
+   },
+   "jiangsu": {
+    "南京": 15,
+    "苏州": 9,
+    "其他": 7,
+    "徐州": 4,
+    "扬州": 4,
+    "南通": 3,
+    "无锡": 3,
+    "盐城": 2,
+    "句容": 1,
+    "宿迁": 1,
+    "常州": 1,
+    "长线": 1
+   },
+   "jiangxi": {
+    "南昌": 8,
+    "其他": 6,
+    "九江": 5,
+    "井冈山": 3,
+    "萍乡": 3,
+    "赣州": 3,
+    "上饶": 2,
+    "吉安": 2,
+    "宜春": 2,
+    "抚州": 2,
+    "景德镇": 2,
+    "鹰潭": 2
+   },
+   "jilin": {
+    "长春": 5,
+    "吉林": 3,
+    "其他": 2,
+    "延吉": 2,
+    "通化": 2,
+    "二道白河": 1,
+    "抚松": 1,
+    "敦化": 1,
+    "松原": 1,
+    "沈阳": 1,
+    "珲春": 1,
+    "白城": 1
+   },
+   "jordan": {
+    "安曼": 5,
+    "亚喀巴": 1,
+    "卡拉克": 1
+   },
+   "kazakhstan": {
+    "阿拉木图": 5,
+    "奇姆肯特": 1,
+    "阿斯塔纳": 1
+   },
+   "korea": {
+    "首尔": 4,
+    "釜山": 2,
+    "全州": 1,
+    "大邱": 1,
+    "江陵": 1,
+    "济州": 1
+   },
+   "laos": {
+    "琅勃拉邦": 3,
+    "万荣": 1,
+    "万象": 1,
+    "川圹": 1,
+    "巴色": 1
+   },
+   "liaoning": {
+    "沈阳": 9,
+    "丹东": 3,
+    "大连": 2,
+    "本溪": 2,
+    "锦州": 2,
+    "鞍山": 2,
+    "凤城": 1,
+    "北镇": 1,
+    "朝阳": 1,
+    "葫芦岛": 1,
+    "辽阳": 1,
+    "长线": 1
+   },
+   "macau": {
+    "澳门": 6
+   },
+   "malaysia": {
+    "亚庇": 2,
+    "吉隆坡": 2,
+    "乔治市": 1,
+    "仙本那": 1,
+    "兰卡威": 1,
+    "古晋": 1,
+    "怡保": 1,
+    "马六甲": 1
+   },
+   "maldives": {
+    "马累": 2
+   },
+   "mexico": {
+    "坎昆": 1,
+    "墨西哥城": 1,
+    "恩塞纳达": 1,
+    "普埃布拉": 1,
+    "梅里达": 1,
+    "瓜纳华托": 1,
+    "瓜达拉哈拉": 1,
+    "瓦哈卡": 1
+   },
+   "mongolia": {
+    "乌兰巴托": 4,
+    "奥尔盖": 1,
+    "达兰扎达嘎德": 1
+   },
+   "morocco": {
+    "马拉喀什": 3,
+    "丹吉尔": 1,
+    "卡萨布兰卡": 1,
+    "舍夫沙万": 1,
+    "菲斯": 1
+   },
+   "neimenggu": {
+    "其他": 10,
+    "呼和浩特": 7,
+    "赤峰": 5,
+    "海拉尔": 4,
+    "锡林浩特": 3,
+    "乌海": 2,
+    "包头": 2,
+    "巴彦淖尔": 2,
+    "经棚": 2,
+    "通辽": 2,
+    "鄂尔多斯": 2,
+    "长线": 2
+   },
+   "nepal": {
+    "加德满都": 4,
+    "博卡拉": 1,
+    "索拉哈": 1
+   },
+   "netherlands": {
+    "阿姆斯特丹": 3,
+    "海牙": 1,
+    "豪达": 1,
+    "马斯特里赫特": 1,
+    "鹿特丹": 1
+   },
+   "newzealand": {
+    "基督城": 2,
+    "奥克兰": 2,
+    "但尼丁": 1,
+    "惠灵顿": 1,
+    "派希亚": 1,
+    "皇后镇": 1
+   },
+   "ningxia": {
+    "银川": 10,
+    "固原": 3,
+    "中卫": 2,
+    "吴忠": 1,
+    "海原": 1
+   },
+   "norway": {
+    "利勒哈默尔": 1,
+    "卑尔根": 1,
+    "奥勒松": 1,
+    "奥斯陆": 1,
+    "斯塔万格": 1,
+    "特隆赫姆": 1
+   },
+   "peru": {
+    "库斯科": 3,
+    "利马": 2,
+    "阿雷基帕": 1
+   },
+   "philippines": {
+    "碧瑶": 2,
+    "宿务": 1,
+    "爱妮岛": 1,
+    "维甘": 1,
+    "长滩岛": 1,
+    "马尼拉": 1
+   },
+   "portugal": {
+    "里斯本": 3,
+    "埃武拉": 1,
+    "拉古什": 1,
+    "波尔图": 1,
+    "科英布拉": 1
+   },
+   "qinghai": {
+    "西宁": 19,
+    "格尔木": 3,
+    "长线": 2,
+    "共和": 1,
+    "同仁": 1,
+    "海东": 1,
+    "玉树": 1,
+    "玛多": 1,
+    "门源": 1,
+    "青海湖": 1
+   },
+   "shaanxi": {
+    "西安": 33,
+    "汉中": 5,
+    "延安": 3,
+    "榆林": 3,
+    "咸阳": 1,
+    "商洛": 1,
+    "安康": 1,
+    "宝鸡": 1,
+    "洛川": 1,
+    "渭南": 1,
+    "韩城": 1
+   },
+   "shandong": {
+    "其他": 9,
+    "济南": 9,
+    "青岛": 5,
+    "泰安": 4,
+    "烟台": 4,
+    "淄博": 3,
+    "临沂": 2,
+    "日照": 2,
+    "枣庄": 2,
+    "潍坊": 2,
+    "聊城": 2,
+    "长线": 1
+   },
+   "shanghai": {
+    "上海": 11,
+    "崇明": 1,
+    "松江": 1,
+    "金山": 1
+   },
+   "shanxi": {
+    "太原": 13,
+    "大同": 8,
+    "其他": 4,
+    "晋城": 4,
+    "运城": 3,
+    "临汾": 2,
+    "忻州": 2,
+    "北京": 1,
+    "平遥": 1,
+    "新乡": 1,
+    "离石": 1,
+    "长线": 1
+   },
+   "sichuan": {
+    "成都": 31,
+    "其他": 22,
+    "宜宾": 4,
+    "广元": 4,
+    "长线": 4,
+    "乐山": 2,
+    "广安": 2,
+    "攀枝花": 2,
+    "绵阳": 2,
+    "自贡": 2,
+    "雅安": 2,
+    "丹巴": 1
+   },
+   "singapore": {
+    "新加坡": 7
+   },
+   "southafrica": {
+    "开普敦": 3,
+    "约翰内斯堡": 2,
+    "乔治": 1,
+    "德班": 1
+   },
+   "spain": {
+    "巴塞罗那": 2,
+    "加的斯": 1,
+    "圣塞巴斯蒂安": 1,
+    "塞维利亚": 1,
+    "奥维耶多": 1,
+    "帕尔马": 1,
+    "马德里": 1
+   },
+   "srilanka": {
+    "科伦坡": 3,
+    "康提": 2,
+    "贾夫纳": 1,
+    "锡吉里耶": 1
+   },
+   "switzerland": {
+    "苏黎世": 2,
+    "卢塞恩": 1,
+    "因特拉肯": 1,
+    "日内瓦": 1
+   },
+   "taiwan": {
+    "台北": 7,
+    "嘉义": 2,
+    "高雄": 2,
+    "台东": 1,
+    "台中": 1,
+    "台南": 1,
+    "埔里": 1,
+    "花莲": 1
+   },
+   "thailand": {
+    "曼谷": 4,
+    "清迈": 2,
+    "华欣": 1,
+    "大城": 1,
+    "普吉岛": 1,
+    "涛岛": 1,
+    "清莱": 1,
+    "甲米": 1,
+    "素可泰": 1,
+    "苏梅岛": 1,
+    "象岛": 1
+   },
+   "tianjin": {
+    "天津": 10
+   },
+   "turkey": {
+    "伊斯坦布尔": 2,
+    "代尼兹利": 1,
+    "伊兹密尔": 1,
+    "内夫谢希尔": 1,
+    "奥尔杜": 1,
+    "安卡拉": 1,
+    "安塔利亚": 1,
+    "布尔萨": 1
+   },
+   "uae": {
+    "迪拜": 4,
+    "艾因": 1,
+    "阿布扎比": 1
+   },
+   "uk": {
+    "伦敦": 2,
+    "利物浦": 1,
+    "剑桥": 1,
+    "斯托诺韦": 1,
+    "爱丁堡": 1,
+    "牛津": 1,
+    "赫尔": 1
+   },
+   "usa": {
+    "其他": 15,
+    "拉斯维加斯": 3,
+    "休斯敦": 1,
+    "优胜美地谷": 1,
+    "俄克拉何马城": 1,
+    "匹兹堡": 1,
+    "华盛顿": 1,
+    "卡利斯佩尔": 1,
+    "卡胡鲁伊": 1,
+    "圣克鲁斯": 1,
+    "圣菲": 1,
+    "奥兰多": 1
+   },
+   "uzbekistan": {
+    "塔什干": 2,
+    "布哈拉": 1,
+    "希瓦": 1,
+    "撒马尔罕": 1,
+    "科坎德": 1
+   },
+   "vietnam": {
+    "河内": 3,
+    "岘港": 2,
+    "富国岛": 1,
+    "归仁": 1,
+    "沙坝": 1,
+    "美奈": 1,
+    "胡志明市": 1,
+    "芽庄": 1,
+    "顺化": 1
+   },
+   "xinjiang": {
+    "乌鲁木齐": 12,
+    "其他": 9,
+    "喀什": 9,
+    "伊宁": 5,
+    "阿勒泰": 3,
+    "克拉玛依": 2,
+    "库尔勒": 2,
+    "库车": 2,
+    "阿克苏": 2,
+    "南疆": 1,
+    "博乐": 1,
+    "长线": 1
+   },
+   "xizang": {
+    "拉萨": 12,
+    "其他": 4,
+    "林芝": 4,
+    "日喀则": 3,
+    "塔钦": 1,
+    "山南": 1,
+    "成都": 1,
+    "改则": 1,
+    "昌都": 1,
+    "江孜": 1,
+    "芒康": 1,
+    "长线": 1
+   },
+   "yunnan": {
+    "其他": 17,
+    "昆明": 13,
+    "大理": 11,
+    "丽江": 5,
+    "昭通": 3,
+    "长线": 3,
+    "香格里拉": 3,
+    "临沧": 2,
+    "云龙": 2,
+    "文山": 2,
+    "普洱": 2,
+    "景洪": 2
+   },
+   "zhejiang": {
+    "其他": 13,
+    "杭州": 13,
+    "宁波": 4,
+    "温州": 4,
+    "湖州": 4,
+    "绍兴": 4,
+    "舟山": 3,
+    "金华": 3,
+    "丽水": 2,
+    "苏州": 2,
+    "衢州": 2,
+    "长线": 1
+   }
+  }
+ }
+}

@@ -155,7 +155,7 @@ with sync_playwright() as p:
             errs = judge(tid, date, d)
             # c. 顶部提醒的出现 = 真有撞上的闭馆日
             has_clw = bool(d['clw']) or any('这天是周' in x for x in d['mons'])
-            if has_clw and not d['top'] and any('闭馆' in x for x in d['clw'] + d['mons']): errs.append('当天有闭馆红字但顶部没有提醒')
+            if has_clw and not d['top'] and any('闭馆' in x and '这类博物馆有' not in x for x in d['clw'] + d['mons']): errs.append('当天有闭馆红字但顶部没有提醒')   # 软提示（没标周一闭馆的馆）只在当天，不上页头
             if d['top']: with_top += 1
             if errs: fails.append((tid, date.isoformat(), errs[:2]))
             c.close()

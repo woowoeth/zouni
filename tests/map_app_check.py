@@ -10,10 +10,9 @@
 M1  一步直达整屏：点一次进入；覆盖整个视口；占一条历史，history.back() 关闭并回到原滚动位置；“×”也行；页面里没有内嵌地图
 M2  手势：单指拖动改变中心；双指缩放以手指中心（落在站点方块上也一样）；双击放大；双指轻点缩小；旋转默认关；cooperativeGestures 关；
     不滚页面、不缩页面（scrollY 不变、visualViewport.scale 恒为 1、滚轮也不行）；touch-action:none；点空白取消选中
-M3  底部面板：默认档（高屏半屏 / 矮屏收起）；三档吸附；快速划走下一档；半屏时地图可见 ≥ 视口 45%；拉满后列表自己滚、滚到顶继续下拉才收起；
-    标签条选中整块反白且始终在可视范围、横向可滑；信息头红色衬线大数字；站点行 = 序号 + 名字 + 一句话 + 小标签 + 到下一站多久；只有一个墨色主按钮
-M4  联动：点标记 → 地图飞过去（落点在露出来的地图中央、缩放 12–15）+ 面板换成站点卡片；点列表同；卡片左右滑切上 / 下一站；点空白回列表；
-    整屏期间页面 scrollY 不变；关闭后页面滚到刚才那一站并高亮；灰点“顺路可去”：卡片有“+N 分钟”和“加到这天”（可撤销）；改行程后图自己重画
+M3  底部条（2026-10-18，地图下面的行程去掉）：固定高度 168 + safe-bottom、没有三档 / 拖动手柄 / 任何列表；天标签条选中整块反白且始终在可视范围；一行信息 = 页面每天那一行；只有一个墨色主按钮
+M4  联动：点标记 → 地图飞过去（落点在露出来的地图中央、缩放 12–15）+ 底部条换成站点卡片（高度不变）；卡片左右滑切上 / 下一站；“在行程里看 ›”= 关掉地图、页面滚到那一行并高亮；
+    点空白回当天；整屏期间页面 scrollY 不变；灰点“顺路可去”：卡片有“+N 分钟”和“加到这天”（可撤销）；页面里改行程后开着的地图自己重画
 M5  控件：全部 ≥44×44、在视口里、没被盖住；底部没有固定栏；拉满时右侧控件让开；署名默认收起；指北针只在旋转后出现；回到视野；放大缩小到头置灰
 M6  加载：点开 300ms 内就有示意图 + 线路 + 面板；有进度提示；瓦片全失败 → 示意图 + 重试（重试真能再来一次）；样式取不到 → 示意图；断网直接示意图；联网自动重试
 M7  点开前零请求；点开后才取；空闲预取只在 4g / wifi 且非省流量（省流量 / 3g / 不明时按规则少取或不取）
@@ -31,11 +30,8 @@ from map_touch import Touch
 INJ = {
     # —— routemap.js 行为 ——
     'coop_on': ('assets/routemap.js', "cooperativeGestures: false,", "cooperativeGestures: true,"),                                  # 整屏里又要两根手指
-    'snap_off': ('assets/routemap.js', "      snapTo(inst, best, true);\n      if (inst.mode === 'list')", "      setSheet(inst, inst.sheetH, false);\n      if (inst.mode === 'list')"),                  # 松手不吸附
-    'half_tall': ('assets/routemap.js', "var c = grab + tabs + sum + sb, full = H - inst.st - 64, half = Math.round(H * .5);", "var c = grab + tabs + sum + sb, full = H - inst.st - 64, half = Math.round(H * .78);"),   # 半屏太高，地图只剩 22%
-    'no_handoff': ('assets/routemap.js', "if (g.list && inst.snap === d.length - 1 && inst.bodyEl.scrollTop <= 0 && y > g.lastY + 1) {", "if (false) {"),     # 列表滚到顶继续下拉不收面板
     'fly_off': ('assets/routemap.js', "    inst.view.fly(cam, 650);\n  }", "  }"),                                                  # 点站点地图不飞过去
-    'row_back_off': ('assets/routemap.js', "    p.row.classList.add('flash'); setTimeout(function () { p.row.classList.remove('flash'); }, 1600);\n  }\n  function closeInst", "  }\n  function closeInst"),   # 关闭后页面不滚到那一站
+    'row_back_off': ('assets/routemap.js', "    row.classList.add('flash'); setTimeout(function () { row.classList.remove('flash'); }, 1600);\n  }\n  function closeInst", "  }\n  function closeInst"),   # 关闭后页面不滚到那一站
     'no_lock': ('assets/site.css', "body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}", "body.rm-lock{}"),                                    # 整屏时页面还能滚（锁滚动的样式没了；起步壳和 routemap.js 两处都加类，所以注入点放在 CSS）
     'retry_off': ('assets/routemap.js', "      if (t.closest('.rm-rt')) { retry(inst); return; }\n", ""),                                       # 重试按钮不起作用
     'card_swipe_off': ('assets/routemap.js', "      if (inst.progScroll || !(down || now() < until)) return; clearTimeout(t);", "      return; clearTimeout(t);"),                      # 卡片左右滑不换站
@@ -45,7 +41,6 @@ INJ = {
     'pinch_page': ('assets/site.css', ".rm.rm-fs{position:fixed;left:0;top:0;right:0;bottom:0;z-index:45;background:var(--card);overflow:hidden;touch-action:none;", ".rm.rm-fs{position:fixed;left:0;top:0;right:0;bottom:0;z-index:45;background:var(--card);overflow:hidden;touch-action:auto;"),   # 整屏层不禁手势（页面能缩放 / 滚）
     'x_small': ('assets/site.css', ".rm .rm-x{left:8px;top:calc(8px + env(safe-area-inset-top,0px));", ".rm .rm-x{width:30px;height:30px;left:8px;top:calc(8px + env(safe-area-inset-top,0px));"),   # 关闭键缩小
     'dock_show': ('assets/site.css', "body.rmap-on .dock{display:none}", ""),                                                          # 底部固定栏还在
-    'col_full': ('assets/site.css', ".rm.rm-sfull .rm-col,.rm.rm-sfull .rm-at{opacity:0;visibility:hidden;pointer-events:none}", ""),   # 拉满时右侧控件不让开
     'mk_auto': ('assets/site.css', ".rm .rm-pts>*{position:absolute;left:0;top:0;pointer-events:none}", ".rm .rm-pts>*{position:absolute;left:0;top:0;pointer-events:auto}"),   # 标记又抢手指
     'tap_radius': ('assets/routemap.js', "if (d <= (m.small ? 20 : 26)) c.push({ m: m, d: d });", "if (d <= (m.small ? 4 : 6)) c.push({ m: m, d: d });"),                    # 点按范围缩成几个像素
     'no_dense': ('assets/routemap.js', "m.small = tight; m.el.classList.toggle('rm-sm', tight);", "m.small = false;"),                                        # 挤在一起也不缩小
@@ -245,52 +240,21 @@ with sync_playwright() as p:
 
     # ─────────── M3 底部面板
     if want('M3'):
-        with guard('M3a'):
+        with guard('M3a'):      # 2026-10-18：底部条固定高度，没有三档 / 拖动 / 列表
             c, sb = mk(br); pg = new_page(env, c); T = Touch(c, pg); goto(env, pg, '/trip/xb96a/', 900)
             open_ov(pg, False); pg.wait_for_timeout(700)
             s = state(pg); H = s['vh']
-            check('M3a 高屏（%d）默认半屏（snap=1，高度 %d ≈ 视口一半）、地图可见 %d%% ≥ 45%%' % (H, s['sh'], round((H - s['sh']) * 100 / H)), s['snap'] == 1 and abs(s['sh'] - H * .5) <= 3 and (H - s['sh']) >= H * .45, s)
-            shot(pg, 'ov105_half.png')
-            T.drag(200, 470, 200, 470 - 60, steps=10, dt=0.08, hold=0.15); pg.wait_for_timeout(700); s1 = state(pg)
-            check('M3b 慢拖 60px 松手：吸附回最近一档（半屏 %d → %d）' % (s['sh'], s1['sh']), s1['snap'] == 1 and abs(s1['sh'] - s['sh']) <= 3, s1)
-            T.drag(200, 470, 200, 150, steps=14, dt=0.08, hold=0.15); pg.wait_for_timeout(800); s2 = state(pg)
-            check('M3c 慢拖到顶：吸附到拉满（snap=%d，高度 %d）' % (s2['snap'], s2['sh']), s2['snap'] == 2 and s2['sh'] > H * .8, s2)
-            shot(pg, 'ov105_full.png')
-            T.drag(200, 120, 200, 520, steps=14, dt=0.08, hold=0.15); pg.wait_for_timeout(800); s3 = state(pg)
-            check('M3d 在标题条慢拖下来：回到半屏（snap=%d，高度 %d）' % (s3['snap'], s3['sh']), s3['snap'] == 1, s3)
-            T.drag(200, 470, 200, 760, steps=12, dt=0.08, hold=0.15); pg.wait_for_timeout(800); s4 = state(pg)
-            check('M3e 再往下拖：收起（snap=%d，高度 %d：只露标签条 + 一条）' % (s4['snap'], s4['sh']), s4['snap'] == 0 and s4['sh'] < 150, s4)
-            shot(pg, 'ov105_collapsed.png')
-            T.drag(200, 760, 200, 640, steps=3, dt=0.005); pg.wait_for_timeout(800); s5 = state(pg)
-            check('M3f 快速上划（只划了 120px 但很快）：直接到下一档（snap %d → %d）' % (s4['snap'], s5['snap']), s5['snap'] >= 1, s5)
-            # 拉满以后：列表自己滚；滚到顶继续下拉才收起
-            T.drag(200, 560, 200, 150, steps=8, dt=0.012); pg.wait_for_timeout(800)
-            if state(pg)['snap'] != 2: T.drag(200, 560, 200, 150, steps=8, dt=0.012); pg.wait_for_timeout(800)
-            pg.evaluate("document.querySelector('.rm-body').scrollTop=300"); pg.wait_for_timeout(200)
-            sc0 = pg.evaluate("document.querySelector('.rm-body').scrollTop")
-            T.drag(200, 300, 200, 360, steps=8, dt=0.08, hold=0.1); pg.wait_for_timeout(600)
-            st_ = state(pg); sc1 = pg.evaluate("document.querySelector('.rm-body').scrollTop")
-            check('M3g 拉满、列表没滚到顶时下拉：列表往回滚（%d → %d），面板不动（snap=%d）' % (sc0, sc1, st_['snap']), st_['snap'] == 2 and sc1 < sc0, (sc0, sc1, st_))
-            pg.evaluate("document.querySelector('.rm-body').scrollTop=0"); pg.wait_for_timeout(200)
-            T.drag(200, 300, 200, 760, steps=14, dt=0.08, hold=0.1); pg.wait_for_timeout(900); st2 = state(pg)
-            check('M3h 列表在顶部继续下拉：面板收下来（snap 2 → %d，高度 %d）' % (st2['snap'], st2['sh']), st2['snap'] < 2, st2)
-            pg.evaluate("document.querySelector('.rm-body').scrollTop=0")
-            T.drag(200, 500, 200, 100, steps=10, dt=0.08, hold=0.1); pg.wait_for_timeout(800)
-            pg.evaluate("document.querySelector('.rm-body').scrollTop=250"); pg.wait_for_timeout(200)
-            sc0 = pg.evaluate("document.querySelector('.rm-body').scrollTop")
-            T.drag(200, 300, 200, 260, steps=6, dt=0.08, hold=0.1); pg.wait_for_timeout(500)
-            sc1 = pg.evaluate("document.querySelector('.rm-body').scrollTop"); st3 = state(pg)
-            check('M3i 拉满时上划：列表往下滚（%d → %d），面板仍是拉满（snap=%d）' % (sc0, sc1, st3['snap']), st3['snap'] == 2 and sc1 > sc0, (sc0, sc1, st3))
-            # 同一次手势里接力：列表只滚了一点，一路下拉 → 先滚回顶、再接着把面板收下来
-            pg.evaluate("document.querySelector('.rm-body').scrollTop=70"); pg.wait_for_timeout(200)
-            T.drag(200, 300, 200, 780, steps=16, dt=0.08, hold=0.1); pg.wait_for_timeout(1000)
-            st4 = state(pg); sc4 = pg.evaluate("document.querySelector('.rm-body').scrollTop")
-            check('M3i2 拉满、列表只滚了 70px 时一路下拉（一次手势）：列表先滚回顶（%d），到顶以后继续下拉就把面板收下来（snap 2 → %d）' % (sc4, st4['snap']), sc4 == 0 and st4['snap'] < 2, (sc4, st4))
+            check('M3a 底部条固定高度（%d = 168 + safe-bottom），地图可见 %d%%；没有拖动手柄 / 三档 / 列表（.rm-grab、li、ol、ul = %s）' % (s['sh'], round((H - s['sh']) * 100 / H), pg.evaluate("[document.querySelectorAll('.rm-grab').length,document.querySelectorAll('.rm li,.rm ol,.rm ul,.rm .rm-row').length]")), s['sh'] == 168 and (H - s['sh']) >= H * .75 and pg.evaluate("document.querySelectorAll('.rm-grab,.rm li,.rm ol,.rm ul,.rm .rm-row').length") == 0, s)
+            shot(pg, 'ov105_bar.png')
+            T.drag(200, 770, 200, 450, steps=10, dt=0.03); pg.wait_for_timeout(600); s1 = state(pg)
+            check('M3b 在条上上拖 / 下拖：条不动（高度 %d → %d）、没有变成别的东西' % (s['sh'], s1['sh']), s1['sh'] == s['sh'], s1)
+            d0 = pg.evaluate("(function(){var r=document.querySelector('.rm-tabs').getBoundingClientRect();return [r.height,document.querySelector('.rm-navd').textContent]})()")
+            check('M3b2 条里：天标签条 %dpx + 一行信息 + 一个主按钮“%s”' % (d0[0], d0[1]), 44 <= d0[0] <= 46 and d0[1].startswith('导航'), d0)
             c.close()
         with guard('M3b'):
             c, sb = mk(br, h=640); pg = new_page(env, c); goto(env, pg, '/trip/xa3/', 600)
             open_ov(pg, False); pg.wait_for_timeout(500); s = state(pg)
-            check('M3j 矮屏（%d）默认收起（snap=%d），地图主体可见（%d%%）' % (s['vh'], s['snap'], round((s['vh'] - s['sh']) * 100 / s['vh'])), s['snap'] == 0 and (s['vh'] - s['sh']) >= s['vh'] * .75, s)
+            check('M3j 矮屏（%d）底部条还是同一个高度（%d），地图主体可见（%d%%）' % (s['vh'], s['sh'], round((s['vh'] - s['sh']) * 100 / s['vh'])), s['sh'] == 168 and (s['vh'] - s['sh']) >= s['vh'] * .7, s)
             c.close()
         with guard('M3c'):
             c, sb = mk(br); pg = new_page(env, c); goto(env, pg, '/trip/xb96a/', 900)
@@ -304,20 +268,14 @@ with sync_playwright() as p:
         with guard('M3d'):
             c, sb = mk(br); pg = new_page(env, c); goto(env, pg, '/trip/xa3/', 700)
             open_day(pg, 2); pg.wait_for_timeout(600)
-            o = pg.evaluate("""(function(){var cs=function(s){var e=document.querySelector(s);return e?getComputedStyle(e):null},no=cs('.rm-hd .rm-no'),t=cs('.rm-hd b'),red=getComputedStyle(document.documentElement).getPropertyValue('--red').trim();
-              var probe=document.createElement('i');probe.style.color=red;document.body.appendChild(probe);var redc=getComputedStyle(probe).color;probe.remove();
-              var rows=[].slice.call(document.querySelectorAll('.rm-row[data-n]')),r0=rows[0];
-              return {noFont:no.fontFamily,noColor:no.color,red:redc,noSize:parseFloat(no.fontSize),tFont:t.fontFamily,ld:(document.querySelector('.rm-ld')||{}).textContent||'',nrows:rows.length,
-                idx:getComputedStyle(r0.querySelector('b')).fontFamily,idxColor:getComputedStyle(r0.querySelector('b')).color,name:r0.querySelector('strong').textContent,one:r0.querySelector('small').textContent,
-                tags:[].map.call(document.querySelectorAll('.rm-row .rm-r em'),function(e){return e.textContent}),legs:[].map.call(document.querySelectorAll('.rm-row .rm-r i'),function(e){return e.textContent}),
-                nav:(document.querySelector('.rm-navd')||{}).textContent,navBg:getComputedStyle(document.querySelector('.rm-navd')).backgroundColor,
-                hasAdjText:/调整/.test(document.querySelector('.rm-body').textContent)}})()""")
-            check('M3l 信息头：红色衬线大数字（%s %spx，%s）+ 衬线标题 + “今天：…”（%s）' % (o['noFont'][:20], o['noSize'], o['noColor'], o['ld'][:20]), 'Serif' in o['noFont'] and o['noColor'] == o['red'] and o['noSize'] >= 36 and 'Serif' in o['tFont'] and o['ld'].startswith('今天：'), o)
-            check('M3m 站点行：红色衬线序号 + 名字（%s）+ 一句话（%s）+ 小标签 %s + 到下一站多久 %s' % (o['name'], o['one'][:20], o['tags'][:3], o['legs'][:2]), 'Serif' in o['idx'] and o['idxColor'] == o['red'] and bool(o['name']) and bool(o['one']) and '要预约' in o['tags'] and any(re.search(r'(步行|打车|开车|自驾)', x) for x in o['legs']) and not o['hasAdjText'], o)
+            o = pg.evaluate("""(function(){var l=document.querySelector('.rm-ld'),b=l&&l.querySelector('b');
+              return {ld:l?l.textContent:'',bf:b?getComputedStyle(b).fontFamily:'',nav:(document.querySelector('.rm-navd')||{}).textContent,navBg:getComputedStyle(document.querySelector('.rm-navd')).backgroundColor,
+                dl:(document.querySelector('#d2 .dload')||{}).textContent||''}})()""")
+            check('M3l 一行信息：衬线“第 2 天 · 标题”+“今天：…”（%s），数字 = 页面每天那一行（%s）' % (o['ld'][:40], o['dl']), 'Serif' in o['bf'] and o['ld'].startswith('第 2 天 · ') and '今天：' in o['ld'] and o['ld'].strip().endswith(o['dl'].strip()), o)
             ink = pg.evaluate("(function(){var probe=document.createElement('i');probe.style.color=getComputedStyle(document.documentElement).getPropertyValue('--ink').trim();document.body.appendChild(probe);var c=getComputedStyle(probe).color;probe.remove();return c})()")
             btns = pg.evaluate("[].filter.call(document.querySelectorAll('.rm-sht button,.rm-sht a.btn'),function(b){var r=b.getBoundingClientRect(),y=getComputedStyle(b);return r.width>0&&r.height>0&&y.backgroundColor==='%s'&&b.closest('.rm-tabs')===null}).map(function(b){return b.textContent.trim()})" % ink)
             check('M3n 底部只有一个墨色方形主按钮“导航这一天”（%s）' % btns, btns == ['导航这一天 ›'] and o['navBg'] == ink, (btns, o['navBg'], ink))
-            shot(pg, 'day2_half.png')
+            shot(pg, 'day2_bar.png')
             c.close()
 
     # ─────────── M4 联动
@@ -332,11 +290,11 @@ with sync_playwright() as p:
             cname = pg.evaluate("(document.querySelector('.rm-card[data-n=\"2\"] .rm-cname')||{}).textContent")
             pos = pg.evaluate("(function(){var z=ZRM.cur(),p=z.days[z.sel].pts[1],q=z.view.project(p.ll);return {x:q.x,y:q.y}})()")
             vis_b = 844 - s1['sh'] - 20; cy_ = 60 + (vis_b - 60) / 2; cx_ = 195 + (36 - 88) / 2
-            check('M4a 点地图上第 2 站的方块：面板换成该站卡片（cur=%d，mode=%s，标题“%s”）' % (s1['cur'], s1['mode'], cname), s1['cur'] == 2 and s1['mode'] == 'card' and cname == names[1], (s1, cname))
+            check('M4a 点地图上第 2 站的方块：底部条换成该站卡片（cur=%d，mode=%s，标题“%s”）' % (s1['cur'], s1['mode'], cname), s1['cur'] == 2 and s1['mode'] == 'card' and cname == names[1], (s1, cname))
             check('M4b 地图平滑飞到该站：落点在露出来的地图中央（偏 %.0f,%.0f px）、缩放 %.1f 在 12–15' % (pos['x'] - cx_, pos['y'] - cy_, s1['z']), abs(pos['x'] - cx_) < 45 and abs(pos['y'] - cy_) < 70 and 11.99 <= s1['z'] <= 15.01, (pos, cx_, cy_, s1['z']))
             check('M4c 联动期间页面不动（scrollY=%s，body.top %s → %s）' % (s1['sy'], s0['top'], s1['top']), s1['sy'] == 0 and s0['top'] == s1['top'] and s0['top'] < -100, (s0, s1))
-            card = pg.evaluate("""(function(){var c=document.querySelector('.rm-card[data-n="2"]');return {name:c.querySelector('.rm-cname').textContent,one:(c.querySelector('.rm-c1')||{}).textContent||'',tags:[].map.call(c.querySelectorAll('.rm-c2 em'),function(e){return e.textContent}),legs:(c.querySelector('.rm-c3')||{}).textContent||'',go:c.querySelector('.rm-go').textContent,adj:c.querySelector('.rm-adj2').textContent,back:c.querySelector('.rm-cb').textContent}})()""")
-            check('M4d 卡片内容：名字 / 一句话 / 小标签 / 距上一站·下一站的路程 / 导航到这里 / 调整这一站 / 全部站点（%s）' % card, bool(card['one']) and '上一站' in card['legs'] and '下一站' in card['legs'] and '直线' in card['legs'] and card['go'] == '导航到这里' and card['adj'] == '调整这一站' and card['back'] == '全部站点', card)
+            card = pg.evaluate("""(function(){var c=document.querySelector('.rm-card[data-n="2"]');return {name:c.querySelector('.rm-cname').textContent,one:(c.querySelector('.rm-c1')||{}).textContent||'',legs:(c.querySelector('.rm-c3')||{}).textContent||'',btns:[].map.call(c.querySelectorAll('button[data-act]'),function(b){return b.textContent.trim()}),h:document.querySelector('.rm-sht').getBoundingClientRect().height}})()""")
+            check('M4d 卡片内容：名字 / 一句话 / 小标签 + 距上一站·下一站的车程 / “在行程里看 ›” / “导航到这里” / 回当天（%s），条高度不变（%d）' % (card, card['h']), bool(card['one']) and '距上一站' in card['legs'] and '距下一站' in card['legs'] and '在行程里看 ›' in card['btns'] and '导航到这里' in card['btns'] and any('回当天' in b for b in card['btns']) and round(card['h']) == s0['sh'], card)
             shot(pg, 'card.png')
             T.drag(320, 740, 60, 740, steps=8, dt=0.012); pg.wait_for_timeout(1700); s2 = state(pg)
             pos3 = pg.evaluate("(function(){var z=ZRM.cur(),p=z.days[z.sel].pts[2],q=z.view.project(p.ll);return {x:q.x,y:q.y}})()")
@@ -345,14 +303,11 @@ with sync_playwright() as p:
             check('M4f 卡片向右滑：回到上一站（cur → %d）' % s3['cur'], s3['cur'] == 2, s3)
             # 点列表同理
             T.tap(80, 180); pg.wait_for_timeout(1000); s4 = state(pg)       # 点空白 → 回到列表
-            check('M4g 点地图空白处：取消选中、面板回到列表（cur=%d，mode=%s，高度 %d = 进卡片前的半屏）' % (s4['cur'], s4['mode'], s4['sh']), s4['cur'] == 0 and s4['mode'] == 'list' and s4['snap'] == 1, s4)
-            pg.click('.rm-row[data-n="3"]'); pg.wait_for_timeout(1700); s5 = state(pg)
-            pos3 = pg.evaluate("(function(){var z=ZRM.cur(),p=z.days[z.sel].pts[2],q=z.view.project(p.ll);return {x:q.x,y:q.y}})()")
-            check('M4h 点列表第 3 行：同样切到卡片、地图飞过去（cur=%d，偏 %.0f,%.0f px）' % (s5['cur'], pos3['x'] - cx_, pos3['y'] - cy_), s5['cur'] == 3 and s5['mode'] == 'card' and abs(pos3['x'] - cx_) < 45 and abs(pos3['y'] - cy_) < 70, (s5, pos3))
-            # 关闭后页面滚到那一站
-            pg.click('.rm-x'); pg.wait_for_timeout(900)
-            r = pg.evaluate("""(function(){var rows=[].filter.call(document.querySelectorAll('#d1 .tl > .r[data-ll]'),function(r){return !r.hidden}),r=rows[2],b=r.getBoundingClientRect();return {top:b.top,ih:innerHeight,flash:r.classList.contains('flash'),sy:scrollY}})()""")
-            check('M4i 关闭后页面滚到刚才选中的第 3 站那一行（离视口顶 %d px）并高亮（flash=%s）' % (r['top'], r['flash']), 0 <= r['top'] < r['ih'] - 40 and r['flash'], r)
+            check('M4g 点地图空白处：取消选中、底部条回到当天那一行（cur=%d，mode=%s，高度 %d）' % (s4['cur'], s4['mode'], s4['sh']), s4['cur'] == 0 and s4['mode'] == 'day' and s4['sh'] == s0['sh'], s4)
+            mp = mark_px(pg, 3); T.tap(mp[0], mp[1]); pg.wait_for_timeout(1500)
+            pg.click('.rm-card[data-n="3"] button[data-act="see"]'); pg.wait_for_timeout(1200)      # 在行程里看 ›：关掉地图、页面滚到那一站
+            r = pg.evaluate("""(function(){var rows=[].filter.call(document.querySelectorAll('#d1 .tl > .r[data-ll]'),function(r){return !r.hidden}),r=rows[2],b=r.getBoundingClientRect();return {top:b.top,ih:innerHeight,flash:r.classList.contains('flash'),sy:scrollY,map:!!document.querySelector('.rm')}})()""")
+            check('M4i “在行程里看 ›”：地图关了（%s）、页面滚到刚才选中的第 3 站那一行（离视口顶 %d px）并高亮（flash=%s）' % (r['map'], r['top'], r['flash']), not r['map'] and 0 <= r['top'] < r['ih'] - 40 and r['flash'], r)
             c.close()
         with guard('M4b'):
             c, sb = mk(br); pg = new_page(env, c); T = Touch(c, pg); goto(env, pg, '/trip/xa3/', 700)
@@ -374,25 +329,23 @@ with sync_playwright() as p:
                     shot(pg, 'gray_card.png')
                     pg.click('.rm-go[data-act="addg"]'); pg.wait_for_timeout(900)
                     n1 = pg.evaluate("document.querySelectorAll('#d3 .tl > .r[data-ll]:not([hidden])').length")
-                    check('M4l 加到这天：页面多一行（%d → %d），图的列表同步（%d 行）' % (n0, n1, pg.evaluate("document.querySelectorAll('.rm-row[data-n]').length")), n1 == n0 + 1 and pg.evaluate("document.querySelectorAll('.rm-row[data-n]').length") == n1, (n0, n1))
+                    check('M4l 加到这天：页面多一行（%d → %d），地图同步（%d 行）' % (n0, n1, pg.evaluate("ZRM.cur().days[ZRM.cur().sel].pts.length")), n1 == n0 + 1 and pg.evaluate("ZRM.cur().days[ZRM.cur().sel].pts.length") == n1, (n0, n1))
                     pg.wait_for_selector('.toast-act'); pg.click('.toast-act'); pg.wait_for_timeout(800)
                     n2 = pg.evaluate("document.querySelectorAll('#d3 .tl > .r[data-ll]:not([hidden])').length")
-                    check('M4m 撤销：回到 %d 行（图 %d 行）' % (n0, pg.evaluate("document.querySelectorAll('.rm-row[data-n]').length")), n2 == n0 and pg.evaluate("document.querySelectorAll('.rm-row[data-n]').length") == n0, (n0, n2))
+                    check('M4m 撤销：回到 %d 行（地图 %d 站）' % (n0, pg.evaluate("ZRM.cur().days[ZRM.cur().sel].pts.length")), n2 == n0 and pg.evaluate("ZRM.cur().days[ZRM.cur().sel].pts.length") == n0, (n0, n2))
                 else: check('M4k 灰点在视野里（没找到可点的灰点）', False, ng)
             c.close()
-        with guard('M4c'):
-            # 改行程后图重画：调整这一站 → 去掉 → 撤销
+        with guard('M4c'):      # 页面上改了行程，地图开着：点线 / 卡片跟着重画（细节见 day_model_check D2）
             c, sb = mk(br); pg = new_page(env, c); T = Touch(c, pg); goto(env, pg, '/trip/xa3/', 700)
             open_day(pg, 1); pg.wait_for_timeout(700)
-            n0 = pg.evaluate("document.querySelectorAll('.rm-row[data-n]').length")
-            pg.click('.rm-row[data-n="2"]'); pg.wait_for_timeout(1200)
-            pg.click('.rm-adj2'); pg.wait_for_selector('.pk [data-x]');
+            n0 = pg.evaluate("ZRM.cur().days[ZRM.cur().sel].pts.length")
+            pg.evaluate("[].slice.call(document.querySelectorAll('#d1 .tl > .r.see:not([hidden]) .adj'))[1].click()"); pg.wait_for_selector('.pk [data-x]')
             t = pg.evaluate("document.querySelector('.pk .pk-h b').textContent")
             pg.click('.pk [data-x]'); pg.wait_for_timeout(900)
-            n1 = pg.evaluate("document.querySelectorAll('.rm-row[data-n]').length"); m1 = cur(pg, "r.marks.filter(function(m){return m.kind==='n'}).length")
-            check('M4n 卡片“调整这一站”打开原来的调整层（标题“%s”）；去掉一站后图的列表 / 标记同步重画（%d → 列表 %d、标记 %d）' % (t, n0, n1, m1), t == '改这一站' and n1 == n0 - 1 and m1 == n1, (t, n0, n1, m1))
+            n1 = pg.evaluate("ZRM.cur().days[ZRM.cur().sel].pts.length"); m1 = cur(pg, "r.marks.filter(function(m){return m.kind==='n'}).length")
+            check('M4n 页面里“调整这一站”（层标题“%s”）→ 去掉一站：开着的地图同步重画（%d → 站 %d、标记 %d）' % (t, n0, n1, m1), t == '改这一站' and n1 == n0 - 1 and m1 == n1, (t, n0, n1, m1))
             pg.wait_for_selector('.toast-act'); pg.click('.toast-act'); pg.wait_for_timeout(900)
-            check('M4o 撤销：列表回到 %d' % n0, pg.evaluate("document.querySelectorAll('.rm-row[data-n]').length") == n0, pg.evaluate("document.querySelectorAll('.rm-row[data-n]').length"))
+            check('M4o 撤销：地图回到 %d 站' % n0, pg.evaluate("ZRM.cur().days[ZRM.cur().sel].pts.length") == n0, pg.evaluate("ZRM.cur().days[ZRM.cur().sel].pts.length"))
             c.close()
 
     # ─────────── M5 控件
@@ -401,27 +354,14 @@ with sync_playwright() as p:
             c, sb = mk(br); pg = new_page(env, c); T = Touch(c, pg); goto(env, pg, '/trip/xa3/', 700)
             open_day(pg, 2); pg.wait_for_timeout(800)
             bad = []
-            def grab_y(): return pg.evaluate("(function(){var r=document.querySelector('.rm-grab').getBoundingClientRect();return r.top+r.height/2})()")
-            for snap_, label in ((1, '半屏'), (0, '收起'), (2, '拉满')):
-                if snap_ == 0: g0 = grab_y(); T.drag(200, g0, 200, g0 + 420, steps=12, dt=0.08, hold=0.12)
-                if snap_ == 2: g0 = grab_y(); T.drag(200, g0, 200, 60, steps=14, dt=0.08, hold=0.12)
-                pg.wait_for_timeout(900); st = state(pg)
-                if st['snap'] != snap_: bad.append((label, '没到这一档', st['snap']))
-                for sel in ('.rm-x', '.rm-sv', '.rm-rs', '.rm-zi', '.rm-zo', '.rm-ai'):
-                    h = hit(pg, sel)
-                    if snap_ == 2 and sel in ('.rm-rs', '.rm-zi', '.rm-zo', '.rm-ai'):
-                        if h and h['vis'] != 'hidden': bad.append((label, sel, '拉满时应让开', h))
-                        continue
-                    if not h or h['w'] < 43.9 or h['h'] < 43.9 or not h['ok'] or h['l'] < 0 or h['t'] < 0 or h['r'] > 390.5 or h['b'] > 844.5: bad.append((label, sel, h))
-                sht = pg.evaluate("document.querySelector('.rm-sht').getBoundingClientRect().top")
-                for sel in ('.rm-rs', '.rm-zi', '.rm-zo', '.rm-ai'):
-                    h = hit(pg, sel)
-                    if h and h['vis'] != 'hidden' and h['b'] > sht + 1: bad.append((label, sel, '盖在面板里', h['b'], sht))
-                if snap_ == 2: shot(pg, 'controls_full.png')
-                if snap_ == 0: shot(pg, 'controls_collapsed.png')
-            check('M5a 三档里 × / 存图 / 回到视野 / + / − / i 都 ≥44×44、在视口内、没被盖住（elementFromPoint 命中自己）；拉满时右侧控件让开（没有盖进面板）', not bad, bad[:4])
-            # 回到半屏再测底部没有固定栏
-            g0 = grab_y(); T.drag(200, g0, 200, g0 + 360, steps=14, dt=0.08, hold=0.12); pg.wait_for_timeout(900)
+            for sel in ('.rm-x', '.rm-sv', '.rm-rs', '.rm-zi', '.rm-zo', '.rm-ai', '.rm-navd', '.rm-tb[data-i="0"]'):
+                h = hit(pg, sel)
+                if not h or h['w'] < 43.9 or h['h'] < 43.9 or not h['ok'] or h['l'] < 0 or h['t'] < 0 or h['r'] > 390.5 or h['b'] > 844.5: bad.append((sel, h))
+            sht = pg.evaluate("document.querySelector('.rm-sht').getBoundingClientRect().top")
+            for sel in ('.rm-rs', '.rm-zi', '.rm-zo', '.rm-ai'):
+                h = hit(pg, sel)
+                if h and h['vis'] != 'hidden' and h['b'] > sht + 1: bad.append((sel, '盖在底部条里', h['b'], sht))
+            check('M5a × / 存图 / 回到视野 / + / − / i / 导航这一天 / 天标签 都 ≥44×44、在视口内、没被盖住（elementFromPoint 命中自己）；右侧控件都在底部条上面 %s' % bad, not bad, bad)
             fx = pg.evaluate("""(function(){var out=[];[].forEach.call(document.querySelectorAll('body *'),function(e){var cs=getComputedStyle(e);if(cs.position==='fixed'&&cs.display!=='none'&&cs.visibility!=='hidden'){var r=e.getBoundingClientRect();if(r.width>0&&r.height>0)out.push(e.className.toString().slice(0,30)+'|'+Math.round(r.top)+'-'+Math.round(r.bottom))}});
               var dock=document.querySelector('.dock');return {fixed:out,dock:dock?getComputedStyle(dock).display:'none'}})()""")
             check('M5b 底部没有任何固定栏：.dock 隐藏（%s），整屏期间可见的 fixed 元素只有地图层本身（%s）' % (fx['dock'], fx['fixed']), fx['dock'] == 'none' and all(x.startswith('rm rm-fs') for x in fx['fixed']), fx)
@@ -444,7 +384,7 @@ with sync_playwright() as p:
             check('M5g 拖开以后点“回到视野”：回到当天取景（偏离 %.4f → %.4f）' % (d1, d2), d1 > .01 and d2 < d1 * .3, (d1, d2))
             for _ in range(14):
                 if pg.is_disabled('.rm-zi'): break
-                pg.click('.rm-zi'); pg.wait_for_timeout(260)
+                pg.click('.rm-zi', timeout=2500) if not pg.is_disabled('.rm-zi') else None; pg.wait_for_timeout(260)
             pg.wait_for_timeout(400); zmax = state(pg)['z']
             pg.evaluate("document.querySelector('.rm-zi').disabled=false"); pg.click('.rm-zi'); pg.wait_for_timeout(450)
             check('M5h 放大到头（%.2f）+ 置灰，再点不再放大（%.2f）' % (zmax, state(pg)['z']), zmax <= 17.01 and state(pg)['z'] - zmax < .05, (zmax, state(pg)['z']))
@@ -477,10 +417,10 @@ with sync_playwright() as p:
             seen = pg.evaluate("window.__seen")
             o = pg.evaluate("""(function(){var r=document.querySelector('.rm');return {boot:r.classList.contains('rm-boot'),lines:document.querySelectorAll('.rm-bl').length,marks:document.querySelectorAll('.rm-bm').length,tabs:document.querySelectorAll('.rm-tb').length,load:(document.querySelector('.rm-load')||{}).textContent||'',x:document.querySelector('.rm-x').getBoundingClientRect().width,sh:document.querySelector('.rm-sht').getBoundingClientRect().height,pw:document.querySelector('.rm-prog i').style.width,ml:!!window.maplibregl,zrm:!!window.ZRM}})()""")
             shot(pg, 'boot.png')
-            check('M6a 点开 %.0fms 内（网络一个字节都没回）就有示意图 + 线路（%d 条线、%d 个方块）+ 半屏面板框（%d 个标签、高 %dpx）+ “×”（%dpx）+ 加载提示“%s”' % (seen, o['lines'], o['marks'], o['tabs'], o['sh'], o['x'], o['load']), seen <= 300 and o['boot'] and o['lines'] >= 1 and o['marks'] >= 1 and o['tabs'] == 4 and o['sh'] > 300 and o['x'] >= 44 and '街道地图加载中' in o['load'] and not o['zrm'], (seen, o))
+            check('M6a 点开 %.0fms 内（网络一个字节都没回）就有示意图 + 线路（%d 条线、%d 个方块）+ 底部条框（%d 个标签、高 %dpx）+ “×”（%dpx）+ 加载提示“%s”' % (seen, o['lines'], o['marks'], o['tabs'], o['sh'], o['x'], o['load']), seen <= 300 and o['boot'] and o['lines'] >= 1 and o['marks'] >= 1 and o['tabs'] == 4 and o['sh'] >= 168 and o['x'] >= 44 and '街道地图加载中' in o['load'] and not o['zrm'], (seen, o))
             pg.wait_for_function("window.ZRM&&ZRM.cur()&&!document.querySelector('.rm-boot')", timeout=8000); pg.wait_for_timeout(150)
-            o2 = pg.evaluate("({boot:!!document.querySelector('.rm-boot'),rows:document.querySelectorAll('.rm-row').length,load:!document.querySelector('.rm-load').hidden,pw:document.querySelector('.rm-prog i').style.width,ml:!!window.maplibregl})")
-            check('M6b routemap.js 到了以后无缝接手：起步壳被换掉、列表出现（%d 行）、仍有“加载中”和进度条（%s）' % (o2['rows'], o2['pw']), not o2['boot'] and o2['rows'] >= 3 and o2['load'] and o2['pw'] not in ('', '0%'), o2)
+            o2 = pg.evaluate("({boot:!!document.querySelector('.rm-boot'),rows:document.querySelectorAll('.rm-ld').length,load:!document.querySelector('.rm-load').hidden,pw:document.querySelector('.rm-prog i').style.width,ml:!!window.maplibregl})")
+            check('M6b routemap.js 到了以后无缝接手：起步壳被换掉、当天那一行信息出现（%d）、仍有“加载中”和进度条（%s）' % (o2['rows'], o2['pw']), not o2['boot'] and o2['rows'] >= 1 and o2['load'] and o2['pw'] not in ('', '0%'), o2)
             pg.wait_for_function("ZRM.cur().tiles>0", timeout=12000); pg.wait_for_timeout(900)
             o3 = pg.evaluate("({in_:document.querySelector('.rm-map').classList.contains('rm-in'),load:document.querySelector('.rm-load').hidden,note:document.querySelector('.rm-note').hidden,failed:ZRM.cur().failed})")
             check('M6c 街道底图到了：淡入覆盖示意图（rm-in）、加载提示收起、没有失败提示', o3['in_'] and o3['load'] and o3['note'] and not o3['failed'], o3)
@@ -497,11 +437,6 @@ with sync_playwright() as p:
             T.drag(250, 300, 150, 260); pg.wait_for_timeout(300); s1 = state(pg)
             T.pinch(190, 260, 60, 180); pg.wait_for_timeout(300); s2 = state(pg)
             check('M6e 示意图版：单指能拖（中心 %.4f→%.4f）、双指能缩放（%.2f→%.2f）' % (s0['lng'], s1['lng'], s1['z'], s2['z']), abs(s1['lng'] - s0['lng']) > 1e-4 and s2['z'] > s1['z'] + .5, (s0, s1, s2))
-            mk0 = pg.evaluate("ZRM.cur().marks.filter(function(k){return k.kind==='n'||k.kind==='day'}).map(function(k){return [Math.round(k.px),Math.round(k.py)]})")
-            g0 = pg.evaluate("document.querySelector('.rm-grab').getBoundingClientRect().top+10"); T.drag(200, g0, 200, g0 + 40, steps=6, dt=0.08, hold=0.1); pg.wait_for_timeout(900)
-            mk1 = pg.evaluate("ZRM.cur().marks.filter(function(k){return k.kind==='n'||k.kind==='day'}).map(function(k){return [Math.round(k.px),Math.round(k.py)]})"); gm = pg.evaluate("ZRM.cur().mb")
-            dm = max([abs(a[0] - b[0]) + abs(a[1] - b[1]) for a, b in zip(mk0, mk1)] or [999]) if len(mk0) == len(mk1) else 999
-            check('M6n 示意图版里一拖面板：容器长到整屏（mb=%s）、示意图摄像机跟着补偿，方块没跳（最大位移 %d px ≤ 8）' % (gm, dm), gm == 0 and dm <= 8, (mk0, mk1, gm))
             sb.mode = 'ok'; pg.click('.rm-rt'); pg.wait_for_timeout(400)
             st = state(pg)
             check('M6f 点“重试”：失败提示立刻收起、重新加载（failed=%s）' % st['failed'], not st['failed'] and pg.evaluate("document.querySelector('.rm-note').hidden"), st)
@@ -510,17 +445,14 @@ with sync_playwright() as p:
             check('M6g 重试后瓦片到了、回到街道底图（kind=%s，tiles=%s）' % (state(pg)['kind'], state(pg)['tiles']), state(pg)['kind'] == 'ml' and state(pg)['tiles'] > 0 and not state(pg)['failed'], state(pg))
             c.close()
         with guard('M6e'):
-            # 地图容器刚开时只到面板上沿（半屏时瓦片 6 → 4 块，慢网省一半字节）；一往下拖面板就长到整屏，内容不跳
+            # 地图容器只到底部条上沿（条高固定、不再长）：瓦片按这块取；没有拖动，也就没有“长到整屏”
             c, sb = mk(br); pg = new_page(env, c); T = Touch(c, pg); goto(env, pg, '/trip/xa3/', 700)
             open_day(pg, 1); pg.wait_for_timeout(1500)
-            r0 = pg.evaluate("(function(){var m=document.querySelector('.rm-map').getBoundingClientRect(),z=ZRM.cur();return {h:m.height,top:m.top,mb:z.mb,sh:z.sheetH,vh:z.vh,mk:z.marks.filter(function(k){return k.kind==='n'}).map(function(k){return [Math.round(k.px),Math.round(k.py)]})}})()")
-            nt0 = sb.n['pbf']
-            check('M6l 刚打开：地图容器高 %d = 视口 %d − 面板 %d（只到面板上沿；半屏取到 %d 块瓦片，整屏要 6 块）' % (r0['h'], r0['vh'], r0['sh'], nt0), abs(r0['h'] - (r0['vh'] - r0['sh'])) <= 2 and r0['top'] == 0 and nt0 <= 5, (r0, nt0))
-            g0 = pg.evaluate("document.querySelector('.rm-grab').getBoundingClientRect().top+10")
-            T.drag(200, g0, 200, g0 + 40, steps=6, dt=0.08, hold=0.1); pg.wait_for_timeout(1000)
-            r1 = pg.evaluate("(function(){var m=document.querySelector('.rm-map').getBoundingClientRect(),z=ZRM.cur();return {h:m.height,mb:z.mb,mk:z.marks.filter(function(k){return k.kind==='n'}).map(function(k){return [Math.round(k.px),Math.round(k.py)]})}})()")
-            dm = max(abs(a[0] - b[0]) + abs(a[1] - b[1]) for a, b in zip(r0['mk'], r1['mk'])) if r0['mk'] and len(r0['mk']) == len(r1['mk']) else 999
-            check('M6m 一拖面板：地图容器长到整屏（%d），方块没跳（最大位移 %d px ≤ 8）' % (r1['h'], dm), r1['h'] >= r0['vh'] - 2 and r1['mb'] == 0 and dm <= 8, (r0['mk'], r1['mk']))
+            r0 = pg.evaluate("(function(){var m=document.querySelector('.rm-map').getBoundingClientRect(),z=ZRM.cur();return {h:m.height,top:m.top,sh:z.sheetH,vh:z.vh}})()")
+            check('M6l 地图容器高 %d = 视口 %d − 底部条 %d（只到条的上沿，取到 %d 块瓦片）' % (r0['h'], r0['vh'], r0['sh'], sb.n['pbf']), abs(r0['h'] - (r0['vh'] - r0['sh'])) <= 2 and r0['top'] == 0 and sb.n['pbf'] <= 5, (r0, sb.n))
+            T.drag(200, 780, 200, 400, steps=8, dt=0.03); pg.wait_for_timeout(600)
+            r1 = pg.evaluate("document.querySelector('.rm-map').getBoundingClientRect().height")
+            check('M6m 在条上乱拖：地图容器高度不变（%d → %d）' % (r0['h'], r1), abs(r1 - r0['h']) <= 1, (r0, r1))
             c.close()
         with guard('M6c'):
             c, sb = mk(br); pg = new_page(env, c); goto(env, pg, '/trip/xa3/', 700)

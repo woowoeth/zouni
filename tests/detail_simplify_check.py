@@ -8,7 +8,7 @@
 判据（编号沿用设计文档）
   S1  每个可见层里“关闭类”按钮（关上 / 关闭 / × / 返回 / 回到整条行程 / 算了）数 = 1，DOM 里没有 .pk-xb；× 是 44×44、在视口内；确认层没有了
   S2  每种层：打开 → history.back() / Esc / 点遮罩 / × 都关；层没了、body.pk-open 没了、scrollY 与地址不变；反复开关不攒历史；关完再按一次返回才离开页面；存图层也一样
-  S3  层叠加：地图 → 分段层 / 存图层 / 调整层：返回键只关最上面一层，地图还在、body.pk-open 还在；再按一次才关地图（需要 WebGL，用软件渲染）
+  S3  层叠加：地图 → 分段层 / 存图层（2026-10-18 地图里没有“调整”了，调整层只在页面里开）：返回键只关最上面一层，地图还在、body.pk-open 还在；再按一次才关地图（需要 WebGL，用软件渲染）
   S4  向下滑动关层（CDP 触摸合成）：标题行 / 小横条起手下拉 ≥100px 关；短拉弹回；往上滑、横滑不关；内容滚到非顶时从内容起手不关，滚到顶才关；有小横条
   S5  页头区：第 1 天标题离页顶 px 不超过上限；封面天数只写一次；出发日期在页头只写一处；往年气温只在页头一次（每天不再一句）
   S6  第 1 天：从天标题到第一行时间线的像素
@@ -16,7 +16,7 @@
   S8  同一天“路上”只出现 1 次（facts 里没有）；随机 200 天 dload 的路上分钟 = 页头 / 建站时的 data-drv；.cl 可见数 ≤ 月份数
   S9  页面可见文字不含 5 条禁词
   S10 12 个任务的点击数（A–L）
-  S11 “加一个顺路景点”覆盖率：xa3 / tk4 / hss1a / hcz1 / xv29a / gqhx10 默认行程里的站点 ≥90% 可加；置灰时写清原因
+  S11 “加一个顺路景点”覆盖率：xa3 / tk4 / hss1a / hcz1 / xv613a / gqhx10 默认行程里的站点 ≥90% 可加；置灰时写清原因
   S12 “怎么去、怎么回”同块有回程
   S13 页脚链接单行（高 ≤20px）；触控 ≥44 不退
   S14 清场：跑前跑后站目录 + data/ + site_src/ 的文件清单一致
@@ -45,13 +45,13 @@ INJ = {
     'date_dup': ('assets/site.js', "return(isSugg?[y_,wn,c0]:['按你'+srcTxt+'选的日期排的'+(y_?'（'+yp(d0).trim()+'）':''),c0])", "return(isSugg?['建议 '+fmt(d0)+' 出发',y_,wn,c0]:['按你'+srcTxt+'选的日期排的 '+fmt(d0),c0])"),   # dnote 里又写一遍日期
     'kick_days': ('trip/xa3/index.html', '<span class="kick">城市慢游</span>', '<span class="kick">城市慢游 · 三天</span>'),                                                         # 封面小标又写天数
     'cl_every_day': ('assets/site.js', "cl.hidden=(i===0)||!has||m===pm_||!!sec.querySelector('.fc:not(.mon)')", "cl.hidden=false"),                                                    # 往年气温每天一句
-    'facts_road': ('assets/site.js', "p.dataset.w=walk;p.dataset.d=drive;", "p.dataset.w=walk;p.dataset.d=drive;(function(){var f=sec.querySelector('.facts');if(f&&!f.querySelector('.rd')){var x=document.createElement('div');x.className='fx rd';x.innerHTML='<small>路上</small><b>'+zLf(drive)+'</b>';f.appendChild(x)}})();"),   # facts 里加回“路上”
+    'facts_road': ('assets/site.js', "p.dataset.w=f.walk;p.dataset.d=f.drive;", "p.dataset.w=f.walk;p.dataset.d=f.drive;(function(){var fe=sec.querySelector('.facts');if(fe&&!fe.querySelector('.rd')){var x=document.createElement('div');x.className='fx rd';x.innerHTML='<small>路上</small><b>'+zLf(f.drive)+'</b>';fe.appendChild(x)}})();"),   # facts 里加回“路上”
     # S10 / S11 / S12 / S13
     'dock_nolink': ('assets/site.js', "dkd.addEventListener('click',function(){dtb.click()});", ""),                                                                                  # 底栏日期不可点
     'ics_gone': ('assets/site.js', "<b>加入日历</b><small>每天的安排，加上买票", "<b>日历</b><small>每天的安排，加上买票"),                                                              # 分享层里的“加入日历”按钮改了名
     'gray_old': ('assets/site.js', "if(b.last+NP_LIM.EXTRA>NP_LIM.CAP)return'这天已经排到 '", "if(b.last>NP_LIM.END)return'这天已经排到 '"),                                             # 置灰规则退回死的 21:30
     'ret_gone': ('trip/xa3/index.html', '回：第 3\u00a0天', '第 3\u00a0天'),                                                                                                                        # 去掉“回：…”这句
-    'label_old': ('assets/site.js', "(sv_&&own>0&&own>=drive-.5?'开车约 ':'路上约 ')", "(sv_?'开车约 ':'路上约 ')"),                                                                  # 有自驾段的线路里每天都叫“开车”（hss1a 第 2 天坐高铁也写开车）
+    'label_old': ('assets/site.js', "(sv&&f.own>0&&f.own>=f.drive-.5?'开车约 ':'路上约 ')", "(sv?'开车约 ':'路上约 ')"),                                                                  # 有自驾段的线路里每天都叫“开车”（hss1a 第 2 天坐高铁也写开车）
     'stay_nojump': ('assets/site.js', "var j=e.target.closest('.tl > .r.stay');if(j&&", "var j=null;if(j&&"),                                                                      # 当天末尾“住 · …”不可点
     'copy_noarea': ('assets/site.js', "out.push('        今晚住：'+[sy.dataset.area||'',lb.replace(/^今晚住\\s*/,'')].filter(Boolean).join(' · ')+(rc?", "out.push('        今晚住：'+[lb.replace(/^今晚住\\s*/,'')].filter(Boolean).join(' · ')+(rc?"),      # 复制行程里“今晚住：”后面又丢了住处名（住宿卡头去掉地名后差点漏掉的一处）
     'foot_wrap': ('assets/site.css', [".foot p:last-child{display:flex;flex-wrap:wrap;gap:0 16px}", ".foot a{white-space:nowrap;display:inline-flex;align-items:center;min-height:44px;margin-right:0}"], ["", ".foot a{white-space:normal;display:inline;min-height:0;margin-right:14px}"]),         # 页脚链接又能折行（回到原来的行内排版）
@@ -262,18 +262,6 @@ with sync_playwright() as p:
             s = st(pg); check('S3 点图片以外：存图层关、地图还在（%s）' % s['k'], s['k'] == ['map'], s)
             pg.keyboard.press('Escape'); pg.wait_for_timeout(600)
             check('S3 Esc 关地图', gone(pg), st(pg))
-            c.close()
-        with guard('S3 地图 → 调整层'):
-            c, pg = mk(); goto(env, pg, '/trip/xa3/', 700)
-            pg.evaluate("document.querySelector('#d1 .rm-open').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('#d1 .rm-open'); ready(pg); pg.wait_for_timeout(900)
-            pg.evaluate("ZRM.select(1)"); pg.wait_for_selector('.rm-adj2', timeout=5000); pg.wait_for_timeout(500)
-            pg.click('.rm-adj2'); pg.wait_for_selector('.pk.npk'); pg.wait_for_timeout(300)
-            s = st(pg); shot(pg, 'S3_map_adj.png')
-            check('S3 地图卡片“调整这一站”：栈 = [map, adj]（%s）' % s['k'], s['k'] == ['map', 'adj'], s)
-            pg.evaluate("history.back()"); pg.wait_for_timeout(500)
-            s = st(pg); check('S3 返回键只关调整层：地图还在、pk-open 还在（原来无条件移除 pk-open，地图返回键会失灵）（%s）' % s['k'], s['k'] == ['map'] and s['pk'] and pg.evaluate("!!document.querySelector('.rm')"), s)
-            pg.evaluate("history.back()"); pg.wait_for_timeout(700)
-            check('S3 再按返回：地图关了', gone(pg), st(pg))
             c.close()
         bm.close()
 
@@ -501,7 +489,7 @@ with sync_playwright() as p:
     # ———————————————— S11 “加一个顺路景点”覆盖率 ————————————————
     if want('S11'):
         COV = {}
-        for rid in ['xa3', 'tk4', 'hss1a', 'hcz1', 'xv29a', 'gqhx10']:
+        for rid in ['xa3', 'tk4', 'hss1a', 'hcz1', 'xv613a', 'gqhx10']:
             with guard('S11 ' + rid):
                 c, pg = trip(br, rid, wait=1000)
                 idxs = pg.evaluate("[...document.querySelectorAll('section.day:not(.xday) .tl > .r.see .adj, section.day:not(.xday) .tl > .r.fun .adj')].map((b,i)=>i)")

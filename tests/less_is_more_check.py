@@ -148,7 +148,7 @@ with sync_playwright() as p:
         goto(env, pg, '/trip/hcz4/', 600)
         pg.click('.mapgo'); pg.wait_for_function("window.ZRM&&ZRM.cur()&&ZRM.cur().view", timeout=15000); pg.wait_for_timeout(500)
         tx = pg.inner_text('.rm-sht'); shot('l4_ov_map.png')
-        check('L4b 总览（8 天）不写“每天一种颜色”（颜色本来就会重复）；点天数章 / 列表行进那一天（%s）' % tx.replace('\n', ' ')[:50], '每天一种颜色' not in tx and pg.evaluate("document.querySelectorAll('.rm-dr').length") == 8, tx[:80])
+        check('L4b 总览（8 天）不写“每天一种颜色”（颜色本来就会重复）；点天数章 / 天标签进那一天；总览里没有列表（%s）' % tx.replace('\n', ' ')[:50], '每天一种颜色' not in tx and pg.evaluate("document.querySelectorAll('.rm-tb').length") == 9 and pg.evaluate("document.querySelectorAll('.rm li,.rm ol,.rm ul,.rm .rm-row').length") == 0, tx[:80])
         pg.go_back(); pg.wait_for_timeout(300)
 
     # ─────────── L5 导航分段层

@@ -26,7 +26,7 @@ INJ = {
     'fnote_small': ('assets/site.css', ".r .rb p.fnote{margin:2px 0 0;font-size:14px;line-height:1.6;color:var(--ink2)}", ".r .rb p.fnote{margin:2px 0 0;font-size:12px;line-height:1.6;color:var(--mute)}"),
     'pick_old': ('assets/site.js', "['下个周末',sat(1)]", "['下周六',sat(1)]"),
     'adj_title_old': ('assets/site.js', "head('改这一站')", "head(nm(r))"),
-    'term_old': ('assets/routemap.js', "<small>大概位置，不是酒店</small>", "<small>片区位置，不是酒店</small>"),
+    'term_old': ('assets/routemap.js', "<p class=\"rm-c1\">大概位置，不是酒店</p>", "<p class=\"rm-c1\">片区位置，不是酒店</p>"),
 }
 env = Env(INJ)
 check, guard = env.check, env.guard
@@ -147,9 +147,13 @@ with sync_playwright() as p:
         pg.evaluate("document.querySelector('.pk .pk-x').click()"); pg.wait_for_timeout(200)
         pg.evaluate("document.querySelector('#d1 .rm-open').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('#d1 .rm-open'); pg.wait_for_function("window.ZRM&&ZRM.cur()&&ZRM.cur().view", timeout=15000); pg.wait_for_timeout(600)
         pg.wait_for_timeout(600)      # 2026-10-18 地图 App 化：点开就是整屏，面板默认半屏，列表在 .rm-body 里
+        hm_ = pg.evaluate("(function(){var z=ZRM.cur();for(var i=0;i<z.marks.length;i++){var m=z.marks[i];if(m.kind==='hm')return [m.px,m.py]}return null})()")      # 2026-10-18：地图下面没有列表了；点图上“住”的方块出“住”的卡片（挤在一起时弹“这里有几处”，选“住”）
+        pg.mouse.click(hm_[0], hm_[1]); pg.wait_for_timeout(900)
+        if pg.evaluate("!!document.querySelector('.rm-pk:not([hidden]) .rm-pi')"): pg.evaluate("[].slice.call(document.querySelectorAll('.rm-pi')).filter(function(b){return /^住/.test(b.textContent)})[0].click()"); pg.wait_for_timeout(900)
         tx = pg.inner_text('.rm-body')
-        check('P6c 地图里“住”那一行写“大概位置，不是酒店”，没有“片区”（%s）' % tx.replace('\n', ' ')[-30:], '大概位置，不是酒店' in tx and '片区' not in tx, tx[-60:])
+        check('P6c 地图里“住”的卡片写“大概位置，不是酒店”，没有“片区”（%s）' % tx.replace('\n', ' ')[-30:], '大概位置，不是酒店' in tx and '片区' not in tx, tx[-60:])
         # 导航分段层（高德一次 1 个中途点）：说明里没有“途经点”
+        pg.evaluate("document.querySelector('.rm-cb')&&document.querySelector('.rm-cb').click()"); pg.wait_for_timeout(300)      # 卡片 → 回当天（卡片状态下没有天标签）
         pg.click('.rm-tb[data-i="0"]'); pg.wait_for_timeout(300)
         pg.evaluate("document.querySelector('.rm-navd').click()"); pg.wait_for_timeout(400)
         sheet = pg.evaluate("(document.querySelector('.rm-sheet')||{}).innerText||''")
