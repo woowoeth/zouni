@@ -19,7 +19,7 @@
   var ATTR_HTML = '<a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">© OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>';
   var NOTE_OFF = '街道地图加载失败，已改用示意图';      // 有网也会失败（瓦片服务器连不上、被拦），所以不写“需要联网”
   var NOTE_LOAD = '地图加载中，网慢时可能要十几秒';
-  var SLOW_MS = 12000, HARD_MS = 20000;      // 一块瓦片都没来：12 秒退示意图；连脚本 / 样式都没取到：20 秒
+  var SLOW_MS = 12000, HARD_MS = 20000;      // 以收到的瓦片数为准：地图建好后 12 秒内一块瓦片都没收到才退示意图（有瓦片在到就一直等）；脚本 / 样式每一步各等 20 秒（取到一步重新计时，不是从点开算总时间）
   var ICON_FS = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>';
   var ICON_XF = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>';
   var ICON_RS = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>';
@@ -81,7 +81,7 @@
     if (STY) return cb(STY);
     var x = new XMLHttpRequest(), done = false;
     function fin(v) { if (done) return; done = true; if (v) STY = v; cb(v); }
-    x.open('GET', STYLE_URL); x.timeout = 10000;
+    x.open('GET', STYLE_URL); x.timeout = 20000;      // 慢网：样式文件自己最多等 20 秒（原来 10 秒）
     x.onload = function () { var j = null; try { j = JSON.parse(x.responseText); } catch (e) {} if (x.status === 200 && j && j.layers) { try { fin(tuneStyle(j)); } catch (e) { fin(null); } } else fin(null); };
     x.onerror = x.ontimeout = function () { fin(null); };
     try { x.send(); } catch (e) { fin(null); }
@@ -317,9 +317,9 @@
   function paintLeg(inst) {
     var n = inst.days.length, d = curDay(inst), h = '';
     function sq(i, t) { return '<span class="rm-lg ' + dayCls(i) + '"><i></i>' + t + '</span>'; }
-    if (d) h = sq(inst.sel, '第 ' + (inst.sel + 1) + ' 天');
+    if (d) h = '';      // 单日图：色块只对应“第几天”，上面的标签条、页面里的日标题都写了，图例不再重复
     else if (n <= 7) h = inst.days.map(function (x, i) { return sq(i, '第 ' + (i + 1) + ' 天'); }).join('');
-    else h = '<span class="rm-lg2">共 ' + n + ' 天，每天一种颜色，点下面的数字看那一天</span>';
+    else h = '<span class="rm-lg2">点下面的数字看那一天</span>';
     if (d && inst.gray && inst.gray.length) h += '<span class="rm-lg rm-lgg"><i></i>顺路可去</span>';
     if (d && d.nopos) h += '<span class="rm-lg2">有 ' + d.nopos + ' 个地方没有位置，没画</span>';
     h += '<span class="rm-lg2 rm-st">站点之间是直线示意，不是行车路线</span>';
@@ -513,7 +513,7 @@
   function navHint(d) {
     var a = navPts(d), segs = navSegs(d).length;
     var lim = APP === 'google' ? '谷歌地图一次最多带 ' + viaMax() + ' 个中途点' : '高德一次只带 1 个中途点';
-    return segs > 1 ? '这天一共 ' + a.length + ' 个点，手机导航要分 ' + segs + ' 段（' + lim + '），按顺序一段一段点。' : '';
+    return segs > 1 ? '这天 ' + a.length + ' 个点，分 ' + segs + ' 段导航（' + lim + '），按顺序点。' : '';
   }
   function goUrl(u) {
     if (navigator.onLine === false) { toast('没网，暂时不能导航'); return; }
@@ -528,7 +528,7 @@
     if (segs.length === 1) { goUrl(segs[0].url); return; }
     var who = APP === 'google' ? '用谷歌地图打开 ›' : '用高德打开 ›';
     var mask = el('div', 'pk-mask'), sh = el('div', 'pk rm-sheet'); sh.setAttribute('role', 'dialog');
-    var h = '<div class="pk-h"><b>导航这一天</b><button type="button" class="pk-x">关上</button></div><p class="xnote">' + esc(navHint(d)) + '路线按驾车排好，到了地图里可以改成步行或公交。</p><div class="xd">';
+    var h = '<div class="pk-h"><b>导航这一天</b><button type="button" class="pk-x">关上</button></div><p class="xnote">' + esc(navHint(d)) + '</p><div class="xd">';
     segs.forEach(function (s, i) { h += '<a class="rm-seg" href="' + esc(s.url) + '" data-i="' + i + '"><span class="rm-sg1"><b>第 ' + (i + 1) + ' 段：</b><small>' + s.pts.map(function (p) { return esc(p.n); }).join(' → ') + '</small></span><em>' + who + '</em></a>'; });
     sh.innerHTML = h + '</div>';
     var had = B.classList.contains('pk-open');
@@ -701,13 +701,16 @@
   function startMap(inst) {
     if (!navigator.onLine) return fallback(inst, 'offline');
     if (!glOk()) return fallback(inst, 'nogl');
-    showLoad(inst); inst.hard = setTimeout(function () { if (!inst.tiles) fallback(inst, 'slow'); }, HARD_MS);      // 脚本 / 样式一直不回：20 秒也退
+    function arm() { clearTimeout(inst.hard); inst.hard = setTimeout(function () { if (!inst.tiles) fallback(inst, 'slow'); }, HARD_MS); }
+    showLoad(inst); arm();      // 脚本 / 样式一直不回：每一步 20 秒，取到一步就重新计时（慢网下脚本本身就要十几秒，不能和瓦片抢同一个总时间）
     loadML(function (ok) {
       if (!inst.alive || inst.failed) return;
       if (!ok) return fallback(inst, 'ml');
+      arm();
       getStyle(function (st) {
         if (!inst.alive || inst.failed) return;
         if (!st) return fallback(inst, 'style');
+        arm();
         var map;
         try {
           var coop = !inst.fs;
@@ -719,14 +722,15 @@
           });
           map.touchZoomRotate.disableRotation();
         } catch (e) { return fallback(inst, 'gl'); }
-        inst.map = map; inst.view = mlView(inst, map); inst.tiles = 0; inst.terr = 0;
+        inst.map = map; inst.view = mlView(inst, map); inst.tiles = 0; inst.terr = 0; inst.pend = 0;
         map.on('move', function () { place(inst); });
-        map.on('data', function (e) { if (e.tile) { inst.tiles++; hideLoad(inst); clearTimeout(inst.hard); } });
+        map.on('dataloading', function (e) { if (e.tile) inst.pend++; });
+        map.on('data', function (e) { if (e.tile) { inst.tiles++; inst.pend = Math.max(0, inst.pend - 1); hideLoad(inst); clearTimeout(inst.hard); } });
         map.on('error', function (e) {
           var er = e && e.error, msg = (er && er.message) || '';
           if (e && (e.tile || /Failed to fetch|NetworkError|Load failed|AJAXError|failed|404|403|5\d\d/i.test(msg))) {
-            inst.terr++;      // 瓦片请求失败：1.5 秒内一块成功的都没有 → 退回示意图（视口里只有两三块瓦片时数“几次错”不可靠）
-            if (!inst.tchk) inst.tchk = setTimeout(function () { inst.tchk = 0; if (inst.alive && !inst.tiles && inst.terr > 0) fallback(inst, 'tiles'); }, 1500);
+            inst.terr++; if (e.tile) inst.pend = Math.max(0, inst.pend - 1);      // 瓦片请求失败：1.5 秒后一块成功的都没有、也没有别的瓦片还在路上 → 退回示意图（还有在路上的，等它们，最迟 12 秒）
+            if (!inst.tchk) inst.tchk = setTimeout(function () { inst.tchk = 0; if (inst.alive && !inst.tiles && inst.terr > 0 && !(inst.pend > 0)) fallback(inst, 'tiles'); }, 1500);
           }
         });
         map.on('click', function () { hidePop(inst); });
@@ -769,12 +773,16 @@
       });
     };
     W.addEventListener('scroll', inst.onScroll, { passive: true });
-    inst.onRowClick = function (e) {
-      if (inst.fs) return; var li = e.target.closest && e.target.closest('li.r[data-ll]'); if (!li || e.target.closest('a,button,[role=button]')) return;
-      var d = curDay(inst); if (!d || !d.sec.contains(li)) return;
-      var p = d.pts.filter(function (q) { return q.row === li; })[0]; if (p) setCur(inst, p.n, { pan: true });
-    };
-    D.addEventListener('click', inst.onRowClick, true);
+  }
+  // 点时间线上的一行（site.js 的点击处理转进来）：已打开的本日地图 / 总览聚焦到这一站；没开地图就什么都不做（行的高亮由 site.js 管）
+  function focusRow(li) {
+    if (!CUR || !CUR.alive || CUR.fs || !li) return false;
+    var k = -1, p = null;
+    CUR.days.forEach(function (d, i) { if (d.sec.contains(li)) d.pts.forEach(function (q) { if (q.row === li) { k = i; p = q; } }); });
+    if (!p) return false;
+    if (CUR.type === 'day' && CUR.sel !== k) return false;
+    if (CUR.sel !== k) selectDay(CUR, k, true);
+    setCur(CUR, p.n, { pan: true }); return true;
   }
   function open(type, sec, host) {
     if (CUR) closeInst(CUR);
@@ -822,6 +830,7 @@
     },
     nav: function (sec) { var days = readDays(), k = days.map(function (d) { return d.sec; }).indexOf(sec); if (k >= 0) navDay(days[k]); },
     cur: function () { return CUR; },
+    focus: focusRow,
     segs: function (sec) { var days = readDays(), k = days.map(function (d) { return d.sec; }).indexOf(sec); return k >= 0 ? navSegs(days[k]).map(function (s) { return s.url; }) : []; },
     model: readDays
   };

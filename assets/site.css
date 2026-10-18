@@ -1135,3 +1135,45 @@ body.rmap-on .dock{display:none}
 .fpg .fhl{flex:none;font:700 12px var(--sans);letter-spacing:.14em;color:var(--sub)}
 .fpg .fhot a{flex:none;display:flex;align-items:center;min-height:44px;padding:0 12px;background:var(--card);color:var(--ink);font:900 15px var(--serif)}
 .pk .xnote .adjn{display:block;margin:0 0 2px;font:700 15px var(--sans);color:var(--ink)}
+
+/* 2026-10-18 去掉这一天：确认键 = 墨色方形主按钮，取消 = 描边（原来入口是红字、确认键却是灰底） */
+.xd .rmgo{background:var(--ink);color:var(--bg);min-height:48px}
+.xd .rmgo b{color:var(--bg)}
+.pk-h .pk-x.pk-cancel{min-height:44px;padding:0 16px;border:1px solid var(--ink);background:transparent;font-weight:700;color:var(--ink)}
+
+/* 点一行：高亮（只留细线和纸色底，不弹任何层） */
+.tl > li.r.rsel{background:var(--card);box-shadow:inset 2px 0 0 var(--ink)}
+
+/* 影视和美食挂钩行：折叠成一行方形小条（不抢每天的第一眼） */
+.day > details.sjd{margin:6px 0 8px}
+.day > details.sjd > summary{display:flex;align-items:center;min-height:44px;padding:0 12px;border:1px solid var(--line2);background:var(--bg);font:700 13px var(--sans);color:var(--ink2);cursor:pointer;list-style:none}
+.day > details.sjd > summary::-webkit-details-marker{display:none}
+.day > details.sjd[open] > summary{margin-bottom:6px}
+
+/* 首页搜索建议：输入时下面即时出现前 5 条，每条 ≥44 高，方形细线框 */
+.hsug{list-style:none;margin:6px 20px 0;padding:0;border:1px solid var(--line2);background:var(--bg)}
+.hsug[hidden]{display:none}
+.hsug li+li{border-top:1px solid var(--line)}
+.hsug a{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:48px;padding:6px 12px;color:var(--ink)}
+.hsug b{font:900 16px var(--serif)}
+.hsug span{flex:none;font-size:13px;color:var(--sub)}
+
+/* ——— 少就是多 · 2026-10-18（线路页第一屏）——— */
+.trip .hero,.trip .hero.text{height:264px}
+.trip .hero img{object-position:50% 78%}
+.dock.dmin{gap:0}
+.dock.dmin>div:first-child{flex:0 0 0;width:0;min-width:0;overflow:hidden}      /* 收成 0 宽而不是 display:none：文字还在页面里（读屏、复制、测试读得到），只是不占地方 */
+.dock.dmin .fav,.dock.dmin .tvbtn{flex:1;justify-content:center;margin-left:0}
+.dock.dmin .tvbtn{margin-left:8px}
+.dock .tvbtn{background:transparent;box-shadow:inset 0 0 0 1px var(--ink)}
+.overview:not(.mapopen) .mapfold{display:none}
+.pre .premore{margin:8px 0 0}
+.pre .premore>summary{display:flex;align-items:center;min-height:44px;padding:0 12px;border:1px solid var(--line2);background:var(--bg);font:700 14px var(--sans);color:var(--ink);cursor:pointer;list-style:none}
+.pre .premore>summary::-webkit-details-marker{display:none}
+.pre .premore[open]>summary{margin-bottom:8px}
+
+/* ——— 导航分段层：一屏一个主操作（第 1 段是墨色实心，后面的描边）；只留底部一个“关上”（右上角那个够不着，藏起来，程序里仍会转发） ——— */
+.rm-sheet .pk-h .pk-x{display:none}
+.rm-sheet .xd .rm-seg:first-child{background:var(--ink);color:var(--bg)}
+.rm-sheet .xd .rm-seg:first-child b,.rm-sheet .xd .rm-seg:first-child small,.rm-sheet .xd .rm-seg:first-child em{color:var(--bg)}
+.rm-sheet .xd .rm-seg+.rm-seg{border-color:var(--line2)}
