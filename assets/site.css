@@ -696,7 +696,6 @@ body{background:var(--bg);color:var(--ink)}
 .reset{position:relative}.reset:after{content:"";position:absolute;inset:-12px -10px}
 .dock b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px}.dock small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dock{gap:8px}.dock button{padding:0 11px}
-.tvx2{display:block;width:calc(100% - 40px);margin:18px 20px 28px;height:48px;border:0;background:var(--ink);color:var(--bg);font:700 15px var(--sans);cursor:pointer}
 .flt .clr{min-height:44px;min-width:72px}
 .mrw{display:flex;align-items:stretch}.mrw .mr{flex:1;min-width:0}.mrw .mrx{flex:none;width:56px;border:0;background:transparent;color:var(--red);font:700 13px var(--sans);cursor:pointer}
 @media (prefers-color-scheme:dark){.cv .go{border:1px solid rgba(236,235,229,.55)}.allbar i{color:var(--bg)}}
@@ -853,15 +852,13 @@ article.home{--s1:8px;--s2:12px;--s3:16px;--s4:24px;--s5:32px}
 .toast .toast-t{padding:8px 0}
 .toast:not(.act) .toast-t{padding-right:12px}
 .toast .toast-act{flex:none;min-width:64px;height:44px;margin:0;padding:0 14px}
-/* 弹层：右上“关上”44×44，底部再放一个整行的“关上”（单手够得着）；按钮文字上下居中 */
+/* 弹层按钮文字上下居中 */
 .pk-x{min-width:44px;height:44px;margin-right:-8px;padding:0 8px;display:inline-flex;align-items:center;justify-content:flex-end}
-.pk-xb{display:block;width:100%;min-height:48px;margin:10px 0 0;padding:0;border:0;border-top:1px solid var(--line);background:transparent;font:700 15px var(--sans);color:var(--sub);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}
 .pk-m button{height:44px}.pk-g button{height:44px}
 .xd button{justify-content:center}
 .pk-q button,.stg button{display:flex;align-items:center;justify-content:center;line-height:1.2}
 .pk-q button{flex-direction:column}
 .xd .rmgo{justify-content:center}
-@media print{.pk-xb{display:none}}
 /* 小字按钮：视觉不变，点击区放大到 ≥44（伪元素补）；有真实高度的直接给 44 */
 .glance .dt:after{top:-14px;bottom:-14px}
 .r .s .adj:after,.adj:after{inset:-14px -10px}
@@ -966,7 +963,7 @@ article.home{--s1:8px;--s2:12px;--s3:16px;--s4:24px;--s5:32px}
 .fpg .tg{display:inline-flex;align-items:center;height:20px;padding:0 6px;font-size:11px;color:var(--sub);box-shadow:inset 0 0 0 1px var(--line2)}
 .fpg .tg.hot{color:var(--ink);font-weight:700;box-shadow:inset 0 0 0 1px var(--ink)}
 .fpg .fl .lc a{min-height:44px}
-.fbn{display:flex;align-items:center;justify-content:space-between;min-height:44px;margin:8px 20px 0;padding:0 12px;background:var(--card);color:var(--ink);font-size:13px;line-height:1.4;text-decoration:none}
+.fbn{display:flex;align-items:center;justify-content:space-between;min-height:46px;margin:8px 20px 0;padding:0 12px;background:var(--card);color:var(--ink);font-size:13px;line-height:1.4;text-decoration:none}
 .fbn b{font-weight:900}.fbn i{font-style:normal;color:var(--red)}
 .fbn:active{background:rgba(28,29,26,.08)}
 .r .rb p.fnote{margin:2px 0 0;font-size:14px;line-height:1.6;color:var(--ink2)}
@@ -1137,7 +1134,6 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 /* 2026-10-18 去掉这一天：确认键 = 墨色方形主按钮，取消 = 描边（原来入口是红字、确认键却是灰底） */
 .xd .rmgo{background:var(--ink);color:var(--bg);min-height:48px}
 .xd .rmgo b{color:var(--bg)}
-.pk-h .pk-x.pk-cancel{min-height:44px;padding:0 16px;border:1px solid var(--ink);background:transparent;font-weight:700;color:var(--ink)}
 
 /* 点一行：高亮（只留细线和纸色底，不弹任何层） */
 .tl > li.r.rsel{background:var(--card);box-shadow:inset 2px 0 0 var(--ink)}
@@ -1164,13 +1160,58 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .dock.dmin .fav,.dock.dmin .tvbtn{flex:1;justify-content:center;margin-left:0}
 .dock.dmin .tvbtn{margin-left:8px}
 .dock .tvbtn{background:transparent;box-shadow:inset 0 0 0 1px var(--ink)}
-.pre .premore{margin:8px 0 0}
-.pre .premore>summary{display:flex;align-items:center;min-height:44px;padding:0 12px;border:1px solid var(--line2);background:var(--bg);font:700 14px var(--sans);color:var(--ink);cursor:pointer;list-style:none}
-.pre .premore>summary::-webkit-details-marker{display:none}
-.pre .premore[open]>summary{margin-bottom:8px}
 
 /* ——— 导航分段层：一屏一个主操作（第 1 段是墨色实心，后面的描边）；只留底部一个“关上”（右上角那个够不着，藏起来，程序里仍会转发） ——— */
-.rm-sheet .pk-h .pk-x{display:none}
 .rm-sheet .xd .rm-seg:first-child{background:var(--ink);color:var(--bg)}
 .rm-sheet .xd .rm-seg:first-child b,.rm-sheet .xd .rm-seg:first-child small,.rm-sheet .xd .rm-seg:first-child em{color:var(--bg)}
 .rm-sheet .xd .rm-seg+.rm-seg{border-color:var(--line2)}
+
+
+/* ——— 2026-10-18 详情页与弹层“少就是多” ———
+   关闭入口：每层只留标题右上一个 44×44 方形“×”（aria-label=关闭），加顶部小横条 + 下滑关闭 + 点遮罩 + 返回键；没有底部整行“关上”。整页层（按天看、出发前要办的事）只留左上吸顶的“‹ 返回”。 */
+.pk-x{width:44px;min-width:44px;height:44px;margin:-6px -10px -6px 0;padding:0;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line2);background:var(--bg);color:var(--ink);font:400 30px/1 var(--sans);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0;touch-action:manipulation}
+.pk-x:active{background:var(--card)}
+.npk .pk-x{min-width:44px;min-height:44px}
+.pk{padding-top:22px;overscroll-behavior:contain}
+.pk:before{content:"";position:absolute;left:50%;top:9px;width:36px;height:4px;margin-left:-18px;background:var(--mute);opacity:.55;pointer-events:none}      /* 顶部小横条（grabber）：提示这一层可以往下拉关 */
+.pk-h{touch-action:none;min-height:44px}
+.hz-x{width:44px;padding:0;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line2);font:400 30px/1 var(--sans);color:var(--ink);-webkit-appearance:none;appearance:none;border-radius:0}
+@media print{.pk:before{display:none}}
+/* 每天一个“调整这一天 ›”（原来是“去掉这一天”和“这天后面加一天”两个按钮） */
+.dayact{display:block;margin-top:14px}
+.dayact .dayadj{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:44px;height:44px;margin:0;padding:0 14px;border:0;background:transparent;box-shadow:inset 0 0 0 1px var(--line);font:700 14px var(--sans);color:var(--ink);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}
+.dayact .dayadj:active{background:var(--card)}
+.xd .rmgo small{color:var(--bg);opacity:.85}
+@media print{.dayadj{display:none!important}}
+
+/* 页头：往年气温和“最好 X–Y”合成一行放页头（日期只在 glance 日期条里写一次）；出发前页内只留 ≤2 条提示 */
+.dnote:empty,.pre ul:empty{display:none}
+.pre li.capx{display:none}
+.pre ul.prehid[hidden]{display:none}
+.tdn li{min-height:0;border-bottom:0;padding:4px 0}.tdn li span{font-size:14px;color:var(--sub)}
+.todoall.tvcal{min-height:44px}
+/* 每天末尾那一行“住 · 钟楼附近”可点：跳到这一晚的住宿卡 */
+.tl>.r.stay{cursor:pointer}
+.tl>.r.stay>.rb>.m{text-decoration:underline;text-decoration-style:dotted;text-decoration-color:var(--mute);text-underline-offset:5px}
+.stays.flash{background:rgba(166,61,39,.12);transition:background .4s}
+.stays .ic{width:44px;height:44px;margin:-11px -2px -11px 0}
+.ovstay a{display:inline;padding:0;position:relative;color:var(--ink);text-decoration:underline;text-decoration-color:var(--line2);text-underline-offset:3px}.ovstay a:after{content:"";position:absolute;inset:-12px -4px}
+/* 底栏的日期价格整块可点（改出发日期） */
+.dock>div[role=button]{cursor:pointer;min-height:44px;justify-content:center}
+.dock:not(.dmin)>div[role=button] b:after{content:" 改";font:700 12px var(--sans);color:var(--red)}
+/* 常见问题：标题和按钮合成一行 */
+.faq{padding-top:28px}
+.faq .faqmore+dl{margin-top:8px}
+/* 页脚每个链接单行（“网站地图”不再折成“网站地 / 图”）：链接排成 flex 行、自己撑到 44 高（原来靠伪元素外扩，折成两行后上下两排的点击区互相盖住） */
+.foot p:last-child{display:flex;flex-wrap:wrap;gap:0 16px}
+.foot a{white-space:nowrap;display:inline-flex;align-items:center;min-height:44px;margin-right:0}
+.foot a:after{display:none}
+/* 日期条：往下滚收起、往上滚露出（没有 IntersectionObserver 的老内核不收，常驻） */
+.daynav{transition:transform .2s}
+.daynav.nvh{transform:translateY(-100%);box-shadow:none}
+@media print{.daynav.nvh{transform:none}}
+/* 每天头里的“出发 / 日落 / 海拔”排成一行（标签和数字并排，原来是两行）：从天标题到第一行时间线少约 30px */
+.day .facts{display:flex;flex-wrap:wrap;gap:2px 22px;margin-top:8px}
+.day .fx{flex-direction:row;align-items:baseline;gap:6px}
+.day .facts .fx.wide{flex-basis:100%}
+.day .fx small{flex:none}
