@@ -269,11 +269,21 @@
     // 收进行程 = 顺便把这一页和它用到的样式、脚本、图存进手机（和 sw.js 同一个缓存名），没网也能打开
     function saveOffline(cb){if(!window.caches){if(cb)cb(false);return}var urls=[location.pathname];try{[].slice.call(performance.getEntriesByType('resource')).forEach(function(e){var u=new URL(e.name);if(u.origin===location.origin&&/\.(css|js|svg|png|woff2?|webp|jpg)$/.test(u.pathname)&&urls.indexOf(u.pathname+u.search)<0)urls.push(u.pathname+u.search)})}catch(e){}
       caches.open('zouni-v3').then(function(c){return Promise.all(urls.slice(0,90).map(function(u,i){return(i?c.match(u).then(function(m){return m||c.add(u)}):c.add(u)).catch(function(){})})).then(function(){return offlineExtras(c)})}).then(function(){if(cb)cb(true)},function(){if(cb)cb(false)})}
+    // 收进行程时顺便把这条线取景范围的低缩放瓦片取进缓存（sw.js 的瓦片缓存会留下它们）：范围的“合适层级”和低一级各取覆盖整条线的瓦片，总共最多 24 块；省流量 / 慢网 / 没网不做
+    function warmTiles(pts){var cn=navigator.connection||{};if(cn.saveData||/(^|-)2g|3g/.test(cn.effectiveType||'')||navigator.onLine===false||!window.fetch)return;
+      var a=[];pts.forEach(function(t){var m=/^(-?[\d.]+),(-?[\d.]+)$/.exec(t||'');if(m)a.push([+m[1],+m[2]])});if(!a.length)return;
+      var s=90,w=180,n=-90,e=-180;a.forEach(function(p){s=Math.min(s,p[0]);n=Math.max(n,p[0]);w=Math.min(w,p[1]);e=Math.max(e,p[1])});
+      function lx(g){return(g+180)/360}function ly(v){var q=Math.sin(Math.max(-85.0511,Math.min(85.0511,v))*Math.PI/180);return .5-Math.log((1+q)/(1-q))/(4*Math.PI)}
+      var bw=lx(e)-lx(w),bh=ly(s)-ly(n),z=14;if(bw>1e-9||bh>1e-9)z=Math.max(2,Math.min(14,Math.log(Math.min(bw>1e-9?310/(bw*512):1e9,bh>1e-9?620/(bh*512):1e9))/Math.LN2));
+      fetch('https://tiles.openfreemap.org/planet',{mode:'cors',credentials:'same-origin'}).then(function(r){return r.json()}).then(function(j){var tpl=j&&j.tiles&&j.tiles[0],out=[];if(!tpl)return;
+        [Math.floor(z)-1,Math.floor(z)].forEach(function(tz){if(tz<0)return;var N=Math.pow(2,tz),x0=Math.floor(lx(w)*N),x1=Math.floor(lx(e)*N),y0=Math.floor(ly(n)*N),y1=Math.floor(ly(s)*N),i,k;for(i=Math.max(0,x0);i<=Math.min(N-1,x1);i++)for(k=Math.max(0,y0);k<=Math.min(N-1,y1);k++)out.push(tpl.replace('{z}',tz).replace('{x}',i).replace('{y}',k))});
+        out.slice(0,24).forEach(function(u){fetch(u,{mode:'cors',credentials:'same-origin'}).catch(function(){})})}).catch(function(){})}
     // 收进行程时一并存：顺路候选的模型和索引、这条线所在 3° 格及相邻格的候选分片（断网也能“在这之后加一个”）、走哪儿的底图
     function offlineExtras(c){var v=/[?&]v=(\w+)/.exec((document.querySelector('script[src*="site.js"]')||{}).src||''),q=v?'?v='+v[1]:'',ex=['/assets/np_model.js'+q,'/assets/np/_index.js','/assets/basemap.js','/assets/routemap.js'+q],cells={},pts=[];
       [].slice.call(document.querySelectorAll('.tl > .r[data-ll]')).forEach(function(r){pts.push(r.dataset.ll)});[].slice.call(document.querySelectorAll('.day')).forEach(function(d){if(d.dataset.sp)pts.push(d.dataset.sp);if(d.dataset.ep)pts.push(d.dataset.ep)});
       pts.forEach(function(t){var m=/^(-?[\d.]+),(-?[\d.]+)$/.exec(t||'');if(!m)return;var a=Math.floor((+m[1]+90)/3),b=Math.floor((+m[2]+180)/3),i,j;for(i=-1;i<=1;i++)for(j=-1;j<=1;j++)cells[(a+i)+'_'+(b+j)]=1});
       function put(u){return c.match(u).then(function(m){return m||c.add(u)}).catch(function(){})}
+      try{warmTiles(pts)}catch(e){}
       return Promise.all(ex.map(put)).then(function(){return c.match('/assets/np/_index.js')}).then(function(m){return m?m.text():''}).then(function(t){var have={};(t.match(/"\d+_\d+"/g)||[]).forEach(function(x){have[x.slice(1,-1)]=1});return Promise.all(Object.keys(cells).filter(function(k){return have[k]}).slice(0,80).map(function(k){return put('/assets/np/'+k+'.js')}))})}
     function paint(){var on=ld('zouni_fav').some(function(x){return x.id===me.id});fb.classList.toggle('on',on);if(!on)fb.classList.remove('saved');else if(window.caches)caches.match(location.pathname).then(function(m){fb.classList.toggle('saved',!!m)},function(){});var sp=fb.querySelector('span');if(sp)sp.textContent=on?'已收进':'收进行程';else fb.textContent=on?'已收进':'收进行程'}
     if(fb){paint();fb.addEventListener('click',function(){var f=ld('zouni_fav'),on=f.some(function(x){return x.id===me.id});var me2={},kk_;for(kk_ in me)me2[kk_]=me[kk_];var dn2=document.querySelectorAll('.day').length;if(me2.label)me2.label=me2.label.replace(/\d+(\s*天)/,dn2+'$1');me2.n=dn2;me2.sd=art.dataset.start||'';if(me2.title&&dn2<=10)me2.title=me2.title.replace(/^[一二三四五六七八九十]+天/,'零一二三四五六七八九十'.charAt(dn2)+'天');f=on?f.filter(function(x){return x.id!==me.id}):[me2].concat(f);sv('zouni_fav',f);paint();if(on)toast('已从我的行程里拿掉','撤销',function(){var f2=ld('zouni_fav').filter(function(x){return x.id!==me.id});f2=[me2].concat(f2);sv('zouni_fav',f2);paint()});else{toast('已收进，可在首页「我的行程」查看');saveOffline(function(ok){if(!ok)return;fb.classList.add('saved');if(ld('zouni_fav').some(function(x){return x.id===me.id}))toast('已存到手机里，没网也能看')})}})}
@@ -1330,25 +1340,80 @@
     if(isOpen()){popping=true;var x=document.querySelector('.tvx')||document.querySelector('.pk-x')||document.querySelector('.pk-mask');if(x)x.click();setTimeout(function(){popping=false},80)}
   });
 })();
-  // ——— 少即是多：行程页路线图默认折成一行“看路线图”；点开是街道地图（routemap.js 和它要的底图脚本都按需加载），取不到就退回下面那张静态示意图 ———
+  // ——— 路线地图入口（2026-10-18 地图 App 化）：“看路线图”和每天的“本日地图”都一步直达整屏地图——覆盖整个视口的一层，返回键 / 左上“×”关闭，关闭后回到原来的位置；页面里不再放可拖动的内嵌地图。
+  //     点开的瞬间先放一个“起步壳”（示意图 + 线路 + 半屏面板框，不等任何网络；和接手它的 routemap.js 用同一套摄像机数学，接手前后位置一模一样），
+  //     同一时刻并行去取 routemap.js、街道底图脚本和样式；空闲时（4g / wifi、没开省流量）先把 routemap.js 预取进缓存，点开更快。———
   (function(){try{var art=document.querySelector('article.trip');if(!art)return;
-    var sv=document.querySelector('script[src*="/assets/site.js"]'),vm=sv&&/[?&]v=(\w+)/.exec(sv.src),qq=null;
-    function load(cb){if(window.ZRM)return cb(window.ZRM);if(qq){qq.push(cb);return}qq=[cb];var s=document.createElement('script'),fin=function(){var a=qq;qq=null;a.forEach(function(f){f(window.ZRM||null)})};s.src='/assets/routemap.js'+(vm?'?v='+vm[1]:'');s.onload=fin;s.onerror=fin;document.head.appendChild(s)}
-    function dayBtns(){[].slice.call(art.querySelectorAll('section.day')).forEach(function(s){if(s.querySelector('.rm-row2')||s.querySelectorAll('.tl > .r[data-ll]').length<2)return;var r=document.createElement('div'),a=s.querySelector('.facts')||s.querySelector('header');r.className='rm-row2';r.innerHTML='<button type="button" class="rm-open" aria-expanded="false">本日地图 ›</button><button type="button" class="rm-nb">导航这一天 ›</button>';a.parentNode.insertBefore(r,a.nextSibling)});navBtns()}
+    var sv=document.querySelector('script[src*="/assets/site.js"]'),vm=sv&&/[?&]v=(\w+)/.exec(sv.src),q=vm?'?v='+vm[1]:'',qq=null,boot=null,D=document,B=D.body;
+    function load(cb){if(window.ZRM)return cb(window.ZRM);if(qq){qq.push(cb);return}qq=[cb];var s=D.createElement('script'),fin=function(){var a=qq;qq=null;a.forEach(function(f){f(window.ZRM||null)})};s.src='/assets/routemap.js'+q;s.onload=fin;s.onerror=fin;D.head.appendChild(s)}
+    function dayBtns(){[].slice.call(art.querySelectorAll('section.day')).forEach(function(s){if(s.querySelector('.rm-row2')||s.querySelectorAll('.tl > .r[data-ll]').length<2)return;var r=D.createElement('div'),a=s.querySelector('.facts')||s.querySelector('header');r.className='rm-row2';r.innerHTML='<button type="button" class="rm-open" aria-haspopup="dialog">本日地图 ›</button><button type="button" class="rm-nb">导航这一天 ›</button>';a.parentNode.insertBefore(r,a.nextSibling)});navBtns()}
     // 断网：“导航这一天”置灰，写明原因（点了不弹分段层）
     function navBtns(){var off=navigator.onLine===false;[].slice.call(art.querySelectorAll('.rm-nb')).forEach(function(b){b.disabled=off;b.classList.toggle('off',off);b.textContent=off?'没网，暂时不能导航':'导航这一天 ›'})}
     window.addEventListener('offline',navBtns);window.addEventListener('online',navBtns);
     dayBtns();var tm=0;new MutationObserver(function(recs){if(!recs.some(function(r){return r.removedNodes.length||[].some.call(r.addedNodes,function(n){return!(n.classList&&n.classList.contains('mapgo'))})}))return;clearTimeout(tm);tm=setTimeout(dayBtns,200)}).observe(art,{childList:true});      // 第一屏入口 .mapgo 是后插进 article 的，它自己不算“加了一天”（否则每页多重排一次每天的按钮，撤销快照会多出两个按钮）
 
-    document.addEventListener('click',function(e){var b=e.target.closest('.rm-open,.rm-nb');if(!b)return;var s=b.closest('.day');load(function(R){if(!R){toast('地图没加载出来，请检查网络后再点一次');return}if(b.classList.contains('rm-nb'))R.nav(s);else R.toggleDay(s,b)})});
-    var ov=document.querySelector('.overview'),hm=ov&&ov.querySelector('.hmap');if(!ov||ov.querySelector('.mapfold')||(!hm&&art.querySelectorAll('.tl > .r[data-ll]').length<2))return;
-    var b=document.createElement('button');b.type='button';b.className='mapfold';b.textContent='看路线图';
-    var go=document.createElement('button');go.type='button';go.className='mapgo';go.setAttribute('aria-expanded','false');go.innerHTML='<span>看路线图</span><i>›</i>';      // 第一屏的入口（原来埋在“怎么排”后面，要滚两三屏）：点开后地图自己滚进视野
-    function toggle(){var on=!ov.classList.contains('mapopen');ov.classList.toggle('mapopen',on);b.textContent=on?'收起路线图':'看路线图';go.setAttribute('aria-expanded',on?'true':'false');go.firstChild.textContent=on?'收起路线图':'看路线图';go.lastChild.textContent=on?'‹':'›';
-      load(function(R){if(R)R.ov(on);else if(on&&hm&&!hm.querySelector('.rm-fbn')){var p=document.createElement('p');p.className='rm-fbn';p.textContent='街道地图加载失败，已改用示意图';hm.insertBefore(p,hm.firstChild);window.scrollTo(0,Math.max(0,hm.getBoundingClientRect().top+(window.pageYOffset||0)-80))}})}
-    b.addEventListener('click',toggle);go.addEventListener('click',toggle);
+    // ——— 起步壳：和 routemap.js 里的 fitCam / 面板三档同一套公式（改一边要改另一边；map_app_check 比过位置）———
+    function lx(g){return(g+180)/360}
+    function ly(a){var s=Math.sin(Math.max(-85.0511,Math.min(85.0511,a))*Math.PI/180);return .5-Math.log((1+s)/(1-s))/(4*Math.PI)}
+    function secs(){return[].slice.call(art.querySelectorAll('section.day')).filter(function(s){return!s.hidden&&!s.closest('[hidden]')})}
+    function dayLL(sec,home){var a=[].slice.call(sec.querySelectorAll('.tl > .r[data-ll]')).filter(function(r){return!r.hidden}).map(function(r){var p=r.getAttribute('data-ll').split(',');return[+p[0],+p[1]]});var e=sec.getAttribute('data-ep');if(home&&e){var p=e.split(',');a.home=[+p[0],+p[1]]}return a}
+    function bootShell(sec){
+      var y=window.pageYOffset||0,had=B.classList.contains('pk-open'),all=secs(),days=all.map(function(s){return dayLL(s)}),n=all.length,sel=sec?all.indexOf(sec):-1,i,j;
+      var pr=D.createElement('div');pr.style.cssText='position:fixed;left:0;top:0;width:0;height:0;visibility:hidden;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)';B.appendChild(pr);var cs=getComputedStyle(pr),st=parseFloat(cs.paddingTop)||0,sb=parseFloat(cs.paddingBottom)||0;B.removeChild(pr);
+      var H=window.innerHeight,Wd=window.innerWidth,c0=110+sb,full=H-st-64,half=Math.max(c0+150,Math.min(Math.round(H*.5),Math.max(c0+150,full-90))),sh=H>=700?half:c0;
+      var ll=[];if(sel>=0){ll=days[sel].slice();var e=all[sel].getAttribute('data-ep');if(e){var pp=e.split(',');ll.push([+pp[0],+pp[1]])}}else days.forEach(function(d){ll=ll.concat(d)});
+      var root=D.createElement('div');root.className='rm rm-fs rm-boot rm-'+(sec?'day':'ov');root.setAttribute('role','dialog');root.setAttribute('aria-label','路线地图');root.setAttribute('aria-modal','true');
+      var svg='',cam=null;
+      if(ll.length){var s0=90,w0=180,n0=-90,e0=-180;ll.forEach(function(p){s0=Math.min(s0,p[0]);n0=Math.max(n0,p[0]);w0=Math.min(w0,p[1]);e0=Math.max(e0,p[1])});
+        var x0=lx(w0),x1=lx(e0),y0=ly(n0),y1=ly(s0),bw=x1-x0,bh=y1-y0,pad={t:st+60,b:Math.min(sh+20,H-140),l:36,r:88},aw=Math.max(40,Wd-pad.l-pad.r),ah=Math.max(40,H-pad.t-pad.b),z=15;
+        if(bw>1e-9||bh>1e-9)z=Math.min(15,Math.log(Math.min(bw>1e-9?aw/(bw*512):1e9,bh>1e-9?ah/(bh*512):1e9))/Math.LN2);z=Math.max(2,Math.min(15,z));if(!(bw>1e-9||bh>1e-9))z=14;
+        var sc=512*Math.pow(2,z),cx=(x0+x1)/2-(pad.l-pad.r)/2/sc,cy=(y0+y1)/2-(pad.t-pad.b)/2/sc;cam={cx:cx,cy:cy,sc:sc,z:z};
+        function P(p){return[((lx(p[1])-cx)*sc+Wd/2).toFixed(1),((ly(p[0])-cy)*sc+H/2).toFixed(1)]}
+        days.forEach(function(d,k){var cl='rm-c'+(k%3)+' rm-s'+(Math.floor(k/3)%3),dim=sel>=0&&sel!==k;if(d.length>1){var pts=d.map(function(p){return P(p).join(',')}).join(' ');svg+='<polyline class="rm-bl '+cl+(dim?' dim':'')+'" points="'+pts+'"/>'}});
+        if(sel>=0){days[sel].forEach(function(p,k){var q=P(p);svg+='<g class="rm-bm rm-c'+(sel%3)+' rm-s'+(Math.floor(sel/3)%3)+'" transform="translate('+q[0]+','+q[1]+')"><rect x="-14" y="-14" width="28" height="28"/><text y="5" text-anchor="middle">'+(k+1)+'</text></g>'})}
+        else days.forEach(function(d,k){if(!d.length)return;var q=P(d[0]);svg+='<g class="rm-bm rm-c'+(k%3)+' rm-s'+(Math.floor(k/3)%3)+'" transform="translate('+q[0]+','+q[1]+')"><rect x="-14" y="-14" width="28" height="28"/><text y="5" text-anchor="middle">'+(k+1)+'</text></g>'})}
+      var tabs='<button type="button" class="rm-tb'+(sel<0?' on':'')+'" disabled>全程</button>';for(i=0;i<n;i++)tabs+='<button type="button" class="rm-tb'+(sel===i?' on':'')+'" disabled>'+(n<=7?'第 '+(i+1)+' 天':(i+1))+'</button>';
+      root.innerHTML='<div class="rm-stage"><svg class="rm-bsvg" width="'+Wd+'" height="'+H+'" viewBox="0 0 '+Wd+' '+H+'" aria-hidden="true">'+svg+'</svg></div><div class="rm-prog" aria-hidden="true"><i style="width:8%"></i></div>'+
+        '<button type="button" class="rm-b rm-x pk-x" aria-label="关闭地图" title="关闭">×</button><p class="rm-load" role="status">街道地图加载中…</p>'+
+        '<div class="rm-sht m-list" style="height:'+sh+'px"><div class="rm-grab" aria-hidden="true"><i></i></div><div class="rm-tabs'+(n>6?' long':'')+'">'+tabs+'</div></div>';
+      boot={root:root,y:y,addedPk:!had,dead:false,sec:sec,sr:(function(){try{var o=history.scrollRestoration;history.scrollRestoration='manual';return o}catch(e){return ''}})(),view:cam?{cx:cam.cx,cy:cam.cy,sc:cam.sc,z:cam.z,w:Wd,h:H,hv:H-sh}:null};      // hv：地图容器刚开时的高（只到面板上沿；routemap.js 的 growMap 里同一个口径）
+      B.style.top=(-y)+'px';B.classList.add('rm-lock','rmap-on','pk-open');B.appendChild(root);
+      root.querySelector('.rm-x').addEventListener('click',closeBoot);return boot}
+    function closeBoot(){var b=boot;if(!b)return;boot=null;b.dead=true;if(b.root.parentNode)b.root.parentNode.removeChild(b.root);B.classList.remove('rm-lock','rmap-on');B.style.top='';if(b.addedPk)B.classList.remove('pk-open');try{window.scrollTo({top:b.y,behavior:'instant'})}catch(e){window.scrollTo(0,b.y)}var pp=function(){try{window.scrollTo({top:b.y,behavior:'instant'})}catch(e){window.scrollTo(0,b.y)}window.removeEventListener('popstate',pp)};window.addEventListener('popstate',pp);setTimeout(function(){window.removeEventListener('popstate',pp);try{if(b.sr)history.scrollRestoration=b.sr}catch(e){}},1500)}
+    function mlTag(){if(window.maplibregl||D.querySelector('script[src*="maplibre-gl.js"]')||navigator.onLine===false||!window.WebGLRenderingContext)return;var l=D.createElement('link');l.rel='stylesheet';l.href='/assets/maplibre/maplibre-gl.css'+q;D.head.appendChild(l);var s=D.createElement('script');s.src='/assets/maplibre/maplibre-gl.js'+q;s.async=true;s.onerror=function(){s.setAttribute('data-err','1')};D.head.appendChild(s)}
+    function warm(b){      // 点开的同一刻：样式、sprite、常用字形、瓦片索引、按起步壳那一屏算出的瓦片一起发出去（以前是 脚本→样式→sprite→字形→瓦片索引→瓦片 串成一条链）；结果落进浏览器缓存，maplibre 随后取同一个地址直接命中
+      if(navigator.onLine===false)return;try{var lt=+localStorage.getItem('zouni_map_t')||0;if(lt&&Date.now()-lt<600000)return;      // 10 分钟内刚开过地图：样式 / sprite / 字形 / 瓦片都还在浏览器缓存里，不再并行预热（再发一遍只是多 20 个请求挤缓存查找，实测热缓存首批瓦片慢 200ms）
+        var cn=navigator.connection||{},slow=/(^|-)2g|3g/.test(cn.effectiveType||'')||cn.saveData,weak=slow||(navigator.deviceMemory&&navigator.deviceMemory<=2)||(navigator.hardwareConcurrency&&navigator.hardwareConcurrency<=4&&(window.devicePixelRatio||1)>2),dpr=(window.devicePixelRatio||1)>=2&&!weak?'@2x':'';      // weak 的口径和 routemap.js 的 weakDevice() 一致（它会把 pixelRatio 降成 1，sprite 就取 1x）
+        // 慢网 / 省流量：字形不预热（脚本要先到）；瓦片一块一块按“离屏幕中心近的先”取、优先级放低——带宽就那么多，同时开 6 路只会让 6 块一起在最后才到（第一块瓦片等于最后一块），一块一块取第一块早得多，脚本到了它已经在缓存里
+        ['/assets/map/style.json'+q,'/assets/map/sprite/ofm'+dpr+'.json','/assets/map/sprite/ofm'+dpr+'.png'].concat(slow?[]:['/assets/map/fonts/Noto%20Sans%20Regular/0-255.pbf']).forEach(function(x){fetch(x,{credentials:'same-origin'}).catch(function(){})});
+        // 瓦片：先取索引（带当前版本号的瓦片地址），再按“起步壳那一屏”算出要哪几块，趁 maplibre 脚本还在下载就先取进缓存（脚本到了、地图建好，瓦片已经在手里）
+        fetch('https://tiles.openfreemap.org/planet',{mode:'cors',credentials:'same-origin'}).then(function(r){return r.json()}).then(function(j){var v=b&&b.view,tpl=j&&j.tiles&&j.tiles[0];if(!v||!tpl)return;
+          var tz=Math.max(0,Math.min(14,Math.floor(v.z))),n=Math.pow(2,tz),x0=Math.floor((v.cx-v.w/2/v.sc)*n),x1=Math.floor((v.cx+v.w/2/v.sc)*n),y0=Math.floor((v.cy-v.h/2/v.sc)*n),y1=Math.floor((v.cy-v.h/2/v.sc+v.hv/v.sc)*n),i,k,list=[],ccx=v.cx*n-0.5,ccy=(v.cy-v.h/2/v.sc+v.hv/2/v.sc)*n-0.5;
+          for(i=Math.max(0,x0);i<=Math.min(n-1,x1);i++)for(k=Math.max(0,y0);k<=Math.min(n-1,y1);k++)list.push([i,k,Math.abs(i-ccx)+Math.abs(k-ccy)]);
+          list.sort(function(a,b){return a[2]-b[2]});list=list.slice(0,slow?6:12);
+          function go(t){return fetch(tpl.replace('{z}',tz).replace('{x}',t[0]).replace('{y}',t[1]),{mode:'cors',credentials:'same-origin',priority:slow?'low':'auto'}).catch(function(){})}
+          if(slow)(function nx(m){if(m<list.length)go(list[m]).then(function(){nx(m+1)})})(0);else list.forEach(go)}).catch(function(){})}catch(e){}}
+    function start(sec){
+      if(boot)return;var b=bootShell(sec);
+      mlTag();warm(b);      // 起步壳已经塞进 DOM，同一个任务里把 routemap.js（下面 load）、maplibre、样式、瓦片都发出去；这里不建 WebGL 上下文（mlTag 只看 WebGLRenderingContext 在不在，真建上下文放到 routemap.js 起地图那一步，那时起步壳早画出来了）
+      load(function(R){
+        if(b.dead)return;
+        if(!R){var t=b.root.querySelector('.rm-load');if(t){t.textContent='地图没加载出来，请检查网络后再点一次'}return}
+        var inst=sec?R.day(sec,b):R.ov(b);boot=null;if(!inst){B.classList.remove('rm-lock','rmap-on');B.style.top='';if(b.root.parentNode)b.root.parentNode.removeChild(b.root);if(b.addedPk)B.classList.remove('pk-open');window.scrollTo(0,b.y);toast('这天没有可画的位置')}})}
+    document.addEventListener('click',function(e){var b=e.target.closest('.rm-open,.rm-nb');if(!b)return;var s=b.closest('.day');
+      if(b.classList.contains('rm-nb')){load(function(R){if(!R){toast('地图没加载出来，请检查网络后再点一次');return}R.nav(s)});return}
+      start(s)});
+    var ov=document.querySelector('.overview'),hm=ov&&ov.querySelector('.hmap');if(!ov||ov.querySelector('.mapgo')||(!hm&&art.querySelectorAll('.tl > .r[data-ll]').length<2))return;
+    var go=document.createElement('button');go.type='button';go.className='mapgo';go.setAttribute('aria-haspopup','dialog');go.innerHTML='<span>看路线图</span><i>›</i>';      // 第一屏的入口：一步直达整屏地图
+    go.addEventListener('click',function(){start(null)});
     var dn=art.querySelector('.dnote'),gl=art.querySelector('.glance'),ppl=art.querySelector('.ppl'),ah=dn||ppl||gl;if(ah&&ah.parentNode)ah.parentNode.insertBefore(go,ah.nextSibling);
-    if(hm)hm.parentNode.insertBefore(b,hm);else ov.appendChild(b)}catch(e){}})();
+    // 空闲预取：页面载完又闲了几秒，且是 4g / wifi、没开省流量，才把 routemap.js（小）预取进缓存；确定是 4g / wifi 才连 maplibre 和样式一起取。弱网 / 省流量 / 不确定的一概不动（点开时现取）
+    function idle(){try{var c=navigator.connection||{};if(c.saveData)return;var t=c.effectiveType;if(t&&t!=='4g')return;var big=t==='4g'||c.type==='wifi',u=['/assets/routemap.js'+q];
+      if(big){u.push('/assets/maplibre/maplibre-gl.js'+q,'/assets/maplibre/maplibre-gl.css'+q,'/assets/map/style.json'+q);var pc=D.createElement('link');pc.rel='preconnect';pc.href='https://tiles.openfreemap.org';pc.crossOrigin='anonymous';D.head.appendChild(pc)}
+      u.forEach(function(x){var l=D.createElement('link');l.rel='prefetch';l.href=x;D.head.appendChild(l)})}catch(e){}}
+    function sched(){var f=function(){if(!document.hidden)idle();else setTimeout(f,3000)};if(window.requestIdleCallback)requestIdleCallback(f,{timeout:5000});else setTimeout(f,3500)}
+    if(document.readyState==='complete')setTimeout(sched,2000);else window.addEventListener('load',function(){setTimeout(sched,2000)})
+  }catch(e){}})();
 
 // ——— 长线检索 /long/：三个控件（搜索、天数、出发月份），状态写进 URL hash ———
 (function(){
