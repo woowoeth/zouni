@@ -323,14 +323,26 @@ with sync_playwright() as p:
             ok_, hint_ = same(pg, 3, sec0); check('④ 换回原来的之后第 3 天逐字一致', ok_, hint_)
         close_pk(pg)
 
-    # ———————————————— 已排满：第 2 天已排到 22:10（晚于 21:30）————————————————
-    with guard('已排满：第 2 天已排到 22:10（晚于 21:30）'):
+    # ———————————————— 当天结束上限（2026-10-18 新规则）：加完后的结束 ≤ min(23:00, max(21:30, 原结束 + 30 分钟))————————————————
+    with guard('当天结束上限：第 2 天已排到 22:10（新规则不再整天置灰）'):
         open_adj(pg, 2, '华清宫')
         bt = pg.locator('.pk [data-np="ins"]')
-        why = bt.inner_text() if bt.count() else ''
-        check('⑥ 已排满的天，“加一个”置灰、写原因', bt.count() == 1 and bt.is_disabled() and '排满' in why and '22:' in why, why)
-        check('⑥ 已排满的天，“换成”仍可用', pg.locator('.pk [data-np="rep"]').count() == 1 and not pg.locator('.pk [data-np="rep"]').is_disabled())
+        check('⑥ 第 2 天已排到 22:10：新规则（≤ max(21:30, 22:10 + 30 分钟) = 22:40）下“加一个”不置灰', bt.count() == 1 and not bt.is_disabled(), bt.inner_text() if bt.count() else '')
+        bt.click(); pg.wait_for_selector('.pk .npc, .pk .npe', timeout=15000); pg.wait_for_timeout(200)
+        note = pg.evaluate("[...document.querySelectorAll('.pk .xnote')].map(x=>x.textContent).join('|')")
+        cs_ = pg.evaluate("[...document.querySelectorAll('.pk .npc')].length")
+        check('⑥ 点开后：要么有候选（每个都过 22:40 的上限，由 pool_check 保证），要么写清“这天已经排到 22:10，再加就超过 22:40 了”（%s）' % note[:50], cs_ > 0 or ('再加就超过 22:40' in note and '22:10' in note), (cs_, note))
+        pg.locator('.pk .pk-x').first.click(); pg.wait_for_timeout(200)
+        check('⑥ 第 2 天已排到 22:10：“换成”仍可用', open_adj(pg, 2, '华清宫') is not None and pg.locator('.pk [data-np="rep"]').count() == 1 and not pg.locator('.pk [data-np="rep"]').is_disabled())
         close_pk(pg)
+    with guard('当天结束上限：晚出发把一天推过 23:00 → 置灰并写原因'):
+        c2, pg2 = new_page({'zouni_st_xa3': json.dumps({'1': '15:00'})}); goto(pg2, 'xa3')
+        open_adj(pg2, 2, '华清宫')
+        bt = pg2.locator('.pk [data-np="ins"]'); why = bt.inner_text() if bt.count() else ''
+        check('⑥ 把第 2 天改成 15:00 出发（排到次日凌晨）：“加一个”置灰、写“再加就超过 23:00 了”（%s）' % why.replace('\n', ' ')[:40], bt.count() == 1 and bt.is_disabled() and '再加就超过 23:00' in why, why)
+        check('⑥ 置灰的原因里时间写成“次日 HH:MM”，不是 0 点后的怎么看都不对的钟点', '次日' in why, why)
+        close_pk(pg2); c2.close()
+    with guard('定点的站不出现换成 / 加一个'):
         # 定点的站（皮影戏 19:30）不出现这两项
         open_adj(pg, 1, '高家大院')
         check('① 定点的站（皮影戏）没有“换成/加一个”', pg.locator('.pk [data-np]').count() == 0)
@@ -422,7 +434,7 @@ with sync_playwright() as p:
         c, pg = new_page()
         goto(pg, 'gqhx10')
         sec0 = sect(pg, 1)
-        fx0 = pg.evaluate("[...document.querySelectorAll('#d1 .facts .fx')].map(f=>f.innerText.replace(/\\n/g,' '))")
+        fx0 = pg.evaluate("document.querySelector('#d1 .dload').innerText")      # 2026-10-18：“开车 N 小时”那一格删了，同一天只在“开车约 N”这一行写
         cands = pick_list(pg, 1, '塔尔寺', 'ins')
         check('① 自驾长线第 1 天：“在这之后加一个”有候选', bool(cands), (cands, getattr(pg, '_note', '')))
         if cands:
@@ -436,8 +448,8 @@ with sync_playwright() as p:
                 S = ll(S_row['ll']); X = ll(nrow[0]['ll'])
                 e1, m1_ = leg_text(S, X, sinfo['lm'], 1.0, sinfo['sv'] == '1')
                 check('② 自驾线：新站前的车程文字是“自驾约/开车”、分钟和模型一致', re.match(r'^(自驾约|开车)', dep_n[0]['s']) is not None and dep_n[0]['s'].strip() == e1, (dep_n[0]['s'], e1))
-            fx1 = pg.evaluate("[...document.querySelectorAll('#d1 .facts .fx')].map(f=>f.innerText.replace(/\\n/g,' '))")
-            check('② 自驾线：当天“开车 N 小时”跟着更新', fx1 != fx0 and any(x.startswith('开车') for x in fx1), (fx0, fx1))
+            fx1 = pg.evaluate("document.querySelector('#d1 .dload').innerText")
+            check('② 自驾线：当天“开车约 N”那一行跟着更新（2026-10-18：facts 里的“开车”格删了，同一天只写一处）', fx1 != fx0 and '开车约' in fx1 and '开车' not in pg.evaluate("document.querySelector('#d1 .facts').innerText"), (fx0, fx1))
             pg.wait_for_timeout(300)
             pg.reload(wait_until='networkidle'); pg.wait_for_timeout(1500)
             check('⑤ 自驾线刷新后保留', pg.locator('#d1 [data-np="v"]').count() == 2)
@@ -452,7 +464,7 @@ with sync_playwright() as p:
         check('① 东京第 1 天：弹层有两个入口', open_adj(pg, 1, '浅草寺') is not None and pg.locator('.pk [data-np]').count() == 2)
         close_pk(pg)
         cands = pick_list(pg, 1, '浅草寺', 'ins')
-        check('⑥ 东京第 1 天浅草寺之后：唯一的候选会让这天晚于 21:30，不许出现（不是“附近没有”，是“排满”）', cands == [] and '排满' in getattr(pg, '_note', ''), (cands, getattr(pg, '_note', '')))
+        check('⑥ 东京第 1 天浅草寺之后：唯一的候选会让这天晚于上限，不许出现（不是“附近没有”，是“再加就超过 xx:xx 了”）', cands == [] and '再加就超过' in getattr(pg, '_note', ''), (cands, getattr(pg, '_note', '')))
         close_pk(pg)
         cands = pick_list(pg, 3, '新宿御苑', 'rep')
         if cands:

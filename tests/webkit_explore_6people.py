@@ -15,7 +15,7 @@ with sync_playwright() as p:
         c,pg,errs=ctx(); pg.goto(B+'/trip/bj4/',wait_until='networkidle'); pg.wait_for_timeout(300)
         pg.evaluate("(v)=>{const i=document.querySelector('.dpk');i.value=v;i.dispatchEvent(new Event('change'))}",today.isoformat()); pg.wait_for_timeout(300)
         pg.locator('.addday .add').scroll_into_view_if_needed(); pg.locator('.addday .add').click(); pg.wait_for_timeout(300); pg.locator('.xd button[data-free]').click(); pg.wait_for_timeout(800)
-        pg.locator('#d2 .rmorig').scroll_into_view_if_needed(); pg.locator('#d2 .rmorig').click(); pg.wait_for_timeout(200); pg.locator('.rmgo').click(); pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(2000)
+        pg.locator('#d2 .rmorig, #d2 .dayadj').scroll_into_view_if_needed(); pg.locator('#d2 .rmorig, #d2 .dayadj').click(); pg.wait_for_timeout(200); pg.locator('.rmgo').click(); pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(2000)
         d=pg.evaluate("({days:[...document.querySelectorAll('.day')].map(s=>s.querySelector('header small').textContent),dock:document.querySelector('.dock b').innerText,tv:(document.querySelector('.tvbtn')||{}).innerText})")
         pg.locator('.tvbtn').click(); pg.wait_for_timeout(300); t=pg.evaluate("({tabs:[...document.querySelectorAll('.tvtabs button')].map(b=>b.innerText).join(' '),title:document.querySelector('.tvb h2').innerText,head:document.querySelector('.tvd').innerText})")
         ok=len(d['days'])==4 and t['tabs'].startswith('今天') and today.strftime('%-m/%-d') in t['head']
@@ -48,7 +48,7 @@ with sync_playwright() as p:
     try:
         c,pg,errs=ctx(); pg.goto(B+'/trip/sz3/',wait_until='networkidle'); pg.wait_for_timeout(300)
         pg.evaluate("(v)=>{const i=document.querySelector('.dpk');i.value=v;i.dispatchEvent(new Event('change'))}",(today+datetime.timedelta(days=9)).isoformat()); pg.wait_for_timeout(200)
-        pg.locator('#d1 .rmorig').scroll_into_view_if_needed(); pg.locator('#d1 .rmorig').click(); pg.wait_for_timeout(200); pg.locator('.rmgo').click(); pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(1500)
+        pg.locator('#d1 .rmorig, #d1 .dayadj').scroll_into_view_if_needed(); pg.locator('#d1 .rmorig, #d1 .dayadj').click(); pg.wait_for_timeout(200); pg.locator('.rmgo').click(); pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(1500)
         pg.locator('.dock .fav').click(); pg.wait_for_timeout(200)
         pg.goto(B+'/',wait_until='networkidle'); pg.wait_for_timeout(300); pg.locator('.minebtn').click(); pg.wait_for_timeout(300)
         row=pg.evaluate("[...document.querySelectorAll('.pk a.mr')].map(a=>a.innerText.replace(/\\n/g,' '))")
@@ -78,7 +78,7 @@ with sync_playwright() as p:
         sw=pg.locator('#d2 .rainswap')
         if sw.count(): sw.click(); pg.wait_for_timeout(400)
         before=pg.evaluate("[...document.querySelectorAll('.r[data-rain]')].map(r=>r.closest('.day').querySelector('h2').childNodes[0].textContent.trim()+'：'+r.querySelector('.m').childNodes[0].textContent)")
-        pg.locator('#d1 .rmorig').scroll_into_view_if_needed(); pg.locator('#d1 .rmorig').click(); pg.wait_for_timeout(200); pg.locator('.rmgo').click(); pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(2000)
+        pg.locator('#d1 .rmorig, #d1 .dayadj').scroll_into_view_if_needed(); pg.locator('#d1 .rmorig, #d1 .dayadj').click(); pg.wait_for_timeout(200); pg.locator('.rmgo').click(); pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(2000)
         after=pg.evaluate("[...document.querySelectorAll('.r[data-rain]')].map(r=>r.closest('.day').querySelector('h2').childNodes[0].textContent.trim()+'：'+r.querySelector('.m').childNodes[0].textContent)")
         rec('148 小蒋 · 下雨换了室内，再去掉前一天',(not before) or (after and after[0].split('：')[0]==before[0].split('：')[0]),f'换之前后 {before} → 去掉第 1 天后 {after}')
         rec('149 小蒋 · 页面报错',not errs,'；'.join(errs) or '没有'); c.close()

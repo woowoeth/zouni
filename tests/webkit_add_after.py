@@ -5,7 +5,9 @@ with sync_playwright() as p:
     pg.goto('http://localhost:8765/trip/xj10/',wait_until='networkidle'); pg.wait_for_timeout(700)
     n_btn=pg.locator('.addafter').count()
     pg.evaluate("()=>{document.documentElement.style.scrollBehavior='auto';document.querySelector('#d5').scrollIntoView()}"); pg.wait_for_timeout(200)
-    pg.locator('#d5 .addafter').click(); pg.wait_for_timeout(500)
+    pg.locator('#d5 .addafter, #d5 .dayadj').click(); pg.wait_for_timeout(300)
+    if pg.locator('.pk [data-a="after"]').count(): pg.locator('.pk [data-a="after"]').click()      # 2026-10-18：每天一个“调整这一天”，层里点“在这天后面加一天”
+    pg.wait_for_timeout(500)
     panel=pg.evaluate("()=>{const p=document.querySelector('.pk');return p?p.innerText.replace(/\\s+/g,' ').slice(0,260):null}")
     pg.locator('.pk .xd button[data-rid]').first.click(); pg.wait_for_timeout(1500)
     after=pg.evaluate("()=>({days:document.querySelectorAll('.day').length,d6:(document.querySelector('#d6 h2')||{}).textContent,d5:(document.querySelector('#d5 h2')||{}).textContent,stay6:[...document.querySelectorAll('#d6 .tl > .r')].map(r=>r.innerText.replace(/\s+/g,' ')).filter(t=>/住/.test(t)).slice(-1)[0]||'无',ov:[...document.querySelectorAll('.overview ol>li')].slice(4,7).map(l=>l.innerText.replace(/\\s+/g,' ').slice(0,30)),head:(document.querySelector('.overview h2')||{}).textContent})")

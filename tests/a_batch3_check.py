@@ -8,7 +8,7 @@
 A1  “累不累”同源：每天的“走路约 / 开车约（不开车线写路上约）”、开车/路上那一格、页头“最长一天”、对比表、时间表里的移动行，是同一个数；
     不开车的线（郑和 hzh1）火车、打车也算进去，页头写“路上最长 X 小时”，不再是只有“不开车”
 A2  “出发前”：说明（没有复选框、不加粗）和待办（复选框）分开；一条里说明和待办混着的按分句拆开，不会有一条几十字的粗体复选框
-A3  “去掉这一天”确认弹层：确认键墨色实心方形，取消描边，不是灰底
+A3  “调整这一天”层里的“去掉这一天”：墨色实心方形主按钮，没有确认层和取消键（点一下执行，5 秒内可撤销）
 A4  /follow/ 主题页年表“看其余 N 条”展开状态记在本机（按主题、7 天过期）
 A5  点时间线行本体：高亮这一行；没开地图只高亮、不弹地图、不弹“改这一站”（2026-10-18 地图 App 化：整屏地图盖住页面，不再有“页面行 ↔ 内嵌地图”的联动，改成：地图里选的站，关闭后页面滚到那一行——判据在 map_app_check M4）
 A6  sans.css 每个字体块都是 font-display: swap，且是不挡渲染的（media=print onload）；serif.css 仍是 block
@@ -24,9 +24,8 @@ from ux_common import *
 ROOT_ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INJ = {
     'road_old': ('assets/site.js', "if(/^(步行|徒步)/.test(tx))walk+=mn;else drive+=mn}", "if(/^(步行|徒步)/.test(tx))walk+=mn;else if(/^(打车|包车|自驾|开车|大巴)/.test(tx))drive+=mn}"),
-    'label_old': ('assets/site.js', "(sv_?'开车约 ':'路上约 ')", "'开车约 '"),
+    'label_old': ('assets/site.js', "(sv_&&own>0&&own>=drive-.5?'开车约 ':'路上约 ')", "'开车约 '"),
     'confirm_grey': ('assets/site.css', ".xd .rmgo{background:var(--ink);color:var(--bg);min-height:48px}", ".xd .rmgo{min-height:48px}"),
-    'cancel_plain': ('assets/site.css', ".pk-h .pk-x.pk-cancel{min-height:44px;padding:0 16px;border:1px solid var(--ink);", ".pk-h .pk-x.pk-cancel{min-height:44px;padding:0 16px;border:0;"),
     'ftl_forget': ('assets/site.js', "if(o&&o.t&&Date.now()-o.t<7*864e5)d.open=true;", "if(0)d.open=true;"),
     'ftl_forever': ('assets/site.js', "Date.now()-o.t<7*864e5", "Date.now()-o.t<7000*864e5"),
     'row_nohl': ('assets/site.js', "if(li.classList.contains('dep'))return;li.classList.add('rsel');", "if(li.classList.contains('dep'))return;"),
@@ -74,12 +73,13 @@ with sync_playwright() as p:
                 pg.wait_for_function("document.querySelectorAll('.day > .dload').length===document.querySelectorAll('section.day').length", timeout=8000)
                 d = pg.evaluate("""()=>{var sv=document.querySelector('article.trip').dataset.sv==='1';
                   return {sv:sv,gd:document.querySelector('.glance [data-gd]').innerText.replace(/\\s+/g,' '),
-                  days:[].map.call(document.querySelectorAll('section.day'),function(s){var ld=s.querySelector(':scope > .dload'),fx=[].filter.call(s.querySelectorAll('.facts .fx:not([hidden]) small'),function(x){return x.textContent==='开车'||x.textContent==='路上'})[0];
-                    return {txt:ld?ld.textContent:'',d:ld?+ld.dataset.d:-1,drv:+s.dataset.drv,fx:fx?fx.parentNode.querySelector('b').textContent:''}})}}""")
+                  days:[].map.call(document.querySelectorAll('section.day'),function(s){var ld=s.querySelector(':scope > .dload'),fx=[].filter.call(s.querySelectorAll('.facts .fx:not([hidden]) small'),function(x){return x.textContent==='开车'||x.textContent==='路上'})[0],
+                    deps=[].slice.call(s.querySelectorAll('.tl > .r.dep:not([hidden]) .s')).map(function(p){return p.textContent.replace(/^回住处\\s*·\\s*/,'').split('·')[0].trim()}).filter(function(t){return!/^(步行|徒步)/.test(t)&&/\\d/.test(t)});
+                    return {txt:ld?ld.textContent:'',d:ld?+ld.dataset.d:-1,drv:+s.dataset.drv,fx:fx?fx.parentNode.querySelector('b').textContent:'',allown:deps.length>0&&deps.every(function(t){return /^(自驾|开车|包车)/.test(t)})}})}}""")
                 days = d['days']; lab = '开车约' if d['sv'] else '路上约'
-                check('A1a %s 每天的数 = 建站时算好的（data-drv）= “开车/路上”那一格（口径同一个）' % rid,
-                      all(x['d'] == x['drv'] and (x['fx'] == '' if x['d'] < 10 else zmin(x['fx']) == zmin(x['fx']) and abs(zmin(x['fx']) - x['d']) <= 5) for x in days), [(x['d'], x['drv'], x['fx']) for x in days])
-                check('A1b %s 每天那一行写“%s”（不开车线写路上约，自驾线写开车约；sv=%s）' % (rid, lab, d['sv']), all((lab in x['txt']) or x['d'] < 10 for x in days) and d['sv'] == drive or rid == 'sh5d', [x['txt'] for x in days][:3])
+                check('A1a %s 每天的数 = 建站时算好的（data-drv）；2026-10-18 起“开车/路上”那一格去掉了（同一天只写一次）' % rid,
+                      all(x['d'] == x['drv'] and x['fx'] == '' for x in days), [(x['d'], x['drv'], x['fx']) for x in days])
+                check('A1b %s 每天那一行：不开车线写“路上约”；有自驾段的线路，当天全是自驾才写“开车约”，混着高铁 / 打车写“路上约”（sv=%s）' % (rid, d['sv']), d['sv'] == drive and all((x['d'] < 10) or (('开车约' in x['txt']) == (d['sv'] and x['allown'])) for x in days), [(x['txt'][:18], x['allown']) for x in days][:3])
                 mx = max(x['d'] for x in days)
                 m = re.search(r'(\d+(?:\.\d)?) 小时', d['gd'])
                 check('A1c %s 页头“最长一天”(%s) = 每天里最大的那个(%d 分 = %.1f 小时)' % (rid, d['gd'], mx, mx / 60), (not m and mx < 45) or (bool(m) and abs(float(m.group(1)) - mx / 60) < .06), (d['gd'], mx))
@@ -113,19 +113,18 @@ with sync_playwright() as p:
                 ok2, _ = verdict(probe())
                 check('A2b 反向：把说明塞回待办的那一条，判据会红', not ok2)
 
-    # ───────── A3 去掉这一天：确认键墨色实心、取消描边
+    # ───────── A3 去掉这一天：“调整这一天”层里的“去掉这一天”是墨色实心方形主按钮（2026-10-18：确认层和“算了”取消键都没了，点一下直接执行，5 秒内可撤销）
     if want('A3'):
         with guard('A3'):
             c = new_ctx(br, None); pg = new_page(env, c); goto(env, pg, '/trip/hzh1/', 500)
-            pg.evaluate("document.querySelector('.rmday.rmorig').scrollIntoView({block:'center',behavior:'instant'})")
-            pg.click('.rmday.rmorig'); pg.wait_for_selector('.xd .rmgo'); pg.wait_for_timeout(300)
-            st = pg.evaluate("""()=>{var g=document.querySelector('.xd .rmgo'),x=document.querySelector('.pk-h .pk-cancel'),cs=getComputedStyle(g),xs=getComputedStyle(x),ink=getComputedStyle(document.documentElement).getPropertyValue('--ink').trim();
+            pg.evaluate("document.querySelector('.dayadj').scrollIntoView({block:'center',behavior:'instant'})")
+            pg.click('.dayadj'); pg.wait_for_selector('.xd .rmgo'); pg.wait_for_timeout(300)
+            st = pg.evaluate("""()=>{var g=document.querySelector('.xd .rmgo'),cs=getComputedStyle(g),ink=getComputedStyle(document.documentElement).getPropertyValue('--ink').trim();
               var tmp=document.createElement('i');tmp.style.color=ink;document.body.appendChild(tmp);var inkRgb=getComputedStyle(tmp).color;tmp.remove();
-              var r=g.getBoundingClientRect(),rx=x.getBoundingClientRect();
-              return {bg:cs.backgroundColor,ink:inkRgb,fg:cs.color,h:r.height,xb:xs.borderTopWidth,xbg:xs.backgroundColor,xh:rx.height,rad:cs.borderRadius}}""")
-            check('A3a 确认键“去掉这一天”是墨色实心（背景 %s = 墨色 %s）、方形、≥44 高' % (st['bg'], st['ink']), st['bg'] == st['ink'] and st['rad'] in ('0px', '0') and st['h'] >= 44, st)
-            check('A3b 取消“算了”是描边（边框 %s、底透明 %s）、≥44 高' % (st['xb'], st['xbg']), st['xb'] == '1px' and st['xbg'] in ('rgba(0, 0, 0, 0)', 'transparent') and st['xh'] >= 44, st)
-            shot(pg, 'a3_confirm.png')
+              var r=g.getBoundingClientRect();return {bg:cs.backgroundColor,ink:inkRgb,fg:cs.color,h:r.height,rad:cs.borderRadius,cancel:document.querySelectorAll('.pk-cancel').length}}""")
+            check('A3a “去掉这一天”是墨色实心（背景 %s = 墨色 %s）、方形、≥44 高' % (st['bg'], st['ink']), st['bg'] == st['ink'] and st['rad'] in ('0px', '0') and st['h'] >= 44, st)
+            check('A3b 没有“算了”取消键（只有右上 ×）', st['cancel'] == 0, st)
+            shot(pg, 'a3_dayadj.png')
 
     # ───────── A4 年表展开状态
     if want('A4'):

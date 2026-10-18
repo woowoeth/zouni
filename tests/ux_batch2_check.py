@@ -145,6 +145,16 @@ def day_expect(rows):
     return int(math.floor(walk + .5)), int(drive)
 
 
+def day_own(rows):
+    """当天自驾 / 开车 / 包车的分钟（2026-10-18：整条线有自驾段时，当天所有非步行移动都是自驾才写“开车约”，混着高铁、打车写“路上约”）"""
+    own = 0.0
+    for r in rows:
+        if r['c'] == 'dep':
+            tx = re.sub(r'^回住处\s*·\s*', '', r['s']).split('·')[0].strip()
+            if re.match(r'(自驾|开车|包车)', tx): own += mins(tx)
+    return own
+
+
 def lf(m):
     if m < 60: return '%d 分钟' % (jround(m / 5) * 5 or 5)
     h = m // 60; r = jround((m % 60) / 10) * 10
@@ -243,7 +253,8 @@ with sync_playwright() as p:
                     if d['w'] is None: bad.append((rid, i + 1, '没有 .dload')); continue
                     ew, ed = day_expect(d['rows']); n_days += 1
                     if (int(d['w']), int(d['d'])) != (ew, ed): bad.append((rid, i + 1, (d['w'], d['d']), (ew, ed)))
-                    exp_txt = '今天：' + ('走路约 ' + lf(ew) if ew >= 15 else '几乎不用走') + ' · ' + (('开车约 ' if sv else '路上约 ') + lf(ed) if ed >= 10 else ('不开车' if sv else '路上很短'))
+                    own = day_own(d['rows'])
+                    exp_txt = ('走路约 ' + lf(ew) if ew >= 15 else '几乎不用走') + ' · ' + (('开车约 ' if (sv and own > 0 and own >= ed - .5) else '路上约 ') + lf(ed) if ed >= 10 else ('不开车' if sv else '路上很短'))      # 2026-10-18：去掉“今天：”前缀
                     if not (d['txt'] or '').startswith(exp_txt): bad.append((rid, i + 1, d['txt'], exp_txt))
                 per_route[rid] = (max(int(d['w']) for d in days if d['w']), max(int(d['d']) for d in days if d['d']))
                 if n_days >= 160: break
@@ -336,13 +347,13 @@ with sync_playwright() as p:
                 for di in range(min(n_day, 4)):
                     pg.locator('.day').nth(di).locator('.adj').first.click(); pg.wait_for_selector('.pk', timeout=8000)
                     if pg.locator('.pk [data-np="ins"]').count() == 0:
-                        pg.locator('.pk .pk-xb').click(); continue
+                        pg.locator('.pk .pk-x').click(); continue
                     pg.locator('.pk [data-np="ins"]').first.click(force=True); pg.wait_for_timeout(1500)
                     info = pg.evaluate("""[...document.querySelectorAll('.pk .npc')].map(b=>{const sm=b.querySelector('small'),e=sm.querySelector('em.npg'),txt=sm.textContent;
                         const tail=/ · (要预约|周一闭馆|就在旁边)$/.test(txt);if(!e)return tail?{t:'(标签在最后)',first:false,inside:false,txt:txt}:null;
                         const r=sm.getBoundingClientRect(),q=e.getBoundingClientRect();return {t:e.textContent,first:sm.firstChild===e,inside:q.left>=r.left-0.5&&q.right<=r.right+0.5&&q.width>0,txt:txt}}).filter(Boolean)""")
                     if info: found = (rid, di, info); break
-                    if pg.locator('.pk .pk-xb').count(): pg.locator('.pk .pk-xb').click()
+                    if pg.locator('.pk .pk-x').count(): pg.locator('.pk .pk-x').click()
                     pg.wait_for_timeout(200)
                 if found: break
             if found:
@@ -524,7 +535,7 @@ with sync_playwright() as p:
                 check('G5.5 %s：“要准备的”里同一句话只出现一次（%d 条）' % (rid, len(prep)), len(prep) == len(set(prep)), prep)
                 if name == '横滨':
                     hb = [s for s in stays if '横滨' in s]; check('G5.5 xw71a：横滨只列一次，写“连住 2 晚”（%s）' % hb, len(hb) == 1 and '连住 2 晚' in hb[0], hb)
-                cnt = pg.evaluate("document.querySelector('.tvd').innerText"); tot = sum(len(v) for v in groups.values())
+                cnt = pg.evaluate("document.querySelector('.tvd').innerText"); tot = sum(len(v) for k, v in groups.items() if k != '要留意的')      # 2026-10-18：弹层末尾多了一组“要留意的”（页内放不下的提示，不能勾，不算进“已办 0/N”）
                 check('G5.5 %s：顶上“已办 0/N”的 N = 清单总条数 %d（%s）' % (rid, tot, cnt), ('0/%d' % tot) in cnt, cnt)
                 c.close()
         with guard('G5-chips'):
@@ -592,7 +603,7 @@ with sync_playwright() as p:
                     ins = pg.locator('.pk [data-np="ins"]')
                     if ins.count() and ins.first.get_attribute('disabled') is None:
                         okd = (di, ai); small = pg.locator('.pk [data-np="ins"] small').first.inner_text() if pg.locator('.pk [data-np="ins"] small').count() else ''; break
-                    pg.locator('.pk .pk-xb').click(); pg.wait_for_timeout(150)
+                    pg.locator('.pk .pk-x').click(); pg.wait_for_timeout(150)
                 if okd: break
             check('G6.3 断网后“在这之后加一个”入口不写“没网”（候选数据在手机里；第 %s 天第 %s 个）：%s' % (okd and okd[0], okd and okd[1], small[:30]), okd is not None and '没网' not in small, small)
             if okd:

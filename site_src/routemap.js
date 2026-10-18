@@ -9,6 +9,7 @@
   if (window.ZRM) return;
   var D = document, W = window, B = D.body;
   var HOST = W.ZRM_HOST || {};
+  var ZL = W.ZL;      // 层栈（site.js）：整屏地图、导航分段层、存图层都是栈里的一层
   var ART = D.querySelector('article.trip');
   var APP = ART ? ART.getAttribute('data-app') : 'amap';
   var VER = ''; try { var _m = /[?&]v=(\w+)/.exec(D.currentScript.src); VER = _m ? _m[1] : ''; } catch (e) {}
@@ -253,7 +254,7 @@
     root.innerHTML =
       '<div class="rm-stage"><canvas class="rm-gr" aria-hidden="true"></canvas><div class="rm-map"></div><canvas class="rm-cv" aria-hidden="true"></canvas><div class="rm-pts"></div></div>' +
       '<div class="rm-prog" aria-hidden="true"><i></i></div>' +
-      '<button type="button" class="rm-b rm-x pk-x" aria-label="关闭地图" title="关闭">×</button>' +
+      '<button type="button" class="rm-b rm-x" aria-label="关闭地图" title="关闭">×</button>' +
       '<button type="button" class="rm-b rm-sv" aria-label="把这张图存成图片" title="存成图片">存图</button>' +
       '<p class="rm-load" role="status"></p>' +
       '<p class="rm-note" role="status" hidden><span></span><button type="button" class="rm-rt">重试</button></p>' +
@@ -721,12 +722,11 @@
     if (inst.view) inst.view.destroy(); if (inst.sch) inst.sch.destroy();
     if (inst.root && inst.root.parentNode) inst.root.parentNode.removeChild(inst.root);
     if (CUR === inst) CUR = null;
-    B.classList.remove('rmap-on'); unlockBody(inst); if (inst.addedPk) B.classList.remove('pk-open');
+    B.classList.remove('rmap-on'); unlockBody(inst);
+    if (inst.layer) ZL.close(inst.layer);      // 从层栈里退出（“×”、返回键、点遮罩都会走到这里；已经是栈顶弹出来的会被忽略）
     qsa('.rm-sheet.rm-dyn').forEach(function (s) { s.remove(); });
   }
 
-  // 浮层（导航分段层、存图层）开在地图之上时，返回键只关浮层、地图还在：站里的 popstate 处理已经吃掉了地图占的那条历史，这里补回一条，否则再按一次返回会直接离开页面
-  function repush(inst) { setTimeout(function () { if (inst && inst.alive && !(history.state && history.state.zov)) { try { history.pushState({ zov: 1 }, ''); } catch (e) {} } }, 0); }
   // ——— 导航这一天 ———
   function gcj(ll) { var f = W.zGcj; return f ? f(ll[0], ll[1]) : ll; }
   function navPts(d) {
@@ -781,14 +781,11 @@
     if (segs.length === 1) { goUrl(segs[0].url); return; }
     var who = APP === 'google' ? '用谷歌地图打开 ›' : '用高德打开 ›';
     var mask = el('div', 'pk-mask'), sh = el('div', 'pk rm-sheet rm-dyn'); sh.setAttribute('role', 'dialog');
-    var h = '<div class="pk-h"><b>导航这一天</b><button type="button" class="pk-x">关上</button></div><p class="xnote">' + esc(navHint(d)) + '</p><div class="xd">';
+    var h = '<div class="pk-h"><b>导航这一天</b><button type="button" class="pk-x" aria-label="关闭">×</button></div><p class="xnote">' + esc(navHint(d)) + '</p><div class="xd">';
     segs.forEach(function (s, i) { h += '<a class="rm-seg" href="' + esc(s.url) + '" data-i="' + i + '"><span class="rm-sg1"><b>第 ' + (i + 1) + ' 段：</b><small>' + s.pts.map(function (p) { return esc(p.n); }).join(' → ') + '</small></span><em>' + who + '</em></a>'; });
     sh.innerHTML = h + '</div>';
-    var xb = inst && inst.root ? qs('.rm-x', inst.root) : null;
-    function cl() { mask.remove(); sh.remove(); if (xb) xb.classList.add('pk-x'); if (!inst) B.classList.remove('pk-open'); else repush(inst); }
-    sh.addEventListener('click', function (e) { var x = e.target.closest('.pk-x'); if (x) return cl(); var a = e.target.closest('a.rm-seg'); if (a) { e.preventDefault(); goUrl(a.getAttribute('href')); } });
-    mask.addEventListener('click', cl); B.appendChild(mask); B.appendChild(sh); B.classList.add('pk-open');
-    if (xb) xb.classList.remove('pk-x');      // 分段层在地图之上：返回键 / Esc 先关分段层（站里找第一个 .pk-x：地图的“×”暂时不叫它）
+    sh.addEventListener('click', function (e) { var a = e.target.closest('a.rm-seg'); if (a) { e.preventDefault(); goUrl(a.getAttribute('href')); } });
+    ZL.open([mask, sh], { sheet: sh, mask: mask, kind: 'nav' });      // 层栈：在地图之上，返回键 / Esc / × / 点遮罩 / 下滑只关它，地图还在
   }
 
   // ——— 存成图片：底图 + 线 + 标记 + 标题 + 二维码（只放线路网址）；底图取不到就存示意图版并说明。只存面板上方露出来的那一块 ———
@@ -838,11 +835,11 @@
         } catch (e) {}
       }
       var url; try { url = cv.toDataURL('image/png'); } catch (e) { toast('保存图片失败'); return; }
-      var m = el('div', 'hmap-zoom shotv rm-shot'), had = B.classList.contains('pk-open'), xb = qs('.rm-x', inst.root);
-      m.innerHTML = '<button type="button" class="hz-x pk-x">关上</button><div class="hz-b"><img alt="路线图" src="' + url + '"></div><p class="shotp">' + (real ? '' : '街道底图没取到，存的是示意图版。') + '手机上长按图片保存；电脑上 <a download="走你-路线图.png" href="' + url + '">点这里下载</a></p>';
-      B.appendChild(m); B.classList.add('pk-open'); if (xb) xb.classList.remove('pk-x');
-      function cl() { m.remove(); if (xb) xb.classList.add('pk-x'); if (!had) B.classList.remove('pk-open'); else repush(inst); }
-      qs('.hz-x', m).addEventListener('click', cl);
+      var m = el('div', 'hmap-zoom shotv rm-shot');
+      m.innerHTML = '<button type="button" class="hz-x" aria-label="关闭">×</button><div class="hz-b"><img alt="路线图" src="' + url + '"></div><p class="shotp">' + (real ? '' : '街道底图没取到，存的是示意图版。') + '手机上长按图片保存；电脑上 <a download="走你-路线图.png" href="' + url + '">点这里下载</a></p>';
+      var LZ = ZL.open([m], { kind: 'shot' });
+      function cl() { ZL.close(LZ); }
+      qs('.hz-x', m).addEventListener('click', cl); m.addEventListener('click', function (e) { if (e.target === m || e.target.classList.contains('hz-b')) cl(); });
     }
     if (W.qrcode) run(); else { var s = el('script'); s.src = '/assets/qr.js'; s.onload = run; s.onerror = run; D.head.appendChild(s); }
   }
@@ -989,7 +986,9 @@
     if (type === 'day') { if (k < 0) return null; inst.sel = k; inst.home = k; }
     build(inst); CUR = inst; inst.y = boot && boot.y != null ? boot.y : (W.pageYOffset || 0);
     try { inst.sr = boot && boot.sr ? boot.sr : history.scrollRestoration; history.scrollRestoration = 'manual'; } catch (e) {}
-    inst.addedPk = boot ? !!boot.addedPk : !B.classList.contains('pk-open'); B.classList.add('pk-open', 'rmap-on');
+    B.classList.add('rmap-on');
+    if (boot && boot.layer && boot.layer.alive) { inst.layer = boot.layer; inst.layer.o.onclose = function () { closeInst(inst); }; }      // 起步壳已经是层栈里的一层：接手它（同一条历史），关闭时走 closeInst
+    else inst.layer = ZL.open([], { kind: 'map', onclose: function () { closeInst(inst); } });
     B.appendChild(inst.root); lockBody(inst);
     if (boot && boot.root && boot.root.parentNode) boot.root.parentNode.removeChild(boot.root);
     measure(inst); readPal(inst);

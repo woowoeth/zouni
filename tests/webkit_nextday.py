@@ -7,7 +7,7 @@ with sync_playwright() as p:
     pg.locator('#d1 .nextday').click(); pg.wait_for_timeout(700)
     top=pg.evaluate("Math.round(document.querySelector('#d2').getBoundingClientRect().top)")
     pg.on('dialog',lambda d:d.accept())
-    pg.locator('#d2 .rmorig').click(); pg.wait_for_timeout(300)
+    pg.locator('#d2 .rmorig, #d2 .dayadj').click(); pg.wait_for_timeout(300)
     if pg.locator('.rmok, .cfm .ok, button:has-text(\"去掉\")').count(): 
         try: pg.locator('button:has-text(\"去掉\")').last.click()
         except Exception: pass

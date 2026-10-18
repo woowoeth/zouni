@@ -26,6 +26,8 @@ F_MIN, F_MAX = 0.8, 2.0        # 作者写的车程 / 模型车程 的比例夹�
 SHOW_STEP = 5                  # 显示取整到 5 分钟
 MAX_NONMEAL = 5                # 当天非吃饭站（see/fun）≤ 5（仅限插入）。2026-10-16 主会话改：4 → 5（4 会让标准日一半以上不能加）
 END_LIMIT = 21 * 60 + 30       # 当天结束 ≤ 21:30（页面上“这天几点结束”那个数）。22:30 → 21:30
+DAY_CAP = 23 * 60              # 2026-10-18：加完后的当天结束 ≤ max(21:30, 原结束 + 30 分钟)，且 ≤ 23:00（原来死的 21:30 让默认就排到 22:10 的天整天置灰）
+END_EXTRA = 30
 SPAN_LIMIT = 13 * 60           # 当天第一行到最后一站结束 ≤ 13 小时：只防荒唐的天。原 10 小时会把 9 点出发、傍晚回住处的标准日全部挡掉，已取消
 SAME_SPOT_KM = 0.25            # 250 米内视为同处：不出现在列表里
 BESIDE_KM = 0.6                # 250–600 米：出现，标“就在旁边”
@@ -142,7 +144,14 @@ def detour_ok(delta):
 
 
 # ---------------------------------------------------------------- 当天预算
-def day_budget_ok(rows, inserting=True):
+def end_limit(base_end=None):
+    """当天结束上限：min(23:00, max(21:30, 原结束 + 30 分钟))；不知道原结束就是 21:30（和 np_model.js 的 endLimit 同一个式子）"""
+    if base_end is None:
+        return END_LIMIT
+    return min(DAY_CAP, max(END_LIMIT, base_end + END_EXTRA))
+
+
+def day_budget_ok(rows, inserting=True, base_end=None):
     """rows：这一天（试算重排之后）每一行 {s: 开始分钟, e: 结束分钟, k: 'see'|'fun'|'eat'|'dep'|'stay'}。
     返回 {ok, reason, n, first, last, span}；reason ∈ '' | 'full' | 'late' | 'long'。
     非吃饭站 = see + fun；“≤4”只在 inserting 时判（替换不增加站数）。"""
@@ -162,7 +171,7 @@ def day_budget_ok(rows, inserting=True):
     reason = ''
     if inserting and n > MAX_NONMEAL:
         reason = 'full'
-    elif last > END_LIMIT:
+    elif last > end_limit(base_end):
         reason = 'late'
     elif span > SPAN_LIMIT:
         reason = 'long'

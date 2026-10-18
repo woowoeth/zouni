@@ -10,13 +10,13 @@
   T2 提示条停留约 5 秒（4 秒时还在、6.5 秒时已没）
   T3 点别处立刻收起；打开弹层时收起；连着做两件事只有一条提示条（不叠）
   T4 老入口“恢复”还在，点击区 ≥44×44，点了恢复整天
-  T5 去掉一天：确认弹层 → 去掉 → 马上有“撤销”提示条，点了天数回来
+  T5 去掉一天（2026-10-18 起：每天一个“调整这一天 ›” → 层里“去掉这一天”点一下执行，没有确认层）→ 马上有“撤销”提示条，点了天数回来
 第 4 组 触控与误触
   T6 点击区（elementFromPoint 实测，含伪元素）≥44×44：调整、日期格、出发时间“改”、恢复、去掉这一天、这天后面加一天、收进行程、按天看、返回/首页/分享、
-     提示条上的撤销、各弹层的“关上”（右上和底部）、日历格和翻月键；首页的日期条（点“改”那个字也行）、我的行程、再看、替我挑、天数 chip
-  T7 去掉这一天 与 这天后面加一天：间距 ≥16px、高 ≥44、破坏性的在右边；去掉一天要确认弹层
+     提示条上的撤销、各弹层右上的“×”（2026-10-18 起没有底部整行“关上”）、日历格和翻月键；首页的日期条（点“改”那个字也行）、我的行程、再看、替我挑、天数 chip
+  T7 每天只有一个“调整这一天 ›”（≥44 高）；层里每项 ≥44 高、破坏性的“去掉这一天”排最后
   T8 弹层里按钮文字上下居中（文字块中心和按钮中心差 ≤3px）
-  T9 弹层底部“关上”真的能关；ESC/遮罩原来的关法不坏
+  T9 右上“×”真的能关；ESC / 遮罩原来的关法不坏
 """
 import json, os, re, sys, time
 from playwright.sync_api import sync_playwright
@@ -27,7 +27,7 @@ INJ = {
     'toast_long': ('assets/site.js', "ms||(label?5000:1700)", "ms||(label?10000:1700)"),          # 提示条又停 10 秒
     'toast_stack': ('assets/site.js', ["function toast(t,label,fn,ms){toastOff();", "var ts=document.querySelectorAll('.toast');for(var i=0;i<ts.length;i++){if(!ts[i].contains(e.target)){clearTimeout(ts[i]._tm);ts[i].remove()}}"], ["function toast(t,label,fn,ms){", ""]),   # 新提示不顶掉旧的、点别处也不收 → 叠起来（两条机制都拿掉才算）
     'no_undo': ('assets/site.js', "ztrack('去掉一站');toast('去掉了「'+npCore(nmx)+'」，后面的时间往前挪了','撤销',function(){undo0();replan(sec);toast('撤销了，「'+npCore(nmx)+'」回来了')})", "ztrack('去掉一站');toast('去掉了「'+npCore(nmx)+'」，后面的时间往前挪了')"),   # 去掉这一站不给撤销
-    'small_x': ('assets/site.js', "x.className='pk-xb';", "x.className='pk-xb';x.style.display='none';"),                                                                 # 底部“关上”藏起来（点击区的判据要红）
+    'small_x': ('assets/site.css', ".pk-x{width:44px;min-width:44px;height:44px;", ".pk-x{width:30px;min-width:30px;height:30px;"),                                                  # 右上“×”缩成 30（点击区的判据要红）
 }
 IPHONE = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1'
 env = Env(INJ)
@@ -106,10 +106,11 @@ with sync_playwright() as p:
         c = new_ctx(br, p); pg = new_page(env, c)
         goto(env, pg, '/trip/xa3/')
         n0 = pg.evaluate("document.querySelectorAll('.day').length")
-        pg.locator('#d2 .rmorig').click(); pg.wait_for_selector('.pk .rmgo')
-        check('T7 去掉一天要先过确认弹层', pg.locator('.pk .rmgo').count() == 1)
-        shot(pg, 'T5_confirm.png')
+        pg.locator('#d2 .dayadj').click(); pg.wait_for_selector('.pk .rmgo')
+        check('T7 去掉一天：入口是每天一个“调整这一天 ›”，层里的“去掉这一天”点一下就执行（2026-10-18 起没有确认弹层，改成执行后 5 秒可撤销）', pg.locator('.pk .rmgo').count() == 1 and pg.locator('.pk .pk-cancel').count() == 0)
+        shot(pg, 'T5_dayadj.png')
         pg.click('.pk .rmgo'); pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(900)
+        check('T5 去掉后没有任何确认层 / 弹层挡着', pg.locator('.pk').count() == 0 and not pg.evaluate("document.body.classList.contains('pk-open')"))
         check('T5 去掉后少一天', pg.evaluate("document.querySelectorAll('.day').length") == n0 - 1)
         act = pg.locator('.toast .toast-act')
         check('T5 去掉一天后马上有带“撤销”的提示条', act.count() == 1 and act.inner_text().strip() == '撤销', act.count())
@@ -125,8 +126,8 @@ with sync_playwright() as p:
         goto(env, pg, '/trip/xa3/')
         # 先做一处改动，让“恢复”出现
         pg.locator('#d2 .adj').first.click(); pg.wait_for_selector('.pk'); pg.click('.pk [data-d="30"]'); pg.wait_for_timeout(2200)
-        targets = [('调整', '#d1 .adj'), ('页头日期“改”', '.glance .dt'), ('出发时间“改”', '#d1 .fx .st'), ('恢复', '#d2 .latewarn .reset'), ('去掉这一天', '#d1 .rmorig'),
-                   ('这天后面加一天', '#d1 .addafter'), ('收进行程', '.dock .fav'), ('按天看', '.dock .tvbtn'), ('返回', '.hero .back'), ('首页', '.hero .home'), ('分享', '.hero .share'),
+        targets = [('调整', '#d1 .adj'), ('页头日期“改”', '.glance .dt'), ('出发时间“改”', '#d1 .fx .st'), ('恢复', '#d2 .latewarn .reset'), ('调整这一天', '#d1 .dayadj'),
+                   ('收进行程', '.dock .fav'), ('按天看', '.dock .tvbtn'), ('返回', '.hero .back'), ('首页', '.hero .home'), ('分享', '.hero .share'),
                    ('天数条', '.daynav a'), ('每人（人数）', '.glance .pp'), ('出发前要办的事', '.todoall'), ('地图图标', '.r .ic.map'), ('预约入口', '.r a.bkl'), ('住宿“再看两家”', '.stays .tog')]
         bad = []
         for nm, sel in targets:
@@ -140,15 +141,12 @@ with sync_playwright() as p:
             opener()
             pg.wait_for_selector(expect_sel); pg.wait_for_timeout(250)
             hx = pg.evaluate(HIT, pg.locator('.pk .pk-x').first.element_handle())
-            hb = pg.evaluate(HIT, pg.locator('.pk .pk-xb').first.element_handle()) if pg.locator('.pk .pk-xb').count() else None
-            w = pg.evaluate("document.querySelector('.pk').getBoundingClientRect().width")
-            check('T6 弹层“%s”右上“关上”点击区 ≥44×44' % nm, hx and hx['w'] >= 44 and hx['h'] >= 44, hx)
-            check('T6 弹层“%s”底部“关上”≥44 高、几乎整行宽（单手好点）' % nm, hb and hb['h'] >= 44 and hb['bw'] >= w * 0.8 - 40, (hb, w))
+            check('T6 弹层“%s”右上“×”点击区 ≥44×44（2026-10-18 起只有这一个关闭入口，没有底部整行“关上”）' % nm, hx and hx['w'] >= 44 and hx['h'] >= 44 and pg.locator('.pk .pk-xb').count() == 0, hx)
             if nm == '调整': shot(pg, 'T6_dialog_adjust.png')
-            return hb
+            return None
         def close_by_bottom():
-            pg.locator('.pk .pk-xb').first.click(); pg.wait_for_timeout(300)
-            check('T9 点底部“关上”后弹层真的关了、页面能滚动', pg.locator('.pk').count() == 0 and not pg.evaluate("document.body.classList.contains('pk-open')"))
+            pg.locator('.pk .pk-x').first.click(); pg.wait_for_timeout(300)
+            check('T9 点右上“×”后弹层真的关了、页面能滚动', pg.locator('.pk').count() == 0 and not pg.evaluate("document.body.classList.contains('pk-open')"))
         dialog_close('调整', lambda: pg.locator('#d1 .adj').first.click()); close_by_bottom()
         dialog_close('日期', lambda: pg.click('.glance .dt'))
         # 日历格和翻月键
@@ -158,8 +156,8 @@ with sync_playwright() as p:
         check('T6 翻月键 ≥44×44', all(w >= 44 and h >= 44 for w, h in nav), nav)
         close_by_bottom()
         dialog_close('分享', lambda: pg.click('.hero .share')); close_by_bottom()
-        dialog_close('去掉这一天', lambda: pg.locator('#d1 .rmorig').click()); close_by_bottom()
-        dialog_close('加一天', lambda: pg.locator('#d1 .addafter').click(), '.pk [data-free]'); close_by_bottom()
+        dialog_close('调整这一天', lambda: pg.locator('#d1 .dayadj').click()); close_by_bottom()
+        dialog_close('加一天', lambda: (pg.locator('#d1 .dayadj').click(), pg.wait_for_selector('.pk [data-a="after"]'), pg.click('.pk [data-a="after"]')), '.pk [data-free]'); close_by_bottom()
         dialog_close('出发时间', lambda: pg.locator('#d1 .fx .st').click(), '.pk .stg'); close_by_bottom()
         # T8 弹层按钮文字上下居中：在“调整”弹层里量
         pg.locator('#d1 .adj').first.click(); pg.wait_for_selector('.pk')
@@ -178,11 +176,12 @@ with sync_playwright() as p:
 
     with guard('T7'):
         c = new_ctx(br, p); pg = new_page(env, c); goto(env, pg, '/trip/xa3/')
-        g = pg.evaluate("""(()=>{const d=document.querySelector('#d1 .dayact'),a=d.querySelector('.rmorig').getBoundingClientRect(),b=d.querySelector('.addafter').getBoundingClientRect();return {rm:[a.left,a.right,a.height],add:[b.left,b.right,b.height],gap:Math.max(a.left-b.right,b.left-a.right)}})()""")
-        check('T7 “去掉这一天”和“这天后面加一天”间距 ≥16px', g['gap'] >= 16, g)
-        check('T7 两个按钮高都 ≥44', g['rm'][2] >= 44 and g['add'][2] >= 44, g)
-        check('T7 破坏性的“去掉这一天”在右边（不在最顺手的左边）', g['rm'][0] > g['add'][0], g)
-        shot(pg, 'T7_dayact.png')
+        g = pg.evaluate("""(()=>{const d=document.querySelector('#d1 .dayact'),a=d.querySelector('.dayadj').getBoundingClientRect();return {n:d.querySelectorAll('button').length,a:[a.left,a.right,a.height]}})()""")
+        check('T7 每天只有一个按钮“调整这一天 ›”（原来“去掉这一天”和“这天后面加一天”两个），高 ≥44', g['n'] == 1 and g['a'][2] >= 44, g)
+        pg.locator('#d1 .dayadj').click(); pg.wait_for_selector('.pk')
+        bs = pg.evaluate("[...document.querySelectorAll('.pk .xd button')].map(b=>{const r=b.getBoundingClientRect();return [b.dataset.a,Math.round(r.height),Math.round(r.top)]})")
+        check('T7 “调整这一天”层里每项高 ≥44，破坏性的“去掉这一天”排在最后（%s）' % bs, all(h >= 44 for _, h, _ in bs) and bs[-1][0] == 'rm' and len(bs) == 3, bs)
+        shot(pg, 'T7_dayadj_layer.png')
         c.close()
 
     # ———— 首页触控 ————
@@ -198,7 +197,7 @@ with sync_playwright() as p:
         i_box = pg.locator('.hdt i').bounding_box()
         pg.mouse.click(i_box['x'] + i_box['width'] / 2, i_box['y'] + i_box['height'] / 2); pg.wait_for_timeout(300)
         check('T6 点日期条上的“改”字能打开日历', pg.locator('.pk[role=dialog]').count() == 1)
-        pg.locator('.pk .pk-xb').first.click()
+        pg.locator('.pk .pk-x').first.click()
         c.close()
     br.close()
 env.finish('撤销提示条 / 触控目标')

@@ -271,13 +271,14 @@ def candidates_for(W, rid, di, i, kind, known=None, with_budget=True):
             inputs = {'A': A, 'S': Spt, 'C': C, 'X': X, 't0a': t0a, 't0b': t0c, 'mode': mode}
         if not M.hours_ok(arrive, c['d'], xx.get('h')):
             continue
-        bud = M.day_budget_ok(rows_, kind == 'insert')
+        base_end = M.day_budget_ok(trial_rows(dm, i, 0), False)['last']      # 这一天加之前的结束时间：结束上限 = min(23:00, max(21:30, 它 + 30 分钟))
+        bud = M.day_budget_ok(rows_, kind == 'insert', base_end)
         if with_budget and not bud['ok']:
             continue
         out.append({'id': c['i'], 'n': c['n'], 's': c.get('s', ''), 't': c['t'], 'd': c['d'], 'delta': delta, 'shown': M.show5(delta), 'pop': c['p'],
                     'has_s': bool(c.get('s')), 'same': M.same_kind(c['t'], c['n'], S['type'], S['name'], dm['title']), 'f': f, 'approx': bool(c.get('ap')),
                     'beside': sp == 'beside', 'tags': [x for x, v in (('要预约', xx.get('b')), ('周一闭馆' if xx.get('cl') == 1 else '', xx.get('cl') == 1), ('就在旁边', sp == 'beside')) if v and x],
-                    'kind': kind, 'inputs': inputs, 'day': {'rid': rid, 'di': di, 'i': i, 'city': dm['city'], 'weekday': dm['weekday']}, 'pt': X, 'budget': bud,
+                    'kind': kind, 'inputs': inputs, 'day': {'rid': rid, 'di': di, 'i': i, 'city': dm['city'], 'weekday': dm['weekday']}, 'pt': X, 'budget': bud, 'base_end': base_end,
                     'ds': c['ds']})
     return M.rank(out)
 

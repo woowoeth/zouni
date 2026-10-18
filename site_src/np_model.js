@@ -16,6 +16,8 @@
     SHOW_STEP: 5,
     MAX_NONMEAL: 5,
     END_LIMIT: 21 * 60 + 30,
+    DAY_CAP: 23 * 60,
+    END_EXTRA: 30,
     SPAN_LIMIT: 13 * 60,
     SAME_SPOT_KM: 0.25,
     BESIDE_KM: 0.6,
@@ -120,8 +122,15 @@
   function replaceNear(S, X, mode) { return t(S, X, mode) <= C.REPLACE_NEAR_MAX; }
   function detourOk(delta) { return delta <= C.DETOUR_MAX; }
 
-  /* rows: [{s, e, k}]，k = see | fun | eat | dep | stay */
-  function dayBudgetOk(rows, inserting) {
+  /* 当天结束的上限（2026-10-18）：加完后的结束时间 <= max(21:30, 原结束时间 + 30 分钟)，并且 <= 23:00；不知道原结束时间（baseEnd 为空）就按 21:30。
+     原来是死的 21:30：默认行程本来就排到 22:10 的天整天置灰，一个都加不了 */
+  function endLimit(baseEnd) {
+    if (baseEnd === undefined || baseEnd === null) { return C.END_LIMIT; }
+    return Math.min(C.DAY_CAP, Math.max(C.END_LIMIT, baseEnd + C.END_EXTRA));
+  }
+
+  /* rows: [{s, e, k}]，k = see | fun | eat | dep | stay；baseEnd：这一天加之前的结束时间（分钟） */
+  function dayBudgetOk(rows, inserting, baseEnd) {
     var n = 0;
     var first = null;
     var last = 0;
@@ -137,7 +146,7 @@
     span = last - first;
     reason = '';
     if (inserting && n > C.MAX_NONMEAL) { reason = 'full'; }
-    else if (last > C.END_LIMIT) { reason = 'late'; }
+    else if (last > endLimit(baseEnd)) { reason = 'late'; }
     else if (span > C.SPAN_LIMIT) { reason = 'long'; }
     return { ok: reason === '', reason: reason, n: n, first: first, last: last, span: span };
   }
@@ -263,7 +272,7 @@
     C: C, KIND_WORDS: KIND_WORDS, BIG_CITIES: BIG_CITIES,
     pyRound: pyRound, r5: r5, km: km, modeOfDay: modeOfDay, leg: leg, t: t, factor: factor, show5: show5,
     detourInsert: detourInsert, detourReplace: detourReplace, replaceNear: replaceNear, detourOk: detourOk,
-    dayBudgetOk: dayBudgetOk, sameSpot: sameSpot, inReach: inReach, parseHours: parseHours, hoursOk: hoursOk,
+    dayBudgetOk: dayBudgetOk, endLimit: endLimit, sameSpot: sameSpot, inReach: inReach, parseHours: parseHours, hoursOk: hoursOk,
     closedOn: closedOn, kindWords: kindWords, sameKind: sameKind, rankScore: rankScore, rank: rank,
     cell: cell, cellKey: cellKey, shardsFor: shardsFor
   };

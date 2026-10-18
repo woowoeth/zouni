@@ -168,8 +168,10 @@ if site:
         # 日期写法（2026-10-17 起）：不出现“明年”；默认日期是建议值，页头底栏和说明行都写“建议”；跨年的写完整“2027 年 M/D”
         dk_ = re.search(r'<div class="dock"><div><b>([^<]*)</b>', h); dn_ = re.search(r'<p class="dnote"[^>]*>([^<]*)</p>', h)
         if '明年' in (dk_.group(1) if dk_ else '') or '明年' in (dn_.group(1) if dn_ else ''): bad.append(f'{rid} 日期里还写着“明年”')
-        if not (dk_ and dk_.group(1).startswith('建议 ')) or not (dn_ and dn_.group(1).startswith('建议 ')): bad.append(f'{rid} 默认日期没写“建议”（底栏/说明行）')
-        if st.year > today.year and not (dn_ and f'{st.year} 年' in dn_.group(1)): bad.append(f'{rid} 默认出发日在明年（{st}）但说明行没写完整年份')   # 底栏窄，只写 M/D
+        # 2026-10-18：日期只在页头日期条（.glance .dt）写一次；说明行（.dnote）不再重复月日、不写“建议”，只写“最好 M/D–M/D”、往年气温，跨年的写“2027 年出发”；底栏照旧“建议 M/D 出发”（滚过页头才显示、整块可点改日期）
+        if not (dk_ and dk_.group(1).startswith('建议 ')): bad.append(f'{rid} 默认日期没写“建议”（底栏）')
+        if dn_ and (re.search(r'\d+/\d+\s*周|建议|一年四季', dn_.group(1))): bad.append(f'{rid} 说明行又写了一遍出发日期 / “建议” / “一年四季都能去”：{dn_.group(1)[:40]}')
+        if st.year > today.year and not (dn_ and f'{st.year} 年' in dn_.group(1)): bad.append(f'{rid} 默认出发日在明年（{st}）但说明行没写完整年份（“{st.year} 年出发”）')   # 底栏窄，只写 M/D
         # 文案里写了“海拔 N 米 / 海拔三千多米”（N≥3000）的页面，必须有氧气/高反提示（天标没给海拔时靠这条兜底；“水洞长三千多米”这种长度不算）
         _txt = re.sub(r'<[^>]+>', ' ', re.sub(r'<p class="alt">.*?</p>', '', h, flags=re.S))
         _CN = {'一': 1, '两': 2, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9}
@@ -471,11 +473,12 @@ else:
 
 # 27 site.js 里复制的三个硬规则数字（弹层里看“这天是不是排满”时模型还没加载，用的是同样的数）必须和 np_model.js 一致
 _nm = open('site_src/np_model.js', encoding='utf-8').read(); _sj = open('site_src/site.js', encoding='utf-8').read()
-_lim = re.search(r'NP_LIM=\{MAX:(\d+),END:(\d+),SPAN:(\d+)\}', _sj)
+_lim = re.search(r'NP_LIM=\{MAX:(\d+),END:(\d+),SPAN:(\d+),CAP:(\d+),EXTRA:(\d+)\}', _sj)
 _mx = re.search(r'MAX_NONMEAL:\s*(\d+)', _nm); _en = re.search(r'END_LIMIT:\s*(\d+)\s*\*\s*60\s*\+\s*(\d+)', _nm); _sp = re.search(r'SPAN_LIMIT:\s*(\d+)\s*\*\s*60', _nm)
-if not (_lim and _mx and _en and _sp): fails.append(('site.js 的 NP_LIM 或 np_model.js 的三个上限找不到', ['格式变了，改这条判据']))
-elif (int(_lim.group(1)), int(_lim.group(2)), int(_lim.group(3))) != (int(_mx.group(1)), int(_en.group(1)) * 60 + int(_en.group(2)), int(_sp.group(1)) * 60):
-    fails.append(('site.js 的 NP_LIM 和 np_model.js 的上限（非吃饭站 / 结束时间 / 首尾分钟）不一致', [f'site.js {_lim.groups()} ≠ np_model.js {(_mx.group(1), int(_en.group(1)) * 60 + int(_en.group(2)), int(_sp.group(1)) * 60)}']))
+_cp = re.search(r'DAY_CAP:\s*(\d+)\s*\*\s*60', _nm); _ex = re.search(r'END_EXTRA:\s*(\d+)', _nm)      # 2026-10-18 加的：当天结束上限 = min(23:00, max(21:30, 原结束 + 30 分钟))
+if not (_lim and _mx and _en and _sp and _cp and _ex): fails.append(('site.js 的 NP_LIM 或 np_model.js 的五个上限找不到', ['格式变了，改这条判据']))
+elif tuple(int(x) for x in _lim.groups()) != (int(_mx.group(1)), int(_en.group(1)) * 60 + int(_en.group(2)), int(_sp.group(1)) * 60, int(_cp.group(1)) * 60, int(_ex.group(1))):
+    fails.append(('site.js 的 NP_LIM 和 np_model.js 的上限（非吃饭站 / 结束时间 / 首尾分钟 / 23:00 封顶 / 多出的 30 分钟）不一致', [f'site.js {_lim.groups()} ≠ np_model.js {(_mx.group(1), int(_en.group(1)) * 60 + int(_en.group(2)), int(_sp.group(1)) * 60, int(_cp.group(1)) * 60, _ex.group(1))}']))
 
 # 28a sw.js 的缓存策略：.js 必须“先走网络、断网才用缓存”。候选分片（assets/np/*.js）和 np_model.js 靠这一条保证不会永远旧；有人把 .js 改成“先用缓存”，这里就红
 _sw = open('site_src/sw.js', encoding='utf-8').read()

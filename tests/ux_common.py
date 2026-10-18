@@ -33,6 +33,7 @@ class Env:
                     if p.endswith(suf_): import time; time.sleep(sec_)
                 if env.inject:
                     f, old, new = env.injects[env.inject]
+                    if os.path.isdir(p) and os.path.exists(os.path.join(p, 'index.html')): p = os.path.join(p, 'index.html')      # 2026-10-18：/trip/xa3/ 这样的目录请求也能被“页面 HTML 注入”匹配到（原来只认 .js / .css，改 HTML 的注入从没生效过）
                     if p.endswith(os.sep + f.replace('/', os.sep)):
                         import io
                         body = open(p, encoding='utf-8').read()
@@ -41,7 +42,7 @@ class Env:
                             if o_ not in body: env.errs.append('INJECT-NOT-APPLIED: ' + env.inject)
                             body = body.replace(o_, n_)
                         data = body.encode('utf-8')
-                        self.send_response(200); self.send_header('Content-Type', ('text/css' if f.endswith('.css') else 'application/javascript') + '; charset=utf-8'); self.send_header('Content-Length', str(len(data))); self.end_headers()
+                        self.send_response(200); self.send_header('Content-Type', ('text/css' if f.endswith('.css') else 'text/html' if f.endswith('.html') else 'application/javascript') + '; charset=utf-8'); self.send_header('Content-Length', str(len(data))); self.end_headers()
                         return io.BytesIO(data)
                 return super().send_head()
         socketserver.TCPServer.allow_reuse_address = True
@@ -99,7 +100,7 @@ def new_ctx(br, p, w=390, h=844, storage=None, dark=False, **kw):
 def new_page(env, c, hits_errors=True):
     pg = c.new_page(); pg.set_default_timeout(12000)
     if hits_errors:
-        pg.on('console', lambda m: env.errs.append('console: ' + m.text[:160]) if m.type == 'error' and 'Failed to load resource' not in m.text and 'open-meteo' not in m.text and 'ERR_INTERNET_DISCONNECTED' not in m.text else None)
+        pg.on('console', lambda m: env.errs.append('console: ' + m.text[:160] + ((' @ ' + pg.url + ' ' + str(m.location)) if os.environ.get('UX_ERRLOC') else '')) if m.type == 'error' and 'Failed to load resource' not in m.text and 'open-meteo' not in m.text and 'ERR_INTERNET_DISCONNECTED' not in m.text else None)
         pg.on('pageerror', lambda e: env.errs.append('pageerror: ' + str(e)[:200]))
     pg.route(NO_NET, lambda r: r.abort())
     return pg

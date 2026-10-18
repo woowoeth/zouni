@@ -38,7 +38,7 @@ with sync_playwright() as p:
         c,pg,errs=ctx(); pg.goto(B+'/trip/g318/',wait_until='networkidle'); pg.wait_for_timeout(400)
         pg.evaluate("(v)=>{const i=document.querySelector('.dpk');i.value=v;i.dispatchEvent(new Event('change'))}",datetime.date.today().isoformat()); pg.wait_for_timeout(300)
         pg.locator('.tvbtn').click(); pg.wait_for_timeout(300); t=pg.evaluate("({tabs:document.querySelectorAll('.tvtabs button').length,first:document.querySelector('.tvtabs button').innerText,next:(document.querySelector('.tvnext b')||{}).innerText||'没有下一站'})"); pg.locator('.tvx').click()
-        pg.locator('#d14 .rmorig').scroll_into_view_if_needed(); pg.locator('#d14 .rmorig').click(); pg.wait_for_timeout(200); pg.locator('.rmgo').click(); pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(2000)
+        pg.locator('#d14 .rmorig, #d14 .dayadj').scroll_into_view_if_needed(); pg.locator('#d14 .rmorig, #d14 .dayadj').click(); pg.wait_for_timeout(200); pg.locator('.rmgo').click(); pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(2000)
         after=pg.evaluate("({d:document.querySelectorAll('.day').length,last:document.querySelector('.day:last-of-type h2').childNodes[0].textContent.trim(),dock:document.querySelector('.dock b').innerText})")
         rec('128 老周 · 川藏线今天出发、去掉最后一天',t['tabs']==14 and after['d']==13,f'按天看 {t}；去掉第 14 天后 {after}')
         rec('129 老周 · 页面报错',not errs,'；'.join(errs) or '没有'); c.close()

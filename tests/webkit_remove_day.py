@@ -9,7 +9,7 @@ with sync_playwright() as p:
     b=p.webkit.launch(); ctx=b.new_context(**p.devices['iPhone 13']); pg=ctx.new_page(); out={}
     pg.goto(B+'/trip/xa3/', wait_until='networkidle'); pg.wait_for_timeout(600)
     out['原来']=pg.evaluate(ST)
-    pg.locator('#d2 .rmorig').scroll_into_view_if_needed(); pg.locator('#d2 .rmorig').click(); pg.wait_for_timeout(300)
+    pg.locator('#d2 .rmorig, #d2 .dayadj').scroll_into_view_if_needed(); pg.locator('#d2 .rmorig, #d2 .dayadj').click(); pg.wait_for_timeout(300)
     out['确认']=pg.evaluate("document.querySelector('.pk').innerText.replace(/\\n/g,' ')")
     pg.locator('.rmgo').click(); pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(1200)
     out['去掉第2天后']=pg.evaluate(ST)

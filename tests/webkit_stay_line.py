@@ -5,7 +5,7 @@ with sync_playwright() as p:
     pg.goto('http://localhost:8765/trip/slgt8/',wait_until='networkidle'); pg.wait_for_timeout(500)
     a=pg.evaluate("(document.querySelector('.ovstay')||{}).textContent")
     pg.evaluate("()=>{document.documentElement.style.scrollBehavior='auto';document.querySelector('#d4').scrollIntoView()}"); pg.wait_for_timeout(200)
-    pg.locator('#d4 .rmorig').click(); pg.wait_for_timeout(300)
+    pg.locator('#d4 .rmorig, #d4 .dayadj').click(); pg.wait_for_timeout(300)
     try: pg.locator('button:has-text(\"去掉\")').last.click()
     except Exception: pass
     pg.wait_for_timeout(900)

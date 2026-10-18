@@ -47,6 +47,8 @@ LIT_REACH_KM = 35
 LIT_SAME_KM = 0.25
 LIT_MAX_NONMEAL = 5
 LIT_END = 21 * 60 + 30
+LIT_CAP = 23 * 60      # 2026-10-18：加完后的当天结束 ≤ min(23:00, max(21:30, 加之前的结束 + 30 分钟))
+LIT_EXTRA = 30
 LIT_SPAN = 13 * 60
 LIT_LIST = 5
 LIT_SHARD_BYTES = 36 * 1024
@@ -272,8 +274,10 @@ def check_candidates(W):
                     b = c['budget']
                     if kind == 'insert' and b['n'] > LIT_MAX_NONMEAL:
                         bad.append(tag + '：加完当天 %d 个非吃饭站（>5）' % b['n'])
-                    if b['last'] > LIT_END:
-                        bad.append(tag + '：加完当天结束 %s（>21:30）' % NP.fmt(b['last']))
+                    base_ = max([(r_['e'] if r_.get('e') is not None else r_['s']) for r_ in dm['rows'] if r_['k'] != 'stay'] + [0])      # 这天加之前的结束时间，自己从当天的行里算（不读 nearby_model）
+                    lim_ = min(LIT_CAP, max(LIT_END, base_ + LIT_EXTRA))
+                    if b['last'] > lim_:
+                        bad.append(tag + '：加完当天结束 %s（>%s = min(23:00, max(21:30, 原结束 %s + 30 分钟))）' % (NP.fmt(b['last']), NP.fmt(lim_), NP.fmt(base_)))
                     if b['span'] > LIT_SPAN:
                         bad.append(tag + '：加完当天首尾 %d 分钟（>13 小时）' % b['span'])
                     ev = next((p for p in W.pool if p['i'] == c['id']), {}).get('ev')
@@ -304,7 +308,7 @@ process.stdout.write(JSON.stringify(out));
 def main():
     global NP_P, NP_FOREIGN
     ap = argparse.ArgumentParser()
-    ap.add_argument('--inject', choices=['coord', 'station', 'dup', 'threshold'], default=None)
+    ap.add_argument('--inject', choices=['coord', 'station', 'dup', 'threshold', 'endcap'], default=None)
     ap.add_argument('--update-baseline', action='store_true')
     a = ap.parse_args()
     pp = os.path.join(NP_DIR, 'pool.json')
@@ -328,12 +332,19 @@ def main():
         M.DETOUR_MAX = 10 ** 6
         M.REPLACE_NEAR_MAX = 10 ** 6
         print('  [注入] DETOUR_MAX / REPLACE_NEAR_MAX = 10**6')
+    patched2 = None
+    if a.inject == 'endcap':      # 2026-10-18：当天结束上限（23:00 封顶 / 多出 30 分钟）被放开
+        patched2 = (M.DAY_CAP, M.END_EXTRA, M.END_LIMIT)
+        M.DAY_CAP = 10 ** 6; M.END_EXTRA = 10 ** 6; M.END_LIMIT = 10 ** 6
+        print('  [注入] DAY_CAP / END_EXTRA / END_LIMIT = 10**6')
     try:
         fails = run(pool, a.inject if a.inject in ('coord', 'station', 'dup') else None)
         bad8, nl, nc = check_candidates(W)
     finally:
         if patched:
             M.DETOUR_MAX, M.REPLACE_NEAR_MAX = patched
+        if patched2:
+            M.DAY_CAP, M.END_EXTRA, M.END_LIMIT = patched2
     if bad8:
         fails.append(('8 候选结果不合规', bad8))
     nres = node_check()

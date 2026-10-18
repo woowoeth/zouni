@@ -7095,7 +7095,7 @@ def tcls(t):
 
 def hero(r, back=None, share=False):
     sq = (f'<a class="sq l back" href="/" aria-label="返回上一页">{BACK_ICON}</a><a class="sq l2 home" href="/" aria-label="回首页"><b>走</b></a>' if back else '') + (f'<button type="button" class="sq rt share" aria-label="分享">{SHARE_ICON}</button>' if share else '')
-    kick = E(r.get('kicker'))
+    kick = E(re.sub(r'\s*[·・]\s*[一二三四五六七八九十\d]+\s*天\s*$', '', r.get('kicker') or '') if share else r.get('kicker'))      # 线路页：封面只写一次天数（标题里写了，页头小标“城市慢游 · 三天”不再重复）
     img = (r.get('img') or '').replace('/_blob/', '')
     gen = os.path.join('site_src', 'posters', (r.get('id') or '') + '.svg')
     if not (img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg'))) and os.path.exists(gen):
@@ -15799,13 +15799,13 @@ NO_HSR = {'榆林', '敦煌', '喀什', '伊宁', '阿勒泰', '格尔木', '香
 def _stay_line(r):
     """多城市长线：住哪、住几晚（订住宿用），只有住三个以上地方才写"""
     seq = []
-    for d in r['days'][:-1]:
+    for i_, d in enumerate(r['days'][:-1]):
         c = (stay_city(r, d) if is_long(r.get('id')) else (d.get('navCity') or d.get('city') or d.get('stayName') or ''))   # 写城市名，比“钟楼附近”好认；长线用当晚住的城市（navCity 是前一晚）
         if not c: continue
         if seq and seq[-1][0] == c: seq[-1][1] += 1
-        else: seq.append([c, 1])
+        else: seq.append([c, 1, i_])
     if len(seq) < 3: return ''
-    return '<p class="ovstay">住：' + ' → '.join(f'{E(c)} {k} 晚' for c, k in seq) + '</p>'
+    return '<p class="ovstay">住：' + ' → '.join(f'<a href="#d{s_[2] + 1}">{E(s_[0])} {s_[1]} 晚</a>' for s_ in seq) + '</p>'      # 每段可点，跳到入住那天（住宿卡在那天末尾）
 
 
 def _legs(r):
@@ -16171,7 +16171,7 @@ def trip_page(rid):
     ROAD_LABEL = '开车' if _sv else '路上'; ROADS = []      # 每天“路上”多久：全页同一个数（见 day_load_html）
     back = f'/d/{t["dest"]}/' if t.get('dest') in DEST else '/where/'
     s0 = (t.get('season') or {}).get('best')
-    when = '一年四季都能去' if t.get('anytime') else (f'{int(s0[0][:2])}/{int(s0[0][3:])}–{int(s0[1][:2])}/{int(s0[1][3:])} 最好' if s0 else '')
+    when = '' if t.get('anytime') else (f'最好 {int(s0[0][:2])}/{int(s0[0][3:])}–{int(s0[1][:2])}/{int(s0[1][3:])}' if s0 else '')      # “一年四季都能去”是默认，不写；日期只在 glance 的日期条里写一次
     if not (cost and cost.get('trans')):            # 没有费用明细的线：用估价分项拼一份，人数也能改
         pp_ = (t.get('price') or {}); pa_ = pp_.get('parts')
         if pa_ and pp_.get('lo'):
@@ -16188,7 +16188,7 @@ def trip_page(rid):
               f'<div><b class="price" data-cost=\'{E(json.dumps(cost)) if has_cost else ""}\'>{E(price_k(price))}</b>{sub3}</div></div>')
     if has_cost:
         glance += f'<div class="ppl" hidden><span>{"租车按车分摊，两人一间" if cost.get("perCar") else "两人一间，一个人单独一间"}</span><div><button type="button" data-d="-1" aria-label="少一个人">−</button><b>2 人</b><button type="button" data-d="1" aria-label="多一个人">+</button></div></div>'
-    glance += f'<p class="dnote" data-when="{E(when)}">建议 {yp}{md(dates[0])} 周{"一二三四五六日"[dates[0].weekday()]} 出发{" · " + E(when) if when else ""}</p>'     # 用户选过日期后由 site.js 改成“按你选的 …”
+    glance += f'<p class="dnote" data-when="{E(when)}">@@DN@@</p>'      # 日期不重复写：只留“最好 5/5–5/25”和往年气温（站内改了日期后由 site.js 改成“按你选的日期排的 · …”）     # 用户选过日期后由 site.js 改成“按你选的 …”
     prep_items = list(r.get('prep') or [])
     prep_items = foreign_prep(r, dict(d0, id=t.get('dest')), prep_items) + prep_items     # 国外线：签证、护照、保险、驾照放在最前面
     _oj = openjaw_note(r)
@@ -16231,8 +16231,11 @@ def trip_page(rid):
     _pool.append(_gen_fold(prep_items, _act, _bk))
     _pool += [f'<li class="fit{" kid" if "带孩子" in x else ""}">{E(x)}</li>' for x in r.get('fit') or []]
     _pool = [x for x in _pool if x]
-    _nvis = 1 if top_li else 2      # 第一眼只留最要紧的 1–2 条，其余折在“更多 N 条”里（待办仍在下面“出发前要办的事”里全部能打勾）
-    prep = ''.join(_pool[:_nvis]); prep_more = ''.join(_pool[_nvis:]); prep_more_n = len(_pool[_nvis:])
+    # 2026-10-18：页内只留 ≤2 条纯文字提示（礼仪 / 预约 / 闭馆合并的那一条优先），没有复选框、没有“更多 N 条”；待办（复选框、官网预约）和其余提示都在 hidden 的 ul.prehid 里，只在“出发前要办的事 ›”弹层里出现（site.js 的 items()）
+    _tips_p = [x for x in _pool if x.startswith('<li class="tip') or x.startswith('<li class="fit')]
+    _todo_p = [x for x in _pool if x not in _tips_p]
+    _nvis = 1 if top_li else 2
+    prep = ''.join(_tips_p[:_nvis]); prep_more = ''.join(_tips_p[_nvis:] + _todo_p); prep_more_n = len(_tips_p[_nvis:] + _todo_p)
     def firstdep(d):
         w = next((w for w in d['rows'] if w['type'] == 'dep'), None); return w['t'] if w else ''
     over = ''.join(f'<li><a href="#d{i + 1}"><b>{i + 1:02d}</b><i>{md(dates[i])}</i><span class="ot"><strong>{E(d["title"])}</strong><small>{"回家" if i == n - 1 else "住" + E(stay_city(r, d))}</small></span><em>{E(firstdep(d))} 走</em></a></li>' for i, d in enumerate(r['days']))
@@ -16269,7 +16272,7 @@ def trip_page(rid):
             rows.append({'t': '晚上', 'type': 'stay', 'name': nm, 'd': d['stay'][0].get('sell', '') if d.get('stay') else d.get('stayNote', ''), 'poi': nm, 'dp': d['stay'][0].get('dp') if d.get('stay') else None})
         first = firstdep(d)
         facts = [('出发', first or '—')]
-        facts.append((ROAD_LABEL, '@@ROAD@@'))      # 开车/路上那一格：数在下面按整天时间表算（和每天的“路上约”、页头“最长一天”同一个数），没有就整格去掉
+        # （2026-10-18 “路上 / 开车”那一格去掉了：每天“路上约 N”只写在上面那一行，同一天只有一个数；数仍在 data-drv 里给页头“最长一天”和对比表用）
         if LONG:      # 长线：海拔 = 当天最高点；睡的地方比最高点低 300 米以上时两个都写（住宿点不是一天走到的最高处）
             _pk, _sl = d.get('peak') or d.get('elev') or 0, d.get('elev') or 0
             if _pk - _sl >= 300 and _pk >= 1500: facts.append(('海拔', f'今晚睡 {_sl:,} 米 · 今天最高 {_pk:,} 米' if i < n - 1 else f'今天最高 {_pk:,} 米'))
@@ -16316,7 +16319,7 @@ def trip_page(rid):
             else:
                 lis = ''.join(f'<li class="{"" if k == 0 else "more"}"><span class="tier">{tn}</span><div><b class="tg">{desc}</b><small>参考价 {pp}/晚</small></div></li>' for k, (tn, desc, pp, u) in enumerate([tiers[i_] for i_ in (1, 2, 0)]))
             lis = re.sub(r'<b class="tg">([^<]+)</b>(?!<span class="icg">)', lambda m_: m_.group(0) + icons(re.sub(r'[（(].*$', '', html.unescape(m_.group(1))).strip(), city, app, xk=re.sub(r'[（(].*$', '', html.unescape(m_.group(1))).strip()), lis)   # 推荐三家那种也加导航、点评、小红书
-            stays = (f'<div class="stays"><div class="sh"><span class="lbl">今晚住</span><span>{E(area)}{" · 连住 " + str(run) + " 晚" if run > 1 else ""}</span></div><ul>{lis}</ul><button type="button" class="tog">{"再看两家" if (not HT and TOP) else "看另外两档"}</button>'
+            stays = (f'<div class="stays" data-area="{E(area)}"><div class="sh"><span class="lbl">今晚住</span><span>{"连住 " + str(run) + " 晚" if run > 1 else ""}</span></div><ul>{lis}</ul><button type="button" class="tog">{"再看两家" if (not HT and TOP) else "看另外两档"}</button>'
                      f'<div class="bk" hidden><a class="btn" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(((HT or {}).get("lux") or (HT or {}).get("mid") or (HT or {}).get("eco") or (TOP or [{}])[0]).get("id")) if (HT or TOP) else tiers[0][3])}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpurl(area + " 酒店", city))}" aria-label="在大众点评看附近酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
         city = _city_row
         if MEMO_ON[0] and stays:      # 纪念类主题线：不放星级、携程订房、点评评分，只留住处名称和一句“住处自行预订”
@@ -16363,12 +16366,13 @@ def trip_page(rid):
         _alt_html += _fe + mosque_note(d) + weather_note(d)
         _rows_html = ''.join(row_html(w, city, app) for w in rows)
         _road = day_load_html('<ol>' + _rows_html + '</ol>')[1]; ROADS.append(_road)
-        fx = re.sub(r'<div class="fx[^"]*"><small>' + ROAD_LABEL + r'</small><b>@@ROAD@@</b></div>', (f'<div class="fx"><small>{ROAD_LABEL}</small><b>{_zlf(_road)}</b></div>' if _road >= 10 else ''), fx)
         _npd_ = _npd_.replace('@@DRV@@', str(_road))
         days.append(f'<section class="day" id="d{i + 1}" data-city="{E(d.get("navCity") or d.get("city") or "")}" data-stay="{E(stay_city(r, d))}"{_npd_}><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
-                    f'<div class="facts">{fx}</div><p class="cl" data-clim=\'{E(json.dumps({} if LONG else {**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (not LONG and (d.get("clim") or {}).get(str(dates[i].month))) else ""}</p>' + ('' if MEMO_ON[0] else _sj_fold(sj_lines(_sj.get(i, [])), rid)) + f'{_alt_html}{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{_rows_html}</ol>{stays}{story}</section>')
+                    f'<div class="facts">{fx}</div><p class="cl"{" hidden" if (i == 0 or (not LONG and i > 0 and dates[i].month == dates[i - 1].month)) else ""} data-clim=\'{E(json.dumps({} if LONG else {**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (not LONG and (d.get("clim") or {}).get(str(dates[i].month))) else ""}</p>' + ('' if MEMO_ON[0] else _sj_fold(sj_lines(_sj.get(i, [])), rid)) + f'{_alt_html}{notes}<p class="lead">{E(d.get("text"))}</p><ol class="tl">{_rows_html}</ol>{stays}{story}</section>')
         sights += [w['name'] for w in d['rows'] if w['type'] == 'see' and w.get('poi')]
     LONG_ON[0] = False; MEMO_ON[0] = False
+    _c0 = re.search(r'<p class="cl"[^>]*>([^<]*)</p>', days[0]) if days else None
+    glance = glance.replace('@@DN@@', E(' · '.join(x for x in [(yp.strip() + '出发') if yp else '', when, _c0.group(1) if _c0 else ''] if x)))      # 跨年的默认日期写“2027 年出发”（年份只在这里写，月日只在日期条里写）      # 往年气温只在页头写一次（每天不再各写一句）
     desc = f'{r["title"]}：{n} 天按天排好，' + '、'.join(dict.fromkeys(re.split(r'\s*·\s*', ' · '.join(x['title'] for x in r['days']))))[:70] + '。' + season_text(t)
     ld = {'@context': 'https://schema.org', '@type': 'TouristTrip', 'name': r['title'], 'description': desc, 'url': BASE + f'/trip/{rid}/', 'inLanguage': 'zh-CN',
           'itinerary': {'@type': 'ItemList', 'numberOfItems': len(dict.fromkeys(sights)), 'itemListElement': [
@@ -16377,20 +16381,28 @@ def trip_page(rid):
     lo, hi = (t.get('price') or {}).get('lo'), (t.get('price') or {}).get('hi')
     if lo and hi: ld['offers'] = {'@type': 'AggregateOffer', 'priceCurrency': 'CNY', 'lowPrice': lo, 'highPrice': hi, 'description': '每人，2 人同行，含往返大交通'}
     _fq = faq_items(r, t, d0, _g, ROADS)
-    faq_html = (f'<section class="faq"><h2>常见问题</h2><dl hidden>' + ''.join(f'<dt>{E(q)}</dt><dd>{E(a)}</dd>' for q, a in _fq) + f'</dl><button type="button" class="faqmore">看 {len(_fq)} 个问题 ›</button></section>') if _fq else ''
+    faq_html = (f'<section class="faq"><button type="button" class="faqmore" aria-expanded="false">常见问题 · {len(_fq)} 条 ›</button><dl hidden>' + ''.join(f'<dt>{E(q)}</dt><dd>{E(a)}</dd>' for q, a in _fq) + '</dl></section>') if _fq else ''
     _nb = nearby_routes(rid)
     near_html = ('<section class="nearr"><h2>附近还能去</h2><ul>' + ''.join(f'<li><a href="/trip/{o}/"><b>{E(ROUTES[o].get("label"))} ›</b><span>{E(day_line(ROUTES[o]))}</span><small>离这里约 {round(dk / 10) * 10 if dk >= 20 else round(dk)} 公里 · {E(price_k(ROUTES[o].get("price")))}</small></a></li>' for dk, o in _nb) + '</ul></section>') if _nb else ''
     dest_link = faq_html + near_html + (f'<p class="morelink"><a href="/d/{E(t["dest"])}/">{E(d0.get("name", ""))}的其他去处 ›</a></p>' if t.get('dest') in DEST else '')
     _rmx = max(ROADS + [0]); _nodrv = (r.get('driveTop') or '') == '不开车'
     if _rmx >= 45: glance = re.sub(r'(<div data-gd="1"><b>[^<]*</b><small>)[^<]*(</small>)', lambda m_: m_.group(1) + (f'路上最长 {_rmx / 60:.1f} 小时' if _nodrv else f'最长一天 {_rmx / 60:.1f} 小时') + m_.group(2), glance)
     elif not _nodrv: glance = re.sub(r'(<div data-gd="1"><b>[^<]*</b><small>)[^<]*(</small>)', lambda m_: m_.group(1) + '路上都不长' + m_.group(2), glance)
+    _ret = ''      # 怎么回：和“怎么去”同一块里写（原来只在最后一天末行），取最后一天的“出发 → 回程”那一行
+    if days:
+        _dm = re.findall(r'<li class="r dep"[^>]*><time>(\d\d:\d\d)</time><span class="dot"></span><div class="rb"><p class="m">出发 → 回程</p><p class=s>(.*?)</p>', days[-1])
+        if _dm:
+            _sees = re.findall(r'<li class="r (?:see|fun)"[^>]*><time>[^<]*</time><span class="dot"></span><div class="rb"><p class="m">(.*?)(?:<span class="(?:gb|icg)"|</p>)', days[-1])
+            _rn = re.split(r'\s*·\s*', html.unescape(re.sub(r'<[^>]+>', '', _sees[-1])).strip())[0] if _sees else ''
+            _rs = html.unescape(re.sub(r'<[^>]+>', '', _dm[-1][1])).strip().rstrip('。')
+            _ret = f'回：第 {n} 天 {_dm[-1][0]} ' + (f'从{_rn}出发，' if _rn else '出发，') + _rs + '。'
     dock = f'<div class="dock"><div><b>建议 {md(dates[0])} 出发 · {n} 天</b><small>2 人 · 每人 {E(price_k(price))}</small></div><button type="button" class="fav" data-id="{rid}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{FAV_ICON}<span>收进行程</span></button></div>'
     body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-dest="{E(np_it(rid).get("dest") or t.get("dest") or "")}" data-sv="{_sv}" data-lg="{1 if is_long(rid) else 0}" data-n0="{n}" data-mon="{",".join(str(x) for x in mon_days(r))}" data-start="{dates[0].isoformat()}" data-cl="{",".join(f"{i}:{(wd + 1) % 7}" for i, wd in fclosed_days(r))}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
-            + (f'<section class="pre go" data-go=\'{E(json.dumps(_g, ensure_ascii=False))}\'><h2>怎么去、怎么回</h2><ul><li class="tip gw"><span>{E(go_text(_g))}。'
-               + (f'第一天 {E(_g["first"])} 开始，按{"中午出发、下午到" if _g["first"] >= "15:00" else "上午出发、中午前到"}算的。' if _g['first'] and _g['first'] >= '12:00' else (f'第一天 {E(_g["first"])} 就开始，最好头天晚上到。' if _g['first'] else '')) + '</span></li>'
+            + (f'<section class="pre go" data-go=\'{E(json.dumps(_g, ensure_ascii=False))}\'><h2>{"怎么去、怎么回" if _ret else "怎么去"}</h2><ul><li class="tip gw"><span>{E(go_text(_g))}。'
+               + (f'第一天 {E(_g["first"])} 开始。' if _g['first'] and _g['first'] >= '12:00' else (f'第一天 {E(_g["first"])} 就开始，最好头天晚上到。' if _g['first'] else '')) + (E(_ret) if _ret else '') + '</span></li>'
 
                + '</ul></section>' if _g else '') +
-            f'<section class="pre"><h2>出发前</h2><ul>{top_li}{prep or ("" if top_li else "<li class=fit>没有特别要提前办的</li>")}</ul>{f'<details class="premore"><summary>更多 {prep_more_n} 条</summary><ul>{prep_more}</ul></details>' if prep_more_n else ''}</section>{follow_banner(rid)}'
+            f'<section class="pre"><h2>出发前</h2><ul>{top_li}{prep or ("" if (top_li or prep_more_n) else "<li class=fit>没有特别要提前办的</li>")}</ul>{f'<ul class="prehid" hidden>{prep_more}</ul>' if prep_more_n else ''}</section>{follow_banner(rid)}'
             f'<script type="application/json" id="cands">{json.dumps(add_cands(rid, r), ensure_ascii=False).replace("</", "<\\/")}</script>'
             f'<script type="application/json" id="indoor">{json.dumps(indoor_near(r), ensure_ascii=False).replace("</", "<\\/")}</script>'
             f'<script type="application/json" id="nearby">{json.dumps(near_for(r), ensure_ascii=False).replace("</", "<\\/")}</script>'
@@ -16750,8 +16762,9 @@ def _zmin(t):
 
 def _zlf(m):
     """分钟 → “3 小时 30 分”（和 site.js 的 zLf 同一个格式：不足 1 小时按 5 分钟、其余按 10 分钟取整）"""
-    if m < 60: return f'{int(round(m / 5) * 5) or 5} 分钟'
-    h = int(m // 60); r = int(round((m % 60) / 10) * 10)
+    # 四舍五入取“半向上”（和 JS 的 Math.round 一致；Python 的 round 是银行家舍入：165 分钟会写成 2 小时 40 分，JS 写 2 小时 50 分——xl9a 第 1 天“开车 2h50 / 2h40”两个数就是这么来的）
+    if m < 60: return f'{int(m / 5 + .5) * 5 or 5} 分钟'
+    h = int(m // 60); r = int((m % 60) / 10 + .5) * 10
     if r == 60: h += 1; r = 0
     return f'{h} 小时' + (f' {r} 分' if r else '')
 

@@ -37,7 +37,7 @@ out.leg = cases.leg.map(function (c) { var r = m.leg(c.a, c.b, c.mode); return [
 out.r5 = cases.r5.map(function (x) { return m.r5(x); });
 out.insert = cases.insert.map(function (c) { return m.detourInsert(c.A, c.B, c.X, c.t0, c.mode); });
 out.replace = cases.replace.map(function (c) { return [m.detourReplace(c.A, c.S, c.C, c.X, c.t0a, c.t0b, c.mode), m.replaceNear(c.S, c.X, c.mode)]; });
-out.budget = cases.budget.map(function (c) { return m.dayBudgetOk(c.rows, c.ins); });
+out.budget = cases.budget.map(function (c) { return m.dayBudgetOk(c.rows, c.ins, c.base); });
 out.rank = cases.rank.map(function (c) { return m.rank(c.items, c.limit).map(function (x) { return [x.id, x.score]; }); });
 out.hours = cases.hours.map(function (c) { return [m.parseHours(c.h), m.hoursOk(c.arr, c.dur, c.h)]; });
 out.same = cases.same.map(function (c) { return [m.sameSpot(c.p, c.refs), m.inReach(c.p, c.refs)]; });
@@ -101,7 +101,7 @@ def make_cases(rng, n):
             e = t + rng.randint(5, 200)
             rows.append({'s': t, 'e': rng.choice([e, e, None]), 'k': k})
             t = e + rng.randint(0, 40)
-        C['budget'].append({'rows': rows, 'ins': rng.random() < 0.5})
+        C['budget'].append({'rows': rows, 'ins': rng.random() < 0.5, 'base': rng.choice([None, None, rng.randint(17 * 60, 24 * 60), 21 * 60 + 30, 22 * 60 + 10])})      # base：这天加之前的结束时间（结束上限 = min(23:00, max(21:30, base + 30 分钟))；None = 不知道，按 21:30）
     for _ in range(80):
         items = [{'id': 'c%03d' % rng.randint(0, 40), 'delta': rng.choice([0.0, 5.0, 12.5, 20.0, 29.9, 31.0, rng.uniform(0, 60)]), 'has_s': rng.random() < 0.7,
                   'pop': rng.randint(0, 30), 'same': rng.random() < 0.3, 'f': rng.choice([None, 1.0, 1.5, 2.0, 0.9]), 'approx': rng.random() < 0.6} for _ in range(rng.randint(1, 12))]
@@ -163,7 +163,7 @@ def main():
 
     # 常量
     py_consts = {'ROUTE_FACTOR': M.ROUTE_FACTOR, 'WALK_KM': M.WALK_KM, 'DETOUR_MAX': M.DETOUR_MAX, 'REPLACE_NEAR_MAX': M.REPLACE_NEAR_MAX, 'F_MIN': M.F_MIN, 'F_MAX': M.F_MAX,
-                 'SHOW_STEP': M.SHOW_STEP, 'MAX_NONMEAL': M.MAX_NONMEAL, 'END_LIMIT': M.END_LIMIT, 'SPAN_LIMIT': M.SPAN_LIMIT, 'SAME_SPOT_KM': M.SAME_SPOT_KM, 'BESIDE_KM': M.BESIDE_KM,
+                 'SHOW_STEP': M.SHOW_STEP, 'MAX_NONMEAL': M.MAX_NONMEAL, 'END_LIMIT': M.END_LIMIT, 'DAY_CAP': M.DAY_CAP, 'END_EXTRA': M.END_EXTRA, 'SPAN_LIMIT': M.SPAN_LIMIT, 'SAME_SPOT_KM': M.SAME_SPOT_KM, 'BESIDE_KM': M.BESIDE_KM,
                  'REACH_KM': M.REACH_KM, 'LIST_MAX': M.LIST_MAX, 'BBOX_PAD': M.BBOX_PAD, 'GRID': M.GRID, 'W_HAS_SENTENCE': M.W_HAS_SENTENCE, 'W_POP_CAP': M.W_POP_CAP, 'W_POP_K': M.W_POP_K,
                  'W_SAME_KIND': M.W_SAME_KIND, 'F_SLOW': M.F_SLOW, 'W_SLOW': M.W_SLOW, 'W_APPROX': M.W_APPROX, 'APPROX_DELTA': M.APPROX_DELTA}
     for k, v in py_consts.items():
@@ -174,7 +174,7 @@ def main():
     if sorted(ns['BIG_CITIES']) != sorted(M.BIG_CITIES):
         bad.append('BIG_CITIES：nearby_model 与 compile_itineraries 不同')
     # 硬性写死的阈值（用户 2026-10-16 拍板）：任何一边被悄悄改了都红
-    for name, want in (('DETOUR_MAX', 30), ('MAX_NONMEAL', 5), ('END_LIMIT', 21 * 60 + 30), ('SPAN_LIMIT', 13 * 60)):
+    for name, want in (('DETOUR_MAX', 30), ('MAX_NONMEAL', 5), ('END_LIMIT', 21 * 60 + 30), ('DAY_CAP', 23 * 60), ('END_EXTRA', 30), ('SPAN_LIMIT', 13 * 60)):
         if getattr(M, name) != want or J['consts'].get(name) != want:
             bad.append('拍板的阈值 %s 应为 %s，现在 Python=%r JS=%r' % (name, want, getattr(M, name), J['consts'].get(name)))
 
@@ -207,7 +207,7 @@ def main():
         if not close(py, jr[0], 0) or pn != jr[1]:
             bad.append('detour_replace %r：Python %r/%r ≠ JS %r' % (c, py, pn, jr))
     for c, jr in zip(cases['budget'], J['budget']):
-        py = M.day_budget_ok(c['rows'], c['ins'])
+        py = M.day_budget_ok(c['rows'], c['ins'], c.get('base'))
         if py != jr:
             bad.append('day_budget_ok %r：Python %r ≠ JS %r' % (c, py, jr))
     for c, jr in zip(cases['rank'], J['rank']):

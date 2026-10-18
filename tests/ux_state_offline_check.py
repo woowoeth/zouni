@@ -197,7 +197,7 @@ with sync_playwright() as p:
         btn.click(force=True); pg.wait_for_timeout(300)
         check('O5 点了给提示条，不进空的候选页', pg.locator('.toast').count() == 1 and '没网' in pg.inner_text('.toast') and pg.locator('.pk .npc').count() == 0, pg.locator('.toast').count())
         if env.shots: pg.screenshot(path=os.path.join(env.shots, 'O5_offline_adjust.png'))
-        pg.locator('.pk .pk-xb').click(); pg.wait_for_timeout(200)
+        pg.locator('.pk .pk-x').click(); pg.wait_for_timeout(200)
         # O6 搜索
         pg.goto(env.B + '/', wait_until='load'); pg.wait_for_timeout(800)
         pg.fill('.hsearch input', '川藏'); pg.click('.hsearch button'); pg.wait_for_timeout(500)
