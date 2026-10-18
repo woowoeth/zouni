@@ -166,7 +166,7 @@ if site:
             _deps = ' '.join(re.sub(r'<[^>]+>', ' ', x) for x in re.findall(r'<li class="r dep"[^>]*>(.*?)</li>', h, flags=re.S))      # 只看时间轴里的“出发 →”行
             if re.search(r'→[^自开]{0,30}(自驾约|开车约|自驾 |开车 )', _deps) and not re.search(r'驾照|国际驾', _t): bad.append(f'{rid} 国外自驾线没有驾照提示')
         # 日期写法（2026-10-17 起）：不出现“明年”；默认日期是建议值，页头底栏和说明行都写“建议”；跨年的写完整“2027 年 M/D”
-        dk_ = re.search(r'<div class="dock"><div><b>([^<]*)</b>', h); dn_ = re.search(r'<p class="dnote">([^<]*)</p>', h)
+        dk_ = re.search(r'<div class="dock"><div><b>([^<]*)</b>', h); dn_ = re.search(r'<p class="dnote"[^>]*>([^<]*)</p>', h)
         if '明年' in (dk_.group(1) if dk_ else '') or '明年' in (dn_.group(1) if dn_ else ''): bad.append(f'{rid} 日期里还写着“明年”')
         if not (dk_ and dk_.group(1).startswith('建议 ')) or not (dn_ and dn_.group(1).startswith('建议 ')): bad.append(f'{rid} 默认日期没写“建议”（底栏/说明行）')
         if st.year > today.year and not (dn_ and f'{st.year} 年' in dn_.group(1)): bad.append(f'{rid} 默认出发日在明年（{st}）但说明行没写完整年份')   # 底栏窄，只写 M/D

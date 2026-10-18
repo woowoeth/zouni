@@ -139,7 +139,7 @@ def day_expect(rows):
         if r['c'] == 'dep':
             tx = re.sub(r'^回住处\s*·\s*', '', r['s']).split('·')[0].strip()
             if tx.startswith('步行'): walk += mins(tx)
-            elif re.match(r'(打车|包车|自驾|开车|大巴)', tx): drive += mins(tx)
+            elif not tx.startswith('徒步'): drive += mins(tx)      # 2026-10-18：路上 = 除步行外所有带分钟的移动（火车、地铁、飞机也算）
         elif r['c'] == 'see' and r['tn']:
             walk += mins(r['tn']) * SH.get(r['ty'], .3)
     return int(math.floor(walk + .5)), int(drive)
@@ -237,12 +237,13 @@ with sync_playwright() as p:
             c, pg = ctx(br, p, {}); n_days = 0; bad = []; per_route = {}
             for rid in ids[:80]:
                 goto(env, pg, '/trip/%s/' % rid, 150)
+                sv = pg.evaluate("document.querySelector('article.trip').dataset.sv==='1'")
                 days = pg.evaluate(DAYS_JS)
                 for i, d in enumerate(days):
                     if d['w'] is None: bad.append((rid, i + 1, '没有 .dload')); continue
                     ew, ed = day_expect(d['rows']); n_days += 1
                     if (int(d['w']), int(d['d'])) != (ew, ed): bad.append((rid, i + 1, (d['w'], d['d']), (ew, ed)))
-                    exp_txt = '今天：' + ('走路约 ' + lf(ew) if ew >= 15 else '几乎不用走') + ' · ' + ('开车约 ' + lf(ed) if ed >= 10 else '不开车')
+                    exp_txt = '今天：' + ('走路约 ' + lf(ew) if ew >= 15 else '几乎不用走') + ' · ' + (('开车约 ' if sv else '路上约 ') + lf(ed) if ed >= 10 else ('不开车' if sv else '路上很短'))
                     if not (d['txt'] or '').startswith(exp_txt): bad.append((rid, i + 1, d['txt'], exp_txt))
                 per_route[rid] = (max(int(d['w']) for d in days if d['w']), max(int(d['d']) for d in days if d['d']))
                 if n_days >= 160: break

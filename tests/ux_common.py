@@ -18,6 +18,7 @@ class Env:
         self.inject = a[a.index('--inject') + 1] if '--inject' in a else None
         if self.shots: os.makedirs(self.shots, exist_ok=True)
         self.injects = injects or {}
+        self.delays = {}
         if self.inject and self.inject not in self.injects: sys.exit('--inject 只认 ' + ' / '.join(self.injects))
         self.fails, self.oks, self.errs, self.notes = [], [], [], []
         env = self
@@ -26,6 +27,8 @@ class Env:
             def log_message(self, *a): pass
             def send_head(self):
                 p = self.translate_path(self.path.split('?')[0].split('#')[0])
+                for suf_, sec_ in getattr(env, 'delays', {}).items():      # 慢网模拟：某个文件让服务端晚几秒再回（threading 服务，只卡这一条连接）
+                    if p.endswith(suf_): import time; time.sleep(sec_)
                 if env.inject:
                     f, old, new = env.injects[env.inject]
                     if p.endswith(os.sep + f.replace('/', os.sep)):

@@ -51,7 +51,7 @@ ALLOWED = re.compile(r'闭馆|休馆|休园|开放|关门|赶集|夜市|改期|�
 
 def clean(h):
     h = re.sub(r'<script.*?</script>', '', h, flags=re.S)
-    h = re.sub(r'<p class="dnote">.*?</p>', '', h)
+    h = re.sub(r'<p class="dnote"[^>]*>.*?</p>', '', h)
     h = re.sub(r'<small>[^<]*\d+/\d+ ' + WD + r'</small>', '', h)
     h = re.sub(r'<(div class="dock"|nav class="daynav)[^>]*>.*?</(div|nav)>', '', h, flags=re.S)
     return h

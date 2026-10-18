@@ -6,7 +6,7 @@
     python3 tests/ux_dates_share_check.py build/site --inject date_home|copy_hidden|title_days|link_nolz|backrow    # 反向自检：故意改坏 site.js，对应判据必须变红
 
 第 1 组 日期
-  D1 没选过日期：线路页写“建议 M/D 出发（按最佳季节）”，不写“明年”，跨年写“2027 年 M/D”；首页写“今天 M/D 周X 出发”
+  D1 没选过日期：线路页写“建议 M/D 周X 出发 · 最好 …”，不写“明年”，跨年写“2027 年 M/D”；首页写“今天 M/D 周X 出发”
   D2 在首页改日期 → 进任何线路页（4 条不同的线）日期都是它；说明行和首页日期条是同一个写法（“M/D 周X 出发”）
   D3 在线路页改日期 → 别的线路页和首页也跟着；谁改得晚听谁的
   D4 旧数据兼容：只有 zouni_start_<id>（无时间戳）和 zouni_home_date（无时间戳）→ 和以前一样“这条线自己存的优先”，不坏
@@ -69,7 +69,7 @@ with sync_playwright() as p:
             dock = pg.inner_text('.dock b').strip(); note = pg.inner_text('.dnote').strip(); dt = pg.inner_text('.glance .dt').strip()
             val = pg.evaluate("document.querySelector('.dpk').value")
             check('D1 %s 底栏写“建议 M/D 出发”' % t, dock.startswith('建议 ') and '明年' not in dock, dock)
-            check('D1 %s 说明行写“建议 … 出发（按最佳季节）”，不写“明年”' % t, note.startswith('建议 ') and '按最佳季节' in note and '明年' not in note, note)
+            check('D1 %s 说明行写“建议 … 出发 · 最好 M/D–M/D”（2026-10-18：去掉“按最佳季节，点日期可改”，改写最佳季节本身），不写“明年”' % t, note.startswith('建议 ') and ('最好' in note or '一年四季' in note or '·' not in note) and '按最佳季节' not in note and '点日期可改' not in note and '明年' not in note, note)
             check('D1 %s 页头日期格是 M/D 起头、没有“明年”' % t, re.match(r'^\d+/\d+', dt) and '明年' not in dt, dt)
             y = int(val[:4]); mn_y = int(mn[:4])
             if y > mn_y: check('D1 %s 跨年写完整“%d 年”' % (t, y), ('%d 年' % y) in note, note)

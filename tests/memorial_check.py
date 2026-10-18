@@ -96,7 +96,7 @@ bad4 = []; n4 = 0
 for rid in MR + OR:
     h = page(rid)
     if h is None: continue
-    m = re.search(r'<section class="pre"><h2>出发前</h2><ul>(.*?)</ul></section>', h, re.S)
+    m = re.search(r'<section class="pre"><h2>出发前</h2><ul>(.*?)</ul>(?:<details class="premore">.*?</details>)?</section>', h, re.S)      # 2026-10-18：“出发前”默认只露 1–2 条，其余折在 details.premore 里（礼仪永远是第一条，在外面）
     if not m or '参观礼仪' not in html.unescape(re.sub(r'<[^>]+>', '', m.group(1))): continue
     n4 += 1; first = re.match(r'\s*<li([^>]*)>(.*?)</li>', m.group(1), re.S)
     ok = bool(first) and 'etq' in first.group(1) and '参观礼仪' in re.sub(r'<[^>]+>', '', first.group(2)) and not re.search(r'<input|<b>|<strong>|<label', first.group(2)) and len(re.findall('参观礼仪', m.group(1))) == 1

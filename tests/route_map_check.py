@@ -101,8 +101,8 @@ def open_day(pg, n, wait_tiles=True):
 
 
 def open_ov(pg, wait_tiles=True):
-    pg.evaluate("document.querySelector('.mapfold').scrollIntoView({block:'center',behavior:'instant'})")
-    pg.click('.mapfold')
+    pg.evaluate("document.querySelector('.mapgo').scrollIntoView({block:'center',behavior:'instant'})")      # 2026-10-18：地图没开时折叠里的 .mapfold 不显示，打开只走第一屏的 .mapgo
+    pg.click('.mapgo')
     ready(pg)
     if wait_tiles: tiles(pg)
 
@@ -162,7 +162,7 @@ with sync_playwright() as p:
         pre = [u for u in reqs if re.search(r'maplibre|routemap|openfreemap', u)]
         check('M10a 打开行程页：没有请求 maplibre / routemap / openfreemap（点开前一个字节都不取）', not pre, pre[:3])
         n0 = len(reqs)
-        pg.evaluate("document.querySelector('.mapfold').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('.mapfold'); ready(pg); tiles(pg)
+        pg.evaluate("document.querySelector('.mapgo').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('.mapgo'); ready(pg); tiles(pg)
         post = [u for u in reqs[n0:] if re.search(r'maplibre|routemap|openfreemap', u)]
         check('M10b 点“看路线图”后才取 routemap.js 和 maplibre（js + css）和样式', any('routemap.js' in u for u in post) and any('maplibre-gl.js' in u for u in post) and any('maplibre-gl.css' in u for u in post) and any('styles/liberty' in u for u in post), post[:6])
         # 首页也不请求
@@ -397,7 +397,7 @@ with sync_playwright() as p:
         goto(env, pg, '/trip/xa3/', 600)
         open_ov(pg); pg.click('.mapfold'); pg.wait_for_timeout(200)
         c.set_offline(True)
-        pg.click('.mapfold'); pg.wait_for_timeout(600)
+        pg.click('.mapgo'); pg.wait_for_timeout(600)
         st = pg.evaluate("(function(){var r=document.querySelector('.rm.rm-sch'),n=r&&r.querySelector('.rm-note');return {sch:!!r,svg:!!(r&&r.querySelector('svg')),note:n?n.textContent:'',vis:!!n&&!n.hidden,marks:r?r.querySelectorAll('.rm-pts .rm-mk').length:0,cv:!!(r&&r.querySelector('canvas'))}})()")
         check('M7a 断网点“看路线图”：退回示意图（取景到站点）+ “街道地图加载失败，已改用示意图”（2026-10-18：总览也用示意图版，提示在地图里面）', st['sch'] and st['svg'] and st['note'] == '街道地图加载失败，已改用示意图' and st['vis'] and st['marks'] > 0 and not st['cv'], st)
         shot(pg, 'ov_offline_fallback.png')
@@ -406,7 +406,7 @@ with sync_playwright() as p:
         c, cnt = mk_ctx(br); pg = new_page(env, c)
         goto(env, pg, '/trip/xa3/', 600)
         c.set_offline(True)
-        pg.evaluate("document.querySelector('.mapfold').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('.mapfold'); pg.wait_for_timeout(800)
+        pg.evaluate("document.querySelector('.mapgo').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('.mapgo'); pg.wait_for_timeout(800)
         st = pg.evaluate("(function(){var h=document.querySelector('.hmap'),n=h.querySelector('.rm-fbn');return {vis:h.getBoundingClientRect().height>50,note:n?n.textContent:''}})()")
         check('M7b 脚本都没取到（断网）：仍显示静态示意图和“街道地图加载失败，已改用示意图”（提示在图的上面，不被底部栏盖住）', st['vis'] and st['note'] == '街道地图加载失败，已改用示意图', st)
         c.set_offline(False); c.close()
@@ -467,7 +467,7 @@ with sync_playwright() as p:
         pg.route(re.compile(r'.*(open-meteo|googletagmanager|hm\.baidu).*'), lambda r: r.abort())
         goto(env, pg, '/trip/xa3/', 600)
         pg.evaluate("document.querySelector('#d1 .rm-nb').scrollIntoView({block:'center',behavior:'instant'})")
-        pg.click('#d1 .rm-nb'); pg.wait_for_selector('.rm-sheet'); pg.click('.rm-sheet .pk-x'); pg.wait_for_timeout(200)     # 第一次点会加载 routemap.js
+        pg.click('#d1 .rm-nb'); pg.wait_for_selector('.rm-sheet'); pg.click('.rm-sheet .pk-xb')      # 2026-10-18：分段层右上角那个“关上”藏起来了，只留底部一个; pg.wait_for_timeout(200)     # 第一次点会加载 routemap.js
         segs = pg.evaluate("ZRM.segs(document.getElementById('d1'))")
         rows = pg.evaluate("Array.prototype.map.call(document.querySelectorAll('#d1 .tl > .r[data-ll]:not([hidden])'),function(r){return r.getAttribute('data-ll')})")
         sp = pg.evaluate("document.getElementById('d1').getAttribute('data-sp')"); ep = pg.evaluate("document.getElementById('d1').getAttribute('data-ep')")
@@ -501,7 +501,7 @@ with sync_playwright() as p:
         links = pg.evaluate("Array.prototype.map.call(document.querySelectorAll('.rm-sheet a.rm-seg'),function(a){return a.getAttribute('href')})")
         note = pg.inner_text('.rm-sheet .xnote')
         check('M8g 多段：弹出选择层，列出 %d 段，链接和 ZRM.segs 一致' % len(links), links == segs, (len(links), len(segs)))
-        check('M8h 文案写清分几段：%s' % note[:60], '按顺序一段一段点' in note and re.search(r'分 %d 段' % len(segs), note) is not None, note)
+        check('M8h 文案写清分几段：%s' % note[:60], '按顺序点' in note and re.search(r'分 %d 段' % len(segs), note) is not None, note)
         shot(pg, 'nav_sheet.png')
         hits.clear(); pg.click('.rm-sheet a.rm-seg >> nth=0'); pg.wait_for_timeout(500)
         check('M8i 点第 1 段：真发出同一条高德链接', hits and hits[0] == segs[0], hits[:1])
@@ -554,7 +554,7 @@ with sync_playwright() as p:
             goto(env, pg, '/trip/xa3/', 600)
             open_day(pg, 2)
             small0 = []
-            for sel in ('#d2 .rm-open', '#d2 .rm-nb', '.mapfold'):      # 页面里的入口按钮（本日地图 / 导航这一天 / 看路线图）
+            for sel in ('#d2 .rm-open', '#d2 .rm-nb', '.mapgo'):      # 页面里的入口按钮（本日地图 / 导航这一天 / 看路线图）
                 h = pg.evaluate(HIT, pg.locator(sel).first.element_handle())
                 if not h or h['w'] < 43 or h['h'] < 43: small0.append((sel, h))
             check('M9z %s：页面里的入口按钮（本日地图、导航这一天、看路线图）点击区 ≥44×44' % tag, not small0, small0)
