@@ -1,4 +1,4 @@
-/* 路线地图 · 地图 App 式整屏界面（2026-10-18 重写）。点开“看路线图 / 本日地图”才加载（空闲时可能预取）；街道底图 maplibre 再按需加载。
+/* 路线地图 · 地图 App 式整屏界面（2026-10-18 重写）。点开“看地图 / 本日地图”才加载（空闲时可能预取）；街道底图 maplibre 再按需加载。
  * 规则和坑：docs/handoff/02-UI规范.md「路线地图」、05-注意事项.md「路线地图」。ES5 only（禁 ?. ?? flatMap .at() 箭头函数 let/const），data_checks 会扫。
  *
  * 结构：一份“模型”（从页面 DOM 读：每天的站、标题、出发/住的大概位置、车程）→ 一个整屏图层 Inst（同一时间只有一个，省 WebGL 上下文）
@@ -675,7 +675,7 @@
       });
       x.restore(); x.textAlign = 'left'; x.textBaseline = 'alphabetic';
       var title = (ART && (ART.getAttribute('data-title') || ART.getAttribute('data-label'))) || document.title, d0 = curDay(inst);
-      x.fillStyle = RED; x.font = '700 30px ' + SANS; x.fillText(inst.sel < 0 ? '路线图 · 全程 ' + inst.days.length + ' 天' : '路线图 · 第 ' + (inst.sel + 1) + ' 天', 64, 76);
+      x.fillStyle = RED; x.font = '700 30px ' + SANS; x.fillText(inst.sel < 0 ? '地图 · 全程 ' + inst.days.length + ' 天' : '地图 · 第 ' + (inst.sel + 1) + ' 天', 64, 76);
       x.fillStyle = INK; x.font = '900 52px ' + SERIF; var tt = d0 ? d0.title : title; if (tt.length > 16) tt = tt.slice(0, 16) + '…'; x.fillText(tt, 64, 146);
       var fy = HD + mh;
       x.fillStyle = INK; x.fillRect(64, fy + 30, CW - 128, 2); x.font = '700 28px ' + SANS; x.fillText('走你 · ' + location.host + location.pathname, 64, fy + 90);
@@ -688,7 +688,7 @@
       }
       var url; try { url = cv.toDataURL('image/png'); } catch (e) { toast('保存图片失败'); return; }
       var m = el('div', 'hmap-zoom shotv rm-shot');
-      m.innerHTML = '<button type="button" class="hz-x" aria-label="关闭">×</button><div class="hz-b"><img alt="路线图" src="' + url + '"></div><p class="shotp">' + (real ? '' : '街道底图没取到，存的是示意图版。') + '手机上长按图片保存；电脑上 <a download="走你-路线图.png" href="' + url + '">点这里下载</a></p>';
+      m.innerHTML = '<button type="button" class="hz-x" aria-label="关闭">×</button><div class="hz-b"><img alt="地图" src="' + url + '"></div><p class="shotp">' + (real ? '' : '街道底图没取到，存的是示意图版。') + '手机上长按图片保存；电脑上 <a download="走你-地图.png" href="' + url + '">点这里下载</a></p>';
       var LZ = ZL.open([m], { kind: 'shot' });
       function cl() { ZL.close(LZ); }
       qs('.hz-x', m).addEventListener('click', cl); m.addEventListener('click', function (e) { if (e.target === m || e.target.classList.contains('hz-b')) cl(); });
@@ -825,7 +825,7 @@
     if (boot && boot.layer && boot.layer.alive) { inst.layer = boot.layer; inst.layer.o.onclose = function () { closeInst(inst); }; }      // 起步壳已经是层栈里的一层：接手它（同一条历史），关闭时走 closeInst
     else inst.layer = ZL.open([], { kind: 'map', onclose: function () { closeInst(inst); } });
     B.appendChild(inst.root); lockBody(inst);
-    inst.layer.o.root = inst.root; try { var cx_ = inst.root.querySelector('.rm-x'); if (cx_) cx_.focus({ preventScroll: true }); } catch (e) {}      // 焦点进地图（Tab 在地图里循环，关闭时由层栈还给“看路线图”按钮）
+    inst.layer.o.root = inst.root; try { var cx_ = inst.root.querySelector('.rm-x'); if (cx_) cx_.focus({ preventScroll: true }); } catch (e) {}      // 焦点进地图（Tab 在地图里循环，关闭时由层栈还给“看地图”按钮）
     if (boot && boot.root && boot.root.parentNode) boot.root.parentNode.removeChild(boot.root);
     measure(inst); readPal(inst);
     inst.sch = schView(inst); inst.view = inst.sch; inst.sch.onMove(function () { place(inst); });
