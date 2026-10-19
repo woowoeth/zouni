@@ -1507,18 +1507,18 @@ var fd=window.zFareDelta?window.zFareDelta():[0,0];p.textContent='¥'+r(Math.max
     function bootShell(sec){
       var y=window.pageYOffset||0,all=secs(),days=all.map(function(s){return dayLL(s)}),n=all.length,sel=sec?all.indexOf(sec):-1,i,j;
       var pr=D.createElement('div');pr.style.cssText='position:fixed;left:0;top:0;width:0;height:0;visibility:hidden;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)';B.appendChild(pr);var cs=getComputedStyle(pr),st=parseFloat(cs.paddingTop)||0,sb=parseFloat(cs.paddingBottom)||0;B.removeChild(pr);
-      var H=window.innerHeight,Wd=window.innerWidth,sh=168+sb;      // 底部条高固定 168（和 routemap.js 的 BAR_H、site.css 的 .rm-sht 一样）
+      var H=window.innerHeight,Wd=window.innerWidth,sh=(H<480?104:168)+sb;      // 底部条高：竖屏 168、横屏（视口高 <480）104（和 routemap.js 的 barH()、site.css 的 .rm-sht 一样）
       var ll=[];if(sel>=0){ll=days[sel].slice();var e=all[sel].getAttribute('data-ep');if(e){var pp=e.split(',');ll.push([+pp[0],+pp[1]])}}else days.forEach(function(d){ll=ll.concat(d)});
       var root=D.createElement('div');root.className='rm rm-fs rm-boot rm-'+(sec?'day':'ov');root.setAttribute('role','dialog');root.setAttribute('aria-label','路线地图');root.setAttribute('aria-modal','true');
       var svg='',cam=null;
       if(ll.length){var s0=90,w0=180,n0=-90,e0=-180;ll.forEach(function(p){s0=Math.min(s0,p[0]);n0=Math.max(n0,p[0]);w0=Math.min(w0,p[1]);e0=Math.max(e0,p[1])});
-        var x0=lx(w0),x1=lx(e0),y0=ly(n0),y1=ly(s0),bw=x1-x0,bh=y1-y0,pad={t:st+60,b:Math.min(sh+20,H-140),l:36,r:88},aw=Math.max(40,Wd-pad.l-pad.r),ah=Math.max(40,H-pad.t-pad.b),z=15;
+        var x0=lx(w0),x1=lx(e0),y0=ly(n0),y1=ly(s0),bw=x1-x0,bh=y1-y0,pad={t:st+56,b:Math.min(sh+28,H-140),l:40,r:40},aw=Math.max(40,Wd-pad.l-pad.r),ah=Math.max(40,H-pad.t-pad.b),z=15;
         if(bw>1e-9||bh>1e-9)z=Math.min(15,Math.log(Math.min(bw>1e-9?aw/(bw*512):1e9,bh>1e-9?ah/(bh*512):1e9))/Math.LN2);z=Math.max(2,Math.min(15,z));if(!(bw>1e-9||bh>1e-9))z=14;
         var sc=512*Math.pow(2,z),cx=(x0+x1)/2-(pad.l-pad.r)/2/sc,cy=(y0+y1)/2-(pad.t-pad.b)/2/sc;cam={cx:cx,cy:cy,sc:sc,z:z};
         function P(p){return[((lx(p[1])-cx)*sc+Wd/2).toFixed(1),((ly(p[0])-cy)*sc+H/2).toFixed(1)]}
-        days.forEach(function(d,k){var cl='rm-c'+(k%3)+' rm-s'+(Math.floor(k/3)%3),dim=sel>=0&&sel!==k;if(d.length>1){var pts=d.map(function(p){return P(p).join(',')}).join(' ');svg+='<polyline class="rm-bl '+cl+(dim?' dim':'')+'" points="'+pts+'"/>'}});
-        if(sel>=0){days[sel].forEach(function(p,k){var q=P(p);svg+='<g class="rm-bm rm-c'+(sel%3)+' rm-s'+(Math.floor(sel/3)%3)+'" transform="translate('+q[0]+','+q[1]+')"><rect x="-14" y="-14" width="28" height="28"/><text y="5" text-anchor="middle">'+(k+1)+'</text></g>'})}
-        else days.forEach(function(d,k){if(!d.length)return;var q=P(d[0]);svg+='<g class="rm-bm rm-c'+(k%3)+' rm-s'+(Math.floor(k/3)%3)+'" transform="translate('+q[0]+','+q[1]+')"><rect x="-14" y="-14" width="28" height="28"/><text y="5" text-anchor="middle">'+(k+1)+'</text></g>'})}
+        days.forEach(function(d,k){var cl='rm-dk'+(k%3)+' rm-dt'+(Math.floor(k/3)%3),dim=sel>=0&&sel!==k;if(d.length>1){var pts=d.map(function(p){return P(p).join(',')}).join(' ');svg+='<polyline class="rm-bl '+cl+(dim?' dim':'')+'" points="'+pts+'"/>'}});
+        if(sel>=0){days[sel].forEach(function(p,k){var q=P(p);svg+='<g class="rm-bm rm-dk'+(sel%3)+' rm-dt'+(Math.floor(sel/3)%3)+'" transform="translate('+q[0]+','+q[1]+')"><rect x="-14" y="-14" width="28" height="28"/><text y="5" text-anchor="middle">'+(k+1)+'</text></g>'})}
+        else days.forEach(function(d,k){if(!d.length)return;var q=P(d[0]);svg+='<g class="rm-bm rm-dk'+(k%3)+' rm-dt'+(Math.floor(k/3)%3)+'" transform="translate('+q[0]+','+q[1]+')"><rect x="-14" y="-14" width="28" height="28"/><text y="5" text-anchor="middle">'+(k+1)+'</text></g>'})}
       var tabs='<button type="button" class="rm-tb'+(sel<0?' on':'')+'" disabled>全程</button>';for(i=0;i<n;i++)tabs+='<button type="button" class="rm-tb'+(sel===i?' on':'')+'" disabled>'+(n<=7?'第 '+(i+1)+' 天':(i+1))+'</button>';
       root.innerHTML='<div class="rm-stage"><svg class="rm-bsvg" width="'+Wd+'" height="'+H+'" viewBox="0 0 '+Wd+' '+H+'" aria-hidden="true">'+svg+'</svg></div><div class="rm-prog" aria-hidden="true"><i style="width:8%"></i></div>'+
         '<button type="button" class="rm-b rm-x" aria-label="关闭地图" title="关闭">×</button><p class="rm-load" role="status">街道地图加载中…</p>'+

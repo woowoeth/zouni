@@ -39,12 +39,12 @@ INJ = {
     'rot_on': ('assets/routemap.js', "if (!rot) map.touchZoomRotate.disableRotation();", ""),                                             # 双指旋转默认开
     'cjk_net': ('assets/routemap.js', "localIdeographFontFamily: CJK_FONT,", ""),                                                         # 中文字形又去下载
     'pinch_page': ('assets/site.css', ".rm.rm-fs{position:fixed;left:0;top:0;right:0;bottom:0;z-index:45;background:var(--card);overflow:hidden;touch-action:none;", ".rm.rm-fs{position:fixed;left:0;top:0;right:0;bottom:0;z-index:45;background:var(--card);overflow:hidden;touch-action:auto;"),   # 整屏层不禁手势（页面能缩放 / 滚）
-    'x_small': ('assets/site.css', ".rm .rm-x{left:8px;top:calc(8px + env(safe-area-inset-top,0px));", ".rm .rm-x{width:30px;height:30px;left:8px;top:calc(8px + env(safe-area-inset-top,0px));"),   # 关闭键缩小
+    'x_small': ('assets/site.css', ".rm .rm-x{left:max(8px,env(safe-area-inset-left,0px));top:calc(8px + env(safe-area-inset-top,0px));", ".rm .rm-x{width:30px;height:30px;left:8px;top:calc(8px + env(safe-area-inset-top,0px));"),   # 关闭键缩小
     'dock_show': ('assets/site.css', "body.rmap-on .dock{display:none}", ""),                                                          # 底部固定栏还在
     'mk_auto': ('assets/site.css', ".rm .rm-pts>*{position:absolute;left:0;top:0;pointer-events:none}", ".rm .rm-pts>*{position:absolute;left:0;top:0;pointer-events:auto}"),   # 标记又抢手指
     'tap_radius': ('assets/routemap.js', "if (d <= (m.small ? 20 : 26)) c.push({ m: m, d: d });", "if (d <= (m.small ? 4 : 6)) c.push({ m: m, d: d });"),                    # 点按范围缩成几个像素
     'no_dense': ('assets/routemap.js', "m.small = tight; m.el.classList.toggle('rm-sm', tight);", "m.small = false;"),                                        # 挤在一起也不缩小
-    'no_merge': ('assets/routemap.js', "var t = k.g.length > 1 ? rangeLabel(k.g) : String(k.m.day + 1)", "var t = String(k.m.day + 1)"),                          # 总览合并的天不写范围
+    'no_merge': ('assets/routemap.js', "if (n > 3 && j === 0) t = rangeLabel(", "if (false) t = rangeLabel("),                          # 总览合并的天不写范围
     'adj_small': ('assets/site.css', ".r .s .adj:after,.adj:after{inset:-2px -10px -18px -10px}", ".r .s .adj:after,.adj:after{inset:0}"),                              # “调整”点击区缩回去
     'nav_off_pg': ('assets/site.js', "function navBtns(){var off=navigator.onLine===false;", "function navBtns(){var off=false;"),                           # 页面里的导航按钮断网不置灰
     # —— site.js（起步壳 / 入口 / 预取）——
@@ -271,7 +271,7 @@ with sync_playwright() as p:
             o = pg.evaluate("""(function(){var l=document.querySelector('.rm-ld'),b=l&&l.querySelector('b');
               return {ld:l?l.textContent:'',bf:b?getComputedStyle(b).fontFamily:'',nav:(document.querySelector('.rm-navd')||{}).textContent,navBg:getComputedStyle(document.querySelector('.rm-navd')).backgroundColor,
                 dl:(document.querySelector('#d2 .dload')||{}).textContent||''}})()""")
-            check('M3l 一行信息：衬线“第 2 天 · 标题”+“今天：…”（%s），数字 = 页面每天那一行（%s）' % (o['ld'][:40], o['dl']), 'Serif' in o['bf'] and o['ld'].startswith('第 2 天 · ') and '今天：' in o['ld'] and o['ld'].strip().endswith(o['dl'].strip()), o)
+            check('M3l 两行信息：衬线“第 2 天 · 标题”一行 + 数字一行（没有“今天：”，2026-10-19），数字 = 页面每天那一行（%s）' % (o['dl']), 'Serif' in o['bf'] and o['ld'].startswith('第 2 天 · ') and '今天' not in o['ld'] and o['ld'].strip().endswith(o['dl'].strip()), o)
             ink = pg.evaluate("(function(){var probe=document.createElement('i');probe.style.color=getComputedStyle(document.documentElement).getPropertyValue('--ink').trim();document.body.appendChild(probe);var c=getComputedStyle(probe).color;probe.remove();return c})()")
             btns = pg.evaluate("[].filter.call(document.querySelectorAll('.rm-sht button,.rm-sht a.btn'),function(b){var r=b.getBoundingClientRect(),y=getComputedStyle(b);return r.width>0&&r.height>0&&y.backgroundColor==='%s'&&b.closest('.rm-tabs')===null}).map(function(b){return b.textContent.trim()})" % ink)
             check('M3n 底部只有一个墨色方形主按钮“导航这一天”（%s）' % btns, btns == ['导航这一天 ›'] and o['navBg'] == ink, (btns, o['navBg'], ink))
@@ -448,8 +448,9 @@ with sync_playwright() as p:
             # 地图容器只到底部条上沿（条高固定、不再长）：瓦片按这块取；没有拖动，也就没有“长到整屏”
             c, sb = mk(br); pg = new_page(env, c); T = Touch(c, pg); goto(env, pg, '/trip/xa3/', 700)
             open_day(pg, 1); pg.wait_for_timeout(1500)
-            r0 = pg.evaluate("(function(){var m=document.querySelector('.rm-map').getBoundingClientRect(),z=ZRM.cur();return {h:m.height,top:m.top,sh:z.sheetH,vh:z.vh}})()")
-            check('M6l 地图容器高 %d = 视口 %d − 底部条 %d（只到条的上沿，取到 %d 块瓦片）' % (r0['h'], r0['vh'], r0['sh'], sb.n['pbf']), abs(r0['h'] - (r0['vh'] - r0['sh'])) <= 2 and r0['top'] == 0 and sb.n['pbf'] <= 5, (r0, sb.n))
+            r0 = pg.evaluate("""(function(){var m=document.querySelector('.rm-map').getBoundingClientRect(),z=ZRM.cur(),b=z.map.getBounds(),z0=Math.floor(z.map.getZoom()),n=Math.pow(2,z0);function tx(l){return Math.floor((l+180)/360*n)}function ty(a){var s=Math.sin(a*Math.PI/180);return Math.floor((0.5-Math.log((1+s)/(1-s))/(4*Math.PI))*n)}
+              return {h:m.height,top:m.top,sh:z.sheetH,vh:z.vh,need:(tx(b.getEast())-tx(b.getWest())+1)*(ty(b.getSouth())-ty(b.getNorth())+1)}})()""")      # need = 这块容器在当前层级整数缩放下盖到几块瓦片（取决于这天的取景落在瓦片格的哪里：4–9 块都正常，所以不能写死 ≤5）
+            check('M6l 地图容器高 %d = 视口 %d − 底部条 %d（只到条的上沿）；取到 %d 块瓦片 ≤ 这块容器盖到的 %d 块 + 6（site.js 的 warm() 预取整块包围盒的两层瓦片）' % (r0['h'], r0['vh'], r0['sh'], sb.n['pbf'], r0['need']), abs(r0['h'] - (r0['vh'] - r0['sh'])) <= 2 and r0['top'] == 0 and sb.n['pbf'] <= r0['need'] + 6, (r0, sb.n))
             T.drag(200, 780, 200, 400, steps=8, dt=0.03); pg.wait_for_timeout(600)
             r1 = pg.evaluate("document.querySelector('.rm-map').getBoundingClientRect().height")
             check('M6m 在条上乱拖：地图容器高度不变（%d → %d）' % (r0['h'], r1), abs(r1 - r0['h']) <= 1, (r0, r1))
@@ -666,17 +667,21 @@ with sync_playwright() as p:
             if dense:
                 w = pg.evaluate("(function(){var e=document.querySelector('.rm-mk.rm-sm i');return Math.round(e.getBoundingClientRect().width)})()")
                 n_ = cur(pg, "r.marks.filter(function(m){return m.el.classList.contains('rm-sm')&&m.kind==='n'})[0].n")
-                mp = mark_px(pg, n_); T.tap(mp[0], mp[1]); pg.wait_for_timeout(1500)
-                tg = pg.evaluate("(function(){var t=document.querySelector('.rm-tg span');return t?t.textContent:null})()"); nm = cur(pg, "r.days[r.sel].pts[%d].name" % (n_ - 1))
-                check('M13d 缩小后宽 %dpx（22）；选中一个挤在一起的标记：旁边出现名字小标签（%s）' % (w, tg), w == 22 and tg == nm, (w, tg, nm))
+                mp = mark_px(pg, n_); T.tap(mp[0], mp[1]); pg.wait_for_timeout(900)
+                if pg.evaluate("!!document.querySelector('.rm-pi')"):      # 挤在一起的标记旁边还有别的东西（另一站 / “住”，坐标审计后第 2 天的易俗社和住只差 8px）：点按会弹“选一个”，从列表里选这一站
+                    pg.click('.rm-pi:text-matches("^%d ")' % n_); pg.wait_for_timeout(900)
+                pg.wait_for_timeout(700)
+                tg = pg.evaluate("(function(){var t=document.querySelector('.rm-nm.rm-cur span');return t?t.textContent:null})()"); nm = cur(pg, "r.days[r.sel].pts[%d].name" % (n_ - 1))
+                check('M13d 缩小后宽 %dpx（22）；选中一个挤在一起的标记：旁边出现名字小标签（%s）' % (w, tg), w == 22 and bool(tg) and tg.rstrip('…') in nm, (w, tg, nm))
                 cur(pg, "r.view.map.jumpTo({zoom:5})"); pg.wait_for_timeout(900); pg.evaluate("ZRM.cur().view.zoomBy(0)")
                 cen = cur(pg, "(function(){var m=r.marks.filter(function(m){return m.kind==='n'});return [m[0].px,m[0].py,m.length]})()")
                 T.tap(cen[0], cen[1]); pg.wait_for_timeout(600)
                 pk = pg.evaluate("[].slice.call(document.querySelectorAll('.rm-pi')).map(function(b){return b.textContent})")
                 check('M13e 缩得很小时点同一位置的多个站：弹出列表让人选（%d 项）' % len(pk), len(pk) >= 2, pk)
                 if len(pk) >= 2:
-                    pg.click('.rm-pi >> nth=1'); pg.wait_for_timeout(700)
-                    check('M13f 从列表里选第 2 项：选中的就是它（cur=%s，卡片 %s）' % (cur(pg, 'r.cur'), cur(pg, 'r.mode')), bool(cur(pg, 'r.cur')) and cur(pg, 'r.mode') == 'card', cur(pg, 'r.cur'))
+                    pg.click('.rm-pi >> nth=1'); pg.wait_for_timeout(900)      # 列表里除了站还可能有“住”和顺路灰点（坐标审计后第 2 天的易俗社和住几乎重合）：判据是“选中的就是点的那一项”，不要求它一定是站
+                    cn = pg.evaluate("(function(){var n=document.querySelector('.rm-card .rm-cname');return n?n.textContent:''})()")
+                    check('M13f 从列表里选第 2 项（“%s”）：选中的就是它（卡片“%s”，cur=%s curG=%s curH=%s）' % (pk[1][:14], cn[:14], cur(pg, 'r.cur'), cur(pg, 'r.curG'), cur(pg, 'r.curH')), cur(pg, 'r.mode') == 'card' and bool(cn) and (cn.replace(' ', '')[:4] in pk[1].replace(' ', '') or pk[1].replace(' ', '')[:6] in cn.replace(' ', '') or (cn.startswith('住') and pk[1].startswith('住'))), (pk, cn))
             c.close()
             c, sb = mk(br); pg = new_page(env, c); T = Touch(c, pg); goto(env, pg, '/trip/hss1a/', 800)
             open_ov(pg); pg.wait_for_timeout(900)
@@ -696,7 +701,7 @@ with sync_playwright() as p:
             cur(pg, "r.view.map.jumpTo({zoom:r.view.map.getZoom()+1.5,center:[r.days[r.sel].pts[0].ll[1],r.days[r.sel].pts[0].ll[0]]})"); pg.wait_for_timeout(500)
             cur(pg, "(function(){var q=r.view.project(r.days[r.sel].pts[0].ll);r.view.map.panBy([q.x-150,q.y-230],{animate:false})})()"); pg.wait_for_timeout(700)      # 把第一站挪到面板上方露出来的那块地图里（屏幕 150,230）
             ms = cur(pg, "r.marks.filter(function(m){return m.kind==='n'}).map(function(m){return[m.n,m.px,m.py]})")
-            allm = cur(pg, "r.marks.filter(function(m){return m.kind}).map(function(m){return[m.kind+(m.n||''),m.px,m.py]})")
+            allm = cur(pg, "r.marks.filter(function(m){return m.kind&&m.kind!=='lb'}).map(function(m){return[m.kind+(m.n||''),m.px,m.py]})")
             iso = [m for m in ms if all(o[0] == 'n' + str(m[0]) or abs(o[1] - m[1]) + abs(o[2] - m[2]) > 70 for o in allm) and 40 < m[1] < 300 and 90 < m[2] < 380]
             got = []
             for n_, x_, y_ in iso[:2]:

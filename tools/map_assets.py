@@ -7,6 +7,7 @@
 用法：
     python3 tools/map_assets.py            # site_src/map/ 已齐就什么都不做（建站每次调用，不联网）
     python3 tools/map_assets.py --refresh  # 重新从 OpenFreeMap 取（样式换版本、边界图层 id 变了时；之后重跑 tests/data_checks.py 的第 33 项和 route_map_check --live）
+    python3 tools/map_assets.py --requiet  # 不联网：给现有样式套“底图退后”（隐藏盾牌 / 村名、标注压小压淡）
     python3 tools/map_assets.py --check    # 只联网对照：线上样式里命中隐藏规则的图层，在自托管样式里是不是全部 visibility:none（data_checks 33 / map_app_check --live 用）
 
 产物：
@@ -51,6 +52,49 @@ def tune(st):
     return st, n
 
 
+# 底图退后（2026-10-19，用户：底图太吵、抢站点）：杂志风是“底图退后、线路和站点在前”。
+# 规则：道路盾牌（G3021 之类）和村 / 乡镇一级的名字不要；区名 / 路名 / POI 字号压小、颜色换成纸色底上的浅灰（halo 用纸色）；竖排路名保留但更淡。
+# 站点方块和站名标签是页面上的 DOM，永远叠在底图（canvas）之上，不靠样式保证。门禁：data_checks 第 33 项 + tests/map_polish_check.py（数的是样式文件本身）
+QUIET = {
+    'text': '#8f8b80', 'halo': 'rgba(244,242,236,0.92)', 'road_text': '#a39f94',
+    'hide': re.compile(r'shield|label_village'),      # 道路盾牌、村名整层不要
+    'cap': {'label_town': 11, 'label_other': 10, 'label_city': 14, 'label_city_capital': 15, 'highway-name-major': 11, 'highway-name-minor': 10.5, 'highway-name-path': 10, 'poi_r1': 10, 'poi_r7': 10, 'poi_r20': 10, 'poi_transit': 10, 'airport': 10, 'water_name_point_label': 10, 'water_name_line_label': 10, 'waterway_line_label': 10},      # 每层字号上限（px）
+    'minz': {'label_town': 9, 'label_other': 13, 'poi_r20': 17, 'poi_r7': 16.5, 'poi_r1': 16},      # 低等级的名字放大到更近才出现
+}
+
+
+def _cap_size(ts, cap):
+    """text-size 可能是数字，也可能是 interpolate 表达式：把每个输出值压到 cap 以内（不放大）"""
+    if isinstance(ts, (int, float)): return min(ts, cap)
+    if isinstance(ts, list) and ts and ts[0] == 'interpolate':
+        out = list(ts)
+        for i in range(4, len(out), 2):
+            if isinstance(out[i], (int, float)): out[i] = min(out[i], cap)
+        return out
+    return ts
+
+
+def quiet(st):
+    """把样式里的标注压低；重复调用无副作用（metadata.zouni_quiet 记号）。返回 (样式, 改的图层数)"""
+    st.setdefault('metadata', {})
+    n = 0
+    for l in st['layers']:
+        lay = l.setdefault('layout', {}); pt = l.setdefault('paint', {})
+        if QUIET['hide'].search(l['id']):
+            lay['visibility'] = 'none'; n += 1; continue
+        if l.get('type') != 'symbol' or not lay.get('text-field'): continue
+        cap = QUIET['cap'].get(l['id'])
+        if cap is not None and 'text-size' in lay: lay['text-size'] = _cap_size(lay['text-size'], cap)
+        mz = QUIET['minz'].get(l['id'])
+        if mz is not None: l['minzoom'] = max(l.get('minzoom', 0), mz)
+        pt['text-color'] = QUIET['road_text'] if l['id'].startswith('highway-name') else QUIET['text']
+        pt['text-halo-color'] = QUIET['halo']; pt['text-halo-width'] = 1.2; pt['text-halo-blur'] = 0
+        if l.get('type') == 'symbol' and lay.get('icon-image'): pt['icon-opacity'] = 0.55
+        n += 1
+    st['metadata']['zouni_quiet'] = 1
+    return st, n
+
+
 def fonts_of(st):
     s = set()
     for l in st['layers']:
@@ -64,7 +108,7 @@ def fonts_of(st):
 def refresh():
     st = json.loads(get(STYLE_URL))
     sprite = st['sprite']; glyphs = st['glyphs']
-    st, n_hide = tune(st)
+    st, n_hide = tune(st); st, _nq = quiet(st)
     st['sprite'] = LOCAL_PREFIX + '/sprite/ofm'
     st['glyphs'] = LOCAL_PREFIX + '/fonts/{fontstack}/{range}.pbf'
     os.makedirs(os.path.join(OUT, 'sprite'), exist_ok=True)
@@ -99,5 +143,10 @@ def check_live():
 
 if __name__ == '__main__':
     if '--check' in sys.argv: sys.exit(0 if check_live() else 1)
+    if '--requiet' in sys.argv:      # 不联网：对现有 site_src/map/style.json 套一遍“底图退后”（已经套过就什么也不做）
+        f = os.path.join(OUT, 'style.json'); st = json.load(open(f, encoding='utf-8'))
+        if st.get('metadata', {}).get('zouni_quiet'): print('已经是退后版')
+        else: st, n = quiet(st); open(f, 'w', encoding='utf-8').write(json.dumps(st, ensure_ascii=False, separators=(',', ':'))); print('已压低 %d 个图层' % n)
+        sys.exit(0)
     if '--refresh' in sys.argv or not have(): refresh()
     else: print('site_src/map/ 已齐（--refresh 重取）')

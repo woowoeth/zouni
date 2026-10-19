@@ -681,6 +681,15 @@ _sp = _iu.spec_from_file_location('title_check', os.path.join(ROOT, 'tests', 'ti
 _bad34 = _tc.check(*_tc.load())
 if _bad34: fails.append(('行程标题（N天(…) 开头 / label 重名）', _bad34))
 
+# 35 站名带专名（某某门/寺/塔/馆/庙/宫/殿/祠/观/陵/楼/阁/庵）时，q 必须含这个专名的区分部分（2026-10-19）：
+#    “西安城墙 · 永宁门” 的 q 写成泛称“西安城墙”，地图标点就落在城墙别处。存量见 data/geo/q_term_baseline.json（已审、新增不许）；
+#    判据和自检在 tools/audit_pois.py（term_violations / selftest；自检每次都跑：好稿不红、注入缺陷红）
+_sp = _iu.spec_from_file_location('audit_pois', os.path.join(ROOT, 'tools', 'audit_pois.py')); _ap = _iu.module_from_spec(_sp); _sp.loader.exec_module(_ap)
+_bad35 = ['闸自检失败：' + e for e in _ap.selftest()]
+_base35 = set(json.load(open(_ap.BASELINE, encoding='utf-8'))['keys']) if os.path.exists(_ap.BASELINE) else set()
+_bad35 += _ap.term_violations(I, _base35)
+if _bad35: fails.append(('站名专名不在 q 里（q 只写了泛称，坐标会落到别处）', _bad35))
+
 if fails:
     for title, items in fails:
         print(f'✗ {title}：{len(items)} 处')

@@ -16,6 +16,8 @@ run ux_state_offline python3 tests/ux_state_offline_check.py "$SITE"
 run ux_home_search   python3 tests/ux_home_search_check.py "$SITE"
 run ux_batch2        python3 tests/ux_batch2_check.py "$SITE"
 run map_app          python3 tests/map_app_check.py "$SITE"       # 2026-10-18 地图 App 化：取代了 route_map_check / route_map2_check（旧内嵌地图的判据，已删，能保留的并进 M1–M12）
+run map_anchor       python3 tests/map_anchor_check.py "$SITE"       # 2026-10-19 标点贴不贴真实坐标：每个标点中心与 map.project 误差 ≤2px（zoom 6/10/14/17、+/−、双击、双指、拖动、旋转、横屏、动画途中、示意图兜底；颜色类与卡片类撞名的根因判据）（A1–A8，4 个 --inject）
+run map_polish       python3 tests/map_polish_check.py "$SITE"       # 2026-10-19 地图细节打磨：站名标签避让 / 视野居中同一套留边 / 底图退后 / 底部条两行不断数字 / 全程每天形色 / 进度条一定收 / 细线箭头往返一条 / 点击区·置灰·不闪·暗色·横屏（P1–P8，23 个 --inject）
 run map_perf         python3 tests/map_perf.py --target fixture --site "$SITE" --cases 4g:cold,4g:warm,3g:cold --assert      # 点开地图的耗时（稳定版：本机服务 + 共享链路模型）
 run weekday          python3 tests/weekday_check.py "$SITE"
 run memorial         python3 tests/memorial_check.py "$SITE"

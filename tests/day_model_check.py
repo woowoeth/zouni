@@ -31,7 +31,7 @@ INJ = {
     # —— D2：同步 ——
     'bar_nosync': (R, "inst.off = ZD.on(function () { clearTimeout(inst.rft); inst.rft = setTimeout(function () { refresh(inst); }, 0); });", "inst.off = ZD.on(function () {});"),            # 页面里改了，地图不跟
     # —— D3：数字 ——
-    'num_bar': (R, "　今天：' + esc(ZD.loadText(ZD.facts(d)))", "　今天：' + esc(ZD.loadText(ZD.facts(d))).replace('路上约', '开车约')"),                                                       # 底部条的数字另算
+    'num_bar': (R, "numHtml(ZD.loadText(ZD.facts(d)))", "numHtml(ZD.loadText(ZD.facts(d)).replace('路上约', '开车约'))"),                                                       # 底部条的数字另算
     'num_sum': (S, "，路上约 '+zLf(zf.drive||0)", "，路上约 '+zLf((zf.drive||0)+10)"),                                                                                             # “改完：…路上约”另算
     'num_glance': (S, "+zLf(mx)}else{t=g0[0]", "+zLf(mx+30)}else{t=g0[0]"),                                                                         # 页头最长一天另算
     'num_end': (S, "这天要到 '+zf.endHm+' 才结束", "这天要到 '+ZD.hhmm(zf.end+30)+' 才结束"),                                                                                          # 结束时间另算
@@ -157,7 +157,7 @@ def main():
                         nl = pg.evaluate("document.querySelectorAll('.rm li,.rm ol,.rm ul,.rm .rm-row,.rm .rm-tl').length")
                         if nl: list_bad.append('%s 第%d天 %d 个列表元素' % (rid, i + 1, nl))
                 check('D1a 随机 %d 条线路 × 3 天（共 %d 天）：地图读到的站（名字 / 坐标 / 顺序）= 页面时间轴里有位置的可见行；不一致 %d 天%s' % (done, n_days, len(bad_all), ('：' + bad_all[0]) if bad_all else ''), done >= 50 and not bad_all and n_days >= 150, (done, n_days, bad_all[:3]))
-                check('D1b 底部条“第 N 天 · 标题　今天：…”的数字 = 页面每天那一行（%d 天里不一致 %d）%s' % (n_days, len(head_bad), ('：' + head_bad[0]) if head_bad else ''), not head_bad, head_bad[:3])
+                check('D1b 底部条“第 N 天 · 标题 / 数字”两行的数字 = 页面每天那一行（%d 天里不一致 %d）%s' % (n_days, len(head_bad), ('：' + head_bad[0]) if head_bad else ''), not head_bad, head_bad[:3])
                 check('D1c 地图层里没有任何列表（li / ol / ul / .rm-row / .rm-tl 都是 0；%d 天里有 %d 天有）%s' % (n_days, len(list_bad), list_bad[:1]), not list_bad, list_bad[:3])
                 c.close()
 
