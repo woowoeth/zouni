@@ -30,10 +30,12 @@ DEST = {d['id']: d for d in CAT['destinations']}
 LONG_RE = re.compile(r'^(xl\d+a|xb96a)$')
 def is_long(rid): return bool(LONG_RE.match(rid or ''))
 # 垭口/高点（米）：只写有把握的；写不准的不写。每天“今天最高”=max(住宿海拔, 当天文字或站点名里提到的表内高点)，数字只在生成页面时算，不进 data
+CAMP_RE = re.compile(r'营地|帐篷|山屋|垭口|蒙古包|露营')
 PASS_ELEV = {'折多山': 4298, '高尔寺山': 4412, '剪子弯山': 4659, '卡子拉山': 4718, '海子山': 4600, '东达山': 5008, '业拉山': 4658, '安久拉山': 4468,
              '米拉山': 5013, '那根拉山': 5190, '唐古拉山口': 5231, '昆仑山口': 4768, '五道梁': 4600, '雀儿山': 5050, '白马雪山': 4292, '红其拉甫': 4733,
              '界山达坂': 5347, '加乌拉山': 5198, '卡若拉': 5100, '玉龙雪山': 4506, '洛绒牛场': 4100, '纳木错': 4718,
-             '巴颜喀拉山': 4824, '巴朗山': 4523, '色季拉山': 4728, '岗巴拉山': 4794, '牛奶海': 4600, '珠峰大本营': 5200}
+             '巴颜喀拉山': 4824, '巴朗山': 4523, '色季拉山': 4728, '岗巴拉山': 4794, '牛奶海': 4600, '珠峰大本营': 5200,
+             '太白山': 3767, '神农顶': 3105, '哈希勒根达坂': 3400, '喀拉库勒湖': 3600, '白沙湖': 3200}
 _FUT_RE = re.compile(r'明天|明早|明日|次日|后天|第二天|隔天|接下来|再往后')
 def _today_text(d):
     """当天文字里只取“今天”的部分：提到明天要翻的山口不算今天的最高点"""
@@ -15512,6 +15514,9 @@ def start_date(r):
     def occ_(y): return datetime.date(y, st[1] + 1, min(st[2], calendar.monthrange(y, st[1] + 1)[1]))
     d = occ_(TODAY.year)
     if d < TODAY: d = occ_(TODAY.year + 1)
+    _t0 = TRIP_OF_ROUTE.get(r.get('id')) or {}
+    if _t0.get('anytime') or not (_t0.get('season') or {}).get('best'):      # 没有季节限制（四季都能去）：默认出发日 = 首页日期条显示的那天起最近的合理日（明天起，不跨年）；原来取 start 的月日，过了今年就跳到明年（西安 3 天写“2027 年出发、还有 362 天”）
+        d = TODAY + datetime.timedelta(days=1)
     # 正当季（今天落在“最好的日子”里）：默认出发日要落在窗口内，不能顺延到明年（首页封面写着“还剩 7 天”，点进去却是明年）
     t = TRIP_OF_ROUTE.get(r.get('id')) or {}
     b = (t.get('season') or {}).get('best')
@@ -15652,7 +15657,11 @@ def add_cands(rid, r):
     n_ = len(r['days'])
     if n_ < 2: return []
     pts = [day_point(r, k) or ((r['days'][k]['lat'], r['days'][k]['lng']) if r['days'][k].get('lat') and r['days'][k].get('lng') else None) for k in range(n_ - 1)]
-    mine = {_core(w.get('name')) for d in r['days'] for w in d['rows'] if w['type'] in ('see', 'fun')}
+    mine_nm = {}
+    for d in r['days']:
+        for w in d['rows']:
+            if w['type'] in ('see', 'fun'): mine_nm.setdefault(_core(w.get('name')), re.sub(r'（[^）]*）$', '', w.get('name') or ''))
+    mine = set(mine_nm)
     best = []
     for (o, k, ttl, pt, cores, label) in _cand_pool():
         if o == rid: continue
@@ -15662,7 +15671,7 @@ def add_cands(rid, r):
             if not bp or abs(bp[0] - pt[0]) > 1.0 or abs(bp[1] - pt[1]) > 1.4: continue
             km = _km(bp, pt)
             if km <= 100: dd[j] = round(km)
-        if dd: best.append({'rid': o, 'label': label, 'i': k, 'title': ttl, 'lat': round(pt[0], 4), 'lng': round(pt[1], 4), 'd': dd, 'km': min(dd.values())})
+        if dd: best.append({'rid': o, 'label': label, 'i': k, 'title': ttl, 'lat': round(pt[0], 4), 'lng': round(pt[1], 4), 'd': dd, 'km': min(dd.values()), 'ov': list(dict.fromkeys(mine_nm[m_] for c_ in cores for m_ in mine_nm if c_ == m_ or (len(c_) >= 3 and len(m_) >= 3 and (c_ in m_ or m_ in c_))))[:2]})      # ov：这一天里本行程已经排过的站（最多写 2 个），弹层里灰字提示并排到末尾（不过滤）
     best.sort(key=lambda x: x['km'])
     seen = set(); res = []
     for x in best:
@@ -15670,7 +15679,8 @@ def add_cands(rid, r):
         seen.add(x['title']); res.append(x)
     keep = set()
     for j in range(n_ - 1):
-        for x in sorted([x for x in res if j in x['d']], key=lambda x: x['d'][j])[:10]: keep.add(id(x))
+        _at = sorted([x for x in res if j in x['d']], key=lambda x: x['d'][j])
+        for x in [x for x in _at if not x['ov']][:10] + [x for x in _at if x['ov']][:2]: keep.add(id(x))      # 没排过的最多 10 条 + 含已排过站点的最近 2 条（排在末尾、灰字提示，不过滤）
     return [x for x in res if id(x) in keep]
 
 
@@ -15920,12 +15930,12 @@ def faq_items(r, t, d0, g, roads=None):
     sights = [sum(1 for w in d['rows'] if w['type'] in ('see', 'fun') and '沿途' not in (w.get('name') or '')) for d in r['days']]
     bits = []
     if elev >= 3000: bits.append(f'要上海拔 {elev:,} 米的高原，老人孩子出发前最好问问医生')
-    if dmax >= 240: bits.append(f'第 {drives.index(dmax) + 1} 天要坐 {dmax / 60:.1f} 小时车')
+    if dmax >= 240: bits.append(f'第 {drives.index(dmax) + 1} 天要坐 {_zlf(dmax)}的车')
     if max(sights + [0]) >= 4: bits.append(f'第 {sights.index(max(sights)) + 1} 天要去 {max(sights)} 个地方，走路多')
     if bits: qs.append(('带老人孩子要注意什么？', '；'.join(bits) + '。可以在那天点“调整”去掉一两站，或者把出发时间改晚。'))
     hard = max(range(len(r['days'])), key=lambda k: (drives[k], sights[k])) if r['days'] else 0
     if len(r['days']) >= 3 and (drives[hard] >= 120 or sights[hard] >= 4):
-        qs.append(('哪天最累？', f'第 {hard + 1} 天（{r["days"][hard].get("title", "")}）：' + '，'.join(x for x in [f'路上约 {drives[hard] / 60:.1f} 小时' if drives[hard] >= 60 else '', f'去 {sights[hard]} 个地方' if sights[hard] else ''] if x) + '。前一晚早点睡。'))
+        qs.append(('哪天最累？', f'第 {hard + 1} 天（{r["days"][hard].get("title", "")}）：' + '，'.join(x for x in [f'路上约 {_zlf(drives[hard])}' if drives[hard] >= 60 else '', f'去 {sights[hard]} 个地方' if sights[hard] else ''] if x) + '。前一晚早点睡。'))
     near = [x for x in (indoor_near(r) if 'indoor_near' in globals() else [])][:3]
     if near: qs.append(('下雨了去哪？', '附近能躲雨的：' + '、'.join(f'{x["n"]}（约 {x["km"]} 公里）' if x.get('km') else x['n'] for x in near) + '。出发前 16 天内会按天气预报提示能不能换。'))
     bk = []
@@ -16148,7 +16158,7 @@ def alt_note(e, first=True):     # first：这一档（≥3,500 / ≥2,500）在
     """当天最高点的海拔 → 行动建议。第一次到高海拔的那天写全，之后的天只写一句简短提醒（免得每天重复一大段）"""
     if e < 2500: return ''
     if not first: return f'<p class="alt"><b>海拔 {e:,} 米</b>注意高反：慢慢走、多喝水，头疼恶心就停下来歇。</p>'
-    if e >= 3500:
+    if e >= 3000:      # 3000 米起写全文（含氧气瓶）：和 data_checks 的“海拔 ≥3000 必须有氧气 / 高反提示”同一条线
         return f'<p class="alt"><b>海拔 {e:,} 米</b>到了先歇一天，别洗澡、别喝酒、别剧烈运动，慢慢走、多喝水；出发前问问医生，备好便携氧气瓶；头疼、恶心、嘴唇发紫别硬撑，马上往低处走。</p>'
     return f'<p class="alt"><b>海拔 {e:,} 米</b>注意高反：头一天别洗澡、别喝酒、别剧烈运动，慢慢走、多喝水；心肺有毛病的先问问医生。</p>'
 
@@ -16223,7 +16233,7 @@ def trip_page(rid):
     _sj = sj_for_trip(rid, r)
     sd = start_date(r); dates = [sd + datetime.timedelta(days=i) for i in range(len(r['days']))]
     md = lambda x: f'{x.month}/{x.day}'
-    yp = f'{sd.year} 年 ' if sd.year > TODAY.year else ''     # 默认日期落在明年时写完整年份（“2027 年 10/15”），不写“明年”
+    yp = f'明年 {sd.month}/{sd.day}（距今 {(sd - TODAY).days} 天）' if sd.year > TODAY.year else ''     # 默认日期确实落在明年时写“明年 10/15（距今 362 天）”（2026-10-19 改：原来写“2027 年出发”，看不出还要等多久）；没有季节限制的线不会走到这里（start_date 取今天起最近的合理日）
     app = r.get('navApp') or 'amap'; n = len(r['days']); price = r.get('price') or ''; cost = r.get('cost')
     _sv = 1 if (r.get('drive') or any((w_.get('how') or '').startswith('自驾') for d_ in r['days'] for w_ in d_['rows'] if w_['type'] == 'dep')) else 0
     ROAD_LABEL = '开车' if _sv else '路上'; ROADS = []      # 每天“路上”多久：全页同一个数（见 day_load_html）
@@ -16321,6 +16331,8 @@ def trip_page(rid):
         if LONG:      # 长线：只留有地点依据的行。固定的“18:30 晚饭”“出发 → 住处 打车或步行”、按起点城市菜系拼的午晚饭（附近/沿途）都没有依据，不显示
             rows = [w for w in rows if not (w['type'] == 'dep' and w.get('to') in ('吃晚饭', '住处') and (w.get('how') or '') in ('打车或步行', ''))
                     and not (w['type'] == 'eat' and not w.get('poi') and (w.get('place') or '') in ('', '附近', '沿途', '路上', '随意', '住的地方附近'))]
+        CAMP = i < n - 1 and bool(CAMP_RE.search(' '.join([d.get('stayName') or ''] + [str(o_.get('name') or '') for o_ in (d.get('stay') or [])])))      # 营地 / 帐篷 / 山屋 / 垭口 / 蒙古包 / 露营：没有酒店可订，也没有“回住处”这回事（2026-10-19）
+        if CAMP: rows = [w for w in rows if not (w['type'] == 'dep' and w.get('to') == '住处')]
         if i < n - 1 and (d.get('stayName') or d.get('stay')):
             nm = STAYFIX[i][0] if not d.get('stay') else d['stay'][0]['name']
             if STAYFIX[i][1] and not any((w_.get('how') or '').startswith('回住处') for w_ in rows):   # 一日游跑远了：回住处那段写清楚车程（编译时已经写过“回住处 · …”的天不再补，免得同一天出现两段回程）
@@ -16380,6 +16392,7 @@ def trip_page(rid):
             stays = (f'<div class="stays" data-area="{E(area)}"><div class="sh"><span class="lbl">今晚住</span><span>{"连住 " + str(run) + " 晚" if run > 1 else ""}</span></div><ul>{lis}</ul><button type="button" class="tog">{"再看两家" if (not HT and TOP) else "看另外两档"}</button>'
                      f'<div class="bk" hidden><a class="btn" rel="nofollow noopener" target="_blank" href="{E(ctrip_detail(((HT or {}).get("lux") or (HT or {}).get("mid") or (HT or {}).get("eco") or (TOP or [{}])[0]).get("id")) if (HT or TOP) else tiers[0][3])}">去携程订</a><a class="btn2" rel="nofollow noopener" target="_blank" href="{E(dpurl(area + " 酒店", city))}" aria-label="在大众点评看附近酒店">{ICON_DP}</a><button type="button" class="mk" data-k="{rid}-{i}">标记已订</button></div></div>')
         city = _city_row
+        if CAMP: stays = ''
         if MEMO_ON[0] and stays:      # 纪念类主题线：不放星级、携程订房、点评评分，只留住处名称和一句“住处自行预订”
             _m_ = re.search(r'<span class="lbl">今晚住</span><span>(.*?)</span>', stays)
             _nm_ = E(d.get('stayName') or stay_city(r, d)) if not (_m_ and _m_.group(1).strip() and not _m_.group(1).strip().startswith('连住')) else ''
@@ -16416,8 +16429,9 @@ def trip_page(rid):
                 if c_: lastpt = c_
         navprev = lastpt
         rows = [w for k_, w in enumerate(rows) if not (w['type'] == 'dep' and w.get('to') == '吃晚饭' and (w.get('how') or '') in ('打车或步行', ''))]
-        _tier = '35' if (d.get('elev') or 0) >= 3500 else '25'
-        _alt_html = alt_note(d.get('elev') or 0, not ALT_SEEN[_tier])
+        _el = max(d.get('elev') or 0, (d.get('peak') or 0) if (LONG and (d.get('peak') or 0) >= 3000) else 0)      # 长线：当天翻过 3000 米以上的山口 / 去了高处，高反提示按当天最高点写，不只看睡的地方（太白山 3,767、神农顶 3,105 补进 PASS_ELEV 后页面写了海拔却没有氧气提示）
+        _tier = '35' if _el >= 3000 else '25'
+        _alt_html = alt_note(_el, not ALT_SEEN[_tier])
         if _alt_html: ALT_SEEN[_tier] = True
         _fe = ferry_note(d, not FERRY_SEEN[0], rid, ''.join(row_html(w, city, app) for w in rows))
         if _fe and 'alt ferry"><b>今天要坐船' in _fe: FERRY_SEEN[0] = True
@@ -16430,7 +16444,7 @@ def trip_page(rid):
         sights += [w['name'] for w in d['rows'] if w['type'] == 'see' and w.get('poi')]
     LONG_ON[0] = False; MEMO_ON[0] = False
     _c0 = re.search(r'<p class="cl"[^>]*>([^<]*)</p>', days[0]) if days else None
-    glance = glance.replace('@@DN@@', E(' · '.join(x for x in [(yp.strip() + '出发') if yp else '', when, _c0.group(1) if _c0 else ''] if x)))      # 跨年的默认日期写“2027 年出发”（年份只在这里写，月日只在日期条里写）      # 往年气温只在页头写一次（每天不再各写一句）
+    glance = glance.replace('@@DN@@', E(' · '.join(x for x in [(yp + ' 出发') if yp else '', when, _c0.group(1) if _c0 else ''] if x)))      # 跨年的默认日期写“2027 年出发”（年份只在这里写，月日只在日期条里写）      # 往年气温只在页头写一次（每天不再各写一句）
     desc = f'{r["title"]}：{n} 天按天排好，' + '、'.join(dict.fromkeys(re.split(r'\s*·\s*', ' · '.join(x['title'] for x in r['days']))))[:70] + '。' + season_text(t)
     ld = {'@context': 'https://schema.org', '@type': 'TouristTrip', 'name': r['title'], 'description': desc, 'url': BASE + f'/trip/{rid}/', 'inLanguage': 'zh-CN',
           'itinerary': {'@type': 'ItemList', 'numberOfItems': len(dict.fromkeys(sights)), 'itemListElement': [
@@ -16444,7 +16458,7 @@ def trip_page(rid):
     near_html = ('<section class="nearr"><h2>附近还能去</h2><ul>' + ''.join(f'<li><a href="/trip/{o}/"><b>{E(ROUTES[o].get("label"))} ›</b><span>{E(day_line(ROUTES[o]))}</span><small>离这里约 {round(dk / 10) * 10 if dk >= 20 else round(dk)} 公里 · {E(price_k(ROUTES[o].get("price")))}</small></a></li>' for dk, o in _nb) + '</ul></section>') if _nb else ''
     dest_link = faq_html + near_html + (f'<p class="morelink"><a href="/d/{E(t["dest"])}/">{E(d0.get("name", ""))}的其他去处 ›</a></p>' if t.get('dest') in DEST else '')
     _rmx = max(ROADS + [0]); _nodrv = (r.get('driveTop') or '') == '不开车'
-    if _rmx >= 45: glance = re.sub(r'(<div data-gd="1"><b>[^<]*</b><small>)[^<]*(</small>)', lambda m_: m_.group(1) + (f'路上最长 {_rmx / 60:.1f} 小时' if _nodrv else f'最长一天 {_rmx / 60:.1f} 小时') + m_.group(2), glance)
+    if _rmx >= 45: glance = re.sub(r'(<div data-gd="1"><b>[^<]*</b><small>)[^<]*(</small>)', lambda m_: m_.group(1) + (f'路上最长 {_zlf(_rmx)}' if _nodrv else f'最长一天 {_zlf(_rmx)}') + m_.group(2), glance)
     elif not _nodrv: glance = re.sub(r'(<div data-gd="1"><b>[^<]*</b><small>)[^<]*(</small>)', lambda m_: m_.group(1) + '路上都不长' + m_.group(2), glance)
     _ret = ''      # 怎么回：和“怎么去”同一块里写（原来只在最后一天末行），取最后一天的“出发 → 回程”那一行
     if days:
@@ -16836,7 +16850,9 @@ def day_load_html(sec):
         sub = sm.group(1) if sm else ''
         if ty == 'dep':
             tx = re.sub(r'<[^>]+>', '', sub); tx = re.sub(r'^回住处\s*·\s*', '', tx).split('·')[0].strip()
-            if tx.startswith('步行'): walk += _zmin(tx)
+            if re.search(r'→\s*回程\s*$', re.sub(r'<[^>]+>', '', (re.search(r'<p class="m">(.*?)</p>', body, re.S) or [0, ''])[1])):      # 回程那一行：“提前 40 分钟 / 2 小时到车站、机场”是候车缓冲，不是路上；只有“前往机场约 N 分钟”这种真在车上的才算（和 site.js ZD.facts 同口径，2026-10-19）
+                _m = re.search(r'前往机场约\s*(\d+)\s*分', tx); drive += int(_m.group(1)) if _m else 0
+            elif tx.startswith('步行'): walk += _zmin(tx)
             elif not re.match(r'(步行|徒步)', tx): drive += _zmin(tx)      # 路上 = 除步行外所有带分钟的移动（自驾、打车、包车、大巴、火车、高铁、地铁、公交、飞机…）：页头“最长一天”、每天的“路上约”、开车/路上那一格、对比表同一个数（2026-10-18）
         elif ty in ('see', 'fun') and sm:
             top = re.sub(r'<(span|em|a|b|button)\b[^>]*>.*?</\1>', '', sub, flags=re.S); top = re.sub(r'<[^>]+>', '', top)

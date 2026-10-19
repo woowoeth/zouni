@@ -16,7 +16,7 @@
   S8  同一天“路上”只出现 1 次（facts 里没有）；随机 200 天 dload 的路上分钟 = 页头 / 建站时的 data-drv；.cl 可见数 ≤ 月份数
   S9  页面可见文字不含 5 条禁词
   S10 12 个任务的点击数（A–L）
-  S11 “加一个顺路景点”覆盖率：xa3 / tk4 / hss1a / hcz1 / xv613a / gqhx10 默认行程里的站点 ≥90% 可加；置灰时写清原因
+  S11 “加一个顺路景点”不是死路：可点 ⇒ 点开有候选；没候选的入口在弹层里就置灰写原因（xa3 / tk4 / hss1a / hcz1 / xv613a / gqhx10，合计可点 ≥50%）
   S12 “怎么去、怎么回”同块有回程
   S13 页脚链接单行（高 ≤20px）；触控 ≥44 不退
   S14 清场：跑前跑后站目录 + data/ + site_src/ 的文件清单一致
@@ -328,7 +328,7 @@ with sync_playwright() as p:
                     check('S5 %s：封面（.hero）里天数只写 ≤1 次（%d 次：%s）' % (rid, nd, m['hero'].replace('\n', ' / ')[:40]), nd <= 1, m['hero'])
                     md = '%d/%d' % (int(m['sd'][5:7]), int(m['sd'][8:10]))
                     best = re.findall(r'最好\s*\d+/\d+[–-]\d+/\d+', m['dn'])
-                    dn2 = re.sub(r'最好\s*\d+/\d+[–-]\d+/\d+', '', m['dn'])
+                    dn2 = re.sub(r'明年\s*\d+/\d+（距今\s*\d+\s*天）', '', re.sub(r'最好\s*\d+/\d+[–-]\d+/\d+', '', m['dn']))      # 2026-10-19：跨年时说明行按约定写“明年 M/D（距今 N 天）”（Jerry 定的格式），不算重复
                     ndt = len(re.findall(r'(?<![\d/])' + re.escape(md) + r'(?![\d])', dn2))
                     check('S5 %s：页头区（封面→出发前）出发日期 %s 只写 %d 处（≤1）' % (rid, md, ndt), ndt <= 1, dn2[:200])
                     check('S5 %s：出发前页内没有复选框（%d 个可见）、提示 ≤2 条（%d 条）' % (rid, m['cb'], m['pres']), m['cb'] == 0 and m['pres'] <= 2, (m['cb'], m['pres']))
@@ -486,9 +486,10 @@ with sync_playwright() as p:
             TASKS['L'] = ('1 点击，但有 2 个目标；存图层返回键不响应', '1 点击 / 返回键 / Esc / 点遮罩 / 下滑，只有 1 个可见 ×（S1/S2/S4）')
             check('S10 L：见 S1/S2/S4（每层 1 个 ×，返回 / Esc / 遮罩 / 下滑都能关）', True)
 
-    # ———————————————— S11 “加一个顺路景点”覆盖率 ————————————————
+    # ———————————————— S11 “加一个顺路景点”不是死路（2026-10-19 改口径：入口上先算候选数，0 条就置灰写原因） ————————————————
     if want('S11'):
-        COV = {}
+        COV = {}; TOT_OK = TOT_N = 0
+        WAIT = "(()=>{const b=document.querySelector('.pk [data-np=\"ins\"]');return b&&(b.disabled||b.getAttribute('data-chk'))})()"
         for rid in ['xa3', 'tk4', 'hss1a', 'hcz1', 'xv613a', 'gqhx10']:
             with guard('S11 ' + rid):
                 c, pg = trip(br, rid, wait=1000)
@@ -496,29 +497,34 @@ with sync_playwright() as p:
                 tot = ok = withc = 0; why = {}
                 for i in idxs:
                     pg.evaluate("(i)=>{const b=document.querySelectorAll('section.day:not(.xday) .tl > .r.see .adj, section.day:not(.xday) .tl > .r.fun .adj')[i];b.scrollIntoView({block:'center',behavior:'instant'});b.click()}", i)
-                    pg.wait_for_selector('.pk'); pg.wait_for_timeout(120)
+                    pg.wait_for_selector('.pk')
                     ins = pg.locator('.pk [data-np="ins"]')
                     if ins.count():
                         tot += 1
-                        if ins.first.is_disabled(): why[pg.inner_text('.pk [data-np="ins"] small')] = why.get(pg.inner_text('.pk [data-np="ins"] small'), 0) + 1
+                        try: pg.wait_for_function(WAIT, timeout=(3000 if env.inject else 20000))
+                        except Exception: pass
+                        if ins.first.is_disabled():
+                            w_ = pg.inner_text('.pk [data-np="ins"] small') if pg.locator('.pk [data-np="ins"] small').count() else ''; why[w_] = why.get(w_, 0) + 1
                         else:
                             ok += 1
-                            ins.first.click(); pg.wait_for_selector('.pk .npc, .pk .npe', timeout=20000)      # 真点开列表：有没有候选（按钮可点 ≠ 加得进去）
+                            ins.first.click(); pg.wait_for_selector('.pk .npc, .pk .npe', timeout=20000)      # 真点开列表：可点就必须有候选
                             if pg.locator('.pk .npc').count(): withc += 1
                     pg.evaluate("history.back()"); pg.wait_for_timeout(120)
-                COV[rid] = (ok, tot, withc)
-                check('S11 %s：默认行程里“在这之后加一个”可点的站点 %d / %d = %.0f%%（≥90%%；置灰原因 %s）；点开后真有候选的 %d / %d（只记录，不判）' % (rid, ok, tot, 100.0 * ok / max(1, tot), list(why)[:2], withc, tot), tot and ok / tot >= 0.9 and all('超过' in w or '排满' in w or '已有' in w for w in why), (ok, tot, why))
-                if why: check('S11 %s：置灰时写清原因（%s）' % (rid, list(why)[:2]), all(('再加就超过' in w or '排满' in w or '已有' in w or '超过' in w) for w in why), why)
+                COV[rid] = (ok, tot, withc); TOT_OK += ok; TOT_N += tot
+                check('S11 %s：可点 %d / %d，点开后都有候选 %d / %d（可点 ⇒ 有候选）' % (rid, ok, tot, withc, ok), tot > 0 and withc == ok, (ok, tot, withc))
+                check('S11 %s：置灰的都写清原因（%s）' % (rid, list(why)[:3]), all(('再加就超过' in w or '排满' in w or '已有' in w or '超过' in w or '附近没有' in w or '关门' in w) for w in why), why)
                 c.close()
+        if not ONLY or 'S11' in ONLY: check('S11 六条线合计可点 %d / %d = %.0f%%（≥50%%：置灰是例外，不是常态）' % (TOT_OK, TOT_N, 100.0 * TOT_OK / max(1, TOT_N)), TOT_N > 0 and TOT_OK / TOT_N >= 0.5, (TOT_OK, TOT_N))
         TASKS['S11'] = COV
         with guard('S11 列表为空时的原因'):
             c, pg = trip(br, 'xa3', wait=1000)
-            # 第 1 天晚上已排到 22:10：点开“在这之后加一个”，要么有候选，要么写“再加就超过 …”
+            # 第 1 天晚上已排到 22:10：弹层里就置灰并写“再加就超过 …”（不再点进去才看到空列表）
             pg.evaluate("document.querySelector('#d1 .tl .adj').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('#d1 .tl .adj >> nth=0'); pg.wait_for_selector('.pk')
-            if pg.locator('.pk [data-np="ins"]').count() and not pg.locator('.pk [data-np="ins"]').first.is_disabled():
-                pg.click('.pk [data-np="ins"]'); pg.wait_for_selector('.pk .npc, .pk .npe', timeout=15000)
-                msg = pg.inner_text('.pk .npe') if pg.locator('.pk .npe').count() else ''
-                check('S11 候选为空时文案写清为什么（%s）' % (msg or '有候选'), (not msg) or '超过' in msg or '排满' in msg or '附近没有' in msg, msg)
+            try: pg.wait_for_function(WAIT, timeout=(3000 if env.inject else 20000))
+            except Exception: pass
+            if pg.locator('.pk [data-np="ins"]').count():
+                dis = pg.locator('.pk [data-np="ins"]').first.is_disabled(); tx = pg.inner_text('.pk [data-np="ins"] small') if dis else ''
+                check('S11 候选为空时入口置灰并写清为什么（%s）' % (tx or '可点'), dis and ('超过' in tx or '排满' in tx or '附近没有' in tx), tx)
             c.close()
 
     # ———————————————— S12 / S13 ————————————————

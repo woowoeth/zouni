@@ -305,7 +305,7 @@ for rid, it in IT.items():
         if not lunched and 12 * 60 <= t <= 14 * 60 + 30:
             rows.append(meal('午饭', d.get('lunch'), t)); t += 60; lunched = True
         if last:
-            rows.append({'t': hm(t + 10), 'type': 'dep', 'to': '回程', 'how': (f'前往机场约 {air_min(dcity)} 分钟，提前 3 小时到' if ABROAD else '去车站或机场：高铁提前 40 分钟到，飞机提前 2 小时到')})
+            rows.append({'t': hm(t + 10), 'type': 'dep', 'to': '回程', 'how': (f'前往机场约 {air_min(dcity)} 分钟，提前 3 小时到' if ABROAD else ('开车回城' if (SELF[0] and it.get('loop')) else '去车站或机场：高铁提前 40 分钟到，飞机提前 2 小时到'))})      # 国内自驾环线：最后一天是开车回出发的城市，不是去车站机场（2026-10-19）
         else:
             if not dined:
                 if t < DEP_T - 40:
@@ -336,7 +336,8 @@ for rid, it in IT.items():
                 # （原来取最后一站：羊八井出发去布达拉宫成了 150 公里自驾）。只在住处坐标缺失或被上面那把尺拒绝、而且最后一站离城中心 ≥55 公里（去了远处的景点）时用；
                 # 最后一站就在城里时不动它——有的线“当天城市”只是个枢纽名，人其实在隔壁城（nx3 中卫线住进银川），拉回枢纽中心会凭空多出两百公里。
                 _c0 = GEO[dcity + '|' + dcity]; carry = (_c0['lat'], _c0['lng'])
-        days.append({'title': d['title'], 'text': d['text'], 'lat': round(lat, 2), 'lng': round(lng, 2), 'elev': d.get('elev', dest['base']['elev']),
+        days.append({'title': d['title'], 'text': d['text'], 'lat': round(lat, 2), 'lng': round(lng, 2), 'elev': d['elev'] if 'elev' in d else (dest['base']['elev'] if km(dbase, (dest['base']['lat'], dest['base']['lng'])) <= 80 else 0),   # 没写海拔：只有当天待的城市就是目的地基准点（拉萨、库斯科、墨西哥城）才用基准海拔；川藏线第 1 天成都 → 雅安不再继承拉萨的 3,649 米（2026-10-19）
+                     
                      'clim': {m: dest['climate'][str(m)] for m in (9, 10, 11)}, 'city': dcity, 'navCity': dcity, 'rows': rows, 'stay': [],
                      'driveMin': drive, 'stayName': '' if last else d.get('stay', dcity), 'stayNote': '', 'story': d.get('story'), 'manners': [], 'notes': []})
     tr = TRIPS.get(rid, {}); p = tr.get('price') or {}

@@ -6,7 +6,7 @@
     python3 tests/ux_dates_share_check.py build/site --inject date_home|copy_hidden|title_days|link_nolz|backrow    # 反向自检：故意改坏 site.js，对应判据必须变红
 
 第 1 组 日期
-  D1 没选过日期：线路页写“建议 M/D 周X 出发 · 最好 …”，不写“明年”，跨年写“2027 年 M/D”；首页写“今天 M/D 周X 出发”
+  D1 没选过日期：线路页写“建议 M/D 周X 出发 · 最好 …”，跨年才写“明年 M/D（距今 N 天）”，没有季节限制的线（xa3）不跨年；首页写“今天 M/D 周X 出发”
   D2 在首页改日期 → 进任何线路页（4 条不同的线）日期都是它；说明行和首页日期条是同一个写法（“M/D 周X 出发”）
   D3 在线路页改日期 → 别的线路页和首页也跟着；谁改得晚听谁的
   D4 旧数据兼容：只有 zouni_start_<id>（无时间戳）和 zouni_home_date（无时间戳）→ 和以前一样“这条线自己存的优先”，不坏
@@ -70,10 +70,13 @@ with sync_playwright() as p:
             val = pg.evaluate("document.querySelector('.dpk').value")
             check('D1 %s 底栏写“建议 M/D 出发”' % t, dock.startswith('建议 ') and '明年' not in dock, dock)
             m1, w1 = md(val)
-            check('D1 %s 说明行不再重复日期（2026-10-18：日期只在页头日期条写一次；这一行只写“最好 M/D–M/D”和往年气温，跨年写“2027 年出发”）' % t, '建议' not in note and (m1 + ' ' + w1) not in note and (m1 + ' 周') not in note and '一年四季' not in note and '按最佳季节' not in note and '点日期可改' not in note and '明年' not in note, note)
+            check('D1 %s 说明行不再重复日期（2026-10-18：日期只在页头日期条写一次；这一行只写“最好 M/D–M/D”和往年气温，跨年写“2027 年出发”）' % t, '建议' not in note and (m1 + ' ' + w1) not in note and (m1 + ' 周') not in note and '一年四季' not in note and '按最佳季节' not in note and '点日期可改' not in note and ('明年' not in note or bool(re.search(r'明年 \d+/\d+（距今 \d+\s天）', note))), note)
             check('D1 %s 页头日期格是 M/D 起头、没有“明年”' % t, re.match(r'^\d+/\d+', dt) and '明年' not in dt, dt)
             y = int(val[:4]); mn_y = int(mn[:4])
-            if y > mn_y: check('D1 %s 跨年写完整“%d 年”' % (t, y), ('%d 年' % y) in note, note)
+            if y > mn_y:
+                import datetime as _dt
+                nd_ = (_dt.date.fromisoformat(val) - _dt.date.fromisoformat(mn)).days      # mn = 今天（首页 .hdpk 的 min）
+                check('D1 %s 跨年写“明年 M/D（距今 N 天）”' % t, ('明年 %s（距今 %d 天）' % (m1, nd_)) in note.replace('\xa0', ' '), (note, nd_))
             check('D1 %s 页头日期格（%s）起头就是 .dpk 里的 %s' % (t, dt[:8], m1), dt.startswith(m1), (dt, val))
         c.close()
 
@@ -161,7 +164,7 @@ with sync_playwright() as p:
         goto(env, pg, '/trip/xa3/')
         val = pg.evaluate("document.querySelector('.dpk').value"); mn = pg.evaluate("document.querySelector('.dpk').dataset.min")
         if val[:4] != mn[:4]:
-            check('D5 跨年的建议日期：说明行写“%s 年 M/D”' % val[:4], ('%s 年' % val[:4]) in pg.inner_text('.dnote'), pg.inner_text('.dnote'))
+            check('D5 跨年的建议日期：说明行写“明年 M/D（距今 N 天）”', bool(re.search(r'明年 \d+/\d+（距今 \d+\s天）', pg.inner_text('.dnote'))), pg.inner_text('.dnote'))
             check('D5 跨年时底栏不出现“明年”', '明年' not in pg.inner_text('.dock b'))
         else:
             env.note('xa3 的建议日期没有跨年（%s），跨年文字这次没验到' % val)

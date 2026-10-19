@@ -177,6 +177,12 @@ with sync_playwright() as p:
         if open_adj(pg, day, name) is None:
             return None
         bt = pg.locator('.pk [data-np="%s"]' % kind)
+        if kind == 'ins' and bt.count():      # 2026-10-19：入口先算候选，0 条就置灰（data-chk=none）并把原因写在按钮下面；等它算完，当作“空状态”返回 []
+            try: pg.wait_for_function("(()=>{const b=document.querySelector('.pk [data-np=\"ins\"]');return b&&(b.disabled||b.getAttribute('data-chk'))})()", timeout=20000)
+            except Exception: pass
+            if bt.is_disabled() and bt.get_attribute('data-chk') == 'none':
+                pg._note = pg.evaluate("(document.querySelector('.pk [data-np=\"ins\"] small')||{}).textContent||''")
+                return []
         if not bt.count() or bt.is_disabled():
             return None
         bt.click()
@@ -480,7 +486,7 @@ with sync_playwright() as p:
         c, pg = new_page()
         goto(pg, 'par5')
         cands = pick_list(pg, 5, '圣心堂', 'ins')
-        check('⑦ 巴黎：“加一个”空状态写“附近没有顺路的”', cands == [] and '附近没有顺路的' in getattr(pg, '_note', '') + pg.evaluate("(document.querySelector('.pk .npe')||{}).textContent||''"), getattr(pg, '_note', ''))
+        check('⑦ 巴黎：“加一个”空状态写“附近没有顺路的”（现在在入口上置灰写原因）', cands == [] and '附近没有顺路的' in getattr(pg, '_note', '') + pg.evaluate("(document.querySelector('.pk .npe')||{}).textContent||''"), getattr(pg, '_note', ''))
         close_pk(pg)
         cands = pick_list(pg, 5, '圣心堂', 'rep')
         check('⑦ 巴黎：“换成”空状态也写“附近没有顺路的”', cands == [] and '附近没有顺路的' in pg.evaluate("(document.querySelector('.pk .npe')||{}).textContent||''"))
@@ -493,7 +499,7 @@ with sync_playwright() as p:
         cands = pick_list(pg, 3, '南京博物院', 'rep')
         names = [x['n'] for x in cands or []]
         d3head = pg.evaluate("document.querySelector('#d3 header small').textContent")
-        check('闭馆：出发日默认（第 3 天不是周一）时，周一闭馆的“总统府”能出现在候选里', '总统府' in names and '周日' in d3head, (names, d3head))
+        check('闭馆：出发日默认（第 3 天不是周一）时，周一闭馆的“总统府”能出现在候选里', '总统府' in names and '周一' not in d3head, (names, d3head))      # 2026-10-19：默认出发日变了（没有季节限制的线取明天起最近的合理日），不再钉“周日”，只要第 3 天不是周一
         close_pk(pg)
         pg.evaluate("localStorage.setItem('zouni_start_nj3','2027-10-16')"); pg.reload(wait_until='networkidle'); pg.wait_for_timeout(800)
         d3head = pg.evaluate("document.querySelector('#d3 header small').textContent")

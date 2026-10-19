@@ -167,11 +167,11 @@ if site:
             if re.search(r'→[^自开]{0,30}(自驾约|开车约|自驾 |开车 )', _deps) and not re.search(r'驾照|国际驾', _t): bad.append(f'{rid} 国外自驾线没有驾照提示')
         # 日期写法（2026-10-17 起）：不出现“明年”；默认日期是建议值，页头底栏和说明行都写“建议”；跨年的写完整“2027 年 M/D”
         dk_ = re.search(r'<div class="dock"><div><b>([^<]*)</b>', h); dn_ = re.search(r'<p class="dnote"[^>]*>([^<]*)</p>', h)
-        if '明年' in (dk_.group(1) if dk_ else '') or '明年' in (dn_.group(1) if dn_ else ''): bad.append(f'{rid} 日期里还写着“明年”')
+        if '明年' in (dk_.group(1) if dk_ else '') or ('明年' in (dn_.group(1) if dn_ else '') and not re.search(r'明年 \d+/\d+（距今 \d+\s天）', dn_.group(1))): bad.append(f'{rid} 日期里写着“明年”但不是“明年 M/D（距今 N 天）”的格式')
         # 2026-10-18：日期只在页头日期条（.glance .dt）写一次；说明行（.dnote）不再重复月日、不写“建议”，只写“最好 M/D–M/D”、往年气温，跨年的写“2027 年出发”；底栏照旧“建议 M/D 出发”（滚过页头才显示、整块可点改日期）
         if not (dk_ and dk_.group(1).startswith('建议 ')): bad.append(f'{rid} 默认日期没写“建议”（底栏）')
         if dn_ and (re.search(r'\d+/\d+\s*周|建议|一年四季', dn_.group(1))): bad.append(f'{rid} 说明行又写了一遍出发日期 / “建议” / “一年四季都能去”：{dn_.group(1)[:40]}')
-        if st.year > today.year and not (dn_ and f'{st.year} 年' in dn_.group(1)): bad.append(f'{rid} 默认出发日在明年（{st}）但说明行没写完整年份（“{st.year} 年出发”）')   # 底栏窄，只写 M/D
+        if st.year > today.year and not (dn_ and re.search(f'明年 {st.month}/{st.day}（距今 {(st - today).days}\\s天）', dn_.group(1))): bad.append(f'{rid} 默认出发日在明年（{st}）但说明行没写“明年 {st.month}/{st.day}（距今 {(st - today).days} 天）”')   # 底栏窄，只写 M/D
         # 文案里写了“海拔 N 米 / 海拔三千多米”（N≥3000）的页面，必须有氧气/高反提示（天标没给海拔时靠这条兜底；“水洞长三千多米”这种长度不算）
         _txt = re.sub(r'<[^>]+>', ' ', re.sub(r'<p class="alt">.*?</p>', '', h, flags=re.S))
         _CN = {'一': 1, '两': 2, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9}

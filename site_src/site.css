@@ -172,7 +172,7 @@ main{max-width:430px;margin:0 auto;background:var(--bg);min-height:100vh;positio
 .niche p{margin:6px 0 0;font-size:14px;line-height:1.6;color:var(--ink2)}
 .niche a:not(.ic){display:inline-flex;align-items:center;min-height:40px;font-size:13px;font-weight:700}
 .st{flex:none;height:24px;padding:0 8px;display:flex;align-items:center;font-size:12px;font-weight:700}
-.st.open{background:var(--okbg);color:var(--okfg)}.st.restricted{background:var(--card);color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}.st.paused{color:var(--mute);box-shadow:inset 0 0 0 1px var(--line2)}.st.check{color:#8a5a00;box-shadow:inset 0 0 0 1px #8a5a00}
+.st.open{background:var(--okbg);color:var(--okfg)}.st.restricted{background:var(--card);color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}.st.paused{color:var(--mute);box-shadow:inset 0 0 0 1px var(--line2)}.st.check{color:var(--amb);box-shadow:inset 0 0 0 1px var(--amb)}
 
 /* ——— 首页（本期） ——— */
 .cover{position:relative;display:block;min-height:700px;background:#2b2433;color:var(--onimg);overflow:hidden}
@@ -325,7 +325,7 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 .pre li{display:flex;flex-wrap:wrap;align-items:center;gap:0 8px}.pre li a.bkl{display:inline-flex;align-items:center;min-height:32px;margin-left:30px;font-size:13px;font-weight:700;color:var(--blue)}.pre li .bkh{margin-left:30px;font-size:12px;color:var(--blue)}
 
 /* 行程页顶部三格：三项同一种字号和行高，第一行、第二行各自对齐 */
-.glance{grid-template-columns:minmax(0,.9fr) minmax(0,1fr) minmax(0,1.35fr);gap:10px;align-items:start}
+.glance{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1.2fr);gap:8px;align-items:start}
 .glance>div{gap:0}
 .glance b,.glance b.big,.glance b.price{display:block;height:28px;font:900 20px/28px var(--serif);white-space:nowrap;overflow:hidden;text-overflow:clip}
 .glance b.big small{font:700 13px/28px var(--sans);margin-left:2px}
@@ -1188,3 +1188,5 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .day .fx{flex-direction:row;align-items:baseline;gap:6px}
 .day .facts .fx.wide{flex-basis:100%}
 .day .fx small{flex:none}
+/* 小字链接点击区 ≥24px（WCAG 2.5.8，2026-10-19）：视觉不变，用伪元素把点得到的范围向上下各撑 6px（/pian/ 省份链接、/where/ 片源行、/d/ 页“全部 ›”） */
+.chan .pm a,.where .kv a,.sjd a{position:relative}.chan .pm a:after,.where .kv a:after,.sjd a:after{content:"";position:absolute;inset:-6px -4px}

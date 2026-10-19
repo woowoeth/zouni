@@ -33,7 +33,7 @@ INJ = {
     # —— D3：数字 ——
     'num_bar': (R, "　今天：' + esc(ZD.loadText(ZD.facts(d)))", "　今天：' + esc(ZD.loadText(ZD.facts(d))).replace('路上约', '开车约')"),                                                       # 底部条的数字另算
     'num_sum': (S, "，路上约 '+zLf(zf.drive||0)", "，路上约 '+zLf((zf.drive||0)+10)"),                                                                                             # “改完：…路上约”另算
-    'num_glance': (S, "(mx/60).toFixed(1)+' 小时'}else{t=g0[0]", "(mx/60+.5).toFixed(1)+' 小时'}else{t=g0[0]"),                                                                         # 页头最长一天另算
+    'num_glance': (S, "+zLf(mx)}else{t=g0[0]", "+zLf(mx+30)}else{t=g0[0]"),                                                                         # 页头最长一天另算
     'num_end': (S, "这天要到 '+zf.endHm+' 才结束", "这天要到 '+ZD.hhmm(zf.end+30)+' 才结束"),                                                                                          # 结束时间另算
     # —— D4：卡片 / 在行程里看 ——
     'see_noop': (R, "if (act === 'see' && p) { closeInst(inst); return; }", "if (act === 'see' && p) { return; }"),                                                                       # “在行程里看”点了没反应
@@ -211,14 +211,32 @@ def main():
                 check('D3a 随机 %d 天（%d 条线）：每天一行的“走路 / 路上”= ZD 的算法 = 建站时算好的 data-drv；不一致 %d 天%s' % (tot, len(cand), len(bad), ('：' + bad[0]) if bad else ''), tot >= 200 and not bad, bad[:3])
                 check('D3b 对比表（cmp.js）里每条线“最长一天走路 / 路上”= 页面（ZD）算出来的最长一天；不一致 %d 条%s' % (len(badmx), ('：' + badmx[0]) if badmx else ''), not badmx, badmx[:3])
                 c.close()
+            with guard('D3c2'):      # 最长一天仍 ≥45 分钟时，页头写“N 小时 M 分”且跟着去掉一站重算（tk4：第 1 天路上最长，去掉它的一站后最长一天换成第 4 天）
+                c = mk(br); pg = new_page(env, c); goto(env, pg, '/trip/tk4/', 800)
+                g0_ = pg.evaluate("document.querySelector('.glance [data-gd]').textContent")
+                pg.evaluate("document.querySelector('#d1').scrollIntoView({behavior:'instant'})"); pg.wait_for_timeout(200)
+                pg.evaluate("[].slice.call(document.querySelectorAll('#d1 .tl > .r.see:not([hidden]) .adj'))[0].click()"); pg.wait_for_selector('.pk.npk [data-x]'); pg.click('.pk.npk [data-x]'); pg.wait_for_timeout(500)
+                o = pg.evaluate("""(function(){var ds=ZD.days(),mx=0;ds.forEach(function(d){var f=ZD.facts(d);if(f.drive>mx)mx=f.drive});return {gd:document.querySelector('.glance [data-gd] small').textContent,mx:mx}})()""")
+                def _zl(m):
+                    if m < 60: return '%d 分钟' % (int(m / 5 + .5) * 5 or 5)
+                    h = int(m // 60); r = int((m % 60) / 10 + .5) * 10
+                    if r == 60: h += 1; r = 0
+                    return '%d 小时' % h + (' %d 分' % r if r else '')
+                check('D3c2 tk4 去掉第 1 天一站后页头“%s”= 新的最长一天 %s（改前“%s”）' % (o['gd'], _zl(o['mx']), g0_), o['mx'] >= 45 and o['gd'].endswith(_zl(o['mx'])) and o['gd'] not in g0_, (o, g0_))
+                c.close()
             with guard('D3b'):      # 改过之后：页头、提醒、复制行程、地图底部条
                 c = mk(br); pg = new_page(env, c); goto(env, pg, '/trip/xa3/', 800)
                 g0 = pg.evaluate("document.querySelector('.glance [data-gd]').textContent")
-                pg.evaluate("document.querySelector('#d3').scrollIntoView({behavior:'instant'})"); pg.wait_for_timeout(200)
-                pg.evaluate("[].slice.call(document.querySelectorAll('#d3 .tl > .r.see:not([hidden]) .adj'))[0].click()"); pg.wait_for_selector('.pk.npk [data-x]'); pg.click('.pk.npk [data-x]'); pg.wait_for_timeout(500)
+                pg.evaluate("document.querySelector('#d2').scrollIntoView({behavior:'instant'})"); pg.wait_for_timeout(200)
+                pg.evaluate("[].slice.call(document.querySelectorAll('#d2 .tl > .r.see:not([hidden]) .adj'))[0].click()"); pg.wait_for_selector('.pk.npk [data-x]'); pg.click('.pk.npk [data-x]'); pg.wait_for_timeout(500)
                 o = pg.evaluate("""(function(){var ds=ZD.days(),mx=0;ds.forEach(function(d){var f=ZD.facts(d);if(f.drive>mx)mx=f.drive});var dls=[].map.call(document.querySelectorAll('.day > .dload'),function(e){return +e.dataset.d}),m2=Math.max.apply(null,dls);
-                    return {gd:document.querySelector('.glance [data-gd]').textContent,mx:mx,m2:m2,txt:(mx/60).toFixed(1)}})()""")
-                check('D3c 去掉一站后页头“最长一天”重算：%s（ZD 最长 %d 分 = 每天一行的最长 %d 分 → %s 小时；改前“%s”）' % (o['gd'], o['mx'], o['m2'], o['txt'], g0), o['mx'] == o['m2'] and o['txt'] + ' 小时' in o['gd'] and (o['gd'] != g0 or o['mx'] == 190), (o, g0))
+                    return {gd:document.querySelector('.glance [data-gd]').textContent,mx:mx,m2:m2,txt:mx}})()""")
+                def _zlf(m):
+                    if m < 60: return '%d 分钟' % (int(m / 5 + .5) * 5 or 5)
+                    h = int(m // 60); r = int((m % 60) / 10 + .5) * 10
+                    if r == 60: h += 1; r = 0
+                    return '%d 小时' % h + (' %d 分' % r if r else '')
+                check('D3c 去掉第 2 天一站后页头“最长一天”重算：%s（ZD 最长 %d 分 = 每天一行的最长 %d 分 → %s；改前“%s”）' % (o['gd'], o['mx'], o['m2'], _zlf(o['txt']), g0), o['mx'] == o['m2'] and ((o['mx'] >= 45 and _zlf(o['txt']) in o['gd']) or (o['mx'] < 45 and '最长' not in o['gd'])) and o['gd'] != g0, (o, g0))      # 最长一天掉到 45 分钟以下：页头不再写“最长…”（原来会留着旧的“1 小时 20 分”）
                 pg.wait_for_selector('.toast-act'); pg.click('.toast-act'); pg.wait_for_timeout(500)
                 check('D3d 撤销后页头回到原样（%s）' % pg.evaluate("document.querySelector('.glance [data-gd]').textContent"), pg.evaluate("document.querySelector('.glance [data-gd]').textContent") == g0, g0)
                 pg.evaluate("document.querySelector('#d2 .st').click()"); pg.wait_for_selector('.pk .stg button'); pg.click('.pk .stg button[data-v="16:00"]'); pg.wait_for_timeout(500)

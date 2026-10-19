@@ -74,19 +74,19 @@ with sync_playwright() as p:
                 d = pg.evaluate("""()=>{var sv=document.querySelector('article.trip').dataset.sv==='1';
                   return {sv:sv,gd:document.querySelector('.glance [data-gd]').innerText.replace(/\\s+/g,' '),
                   days:[].map.call(document.querySelectorAll('section.day'),function(s){var ld=s.querySelector(':scope > .dload'),fx=[].filter.call(s.querySelectorAll('.facts .fx:not([hidden]) small'),function(x){return x.textContent==='开车'||x.textContent==='路上'})[0],
-                    deps=[].slice.call(s.querySelectorAll('.tl > .r.dep:not([hidden]) .s')).map(function(p){return p.textContent.replace(/^回住处\\s*·\\s*/,'').split('·')[0].trim()}).filter(function(t){return!/^(步行|徒步)/.test(t)&&/\\d/.test(t)});
+                    deps=[].slice.call(s.querySelectorAll('.tl > .r.dep:not([hidden]) .s')).filter(function(p){var m=p.parentNode.querySelector('.m');return!(m&&/→\\s*回程\\s*$/.test(m.textContent)&&p.textContent.indexOf('前往机场')<0)}).map(function(p){return p.textContent.replace(/^回住处\\s*·\\s*/,'').split('·')[0].trim()}).filter(function(t){return!/^(步行|徒步)/.test(t)&&/\\d/.test(t)});
                     return {txt:ld?ld.textContent:'',d:ld?+ld.dataset.d:-1,drv:+s.dataset.drv,fx:fx?fx.parentNode.querySelector('b').textContent:'',allown:deps.length>0&&deps.every(function(t){return /^(自驾|开车|包车)/.test(t)})}})}}""")
                 days = d['days']; lab = '开车约' if d['sv'] else '路上约'
                 check('A1a %s 每天的数 = 建站时算好的（data-drv）；2026-10-18 起“开车/路上”那一格去掉了（同一天只写一次）' % rid,
                       all(x['d'] == x['drv'] and x['fx'] == '' for x in days), [(x['d'], x['drv'], x['fx']) for x in days])
                 check('A1b %s 每天那一行：不开车线写“路上约”；有自驾段的线路，当天全是自驾才写“开车约”，混着高铁 / 打车写“路上约”（sv=%s）' % (rid, d['sv']), d['sv'] == drive and all((x['d'] < 10) or (('开车约' in x['txt']) == (d['sv'] and x['allown'])) for x in days), [(x['txt'][:18], x['allown']) for x in days][:3])
                 mx = max(x['d'] for x in days)
-                m = re.search(r'(\d+(?:\.\d)?) 小时', d['gd'])
-                check('A1c %s 页头“最长一天”(%s) = 每天里最大的那个(%d 分 = %.1f 小时)' % (rid, d['gd'], mx, mx / 60), (not m and mx < 45) or (bool(m) and abs(float(m.group(1)) - mx / 60) < .06), (d['gd'], mx))
+                m = re.search(r'(?:(\d+) 小时)?(?: ?(\d+) 分钟?)?$', d['gd']); gm = (int(m.group(1) or 0) * 60 + int(m.group(2) or 0)) if m and (m.group(1) or m.group(2)) else None      # 2026-10-19：页头写“N 小时 M 分”（10 分钟取整），不再是小数小时
+                check('A1c %s 页头“最长一天”(%s) = 每天里最大的那个(%d 分，允许取整差 ≤5 分)' % (rid, d['gd'], mx), (gm is None and mx < 45) or (gm is not None and abs(gm - mx) <= 5), (d['gd'], mx))
             # 不开车的线：火车、打车也算进去
             goto(env, pg, '/trip/hzh1/', 500)
             g = pg.inner_text('.glance [data-gd]')
-            check('A1d 郑和 hzh1（不开车）页头不是只有“不开车”：写出“路上最长 X 小时”（火车、打车算进去）（%s）' % g.replace('\n', ' '), '不开车' in g and re.search(r'路上最长 \d+(\.\d)? 小时', g) is not None, g)
+            check('A1d 郑和 hzh1（不开车）页头不是只有“不开车”：写出“路上最长 X 小时”（火车、打车算进去）（%s）' % g.replace('\n', ' '), '不开车' in g and re.search(r'路上最长 (\d+ 小时( \d+ 分)?|\d+ 分钟)', g) is not None, g)
             ids = pg.evaluate("[].map.call(document.querySelectorAll('section.day'),function(s){return +s.querySelector(':scope > .dload').dataset.d})")
             check('A1e hzh1 第 2 天（坐火车）路上 ≥2 小时，不是 0（%s）' % ids, len(ids) >= 2 and ids[1] >= 120, ids)
             # 对比表（cmp.js）同一个数

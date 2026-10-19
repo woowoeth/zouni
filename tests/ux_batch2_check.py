@@ -123,7 +123,7 @@ def trip_state(pg):
 DAYS_JS = """()=>[...document.querySelectorAll('.day')].map(sec=>{const rows=[...sec.querySelectorAll('.tl > .r')].filter(r=>!r.hidden).map(r=>{
    const s=r.querySelector(':scope > .rb > p.s'),cls=r.classList.contains('dep')?'dep':(r.classList.contains('see')||r.classList.contains('fun'))?'see':'o';
    let tn='';if(s&&cls==='see'){for(const n of s.childNodes){if(n.nodeType===3&&/\\d+ (小时|分)/.test(n.textContent)){tn=n.textContent;break}}}
-   return {c:cls,s:s?s.textContent:'',tn:tn,ty:r.dataset.ty||'',t:(r.querySelector('time')||{}).textContent||''}});
+   return {c:cls,s:s?s.textContent:'',m:(r.querySelector(':scope > .rb > p.m')||{}).textContent||'',tn:tn,ty:r.dataset.ty||'',t:(r.querySelector('time')||{}).textContent||''}});
   const d=sec.querySelector(':scope > .dload');return {rows:rows,w:d?d.dataset.w:null,d:d?d.dataset.d:null,txt:d?d.innerText:null,cls:d?d.className:null}})"""
 SH = {'pk': .5, 'st': .6, 'tn': .5, 'lk': .4, 'bc': .4, 'tp': .4, 'nt': .4, 'sg': .3, 'ms': .25, 'cl': .3, 'fn': .3}      # 这张表在 site.js、build_site.py 各有一份；改一处，这里就红
 
@@ -138,7 +138,9 @@ def day_expect(rows):
     for r in rows:
         if r['c'] == 'dep':
             tx = re.sub(r'^回住处\s*·\s*', '', r['s']).split('·')[0].strip()
-            if tx.startswith('步行'): walk += mins(tx)
+            if re.search(r'→\s*回程\s*$', r.get('m', '')):      # 2026-10-19：回程的“提前到车站 / 机场”是候车缓冲，不算路上；只有“前往机场约 N 分钟”算
+                am = re.search(r'前往机场约\s*(\d+)\s*分', tx); drive += int(am.group(1)) if am else 0
+            elif tx.startswith('步行'): walk += mins(tx)
             elif not tx.startswith('徒步'): drive += mins(tx)      # 2026-10-18：路上 = 除步行外所有带分钟的移动（火车、地铁、飞机也算）
         elif r['c'] == 'see' and r['tn']:
             walk += mins(r['tn']) * SH.get(r['ty'], .3)
@@ -423,7 +425,7 @@ with sync_playwright() as p:
                     if not re.match(r'^前往机场约 \d+ 分钟，提前 3 小时到$', rl.get('how') or '') or rl.get('to') != '回程': bad.append((rid, '回国日最后一行', rl))
                 else:
                     if any(w.get('arr') for w in r0): bad.append((rid, '国内线不该有抵达行'))
-                    if not (rl.get('how') or '').startswith('去车站或机场：高铁提前 40 分钟到') or rl.get('to') != '回程': bad.append((rid, '国内回程行', rl))
+                    if not (rl.get('how') or '').startswith('开车回城' if (it.get('drive') and it.get('loop')) else '去车站或机场：高铁提前 40 分钟到') or rl.get('to') != '回程': bad.append((rid, '国内回程行', rl))      # 2026-10-19：国内自驾环线最后一天开车回城
             check('G4.4 国外线 %d 条：到达日第一行“抵达后从机场到住处约 N 分钟”（后面顺延）、回国日最后一行“前往机场约 N 分钟，提前 3 小时到”；国内线最后一行“提前到车站”、没有抵达行' % n_ab, n_ab > 300 and not bad, bad[:4])
             geo = json.load(open(os.path.join(ROOT, 'data', 'geo', 'pois.json'), encoding='utf-8'))
             bad = []; n_oj = 0; n_no = 0
