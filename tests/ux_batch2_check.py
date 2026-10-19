@@ -109,7 +109,7 @@ def price_expect(C, N, trans_delta):
     lodge = C['lodgeRoom'] * rooms / N
     loc = C['tixPP'] + C['foodPP'] + car + lodge
     lo = max(0, loc + C['trans'][0] + trans_delta[0]); hi = max(0, loc + C['trans'][1] + trans_delta[1])
-    return '¥%sK–%sK' % (kfmt(lo), kfmt(hi))
+    return '¥%d–%d' % (jround(lo / 100) * 100, jround(hi / 100) * 100)      # 2026-10-19：¥2.6K–3.6K → ¥2600–3600
 
 
 def trip_state(pg):
@@ -204,7 +204,7 @@ with sync_playwright() as p:
             km2 = hav(ZORIG['乌鲁木齐'], (g['lat'], g['lng'])); exp2 = go_way(g, '乌鲁木齐', km2)
             pick = json.loads(ls(pg, 'zouni_pick') or '{}')
             check('G1.5 线路页改出发地 → “怎么去”马上改写（%s）' % exp2, (S2['way'] or '').startswith(exp2 + '。'), S2['way'])
-            check('G1.5 存成全站默认：zouni_pick.o / zouni_org，向导里其它项（天数、和谁）不丢', pick.get('o') == '乌鲁木齐' and ls(pg, 'zouni_org') == '乌鲁木齐' and pick.get('d') == 'm' and pick.get('w') == 'o', (pick, ls(pg, 'zouni_org')))
+            check('G1.5 存成全站默认：只写 zouni_org（2026-10-19 起 zouni_pick 里不再有出发地 / 天数），向导里“和谁”不丢', 'o' not in pick and ls(pg, 'zouni_org') == '乌鲁木齐' and pick.get('w') == 'o', (pick, ls(pg, 'zouni_org')))
             fd2 = [a - b for a, b in zip(fare(km2), fare(g['km']))]
             check('G1.5 票价跟着变（%s，和成都那次 %s 不同）' % (price_expect(S['cost'], 3, fd2), S['price']), S2['price'] == price_expect(S['cost'], 3, fd2) and S2['price'] != S['price'], (S2['price'], S['price']))
             if env.shots: pg.screenshot(path=os.path.join(env.shots, 'G1_trip_origin.png'))
@@ -212,9 +212,9 @@ with sync_playwright() as p:
             on = pg.inner_text('.pkr[data-k="o"] button.on')
             check('G1.6 回首页：向导里出发地也是乌鲁木齐（同一个默认）', on == '乌鲁木齐', on)
             pg.click('.pkr[data-k="w"] button[data-v="c"]'); pg.wait_for_timeout(150)
-            check('G1.7 向导点“两个人”→ 全站默认 2 人', ls(pg, 'zouni_home_n') == '2' and bool(ls(pg, 'zouni_home_nt')), (ls(pg, 'zouni_home_n'), ls(pg, 'zouni_home_nt')))
+            check('G1.7 向导点“两个人”→ 全站人数 2 人（zouni_n）', ls(pg, 'zouni_n') == '2', ls(pg, 'zouni_n'))
             pg.click('.pkr[data-k="w"] button[data-v="o"]'); pg.wait_for_timeout(150)
-            check('G1.7 向导点“带老人孩子”→ 全站默认 3 人', ls(pg, 'zouni_home_n') == '3', ls(pg, 'zouni_home_n'))
+            check('G1.7 向导点“带老人孩子”→ 全站人数 3 人', ls(pg, 'zouni_n') == '3', ls(pg, 'zouni_n'))
             goto(env, pg, '/trip/ash2/')
             vis = pg.evaluate("[...document.querySelectorAll('.pre li.kid')].map(l=>!l.hidden&&getComputedStyle(l).display!=='none')")
             check('G1.8 “带孩子要多停几次”：带老人孩子时出现（%s）' % vis, len(vis) >= 1 and all(vis), vis)
@@ -234,10 +234,10 @@ with sync_playwright() as p:
             c.close()
             c, pg = ctx(br, p, seed({'o': '成都', 'd': 'm', 'w': 'o'}, '成都', 3, str(int(NOW) - 5000)))
             goto(env, pg, '/trip/xa3/'); pg.click('.pp'); pg.click('.ppl button[data-d="1"]'); pg.wait_for_timeout(200)
-            check('G1.10 线路页点 +：存这条线自己的人数和时间戳', ls(pg, 'zouni_n_xa3') == '4' and bool(ls(pg, 'zouni_nt_xa3')), (ls(pg, 'zouni_n_xa3'), ls(pg, 'zouni_nt_xa3')))
-            goto(env, pg, '/trip/xa3/'); check('G1.10 刷新还是 4 人（比首页那次新）', trip_state(pg)['pp'].startswith('4 人'), trip_state(pg)['pp'])
-            pg.evaluate("localStorage.setItem('zouni_home_nt',String(Date.now()+60000));0")
-            goto(env, pg, '/trip/xa3/'); check('G1.10 首页后来又选了 → 听首页的 3 人', trip_state(pg)['pp'].startswith('3 人'), trip_state(pg)['pp'])
+            check('G1.10 线路页点 +：写全站人数 zouni_n=4（没有每线一个的 zouni_n_xa3 / 时间戳了）', ls(pg, 'zouni_n') == '4' and ls(pg, 'zouni_n_xa3') is None and ls(pg, 'zouni_nt_xa3') is None, (ls(pg, 'zouni_n'), ls(pg, 'zouni_n_xa3')))
+            goto(env, pg, '/trip/xa3/'); check('G1.10 刷新还是 4 人', trip_state(pg)['pp'].startswith('4 人'), trip_state(pg)['pp'])
+            pg.evaluate("localStorage.setItem('zouni_n','3');0")
+            goto(env, pg, '/trip/xa3/'); check('G1.10 全站人数后来改成 3 → 这条线也是 3 人（改一处 = 改全站）', trip_state(pg)['pp'].startswith('3 人'), trip_state(pg)['pp'])
             c.close()
             c, pg = ctx(br, p, {'zouni_n_xa3': '5'}); goto(env, pg, '/trip/xa3/')
             check('G1.11 老数据：只有这条线自己存的 5 人（没有时间戳）→ 照旧 5 人', trip_state(pg)['pp'].startswith('5 人'), trip_state(pg)['pp']); c.close()

@@ -11,14 +11,39 @@
 
   if('serviceWorker' in navigator&&(location.protocol==='https:'||(/^(localhost|127\.0\.0\.1)$/.test(location.hostname)&&lsGet('zouni_dev_sw')==='1')))window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){})});   // 线上只在 https 注册；本机只有设了 localStorage.zouni_dev_sw=1 才注册（tests/ux_state_offline_check.py 测离线用；别的测试靠 page.route 造网络故障，Service Worker 会把请求截走）
   function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  // 存不下（隐私模式、存满、被禁用）：只说一次，不再对着一个没生效的改动弹“已收进”（那些复述类 toast 已经删了）
+  var zWarned=false,zNoStore=false,zLastClick=0;
+  function zStoreWarn(){if(zWarned)return;zWarned=true;setTimeout(function(){if(typeof toast==='function')toast('这个浏览器存不下，改动关掉页面就没了')},0)}
+  document.addEventListener('click',function(e){zLastClick=Date.now();if(zNoStore&&e.target.closest&&e.target.closest('.adj,.dayadj,.fav,.dpk,.dtw,.pp,.ppl button,.todoall'))zStoreWarn()},true);
+  try{var _si=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){try{return _si.call(this,k,v)}catch(e){if(this===window.localStorage&&/^zouni_/.test(String(k))&&Date.now()-zLastClick<1500)zStoreWarn();throw e}}}catch(e){}      /* 只在“刚点了什么”之后写失败才说话；进页面时的写入失败（迁移、探针）不说 */
+  try{localStorage.setItem('zouni_probe','1');localStorage.removeItem('zouni_probe')}catch(e){zNoStore=true}
   function ld(k){try{return JSON.parse(localStorage.getItem(k)||'[]')}catch(e){return[]}}
-  function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+  function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}
   function zSnap(keys){var o={};keys.forEach(function(k){try{o[k]=localStorage.getItem(k)}catch(e){o[k]=null}});return function(){keys.forEach(function(k){try{if(o[k]==null)localStorage.removeItem(k);else localStorage.setItem(k,o[k])}catch(e){}})}}   // 改之前把几个键拍个快照，撤销时原样写回
-  // 某条线现在按哪天出发：这条线自己存的和首页存的，谁新听谁的（旧数据没有时间戳 = 0，这条线自己存的优先）；都没有就用收藏时记下的建议日期
+  // ——— 本地存储：全站共用的三个值各只有一个键（2026-10-19 整理，键表见 docs/handoff/02-UI规范.md “本地存储键”）———
+  //  zouni_date 出发日期（YYYY-MM-DD，改一条 = 改全站）· zouni_n 人数（“和谁去”给默认值，线路页步进器改它）· zouni_org 出发地（城市名，或 here:纬度,经度）
+  //  旧键（zouni_start_<线>、zouni_startt_<线>、zouni_home_date(t)、zouni_n_<线>、zouni_nt_<线>、zouni_home_n(t)、zouni_pick 里的 o / lat / lng / d）第一次打开时并成上面三个，然后删掉
   function zISO(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
-  function zEff(id,sd){try{var mn=zISO(new Date()),r=localStorage.getItem('zouni_start_'+id),h=localStorage.getItem('zouni_home_date'),rt=+localStorage.getItem('zouni_startt_'+id)||0,ht=+localStorage.getItem('zouni_home_datet')||0;if(r&&r<mn)r=null;if(h&&h<mn)h=null;var v=(r&&h)?(ht>rt?h:r):(r||h);if(v)return{v:v,sug:false};if(sd&&sd>=mn)return{v:sd,sug:true}}catch(e){}return null}
-  // 人数：这条线自己改的和首页“替我挑”里选的（和谁去 → 默认几个人），谁新听谁的；旧数据没有时间戳 = 0，这条线自己存的优先（和出发日期同一规则）
-  function zNEff(id){try{var r=+localStorage.getItem('zouni_n_'+id)||0,h=+localStorage.getItem('zouni_home_n')||0,rt=+localStorage.getItem('zouni_nt_'+id)||0,ht=+localStorage.getItem('zouni_home_nt')||0;if(r<1||r>12)r=0;if(h<1||h>12)h=0;if(r&&h)return ht>rt?h:r;return r||h||2}catch(e){return 2}}
+  function zDateOk(v){if(!/^\d{4}-\d\d-\d\d$/.test(String(v||'')))return false;var d=new Date(v+'T12:00:00');return!isNaN(d.getTime())&&zISO(d)===v}      // 不是真日期（abc、2026-13-45）一律当没有
+  function zLS(k){try{return localStorage.getItem(k)}catch(e){return null}}
+  function zLSs(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  function zLSd(k){try{localStorage.removeItem(k)}catch(e){}}
+  (function(){try{var L=localStorage;if(L.getItem('zouni_v')==='2')return;var ks=[],i,k,mn=zISO(new Date()),bd=null,bt=-1,bn=null,nt=-1,m;for(i=0;i<L.length;i++)ks.push(L.key(i));
+    ks.forEach(function(k){if((m=/^zouni_start_(.+)$/.exec(k))){var v=L.getItem(k),t=+L.getItem('zouni_startt_'+m[1])||0;if(zDateOk(v)&&v>=mn&&t>=bt){bd=v;bt=t}}
+      if((m=/^zouni_n_(.+)$/.exec(k))){var n=+L.getItem(k)||0,t2=+L.getItem('zouni_nt_'+m[1])||0;if(n>=1&&n<=12&&t2>=nt){bn=n;nt=t2}}});
+    var hd=L.getItem('zouni_home_date'),ht=+L.getItem('zouni_home_datet')||0;if(zDateOk(hd)&&hd>=mn&&ht>bt)bd=hd;
+    var hn=+L.getItem('zouni_home_n')||0,hnt=+L.getItem('zouni_home_nt')||0;if(hn>=1&&hn<=12&&hnt>nt)bn=hn;
+    if(bd&&!L.getItem('zouni_date'))L.setItem('zouni_date',bd);if(bn&&!L.getItem('zouni_n'))L.setItem('zouni_n',String(bn));
+    var pk={};try{pk=JSON.parse(L.getItem('zouni_pick')||'{}')||{}}catch(e){}
+    if(!L.getItem('zouni_org')&&pk.o)L.setItem('zouni_org',pk.o==='here'&&pk.lat?'here:'+pk.lat+','+pk.lng:pk.o);
+    delete pk.o;delete pk.lat;delete pk.lng;delete pk.d;L.setItem('zouni_pick',JSON.stringify(pk));
+    ks.forEach(function(k){if(/^zouni_(start_|startt_|n_|nt_)/.test(k)||k==='zouni_home_date'||k==='zouni_home_datet'||k==='zouni_home_n'||k==='zouni_home_nt')L.removeItem(k)});
+    L.setItem('zouni_v','2')}catch(e){}})();
+  function zDateGet(){var v=zLS('zouni_date');if(v==null)return null;if(!zDateOk(v)){zLSd('zouni_date');return null}if(v<zISO(new Date()))return null;return v}      // 过去的日期当没有（不删，下次有人改了才覆盖）
+  function zDateSet(v){if(zDateOk(v))zLSs('zouni_date',v)}
+  function zNGet(){var n=+zLS('zouni_n')||0;return(n>=1&&n<=12)?n:0}
+  function zEff(id,sd){var mn=zISO(new Date()),v=zDateGet();if(v)return{v:v,sug:false};if(sd&&sd>=mn)return{v:sd,sug:true};return null}
+  function zNEff(id){return zNGet()||2}
   function zWho(){try{return(JSON.parse(localStorage.getItem('zouni_pick')||'{}')||{}).w||''}catch(e){return''}}
     // ——— 当天模型 ZD（2026-10-18）：“一天的行程”只有这一份读法 ———
     //  页面时间轴（.tl 的行）是这一天的实体，replan / 顺路加站 / 去掉 / 撤销 / 下雨换 / 改出发时间改的都是它；ZD 把它读成一个有序数组（每天：站 / 车程 / 吃饭 / 住，
@@ -89,7 +114,7 @@
   function zjump(y){try{window.scrollTo({top:y,behavior:'instant'})}catch(e){window.scrollTo(0,y)}}
   // 提示条：同一时刻只留一条（新的顶掉旧的）；带“撤销”的停 5 秒；点别处、再点别的按钮立刻收起，不叠在弹层和后续操作上
   function toastOff(){var ts=document.querySelectorAll('.toast');for(var i=0;i<ts.length;i++){clearTimeout(ts[i]._tm);ts[i].remove()}}
-  function toast(t,label,fn,ms){toastOff();var d=document.createElement('div');d.className='toast';d.setAttribute('role','status');var sp=document.createElement('span');sp.className='toast-t';sp.textContent=t;d.appendChild(sp);if(label&&fn){d.className='toast act';var b=document.createElement('button');b.type='button';b.className='toast-act';b.textContent=label;b.addEventListener('click',function(){clearTimeout(d._tm);d.remove();fn()});d.appendChild(b)}document.body.appendChild(d);d._tm=setTimeout(function(){d.remove()},ms||(label?5000:1700))}
+  function toast(t,label,fn,ms){toastOff();var d=document.createElement('div');d.className='toast';d.setAttribute('role','status');var sp=document.createElement('span');sp.className='toast-t';sp.textContent=t;d.appendChild(sp);if(label&&fn){d.className='toast act';var b=document.createElement('button');b.type='button';b.className='toast-act';b.textContent=label;b.addEventListener('click',function(){clearTimeout(d._tm);d.remove();fn()});d.appendChild(b)}document.body.appendChild(d);d._tm=setTimeout(function(){d.remove()},ms||(label?5000:Math.max(1700,Math.min(6000,String(t).length*140))))}      // 没有按钮的提示：时长按字数（长句不再 1.7 秒就没了）
   document.addEventListener('click',function(e){var ts=document.querySelectorAll('.toast');for(var i=0;i<ts.length;i++){if(!ts[i].contains(e.target)){clearTimeout(ts[i]._tm);ts[i].remove()}}},true);
   // ——— 层栈（2026-10-18）：所有浮层（弹层 .pk、整页层 .tv、存图 / 放大图层、地图）走同一个栈 window.ZL ———
   //  规矩：每一层占一条历史；返回键 / Esc 只关最上面一层；右上“×”、点遮罩、下滑关闭都走 ZL.close（先拆层，再把它占的那条历史退掉）；
@@ -187,7 +212,10 @@
   document.querySelectorAll('a.back').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();if(H.length>=2&&history.length>1){history.back()}else{location.href='/'}})});
   // ——— 出发地（首页“替我挑”里选的，或者定位）：怎么去、首页封面都按它来 ———
   var ZORIG={'北京':[39.90,116.40],'上海':[31.23,121.47],'广州':[23.13,113.26],'深圳':[22.54,114.06],'成都':[30.66,104.07],'杭州':[30.27,120.16],'西安':[34.26,108.94],'武汉':[30.59,114.31],'南京':[32.06,118.80],'重庆':[29.56,106.55],'长沙':[28.23,112.94],'兰州':[36.06,103.83],'哈尔滨':[45.80,126.53],'乌鲁木齐':[43.83,87.62],'南宁':[22.82,108.32],'贵阳':[26.65,106.63],'呼和浩特':[40.84,111.75],'银川':[38.49,106.23],'西宁':[36.62,101.78],'海口':[20.04,110.20],'石家庄':[38.04,114.51],'济南':[36.65,117.00],'福州':[26.07,119.30],'南昌':[28.68,115.86],'合肥':[31.82,117.23],'太原':[37.87,112.55],'长春':[43.82,125.32],'大连':[38.91,121.61],'宁波':[29.87,121.54],'郑州':[34.75,113.63],'天津':[39.13,117.20],'苏州':[31.30,120.58],'厦门':[24.48,118.09],'昆明':[25.04,102.71],'沈阳':[41.80,123.43],'青岛':[36.07,120.38],'香港':[22.32,114.17]};
-  function zOrigin(){try{var st=JSON.parse(localStorage.getItem('zouni_pick')||'{}');if(st.o==='here'&&st.lat)return{n:'你这里',lat:st.lat,lng:st.lng};var o=st.o||localStorage.getItem('zouni_org');if(o&&ZORIG[o])return{n:o,lat:ZORIG[o][0],lng:ZORIG[o][1]}}catch(e){}return null}
+  window.ZORIG=ZORIG;      // 出发地城市表：全站只有这一张（首页“替我挑”、走哪儿的出发地、线路页的出发地都用它）
+  function zOrgGet(){var v=zLS('zouni_org');if(!v)return null;var m=/^here:(-?[\d.]+),(-?[\d.]+)$/.exec(v);if(m)return{n:'你这里',k:'here',lat:+m[1],lng:+m[2]};if(ZORIG[v])return{n:v,k:v,lat:ZORIG[v][0],lng:ZORIG[v][1]};return null}
+  function zOrgSet(k,lat,lng){if(!k){zLSd('zouni_org');return}zLSs('zouni_org',k==='here'?'here:'+lat+','+lng:k)}
+  function zOrigin(){var o=zOrgGet();return o?{n:o.n,lat:o.lat,lng:o.lng}:null}
   function zKm(a,b,c,d){var r=Math.PI/180,x=(d-b)*r*Math.cos((a+c)/2*r),y=(c-a)*r;return Math.round(Math.sqrt(x*x+y*y)*6371)}
   function zGoWay(g,o,km){if(km<60)return'就在'+o+'附近，当天过去就行';if(+g.ab&&g.dst==='peru')return'从'+o+'坐飞机，要转一到两次机，路上总共 30 小时左右';if(+g.ab&&km>5000&&['norway','croatia','iceland','morocco','mexico','canada','ireland','southafrica'].indexOf(g.dst)>=0)return'从'+o+'坐飞机，要转一次机，路上总共约 '+Math.max(1,Math.round(km/750+3))+' 小时';if(+g.ab&&km>5000)return'从'+o+'坐飞机，约 '+Math.max(1,Math.round(km/750+1))+' 小时';if(+g.ab)return'从'+o+'坐飞机，约 '+Math.max(1,Math.round(km/700+1))+' 小时';if(+g.drv)return'从'+o+'开过去约 '+Math.max(1,Math.round(km*1.25/80))+' 小时；也可以坐高铁或飞机到了再租车';if(+g.isl&&km>250)return'从'+o+'坐飞机，约 '+Math.max(1,Math.round(km/700+1))+' 小时';if(+g.nh&&km>900)return'从'+o+'坐飞机，约 '+Math.max(1,Math.round(km/700+1))+' 小时';if(+g.nh&&km>250)return'从'+o+'坐火车约 '+Math.max(2,Math.round(km*1.25/90))+' 小时，或者坐飞机';if(+g.car&&km<=600)return'从'+o+'坐车约 '+Math.max(1,Math.round(km*1.3/70))+' 小时，包车或坐大巴';if(km<=1200)return'从'+o+'坐高铁约 '+Math.max(1,Math.round(km/230+0.5))+' 小时';return'从'+o+'坐飞机最省事，飞行约 '+Math.max(1,Math.round(km/700+1))+' 小时'}
   // ——— 使用统计：只记“做了什么”（改日期、加一天、分享……），不记人；没配统计地址时什么都不发 ———
@@ -196,7 +224,7 @@
   ztrack('view');
   document.addEventListener('click',function(e){var a=e.target.closest('a,button');if(!a)return;var c=a.className||'',h=a.getAttribute('href')||'',ev=null;
     if(/ctrip\.com/.test(h))ev='去订酒店';else if(a.classList.contains('bkl')||/12306|flight/.test(h))ev='去预约或买票';else if(c.indexOf('fav')>=0)ev='收藏';else if(c.indexOf('tvbtn')>=0)ev='打开按天看';else if(c.indexOf('todoall')>=0)ev='打开要办的事';
-    else if(a.dataset&&a.dataset.a)ev='分享·'+a.dataset.a;else if(c.indexOf('adj')>=0)ev='调整一站';else if(c.indexOf('rmgo')>=0)ev='去掉一天';else if(c.indexOf('addday')>=0||(a.closest('.addday')&&c.indexOf('add')>=0))ev='加一天';
+    else if(a.dataset&&a.dataset.a)ev='分享·'+a.dataset.a;else if(c.indexOf('adj')>=0)ev='改这站';else if(c.indexOf('rmgo')>=0)ev='去掉一天';else if(c.indexOf('addday')>=0||(a.closest('.addday')&&c.indexOf('add')>=0))ev='加一天';
     else if(a.closest('.pkres'))ev='替我挑·点推荐';else if(c.indexOf('xhs')>=0)ev='看实景';else if(c.indexOf('ic map')>=0||c.indexOf('tvnav')>=0)ev='导航';
     if(ev)ztrack(ev)},true);
 
@@ -210,7 +238,6 @@
   // ——— 导航、订酒店、点评、小红书只走 App：电脑上和微信里打不开 App，就不放这些入口 ———
   var MOB=/iPhone|iPad|Android/i.test(navigator.userAgent),WXB=/MicroMessenger/i.test(navigator.userAgent);
   if(!MOB||WXB)document.documentElement.classList.add('noapp');
-  if(WXB){try{if(!sessionStorage.getItem('zouni_wxtip')){sessionStorage.setItem('zouni_wxtip','1');setTimeout(function(){if(typeof toast==='function')toast('微信里打不开高德、携程、点评、小红书：点右上角 ··· 选“在浏览器打开”')},1200)}}catch(e){}}
   // ——— 微信里打不开高德、携程等 App：景点和酒店名旁边放一个“复制”，复制“城市 + 名字”，去别的 App 里粘贴搜索 ———
   // 剪贴板不能用时（微信 X5 内核里 prompt() 可能不弹）：页面里弹一个选中好的文本框，长按复制
   function zCopyBox(txt,title){var mask=document.createElement('div');mask.className='pk-mask';var sh=document.createElement('div');sh.className='pk';sh.setAttribute('role','dialog');
@@ -222,7 +249,7 @@
   window.zAddCopy=function(){if(!document.documentElement.classList.contains('wx'))return;[].slice.call(document.querySelectorAll('.tl > li.r.see .m, .tl > li.r.fun .m, .tl > li.r.stay .m, .stays .tg')).forEach(function(m){if(m.querySelector('.cpy'))return;if(m.classList.contains('tg')&&!(m.parentNode&&m.parentNode.querySelector('.tl2')))return;var b=document.createElement('button');b.type='button';b.className='cpy';b.setAttribute('aria-label','复制名字');b.textContent='复制';m.appendChild(b)})};
   if(WXB){document.documentElement.classList.add('wx');window.zAddCopy()}
   document.addEventListener('click',function(e){var b=e.target.closest('.cpy');if(!b)return;e.preventDefault();var m=b.parentNode,nm=(m.childNodes[0]&&m.childNodes[0].textContent||'').replace(/^住\s*·\s*/,'').split(/\s*[·（(]/)[0].trim(),dy=b.closest('.day'),ct=dy&&dy.dataset.city||'';   // 去掉“ · 傍晚”“（…）”这类修饰，粘贴到高德才搜得到
-    var own=[].slice.call(document.querySelectorAll('.day[data-city]')).some(function(x){var c=x.dataset.city;return c&&nm.indexOf(c)===0}),txt=(ct&&nm.indexOf(ct)<0&&!own?ct+' ':'')+nm;zCopy(txt,'已复制「'+txt+'」，到高德或小红书里粘贴搜索')});
+    var own=[].slice.call(document.querySelectorAll('.day[data-city]')).some(function(x){var c=x.dataset.city;return c&&nm.indexOf(c)===0}),txt=(ct&&nm.indexOf(ct)<0&&!own?ct+' ':'')+nm;var wx1=false;try{wx1=!localStorage.getItem('zouni_wxtip');if(wx1)localStorage.setItem('zouni_wxtip','1')}catch(e){}zCopy(txt,'已复制「'+txt+'」，到高德或小红书里粘贴搜索'+(wx1?'。微信里打不开这些 App：也可以点右上角 ··· 选“在浏览器打开”':''))});   // 微信的提示改成第一次点“复制”时才说（原来一进页面就弹一条）
   document.addEventListener('click',function(e){var a=e.target.closest('a.tl2,.stays .bk a.btn');if(!a||!MOB||WXB)return;   // 订酒店：在携程 App 里打开这家
     e.preventDefault();try{zOpen('ctrip://wireless/h5?url='+btoa(a.href)+'&type=2','携程旅行')}catch(x){}});
 
@@ -247,6 +274,10 @@
     // 每天底部“去掉这一天”和“这天后面加一天”放在同一行（.dayact）；first=true 的放左边
     var priceHook=function(){retitle()};     // 天数变了（去掉、加一天）时重算价格和标题里的天数（没有费用明细的线只改标题）
     function dayAct(sec,h,first){var r=null,i;for(i=0;i<sec.children.length;i++)if(sec.children[i].className==='dayact')r=sec.children[i];if(!r){r=document.createElement('div');r.className='dayact';sec.appendChild(r)}r.insertAdjacentHTML(first?'afterbegin':'beforeend',h)}
+    // 分享链接里的字段名不改（老链接继续认）：zouni_start_ 存的是全站日期 zouni_date，zouni_n_ 存的是全站人数 zouni_n，其余是 键+线路 id
+    function myGet(k){return k==='zouni_start_'?zLS('zouni_date'):k==='zouni_n_'?zLS('zouni_n'):zLS(k+me.id)}
+    function mySet(k,v){if(k==='zouni_start_'){if(zDateOk(v))zLSs('zouni_date',v)}else if(k==='zouni_n_'){var n=+v;if(n>=1&&n<=12)zLSs('zouni_n',String(n))}else zLSs(k+me.id,v)}
+    function myDel(k){if(k==='zouni_start_'||k==='zouni_n_')return;zLSd(k+me.id)}   // 朋友的链接里没有日期 / 人数：不动我自己的全站值
     var MYKEYS=['zouni_start_','zouni_st_','zouni_drop_','zouni_adj_','zouni_extra_','zouni_slow_','zouni_n_','zouni_rain_','zouni_fill_','zouni_rmday_','zouni_np_'];
 
     // ——— 分享链接编码：把所有修改打成一个很短的字符串放在 # 后面 ———
@@ -272,14 +303,12 @@
     function linkDec(h){var m=/#m=([A-Za-z0-9_\-]+)/.exec(h),o={};if(m){var sm=JSON.parse(lzD(m[1]));MYKEYS.forEach(function(k,i){if(sm[SHORTK[i]]!=null)o[k]=sm[SHORTK[i]]});return o}
       m=/#mine=([A-Za-z0-9_\-]+)/.exec(h);if(m)return JSON.parse(decodeURIComponent(escape(atob(m[1].replace(/-/g,'+').replace(/_/g,'/')))));return null}
     window.zLink={enc:linkEnc,dec:linkDec,lzC:lzC,lzD:lzD};
-    try{var st_=linkDec(location.hash);if(st_){
-      var bk_={},had_=false,diff_=false,bkT_=localStorage.getItem('zouni_startt_'+me.id),bkN_=localStorage.getItem('zouni_nt_'+me.id);MYKEYS.forEach(function(k){var o=localStorage.getItem(k+me.id);bk_[k]=o;if(o!=null&&o!==''&&o!=='{}'&&o!=='[]'){had_=true;var nv=st_[k]==null?null:(typeof st_[k]==='string'?st_[k]:JSON.stringify(st_[k]));if(nv!==o)diff_=true}});   // 先把自己本地的改动备份下来，朋友的版本盖上去之后还能撤销
-      MYKEYS.forEach(function(k){var v=st_[k];if(v==null)localStorage.removeItem(k+me.id);else localStorage.setItem(k+me.id,typeof v==='string'?v:JSON.stringify(v))});
-      if(st_['zouni_start_']!=null)localStorage.setItem('zouni_startt_'+me.id,String(Date.now()));
-      if(st_['zouni_n_']!=null&&String(st_['zouni_n_'])!==bk_['zouni_n_'])localStorage.setItem('zouni_nt_'+me.id,String(Date.now()));   // 朋友的人数和自己的不一样：算“刚选的”，不被自己首页选过的人数盖掉（一样的不动时间戳，打开自己的链接什么都不变）   // 朋友给的日期算“刚选的”，比首页旧日期新
+    try{var st_=linkDec(location.hash);if(st_&&!Object.keys(st_).length)st_=null;if(st_){
+      var bk_={},had_=false,diff_=false;MYKEYS.forEach(function(k){var o=myGet(k);bk_[k]=o;if(o!=null&&o!==''&&o!=='{}'&&o!=='[]'){had_=true;var nv=st_[k]==null?null:(typeof st_[k]==='string'?st_[k]:JSON.stringify(st_[k]));if(nv!==o)diff_=true}});   // 先把自己本地的改动备份下来，朋友的版本盖上去之后还能撤销
+      MYKEYS.forEach(function(k){var v=st_[k];if(v==null)myDel(k);else mySet(k,typeof v==='string'?v:JSON.stringify(v))});   // 朋友的人数和自己的不一样：算“刚选的”，不被自己首页选过的人数盖掉（一样的不动时间戳，打开自己的链接什么都不变）   // 朋友给的日期算“刚选的”，比首页旧日期新
       history.replaceState(null,'',location.pathname);
       setTimeout(function(){if(!(had_&&diff_)){toast('打开的是朋友改过的版本');return}
-        toast('已载入朋友分享的版本','换回我自己的',function(){MYKEYS.forEach(function(k){try{if(bk_[k]==null)localStorage.removeItem(k+me.id);else localStorage.setItem(k+me.id,bk_[k])}catch(e){}});try{if(bkT_==null)localStorage.removeItem('zouni_startt_'+me.id);else localStorage.setItem('zouni_startt_'+me.id,bkT_);if(bkN_==null)localStorage.removeItem('zouni_nt_'+me.id);else localStorage.setItem('zouni_nt_'+me.id,bkN_)}catch(e){}location.reload()},8000)},600)}}catch(e){}
+        toast('已载入朋友分享的版本','换回我自己的',function(){MYKEYS.forEach(function(k){var g=k==='zouni_start_'?'zouni_date':k==='zouni_n_'?'zouni_n':k+me.id;if(bk_[k]==null)zLSd(g);else zLSs(g,bk_[k])});location.reload()},8000)},600)}else if(/#(m|mine)=/.test(location.hash))throw 0}catch(e){if(/#(m|mine)=/.test(location.hash)){try{history.replaceState(null,'',location.pathname)}catch(e2){}setTimeout(function(){toast('这个链接不完整，现在看到的是原版行程')},600)}}
     var RDK='zouni_rmday_'+me.id,RD=[];try{RD=JSON.parse(localStorage.getItem(RDK)||'[]')}catch(e){}
     (function(){var secs=[].slice.call(document.querySelectorAll('.day')),ovl=[].slice.call(document.querySelectorAll('.overview ol > li'));
       secs.forEach(function(s,i){if(s.dataset.oi==null)s.dataset.oi=i});ovl.forEach(function(li,i){if(li.dataset.oi==null)li.dataset.oi=i});
@@ -319,12 +348,12 @@
           var hit=goneNm.some(function(n){var z=n.replace(/博物院|博物馆/g,'');return z.length>=3&&tx.indexOf(z)>=0});
           if(hit&&!goneNm.some(function(n){var z=n.replace(/博物院|博物馆/g,'');return z.length>=3&&tx.indexOf(z)>=0&&rem_.indexOf(z)>=0}))li.hidden=true})}
       // 每天一个“调整这一天 ›”入口（2026-10-18，原来是“去掉这一天”和“这天后面加一天”两个按钮 + 一个确认层）：层里是 改出发时间 / 在这天后面加一天 / 去掉这一天；去掉不再确认，直接执行，5 秒内可撤销（和“去掉这一站”一样）
-      left.forEach(function(s){if(s.dataset.extra||s.querySelector('.dayadj')||left.length<2)return;dayAct(s,'<button type="button" class="dayadj">调整这一天 ›</button>',true)});
+      left.forEach(function(s){if(s.dataset.extra||s.querySelector('.dayadj')||left.length<2)return;dayAct(s,'<button type="button" class="dayadj">改这一天 ›</button>',true)});
       document.addEventListener('click',function(e){var b=e.target.closest('.dayadj');if(!b)return;var s=b.closest('.day'),t=(s.querySelector('h2').childNodes[0]||{textContent:''}).textContent.trim(),all=[].slice.call(document.querySelectorAll('.day')),no=all.indexOf(s)+1,stb=s.querySelector('.st b'),
           canAfter=typeof window.zAddAfter==='function'&&window.zAddAfter.can(s),canRm=all.length>=2&&!s.dataset.extra;
         var mask=document.createElement('div');mask.className='pk-mask';var sh=document.createElement('div');sh.className='pk';
         var warn=(titleHit(s)+moveHit(s).replace(/<br>/g,'')).trim();
-        sh.innerHTML='<div class="pk-h"><b>调整这一天</b><button type="button" class="pk-x" aria-label="关闭">×</button></div><p class="xnote"><b class="adjn">第 '+no+' 天 · '+t.replace(/</g,'&lt;')+'</b></p><div class="xd">'
+        sh.innerHTML='<div class="pk-h"><b>改这一天</b><button type="button" class="pk-x" aria-label="关闭">×</button></div><p class="xnote"><b class="adjn">第 '+no+' 天 · '+t.replace(/</g,'&lt;')+'</b></p><div class="xd">'
           +(stb?'<button type="button" data-a="st"><b>改这天几点出发</b><small>现在 '+stb.textContent+'，后面的时间会重排</small></button>':'')
           +(canAfter?'<button type="button" data-a="after"><b>在这天后面加一天</b><small>后面的日子往后顺延</small></button>':'')
           +(canRm?'<button type="button" class="rmgo" data-a="rm"><b>去掉这一天</b><small>后面的天往前挪一天，价格和天数跟着改，5 秒内可撤销'+(warn?'。'+warn.replace(/</g,'&lt;'):'')+'</small></button>':'')+'</div>';
@@ -334,7 +363,7 @@
           if(a==='after'){ZL.close(LY);window.zAddAfter(s);return}
           if(a==='rm'){ZL.close(LY);var R2=[];try{R2=JSON.parse(localStorage.getItem(RDK)||'[]')}catch(e){}R2.push(+s.dataset.oi);try{localStorage.setItem(RDK,JSON.stringify(R2));sessionStorage.setItem('zouni_rm_toast',t)}catch(e){}ZL.idle(function(){location.reload()})}})});
       try{var tt=sessionStorage.getItem('zouni_rm_toast');if(tt){sessionStorage.removeItem('zouni_rm_toast');setTimeout(function(){toast('去掉了「'+tt+'」，价格和天数已按剩下的天数改','撤销',function(){try{localStorage.removeItem(RDK)}catch(e){}location.reload()})},500)}}catch(e){}})();
-    function myState(){var o={},any=false;MYKEYS.forEach(function(k){var v=null;try{v=localStorage.getItem(k+me.id)}catch(e){}if(v!=null&&v!==''&&v!=='{}'&&v!=='[]'){any=true;try{o[k]=JSON.parse(v)}catch(e){o[k]=v}}});
+    function myState(){var o={},any=false;MYKEYS.forEach(function(k){var v=myGet(k);if(v!=null&&v!==''&&v!=='{}'&&v!=='[]'){any=true;try{o[k]=JSON.parse(v)}catch(e){o[k]=v}}});
       var dk_=document.querySelector('.dpk');if(dk_&&dk_.value&&window.zDateChosen&&window.zDateChosen()){o['zouni_start_']=dk_.value;any=true}   // 日期是首页选的（这条线自己没存）也要带上，朋友打开才一致
       return any?o:null}
     function myLink(){var o=myState(),u0=location.origin+location.pathname;if(!o)return u0;return u0+linkEnc(o)}
@@ -357,10 +386,11 @@
     var p=document.querySelector('.price[data-cost]'),pp=document.querySelector('.pp'),box=document.querySelector('.ppl');
     if(p&&p.dataset.cost&&box){var C=JSON.parse(p.dataset.cost),N=Math.max(1,Math.min(6,zNEff(me.id)));
       function upd(){var n0=+art.dataset.n0||0,dn=document.querySelectorAll('.day').length,rd=(n0>0&&dn>0)?dn/n0:1,rn=n0>1?Math.max(dn-1,0)/(n0-1):1;   // 天数变了：吃、门票、车按天数比例，住宿按晚数，大交通不变（参考价）
-        var rooms=Math.ceil(N/2),car=C.perCar?Math.ceil(N/4)*C.carTotal/N:C.tollsPP,lodge=C.lodgeRoom*rooms/N,loc=(C.tixPP+C.foodPP+car)*rd+lodge*rn,r=function(v){var k=Math.round(v/100)/10;return(k<100?(+k.toFixed(1)).toString():Math.round(k).toString())};var fd=window.zFareDelta?window.zFareDelta():[0,0];p.textContent='¥'+r(Math.max(0,loc+C.trans[0]+fd[0]))+'K–'+r(Math.max(0,loc+C.trans[1]+fd[1]))+'K';box.querySelector('b').textContent=N+' 人';pp.textContent=N+' 人 · 每人 '+(box.hidden?'›':'▴');pp.setAttribute('aria-expanded',box.hidden?'false':'true');var ds=document.querySelector('.dock small');if(ds)ds.textContent=N+' 人 · 每人 '+p.textContent;}
+        var rooms=Math.ceil(N/2),car=C.perCar?Math.ceil(N/4)*C.carTotal/N:C.tollsPP,lodge=C.lodgeRoom*rooms/N,loc=(C.tixPP+C.foodPP+car)*rd+lodge*rn,r=function(v){return String(Math.round(v/100)*100)};      // 价格写整数：¥2600–3600（原来 ¥2.6K–3.6K）
+var fd=window.zFareDelta?window.zFareDelta():[0,0];p.textContent='¥'+r(Math.max(0,loc+C.trans[0]+fd[0]))+'–'+r(Math.max(0,loc+C.trans[1]+fd[1]));box.querySelector('b').textContent=N+' 人';pp.textContent=N+' 人 · 每人 '+(box.hidden?'›':'▴');pp.setAttribute('aria-expanded',box.hidden?'false':'true');var ds=document.querySelector('.dock small');if(ds)ds.textContent=N+' 人 · 每人 '+p.textContent;}
       pp.setAttribute('aria-expanded','false');function tog(){box.hidden=!box.hidden;upd()}
       pp.addEventListener('click',tog);p.addEventListener('click',tog);
-      box.querySelectorAll('button').forEach(function(x){x.addEventListener('click',function(){N=Math.max(1,Math.min(6,N+(+x.dataset.d)));try{localStorage.setItem('zouni_n_'+me.id,String(N));localStorage.setItem('zouni_nt_'+me.id,String(Date.now()))}catch(e){}upd()})});window.zPriceRefresh=function(){N=Math.max(1,Math.min(6,zNEff(me.id)));upd()};
+      box.querySelectorAll('button').forEach(function(x){x.addEventListener('click',function(){N=Math.max(1,Math.min(6,N+(+x.dataset.d)));zLSs('zouni_n',String(N));upd()})});window.zPriceRefresh=function(){N=Math.max(1,Math.min(6,zNEff(me.id)));upd()};
       priceHook=function(){upd();retitle()};
       if(N!==2||document.querySelectorAll('.day').length!==(+art.dataset.n0||0))upd()}   // 记住的人数、去掉过的天，一打开就算上（原来要点一下才更新，刷新后看起来像没记住）
     // 去掉的这一天里有没有标题点名的景点：有就提醒一句，免得去掉重头戏还以为是原来那条线
@@ -391,14 +421,14 @@
       try{warmTiles(pts)}catch(e){}
       return Promise.all(ex.map(put)).then(function(){return c.match('/assets/np/_index.js')}).then(function(m){return m?m.text():''}).then(function(t){var have={};(t.match(/"\d+_\d+"/g)||[]).forEach(function(x){have[x.slice(1,-1)]=1});return Promise.all(Object.keys(cells).filter(function(k){return have[k]}).slice(0,80).map(function(k){return put('/assets/np/'+k+'.js')}))})}
     function paint(){var on=ld('zouni_fav').some(function(x){return x.id===me.id});fb.classList.toggle('on',on);if(!on)fb.classList.remove('saved');else if(window.caches)caches.match(location.pathname).then(function(m){fb.classList.toggle('saved',!!m)},function(){});var sp=fb.querySelector('span');if(sp)sp.textContent=on?'已收进':'收进行程';else fb.textContent=on?'已收进':'收进行程'}
-    if(fb){paint();fb.addEventListener('click',function(){var f=ld('zouni_fav'),on=f.some(function(x){return x.id===me.id});var me2={},kk_;for(kk_ in me)me2[kk_]=me[kk_];var dn2=document.querySelectorAll('.day').length;if(me2.label)me2.label=me2.label.replace(/\d+(\s*天)/,dn2+'$1');me2.n=dn2;me2.sd=art.dataset.start||'';if(me2.title&&dn2<=10)me2.title=me2.title.replace(/^[一二三四五六七八九十]+天/,'零一二三四五六七八九十'.charAt(dn2)+'天');f=on?f.filter(function(x){return x.id!==me.id}):[me2].concat(f);sv('zouni_fav',f);paint();if(on)toast('已从我的行程里拿掉','撤销',function(){var f2=ld('zouni_fav').filter(function(x){return x.id!==me.id});f2=[me2].concat(f2);sv('zouni_fav',f2);paint()});else{toast('已收进，可在首页「我的行程」查看');saveOffline(function(ok){if(!ok)return;fb.classList.add('saved');if(ld('zouni_fav').some(function(x){return x.id===me.id}))toast('已存到手机里，没网也能看')})}})}
+    if(fb){paint();fb.addEventListener('click',function(){var f=ld('zouni_fav'),on=f.some(function(x){return x.id===me.id});var me2={},kk_;for(kk_ in me)me2[kk_]=me[kk_];var dn2=document.querySelectorAll('.day').length;if(me2.label)me2.label=me2.label.replace(/\d+(\s*天)/,dn2+'$1');me2.n=dn2;me2.sd=art.dataset.start||'';if(me2.title&&dn2<=10)me2.title=me2.title.replace(/^[一二三四五六七八九十]+天/,'零一二三四五六七八九十'.charAt(dn2)+'天');f=on?f.filter(function(x){return x.id!==me.id}):[me2].concat(f);sv('zouni_fav',f);paint();if(on)toast('已从我的行程里拿掉','撤销',function(){var f2=ld('zouni_fav').filter(function(x){return x.id!==me.id});f2=[me2].concat(f2);sv('zouni_fav',f2);paint()});else{saveOffline(function(ok){if(!ok)return;fb.classList.add('saved')})}})}
     // 分享、复制
     // 分享链接：剪贴板被拒绝（微信、iOS 常见）时不能说“已复制”，改成弹出让用户自己复制
     function shareLink(){var u=myLink();if(navigator.share){navigator.share({title:document.title,url:u}).catch(function(){})}else{try{navigator.clipboard.writeText(u).then(function(){toast('链接已复制')},function(){zCopyBox(u,'复制这个链接')})}catch(e){zCopyBox(u,'复制这个链接')}}}
     var sh=document.querySelector('.share');if(sh)sh.addEventListener('click',function(){var mask=document.createElement('div');mask.className='pk-mask';var s2=document.createElement('div');s2.className='pk';
-      s2.innerHTML='<div class="pk-h"><b>分享</b><button type="button" class="pk-x" aria-label="关闭">×</button></div><div class="xd"><button type="button" data-a="link"><b>发链接给朋友</b><small>'+(myState()?'带上你改过的日期、时间和加的天':'原版行程')+'</small></button><button type="button" data-a="copy"><b>复制整条行程</b><small>按天的时间和地点，可以直接粘贴到微信</small></button><button type="button" data-a="shot"><b>生成分享图</b><small>长按保存，发朋友圈</small></button><button type="button" data-a="ics"><b>加入日历</b><small>每天的安排，加上买票、预约、订住宿的提醒</small></button><button type="button" data-a="print"><b>打印 / 存成 PDF</b><small>一页页的行程单，给家里人或者出门带着</small></button></div>';
+      s2.innerHTML='<div class="pk-h"><b>分享</b><button type="button" class="pk-x" aria-label="关闭">×</button></div><div class="xd"><button type="button" data-a="link"><b>发链接给朋友</b><small>'+(myState()?'带上你改过的日期、时间和加的天':'原版行程')+'</small></button><button type="button" data-a="copy"><b>复制整条行程</b><small>按天的时间和地点，可以直接粘贴到微信</small></button><button type="button" data-a="shot"><b>生成分享图</b><small>长按保存，发朋友圈</small></button><button type="button" data-a="ics"><b>加入日历</b><small>每天的安排和买票、预约、订住宿的提醒；下载后打开，选“全部添加”</small></button><button type="button" data-a="print"><b>打印 / 存成 PDF</b><small>一页页的行程单，给家里人或者出门带着</small></button></div>';
       var LS=null;function cl(){ZL.close(LS)}
-      s2.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;if(b.classList.contains('pk-x'))return cl();cl();if(b.dataset.a==='link')shareLink();if(b.dataset.a==='copy')copyTrip();if(b.dataset.a==='shot'){if(window.qrcode)shotTrip();else{var sc=document.createElement('script');sc.src='/assets/qr.js';sc.onload=shotTrip;sc.onerror=shotTrip;document.head.appendChild(sc)}}if(b.dataset.a==='ics'){if(window.zIcs)window.zIcs();toast('日历文件好了，打开后选“全部添加”')}if(b.dataset.a==='print')setTimeout(function(){window.print()},300)});
+      s2.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;if(b.classList.contains('pk-x'))return cl();cl();if(b.dataset.a==='link')shareLink();if(b.dataset.a==='copy')copyTrip();if(b.dataset.a==='shot'){if(window.qrcode)shotTrip();else{var sc=document.createElement('script');sc.src='/assets/qr.js';sc.onload=shotTrip;sc.onerror=shotTrip;document.head.appendChild(sc)}}if(b.dataset.a==='ics'){if(window.zIcs)window.zIcs()}if(b.dataset.a==='print')setTimeout(function(){window.print()},300)});
       LS=ZL.open([mask,s2],{sheet:s2,mask:mask,kind:'share'})});
     // 复制整条行程：读的是“现在这一页”——去掉的站、加的天、顺路加的站、换的站都按现在的样子；带住处、预约入口、闭馆和提醒
     function cpT(el){return(el&&el.innerText||'').replace(/复制\s*$/,'').replace(/\s+/g,' ').trim()}
@@ -422,7 +452,7 @@
     window.zTripText=tripText;
     // 改出发日期：日期、星期、日出日落、往年气温、底栏一起变；记在本机
     var dk=document.querySelector('.dpk'),dtb=document.querySelector('.dt');
-    if(dk&&dtb){var sk='zouni_start_'+me.id,W='日一二三四五六';
+    if(dk&&dtb){var W='日一二三四五六';
       function fmt(d){return(d.getMonth()+1)+'/'+d.getDate()}
       function yp(d){var n=new Date();n.setHours(12,0,0,0);return d.getFullYear()>n.getFullYear()?'明年 '+fmt(d)+'（距今 '+Math.round((d-n)/864e5)+' 天）':''}     // 确实落在明年才写“明年 10/15（距今 362 天）”；没有季节限制的线默认就是最近的合理日，不跨年
       var isSugg=true,srcTxt='';     // isSugg：用户没选过日期，现在显示的是“按最佳季节的建议日期”；srcTxt：选的来源（首页 / 这条线）
@@ -441,12 +471,10 @@
       dtb.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();dtb.click()}});
       var dkd=document.querySelector('.dock>div:first-child');if(dkd){dkd.setAttribute('role','button');dkd.setAttribute('tabindex','0');dkd.setAttribute('aria-label','改出发日期');dkd.addEventListener('click',function(){dtb.click()});dkd.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();dtb.click()}})}      // 底栏的日期价格整块可点：滚到哪里都能改出发日期（2 次点击）
       dtb.addEventListener('click',function(){var b0=dtb.dataset.best?dtb.dataset.best.split(','):null;openPicker({value:dk.value,min:dk.dataset.min||dk.getAttribute('min'),best:b0&&b0.length===2?b0:null,sug:isSugg?dk.value:'',onPick:function(v){dk.value=v;dk.dispatchEvent(new Event('change'))}})});
-      dk.addEventListener('change',function(){if(!dk.value)return;isSugg=false;srcTxt='';try{var t_=String(Date.now());localStorage.setItem(sk,dk.value);localStorage.setItem('zouni_startt_'+me.id,t_);localStorage.setItem('zouni_home_date',dk.value);localStorage.setItem('zouni_home_datet',t_)}catch(e){}applyStart(dk.value);var d=new Date(dk.value+'T12:00:00'),un=0;[].slice.call(document.querySelectorAll('.pre li')).forEach(function(li){var x=li.querySelector('input[type=checkbox]'),sp=li.querySelector('span');if(x&&x.checked&&sp&&/车票|机票|高铁票|火车票|船票|订票/.test(sp.textContent)){x.checked=false;x.dispatchEvent(new Event('change'));un++}});[].slice.call(document.querySelectorAll('.stays .mk.on')).forEach(function(b){b.click();un++});try{var TK_='zouni_todo_'+me.id,T_=JSON.parse(localStorage.getItem(TK_)||'[]'),T2_=T_.filter(function(k){return!/^go:/.test(k)});if(T2_.length!==T_.length){localStorage.setItem(TK_,JSON.stringify(T2_));un++}}catch(e){}toast('改成 '+fmt(d)+' 出发了'+(un?'；买票和订房的勾选清掉了，按新日期重新订':''))});
+      dk.addEventListener('change',function(){if(!dk.value)return;isSugg=false;srcTxt='';zDateSet(dk.value);applyStart(dk.value);var d=new Date(dk.value+'T12:00:00'),un=0;[].slice.call(document.querySelectorAll('.pre li')).forEach(function(li){var x=li.querySelector('input[type=checkbox]'),sp=li.querySelector('span');if(x&&x.checked&&sp&&/车票|机票|高铁票|火车票|船票|订票/.test(sp.textContent)){x.checked=false;x.dispatchEvent(new Event('change'));un++}});[].slice.call(document.querySelectorAll('.stays .mk.on')).forEach(function(b){b.click();un++});try{var TK_='zouni_todo_'+me.id,T_=JSON.parse(localStorage.getItem(TK_)||'[]'),T2_=T_.filter(function(k){return!/^go:/.test(k)});if(T2_.length!==T_.length){localStorage.setItem(TK_,JSON.stringify(T2_));un++}}catch(e){}if(un)toast('日期改了，买票和订房的勾选清掉了，按新日期重新订')});
       var mn=dk.dataset.min||dk.min;
-      // 出发日期只有一个说法：首页或任何一条线改过，所有线路页都按它；谁改得晚听谁的（旧数据没有时间戳 = 0，和以前一样“这条线自己存的优先”）
-      try{var rv_=localStorage.getItem(sk),hv_=localStorage.getItem('zouni_home_date'),rt_=+localStorage.getItem('zouni_startt_'+me.id)||0,ht_=+localStorage.getItem('zouni_home_datet')||0;
-        if(rv_&&rv_<mn)rv_=null;if(hv_&&hv_<mn)hv_=null;var ef_=null;
-        if(rv_&&hv_)ef_=ht_>rt_?[hv_,'首页']:[rv_,''];else if(rv_)ef_=[rv_,''];else if(hv_)ef_=[hv_,'首页'];
+      // 出发日期只有一个说法（zouni_date）：首页或任何一条线改过，所有线路页都按它
+      try{var ef_=null,ev_=zDateGet();if(ev_&&ev_>=mn)ef_=[ev_,''];
         if(ef_){isSugg=false;srcTxt=ef_[1];if(ef_[0]!==dk.value)dk.value=ef_[0];applyStart(ef_[0])}}catch(e){}
       // 页面是静态生成的：没存过日期、默认日期已经过去时，按今天重新给一个——正当季落在“最好的日子”里（下一个周六），否则顺延一年
       function defStart(v,best){var t=new Date();t.setHours(12,0,0,0);var td=iso(t);if(v>=td)return v;var b=best?best.split(','):null,mons=(art.dataset.mon||'').split(',').filter(Boolean).map(Number),cls=(art.dataset.cl||'').split(',').filter(Boolean).map(function(z){var q=z.split(':');return[+q[0],+q[1]]});
@@ -534,7 +562,7 @@
           sh.addEventListener('click',function(ev){var b=ev.target.closest('button');if(!b||b.disabled)return;if(b.classList.contains('pk-x'))return close();
             if(!b.dataset.free&&ld(ek).some(function(x){return x.k==='r'&&x.rid===b.dataset.rid&&+x.i===+b.dataset.i})){toast('这一天已经加过了');return}
             var e=b.dataset.free?{k:'free',x:'f'+Date.now()}:{k:'r',x:'r'+Date.now(),rid:b.dataset.rid,i:+b.dataset.i,label:b.dataset.l,km:+(b.dataset.km||0),lat:+(b.dataset.lat||0),lng:+(b.dataset.lng||0)};if(pendAfter!=null)e.after=pendAfter;pendAfter=null;var xs=ld(ek);xs.push(e);sv(ek,xs);close();
-            build(e).then(function(){renum();var s=document.querySelector('.day[data-extra="'+e.x+'"]');if(s)s.scrollIntoView();toast('加好了，日期和底栏都跟着变了')})});
+            build(e).then(function(){renum();var s=document.querySelector('.day[data-extra="'+e.x+'"]');if(s)s.scrollIntoView()})});
           LA=ZL.open([mask,sh],{sheet:sh,mask:mask,kind:'addday'})})}
 }
     // 旅途中：出发日到了，就在底部提示“今天第几天、下一站”
@@ -667,9 +695,9 @@
           box.className='latewarn'+(msgs.length?' bad':'');
           box.innerHTML=(msgs.length?'<p>'+msgs.join('；')+(lastSee?' <button type="button" class="drop">去掉「'+lastSee.querySelector('.m').childNodes[0].textContent.trim()+'」</button>':'')+'</p>':'')+'<p class="sum">'+summary.replace('改完：','')+' · <button type="button" class="reset">恢复</button></p>'+(fillHint?'<p class="gap">空出 '+hstr(gapLen).trim()+'，可以加「'+fillHint.x.n+'」 <button type="button" class="fill">加上</button></p>':'');
           var tl=sec.querySelector('.tl');tl.parentNode.insertBefore(box,tl);
-          var fb=box.querySelector('.fill');if(fb)fb.addEventListener('click',function(){var F2=getF();F2[oi]=F2[oi]||{};F2[oi][gapRow.dataset.k]={n:fillHint.x.n,c:fillHint.x.c};try{localStorage.setItem(FK,JSON.stringify(F2))}catch(e){}replan(sec);toast('加上了「'+fillHint.x.n+'」')});
-          var dr=box.querySelector('.drop');if(dr)dr.addEventListener('click',function(){var undo1=zSnap([DK,NK,AK]),lsn=nm(lastSee);if(lastSee.getAttribute('data-np')==='v'){npRemove(oi,+lastSee.dataset.k-1000);replan(sec);toast('去掉了，后面的时间往前挪了','撤销',function(){undo1();replan(sec);toast('撤销了，「'+lsn+'」回来了')});return}var D2=getD(),k=+lastSee.dataset.k,prevR=lastSee.previousElementSibling;npDrop(oi,k);D2[oi]=(D2[oi]||[]).concat([k]);if(prevR&&prevR.classList.contains('dep')&&!prevR.hidden)D2[oi].push(+prevR.dataset.k);try{localStorage.setItem(DK,JSON.stringify(D2))}catch(e){}replan(sec);toast('去掉了，后面的时间往前挪了','撤销',function(){undo1();replan(sec);toast('撤销了，「'+lsn+'」回来了')})});
-          box.querySelector('.reset').addEventListener('click',function(){var S2=getS(),D2=getD(),A2=getA(),F3=getF();delete S2[oi];delete D2[oi];delete A2[oi];delete F3[oi];npClear(oi);try{localStorage.setItem(SK,JSON.stringify(S2));localStorage.setItem(DK,JSON.stringify(D2));localStorage.setItem(AK,JSON.stringify(A2));localStorage.setItem(FK,JSON.stringify(F3))}catch(e){}replan(sec);toast('恢复了原来的安排')})}
+          var fb=box.querySelector('.fill');if(fb)fb.addEventListener('click',function(){var F2=getF();F2[oi]=F2[oi]||{};F2[oi][gapRow.dataset.k]={n:fillHint.x.n,c:fillHint.x.c};try{localStorage.setItem(FK,JSON.stringify(F2))}catch(e){}replan(sec)});
+          var dr=box.querySelector('.drop');if(dr)dr.addEventListener('click',function(){var undo1=zSnap([DK,NK,AK]),lsn=nm(lastSee);if(lastSee.getAttribute('data-np')==='v'){npRemove(oi,+lastSee.dataset.k-1000);replan(sec);toast('去掉了，后面的时间往前挪了','撤销',function(){undo1();replan(sec)});return}var D2=getD(),k=+lastSee.dataset.k,prevR=lastSee.previousElementSibling;npDrop(oi,k);D2[oi]=(D2[oi]||[]).concat([k]);if(prevR&&prevR.classList.contains('dep')&&!prevR.hidden)D2[oi].push(+prevR.dataset.k);try{localStorage.setItem(DK,JSON.stringify(D2))}catch(e){}replan(sec);toast('去掉了，后面的时间往前挪了','撤销',function(){undo1();replan(sec)})});
+          box.querySelector('.reset').addEventListener('click',function(){var S2=getS(),D2=getD(),A2=getA(),F3=getF();delete S2[oi];delete D2[oi];delete A2[oi];delete F3[oi];npClear(oi);try{localStorage.setItem(SK,JSON.stringify(S2));localStorage.setItem(DK,JSON.stringify(D2));localStorage.setItem(AK,JSON.stringify(A2));localStorage.setItem(FK,JSON.stringify(F3))}catch(e){}replan(sec)})}
         npFacts();if(NPX.n&&window.zAddCopy)window.zAddCopy()}
       // ⑧ 顺路加一站 / 换一站（规则和数字：docs/handoff/design-nearby-stops.md、02-UI规范.md「调整里的顺路景点」；车程模型在 np_model.js，点开才加载）
       //  状态 zouni_np_<线路id> = {v:1, oi:{"<原来第几天>":[操作,…]}}。操作 = {op:'ins'|'rep', ak:锚点行 data-k, an:锚点原名, u:序号, i,n,c,a,o,t,d,s,q,x}：自带快照，不依赖分片还在、也不依赖候选池 id
@@ -722,7 +750,7 @@
       function npTix(x){x=x||{};var tt=String(x.t||'').replace(/(\d[\d,]*)\s*元左右/,'约 $1 元').replace(/^门票\s*/,''),tix='';if(tt)tix=tt.slice(0,6).indexOf('免费')>=0?tt:'门票'+(/^(约|旺季)/.test(tt)?'':' ')+tt;
         if(x.cl!=null)tix=(tix?tix+' · ':'')+'周'+'日一二三四五六'.charAt(x.cl)+'闭馆';return tix}
       function npSub(op){var tix=npTix(op.x),sub=npDur(op.d)+(tix?' · <span class="tix">'+npEsc(tix)+'</span>':'')+(op.s?' · <span class="sn2">'+npEsc(op.s)+'</span>':'');
-        if(op.x&&op.x.b)sub='<em class="bkn">要预约</em> · '+sub;return sub+'<button type="button" class="adj" aria-label="调整这一站">调整</button>'}
+        if(op.x&&op.x.b)sub='<em class="bkn">要预约</em> · '+sub;return sub+'<button type="button" class="adj" aria-label="改这一站">改这站</button>'}
       function npRb(op,rep,nav){return'<p class="m">'+npEsc(op.n+(rep?'（换的）':'（加的）'))+npIcons(op,nav)+'</p><p class="s">'+npSub(op)+'</p>'}
       function npStopAttrs(r,op){r.setAttribute('data-ll',op.a.toFixed(5)+','+op.o.toFixed(5));r.setAttribute('data-dm',op.d);if(op.t)r.setAttribute('data-ty',op.t);else r.removeAttribute('data-ty');if(op.i)r.setAttribute('data-pid',op.i);else r.removeAttribute('data-pid');
         if(NP_INDOOR.test(op.n))r.setAttribute('data-in','1');else r.removeAttribute('data-in');if(op.x&&op.x.cl!=null)r.setAttribute('data-cw',String(op.x.cl));else r.removeAttribute('data-cw')}
@@ -783,7 +811,7 @@
         if(!npModel()){if(!npWait){npWait=1;npEnsureModel(function(){[].slice.call(document.querySelectorAll('.day')).forEach(function(s){if(s.dataset.oi!=null)replan(s)})},function(){npWait=null})}return X}
         pr=npPR(sec);drop=(D&&D[oi])||[];L=[].slice.call(tl.children).filter(npIsRow);pr.forEach(function(r,i){if(L[i]!==r)same=false});if(!same)pr.forEach(function(r){tl.appendChild(r)});   // 行按原来的顺序放回去（上一次 replan 可能把午饭挪到了最前）
         ops.forEach(function(o){var r=npValid(o)&&pr.filter(function(x){return x.dataset.k==o.ak})[0];if(!r||drop.indexOf(+r.dataset.k)>=0||(o.an&&npName0(r)!==o.an)){bad++;return}ok.push(o)});
-        if(bad&&!sec._npTrial){var st=npGet();st.oi[oi]=ok.slice();npPut(st);try{if(!sessionStorage.getItem('zouni_np_bad')){sessionStorage.setItem('zouni_np_bad','1');setTimeout(function(){toast('有一处调整因为行程更新没法套用，已经去掉了')},800)}}catch(e){}}
+        if(bad&&!sec._npTrial){var st=npGet();st.oi[oi]=ok.slice();npPut(st);try{if(!sessionStorage.getItem('zouni_np_bad')){sessionStorage.setItem('zouni_np_bad','1');setTimeout(function(){toast('有一处改动因为行程更新没法套用，已经去掉了')},800)}}catch(e){}}
         return ok.length?npApply(sec,ok,drop):X}
       // 开车时间：这天（和页头“最长一天”）跟着改。只算被我们改过的那几段车程的差，不去动没碰过的数字
       function npDrv(t){var m=/(?:自驾|开车|包车)约?\s*(?:(\d+)\s*小时)?\s*(?:(\d+)\s*分)?/.exec(t||'');return m?((m[1]?+m[1]*60:0)+(m[2]?+m[2]:0)):0}
@@ -871,12 +899,12 @@
         row=kind==='ins'?sec.querySelector('.tl > .r[data-k="'+(1000+op.u)+'"]'):sec.querySelector('.tl > .r[data-k="'+op.ak+'"]');
         if(row){zjump(Math.max(0,row.getBoundingClientRect().top+(window.pageYOffset||0)-Math.round(window.innerHeight/3)));row.classList.add('flash');setTimeout(function(){row.classList.remove('flash')},1600)}
         ztrack(kind==='ins'?'顺路·加一站':'顺路·换一站');
-        toast((kind==='ins'?'加上了「':'换成了「')+c.n+'」，后面的时间重排了','撤销',function(){try{if(prev==null)localStorage.removeItem(NK);else localStorage.setItem(NK,prev);if(prevA==null)localStorage.removeItem(AK);else localStorage.setItem(AK,prevA)}catch(e){}replan(sec);toast('撤销了')});return true}
+        toast((kind==='ins'?'加上了「':'换成了「')+c.n+'」，后面的时间重排了','撤销',function(){try{if(prev==null)localStorage.removeItem(NK);else localStorage.setItem(NK,prev);if(prevA==null)localStorage.removeItem(AK);else localStorage.setItem(AK,prevA)}catch(e){}replan(sec)});return true}
       ZD.on(function(){npFacts()});      // 页头“最长一天”跟着当天模型走（下雨换站、改出发时间……任何改动之后）
       window.zNpMap={load:npLoadCells,pool:npPool,cands:npCands,label:npLabel,tryIns:function(sec,S,c){return npTry(sec,S,'ins',c)},commit:function(sec,S,c){return npCommit(sec,S,'ins',c)}};   // 路线地图的“顺路可去”灰点：同一套候选、试算、加站和撤销
       // ① 每一站可以调：多待、少待、去掉，后面的时间按同样规则重排
       function addAdj(sec){[].slice.call(sec.querySelectorAll('.tl > .r.see, .tl > .r.fun')).forEach(function(r){if(r.querySelector('.adj')||/沿途慢慢走/.test(nm(r)))return;var rb=r.querySelector('.rb');if(!rb)return;var s=rb.querySelector('.s');if(!s){s=document.createElement('p');s.className='s';rb.appendChild(s)}
-          s.insertAdjacentHTML('beforeend','<button type="button" class="adj" aria-label="调整这一站">调整</button>')})}
+          s.insertAdjacentHTML('beforeend','<button type="button" class="adj" aria-label="改这一站">改这站</button>')})}
       document.addEventListener('click',function(e){var b=e.target.closest('.adj');if(!b)return;e.preventDefault();var r=b.closest('.r'),sec=r.closest('.day'),oi=sec.dataset.oi;if(oi==null)return;var k=r.dataset.k,A2=getA(),cur=(A2[oi]||{})[k]||0,npA=r.getAttribute('data-np'),isV=npA==='v',isR=npA==='r',
           npOk=!isV&&!!r.dataset.ll&&!r.dataset.at&&!r.dataset.rain&&!r.dataset.fo&&!r.dataset.on;   // 定点的站（日落、开船、演出）、下雨换的、空档加的不能替换；虚拟行（加的）不再套娃
         var mask=document.createElement('div');mask.className='pk-mask';var sh=document.createElement('div');sh.className='pk npk';
@@ -911,11 +939,11 @@
           if(x.dataset.np)return list(x.dataset.np);
           if(x.classList.contains('npc')){var it=sh._acc&&sh._acc[+x.dataset.i];if(it){cl();npCommit(sec,r,sh._kind,it.c)}return}
           var A3=getA();A3[oi]=A3[oi]||{};
-          if(x.dataset.d){A3[oi][k]=(A3[oi][k]||0)+(+x.dataset.d);if(!A3[oi][k])delete A3[oi][k];try{localStorage.setItem(AK,JSON.stringify(A3))}catch(e){}cl();replan(sec);toast((+x.dataset.d>0?'多待':'少待')+' 30 分钟，后面的时间重排了');return}
-          if(x.dataset.r){delete A3[oi][k];try{localStorage.setItem(AK,JSON.stringify(A3))}catch(e){}cl();replan(sec);toast('恢复了');return}
-          if(x.dataset.npu){var nmv=nm(r);npRemove(oi,+k-1000);cl();replan(sec);toast('撤销了「'+npCore(nmv)+'」');return}
-          if(x.dataset.npr){npRemove(oi,null,+k,'rep');cl();replan(sec);toast('换回原来的了');return}
-          if(x.dataset.x){var undo0=zSnap([DK,NK,AK]),D3=getD();D3[oi]=(D3[oi]||[]).concat([+k]);var pv=r.previousElementSibling;if(pv&&pv.classList.contains('dep')&&!pv.hidden)D3[oi].push(+pv.dataset.k);try{localStorage.setItem(DK,JSON.stringify(D3))}catch(e){}npDrop(oi,+k);var nmx=nm(r);cl();replan(sec);ztrack('去掉一站');toast('去掉了「'+npCore(nmx)+'」，后面的时间往前挪了','撤销',function(){undo0();replan(sec);toast('撤销了，「'+npCore(nmx)+'」回来了')})}});
+          if(x.dataset.d){A3[oi][k]=(A3[oi][k]||0)+(+x.dataset.d);if(!A3[oi][k])delete A3[oi][k];try{localStorage.setItem(AK,JSON.stringify(A3))}catch(e){}cl();replan(sec);return}
+          if(x.dataset.r){delete A3[oi][k];try{localStorage.setItem(AK,JSON.stringify(A3))}catch(e){}cl();replan(sec);return}
+          if(x.dataset.npu){var nmv=nm(r);npRemove(oi,+k-1000);cl();replan(sec);return}
+          if(x.dataset.npr){npRemove(oi,null,+k,'rep');cl();replan(sec);return}
+          if(x.dataset.x){var undo0=zSnap([DK,NK,AK]),D3=getD();D3[oi]=(D3[oi]||[]).concat([+k]);var pv=r.previousElementSibling;if(pv&&pv.classList.contains('dep')&&!pv.hidden)D3[oi].push(+pv.dataset.k);try{localStorage.setItem(DK,JSON.stringify(D3))}catch(e){}npDrop(oi,+k);var nmx=nm(r);cl();replan(sec);ztrack('去掉一站');toast('去掉了「'+npCore(nmx)+'」，后面的时间往前挪了','撤销',function(){undo0();replan(sec)})}});
         LJ=ZL.open([mask,sh],{sheet:sh,mask:mask,kind:'adj'})});
       // ⑦ 带老人孩子：放慢节奏——这个功能已经去掉（死代码 2026-10-18 删除）；这一行只是上面“顺路加一站”块的结束标记（tests/data_checks.py 28b 按它截取）
       [].slice.call(document.querySelectorAll('.day')).forEach(function(sec){if(sec.dataset.oi!=null){addAdj(sec);replan(sec)}});[].slice.call(document.querySelectorAll('.day')).forEach(window.zDayLoad);
@@ -926,7 +954,7 @@
         sh.innerHTML='<div class="pk-h"><b>'+sec.querySelector('header small').textContent.split(' · ')[0]+'几点出发</b><button type="button" class="pk-x" aria-label="关闭">×</button></div><label class="allck"><input type="checkbox" class="allin"> 每天都按这个时间出发</label><div class="stg">'+opts.map(function(o){return'<button type="button" data-v="'+o+'" class="'+(o===cur?'on':'')+'">'+o+'</button>'}).join('')+'</div>';
         var LT=null;function cl(){ZL.close(LT)}
         sh.addEventListener('click',function(ev){var x=ev.target.closest('button');if(!x)return;if(x.classList.contains('pk-x'))return cl();if(x.dataset.v){var S2=getS(),all=sh.querySelector('.allin')&&sh.querySelector('.allin').checked,tg=all?[].slice.call(document.querySelectorAll('.day')).filter(function(s){var f=rowsOf(s).filter(function(z){return hm2m(z.dataset.t0||(z.querySelector('time')||{}).textContent)!=null})[0];return s.dataset.oi!=null&&f&&hm2m(f.dataset.t0||f.querySelector('time').textContent)<=630}):[sec];if(tg.indexOf(sec)<0)tg.push(sec);
-          tg.forEach(function(s){S2[s.dataset.oi]=x.dataset.v});try{localStorage.setItem(SK,JSON.stringify(S2))}catch(e){}cl();tg.forEach(function(s){replan(s)});toast(all?'每天都改成 '+x.dataset.v+' 出发':'这天改成 '+x.dataset.v+' 出发')}});
+          tg.forEach(function(s){S2[s.dataset.oi]=x.dataset.v});try{localStorage.setItem(SK,JSON.stringify(S2))}catch(e){}cl();tg.forEach(function(s){replan(s)})}});
         LT=ZL.open([mask,sh],{sheet:sh,mask:mask,kind:'stime'})});
       document.addEventListener('keydown',function(e){var b=e.target.closest&&e.target.closest('.st');if(b&&(e.key==='Enter'||e.key===' ')){e.preventDefault();b.click()}});
     })();
@@ -951,10 +979,10 @@
         if(!R)return;var r=[].slice.call(sec.querySelectorAll('.tl > .r')).filter(function(x){return x.dataset.k==R.k&&!x.dataset.np})[0];if(!r)return;var m=r.querySelector('.m').childNodes[0];r.dataset.on=m.textContent;m.textContent=R.n+'（下雨换的）';r.dataset.rain='1';
         var a=r.querySelector('a.ic.map');if(a){r.dataset.oh=a.href;a.href='https://uri.amap.com/search?keyword='+encodeURIComponent(R.n)+'&city='+encodeURIComponent(R.c||'')+'&callnative=1';a.removeAttribute('data-ios');a.removeAttribute('data-and')}}
       function rainTip(sec,p){var oi=sec.dataset.oi;if(oi==null||!IND.length)return;var R=getR()[oi];var sun=sec.querySelector('.sun');var la=+sun.dataset.lat,lo=+sun.dataset.lng;
-        if(R){p.insertAdjacentHTML('beforeend','<span class="rn">已换成「'+R.n+'」<button type="button" class="rainback">换回原来的</button></span>');p.querySelector('.rainback').addEventListener('click',function(){var R2=getR();delete R2[oi];try{localStorage.setItem(RK,JSON.stringify(R2))}catch(e){}applyRain(sec);run();toast('换回原来的了')});return}
+        if(R){p.insertAdjacentHTML('beforeend','<span class="rn">已换成「'+R.n+'」<button type="button" class="rainback">换回原来的</button></span>');p.querySelector('.rainback').addEventListener('click',function(){var R2=getR();delete R2[oi];try{localStorage.setItem(RK,JSON.stringify(R2))}catch(e){}applyRain(sec);run()});return}
         var o=outdoor(sec);if(!o)return;var used=Object.keys(getR()).map(function(k){return getR()[k].n});var best=IND.filter(function(x){return used.indexOf(x.n)<0}).map(function(x){return{x:x,d:km2(la,lo,x.lat,x.lng)}}).filter(function(z){return z.d<=25}).sort(function(a,b){return a.d-b.d})[0];if(!best)return;   // 只推荐 25 公里以内的，太远就不折腾
         p.insertAdjacentHTML('beforeend','<span class="rn">下雨的话，「'+o.querySelector('.m').childNodes[0].textContent.trim()+'」可以换成「'+best.x.n+'」（'+(best.d<1?'就在旁边':'约 '+best.d+' 公里')+'）<button type="button" class="rainswap">换上</button></span>');
-        p.querySelector('.rainswap').addEventListener('click',function(){var R2=getR();R2[oi]={k:o.dataset.k,n:best.x.n,c:best.x.c};try{localStorage.setItem(RK,JSON.stringify(R2))}catch(e){}applyRain(sec);run();toast('换成了「'+best.x.n+'」')})}
+        p.querySelector('.rainswap').addEventListener('click',function(){var R2=getR();R2[oi]={k:o.dataset.k,n:best.x.n,c:best.x.c};try{localStorage.setItem(RK,JSON.stringify(R2))}catch(e){}applyRain(sec);run()})}
       // 周一：博物馆多数闭馆，提醒一下
       function monday(){var inp=document.querySelector('.dpk'),s0=(inp&&inp.value)||art.dataset.start;if(!s0)return;var d0=new Date(s0+'T12:00:00');
         [].slice.call(document.querySelectorAll('.day')).forEach(function(sec,i){var old=sec.querySelector('.mon');if(old)old.remove();[].slice.call(sec.querySelectorAll('.clw')).forEach(function(x){x.remove()});var d=new Date(d0.getTime()+i*864e5);var wk=d.getDay();
@@ -1007,15 +1035,14 @@
       var faqD=null;[].slice.call(document.querySelectorAll('.faq dt')).forEach(function(dt){if(/怎么去/.test(dt.textContent)&&dt.nextElementSibling){faqD=dt.nextElementSibling;if(faqD.dataset.t0==null)faqD.dataset.t0=faqD.textContent}});
       if(o&&!GO.fx){var gn=goNow();if(sp)sp.textContent=sp.dataset.t0.replace(/^[^。]*。/,gn.way+'。');if(faqD)faqD.textContent=gn.way+'。'}
       else{if(sp&&sp.dataset.t0!=null)sp.textContent=sp.dataset.t0;if(faqD&&faqD.dataset.t0!=null)faqD.textContent=faqD.dataset.t0}
-      var sel=goEl.querySelector('.ogsel');if(sel){var st={};try{st=JSON.parse(localStorage.getItem('zouni_pick')||'{}')||{}}catch(e){}var v=st.o==='here'&&st.lat?'here':(o?o.n:'');if(!sel.querySelector('option[value="'+v+'"]'))v='';sel.value=v}}
+      var sel=goEl.querySelector('.ogsel');if(sel){var og_=zOrgGet(),v=og_?og_.k:'';if(!sel.querySelector('option[value="'+v+'"]'))v='';sel.value=v}}
     if(goEl&&GO&&!GO.fx){   // 线路页上改出发地：和首页“替我挑”是同一个全站默认（zouni_pick.o / zouni_org）
       var ogl=document.createElement('li');ogl.className='og';var opts='<option value="">按附近大城市（'+GO.o+'）</option>';
-      try{var st0=JSON.parse(localStorage.getItem('zouni_pick')||'{}')||{};if(st0.o==='here'&&st0.lat)opts+='<option value="here">你这里（定位）</option>'}catch(e){}
+      var og1_=zOrgGet();if(og1_&&og1_.k==='here')opts+='<option value="here">你这里（定位）</option>';
       Object.keys(ZORIG).forEach(function(c){opts+='<option value="'+c+'">'+c+'</option>'});
       ogl.innerHTML='<label>出发地<select class="ogsel" aria-label="出发地">'+opts+'</select></label>';goEl.querySelector('ul').appendChild(ogl);
-      ogl.querySelector('select').addEventListener('change',function(){var v=this.value,st={};try{st=JSON.parse(localStorage.getItem('zouni_pick')||'{}')||{}}catch(e){}
-        if(v==='here'){}else if(v){st.o=v;try{localStorage.setItem('zouni_org',v)}catch(e){}}else{delete st.o;delete st.lat;delete st.lng;try{localStorage.removeItem('zouni_org')}catch(e){}}
-        try{localStorage.setItem('zouni_pick',JSON.stringify(st))}catch(e){}
+      ogl.querySelector('select').addEventListener('change',function(){var v=this.value;
+        if(v==='here'){}else if(v)zOrgSet(v);else zOrgSet('');
         applyGo();if(window.zPriceRefresh)window.zPriceRefresh();document.dispatchEvent(new Event('zouni:origin'));ztrack('线路页·改出发地')});
       applyGo();if(zOrigin()&&window.zPriceRefresh)window.zPriceRefresh()}
     // “带孩子要多停几次”这类只对带老人孩子的人说：首页选了“两个人”“自己或朋友”的，线路页不再出现
@@ -1057,11 +1084,11 @@
           var pl=dep?dep.t:lt,late=(now.getHours()*60+now.getMinutes())-(+pl.slice(0,2)*60+ +pl.slice(3));
           h+='<div class="tvnext"><small>下一站'+(dl>0?' · '+(dl>=60?Math.floor(dl/60)+' 小时 ':'')+(dl%60)+' 分钟后':'')+'</small><b>'+lt+' '+esc(nx.name)+'</b>'+(dep?'<p>'+esc(dep.legRaw||'')+'</p>':'')+navOf(nx)+(late>=10&&window.ZR?'<button type="button" class="tvlate" data-late="'+late+'">晚了 '+(late>=60?Math.floor(late/60)+' 小时 ':'')+(late%60?late%60+' 分钟':'')+'，按现在重排今天</button>':'')+'</div>'}
         h+='<ol class="tvl">'+rows.map(function(r){var t=r.t,past=isT&&/^\d\d:\d\d$/.test(t)&&t<hm&&r!==nx,s=r.hasS;var cls=r.kind==='dep'?'dep':r.kind==='eat'?'eat':r.kind==='stay'?'stay':'see';
-          return'<li class="'+cls+(past?' past':'')+(r===nx?' nx':'')+'"><time>'+t+'</time><div><b>'+esc(r.name)+'</b>'+(s&&cls!=='dep'?'<small>'+esc(r.legRaw.replace(/调整$/,''))+'</small>':cls==='dep'&&s?'<small>'+esc(r.legRaw)+'</small>':'')+'</div>'+(cls!=='dep'?navOf(r):'')+'</li>'}).join('')+'</ol>';
+          return'<li class="'+cls+(past?' past':'')+(r===nx?' nx':'')+'"><time>'+t+'</time><div><b>'+esc(r.name)+'</b>'+(s&&cls!=='dep'?'<small>'+esc(r.legRaw.replace(/(调整|改这站)$/,''))+'</small>':cls==='dep'&&s?'<small>'+esc(r.legRaw)+'</small>':'')+'</div>'+(cls!=='dep'?navOf(r):'')+'</li>'}).join('')+'</ol>';
         var st=sec.querySelector('.stays');if(st){var tg=st.querySelector('li:not(.more) b.tg'),lk=st.querySelector('.bk .btn'),mk=st.querySelector('.mk');h+='<div class="tvbox"><small>今晚住</small><b>'+esc([st.dataset.area||'',(st.querySelector('.sh span:last-child')||{}).textContent||''].filter(Boolean).join(' · '))+(tg?' · '+esc(tg.textContent):'')+'</b>'+(lk?'<a href="'+lk.href+'" target="_blank" rel="nofollow noopener">'+(mk&&mk.classList.contains('on')?'已订 · 看订单':'去订')+' ›</a>':'')+'</div>'}
         var bks=rows.filter(function(r){return r.book});if(bks.length)h+='<div class="tvbox"><small>今天要预约的</small>'+bks.map(function(r){return'<p><b>'+esc(r.name)+'</b>'+(r.bkUrl?' <a href="'+r.bkUrl+'" target="_blank" rel="nofollow noopener">官网预约 ›</a>':r.bkHow?' <span>'+esc(r.bkHow)+'</span>':'')+'</p>'}).join('')+'</div>';
         h+=(secs.length>1?'<p class="tvhint">左右滑动换一天</p>':'')+'</div>';m.innerHTML=h;m.querySelector('.tvx').addEventListener('click',close);
-        var lb=m.querySelector('.tvlate');if(lb)lb.addEventListener('click',function(){window.ZR.shift(sec,+lb.dataset.late);ztrack('晚了重排');toast('按现在重排了，后面的时间都往后挪了');render(i)});[].slice.call(m.querySelectorAll('.tvtabs button')).forEach(function(b){b.addEventListener('click',function(){render(+b.dataset.i)})});
+        var lb=m.querySelector('.tvlate');if(lb)lb.addEventListener('click',function(){window.ZR.shift(sec,+lb.dataset.late);ztrack('晚了重排');render(i)});[].slice.call(m.querySelectorAll('.tvtabs button')).forEach(function(b){b.addEventListener('click',function(){render(+b.dataset.i)})});
         var on=m.querySelector('.tvtabs .on');if(on)on.scrollIntoView({inline:'center',block:'nearest'});var nxe=m.querySelector('.tvl .nx');if(nxe)nxe.scrollIntoView({block:'center'});cur=i;if(window.zSaveDay)window.zSaveDay(i+1)}
       var cur=idx,sx=0,sy=0;   // 左右滑动换一天
       m.addEventListener('touchstart',function(e){var t=e.touches[0];sx=t.clientX;sy=t.clientY},{passive:true});
@@ -1089,9 +1116,9 @@
       ta.addEventListener('click',function(){var m=document.createElement('div');m.className='tv todo';var LT2=ZL.open([m],{kind:'todo',onclose:function(){ta.setAttribute('aria-expanded','false');paint()}});ta.setAttribute('aria-expanded','true');
         function close(){ZL.close(LT2)}
         function render(){var it=items(),dn=it.filter(function(x){return x.done}).length,gs=['往返车票','要准备的','要预约的','住宿'];
-          m.innerHTML='<div class="tvh"><button type="button" class="tvx"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>返回</button></div><div class="tvb"><h2>出发前要办的事</h2><p class="tvd">已办 '+dn+'/'+it.length+(dn===it.length&&it.length?' · 都办好了':'')+'</p><button type="button" class="todoall tvcal"><span>加入日历 · 每天的安排和买票、预约的提醒</span><i>›</i></button>'+gs.map(function(g){var xs=it.filter(function(x){return x.g===g});if(!xs.length)return'';
+          m.innerHTML='<div class="tvh"><button type="button" class="tvx"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>返回</button></div><div class="tvb"><h2>出发前要办的事</h2><p class="tvd">已办 '+dn+'/'+it.length+(dn===it.length&&it.length?' · 都办好了':'')+'</p><button type="button" class="todoall tvcal"><span>加入日历 · 每天的安排和买票、预约的提醒（下载后选“全部添加”）</span><i>›</i></button>'+gs.map(function(g){var xs=it.filter(function(x){return x.g===g});if(!xs.length)return'';
             return'<h3>'+g+'</h3><ul class="tdl">'+xs.map(function(x,k){return'<li class="'+(x.done?'on':'')+'"><button type="button" class="tck" data-g="'+g+'" data-k="'+k+'" aria-label="'+(x.done?'标记没办':'标记办好了')+'"></button><span>'+String(x.t).replace(/</g,'&lt;')+(x.how?'<small>'+x.how+'</small>':'')+'</span>'+(x.link?'<a href="'+x.link+'" target="_blank" rel="nofollow noopener">'+(g==='住宿'?'去订':g==='往返车票'?'去买':'去办')+' ›</a>':'')+'</li>'}).join('')+'</ul>'}).join('')+tipsHtml()+'</div>';
-          m.querySelector('.tvx').addEventListener('click',close);var cb=m.querySelector('.tvcal');if(cb)cb.addEventListener('click',function(){if(window.zIcs)window.zIcs();toast('日历文件好了，打开后选“全部添加”')});[].slice.call(m.querySelectorAll('.tck')).forEach(function(b){b.addEventListener('click',function(){var xs=items().filter(function(x){return x.g===b.dataset.g});xs[+b.dataset.k].tog();setTimeout(render,30)})})}
+          m.querySelector('.tvx').addEventListener('click',close);var cb=m.querySelector('.tvcal');if(cb)cb.addEventListener('click',function(){if(window.zIcs)window.zIcs()});[].slice.call(m.querySelectorAll('.tck')).forEach(function(b){b.addEventListener('click',function(){var xs=items().filter(function(x){return x.g===b.dataset.g});xs[+b.dataset.k].tog();setTimeout(render,30)})})}
         render()})})();
     // 今晚住：看另外两档
     document.querySelectorAll('.stays .tog').forEach(function(b){b.addEventListener('click',function(){var s=b.parentElement;s.classList.toggle('open');b.textContent=s.classList.contains('open')?'收起另外两档':'看另外两档'})});
@@ -1125,7 +1152,7 @@
   function hEsc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
   var TILEC=['#c8432f','#2e5b6b','#4f6233','#5a4a6b','#8a5a2b','#3b5a7a'];
   function hLi(a){var rid=a[0],cl=(window.ZHC&&window.ZHC[a[9]])||'{}',t=a[22],tile=(typeof t==='string'||t===1)?'<a class="tile img" href="/trip/'+rid+'/" tabindex="-1" aria-hidden="true"><img src="/img/'+(t===1?a[19]:t)+'.svg" alt="" loading="lazy"></a>':'<a class="tile" href="/trip/'+rid+'/" tabindex="-1" aria-hidden="true" style="background:'+TILEC[-t-1]+'">'+hEsc(a[25])+'</a>';
-    return'<li data-band="'+a[2]+'" data-ws="'+a[3]+'" data-we="'+a[4]+'" data-os="'+a[5]+'" data-oe="'+a[6]+'" data-img="'+a[7]+'" data-comp="'+a[8]+'" data-clim="'+hEsc(cl)+'"'+(a[10]!==''?' data-lat="'+a[10]+'" data-lng="'+a[11]+'"':'')+' data-hi="'+a[12]+'" data-drv="'+a[13]+'" data-sd="'+a[14]+'" data-ab="'+a[15]+'" data-t="'+hEsc(a[16])+'" data-n="'+a[17]+'" data-pr="'+hEsc(a[18])+'" data-src="/img/'+a[19]+'.svg" data-h="/trip/'+rid+'/" data-tg="'+hEsc(a[23])+'" hidden><span class="num">00</span><div class="tx"><div class="kl"><span class="k">'+hEsc(a[1])+'</span><span class="left">'+(a[24]?'四季都能去':'')+'</span></div><h3><a href="/trip/'+rid+'/">'+hEsc(a[20])+'</a></h3><p>'+hEsc(a[21])+'</p><small>'+a[17]+' 天 · 人均 '+hEsc(a[18])+'<span class="c"></span></small></div>'+tile+'</li>'}
+    return'<li data-band="'+a[2]+'" data-ws="'+a[3]+'" data-we="'+a[4]+'" data-os="'+a[5]+'" data-oe="'+a[6]+'" data-img="'+a[7]+'" data-comp="'+a[8]+'" data-clim="'+hEsc(cl)+'"'+(a[10]!==''?' data-lat="'+a[10]+'" data-lng="'+a[11]+'"':'')+' data-hi="'+a[12]+'" data-drv="'+a[13]+'" data-sd="'+a[14]+'" data-ab="'+a[15]+'" data-t="'+hEsc(a[16])+'" data-n="'+a[17]+'" data-pr="'+hEsc(a[18])+'" data-src="/img/'+a[19]+'.svg" data-h="/trip/'+rid+'/" data-tg="'+hEsc(a[23])+'" hidden><span class="num">00</span><div class="tx"><div class="kl"><span class="k">'+hEsc(a[1])+'</span><span class="left">'+(a[24]?'四季都能去':'')+'</span></div><h3><a href="/trip/'+rid+'/">'+hEsc(a[20])+'</a></h3><p>'+hEsc(a[21])+'</p><small>'+a[17]+' 天 · '+hEsc(a[18])+'/人<span class="c"></span></small></div>'+tile+'</li>'}
   function hLis(rows){var tmp=document.createElement('ol');tmp.innerHTML=rows.map(hLi).join('');return[].slice.call(tmp.children)}
   // ——— 本期：按出发日期和“我有几天”挑；快过季的先放三条，其余有海报的精编线路在前 ———
   var dc=document.querySelector('.dchips');
@@ -1149,7 +1176,7 @@
       dc.querySelectorAll('button').forEach(function(x){x.textContent=x.textContent.replace(/\s*·?\s*\d+$/,'').replace(/\s+\d+$/,'')+(x.dataset.b?' · ':' ')+cnt[x.dataset.b]});
       var k=0,mo=+m.slice(0,2);lis.forEach(function(li){li.hidden=true});
       ord.forEach(function(li){ol.appendChild(li);var ok=!band||li.dataset.band===band;if(!ok)return;k++;li.hidden=k>shown;li.querySelector('.num').textContent=('0'+(k+1)).slice(-2);
-        var lf=li.querySelector('.left');if(lf){lf.className='left'+(li._l<=2?' urgent':'');lf.textContent=li._l<=2?(li._l===0?'今天最后一天':'最后 '+li._l+' 天'):'最好 '+f2(li.dataset.ws)+'–'+f2(li.dataset.we)}
+        var lf=li.querySelector('.left');if(lf){lf.className='left'+(li._l<=2?' urgent':'');lf.textContent=li._l<=2?(li._l===0?'今天最后一天':'最好到 '+f2(li.dataset.we)):'最好 '+f2(li.dataset.ws)+'–'+f2(li.dataset.we)}
         var c=li.querySelector('.c');if(c&&li.dataset.clim){var cl=JSON.parse(li.dataset.clim)[mo];if(cl)c.textContent=' · '+cl[0]+'°/'+cl[1]+'°'}});
       var vis=ord.filter(function(li){return!band||li.dataset.band===band}).length;
       if(mb){var rem=Math.max(0,vis-shown);mb.hidden=rem<=0;mb.textContent='再看 '+Math.min(12,rem)+' 条'+(rem>12?' · 还有 '+(rem-12)+' 条':'')}
@@ -1157,27 +1184,30 @@
       // 封面跟着日期换：挑这天正当季、有海报的第一条，封面图、标题、还剩几天、天数价格、当月气温、翻开链接都换
       var cv=cvp;
       if(cv&&(!today||cv._d)){var img=document.querySelector('.cover img');if(img)img.src=cv.dataset.src;var tt=cv.dataset.t,ci=tt.indexOf('，'),h2=document.querySelector('.cv h2');if(ci>0&&ci<tt.length-1){h2.textContent=tt.slice(0,ci+1);var sp=document.createElement('span');sp.className='nw';sp.textContent=tt.slice(ci+1);h2.appendChild(sp)}else h2.textContent=tt;
-        document.querySelector('.cv .kick').textContent=cv._d?('从'+cv._o+'过去约 '+cv._d+' 公里 · 正当季 · 还剩 '+cv._l+' 天'):('封面故事 · '+f2(md(cur))+' 出发正当季 · 还剩 '+cv._l+' 天');
-        var cl2=JSON.parse(cv.dataset.clim||'{}')[mo]||['',''],chs=document.querySelectorAll('.cv .chips span');if(chs[0])chs[0].textContent=cv.dataset.n+' 天 · 人均 '+cv.dataset.pr;if(chs[1])chs[1].textContent=mo+' 月 '+cl2[0]+'°C / '+cl2[1]+'°C';
+        document.querySelector('.cv .kick').textContent=cv._d?('从'+cv._o+'过去约 '+cv._d+' 公里 · 正当季 · 最好到 '+f2(cv.dataset.we)):('封面故事 · '+f2(md(cur))+' 出发正当季 · 最好到 '+f2(cv.dataset.we));
+        var cl2=JSON.parse(cv.dataset.clim||'{}')[mo]||['',''],chs=document.querySelectorAll('.cv .chips span');if(chs[0])chs[0].textContent=cv.dataset.n+' 天 · '+cv.dataset.pr+'/人';if(chs[1])chs[1].textContent=mo+' 月 '+cl2[0]+'°C / '+cl2[1]+'°C';
         document.querySelector('.cv .go').href=cv.dataset.h}
       document.querySelector('.now .nt').textContent=today?'现在去正好':(f2(md(cur))+' 出发正好去');document.querySelector('.now .ns').textContent=vis+' 条，快过季的先看'}
     document.addEventListener('zouni:origin',function(){show()});
-    dc.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;band=b.dataset.b;shown=PG;saveHS();dc.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});show()});
+    function setBand(b,quiet){band=b;shown=PG;saveHS();window.zBand=band;dc.querySelectorAll('button').forEach(function(x){var on=(x.dataset.b||'')===band;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on?'true':'false')});show();if(!quiet)document.dispatchEvent(new Event('zouni:band'))}
+    document.addEventListener('zouni:bandset',function(){setBand(window.zBandSet||'',true)});   // 向导里选“几天”= 点这一排（同一个状态，只存一份）
+    dc.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;setBand(band===b.dataset.b?'':b.dataset.b)});   // 再点一次选中的 = 取消（没有“全部”按钮）
     // 进了行程再返回：天数筛选、“再看 N 条”展开了多少都还在（只在返回/刷新时恢复，换标签页、新开首页回到默认）
     var HSK='zouni_home_state';function saveHS(){try{sessionStorage.setItem(HSK,JSON.stringify({band:band,shown:shown}))}catch(e){}}
     function navBack(){try{var n=performance.getEntriesByType('navigation')[0];return!n||n.type==='back_forward'||n.type==='reload'}catch(e){return true}}
-    try{var hs0=JSON.parse(sessionStorage.getItem(HSK)||'null');if(hs0&&navBack()){band=/^d[123]$/.test(hs0.band||'')?hs0.band:'';shown=Math.max(PG,Math.min(200,+hs0.shown||PG));[].slice.call(dc.querySelectorAll('button')).forEach(function(x){x.classList.toggle('on',(x.dataset.b||'')===band)})}else sessionStorage.removeItem(HSK)}catch(e){}
+    try{var hs0=JSON.parse(sessionStorage.getItem(HSK)||'null');if(hs0&&navBack()){band=/^d[123]$/.test(hs0.band||'')?hs0.band:'';shown=Math.max(PG,Math.min(200,+hs0.shown||PG));[].slice.call(dc.querySelectorAll('button')).forEach(function(x){var on=(x.dataset.b||'')===band;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on?'true':'false')})}else sessionStorage.removeItem(HSK)}catch(e){}
+    window.zBand=band;
     if(mb)mb.addEventListener('click',function(){shown+=12;saveHS();show()});
     function hlab(v){var d=new Date(v+'T12:00:00');return(v===(hk.dataset.min||hk.min)?'今天 ':'')+(d.getMonth()+1)+'/'+d.getDate()+' 周'+W[d.getDay()]+' 出发'}   // 日期条文字和线路页的“按你选的 M/D 周X 出发”同一个写法
     if(hk){hb.addEventListener('click',function(){openPicker({value:hk.value,min:hk.dataset.min||hk.min,best:null,onPick:function(v){hk.value=v;hk.dispatchEvent(new Event('change'))}})});
-      hk.addEventListener('change',function(){if(!hk.value)return;cur=hk.value;shown=PG;saveHS();try{localStorage.setItem('zouni_home_date',cur);localStorage.setItem('zouni_home_datet',String(Date.now()))}catch(e){}hb.querySelector('b').textContent=hlab(cur);show();document.getElementById('now').scrollIntoView()});
-      try{var h0=localStorage.getItem('zouni_home_date');if(h0&&h0>=(hk.dataset.min||hk.min)){hk.value=h0;cur=h0;hb.querySelector('b').textContent=hlab(h0)}}catch(e){}}
+      hk.addEventListener('change',function(){if(!hk.value)return;cur=hk.value;shown=PG;saveHS();zDateSet(cur);hb.querySelector('b').textContent=hlab(cur);show();document.getElementById('now').scrollIntoView()});
+      try{var h0=zDateGet();if(h0&&h0>=(hk.dataset.min||hk.min)){hk.value=h0;cur=h0;hb.querySelector('b').textContent=hlab(h0)}}catch(e){}}
     show();
     // 过季的那批（只给换日期、“替我挑”用）等首页能点了再取：取到后补进列表、重排一次、通知“替我挑”重算
     (function(){var sb=document.querySelector('script[data-b]');if(!sb||!sb.getAttribute('data-b')){document.documentElement.setAttribute('data-hb','1');return}
       setTimeout(function(){var sc=document.createElement('script');sc.src=sb.getAttribute('data-b');sc.onload=function(){if(window.ZHB){var nl=hLis(window.ZHB);nl.forEach(function(li){ol.appendChild(li)});lis=lis.concat(nl)}document.documentElement.setAttribute('data-hb','1');show();document.dispatchEvent(new Event('zouni:home-data'))};sc.onerror=function(){document.documentElement.setAttribute('data-hb','err')};document.head.appendChild(sc)},0)})()}
   // ——— 路线图点一下放大看（手机上可以拖着看） ———
-  document.querySelectorAll('.hmap').forEach(function(f){var svg=f.querySelector('svg');if(!svg)return;f.setAttribute('role','button');f.setAttribute('tabindex','0');f.title='点一下放大看';
+  document.querySelectorAll('.hmap').forEach(function(f){var svg=f.querySelector('svg');if(!svg)return;if(!f.querySelector('a')){f.setAttribute('role','button');f.setAttribute('tabindex','0')}f.title='点一下放大看';      /* 里面有站名链接的图不当按钮（按钮里套链接读屏进不去）；点图放大照旧 */
     function open(e){if(e.target.closest('a'))return;var m=document.createElement('div');m.className='hmap-zoom';m.innerHTML='<div class="hz-t"><button type="button" class="hz-m" aria-label="缩小">－</button><button type="button" class="hz-p" aria-label="放大">＋</button><button type="button" class="hz-x" aria-label="关闭">×</button></div><div class="hz-b"></div>';m.querySelector('.hz-b').appendChild(svg.cloneNode(true));
       var LM=ZL.open([m],{kind:'zoom'});var b=m.querySelector('.hz-b'),sv=b.querySelector('svg'),z=2;
       function zoom(nz){var cxr=(b.scrollLeft+b.clientWidth/2)/b.scrollWidth,cyr=(b.scrollTop+b.clientHeight/2)/b.scrollHeight;z=Math.max(1,Math.min(4,nz));sv.style.width=(z*100)+'vw';b.scrollLeft=cxr*b.scrollWidth-b.clientWidth/2;b.scrollTop=cyr*b.scrollHeight-b.clientHeight/2;m.querySelector('.hz-m').disabled=z<=1;m.querySelector('.hz-p').disabled=z>=4}
@@ -1189,14 +1219,17 @@
   (function(){var ul=document.querySelector('.trips');if(!ul)return;var lis=[].slice.call(ul.querySelectorAll('li[data-n]'));if(lis.length<7)return;
     var F=[['all','全部',function(){return true}],['s','2–3 天',function(l){return+l.dataset.n<=3}],['m','4–5 天',function(l){var n=+l.dataset.n;return n>=4&&n<=5}],['l','6 天以上',function(l){return+l.dataset.n>=6}],['d','自驾',function(l){return l.dataset.drv==='1'}]];
     var bar=document.createElement('div');bar.className='tf';bar.innerHTML=F.map(function(f,i){var c=lis.filter(f[2]).length;return c?'<button type="button" data-f="'+f[0]+'" class="'+(i?'':'on')+'">'+f[1]+' · '+c+'</button>':''}).join('');ul.parentNode.insertBefore(bar,ul);
-    var SK2='zouni_tf_'+location.pathname;function pick(b){var f=F.filter(function(x){return x[0]===b.dataset.f})[0];lis.forEach(function(l){l.hidden=!f[2](l)});[].slice.call(bar.querySelectorAll('button')).forEach(function(x){x.classList.toggle('on',x===b)});try{sessionStorage.setItem(SK2,b.dataset.f)}catch(e){}}
+    var SK2='zouni_tf_'+location.pathname;function pick(b){var f=F.filter(function(x){return x[0]===b.dataset.f})[0];lis.forEach(function(l){l.hidden=!f[2](l)});[].slice.call(ul.querySelectorAll('li.grp')).forEach(function(g){var n=g.nextElementSibling,any=false;while(n&&!n.classList.contains('grp')){if(!n.hidden&&n.hasAttribute('data-n'))any=true;n=n.nextElementSibling}g.hidden=!any});[].slice.call(bar.querySelectorAll('button')).forEach(function(x){x.classList.toggle('on',x===b)});try{sessionStorage.setItem(SK2,b.dataset.f)}catch(e){}}
     [].slice.call(bar.querySelectorAll('button')).forEach(function(b){b.addEventListener('click',function(){pick(b)})});
     try{var f0=sessionStorage.getItem(SK2),b0=f0&&bar.querySelector('button[data-f="'+f0+'"]');if(b0){pick(b0);b0.scrollIntoView({inline:'center',block:'nearest'})}}catch(e){}   // 进了行程再返回，筛选还在
   })();
   // ——— 首页：替我挑三条（从哪出发、几天、和谁去 → 三条推荐和理由）———
   (function(){var cv0=document.querySelector('.cv');if(!cv0||document.querySelector('.pick'))return;var cv=cv0.closest('.cover')||cv0.closest('section')||cv0;
-    var C={'北京':[39.90,116.40],'上海':[31.23,121.47],'广州':[23.13,113.26],'深圳':[22.54,114.06],'成都':[30.66,104.07],'杭州':[30.27,120.16],'西安':[34.26,108.94],'武汉':[30.59,114.31],'南京':[32.06,118.80],'重庆':[29.56,106.55],'长沙':[28.23,112.94],'兰州':[36.06,103.83],'哈尔滨':[45.80,126.53],'乌鲁木齐':[43.83,87.62],'南宁':[22.82,108.32],'贵阳':[26.65,106.63],'呼和浩特':[40.84,111.75],'银川':[38.49,106.23],'西宁':[36.62,101.78],'海口':[20.04,110.20],'石家庄':[38.04,114.51],'济南':[36.65,117.00],'福州':[26.07,119.30],'南昌':[28.68,115.86],'合肥':[31.82,117.23],'太原':[37.87,112.55],'长春':[43.82,125.32],'大连':[38.91,121.61],'宁波':[29.87,121.54],'郑州':[34.75,113.63],'天津':[39.13,117.20],'苏州':[31.30,120.58],'厦门':[24.48,118.09],'昆明':[25.04,102.71],'沈阳':[41.80,123.43],'青岛':[36.07,120.38],'香港':[22.32,114.17]};
-    var PK='zouni_pick',st={};try{st=JSON.parse(localStorage.getItem(PK)||'{}')}catch(e){}if(!st.o){try{var o0=localStorage.getItem('zouni_org');if(o0&&C[o0])st.o=o0}catch(e){}}
+    var C={};Object.keys(ZORIG).forEach(function(k){C[k]=ZORIG[k]});   // 城市表是全站那一张（ZORIG）
+    var PK='zouni_pick',st={};try{st=JSON.parse(localStorage.getItem(PK)||'{}')||{}}catch(e){}var og0=zOrgGet();st.o=og0?og0.k:'';if(og0&&og0.k==='here'){st.lat=og0.lat;st.lng=og0.lng}   // 出发地在 zouni_org（全站一个）；zouni_pick 只存“和谁去”和“出行”
+    function savePk(){zLSs(PK,JSON.stringify({w:st.w||'',v:st.v||''}))}
+    var BM={d1:'w',d2:'m',d3:'l'},BI={w:'d1',m:'d2',l:'d3'};st.d=BM[window.zBand]||'';   // “几天”只有一份状态：就是下面“现在去正好”那排天数键（向导里点它 = 点那一排）
+    document.addEventListener('zouni:band',function(){st.d=BM[window.zBand]||'';render()});
     var sec=document.createElement('section');sec.className='pick';var anc_=document.querySelector('.chan2')||cv;anc_.parentNode.insertBefore(sec,anc_.nextSibling);
     if(st.o==='here'&&st.lat)C['here']=[st.lat,st.lng];
     function chips(k,arr){return'<div class="pkr" data-k="'+k+'">'+arr.map(function(a){return'<button type="button" data-v="'+a[0]+'" class="'+(st[k]===a[0]?'on':'')+'">'+a[1]+'</button>'}).join('')+'</div>'}
@@ -1224,9 +1257,9 @@
         else if(st.w==='f'){var hard=['徒步','爬山'].filter(hasT);if(hard.length){s+=10;whoWhy='和朋友去：能'+hard[0]+'，玩得尽兴'}else if(hasT('走路多')){s+=6;whoWhy='和朋友去：适合边走边逛，不用赶'}else if(hasT('自驾')){s+=8;whoWhy='和朋友去：可以自驾，路上更自由'}if(hasT('带娃'))s-=10}
         if(st.v==='n'){if(hasT('高铁')||hasT('不开车')){s+=6;whoWhy+=(whoWhy?'；':'')+'不用自己开车'}}
         else if(st.v==='a'&&(hasT('自驾')||li.dataset.drv==='1'))s+=6;
-        var kk=((li.querySelector('.k')||{}).textContent||'').replace(/\s+/g,' ').trim();if(/正当季|最好/.test(kk))s+=12;if(/最后/.test(kk))s+=6;if(li.closest('#drive'))s+=st.d==='l'?10:-5;if(li.dataset.img==='1')s+=3;
+        var kk=((li.querySelector('.k')||{}).textContent||'').replace(/\s+/g,' ').trim();if(/正当季|最好/.test(kk))s+=12;if(/最后/.test(kk))s+=6;if(li.dataset.img==='1')s+=3;
         var on2=st.o==='here'?'你这里':st.o;
-        if(li.dataset.ab==='1')why.push('从'+on2+'飞过去约 '+Math.max(1,Math.round(d/700+1))+' 小时');else if(d<80)why.push('就在'+on2+'附近');else if(d<=300)why.push(on2+'过去直线约 '+d+' 公里，路上至少 '+Math.max(1,Math.ceil(d/110))+' 小时（山区更久）');else if(d<=800)why.push(on2+'过去直线约 '+d+' 公里，路上要大半天');else why.push(on2+'过去直线约 '+d+' 公里，坐飞机最省事');
+        if(li.dataset.ab==='1')why.push('从'+on2+'飞过去约 '+Math.max(1,Math.round(d/700+1))+' 小时');else if(d<80)why.push('就在'+on2+'附近');else if(d<=300)why.push('离'+on2+'约 '+d+' 公里，路上至少 '+Math.max(1,Math.ceil(d/110))+' 小时（山区更久）');else if(d<=800)why.push('离'+on2+'约 '+d+' 公里，路上要大半天');else why.push('离'+on2+'约 '+d+' 公里，坐飞机最省事');
         if(li.dataset.ab==='1'&&st.d==='w')s-=8;
         if(okOnly){s-=15;why.push('现在也能去，不是最好的时候')}
         if(kk)why.push(kk);if(whoWhy)why.push(whoWhy);
@@ -1235,24 +1268,23 @@
     var op=false,NM={d:{w:'周末 2–3 天',m:'4–5 天',l:'一周以上'},w:{f:'自己或朋友',c:'两个人',o:'带老人孩子'}};
     function row(q,k,arr){return'<div class="pkrow"><span class="pkq">'+q+'</span>'+chips(k,arr)+'</div>'}
     function render(){var ready=st.o&&st.d&&st.w,res=ready?pick():[];
-      var sm=ready?(st.o==='here'?'当前位置':st.o)+' · '+NM.d[st.d]+' · '+NM.w[st.w]:'出发地、天数、和谁去';
+      var sm=ready?(st.o==='here'?'当前位置':st.o)+' · '+NM.d[st.d]+' · '+NM.w[st.w]:'选出发地、天数、和谁去';
       sec.className='pick'+(op?' open':'');
-      sec.innerHTML='<button type="button" class="pkh" aria-expanded="'+op+'"><b>替我挑三条</b><small>'+sm+'</small><i>'+(op?'收起':'展开')+'</i></button><div class="pkb"'+(op?'':' hidden')+'>'+row('出发','o',[['here','📍 当前位置']].concat(Object.keys(C).filter(function(c){return c!=='here'}).map(function(c){return[c,c]})))+row('几天','d',[['w','周末 2–3 天'],['m','4–5 天'],['l','一周以上']])+row('和谁','w',[['f','自己或朋友'],['c','两个人'],['o','带老人孩子']])+row('出行<small>可不选</small>','v',[['a','自驾也行'],['n','不开车']])+
+      sec.innerHTML='<button type="button" class="pkh" aria-expanded="'+op+'"><b>替我挑三条行程</b><small>'+sm+'</small><i>'+(op?'收起':'展开')+'</i></button><div class="pkb"'+(op?'':' hidden')+'>'+row('出发','o',[['here','📍 当前位置']].concat(Object.keys(C).filter(function(c){return c!=='here'}).map(function(c){return[c,c]})))+row('几天','d',[['w','周末 2–3 天'],['m','4–5 天'],['l','一周以上']])+row('和谁','w',[['f','自己或朋友'],['c','两个人'],['o','带老人孩子']])+row('出行<small>可不选</small>','v',[['a','自驾也行'],['n','不开车']])+
 (ready?(res.length?'<ol class="pkres">'+res.map(function(x,i){var img=x.li.querySelector('img');return'<li><a href="'+x.href+'"><span class="pkn">'+(i+1)+'</span><div><b>'+x.li.querySelector('h3').textContent+'</b><small>'+x.why+'</small></div>'+(img?'<img src="'+(img.getAttribute('src')||img.dataset.src||'')+'" alt="" loading="lazy">':'')+'</a></li>'}).join('')+'</ol><button type="button" class="pkrs">重选</button>'+(st.d==='w'&&res.length&&res.some(function(x){return x.d>450})?'<p class="pkhint">周末只有两三天：你这边当季的近线不多，这几条是现在最近的。</p>':'')+(res.length<3?'<p class="pkhint">按你选的（出发地、天数、当季、'+(st.w==='o'?'避开极寒、高原、爬坡、':'')+'路程）现在只有 '+res.length+' 条合适的；换个“玩几天”或“和谁去”会多一些。</p>':''):'<p class="pkhint">这个时间没找到合适的，换个天数试试，或者把出发日期往后挪</p>'):'<p class="pkhint">选好三项，马上给你三条</p>')+'</div>';
       sec.querySelector('.pkh').addEventListener('click',function(){op=!op;render();if(op)sec.scrollIntoView({block:'nearest'})});
       var on=op&&sec.querySelector('.pkr[data-k="o"] .on');if(on){var pr=on.parentNode;pr.scrollLeft=on.offsetLeft-pr.clientWidth/2+on.offsetWidth/2}
-      var rs_=sec.querySelector('.pkrs');if(rs_)rs_.addEventListener('click',function(){st.d='';st.w='';st.v='';op=true;try{localStorage.setItem(PK,JSON.stringify(st))}catch(e){}var y=scrollY;render();scrollTo(0,y)});
+      var rs_=sec.querySelector('.pkrs');if(rs_)rs_.addEventListener('click',function(){st.d='';st.w='';st.v='';op=true;savePk();window.zBandSet='';document.dispatchEvent(new Event('zouni:bandset'));var y=scrollY;render();scrollTo(0,y)});
       [].slice.call(sec.querySelectorAll('.pkr button')).forEach(function(b){b.addEventListener('click',function(){var k=b.parentNode.dataset.k;
-          if(k==='o'&&b.dataset.v==='here'){if(!navigator.geolocation){toast('这个浏览器拿不到位置，选个城市吧');return}b.textContent='📍 定位中…';navigator.geolocation.getCurrentPosition(function(p){st.o='here';st.lat=+p.coords.latitude.toFixed(3);st.lng=+p.coords.longitude.toFixed(3);C['here']=[st.lat,st.lng];try{localStorage.setItem(PK,JSON.stringify(st))}catch(e){}var y=scrollY;render();scrollTo(0,y);document.dispatchEvent(new Event('zouni:origin'))},function(){toast('没拿到位置（可能没给定位权限），选个城市吧');b.textContent='📍 当前位置'},{timeout:8000,maximumAge:600000});return}
-          st[k]=b.dataset.v;try{localStorage.setItem(PK,JSON.stringify(st));if(k==='o')localStorage.setItem('zouni_org',b.dataset.v);if(k==='w'){localStorage.setItem('zouni_home_n',({f:'2',c:'2',o:'3'})[b.dataset.v]||'2');localStorage.setItem('zouni_home_nt',String(Date.now()))}}catch(e){}var y=scrollY;render();scrollTo(0,y);if(k==='o')document.dispatchEvent(new Event('zouni:origin'));ztrack('替我挑·'+({o:'出发地',d:'天数',w:'和谁',v:'出行方式'}[k]||k))})})}
+          if(k==='o'&&b.dataset.v==='here'){if(!navigator.geolocation){toast('这个浏览器拿不到位置，选个城市吧');return}b.textContent='📍 定位中…';navigator.geolocation.getCurrentPosition(function(p){st.o='here';st.lat=+p.coords.latitude.toFixed(3);st.lng=+p.coords.longitude.toFixed(3);C['here']=[st.lat,st.lng];zOrgSet('here',st.lat,st.lng);var y=scrollY;render();scrollTo(0,y);document.dispatchEvent(new Event('zouni:origin'))},function(){toast('没拿到位置（可能没给定位权限），选个城市吧');b.textContent='📍 当前位置'},{timeout:8000,maximumAge:600000});return}
+          st[k]=(k!=='o'&&st[k]===b.dataset.v)?'':b.dataset.v;if(k==='d'){window.zBandSet=BI[st.d]||'';document.dispatchEvent(new Event('zouni:bandset'))}   // 再点一次已选的 = 取消（出发地除外）
+          if(k==='o')zOrgSet(b.dataset.v);else savePk();if(k==='w'&&st.w)zLSs('zouni_n',({f:'2',c:'2',o:'3'})[st.w]||'2');var y=scrollY;render();scrollTo(0,y);if(k==='o')document.dispatchEvent(new Event('zouni:origin'));ztrack('替我挑·'+({o:'出发地',d:'天数',w:'和谁',v:'出行方式'}[k]||k))})})}
     document.addEventListener('zouni:home-data',function(){render()});
     render()})();
   // ——— 首页搜索：断网时不跳页（跳过去也是空的），词留在框里，明说“没网，搜不了” ———
   (function(){var f=document.querySelector('form.hsearch');if(!f)return;var msg=null;function off(){if(msg){msg.remove();msg=null}}
     f.addEventListener('submit',function(e){if(navigator.onLine)return;e.preventDefault();var i=f.querySelector('input'),q=(i.value||'').trim();off();msg=document.createElement('p');msg.className='hsmsg';msg.setAttribute('role','status');msg.textContent='没网，搜不了'+(q?'「'+q+'」':'')+'，联网后再搜（你输入的字还在）';f.parentNode.insertBefore(msg,f.nextSibling)});
     window.addEventListener('online',off);f.addEventListener('input',off)})();
-  // ——— 首页“长途和自驾”：再看全部 ———
-  var dm=document.querySelector('.dmore');if(dm)dm.addEventListener('click',function(){var hs=[].slice.call(document.querySelectorAll('#drive .items li[hidden]'));hs.slice(0,12).forEach(function(li){li.hidden=false});var rem=hs.length-12;if(rem<=0)dm.remove();else dm.textContent='再看 '+Math.min(12,rem)+' 条'+(rem>12?' · 还有 '+(rem-12)+' 条':'')});
   // ——— 本期：刊头“我的行程”打开面板，不占首页 ———
   var mb0=document.querySelector('.minebtn');
   if(mb0){var fv0=ld('zouni_fav');if(fv0.length)mb0.querySelector('span').textContent='我的行程 · '+fv0.length;
@@ -1293,20 +1325,21 @@
     var tr_=document.querySelector('.wtr'),tf_=document.querySelector('.wtf'),tmore=false;
     var tripSearch=function(){if(!tr_)return;
       if(!st.q){tr_.hidden=true;if(tf_)tf_.hidden=true;return}
-      if(!window.ZTIDX&&!navigator.onLine){tr_.hidden=false;tr_.querySelector('.rh').textContent='线路 · 没网，搜不了「'+st.q+'」';tr_.querySelector('ul').innerHTML='';tr_.querySelector('.wtm').hidden=true;return}   // 断网：词留着，明说搜不了
-      if(!window.ZTIDX){if(!tripSearch.ld){tripSearch.ld=1;var sc=document.createElement('script');sc.src='/assets/tidx.js';sc.onload=function(){tripSearch()};sc.onerror=function(){tripSearch.ld=0;tr_.hidden=false;tr_.querySelector('.rh').textContent='线路 · 没连上网，搜不了「'+st.q+'」';tr_.querySelector('ul').innerHTML='';tr_.querySelector('.wtm').hidden=true};document.head.appendChild(sc)}return}
+      if(!window.ZTIDX&&!navigator.onLine){tr_.hidden=false;tr_.querySelector('.rh').textContent='行程 · 没网，搜不了「'+st.q+'」';tr_.querySelector('ul').innerHTML='';tr_.querySelector('.wtm').hidden=true;return}   // 断网：词留着，明说搜不了
+      if(!window.ZTIDX){if(!tripSearch.ld){tripSearch.ld=1;var sc=document.createElement('script');sc.src='/assets/tidx.js';sc.onload=function(){tripSearch()};sc.onerror=function(){tripSearch.ld=0;tr_.hidden=false;tr_.querySelector('.rh').textContent='行程 · 没连上网，搜不了「'+st.q+'」';tr_.querySelector('ul').innerHTML='';tr_.querySelector('.wtm').hidden=true};document.head.appendChild(sc)}return}
       var t=st.q.toLowerCase().replace(/[\u3000]/g,' ').split(/\s+/).filter(Boolean),hits=window.ZTIDX.filter(function(x){return t.every(function(k){return x[5].indexOf(k)>=0})});
       // 跟谁走的主题（苏轼、长征…）：名字命中的主题页排在线路前面（ZTFOL 和 ZTIDX 在同一个 tidx.js 里）
-      if(tf_){var th=(window.ZTFOL||[]).filter(function(x){return t.every(function(k){return x[4].indexOf(k)>=0})});tf_.hidden=!th.length;if(th.length){tf_.querySelector('.rh').textContent='跟谁走 · '+th.length+' 个';tf_.querySelector('ul').innerHTML=th.map(function(x){return'<li><a href="/follow/'+x[0]+'/"><b>'+String(x[1]).replace(/</g,'&lt;')+'</b><span>'+x[3]+' 条线路</span></a></li>'}).join('')}}
+      if(tf_){var th=(window.ZTFOL||[]).filter(function(x){return t.every(function(k){return x[4].indexOf(k)>=0})});tf_.hidden=!th.length;if(th.length){tf_.querySelector('.rh').textContent='跟谁走 · '+th.length+' 个';tf_.querySelector('ul').innerHTML=th.map(function(x){return'<li><a href="/follow/'+x[0]+'/"><b>'+String(x[1]).replace(/</g,'&lt;')+'</b><span>'+x[3]+' 条行程</span></a></li>'}).join('')}}
       // 相关度：名字里有（0）> 名字或标题里有（1）> 只在正文里提到（2，收起来，点“再看”才展开）；同一档里短线在前，15 天以上的长线靠后
       hits.forEach(function(x){x._t=t.every(function(k){return String(x[1]).toLowerCase().indexOf(k)>=0})?0:t.every(function(k){return x[4].indexOf(k)>=0})?1:2});
-      hits.sort(function(a,b){return(a._t-b._t)||((a[2]>=15)-(b[2]>=15))||(a[2]-b[2])});
+      var qn_=st.q.replace(/\s+/g,'');hits.forEach(function(x){var nm_=String(x[1]).replace(/\s+/g,'').toLowerCase(),nd_=String(x[4]).split('|')[0].toLowerCase();x._x=(nm_===qn_||nd_===qn_)?0:(nm_.indexOf(qn_)===0||nd_.indexOf(qn_)===0)?1:2});   // 名字和搜的一模一样（“西安 3 天”）排第一，其次是以它开头的
+      hits.sort(function(a,b){return(a._x-b._x)||(a._t-b._t)||((a[2]>=15)-(b[2]>=15))||(a[2]-b[2])});
       tr_.hidden=!hits.length;if(!hits.length)return;
       var core=hits.filter(function(x){return x._t<2}),all_=(core.length&&!tmore)?core:hits,lim=tmore?hits.length:10,ul=tr_.querySelector('ul'),mb=tr_.querySelector('.wtm');
-      tr_.querySelector('.rh').textContent='线路 · '+(core.length&&!tmore?core.length:hits.length)+' 条';
+      tr_.querySelector('.rh').textContent='行程 · '+(core.length&&!tmore?core.length:hits.length)+' 条';
       ul.innerHTML=all_.slice(0,lim).map(function(x){return'<li><a href="/trip/'+x[0]+'/"><b>'+String(x[1]).replace(/</g,'&lt;')+'</b><span>'+x[2]+' 天 · '+x[3]+'</span></a></li>'}).join('');
-      var more_=hits.length-Math.min(all_.length,lim);mb.hidden=more_<=0&&all_.length<=lim;mb.textContent=(core.length&&!tmore&&hits.length>core.length)?'再看 '+(hits.length-Math.min(core.length,lim))+' 条（含只在正文里提到的）':'再看 '+(hits.length-lim)+' 条线路';
-      var shown=document.querySelectorAll('#'+st.tab+' .card:not([hidden])').length;if(!shown)cnt.textContent='目的地里没有「'+st.q+'」，线路里有 '+hits.length+' 条';
+      var more_=hits.length-Math.min(all_.length,lim);mb.hidden=more_<=0&&all_.length<=lim;mb.textContent=(core.length&&!tmore&&hits.length>core.length)?'再看 '+(hits.length-Math.min(core.length,lim))+' 条（含只在正文里提到的）':'再看 '+(hits.length-lim)+' 条行程';
+      var shown=document.querySelectorAll('#'+st.tab+' .card:not([hidden])').length;if(!shown)cnt.textContent='目的地里没有「'+st.q+'」，行程里有 '+hits.length+' 条';
       };
     if(tr_)tr_.querySelector('.wtm').addEventListener('click',function(){tmore=true;tripSearch()});
     var on=mon.querySelector('button.on');if(on)mon.scrollLeft=on.offsetLeft-(mon.clientWidth-on.offsetWidth)/2;
@@ -1319,7 +1352,7 @@
         var v=c.dataset.no==='1'?'暂不排':best.indexOf(m)>=0?'正好':near(best,m)?'也行':'不建议';
         f.textContent=v;f.className='fit'+(v==='正好'?'':v==='也行'?' ok':' no');
         var cl=JSON.parse(c.dataset.clim)[m]||['',''];c.querySelector('.cl').textContent=m+' 月：白天 '+cl[0]+'℃，夜里 '+cl[1]+'℃';
-        if(st.fit&&(v==='不建议'||v==='暂不排'))ok=false;
+        if(st.fit&&!st.q&&(v==='不建议'||v==='暂不排'))ok=false;   // 搜索框里有字：不再按“只看合适的”悄悄滤掉（1 月搜“西藏”不能说没有）
         if(st.d==='d1'&&!days.some(function(d){return d>=1&&d<=3}))ok=false;
         if(st.d==='d2'&&!days.some(function(d){return d>=4&&d<=5}))ok=false;
         if(st.d==='d3'&&!days.some(function(d){return d>=6}))ok=false;
@@ -1339,7 +1372,7 @@
       var gv_=[].slice.call(document.querySelectorAll('#'+st.tab+' .card:not([hidden]) .fit')).filter(function(f){return f.textContent==='正好'}).length;cnt.textContent=(n?('符合的 '+n+' 个'+(gv_&&gv_<n?'（其中 '+gv_+' 个正好）':'')):(st.q?(oth_.length?'这个页签里没找到「'+st.q+'」':'没找到「'+st.q+'」，试试中文名，或者少写几个字'):'没有符合的，点“清空筛选”再看看'))+(oth_.length?'；别的页签还有：'+oth_.join('、'):'');if(!n&&st.q&&!oth_.length)cnt.innerHTML=cnt.innerHTML+' · <a href="/pian/">去跟片走里找</a>';
       var k=(st.tag?1:0)+(st.q?1:0)+(st.d?1:0)+(st.low?1:0)+(st.niche?1:0)+(st.near?1:0)+(st.bud?1:0)+(st.fit?0:1);ft.textContent=(flt.hidden?'筛选':'收起')+(k?' · '+k:'')+(flt.hidden?' ▾':' ▴');ft.classList.toggle('on',k>0||!flt.hidden);clr.hidden=!k;
       if(typeof drawMap==='function')setTimeout(drawMap,0);
-      var og_=flt.querySelector('select.org'),np_=[];if(st.q)np_.push('搜「'+st.q+'」 <button type="button" class="orgx" data-k="q">清除</button>');if(og_&&og_.value)np_.push('已按「'+og_.value+'」出发排序 <button type="button" class="orgx" data-k="o">清除</button>');orgn.hidden=!np_.length;orgn.innerHTML=np_.join(' · ');[].forEach.call(orgn.querySelectorAll('.orgx'),function(b){b.onclick=function(){if(b.dataset.k==='q'){st.q='';inp.value='';apply()}else{og_.value='';og_.dispatchEvent(new Event('change'))}}});
+      var og_=flt.querySelector('select.org'),np_=[];if(st.q)np_.push('搜「'+st.q+'」 <button type="button" class="orgx" data-k="q">清除</button>');if(og_&&og_.value)np_.push('已按「'+(og_.value==='here'?'你这里':og_.value)+'」出发排序 <button type="button" class="orgx" data-k="o">清除</button>');orgn.hidden=!np_.length;orgn.innerHTML=np_.join(' · ');[].forEach.call(orgn.querySelectorAll('.orgx'),function(b){b.onclick=function(){if(b.dataset.k==='q'){st.q='';inp.value='';apply()}else{og_.value='';og_.dispatchEvent(new Event('change'))}}});
       gl.textContent=good.length?(m+' 月正好去 '+good.length+' 个：'+good.slice(0,10).join('、')+(good.length>10?' 等':'')):(m+' 月没有正好去的，看看“也行”的');tmore=false;tripSearch()}
 
     // ——— 走哪儿：地图看（按现在的筛选，正好的黑点、也行的绿点；点名字进目的地） ———
@@ -1383,7 +1416,11 @@
     document.querySelectorAll('.tabs button').forEach(function(b){b.addEventListener('click',function(){st.tab=b.dataset.t;document.querySelectorAll('.tabs button').forEach(function(x){x.classList.toggle('on',x===b)});apply();var sc0=document.querySelector('.wbar');if(sc0&&!mapbox){var y0=sc0.getBoundingClientRect().top+window.scrollY-112;if(window.scrollY>y0)zjump(Math.max(0,y0))}})});
     var ft=document.querySelector('.ftog'),clr=flt.querySelector('.clr');if(clr)flt.insertBefore(clr,flt.firstChild);var orgn=document.createElement('p');orgn.className='orgnote';orgn.hidden=true;gl.parentNode.insertBefore(orgn,gl.nextSibling);ft.addEventListener('click',function(){flt.hidden=!flt.hidden;apply()});
     clr.addEventListener('click',function(){st.q='';st.d='';st.low=false;st.niche=false;st.near=false;st.drive=false;st.bud=0;st.fit=true;st.tag='';inp.value='';flt.querySelectorAll('.row button').forEach(function(b){b.classList.toggle('on',b.dataset.f==='fit')});flt.querySelector('.bud').value='';apply()});
-    inp.addEventListener('input',function(){st.q=inp.value.trim().toLowerCase();apply()});
+    var comp_=false;inp.setAttribute('autocomplete','off');inp.setAttribute('enterkeyhint','search');
+    inp.addEventListener('compositionstart',function(){comp_=true});inp.addEventListener('compositionend',function(){comp_=false;st.q=inp.value.trim().toLowerCase();apply()});   // 拼音输入法组合中不过滤（每个字母都闪一次“没找到”）
+    inp.addEventListener('keydown',function(e){if(e.key==='Enter'||e.keyCode===13)inp.blur()});   // 回车收起键盘，结果才看得见
+    window.addEventListener('pageshow',function(e){if(e.persisted&&inp.value!==st.q){inp.value=st.q||''}});
+    inp.addEventListener('input',function(e){if(comp_||(e&&e.isComposing))return;st.q=inp.value.trim().toLowerCase();apply()});
     flt.querySelectorAll('.row button[data-f]').forEach(function(b){b.addEventListener('click',function(){var f=b.dataset.f;
       if(f==='fit'||f==='low'||f==='niche'||f==='near'||f==='drive'){st[f]=!st[f];b.classList.toggle('on',st[f])}
       else if(f.indexOf('t:')===0){st.tag=st.tag===f.slice(2)?'':f.slice(2);flt.querySelectorAll('[data-f^="t:"]').forEach(function(x){x.classList.toggle('on',x.dataset.f==='t:'+st.tag)})}
@@ -1394,18 +1431,19 @@
       document.querySelectorAll('.tabs button').forEach(function(x){x.classList.toggle('on',x.dataset.t===st.tab)});
       inp.value=st.q||'';bud.value=st.bud?String(st.bud):'';flt.hidden=!sv0.open;
       flt.querySelectorAll('.row button[data-f]').forEach(function(b){var f=b.dataset.f;b.classList.toggle('on',(f==='fit'||f==='low'||f==='niche'||f==='near'||f==='drive')?!!st[f]:f.indexOf('t:')===0?'t:'+st.tag===f:st.d===f)})}}catch(e){}
-    var ORG={'北京':[39.9,116.4],'上海':[31.23,121.47],'广州':[23.13,113.26],'深圳':[22.54,114.06],'杭州':[30.27,120.16],'南京':[32.06,118.8],'成都':[30.66,104.06],'重庆':[29.56,106.55],'武汉':[30.59,114.3],'西安':[34.34,108.94],'香港':[22.3,114.17]};
+    inp.value=st.q||'';   // 浏览器返回时会把输入框的旧字还原，页面自己的筛选状态是空的：以页面状态为准
+    var ORG={};Object.keys(ZORIG).forEach(function(k){ORG[k]=ZORIG[k]});var oh_=zOrgGet();if(oh_&&oh_.k==='here')ORG.here=[oh_.lat,oh_.lng];   // 城市表是全站那一张（ZORIG）；出发地是全站一个键 zouni_org
     function km(a,b){var r=Math.PI/180,dl=(b[1]-a[1])*r,p1=a[0]*r,p2=b[0]*r,h=Math.sin((p2-p1)/2)*Math.sin((p2-p1)/2)+Math.cos(p1)*Math.cos(p2)*Math.sin(dl/2)*Math.sin(dl/2);return Math.round(2*6371*Math.asin(Math.sqrt(h)))}
-    var sel=flt.querySelector('select.org'),nearB=flt.querySelector('[data-f="near"]');
-    function origin(o){try{localStorage.setItem('zouni_org',o)}catch(e){}nearB.hidden=!o;if(!o){st.near=false;nearB.classList.remove('on')}
-      document.querySelectorAll('.cards').forEach(function(ul){var cs=[].slice.call(ul.children);cs.forEach(function(c){var d=o?km(ORG[o],[+c.dataset.lat,+c.dataset.lng]):null,p=c.querySelector('.dist');c.dataset.km=d==null?'':d;p.hidden=d==null;if(d!=null)p.textContent=d<30?'就在'+o:'离'+o+' '+d.toLocaleString('en-US')+' 公里'+(d<=500?' · 周末能去':'')});
+    var sel=flt.querySelector('select.org'),nearB=flt.querySelector('[data-f="near"]');[].slice.call(sel.querySelectorAll('option')).forEach(function(x){if(x.value)x.remove()});(ORG.here?['here']:[]).concat(Object.keys(ZORIG)).forEach(function(c){var op_=document.createElement('option');op_.value=c;op_.textContent=c==='here'?'你这里（定位）':c;sel.appendChild(op_)});
+    function origin(o){var on_=o==='here'?'你这里':o;if(o&&ORG[o])zOrgSet(o,ORG[o][0],ORG[o][1]);else if(!o)zOrgSet('');nearB.hidden=!o;if(!o){st.near=false;nearB.classList.remove('on')}
+      document.querySelectorAll('.cards').forEach(function(ul){var cs=[].slice.call(ul.children);cs.forEach(function(c){var d=o?km(ORG[o],[+c.dataset.lat,+c.dataset.lng]):null,p=c.querySelector('.dist');c.dataset.km=d==null?'':d;p.hidden=d==null;if(d!=null)p.textContent=d<30?'就在'+on_:'离'+on_+' '+d.toLocaleString('en-US')+' 公里'+(d<=500?' · 周末能去':'')});
         if(o)cs.sort(function(a,b){return(+a.dataset.km)-(+b.dataset.km)}).forEach(function(c){ul.appendChild(c)})});
       document.querySelectorAll('.scope').forEach(function(sc){var regs=[].slice.call(sc.querySelectorAll('.reg'));regs.forEach(function(r,i){if(r.dataset.i==null)r.dataset.i=i;r.dataset.min=o?Math.min.apply(null,[].map.call(r.querySelectorAll('.card'),function(c){return +c.dataset.km})):r.dataset.i});
         regs.sort(function(a,b){return(+a.dataset.min)-(+b.dataset.min)}).forEach(function(r){sc.appendChild(r)})});apply()}
     sel.addEventListener('change',function(){origin(sel.value)});
-    try{var o0=localStorage.getItem('zouni_org');if(o0&&ORG[o0]){sel.value=o0;origin(o0)}}catch(e){}
+    try{var o0=oh_?oh_.k:(zOrgGet()||{}).k;if(o0&&ORG[o0]){sel.value=o0;origin(o0)}}catch(e){}
     try{if(new URLSearchParams(location.search).get('f')==='drive'){st.drive=true;st.fit=false;flt.hidden=false;var fb=flt.querySelector('[data-f="drive"]');if(fb)fb.classList.add('on');flt.querySelectorAll('[data-f="fit"]').forEach(function(b){b.classList.remove('on')})}}catch(e){}
-    try{var q0=new URLSearchParams(location.search).get('q');if(q0){st.q=q0.trim().toLowerCase();st.fit=false;inp.value=q0;flt.querySelectorAll('[data-f="fit"]').forEach(function(b){b.classList.remove('on')})}}catch(e){}
+    try{var q0=new URLSearchParams(location.search).get('q');if(q0){st.q=q0.trim().toLowerCase();st.fit=false;st.map=false;inp.value=q0;flt.querySelectorAll('[data-f="fit"]').forEach(function(b){b.classList.remove('on')})}}catch(e){}
     apply();if(st.map&&mt)mt.click();if(st.q&&location.search.indexOf('q=')>=0){   // 搜索落地：只跳一次，落在“搜「xx」· 符合的 N 个”这一行（吸顶栏下面），结果在它下面；线路索引晚到也只往下长，不会把落点顶走
       var moved=false;['touchstart','wheel','keydown'].forEach(function(ev){window.addEventListener(ev,function(){moved=true},{passive:true,once:true})});
       var land=function(){var a=document.querySelector('.orgnote:not([hidden])')||cnt,sk=document.querySelector('.stick');if(!a)return;zjump(Math.max(0,a.getBoundingClientRect().top+(window.pageYOffset||0)-(sk?sk.offsetHeight:0)-10))};
@@ -1449,7 +1487,7 @@
     [0,300,900,2200].forEach(function(t){setTimeout(function(){if(t===0||window.scrollY<5)go()},t)});
   }
 })();
-  // ——— 路线地图入口（2026-10-18 地图 App 化）：“看路线图”和每天的“本日地图”都一步直达整屏地图——覆盖整个视口的一层，返回键 / 左上“×”关闭，关闭后回到原来的位置；页面里不再放可拖动的内嵌地图。
+  // ——— 路线地图入口（2026-10-18 地图 App 化）：“看地图”和每天的“本日地图”都一步直达整屏地图——覆盖整个视口的一层，返回键 / 左上“×”关闭，关闭后回到原来的位置；页面里不再放可拖动的内嵌地图。
   //     点开的瞬间先放一个“起步壳”（示意图 + 线路 + 半屏面板框，不等任何网络；和接手它的 routemap.js 用同一套摄像机数学，接手前后位置一模一样），
   //     同一时刻并行去取 routemap.js、街道底图脚本和样式；空闲时（4g / wifi、没开省流量）先把 routemap.js 预取进缓存，点开更快。———
   (function(){try{var art=document.querySelector('article.trip');if(!art)return;
@@ -1514,7 +1552,7 @@
       if(b.classList.contains('rm-nb')){load(function(R){if(!R){toast('地图没加载出来，请检查网络后再点一次');return}R.nav(s)});return}
       start(s)});
     var ov=document.querySelector('.overview'),hm=ov&&ov.querySelector('.hmap');if(!ov||ov.querySelector('.mapgo')||(!hm&&art.querySelectorAll('.tl > .r[data-ll]').length<2))return;
-    var go=document.createElement('button');go.type='button';go.className='mapgo';go.setAttribute('aria-haspopup','dialog');go.setAttribute('aria-expanded','false');if(window.MutationObserver)new MutationObserver(function(){go.setAttribute('aria-expanded',document.body.classList.contains('rmap-on')?'true':'false')}).observe(document.body,{attributes:true,attributeFilter:['class']});go.innerHTML='<span>看路线图</span><i>›</i>';      // 第一屏的入口：一步直达整屏地图
+    var go=document.createElement('button');go.type='button';go.className='mapgo';go.setAttribute('aria-haspopup','dialog');go.setAttribute('aria-expanded','false');if(window.MutationObserver)new MutationObserver(function(){go.setAttribute('aria-expanded',document.body.classList.contains('rmap-on')?'true':'false')}).observe(document.body,{attributes:true,attributeFilter:['class']});go.innerHTML='<span>看地图</span><i>›</i>';      // 第一屏的入口：一步直达整屏地图
     go.addEventListener('click',function(){start(null)});
     var dn=art.querySelector('.dnote'),gl=art.querySelector('.glance'),ppl=art.querySelector('.ppl'),ah=dn||ppl||gl;if(ah&&ah.parentNode)ah.parentNode.insertBefore(go,ah.nextSibling);
     // 空闲预取：页面载完又闲了几秒，且是 4g / wifi、没开省流量，才把 routemap.js（小）预取进缓存；确定是 4g / wifi 才连 maplibre 和样式一起取。弱网 / 省流量 / 不确定的一概不动（点开时现取）
@@ -1623,12 +1661,13 @@ try{if(window.performance&&performance.mark)performance.mark('zouni:ready')}catc
     (function(){
       var t=q.split(/\s+/).filter(Boolean),all=function(x){return t.every(function(k){return x.indexOf(k)>=0})},out=[];
       var th=(window.ZTFOL||[]).filter(function(x){return all(x[4])}).sort(function(a,b){return(String(a[1]).toLowerCase().indexOf(t[0])!==0)-(String(b[1]).toLowerCase().indexOf(t[0])!==0)});
-      th.slice(0,3).forEach(function(x){out.push(['/follow/'+x[0]+'/',x[1],'人物和事件 · '+x[3]+' 条线路'])});
+      th.slice(0,3).forEach(function(x){out.push(['/follow/'+x[0]+'/',x[1],'跟谁走 · '+x[3]+' 条行程'])});
       (window.ZTDEST||[]).filter(function(x){return all(x[2])}).slice(0,2).forEach(function(x){out.push(['/d/'+x[0]+'/',x[1],'目的地'])});
-      var hits=(window.ZTIDX||[]).filter(function(x){return all(x[4])}).sort(function(a,b){return(a[2]>=15)-(b[2]>=15)||(a[2]-b[2])});
+      var qn=t.join(''),rk=function(x){var nm=String(x[1]).toLowerCase().replace(/\s+/g,'');return nm===qn?0:nm.indexOf(qn)===0?1:nm.indexOf(qn)>=0?2:3};   // 名字一模一样 > 以它开头 > 名字里有 > 只在标题里；同档里短线在前、长线靠后
+      var hits=(window.ZTIDX||[]).filter(function(x){return all(x[4])}).sort(function(a,b){return(rk(a)-rk(b))||(a[2]>=15)-(b[2]>=15)||(a[2]-b[2])});
       hits.forEach(function(x){out.push(['/trip/'+x[0]+'/',x[1],x[2]+' 天 · '+x[3]])});
-      out=out.slice(0,5);ul.innerHTML=out.map(function(o){return'<li><a href="'+o[0]+'"><b>'+esc(o[1])+'</b><span>'+esc(o[2])+'</span></a></li>'}).join('');ul.hidden=!out.length})()}
-  inp.addEventListener('input',show);inp.addEventListener('focus',function(){if((inp.value||'').trim())show()});
+      out=out.slice(0,5);ul.innerHTML=out.map(function(o){return'<li><a href="'+o[0]+'"><b>'+esc(o[1])+'</b><span>'+esc(o[2])+'</span></a></li>'}).join('')+'<li class="hall"><a href="/where/?q='+encodeURIComponent(inp.value.trim())+'"><b>搜全部「'+esc(inp.value.trim())+'」</b><span>›</span></a></li>';ul.hidden=false})()}   // 末尾固定一行“搜全部”：没有命中时不再是一片空白
+  inp.addEventListener('input',function(e){if(e&&e.isComposing)return;show()});inp.addEventListener('compositionend',show);inp.addEventListener('focus',function(){if((inp.value||'').trim())show()});
   document.addEventListener('click',function(e){if(!f.contains(e.target)&&!ul.contains(e.target))ul.hidden=true});
 })();
 
@@ -1637,3 +1676,7 @@ try{if(window.performance&&performance.mark)performance.mark('zouni:ready')}catc
   var dk=document.querySelector('.dock'),gl=document.querySelector('article.trip .glance');if(!dk||!gl||!window.IntersectionObserver)return;
   try{new IntersectionObserver(function(es){es.forEach(function(e){dk.classList.toggle('dmin',e.isIntersecting)})},{threshold:0}).observe(gl)}catch(e){}
 })();
+// ——— 跟片走：点“省名”跳转时，把那个省的折叠展开 ———
+(function(){function op(){var h=location.hash;if(h.length<2)return;var el=document.getElementById(h.slice(1));if(el&&el.tagName==='DETAILS'&&el.classList.contains('pvd'))el.open=true}
+  window.addEventListener('hashchange',op);op();
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('.chan .jump a');if(!a)return;var id=(a.getAttribute('href')||'').slice(1),el=id&&document.getElementById(id);if(el&&el.tagName==='DETAILS')el.open=true})})();

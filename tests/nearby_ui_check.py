@@ -501,7 +501,7 @@ with sync_playwright() as p:
         d3head = pg.evaluate("document.querySelector('#d3 header small').textContent")
         check('闭馆：出发日默认（第 3 天不是周一）时，周一闭馆的“总统府”能出现在候选里', '总统府' in names and '周一' not in d3head, (names, d3head))      # 2026-10-19：默认出发日变了（没有季节限制的线取明天起最近的合理日），不再钉“周日”，只要第 3 天不是周一
         close_pk(pg)
-        pg.evaluate("localStorage.setItem('zouni_start_nj3','2027-10-16')"); pg.reload(wait_until='networkidle'); pg.wait_for_timeout(800)
+        pg.evaluate("localStorage.setItem('zouni_date','2027-10-16')"); pg.reload(wait_until='networkidle'); pg.wait_for_timeout(800)
         d3head = pg.evaluate("document.querySelector('#d3 header small').textContent")
         cands = pick_list(pg, 3, '南京博物院', 'rep')
         names = [x['n'] for x in cands or []]

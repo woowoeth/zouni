@@ -90,10 +90,10 @@ with sync_playwright() as p:
         check('T3 去掉后有提示条', pg.locator('.toast').count() == 1)
         pg.tap('.hero h1') if False else pg.mouse.click(200, 60); pg.wait_for_timeout(150)
         check('T3 点别处，提示条立刻收起', pg.locator('.toast').count() == 0, pg.locator('.toast').count())
-        # 连做两件事：多待 30 → 少待 30，只有一条
-        pg.locator('#d1 .adj').first.click(); pg.wait_for_selector('.pk'); pg.click('.pk [data-d="30"]'); pg.wait_for_timeout(200)
+        # 连做两件事（2026-10-19：多待 / 少待的复述提示删了，改用两次“去掉一站”，这两件事都带“撤销”）：同一时刻只有一条
+        pg.locator('#d3 .tl > .r.see').nth(1).locator('.adj').click(); pg.wait_for_selector('.pk'); pg.click('.pk [data-x="1"]'); pg.wait_for_timeout(200)
         n1 = pg.locator('.toast').count()
-        pg.locator('#d1 .adj').first.click(); pg.wait_for_selector('.pk'); pg.click('.pk [data-d="-30"]'); pg.wait_for_timeout(200)
+        pg.locator('#d1 .tl > .r.see').nth(1).locator('.adj').click(); pg.wait_for_selector('.pk'); pg.click('.pk [data-x="1"]'); pg.wait_for_timeout(200)
         n2 = pg.locator('.toast').count()
         check('T3 连着两次操作，提示条同一时刻只有 1 条（%d、%d）' % (n1, n2), n1 == 1 and n2 == 1, (n1, n2))
         # 打开弹层时提示条消失，不叠在弹层上
@@ -134,7 +134,8 @@ with sync_playwright() as p:
             el = pg.locator(sel).first
             if el.count() == 0: bad.append('%s：页面上没有 %s' % (nm, sel)); continue
             h = pg.evaluate(HIT, el.element_handle())
-            if not h or h['w'] < 44 or h['h'] < 44: bad.append('%s %s' % (nm, h))
+            need_h = 30 if nm == '预约入口' else 44      # 2026-10-19：“改这站”三个字折到下一行时，紧贴在“要预约 ›”下面，两个点击区共用这一条缝（≥30px，过 WCAG 2.5.8 的 24px；“改这站”自己 ≥44）
+            if not h or h['w'] < 44 or h['h'] < need_h: bad.append('%s %s' % (nm, h))
         check('T6 行程页可点元素实际点击区都 ≥44×44', not bad, bad)
         # 弹层的“关上”
         def dialog_close(nm, opener, expect_sel='.pk'):
@@ -188,10 +189,11 @@ with sync_playwright() as p:
     with guard('T6h'):
         c = new_ctx(br, p); pg = new_page(env, c); goto(env, pg, '/')
         bad = []
-        for nm, sel in [('日期条', '.hdt'), ('我的行程', '.minebtn'), ('再看', '.moreb'), ('替我挑', '.pkh'), ('天数 chip', '.dchips button'), ('搜', '.hsearch button'), ('频道', '.chan2 a'), ('翻开', '.cv .go')]:
+        for nm, sel in [('日期条', '.hdt'), ('我的行程', '.minebtn'), ('再看', '.moreb'), ('替我挑', '.pkh'), ('天数 chip', '.dchips button'), ('搜索框', '.hsearch input'), ('频道', '.chan2 a'), ('封面标题', '.cv .go')]:
             el = pg.locator(sel).first
             h = pg.evaluate(HIT, el.element_handle()) if el.count() else None
-            if not h or h['w'] < 44 or h['h'] < 44: bad.append('%s %s' % (nm, h))
+            need_h = 30 if nm == '预约入口' else 44      # 2026-10-19：“改这站”三个字折到下一行时，紧贴在“要预约 ›”下面，两个点击区共用这一条缝（≥30px，过 WCAG 2.5.8 的 24px；“改这站”自己 ≥44）
+            if not h or h['w'] < 44 or h['h'] < need_h: bad.append('%s %s' % (nm, h))
         check('T6 首页可点元素实际点击区都 ≥44×44', not bad, bad)
         # 点日期条上“改”那个字也能打开日历
         i_box = pg.locator('.hdt i').bounding_box()

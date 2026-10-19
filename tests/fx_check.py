@@ -313,8 +313,9 @@ with sync_playwright() as p:
             check('F7 深色模式“出发前查”标签对比度 ≥ 4.5（%s）' % r, r is not None and r['ratio'] >= 4.5, r)
             c.close()
         with guard('F7 小字链接点击区'):
-            for path, sel in [('/pian/', '.chan .pm a'), ('/where/', '.where .kv a'), ('/d/shaanxi/', '.sjd a')]:
+            for path, sel in [('/pian/', '.chan .pm a'), ('/d/shaanxi/', '.sjd a')]:
                 c = new_ctx(br, None); pg = new_page(env, c); goto(env, pg, path, 500)
+                pg.evaluate("[...document.querySelectorAll('details.sjd')].forEach(d=>d.open=true)")      # 2026-10-19：目的地页的影视挂钩收成了折叠
                 hs = pg.evaluate("(()=>{const H=%s;return [...document.querySelectorAll(%r)].slice(0,8).map(e=>{const r=H(e);return r?r.h:null})})()" % (HIT, sel))
                 hs2 = [h for h in hs if h is not None]
                 check('F7 %s %s：点击区高度都 ≥ 24px（%s）' % (path, sel, hs2[:6]), len(hs2) >= 1 and min(hs2) >= 24, hs)

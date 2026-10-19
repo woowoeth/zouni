@@ -206,7 +206,8 @@ def render_points(pts, title, home=None, dots=(), W=390, H=300, uid='d'):
                 break
             if done: break
         if not done: unl.append((href, nm))
-    o.append(f'<text x="12" y="{H - 12}" font-family="Noto Sans SC,sans-serif" font-size="10" fill="#5d5f59" paint-order="stroke" stroke="#f6f3ec" stroke-width="3">红圈是排好的线路（点名字进去），小黑点是 5A 和世界遗产</text>')
+    _dl = '，小黑点是 5A 和世界遗产' if dots else ''
+    o.append(f'<text x="12" y="{H - 12}" font-family="Noto Sans SC,sans-serif" font-size="10" fill="#5d5f59" paint-order="stroke" stroke="#f6f3ec" stroke-width="3">红圈是排好的线路（点名字进去）{_dl}</text>')      # 没有黑点的页面不写黑点（2026-10-19）
     o.append(f'<g transform="translate({W - 20},26)"><path d="M0,-11 L5,5 L0,1.5 L-5,5 Z" fill="#2b2c28"/><text x="0" y="-14" text-anchor="middle" font-family="Noto Sans SC,sans-serif" font-size="9" font-weight="700" fill="#2b2c28">北</text></g></svg>')
     return ''.join(o), unl
 

@@ -26,6 +26,8 @@ run less_is_more     python3 tests/less_is_more_check.py "$SITE"
 run detail_simplify  python3 tests/detail_simplify_check.py "$SITE"      # 2026-10-18 详情页与弹层“少就是多”：层栈 / 关闭入口 / 下滑关层 / 页头去重 / 12 个任务步数 / 顺路覆盖率（S1–S14）
 run day_model        python3 tests/day_model_check.py "$SITE"      # 2026-10-18 当天模型 ZD：面板 = 页面同一份行程 / 两个方向同步 / 数字一个算法 / 联动 / 按天看·复制·日历同源（D1–D10）
 run fx               python3 tests/fx_check.py "$SITE"      # 2026-10-19 可用性审计第一轮：加站入口先算候选 / 路上口径 / 改完页面一致 / 加一天已排过 / 默认出发日 / g318 / 焦点与 aria / 营地日（F1–F8）
+run wave2            python3 tests/wave2_check.py "$SITE"      # 2026-10-19 去冗余波：首页 / where / 出发地·人数·日期一个键 / 目的地页 / 跟片走 / toast / 样板行 / 术语 / 输入 / 可访问性 / 重复线路（每项有 --inject 反向自检）
+run title            python3 tests/title_check.py      # 标题不得以“N天(…)”开头、同一目的地 label 不重名；python3 tests/title_check.py --selftest 反向自检
 run slow3g           python3 tests/slow3g_check.py "$SITE"
 # 首页“替我挑”666 组矩阵：改动前的站上乌鲁木齐周末/4–5 天距离中位数就超限（当季近线少，数据问题，不是代码），所以只对“新增失败”红
 echo "═══ home_matrix"; python3 tests/home_matrix_run.py "$SITE" > /tmp/zouni_check_home_matrix.log 2>&1; tail -4 /tmp/zouni_check_home_matrix.log

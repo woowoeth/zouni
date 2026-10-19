@@ -128,10 +128,12 @@ with sync_playwright() as p:
     # B：天数
     dts = R(pg, '.now .datebar')
     check('B 出发日期条在“现在去正好”里（不再压在封面上）', dts is not None and R(pg, '#now')['t'] <= dts['t'] <= R(pg, '.now .items')['t'])
-    pg.click('.dchips button[data-b="d1"]'); pg.wait_for_timeout(200)
+    if pg.evaluate("document.querySelector('.dchips button[data-b=\"d1\"]').classList.contains('on')"): pg.click('.dchips button[data-b="d1"]'); pg.wait_for_timeout(150)      # 2026-10-19：向导里选了“周末”已经点亮了这个键（同一个状态）：先取消再点，让“再看”展开的条数复位
+    pg.click('.dchips button[data-b="d1"]')
+    pg.wait_for_timeout(200)
     onlyd1 = pg.evaluate("[...document.querySelectorAll('.now .items li')].filter(l=>!l.hidden).every(l=>l.dataset.band==='d1')")
     check('B 点“周末 2–3 天”只剩周末的卡', onlyd1 and vis() == 8, str(vis()))
-    pg.click('.dchips button[data-b=""]')
+    pg.click('.dchips button[data-b="d1"]')      # 2026-10-19：没有“全部”键了，再点一次选中的就取消
     # C：搜索提交
     pg.fill('.hsearch input', '敦煌'); pg.press('.hsearch input', 'Enter'); pg.wait_for_url(re.compile(r'/where/\?q='), timeout=8000)
     check('C 搜“敦煌”跳到 /where/?q=', 'q=' in pg.url, pg.url)

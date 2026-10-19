@@ -31,6 +31,8 @@ INJ = {
     'search_jump': ('assets/site.js', ["setTimeout(land,60);", "if(!moved)land()"], ["setTimeout(function(){zjump(Math.max(0,((document.querySelector('.wtr')||cnt).getBoundingClientRect().top+(window.pageYOffset||0))-130))},60);", "0"]),   # 又落在线路块上（字体就绪后的校正也拿掉）
     'mine_nodate': ('assets/site.js', "var when='<small class=\"mw\">'+esc(zWhen(x))+'</small>';", "var when='';"),                                           # 我的行程不写日期
 }
+# 2026-10-19：出发地在 zouni_org（全站一个键）、“几天”是首页天数键的状态（sessionStorage 里的 zouni_home_state.band，刷新会恢复）、zouni_pick 只剩 {w, v}
+SEED_PICK = """(st)=>{localStorage.setItem('zouni_org',st.o);localStorage.setItem('zouni_pick',JSON.stringify({w:st.w,v:st.v}));sessionStorage.setItem('zouni_home_state',JSON.stringify({band:{w:'d1',m:'d2',l:'d3'}[st.d],shown:8}))}"""
 env = Env(INJ)
 check, guard = env.check, env.guard
 
@@ -76,7 +78,7 @@ with sync_playwright() as p:
         goto(env, pg, '/'); home_ready(pg)
         meta = pg.evaluate("Object.fromEntries([...document.querySelectorAll('.toc .items li')].map(l=>[l.getAttribute('data-h'),{hi:l.dataset.hi,ab:l.dataset.ab,sd:l.dataset.sd,tg:l.dataset.tg||''}]))")
         for o, d, w, v in itertools.product(ORG, 'wml', 'fco', 'an'):
-            pg.evaluate("(st)=>{localStorage.setItem('zouni_pick',JSON.stringify(st))}", {'o': o, 'd': d, 'w': w, 'v': v})
+            pg.evaluate(SEED_PICK, {'o': o, 'd': d, 'w': w, 'v': v})
             pg.reload(wait_until='networkidle'); home_ready(pg)
             pg.click('.pkh'); pg.wait_for_timeout(120)
             res[(o, d, w, v)] = tops(pg)
@@ -111,7 +113,7 @@ with sync_playwright() as p:
         check('H1 “两个人”前三条和“自己或朋友”不同的占比 ≥ 40%%（%d/%d）' % (d2, t2), t2 and d2 >= 0.4 * t2, (d2, t2))
         check('H1 “不开车”前三条和“自驾也行”不同的占比 ≥ 25%%（%d/%d）' % (dv, tot_v), tot_v and dv >= 0.25 * tot_v, (dv, tot_v))
         # 截图：成都 周末 带老人孩子
-        pg.evaluate("(st)=>{localStorage.setItem('zouni_pick',JSON.stringify(st))}", {'o': '成都', 'd': 'w', 'w': 'o', 'v': 'a'}); pg.reload(wait_until='networkidle'); home_ready(pg); pg.click('.pkh'); pg.wait_for_timeout(300)
+        pg.evaluate(SEED_PICK, {'o': '成都', 'd': 'w', 'w': 'o', 'v': 'a'}); pg.reload(wait_until='networkidle'); home_ready(pg); pg.click('.pkh'); pg.wait_for_timeout(300)
         if env.shots: pg.locator('.pick').screenshot(path=os.path.join(env.shots, 'H1_pick_old.png'))
         c.close()
 
@@ -153,7 +155,7 @@ with sync_playwright() as p:
     with guard('H4'):
         c = new_ctx(br, p); pg = new_page(env, c)
         goto(env, pg, '/'); home_ready(pg)
-        pg.fill('.hsearch input', '土楼'); pg.click('.hsearch button'); pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(1500)
+        pg.fill('.hsearch input', '土楼'); pg.press('.hsearch input', 'Enter'); pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(1500)
         check('H4 从首页提交后到了 /where/?q=…', '/where/' in pg.url and 'q=' in pg.url, pg.url)
         d = pg.evaluate("(()=>{const a=document.querySelector('.orgnote:not([hidden])')||document.querySelector('.cnt'),s=document.querySelector('.stick');return {a:a.getBoundingClientRect().top,s:s?s.getBoundingClientRect().bottom:0,sy:scrollY,t:a.innerText}})()")
         gap = d['a'] - d['s']
@@ -194,7 +196,7 @@ with sync_playwright() as p:
         goto(env, pg, '/'); pg.click('.minebtn'); pg.wait_for_selector('.pk'); pg.wait_for_timeout(200)
         rows = pg.evaluate("[...document.querySelectorAll('.pk .mrw')].map(r=>({t:r.innerText.replace(/\\n+/g,' | '),href:r.querySelector('a').getAttribute('href'),open:(r.querySelector('.mo')||{}).innerText}))")
         check('H5 我的行程每行写“N 天”（%s）' % rows[0]['t'], re.search(r'3\s*天', rows[0]['t']) and re.search(r'4\s*天', rows[1]['t']), rows)
-        check('H5 每行写出发日期和还有几天（存过建议日期的写“建议 M/D 周X 出发 · 还有 N 天”，存过自己日期的不写“建议”）', ('建议' in rows[0]['t'] and re.search(r'\d+/\d+ 周. 出发 · 还有 20 天', rows[0]['t'])) and (re.search(r'4 天 · \d+/\d+ 周. 出发 · 还有 45 天', rows[1]['t']) and '建议' not in rows[1]['t']), rows)
+        check('H5 每行写出发日期和还有几天（2026-10-19 起日期全站一个：tk4 存的自己日期成了全站日期，两行都写同一天、都不写“建议”）', all(re.search(r'\d+ 天 · \d+/\d+ 周. 出发 · 还有 45 天', r['t']) and '建议' not in r['t'] for r in rows), rows)
         check('H5 每行右边有明确的“打开 ›”入口', all((r['open'] or '').strip() == '打开 ›' for r in rows), rows)
         if env.shots: pg.screenshot(path=os.path.join(env.shots, 'H5_mine.png'))
         pg.click('.pk .mrw a'); pg.wait_for_load_state('networkidle')

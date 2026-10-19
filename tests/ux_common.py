@@ -33,8 +33,10 @@ class Env:
                     if p.endswith(suf_): import time; time.sleep(sec_)
                 if env.inject:
                     f, old, new = env.injects[env.inject]
-                    if os.path.isdir(p) and os.path.exists(os.path.join(p, 'index.html')): p = os.path.join(p, 'index.html')      # 2026-10-18：/trip/xa3/ 这样的目录请求也能被“页面 HTML 注入”匹配到（原来只认 .js / .css，改 HTML 的注入从没生效过）
-                    if p.endswith(os.sep + f.replace('/', os.sep)):
+                    if os.path.isdir(p) and os.path.exists(os.path.join(p, 'index.html')): p = os.path.join(p, 'index.html')
+                    _exact = f.startswith('=')      # 2026-10-19：'=index.html' 只匹配站根的 index.html（首页），不匹配所有 */index.html
+                    if _exact: f = f[1:]      # 2026-10-18：/trip/xa3/ 这样的目录请求也能被“页面 HTML 注入”匹配到（原来只认 .js / .css，改 HTML 的注入从没生效过）
+                    if (p == os.path.join(env.site, f.replace('/', os.sep))) if _exact else p.endswith(os.sep + f.replace('/', os.sep)):
                         import io
                         body = open(p, encoding='utf-8').read()
                         pairs = list(zip(old, new)) if isinstance(old, list) else [(old, new)]

@@ -173,7 +173,7 @@ if site:
         if dn_ and (re.search(r'\d+/\d+\s*周|建议|一年四季', dn_.group(1))): bad.append(f'{rid} 说明行又写了一遍出发日期 / “建议” / “一年四季都能去”：{dn_.group(1)[:40]}')
         if st.year > today.year and not (dn_ and re.search(f'明年 {st.month}/{st.day}（距今 {(st - today).days}\\s天）', dn_.group(1))): bad.append(f'{rid} 默认出发日在明年（{st}）但说明行没写“明年 {st.month}/{st.day}（距今 {(st - today).days} 天）”')   # 底栏窄，只写 M/D
         # 文案里写了“海拔 N 米 / 海拔三千多米”（N≥3000）的页面，必须有氧气/高反提示（天标没给海拔时靠这条兜底；“水洞长三千多米”这种长度不算）
-        _txt = re.sub(r'<[^>]+>', ' ', re.sub(r'<p class="alt">.*?</p>', '', h, flags=re.S))
+        _txt = re.sub(r'<[^>]+>', ' ', re.sub(r'<p class="alt[^"]*">.*?</p>', '', h, flags=re.S))
         _CN = {'一': 1, '两': 2, '二': 2, '三': 3, '四': 4, '五': 5, '六': 6, '七': 7, '八': 8, '九': 9}
         for _m in re.finditer(r'海拔[^。，；、]{0,8}?(?:(\d[\d,]*)\s*米|([一二两三四五六七八九])千[多余]?米)', _txt):
             _n = int(_m.group(1).replace(',', '')) if _m.group(1) else _CN[_m.group(2)] * 1000
@@ -574,8 +574,8 @@ if site:
     try:
         _A = json.loads(open(os.path.join(site, 'assets', 'home-a.js'), encoding='utf-8').read().split('window.ZHA=')[1].rsplit(';', 1)[0])
         _Bd = json.loads(open(os.path.join(site, 'assets', 'home-b.js'), encoding='utf-8').read().split('window.ZHB=')[1].rsplit(';', 1)[0])
-        _cnt = int(re.search(r'<button type="button" data-b="" class="on">全部 (\d+)</button>', _hp).group(1))
-        if len(_A) + 8 != _cnt: _bad31.append(f'A 组 {len(_A)} + 8 ≠ 页面上写的“全部 {_cnt}”')
+        _cnt = int(re.search(r'<small class="ns">(\d+) 条', _hp).group(1)) - 1      # 2026-10-19：天数键没有“全部”了，总数写在标题行（含封面那一条）
+        if len(_A) + 8 != _cnt: _bad31.append(f'A 组 {len(_A)} + 8 ≠ 页面上写的“{_cnt + 1} 条”（减封面）')
         if any(len(r) != 26 for r in _A + _Bd): _bad31.append('A/B 数据行不是 26 列')
         _ids = {r[0] for r in _A + _Bd} | set(re.findall(r'href="/trip/([^/"]+)/"', _now))
         _ap = open(os.path.join(site, 'all', 'index.html'), encoding='utf-8').read() if os.path.exists(os.path.join(site, 'all', 'index.html')) else ''
@@ -674,6 +674,12 @@ if site:
             _t_ = open(os.path.join(site, _pp), encoding='utf-8').read()
             if re.search(r'maplibre|routemap|openfreemap', _t_, re.I): _bad33.append(f'{_pp} 的 HTML 里出现了 maplibre / routemap / openfreemap（应该只在点开后才取；空闲预取由 site.js 在 4g / wifi 且非省流量时才发）')
 if _bad33: fails.append(('路线地图：资源 / 合规处理 / 署名 / ES5 / 点开才取', _bad33))
+
+# 34 行程标题（2026-10-19，tests/title_check.py 有 --selftest 反向自检）：不得以“N天(…)”开头、同一目的地下 label 不重名
+import importlib.util as _iu
+_sp = _iu.spec_from_file_location('title_check', os.path.join(ROOT, 'tests', 'title_check.py')); _tc = _iu.module_from_spec(_sp); _sp.loader.exec_module(_tc)
+_bad34 = _tc.check(*_tc.load())
+if _bad34: fails.append(('行程标题（N天(…) 开头 / label 重名）', _bad34))
 
 if fails:
     for title, items in fails:

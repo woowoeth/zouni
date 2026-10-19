@@ -109,7 +109,7 @@ def srcs(S):
     return {s for s in out if len(s) >= 4 and s not in ct}
 
 
-def expected_notes(S, tid):
+def expected_notes(S, tid, bare=False):
     h = S.hist[tid]; nm = re.sub(r'[（(].*?[）)]', '', h.get('name') or tid).strip() or tid; out = {}
     for k, v in (h.get('notes') or {}).items():
         line = (v.get('line') or '').strip().rstrip('。')
@@ -118,7 +118,8 @@ def expected_notes(S, tid):
             out[k] = _html.escape(_NB.sub('\\1\u00a0\\2', re.sub(r'^(相传|传说)[，,]?', '', line)))     # 2026-10-18：馆内展陈介绍不加“某某：”前缀、不写“相传”
             continue
         if v.get('conf') == 'medium' and '相传' not in line: line = '相传' + line
-        out[k] = _html.escape(_NB.sub('\\1\u00a0\\2', f'{nm}：{line}'))     # 页面里 E() 会把“1 月”这类数字+单位中间的空格换成不换行空格
+        out[k] = _html.escape(_NB.sub('\\1\u00a0\\2', line if bare else f'{nm}：{line}'))     # bare：前缀只在整页第一条写，其余条是不带前缀的原文（2026-10-19）
+        # 页面里 E() 会把“1 月”这类数字+单位中间的空格换成不换行空格
     return out
 
 
@@ -141,6 +142,7 @@ def check3(S):
         t = page(S, p)
         if not t: continue
         want = set(expected_notes(S, HOF[p.split('/')[2]]).values()) if p.split('/')[2] in HOF else set()
+        if p.split('/')[2] in HOF: want |= set(expected_notes(S, HOF[p.split('/')[2]], True).values())      # 2026-10-19：“人物：”前缀只在整页第一条写，其余条省略前缀（tests/wave2_check.py 另查“每页最多一条带前缀”）
         for g in re.findall(r'<p class="fnote">(.*?)</p>', t, re.S):
             if g not in want: bad.append(f'{p} 有一块站点注释不是“名字：line”原文：{g[:40]}')
         mine = ' '.join(re.findall(r'<p class="fnote">.*?</p>|<a class="fbn".*?</a>', t, re.S))
@@ -192,8 +194,9 @@ def check7(S):
     bad = []
     for tid, h in S.hist.items():
         pages = [(r, page(S, f'/trip/{r}/')) for r in h.get('routes') or []]
+        bare_ = expected_notes(S, tid, True)
         for k, want in expected_notes(S, tid).items():
-            if not any(t and ('<p class="fnote">' + want + '</p>') in t for _, t in pages): bad.append(f'[{tid}]「{k}」的注释没有出现在任何线路页上')
+            if not any(t and (('<p class="fnote">' + want + '</p>') in t or ('<p class="fnote">' + bare_[k] + '</p>') in t) for _, t in pages): bad.append(f'[{tid}]「{k}」的注释没有出现在任何线路页上')
     return bad
 
 

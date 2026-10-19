@@ -59,17 +59,17 @@ with sync_playwright() as p:
         pg.click('.now .items li:not([hidden]) h3 a'); pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(400)
         check('M1 进到了线路页', '/trip/' in pg.url, pg.url)
         pg.go_back(wait_until='networkidle'); pg.wait_for_timeout(1200)
-        on = pg.evaluate("document.querySelector('.dchips button.on').dataset.b")
+        on = pg.evaluate("(document.querySelector('.dchips button.on')||{dataset:{b:''}}).dataset.b")
         shown1 = pg.evaluate("document.querySelectorAll('.now .items li:not([hidden])').length")
         check('M1 返回首页后“周末”仍然是选中的', on == 'd1', on)
         check('M1 返回首页后展开的条数还在（%d → %d）' % (shown0, shown1), shown1 == shown0, (shown0, shown1))
         # 换标签页：新页签回到默认
         pg2 = new_page(env, c); goto(env, pg2, '/'); home_ready(pg2)
-        on2 = pg2.evaluate("document.querySelector('.dchips button.on').dataset.b"); sh2 = pg2.evaluate("document.querySelectorAll('.now .items li:not([hidden])').length")
+        on2 = pg2.evaluate("(document.querySelector('.dchips button.on')||{dataset:{b:''}}).dataset.b"); sh2 = pg2.evaluate("document.querySelectorAll('.now .items li:not([hidden])').length")
         check('M1 换标签页（新会话）回到默认：全部、8 条', on2 == '' and sh2 == 8, (on2, sh2))
         # 同一个标签页里点链接回首页（不是返回）：也回到默认
         pg.goto(env.B + '/trip/xa3/', wait_until='networkidle'); pg.click('.hero .home'); pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(800)
-        on3 = pg.evaluate("document.querySelector('.dchips button.on').dataset.b")
+        on3 = pg.evaluate("(document.querySelector('.dchips button.on')||{dataset:{b:''}}).dataset.b")
         check('M1 在行程页点“走”回首页（不是浏览器返回）：回到默认', on3 == '', on3)
         c.close()
 
@@ -160,7 +160,7 @@ with sync_playwright() as p:
         check('O4 先清掉缓存（%s），点“收进行程”后这一页进了缓存（%s）' % (in0, in1), (not in0) and in1, (in0, in1))
         fl = pg.evaluate("getComputedStyle(document.querySelector('.fav.saved span'),'::after').content")
         check('O4 “已收进”上有 ✓ 的极简反馈', '✓' in fl, fl)
-        check('O4 有“已存到手机里，没网也能看”的提示', pg.locator('.toast').count() == 1 and '存到手机' in pg.inner_text('.toast'), pg.locator('.toast').count())
+        check('O4 没有复述类提示条（“已收进…”“已存到手机里…”都删了，按钮变“已收进 ✓”就是反馈；2026-10-19）', pg.locator('.toast').count() == 0, pg.locator('.toast').count())
         # O7 预存清单
         pre = pg.evaluate("Promise.all(['/manifest.webmanifest','/img/icon-192.png','/img/icon-512.png','/img/apple-touch-icon.png','/img/favicon.svg','/offline.html','/','/where/'].map(u=>caches.match(u).then(r=>[u,!!r])))")
         check('O7 manifest、图标、离线页、首页、走哪儿都在预存缓存里', all(x[1] for x in pre), [x for x in pre if not x[1]])
@@ -200,7 +200,7 @@ with sync_playwright() as p:
         pg.locator('.pk .pk-x').click(); pg.wait_for_timeout(200)
         # O6 搜索
         pg.goto(env.B + '/', wait_until='load'); pg.wait_for_timeout(800)
-        pg.fill('.hsearch input', '川藏'); pg.click('.hsearch button'); pg.wait_for_timeout(500)
+        pg.fill('.hsearch input', '川藏'); pg.press('.hsearch input', 'Enter'); pg.wait_for_timeout(500)
         msg = pg.locator('.hsmsg')
         check('O6 断网在首页搜索：不跳页', pg.url.rstrip('/') == env.B, pg.url)
         check('O6 断网搜索：词还在框里、写“没网，搜不了「川藏」”', pg.input_value('.hsearch input') == '川藏' and msg.count() == 1 and '没网，搜不了「川藏」' in msg.inner_text(), (pg.input_value('.hsearch input'), msg.count()))

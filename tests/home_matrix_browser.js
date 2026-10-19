@@ -10,10 +10,10 @@
   const w=ms=>new Promise(r=>setTimeout(r,ms)), pk=document.querySelector('.pick'); if(!pk) return {错误:'没找到 .pick'};
   if(!pk.classList.contains('open')) pk.querySelector('.pkh').click();   // 2026-10-16：替我挑默认折叠，先点开
   const cities=[...pk.querySelectorAll('.pkr[data-k="o"] button')].map(b=>b.dataset.v).filter(v=>v!=='here');
-  const click=(k,v)=>{const b=pk.querySelector('.pkr[data-k="'+k+'"] button[data-v="'+v+'"]'); if(b) b.click()};
+  const click=(k,v)=>{const b=pk.querySelector('.pkr[data-k="'+k+'"] button[data-v="'+v+'"]'); if(b&&!b.classList.contains('on')) b.click()};   // 2026-10-19：点已选项会取消，所以已经选着的不再点
   const fails=[], med={}; let n=0;
   const findLi=href=>[...document.querySelectorAll('.toc .items li')].find(l=>{const a=l.querySelector('a[href^="/trip/"]');return a&&a.getAttribute('href')===href});
-  const dist=txt=>{const m=/直线约 (\d+) 公里/.exec(txt); return m?+m[1]:null};
+  const dist=txt=>{const m=/约 (\d+) 公里/.exec(txt); return m?+m[1]:null};
   for(const o of cities){ med[o]={};
     for(const d of ['w','m','l']){ const ds=[];
       for(const x of ['f','c','o']) for(const v of ['a','n']){
@@ -34,6 +34,6 @@
   }
   const eld=new Set(); // 带老人孩子推荐过的页面
   for(const o of cities) for(const d of ['w','m','l']){ click('o',o);click('d',d);click('w','o');click('v','a'); await w(25); [...document.querySelectorAll('.pkres a')].forEach(a=>eld.add(a.getAttribute('href'))); }
-  for(const h of eld){ try{ const t=await (await fetch(h)).text(); const ms=[...t.matchAll(/行程最高到 ([\d,]+) 米/g)].map(m=>+m[1].replace(/,/g,'')).concat([...t.matchAll(/<p class="alt"><b>海拔 ([\d,]+) 米/g)].map(m=>+m[1].replace(/,/g,''))); if(ms.length&&Math.max(...ms)>=2500) fails.push('带老人孩子推荐了页面最高 '+Math.max(...ms)+' 米的线 '+h); }catch(e){ fails.push('抓不到 '+h) } }
+  for(const h of eld){ try{ const t=await (await fetch(h)).text(); const ms=[...t.matchAll(/行程最高到 ([\d,]+) 米/g)].map(m=>+m[1].replace(/,/g,'')).concat([...t.matchAll(/<p class="alt(?: hi)?"><b>海拔 ([\d,]+) 米/g)].map(m=>+m[1].replace(/,/g,''))); if(ms.length&&Math.max(...ms)>=2500) fails.push('带老人孩子推荐了页面最高 '+Math.max(...ms)+' 米的线 '+h); }catch(e){ fails.push('抓不到 '+h) } }
   return {组数:n, 城市数:cities.length, 失败:fails.slice(0,40), 失败总数:fails.length, 中位数示例:Object.fromEntries(Object.entries(med).slice(0,5))};
 })()

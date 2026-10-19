@@ -46,6 +46,12 @@ for t in T:
     d=next((x for x in D if x['id']==t['dest']),None)
     if d and d['status']=='blocked' and t['status']!='blocked': E.append(f"{t['id']}: 目的地暂不排，线路却没标")
     if d and d['days'] and not (d['days']['min']-1<=t['days']<=d['days']['max']+3): W.append(f"{t['id']}: {t['days']} 天，和目的地建议的 {d['days']['min']}–{d['days']['max']} 天差得多")
+# 标题不得以“N天(…)”开头、同一目的地 label 不重名（2026-10-19；判据本体和反向自检在 tests/title_check.py）
+import importlib.util as _iu, os as _os
+try:
+    _sp = _iu.spec_from_file_location('title_check', _os.path.join('tests', 'title_check.py')); _tc = _iu.module_from_spec(_sp); _sp.loader.exec_module(_tc)
+    E += _tc.check(*_tc.load())
+except Exception as _e: E.append(f'标题检查没跑成：{_e}')
 print('错误', len(E)); [print('  ✗', e) for e in E]
 print('提醒', len(W)); [print('  ·', w) for w in W]
 # 编号撞车：目录里线路的标题和同编号行程的标题对不上（新行程误用了旧编号，会把旧行程覆盖掉）

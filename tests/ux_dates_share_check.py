@@ -99,7 +99,7 @@ with sync_playwright() as p:
             v = pg.evaluate("document.querySelector('.dpk').value"); dock = pg.inner_text('.dock b'); note = pg.inner_text('.dnote'); h1 = pg.inner_text('.day header small')
             check('D2 %s 日期 = 首页选的 %s' % (t, want), v == want, v)
             check('D2 %s 底栏写 %s 出发（不写“建议”）' % (t, a), dock.startswith(a + ' 出发') and '建议' not in dock, dock)
-            check('D2 %s 说明行写“按你首页选的日期排的”、不再重复日期 %s %s' % (t, a, w), '按你首页选的日期排的' in note and ('%s %s' % (a, w)) not in note and '建议' not in note, note)
+            check('D2 %s 说明行写“按你选的日期排的”、不再重复日期 %s %s' % (t, a, w), '按你选的日期排的' in note and ('%s %s' % (a, w)) not in note and '建议' not in note, note)
             check('D2 %s 第一天标题日期 = %s %s' % (t, a, w), (a + ' ' + w) in h1, h1)
         # 回首页：日期条还是它
         goto(env, pg, '/')
@@ -146,11 +146,11 @@ with sync_playwright() as p:
         r_old, h_old = add_days(mn, 50), add_days(mn, 20)
         c = new_ctx(br, p, storage={'zouni_start_xa3': r_old, 'zouni_home_date': h_old}); pg = new_page(env, c)
         goto(env, pg, '/trip/xa3/')
-        check('D4 旧数据：这条线自己存的日期优先（和以前一样）', pg.evaluate("document.querySelector('.dpk').value") == r_old, pg.evaluate("document.querySelector('.dpk').value"))
+        check('D4 旧数据迁移：旧的 zouni_start_xa3 / zouni_home_date 没有时间戳时，这条线自己存的那个并成全站日期（2026-10-19：日期只有一个键 zouni_date）', pg.evaluate("document.querySelector('.dpk').value") == r_old, pg.evaluate("document.querySelector('.dpk').value"))
         goto(env, pg, '/trip/gqhx10/')
-        check('D4 旧数据：这条线没存过，用首页那个', pg.evaluate("document.querySelector('.dpk').value") == h_old, pg.evaluate("document.querySelector('.dpk').value"))
+        check('D4 迁移后别的线路也是同一个日期（改一条 = 改全站）', pg.evaluate("document.querySelector('.dpk').value") == r_old, pg.evaluate("document.querySelector('.dpk').value"))
         goto(env, pg, '/')
-        check('D4 旧数据：首页读到旧的 zouni_home_date', md(h_old)[0] in pg.inner_text('.hdt b'), pg.inner_text('.hdt b'))
+        check('D4 迁移后首页也是同一个日期；旧键都删了', md(r_old)[0] in pg.inner_text('.hdt b') and not pg.evaluate("Object.keys(localStorage).filter(k=>/^zouni_(start_|startt_|home_date)/.test(k))").__len__(), pg.inner_text('.hdt b'))
         # 过期的旧数据不起作用
         c.close()
         c = new_ctx(br, p, storage={'zouni_start_xa3': add_days(mn, -5), 'zouni_home_date': add_days(mn, -3)}); pg = new_page(env, c)
@@ -290,12 +290,12 @@ with sync_playwright() as p:
         pg.locator('#d3 .adj').first.click(); pg.wait_for_selector('.pk'); pg.click('.pk [data-np="ins"]'); pg.wait_for_selector('.pk .npc', timeout=15000); pg.click('.pk .npc'); pg.wait_for_timeout(400)
         pg.locator('#d1 .dayadj').click(); pg.wait_for_selector('.pk [data-a=\"after\"]'); pg.click('.pk [data-a=\"after\"]'); pg.wait_for_selector('.pk [data-free="1"]'); pg.click('.pk [data-free="1"]'); pg.wait_for_timeout(600)
         pg.locator('#d1 .adj').first.click(); pg.wait_for_selector('.pk'); pg.click('.pk [data-x="1"]'); pg.wait_for_timeout(300)
-        pg.evaluate("localStorage.setItem('zouni_n_xa3','4')")
+        pg.evaluate("localStorage.setItem('zouni_n','4')")      # 2026-10-19：人数全站一个键 zouni_n（分享链接里的字段名还叫 zouni_n_）
         state_keys = ['zouni_start_', 'zouni_st_', 'zouni_drop_', 'zouni_adj_', 'zouni_extra_', 'zouni_slow_', 'zouni_n_', 'zouni_rain_', 'zouni_fill_', 'zouni_rmday_', 'zouni_np_']
         pg.reload(wait_until='networkidle'); pg.wait_for_timeout(700)
         txt = pg.evaluate("window.zTripText()")
         link_new = txt.split('\n')[1]
-        mine = pg.evaluate("(()=>{var o={};['zouni_start_','zouni_st_','zouni_drop_','zouni_adj_','zouni_extra_','zouni_slow_','zouni_n_','zouni_rain_','zouni_fill_','zouni_rmday_','zouni_np_'].forEach(function(k){var v=localStorage.getItem(k+'xa3');if(v!=null&&v!==''&&v!=='{}'&&v!=='[]'){try{o[k]=JSON.parse(v)}catch(e){o[k]=v}}});return o})()")
+        mine = pg.evaluate("(()=>{var o={};['zouni_start_','zouni_st_','zouni_drop_','zouni_adj_','zouni_extra_','zouni_slow_','zouni_n_','zouni_rain_','zouni_fill_','zouni_rmday_','zouni_np_'].forEach(function(k){var v=localStorage.getItem(k==='zouni_start_'?'zouni_date':k==='zouni_n_'?'zouni_n':k+'xa3');if(v!=null&&v!==''&&v!=='{}'&&v!=='[]'){try{o[k]=JSON.parse(v)}catch(e){o[k]=v}}});return o})()")
         used = [k for k in state_keys if k in mine]
         old_link = pg.evaluate("(o)=>{var a=btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\\+/g,'-').replace(/\\//g,'_').replace(/=+$/,'');return location.origin+location.pathname+'#mine='+a}", mine)
         n_old = len(old_link) - len(env.B) - len('/trip/xa3/'); n_new = len(link_new) - len(env.B) - len('/trip/xa3/')
@@ -315,7 +315,7 @@ with sync_playwright() as p:
             check('S4 朋友打开%s：地址栏的 #m=/#mine= 被清掉（不会越刷越乱）' % label, '#m' not in f.url, f.url[-30:])
             c2.close()
         # 自己再打开自己的链接（新开一个标签页，才是真的重新加载）：状态不丢（完全相同时不改任何键值）
-        snap = "(()=>{var o={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/_xa3$/.test(k)&&k.indexOf('startt')<0)o[k]=localStorage.getItem(k)}return o})()"
+        snap = "(()=>{var o={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if((/_xa3$/.test(k)&&k.indexOf('startt')<0)||k==='zouni_date'||k==='zouni_n')o[k]=localStorage.getItem(k)}return o})()"
         before = pg.evaluate(snap)
         pg2 = new_page(env, c); pg2.goto(link_new, wait_until='networkidle'); pg2.wait_for_timeout(1000)
         after = pg2.evaluate(snap)
@@ -324,7 +324,7 @@ with sync_playwright() as p:
         pg2.close()
         # 先再改一处，再打开旧链接（别的版本）：有“换回我自己的”，点了真换回
         pg.locator('#d3 .adj').first.click(); pg.wait_for_selector('.pk'); pg.click('.pk [data-d="-30"]'); pg.wait_for_timeout(300)
-        full = "(()=>{var o={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(/_xa3$/.test(k)&&k.indexOf('lastday')<0)o[k]=localStorage.getItem(k)}return o})()"
+        full = "(()=>{var o={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if((/_xa3$/.test(k)&&k.indexOf('lastday')<0)||k==='zouni_date'||k==='zouni_n')o[k]=localStorage.getItem(k)}return o})()"
         mine_before = pg.evaluate(full)
         pg3 = new_page(env, c); pg3.goto(link_new, wait_until='networkidle'); pg3.wait_for_timeout(1500)
         act = pg3.locator('.toast .toast-act')

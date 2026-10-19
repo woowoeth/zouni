@@ -434,7 +434,7 @@ with sync_playwright() as p:
             TASKS['E'] = ('2 点击（但只在页顶；长线要先滚回去）', '%d 点击（任意位置，底栏日期可点）' % n); c.close()
         with guard('S10 F 收进行程'):
             c, pg = trip(br, 'xa3'); pg.click('.fav'); pg.wait_for_timeout(300)
-            check('S10 F 收进行程：1 点击、按钮变“已收进”、有提示', pg.evaluate("document.querySelector('.fav').classList.contains('on')&&!!document.querySelector('.toast')"))
+            check('S10 F 收进行程：1 点击、按钮变“已收进”（2026-10-19：复述类提示条删了，按钮本身就是反馈）', pg.evaluate("document.querySelector('.fav').classList.contains('on')&&!document.querySelector('.toast')"))
             TASKS['F'] = ('1 点击', '1 点击'); c.close()
         with guard('S10 G 分享给朋友'):
             c, pg = trip(br, 'xa3'); pg.click('.share'); pg.wait_for_selector('.pk'); pg.click('.pk [data-a="link"]'); pg.wait_for_timeout(500)

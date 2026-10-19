@@ -124,7 +124,9 @@ for t, h in H.items():
             want = (nm_(h) + '：' + (line if '相传' in line else '相传' + line)).replace(' ', '')
             if line.replace(' ', '') in blob.replace(' ', '').replace('\xa0', ''):
                 n_leg += 1
-                if want not in blob.replace(' ', '').replace('\xa0', ''): bad5.append((t, k, '传说类说法没写“相传”'))
+                want_b = (line if '相传' in line else '相传' + line).replace(' ', '')      # 2026-10-19：“某某：”前缀只在整页第一条写，其余条是不带前缀的原文，“相传”照写
+                bl_ = blob.replace(' ', '').replace('\xa0', '')
+                if want not in bl_ and want_b not in bl_: bad5.append((t, k, '传说类说法没写“相传”'))
 check('K5 站点注释：展陈介绍（%d 条落在页面上）不带“某某：”前缀、不写“相传”；传说类（%d 条）仍写“相传”' % (n_ex, n_leg), n_ex >= 8 and n_leg >= 20 and not bad5, bad5[:4])
 
 # K6 通用句只写一次

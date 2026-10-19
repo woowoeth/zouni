@@ -42,7 +42,7 @@ TOL = 1.01
 # 关系 → 期望值（都取自 SET）
 GAPS = {
     '封面→搜索': 16, '搜索→频道': 8, '频道→挑三条': 8, '挑三条→现在去正好': 24,
-    '分区线→标题': 12, '标题→日期条': 12, '日期条→天数chip': 8, '天数chip→列表': 8, '列表→再看': 8,
+    '分区线→标题': 12, '标题行→天数chip': 8, '天数chip→列表': 8, '列表→再看': 8,
     '标题→列表': 12, '区块→区块': 32, '列表→全部线路条': 8, '再看→全部线路条': 8,
     '挑三条 头→第一行': 8, '挑三条 行→行': 8, '挑三条 末行→提示': 12,
 }
@@ -61,10 +61,10 @@ const L=R(q('.hsearch')); o.L=L.l; o.Rr=L.r;
 const edges=[];
 const E=(name,e,mode,side)=>{if(!e)return;const r=mode==='t'?txt(e):R(e);if(!r)return;edges.push({name,l:r.l,r:r.r,side:side||'lr'})};
 E('封面 走你',q('.mast h1'),'t','l');E('封面 小字',q('.cv .kick'),'t','l');E('封面 标题',q('.cv h2'),'t','l');
-E('封面 chips',q('.cv .chips'),'b','l');E('封面 翻开',q('.cv .go'),'b');E('封面 我的行程(右缘)',q('.minebtn'),'b','r');
+E('封面 chips',q('.cv .chips'),'b','l');E('封面 我的行程(右缘)',q('.minebtn'),'b','r');
 E('搜索框',q('.hsearch'),'b');E('频道三格',q('.chan2'),'b');E('挑三条 条',q('.pick .pkh'),'b');
 if(state!=='base'){E('挑三条 左标签',q('.pick .pkq'),'t','l');E('挑三条 提示',q('.pick .pkhint'),'t','l')}
-E('现在去正好 区块',q('#now'),'b');E('现在去正好 标题',q('#now h2 .nt'),'t','l');E('日期条',q('.datebar .hdt'),'b');
+E('现在去正好 区块',q('#now'),'b');E('现在去正好 标题',q('#now h2 .nt'),'t','l');E('日期条(右缘)',q('.datebar .hdt'),'b','r');E('现在去正好 标题行',q('#now .nowh'),'b');
 const dc=q('.dchips');E('天数chip 第一个',dc&&dc.querySelector('button'),'b','l');
 const li1=first('#now .items li');E('卡片 整张',li1,'b');E('卡片 序号',li1&&li1.querySelector('.num'),'t','l');E('卡片 图(右缘)',li1&&li1.querySelector('.tile'),'b','r');
 E('再看',first('.moreb'),'b');
@@ -79,7 +79,7 @@ const G=(name,a,b2,fromBottom=true)=>{if(!a||!b2)return;const ra=R(a),rb=R(b2);g
 G('封面→搜索',q('.cover'),q('.hsearch'));G('搜索→频道',q('.hsearch'),q('.chan2'));G('频道→挑三条',q('.chan2'),q('.pick'));
 const now=q('#now');G('挑三条→现在去正好',q('.pick'),now);
 if(now){const bt=parseFloat(getComputedStyle(now).borderTopWidth)||0;const h=now.querySelector('h2');gaps.push({name:'分区线→标题',v:R(h).t+(parseFloat(getComputedStyle(h).paddingTop)||0)-R(now).t-bt});
- G('标题→日期条',h,now.querySelector('.datebar'));G('日期条→天数chip',now.querySelector('.datebar'),now.querySelector('.dchips'));
+ G('标题行→天数chip',now.querySelector('.nowh'),now.querySelector('.dchips'));
  G('天数chip→列表',now.querySelector('.dchips'),now.querySelector('.items'));G('列表→再看',now.querySelector('.items'),now.querySelector('.moreb'))}
 const secs=qa('article.home > section.toc');
 secs.forEach((s,i)=>{if(s===now)return;const h=s.querySelector('h2'),it=s.querySelector('.items');const bt=parseFloat(getComputedStyle(s).borderTopWidth)||0;
@@ -98,9 +98,8 @@ const eq=[];
 const H=(name,els)=>{els=els.filter(vis);if(els.length>1)eq.push({name,hs:els.map(e=>+e.getBoundingClientRect().height.toFixed(1))})};
 H('频道四格等高',qa('.chan2 a'));H('天数chip 等高',qa('.dchips button'));
 qa('.pick .pkr').forEach((r,i)=>H('挑三条 第'+(i+1)+'行 chip 等高',[...r.querySelectorAll('button')]));
-const si=q('.hsearch input'),sb=q('.hsearch button');
-eq.push({name:'搜索框和“搜”等高',hs:[si.getBoundingClientRect().height,sb.getBoundingClientRect().height]});
-eq.push({name:'搜索框和“搜”同顶',hs:[si.getBoundingClientRect().top,sb.getBoundingClientRect().top]});
+const si=q('.hsearch input'),sb=q('.hsearch button');      // 2026-10-19：没有“搜”按钮了（回车搜），搜索框自己铺满一行
+if(sb)throw new Error('首页搜索框旁边又出现了“搜”按钮');
 o.eq=eq;
 const al=[];
 const C=(name,a,b2)=>{if(a&&b2)al.push({name,d:Math.abs(a.cy-b2.cy)})};
@@ -111,7 +110,7 @@ const chipc=[];[...qa('.dchips button'),...qa('.pick .pkr button'),q('.moreb'),q
 o.chipc=chipc;o.al=al;
 const mb0=q('.minebtn');if(mb0){const sv=mb0.querySelector('svg'),sp=txt(mb0.querySelector('span')),br=mb0.getBoundingClientRect(),sr=sv.getBoundingClientRect();o.mine={gap:sp.l-sr.right,pl:sr.left-br.left,pr:br.right-sp.r}};
 // 搜索框文字 / 搜 中线
-o.search_txt={d:Math.abs(cy(si)-cy(sb))};
+o.search_txt={d:0};
 o.grid=qa('.chan2 a').map(R);   // 频道 2×2 的四个格
 // 频道格内字左缘
 o.chan=qa('.chan2 a').map(a=>{const ar=a.getBoundingClientRect();const b=txt(a.querySelector('b')),s=txt(a.querySelector('small'));return {pl:b.l-ar.left,dl:Math.abs(b.l-s.l),sh:a.querySelector('small').getBoundingClientRect().height,sfs:parseFloat(getComputedStyle(a.querySelector('small')).fontSize),slh:parseFloat(getComputedStyle(a.querySelector('small')).lineHeight)||0}});

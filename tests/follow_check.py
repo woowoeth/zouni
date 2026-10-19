@@ -82,7 +82,7 @@ with sync_playwright() as p:
         n_cards = pg.locator('.fcd').count()
         check('F1 /follow/ 卡片数 = data/history 里有线路的主题数', n_cards == len([h for h in H.values() if h.get('routes')]), (n_cards, len(H)))
         card = pg.inner_text('.fcd >> nth=0')
-        check('F1 每张卡有名字、一句话、“N 条线路 · a–b 天”', re.search(r'\d+ 条线路 · \d+(–\d+)? 天', card) is not None, card)
+        check('F1 每张卡有名字、一句话、“N 条行程 · a–b 天”', re.search(r'\d+ 条行程 · \d+(–\d+)? 天', card) is not None, card)      # 2026-10-19：“线路”→“行程”
         shot(pg, 'F1_follow_index.png')
         c.close()
 
@@ -123,7 +123,7 @@ with sync_playwright() as p:
         cards = pg.locator('.fl .lc').count()
         check('F3 线路卡片数 = 数据里的线路数', cards == len(SU['routes']), (cards, len(SU['routes'])))
         t0 = pg.inner_text('.fl .lc >> nth=0')
-        check('F3 线路卡有天数、出发月份、人均价、难度标签', re.search(r'\d+\s*天', t0) and re.search(r'\d+[\s\xa0]月出发', t0) and '人均' in t0 and re.search(r'平路|山路多|上高原', t0), t0)
+        check('F3 行程卡有天数、最好月份（不再写“N 月出发”）、价格（¥a–b/人）；“平路”默认不写，只有“山路多 / 上高原”才有难度标签', re.search(r'\d+\s*天', t0) and not re.search(r'\d+[\s\xa0]月出发', t0) and re.search(r'¥\d+(–\d+)?/人', t0) and '平路' not in t0, t0)      # 2026-10-19 默认值标签只在偏离默认时出现
         body = pg.inner_text('body'); html_ = pg.content()
         leak = [s for s in SRCS if s in body or s in html_]
         check('F3 主题页里没有任何 src 原文', not leak, leak[:2])
@@ -133,14 +133,15 @@ with sync_playwright() as p:
         first = pg.locator('.fl .lc a >> nth=0'); href = first.get_attribute('href'); rid = href.strip('/').split('/')[-1]
         first.click(); pg.wait_for_url('**' + href); pg.wait_for_timeout(800)
         ban = pg.locator('a.fbn')
-        check('F4 线路页顶部有横幅“这条线路跟着 苏轼 走 ›”', ban.count() == 1 and re.sub(r'\s+', ' ', ban.inner_text()).strip() == f'这条线路跟着 {name_of(SU)} 走 ›', ban.inner_text() if ban.count() else None)
+        check('F4 行程页顶部有横幅“这条行程跟着 苏轼 走 ›”', ban.count() == 1 and re.sub(r'\s+', ' ', ban.inner_text()).strip() == f'这条行程跟着 {name_of(SU)} 走 ›', ban.inner_text() if ban.count() else None)
         check('F4 横幅链到 /follow/<主题>/', ban.count() == 1 and ban.get_attribute('href') == f'/follow/{SU["id"]}/')
         bb = ban.bounding_box() if ban.count() else None
         check('F4 横幅是细的（高 ≤56）又够点（≥44）', bb and 44 <= bb['height'] <= 56, bb)
         notes = pg.evaluate("[...document.querySelectorAll('.r .rb p.fnote')].map(p=>({t:p.textContent,v:p.getBoundingClientRect().height>0&&getComputedStyle(p).display!=='none'}))")
         check('F4 线路页有站点小字，且看得见', notes and all(n['v'] for n in notes), notes[:2])
         EXH_ = {re.sub(r'^(相传|传说)[，,]?', '', (v.get('line') or '').strip().rstrip('。')).replace(' ', '') for k, v in (SU.get('notes') or {}).items() if re.search(r'博物馆|博物院|纪念馆|陈列馆|纪念园|展览馆|美术馆|科技馆', k) and re.search(r'陈列|展陈|展出|展示|展览|馆藏|收藏|馆里|馆内|设有|辟有|专题博物馆|综合博物馆', v.get('line') or '')}
-        check('F4 小字都是“苏轼：…”（馆内展陈介绍除外：不加前缀、不写“相传”，2026-10-18）', all(n['t'].startswith(name_of(SU) + '：') or n['t'].replace(' ', '').replace('\xa0', '') in {x.replace('\xa0', '') for x in EXH_} for n in notes), [n['t'][:20] for n in notes if not n['t'].startswith(name_of(SU) + '：')][:3])
+        pfx_ = [n['t'] for n in notes if n['t'].startswith(name_of(SU) + '：')]
+        check('F4 小字：整页只有第一条写“苏轼：”前缀，其余省略（2026-10-19）；第一条有前缀（%d 条带前缀 / %d 条）' % (len(pfx_), len(notes)), len(pfx_) == 1 and notes[0]['t'].startswith(name_of(SU) + '：') or (len(pfx_) == 0 and len(notes) >= 1 and all(n['t'].replace(' ', '').replace('\xa0', '') in {x.replace('\xa0', '') for x in EXH_} for n in notes[:1])), [n['t'][:20] for n in notes[:3]])
         body = pg.inner_text('body'); html_ = pg.content()
         leak = [s for s in SRCS if s in body or s in html_]
         check('F4 线路页里没有任何 src 原文', not leak, leak[:2])
@@ -154,8 +155,8 @@ with sync_playwright() as p:
         if medium:
             pg.goto(env.B + f'/trip/{medium[0]}/', wait_until='networkidle'); pg.wait_for_timeout(500)
             texts = [re.sub(r'[\xa0\s]+', '', t_) for t_ in pg.evaluate("[...document.querySelectorAll('.r .rb p.fnote')].map(p=>p.textContent)")]
-            want = re.sub(r'[\xa0\s]+', '', name_of(SU) + '：相传' + medium[2].strip().rstrip('。'))
-            check(f'F4 conf=medium（{medium[1]}）的站点小字前面有“相传”', want in texts, (want[:30], texts[:2]))
+            want = re.sub(r'[\xa0\s]+', '', '相传' + medium[2].strip().rstrip('。'))
+            check(f'F4 conf=medium（{medium[1]}）的站点小字前面有“相传”（前缀“苏轼：”可有可无，整页第一条才有）', any(t_ == want or t_ == name_of(SU) + '：' + want for t_ in texts), (want[:30], texts[:2]))
         else: check('F4 数据里有 conf=medium 的站点注释（测试素材）', False)
         pg.goto(env.B + href, wait_until='networkidle'); pg.wait_for_timeout(500)
         if notes: pg.evaluate("document.querySelector('.r .rb p.fnote').scrollIntoView({block:'center'})"); pg.wait_for_timeout(200)

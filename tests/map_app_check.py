@@ -45,7 +45,7 @@ INJ = {
     'tap_radius': ('assets/routemap.js', "if (d <= (m.small ? 20 : 26)) c.push({ m: m, d: d });", "if (d <= (m.small ? 4 : 6)) c.push({ m: m, d: d });"),                    # 点按范围缩成几个像素
     'no_dense': ('assets/routemap.js', "m.small = tight; m.el.classList.toggle('rm-sm', tight);", "m.small = false;"),                                        # 挤在一起也不缩小
     'no_merge': ('assets/routemap.js', "var t = k.g.length > 1 ? rangeLabel(k.g) : String(k.m.day + 1)", "var t = String(k.m.day + 1)"),                          # 总览合并的天不写范围
-    'adj_small': ('assets/site.css', ".r .s .adj:after,.adj:after{inset:-14px -10px}", ".r .s .adj:after,.adj:after{inset:0}"),                              # “调整”点击区缩回去
+    'adj_small': ('assets/site.css', ".r .s .adj:after,.adj:after{inset:-2px -10px -18px -10px}", ".r .s .adj:after,.adj:after{inset:0}"),                              # “调整”点击区缩回去
     'nav_off_pg': ('assets/site.js', "function navBtns(){var off=navigator.onLine===false;", "function navBtns(){var off=false;"),                           # 页面里的导航按钮断网不置灰
     # —— site.js（起步壳 / 入口 / 预取）——
     'boot_blank': ('assets/site.js', "if(d.length>1){var pts=d.map(function(p){return P(p).join(',')}).join(' ');svg+='<polyline", "if(false){var pts=d.map(function(p){return P(p).join(',')}).join(' ');svg+='<polyline"),   # 起步壳没有线路

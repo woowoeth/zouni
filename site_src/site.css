@@ -427,7 +427,7 @@ h2,h3,.items h3{text-wrap:balance}.hero-t h1 .nw,.cv h2 .nw{display:inline-block
 /* 出发前：“官网预约”统一靠右，和这一条同一行（放不下时换到下一行也靠右） */
 .pre li{display:flex;flex-wrap:wrap;align-items:center;column-gap:8px}.pre li label{flex:1 1 auto;min-width:0}.pre li a.bkl,.pre li .bkh{margin-left:auto!important}
 /* 小屏底栏：收进行程只留图标，按天看缩短 */
-@media (max-width:359px){.dock .fav span{display:none}.dock .fav{padding:0 14px}.dock .tvbtn{padding:0 10px;font-size:14px}.dock small{font-size:11px}}
+@media (max-width:359px){.dock .tvbtn{padding:0 10px;font-size:14px}.dock small{font-size:11px}}      /* 2026-10-19：320 宽也写“收进行程”四个字（底栏左边那块在 .dock.dmin 里本来就收成 0 宽，放得下） */
 .tf{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin:10px -20px 4px;padding:0 20px}.tf::-webkit-scrollbar{display:none}
 .tf button{flex:0 0 auto;height:34px;padding:0 12px;border:0;background:var(--card);font-size:13px;color:var(--ink);cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}.tf button.on{background:var(--ink);color:var(--bg);font-weight:700}
 
@@ -861,7 +861,7 @@ article.home{--s1:8px;--s2:12px;--s3:16px;--s4:24px;--s5:32px}
 .xd .rmgo{justify-content:center}
 /* 小字按钮：视觉不变，点击区放大到 ≥44（伪元素补）；有真实高度的直接给 44 */
 .glance .dt:after{top:-14px;bottom:-14px}
-.r .s .adj:after,.adj:after{inset:-14px -10px}
+.r .s .adj:after,.adj:after{inset:-2px -10px -18px -10px}
 .latewarn .reset{display:inline-flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;margin:-14px -6px;padding:0 10px;text-decoration:underline}
 .latewarn .reset:after{display:none}
 .minebtn{min-height:44px}
@@ -1190,3 +1190,56 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .day .fx small{flex:none}
 /* 小字链接点击区 ≥24px（WCAG 2.5.8，2026-10-19）：视觉不变，用伪元素把点得到的范围向上下各撑 6px（/pian/ 省份链接、/where/ 片源行、/d/ 页“全部 ›”） */
 .chan .pm a,.where .kv a,.sjd a{position:relative}.chan .pm a:after,.where .kv a:after,.sjd a:after{content:"";position:absolute;inset:-6px -4px}
+
+/* 2026-10-19 线路清理：目的地页按城市分组的小标题；行程页“同一个地方还有”一行 */
+.trips .grp{list-style:none}.trips .grp h3{margin:18px 0 0;padding:0 0 4px;font:900 13px/1.4 var(--sans,inherit);letter-spacing:.08em;color:var(--sub);box-shadow:0 1px 0 var(--line)}.trips .grp:first-child h3{margin-top:4px}
+.sis{margin:0;padding:10px 20px 0;font-size:13px;color:var(--sub);display:flex;flex-wrap:wrap;gap:2px 12px}.sis a{display:inline-flex;align-items:center;min-height:32px;font-weight:700;color:var(--ink)}.sis span{align-self:center}
+
+/* 2026-10-19 首页首屏控件 14→11：封面整块是一个链接（没有“翻开”整行按钮）、日期并进“现在去正好”标题行、天数键没有“全部”（再点取消）、搜索没有“搜”按钮（回车搜） */
+.cv .go,.home .cv .go{display:block;height:auto;margin:0;padding:0;background:none;border:0;color:inherit;font:inherit;text-align:left}
+.cv .go h2::after{content:" →";color:#f0c9bd;font-weight:400}
+.cv .go:focus-visible{outline:2px solid var(--bg);outline-offset:4px}
+.home .now .nowh{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-top:0}
+.home .now .nowh h2{margin:0;display:block;flex:1 1 auto;min-width:0}.home .now .nowh h2 .ns{display:block;margin-top:2px;font:400 12px var(--sans);color:var(--sub)}
+.home .now .nowh .datebar{flex:none;margin:0}.home .now .nowh .datebar .hdt{width:auto;height:44px;gap:10px;padding:0 12px}
+.home .now .nowh .datebar .hdt b{font:700 13px var(--sans)}
+.home .hsearch input{width:100%}
+
+/* 跟片走：中国影像方志按省折叠；每条只放一个主行程链接，其余“另有 N 条” */
+.chan details.pvd{border-top:1px solid var(--line)}.chan details.pvd>summary{display:flex;align-items:baseline;justify-content:space-between;min-height:48px;padding:10px 0;cursor:pointer;list-style:none;font:900 18px var(--serif)}
+.chan details.pvd>summary::-webkit-details-marker{display:none}.chan details.pvd>summary small{font:13px var(--sans);color:var(--sub)}.chan details.pvd>summary:after{content:"›";margin-left:8px;color:var(--sub);transition:transform .15s}.chan details.pvd[open]>summary:after{transform:rotate(90deg)}
+.pvl{margin:0 0 4px;font-size:13px}.pvl a{display:inline-flex;align-items:center;min-height:32px;color:var(--ink);font-weight:700}
+.sjl details.gm{display:inline;font-size:13px}.sjl details.gm>summary{display:inline-flex;align-items:center;min-height:32px;padding:0 6px;color:var(--sub);cursor:pointer;list-style:none}.sjl details.gm>summary::-webkit-details-marker{display:none}.sjl details.gm[open]>summary{display:none}
+
+/* 2026-10-19 样板行折叠：“出发 → 住处 / 回去歇一下”和“沿途慢慢走”各一行小灰字，不再各占一张两行的行 */
+.r[data-x="rest"]{min-height:32px;padding:2px 0}.r[data-x="rest"] .rb{display:flex;align-items:baseline;flex-wrap:wrap;gap:0 8px}.r[data-x="rest"] .m,.r[data-x="rest"] .s{font-size:13px;font-weight:400;color:var(--sub);margin:0}
+.r[data-x="gap"]{min-height:32px;padding:2px 0}.r[data-x="gap"] .rb{display:flex;align-items:baseline;flex-wrap:wrap;gap:0 8px}.r[data-x="gap"] .m{font-size:13px;font-weight:400;color:var(--sub)}.r[data-x="gap"] .s{margin:0}.r[data-x="gap"] .dot{width:6px;height:6px;margin:0 2px}
+
+/* 没有具体酒店名的“今晚住”：只有一档参考价，收成一行灰字（另外两档还在“另外两档”里；有酒店名的卡不变） */
+.stays.gen{margin-top:10px;background:none;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:10px;row-gap:0}
+.stays.gen .sh{flex:none;padding:0}.stays.gen .sh .lbl{color:var(--sub)}
+.stays.gen ul{flex:1 1 0;min-width:0;padding:0}.stays.gen li{padding:0;display:block}.stays.gen li .tier{display:none}
+.stays.gen li div,.stays.gen li b.tg,.stays.gen li small{display:inline;font-size:13px;font-weight:400;color:var(--sub)}.stays.gen li b.tg+small:before{content:" · "}
+.stays.gen li.more{display:none}.stays.gen.open li.more{display:block;padding-top:4px}.stays.gen .tog{flex:none;width:auto;height:32px;border:0;padding:0;font-size:12px;font-weight:400;color:var(--sub);text-decoration:underline;text-decoration-color:var(--line2)}
+
+.day .alt.hi{padding:8px 10px;background:var(--card);box-shadow:inset 3px 0 0 var(--red)}.day .alt.hi b{color:var(--red)}
+
+.r .s .adj{margin-left:8px;padding:0 4px}      /* “改这站”三个字：左右内边距收一点，少折行（折行了会压住上一行的“要预约 ›”点击区） */
+
+/* 2026-10-19 可用性审计里的低成本项（a11y.md #4 #5 #9 #10、devices.md #1 #5 #7 #9） */
+.glance b,.glance b.big,.glance b.price{height:auto;min-height:28px;line-height:28px;line-height:max(28px,1.25em);overflow:visible}      /* 大字号下“3 天 / 不开车 / ¥价格”不再被 28px 高裁掉 */
+.wbar .goodline{display:block;-webkit-line-clamp:unset;overflow:visible}      /* “N 月正好去 …” 放大字号后不裁 */
+.where .tabs button,.where .mon button{white-space:nowrap}.where .tabs{flex-wrap:wrap}
+.pk{max-height:calc(100vh - 16px);max-height:calc(100dvh - 16px);overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}      /* 横屏 / 键盘弹出时弹层超高、顶部出屏 */
+.pk-mask{top:0;right:0;bottom:0;left:0}.tv{top:0;right:0;bottom:0;left:0}.hmap-zoom{top:0;right:0;bottom:0;left:0}      /* inset 的老内核兜底（WebView 87 / iOS 14.0 以前） */
+@media (max-height:500px){.dock{position:static}}      /* 横屏 / 放大 400%：底栏不吸底，内容窗口不被吸顶 + 吸底吃掉近一半 */
+.where .rj a{position:relative}.where .rj a:after{content:"";position:absolute;inset:-9px -4px;top:-9px;right:-4px;bottom:-9px;left:-4px}
+.chan .pm a:after,.sjd a:after{inset:-12px -6px;top:-12px;right:-6px;bottom:-12px;left:-6px}
+.lpg .lb h2{margin:0;font:900 19px/1.3 var(--serif)}
+
+.glance{grid-template-columns:minmax(0,98px) minmax(0,1fr) minmax(0,1fr)}.glance [data-gd]>small{font-size:11.5px;letter-spacing:-.02em}.glance .dt,.glance .dtw.dt{white-space:nowrap}      /* “改日期”四个字：第一列按内容宽，不再和第二列叠在一起 */
+.home .now .nowh .datebar .hdt i{white-space:nowrap;margin:0}.home .now .nowh .datebar .hdt{flex-wrap:nowrap}
+
+.home .now .nowh .datebar .hdt i{flex:none}.home .now .nowh .datebar .hdt b{white-space:nowrap}.home .now .nowh h2 .ns{font-size:13px}
+.home .now .nowh .datebar .hdt i{width:max-content;min-width:3em}
+.glance b.big{line-height:28px;line-height:max(28px,1.25em);height:auto;min-height:28px;margin-bottom:-3px}      /* 默认和原来一样高（28px 格 + 里面小字撑出的 3px 用负边距吃掉）；大字号时随字撑开 */
