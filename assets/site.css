@@ -976,8 +976,8 @@ article.home{--s1:8px;--s2:12px;--s3:16px;--s4:24px;--s5:32px}
 /* ——— 路线地图 · 地图 App 化（2026-10-18，routemap.js + site.js 里的“起步壳”；说明见 docs/handoff/02-UI规范.md「路线地图」）———
    整屏图层（fixed，盖住整个视口）：舞台（示意图方格 / 街道底图淡入 / 一张 canvas 画线和点 / 编号方块）+ 底部面板（三档吸附）+ 左上“×”、右侧控件、右下署名。
    杂志风：方形按钮、细线、衬线、纸色底、≥44px 触控；颜色一律变量，深色模式只换变量 + 底图滤镜。页面里不再有可拖动的内嵌地图。 */
-.rm-c0{--dc:var(--red)}.rm-c1{--dc:var(--ink)}.rm-c2{--dc:var(--amb)}
-.rm-c0.rm-s1{--dc:#b04a33}.rm-c0.rm-s2{--dc:#7e2a18}.rm-c1.rm-s1{--dc:#4d4f49}.rm-c1.rm-s2{--dc:#6b6d66}.rm-c2.rm-s1{--dc:#926100}.rm-c2.rm-s2{--dc:#664000}
+.rm-dk0{--dc:var(--red)}.rm-dk1{--dc:var(--ink)}.rm-dk2{--dc:var(--amb)}
+.rm-dk0.rm-dt1{--dc:#b04a33}.rm-dk0.rm-dt2{--dc:#7e2a18}.rm-dk1.rm-dt1{--dc:#4d4f49}.rm-dk1.rm-dt2{--dc:#6b6d66}.rm-dk2.rm-dt1{--dc:#926100}.rm-dk2.rm-dt2{--dc:#664000}
 .rm-row2{display:flex;gap:8px;margin:16px 0 0}
 .rm-row2 button{flex:1;min-width:0;height:44px;padding:0 8px;border:1px solid var(--line2);background:var(--bg);color:var(--ink);font:700 14px var(--sans);display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-appearance:none;appearance:none}
 .rm-row2 .rm-nb{background:var(--ink);color:var(--bg);border-color:var(--ink)}
@@ -988,6 +988,7 @@ body.rmap-on .dock{display:none}
 body.rmap-on .toast{z-index:60}
 body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .rm.rm-fs{position:fixed;left:0;top:0;right:0;bottom:0;z-index:45;background:var(--card);overflow:hidden;touch-action:none;overscroll-behavior:contain;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent}
+.rm.rm-fs{--sh:calc(168px + env(safe-area-inset-bottom,0px))}      /* 默认就有值：JS 再写同一个数时右侧控件列的 bottom 过渡不会跑（过渡中量到的位置是旧的，视野留边会算错） */
 .rm .rm-stage{position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;touch-action:none}
 .rm .rm-gr,.rm .rm-cv{position:absolute;left:0;top:0;width:100%;height:100%;pointer-events:none}
 .rm .rm-map{position:absolute;left:0;top:0;right:0;bottom:0;opacity:0;transition:opacity .35s ease;touch-action:none}
@@ -995,25 +996,28 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .rm .rm-map canvas{filter:saturate(.5) sepia(.16);outline:0}
 .rm .rm-pts{position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none}
 .rm .rm-pts>*{position:absolute;left:0;top:0;pointer-events:none}
+.rm .rm-mk{z-index:3}.rm .rm-mk.rm-gy{z-index:1}.rm .rm-mk.rm-hm{z-index:2}.rm .rm-nm{z-index:4}.rm .rm-mk.rm-cur,.rm .rm-nm.rm-cur{z-index:5}      /* 住在站点方块下面（不盖数字）；标签在方块之上、都在底图（canvas）之上 */
 .rm .rm-mk{width:44px;height:44px;margin:-22px 0 0 -22px;padding:0;border:0;background:none;display:flex;align-items:center;justify-content:center;-webkit-appearance:none;appearance:none}
 .rm .rm-mk i{display:flex;align-items:center;justify-content:center;width:28px;height:28px;margin:0;box-sizing:border-box;font:900 14px/1 var(--serif);font-style:normal;background:var(--dc);color:var(--bg);border:2px solid var(--bg)}
 .rm .rm-mu i{outline:2px solid currentColor;outline-offset:-6px}
 .rm .rm-eat i{background:var(--bg);color:var(--dc);border-color:var(--dc)}
 .rm .rm-hm i{width:24px;height:24px;font-size:13px;background:var(--bg);color:var(--dc);border:2px solid var(--dc)}
-.rm .rm-db i{width:auto;min-width:28px;padding:0 5px;white-space:nowrap}
+.rm .rm-db i{width:auto;min-width:24px;height:24px;padding:0 4px;font-size:13px;white-space:nowrap}
+.rm .rm-db.rm-dk1 i{border-radius:12px}
+.rm .rm-db.rm-dk2 i{background:var(--bg);color:var(--dc);border-color:var(--dc)}      /* 全程里每天一个形 + 色：实心方 / 实心圆 / 空心方（和图上各站的小点同形） */
 .rm .rm-cur i{outline:2px solid var(--ink);outline-offset:2px;transform:scale(1.2)}
 .rm .rm-gy i{width:11px;height:11px;background:var(--mute);border:1.5px solid var(--bg)}
 .rm .rm-gy.rm-cur i{width:13px;height:13px}
 .rm .rm-mk.rm-sm i{width:22px;height:22px;font-size:12px}
-.rm .rm-pts>.rm-tg{width:0;height:0;margin:0;padding:0;border:0;background:none;font-style:normal}
-.rm .rm-tg span{position:absolute;left:14px;top:-36px;max-width:170px;padding:3px 7px;background:var(--bg);color:var(--ink);border:1px solid var(--line2);font:700 12px/1.4 var(--sans);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rm .rm-tg.rm-tgl span{left:auto;right:14px}
-.rm .rm-lb{height:18px;box-sizing:border-box;padding:0 4px;background:var(--bg);border:1px solid var(--line);font:700 12px/16px var(--sans);color:var(--ink);white-space:nowrap}
+.rm .rm-nm{height:20px;box-sizing:border-box;margin:0;padding:0;visibility:hidden;font-style:normal;pointer-events:none}
+.rm .rm-nm span{display:block;height:20px;padding:0 5px;box-sizing:border-box;background:var(--bg);border:1px solid var(--line2);color:var(--ink);font:700 12px/18px var(--sans);white-space:nowrap}
+.rm .rm-nm.rm-cur span{background:var(--ink);border-color:var(--ink);color:var(--bg)}
 .rm .rm-b{position:absolute;z-index:8;width:44px;height:44px;margin:0;padding:0;border:1px solid var(--line2);background:var(--bg);color:var(--ink);font:900 20px/1 var(--serif);display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0;touch-action:manipulation}
 .rm .rm-b:disabled{opacity:.4;cursor:default}
-.rm .rm-x{left:8px;top:calc(8px + env(safe-area-inset-top,0px));border-color:var(--ink);font:400 30px/1 var(--sans)}
-.rm .rm-sv{right:8px;top:calc(8px + env(safe-area-inset-top,0px));font:700 12px var(--sans)}
-.rm .rm-col{position:absolute;z-index:8;right:8px;bottom:calc(var(--sh,0px) + 60px);width:44px;display:flex;flex-direction:column;transition:bottom .3s cubic-bezier(.2,.9,.25,1),opacity .2s}
+.rm .rm-rs:disabled svg{opacity:.55}
+.rm .rm-x{left:max(8px,env(safe-area-inset-left,0px));top:calc(8px + env(safe-area-inset-top,0px));border-color:var(--ink);font:400 30px/1 var(--sans)}
+.rm .rm-sv{right:max(8px,env(safe-area-inset-right,0px));top:calc(8px + env(safe-area-inset-top,0px));font:700 12px var(--sans)}
+.rm .rm-col{position:absolute;z-index:8;right:max(8px,env(safe-area-inset-right,0px));bottom:calc(var(--sh,0px) + 60px);width:44px;display:flex;flex-direction:column;transition:bottom .3s cubic-bezier(.2,.9,.25,1),opacity .2s}
 .rm .rm-col .rm-b{position:static}.rm .rm-col .rm-b+.rm-b{margin-top:-1px}
 .rm .rm-col [hidden]{display:none}
 .rm .rm-cp svg{transition:transform .15s}
@@ -1026,6 +1030,7 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .rm .rm-ax{position:static;width:44px;border:0;background:none;font:700 20px var(--sans)}
 .rm .rm-prog{position:absolute;z-index:9;left:0;right:0;top:env(safe-area-inset-top,0px);height:3px;pointer-events:none}
 .rm .rm-prog i{display:block;height:100%;width:0;background:var(--red);transition:width .25s}
+.rm .rm-prog.rm-pend{opacity:0;transition:opacity .25s}
 .rm .rm-load{position:absolute;z-index:8;left:60px;right:60px;top:calc(8px + env(safe-area-inset-top,0px));height:28px;margin:0;padding:0 8px;display:flex;align-items:center;justify-content:center;background:var(--bg);border:1px solid var(--line2);font:700 12px var(--sans);color:var(--sub);pointer-events:none;white-space:nowrap}
 .rm .rm-load[hidden]{display:none}
 .rm .rm-note{position:absolute;z-index:8;left:8px;right:8px;top:calc(60px + env(safe-area-inset-top,0px));min-height:46px;margin:0;padding:0 0 0 12px;display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--line2);font:700 13px/1.4 var(--sans);color:var(--ink)}
@@ -1053,17 +1058,19 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .rm .rm-tb.on{background:var(--ink);color:var(--bg)}
 .rm .rm-sht.m-card .rm-tabs,.rm .rm-sht.m-card .rm-foot{display:none}
 .rm .rm-body{flex:1 1 auto;min-height:0;overflow:hidden;padding:0 20px;display:flex;flex-direction:column;justify-content:center}
-.rm .rm-ld{margin:0;font-size:13px;line-height:1.5;color:var(--sub);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.rm .rm-ld b{font:900 15px var(--serif);color:var(--ink)}
+.rm .rm-ld{margin:0;display:flex;flex-direction:column;gap:2px;font-size:13px;line-height:1.5;color:var(--sub)}
+.rm .rm-ld b{display:block;font:900 15px/1.4 var(--serif);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rm .rm-ln{display:block;font-size:13px;line-height:1.5;color:var(--sub)}
+.rm .rm-ln .nw{white-space:nowrap}      /* 数字和单位不许从中间断：一块一块地换行（“走路约 2 小时 10 分”整块） */
 .rm .rm-foot{flex:none;padding:0 20px 8px;background:var(--bg)}
 .rm .rm-foot[hidden]{display:none}
 .rm .rm-navd{display:flex;align-items:center;justify-content:center;height:44px;margin:0;padding:0 16px;background:var(--ink);color:var(--bg);font:700 15px var(--sans);border-radius:0}
-.rm .rm-hint{margin:4px 0 0;font-size:11px;line-height:14px;color:var(--sub);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rm .rm-hint{margin:4px 0 0;font-size:10.5px;line-height:14px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rm .rm-hint[hidden],.rm .rm-navd[hidden]{display:none}
 .rm .rm-body.rm-cardsw{padding:0}
 .rm .rm-cards{flex:1;min-height:0;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior-x:contain}
 .rm .rm-cards::-webkit-scrollbar{display:none}
-.rm .rm-card{flex:0 0 100%;min-width:0;scroll-snap-align:center;scroll-snap-stop:always;padding:0 20px 8px;display:flex;flex-direction:column;justify-content:center}
+.rm .rm-card{animation:rm-card-in .18s ease-out;flex:0 0 100%;min-width:0;scroll-snap-align:center;scroll-snap-stop:always;padding:0 20px 8px;display:flex;flex-direction:column;justify-content:center}
 .rm .rm-ch{display:flex;align-items:center;gap:10px;min-height:44px}
 .rm .rm-ch b{flex:none;min-width:22px;font:900 20px var(--serif);color:var(--red)}
 .rm .rm-ch .rm-gq{display:inline-block;width:10px;height:10px;min-width:10px;background:var(--mute)}
@@ -1078,8 +1085,19 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .rm .rm-ca{display:flex;gap:8px;margin:6px 0 0}
 .rm .rm-go{flex:1;height:44px;border:0;background:var(--ink);color:var(--bg);font:700 15px var(--sans);cursor:pointer;border-radius:0}
 .rm .rm-adj2{flex:none;min-width:116px;height:44px;border:1px solid var(--ink);background:var(--bg);color:var(--ink);font:700 14px var(--sans);cursor:pointer;border-radius:0}
+@keyframes rm-card-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.rm .rm-card{animation:none}.rm .rm-map{transition:none}}
+/* 横屏（视口高 <480）：底部条收成 104（标签条 + 一个按钮），不放信息行和说明句；站点卡只留名字行和两个按钮 */
+@media (max-height:479px){
+  .rm.rm-fs{--sh:calc(104px + env(safe-area-inset-bottom,0px))}
+  .rm .rm-sht{height:calc(104px + env(safe-area-inset-bottom,0px))}
+  .rm .rm-sht .rm-body.rm-day,.rm .rm-sht .rm-hint{display:none}
+  .rm .rm-card .rm-c1,.rm .rm-card .rm-c3{display:none}
+  .rm .rm-foot{padding-bottom:6px}
+  .rm .rm-body.rm-cardsw .rm-card{padding-bottom:6px}
+}
 @media (prefers-color-scheme:dark){
-  .rm-c0.rm-s1{--dc:#f0a08b}.rm-c0.rm-s2{--dc:#cc6a52}.rm-c1.rm-s1{--dc:#c8c7c0}.rm-c1.rm-s2{--dc:#9a9992}.rm-c2.rm-s1{--dc:#f0cd8a}.rm-c2.rm-s2{--dc:#b38a38}
+  .rm-dk0.rm-dt1{--dc:#f0a08b}.rm-dk0.rm-dt2{--dc:#cc6a52}.rm-dk1.rm-dt1{--dc:#c8c7c0}.rm-dk1.rm-dt2{--dc:#9a9992}.rm-dk2.rm-dt1{--dc:#f0cd8a}.rm-dk2.rm-dt2{--dc:#b38a38}
   .rm .rm-map canvas{filter:invert(.92) hue-rotate(180deg) saturate(.55) brightness(.92) sepia(.12)}
 }
 .rm-sheet .rm-seg{display:flex;flex-direction:column;gap:2px;min-height:48px;padding:10px 0;border-top:1px solid var(--line);color:var(--ink)}

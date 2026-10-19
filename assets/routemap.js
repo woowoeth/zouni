@@ -23,9 +23,10 @@
   var NOTE_OFF = '街道地图加载失败，已改用示意图';      // 有网也会失败（瓦片服务器连不上、被拦），所以不写“需要联网”
   var NOTE_NET = '没有网络，已改用示意图';
   var NOTE_LOAD = '街道地图加载中…';
+  var PROG_CAP = 5000;      // 街道图出现后进度条最多再显示这么久（有瓦片一直挂着不回也要收）
   var SLOW_MS = 12000, HARD_MS = 20000;      // 以收到的瓦片数为准：地图建好后 12 秒内一块瓦片都没收到才退示意图（有瓦片在到就一直等）；脚本 / 样式每一步各等 20 秒（取到一步重新计时）
   var IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  var BAR_H = 168;      // 底部条高（不含 safe-area），和 site.css 的 .rm-sht 一样；起步壳（site.js）里也是这个数
+  function barH() { return (W.innerHeight || 800) < 480 ? 104 : 168; }      // 底部条高（不含 safe-area），和 site.css 的 .rm-sht 一样（竖屏 168；横屏视口高 <480 时收成 104：只留标签条 + 一个按钮）；起步壳（site.js）里也是这两个数
   var WS = 512;      // 世界宽度（zoom 0）像素，和 maplibre 一致
   var ICON_RS = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg>';
   var ICON_CP = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" aria-hidden="true"><path d="M12 3l4 9h-8z" fill="currentColor"/><path d="M8 12l4 9 4-9"/></svg>';
@@ -139,6 +140,8 @@
       project: function (ll) { var s = size(); return camProject(c, s.w, s.h, ll); },
       cam: function () { return { lng: c.lng, lat: c.lat, z: c.z }; },
       setLimit: function (b, z) { var dx = Math.max(0.02, (b.e - b.w) * 0.6), dy = Math.max(0.02, (b.n - b.s) * 0.6); lim = { w: b.w - dx, e: b.e + dx, s: b.s - dy, n: b.n + dy }; z0 = z; },
+      // 街道底图放得很大 / 拖得很远以后失败回退示意图：把示意图的范围放宽到包含当前摄像机，不然 clampC 会把摄像机夹回去，所有站点瞬间跳到别处
+      admit: function (n) { if (!lim) return; var dx = 0.02, dy = 0.02; lim = { w: Math.min(lim.w, n.lng - dx), e: Math.max(lim.e, n.lng + dx), s: Math.min(lim.s, n.lat - dy), n: Math.max(lim.n, n.lat + dy) }; z0 = Math.min(Math.max(z0, n.z - 4), n.z + 1.5); },
       go: function (n, animate, ms) { if (anim && W.cancelAnimationFrame) W.cancelAnimationFrame(anim); anim = 0; if (!animate) { c.lng = n.lng; c.lat = n.lat; c.z = n.z; clampC(); fire(); return; } v.tween(n, ms || 400); },
       fly: function (n, ms) { v.tween(n, ms || 600); },
       tween: function (n, ms) {
@@ -165,6 +168,7 @@
     function xy(e) { var r = el0.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
     function act() { return inst.view && inst.view.kind === 'sch'; }
     el0.addEventListener('pointerdown', function (e) {
+      inst.touched = true;      // 用户自己动了镜头：之后屏幕尺寸变了不再替他重新装视野
       if (!act()) return;
       try { el0.setPointerCapture(e.pointerId); } catch (x) {}
       P[e.pointerId] = xy(e); var ids = Object.keys(P);
@@ -195,7 +199,7 @@
   }
 
   // ——— 颜色：每天一种（红 / 墨 / 琥珀轮换，更多天同色系深浅），类名在 CSS 里 ———
-  function dayCls(i) { return 'rm-c' + (i % 3) + ' rm-s' + (Math.floor(i / 3) % 3); }
+  function dayCls(i) { return 'rm-dk' + (i % 3) + ' rm-dt' + (Math.floor(i / 3) % 3); }
   function readPal(inst) {
     var probe = el('span', 'rm-probe'); probe.style.cssText = 'position:absolute;width:0;height:0;visibility:hidden'; inst.root.appendChild(probe);
     var cs0 = getComputedStyle(D.documentElement), g = function (n, f) { return (cs0.getPropertyValue(n) || '').trim() || f; };
@@ -241,22 +245,60 @@
     var cs = getComputedStyle(p), r = { t: parseFloat(cs.paddingTop) || 0, b: parseFloat(cs.paddingBottom) || 0 }; B.removeChild(p); return r;
   }
   function measure(inst) {
-    var r = inst.root, sf = safe(); inst.st = sf.t; inst.sb = sf.b; inst.sheetH = BAR_H + sf.b; r.style.setProperty('--sh', inst.sheetH + 'px');      // 底部条高度固定
+    var r = inst.root, sf = safe(); inst.st = sf.t; inst.sb = sf.b; inst.sheetH = barH() + sf.b; r.style.setProperty('--sh', inst.sheetH + 'px');      // 底部条高度固定
     inst.vw = r.clientWidth || W.innerWidth; inst.vh = r.clientHeight || W.innerHeight;
     inst.sw = inst.stage.clientWidth || inst.vw; inst.sh2 = inst.stage.clientHeight || inst.vh; inst.mh = inst.sh2 - inst.sheetH;
     var dpr = Math.min(W.devicePixelRatio || 1, 2); inst.dpr = dpr;
     [inst.cv, inst.gr].forEach(function (c) { var w = Math.round(inst.sw * dpr), h = Math.round(inst.sh2 * dpr); if (c.width !== w || c.height !== h) { c.width = w; c.height = h; } });
     inst.cx = inst.cv.getContext('2d'); inst.gx = inst.gr.getContext('2d');
+    inst.ctrl = ctrlRects(inst);      // 控件占的矩形（站名标签避让用）
   }
 
   // 摄像机留边：四周让出 ×、右侧控件的位置；地图容器只到底部条的上沿（条高固定），所以下边只留 20
-  function padFor(inst) { return { t: inst.st + 60, b: 20, l: 36, r: 88 }; }
+  function padFor(inst) { return { t: inst.st + 60, b: 20, l: 36, r: 88 }; }      // 只给“落到某一站上”（flyToPt）用：落点放在露出来的地图中央
+  // 控件在地图容器坐标系里占的矩形（×、存图、右侧控件列、署名 i / 署名条）：要让所有站点方块完整落在这些之外
+  function ctrlRects(inst) {
+    var st = inst.stage.getBoundingClientRect(), out = [];
+    ['.rm-x', '.rm-sv', '.rm-col', '.rm-ai', '.rm-atx'].forEach(function (sel) {
+      var e = qs(sel, inst.root); if (!e || e.hidden) return; var r = e.getBoundingClientRect(); if (r.width < 1 || r.height < 1) return;
+      out.push({ l: r.left - st.left, t: r.top - st.top, r: r.right - st.left, b: r.bottom - st.top });
+    });
+    return out;
+  }
+  // 站点方块完整装进真实可视区（扣掉顶部 ×/存图一行、底部条、右侧控件列）且四周有余量：先左右对称留 MK（半个方块 + 站名标签的余量），再核对每个点的方块有没有压到控件，压到就把那一侧的留边加大后重算（最多 4 轮）
+  var MKH = 18;      // 方块半宽 14 + 描边 / 余量
+  function fitPad(inst, ll) {
+    var pad = { t: inst.st + 56, b: 28, l: 40, r: 40 }, cam = null, i, k, n = 0;
+    var b = bbox(ll), one = b.s === b.n && b.w === b.e;
+    for (n = 0; n < 5; n++) {
+      cam = fitCam(b, inst.sw, inst.mh, pad, FITMAX); if (one) cam.z = 14; if (one) cam = centerCam(ll[0], 14, inst.sw, inst.mh, pad);
+      var hit = null, rs = ctrlRects(inst);
+      for (i = 0; i < ll.length && !hit; i++) {
+        var q = camProject(cam, inst.sw, inst.mh, ll[i]);
+        if (q.x < MKH || q.x > inst.sw - MKH || q.y < inst.st + MKH || q.y > inst.mh - MKH) { hit = { edge: 1, q: q }; break; }
+        for (k = 0; k < rs.length; k++) if (q.x + MKH > rs[k].l && q.x - MKH < rs[k].r && q.y + MKH > rs[k].t && q.y - MKH < rs[k].b) { hit = { r: rs[k], q: q }; break; }
+      }
+      if (!hit) break;
+      if (hit.edge) { pad.l += 8; pad.r += 8; pad.t += 8; pad.b += 8; continue; }
+      var r_ = hit.r;
+      if (r_.l > inst.sw / 2 && r_.t < 120) pad.t = Math.max(pad.t, r_.b + MKH + 6);      // 右上角（存图）
+      else if (r_.l > inst.sw / 2) pad.r = Math.max(pad.r, inst.sw - r_.l + MKH + 4);      // 右侧控件列 / 署名
+      else if (r_.t < 120) pad.t = Math.max(pad.t, r_.b + MKH + 6);      // 左上角（×）
+      else pad.b = Math.max(pad.b, inst.mh - r_.t + MKH + 4);
+    }
+    return { cam: cam, pad: pad, box: b };
+  }
+  // 切天 / 关闭站点卡回当天 / “回到视野” / 刚打开 / 屏幕尺寸变了：都走这一个函数，留边一样
   function fitView(inst, anim) {
     if (!inst.view) return; var a = dayPts(inst); if (!a.length) return;
-    var b = bbox(a), cam = fitCam(b, inst.sw, inst.mh, padFor(inst), FITMAX);
-    if (b.s === b.n && b.w === b.e) cam.z = 14;
-    inst.fitCam = cam; if (inst.sch && inst.sch.setLimit) inst.sch.setLimit(b, cam.z);
+    var f = fitPad(inst, a), cam = f.cam;
+    inst.fitCam = cam; inst.fitPad = f.pad; if (inst.sch && inst.sch.setLimit) inst.sch.setLimit(f.box, cam.z);
+    inst.touched = false;
     inst.view.go(cam, anim, 450);
+  }
+  function atFit(inst) {      // 已经在“当天 / 全程视野”里了（回到视野按钮置灰）
+    var f = inst.fitCam, v = inst.view; if (!f || !v) return true; var c = v.cam(), q0 = camProject(f, inst.sw, inst.mh, [c.lat, c.lng]);
+    return Math.abs(c.z - f.z) < 0.08 && Math.abs(q0.x - inst.sw / 2) < 4 && Math.abs(q0.y - inst.mh / 2) < 4;
   }
   function flyToPt(inst, ll) {      // 平滑飞到这一站：缩放不改太大（至少 12，最多 15，当前已更近就不动），落点在“面板上方露出来的那块地图”的中央
     if (!inst.view) return; var z = inst.view.zoom(), t = clamp(Math.max(z, 12), 12, FITMAX);
@@ -267,20 +309,47 @@
   }
 
   // ——— 叠层：一张 canvas 画线和点（几百个点也不卡），编号方块是少量 DOM ———
+  // 一天里的线段（去重）：A→B→A 的返程和已经画过的段不再画第二条；相邻同一位置（<20 米）的点不连线。方向取第一次走的方向
+  function segsOf(P) {
+    var out = [], seen = {}, j, a, b, ka, kb;
+    function key(l) { return l[0].toFixed(5) + ',' + l[1].toFixed(5); }
+    for (j = 1; j < P.length; j++) {
+      a = P[j - 1].ll; b = P[j].ll; if (kmd(a, b) < 0.02) continue;
+      ka = key(a); kb = key(b); if (seen[ka + '>' + kb] || seen[kb + '>' + ka]) continue; seen[ka + '>' + kb] = 1; out.push([a, b]);
+    }
+    return out;
+  }
+  function dayShape(i) { return i % 3; }      // 0 实心方 / 1 实心圆 / 2 空心方：和颜色（红 / 墨 / 琥珀）一起区分每一天
   function paintCv(inst) {
     var v = inst.view, c = inst.cx; if (!v || !c || !inst.pal) return;
     c.setTransform(inst.dpr, 0, 0, inst.dpr, 0, 0); c.clearRect(0, 0, inst.sw, inst.sh2); c.lineJoin = 'round'; c.lineCap = 'butt';
-    var sel = inst.sel, i, j, d, q, col, dim, P;
+    var sel = inst.sel, i, j, d, q, qa, qb, col, dim, P, sg, dx, dy, L, ux, uy, mx, my, dbg = { segs: 0, arrows: 0, lw: 0, alpha: 1 };
     for (i = 0; i < inst.days.length; i++) {
-      d = inst.days[i]; col = inst.pal[i % 9]; dim = sel >= 0 && sel !== i; P = d.pts;
-      if (P.length >= 2) {
-        c.beginPath(); for (j = 0; j < P.length; j++) { q = v.project(P[j].ll); if (j) c.lineTo(q.x, q.y); else c.moveTo(q.x, q.y); }
-        c.setLineDash([]); c.globalAlpha = dim ? .22 : .85; c.strokeStyle = inst.cl.bg; c.lineWidth = 7; c.stroke();
-        c.setLineDash([7, 5]); c.globalAlpha = dim ? .3 : 1; c.strokeStyle = col; c.lineWidth = 3; c.stroke();
+      d = inst.days[i]; col = inst.pal[i % 9]; dim = sel >= 0 && sel !== i; P = d.pts; sg = segsOf(P);
+      if (sel < 0 || sel === i) dbg.segs += sg.length;
+      if (sg.length) {
+        c.beginPath(); for (j = 0; j < sg.length; j++) { qa = v.project(sg[j][0]); qb = v.project(sg[j][1]); c.moveTo(qa.x, qa.y); c.lineTo(qb.x, qb.y); }
+        c.setLineDash([]); c.globalAlpha = dim ? .12 : .5; c.strokeStyle = inst.cl.bg; c.lineWidth = 4; c.stroke();      // 纸色衬边，让细线在底图上不糊
+        c.setLineDash([6, 6]); c.globalAlpha = dim ? .22 : .72; c.strokeStyle = col; c.lineWidth = 1.8; c.stroke(); if (!dim) { dbg.lw = c.lineWidth; dbg.alpha = c.globalAlpha; }
+        c.setLineDash([]); c.globalAlpha = dim ? .3 : .9; c.fillStyle = col;      // 先后：每段中间一个小箭头（段太短就不画）
+        for (j = 0; j < sg.length; j++) {
+          qa = v.project(sg[j][0]); qb = v.project(sg[j][1]); dx = qb.x - qa.x; dy = qb.y - qa.y; L = Math.sqrt(dx * dx + dy * dy); if (L < 60) continue; if (sel < 0 || sel === i) dbg.arrows++;
+          ux = dx / L; uy = dy / L; mx = (qa.x + qb.x) / 2; my = (qa.y + qb.y) / 2;
+          c.beginPath(); c.moveTo(mx + ux * 5, my + uy * 5); c.lineTo(mx - ux * 4 - uy * 4, my - uy * 4 + ux * 4); c.lineTo(mx - ux * 4 + uy * 4, my - uy * 4 - ux * 4); c.closePath();
+          c.lineWidth = 2; c.strokeStyle = inst.cl.bg; c.stroke(); c.fill();
+        }
       }
-      if (sel !== i) { c.setLineDash([]); c.globalAlpha = dim ? .4 : 1; c.fillStyle = col; for (j = 0; j < P.length; j++) { q = v.project(P[j].ll); c.fillRect(q.x - 4, q.y - 4, 8, 8); } }
+      if (sel !== i) {      // 没选中的天：各站画成小点（全程里一眼分出是哪一天：形 + 色）
+        var sp = dayShape(i); c.setLineDash([]); c.globalAlpha = dim ? .4 : 1; c.fillStyle = col; c.strokeStyle = col; c.lineWidth = 1.6;
+        for (j = 0; j < P.length; j++) {
+          q = v.project(P[j].ll);
+          if (sp === 1) { c.beginPath(); c.arc(q.x, q.y, 3.5, 0, 6.2832); c.fill(); }
+          else if (sp === 2) { c.fillStyle = inst.cl.bg; c.fillRect(q.x - 3.5, q.y - 3.5, 7, 7); c.strokeRect(q.x - 3.5, q.y - 3.5, 7, 7); c.fillStyle = col; }
+          else c.fillRect(q.x - 3.5, q.y - 3.5, 7, 7);
+        }
+      }
     }
-    c.globalAlpha = 1; c.setLineDash([]);
+    c.globalAlpha = 1; c.setLineDash([]); inst.dbg = dbg;      // 自检用：这一帧画了几条线、几个箭头、线宽 / 不透明度
   }
   function niceKm(max) { var n = [0.2, 0.5, 1, 2, 5, 10, 20, 50, 100, 200, 500, 1000, 2000], k = n[0], i; for (i = 0; i < n.length; i++) if (n[i] <= max) k = n[i]; return k; }
   function paintGr(inst) {      // 示意图底：细经纬线（纸色底上的方格）+ 比例尺 + 北；街道底图出来以后盖住它
@@ -316,13 +385,24 @@
         var cls = 'rm-mk ' + dayCls(sel) + (p.mk === 'mu' ? ' rm-mu' : '') + (p.mk === 'eat' ? ' rm-eat' : '') + (inst.cur === p.n ? ' rm-cur' : '');
         var b = el('button', cls, '<i>' + p.n + '</i>'); b.type = 'button'; b.setAttribute('data-n', p.n); b.tabIndex = -1; b.setAttribute('aria-label', p.n + ' ' + p.name); add(b, p.ll, { kind: 'n', n: p.n, label: p.n + ' ' + p.name });
       });
+      d.pts.forEach(function (p) {      // 站名小标签：方块旁边，纸色底、一行、≤6 字；place() 里做避让（挤了只留优先的，放大后再出来）
+        var e = el('i', 'rm-nm' + (inst.cur === p.n ? ' rm-cur' : ''), '<span>' + esc(shortName(p)) + '</span>'); e.setAttribute('aria-hidden', 'true'); e.setAttribute('data-nm', p.n);
+        add(e, p.ll, { kind: 'lb', lab: true, n: p.n });
+      });
     }
-    paintTag(inst, true); place(inst);
+    place(inst);
   }
-  function paintTag(inst, quiet) {      // 选中一站：标记旁边显示名字小标签
-    inst.marks = (inst.marks || []).filter(function (m) { if (m.tag) { if (m.el.parentNode) m.el.parentNode.removeChild(m.el); return false; } return true; });
-    var p = curPt(inst); if (!p) { if (!quiet) place(inst); return; }
-    var e = el('i', 'rm-tg', '<span>' + esc(p.name) + '</span>'); e.setAttribute('aria-hidden', 'true'); inst.pts.appendChild(e); inst.marks.push({ el: e, ll: p.ll, tag: true });
+  // 站名缩短：“西安城墙 · 永宁门” → 取最短且 ≤6 字的一段；吃饭取菜名；超过 6 字截成 6 字 + …
+  function shortName(p) {
+    var t = String(p.name || '').replace(/\s*[（(][^）)]*[）)]\s*/g, ' ').replace(/\s+/g, ' ').trim(), seg = t.split(/\s*[·・｜|]\s*/).filter(Boolean), r;
+    if (!seg.length) return '';
+    if (p.mk === 'eat' && seg.length > 1) seg = [seg[seg.length - 1].split(/[、，,\/ ]/)[0] || seg[seg.length - 1]];
+    r = seg[0];
+    if (r.length > 6) { var ok = seg.filter(function (x) { return x.length <= 6; }); if (ok.length) r = ok.sort(function (a, b) { return b.length - a.length; })[0]; }
+    return r.length > 6 ? r.slice(0, 6) + '…' : r;
+  }
+  function paintTag(inst, quiet) {      // 选中一站：这一站的名字标签变成墨底白字、优先显示
+    qsa('.rm-nm', inst.pts).forEach(function (e) { e.classList.toggle('rm-cur', +e.getAttribute('data-nm') === inst.cur); });
     if (!quiet) place(inst);
   }
   var placing = 0;
@@ -330,13 +410,33 @@
     var v = inst.view; if (!v || !inst.alive || !inst.marks) return;
     var W_ = inst.sw, t0_ = inst.pf ? now() : 0;
     inst.marks.forEach(function (m) {
-      var q = v.project(m.ll); m.px = q.x; m.py = q.y; m.el.style.transform = 'translate(' + Math.round(q.x) + 'px,' + Math.round(q.y) + 'px)';
-      if (m.tag) m.el.classList.toggle('rm-tgl', q.x > W_ - 150);
+      var q = v.project(m.ll); m.px = q.x; m.py = q.y; if (!m.lab) m.el.style.transform = 'translate(' + Math.round(q.x) + 'px,' + Math.round(q.y) + 'px)';
     });
-    if (inst.sel < 0) cullBadges(inst); else denseMarks(inst);
-    paintCv(inst); paintGr(inst); if (v.kind === 'sch') schLabels(inst); else if (inst.lbs) clearLabels(inst);
+    if (inst.sel < 0) cullBadges(inst); else { denseMarks(inst); placeLabels(inst); }
+    paintCv(inst); paintGr(inst);
     zoomBtns(inst); compass(inst);
     if (inst.pf) { var dt_ = now() - t0_; inst.pf.n++; inst.pf.ms += dt_; if (dt_ > inst.pf.max) inst.pf.max = dt_; }
+  }
+  // 站名标签的避让：按优先级（选中的 > 编号小的）一个个放；候选位置 右 / 左 / 上 / 下；压到任何方块、住、控件、已放的标签、屏幕边就换位置，都不行就不显示（放大以后自然出现）
+  function placeLabels(inst) {
+    var labs = inst.marks.filter(function (m) { return m.lab; }); if (!labs.length) return;
+    var obst = [], placed = [], i, k, W_ = inst.sw, T_ = inst.st + 4, B_ = inst.mh - 4, rs = inst.ctrl || [];
+    inst.marks.forEach(function (m) { if (m.lab || m.tag || !m.kind) return; var h = m.kind === 'g' ? 8 : (m.small ? 12 : 15); obst.push({ x: m.px - h, y: m.py - h, w: 2 * h, h: 2 * h }); });
+    labs.sort(function (a, b) { var ac = a.n === inst.cur ? 0 : 1, bc = b.n === inst.cur ? 0 : 1; return ac - bc || a.n - b.n; });
+    function hit(x, y, w, h) {
+      var j; if (x < 4 || x + w > W_ - 4 || y < T_ || y + h > B_) return true;
+      for (j = 0; j < obst.length; j++) if (x < obst[j].x + obst[j].w && x + w > obst[j].x && y < obst[j].y + obst[j].h && y + h > obst[j].y) return true;
+      for (j = 0; j < rs.length; j++) if (x < rs[j].r + 2 && x + w > rs[j].l - 2 && y < rs[j].b + 2 && y + h > rs[j].t - 2) return true;
+      for (j = 0; j < placed.length; j++) if (x < placed[j].x + placed[j].w + 2 && x + w > placed[j].x - 2 && y < placed[j].y + placed[j].h + 2 && y + h > placed[j].y - 2) return true;
+      return false;
+    }
+    for (i = 0; i < labs.length; i++) {
+      var m = labs[i], w = m.w || (m.w = m.el.offsetWidth || 60), h = 20, cands = [[m.px + 17, m.py - 10], [m.px - 17 - w, m.py - 10], [m.px - w / 2, m.py - 17 - h], [m.px - w / 2, m.py + 17]], ok = null;
+      if (m.el.offsetWidth && Math.abs(m.el.offsetWidth - w) > 1) w = m.w = m.el.offsetWidth;
+      for (k = 0; k < cands.length; k++) if (!hit(cands[k][0], cands[k][1], w, h)) { ok = cands[k]; break; }
+      if (ok) { placed.push({ x: ok[0], y: ok[1], w: w, h: h }); m.el.style.transform = 'translate(' + Math.round(ok[0]) + 'px,' + Math.round(ok[1]) + 'px)'; if (m.hid !== false) { m.el.style.visibility = 'visible'; m.hid = false; } m.box = { x: ok[0], y: ok[1], w: w, h: h }; }
+      else { if (m.hid !== true) { m.el.style.visibility = 'hidden'; m.hid = true; } m.box = null; }
+    }
   }
   function denseMarks(inst) {      // 标记挤在一起（相距 <30px）：缩成 22px
     var nums = inst.marks.filter(function (m) { return m.kind === 'n' || m.kind === 'hm'; });
@@ -350,40 +450,40 @@
     while (i < a.length) { j = i; while (j + 1 < a.length && a[j + 1] === a[j] + 1) j++; out.push(j > i ? a[i] + '–' + a[j] : String(a[i])); i = j + 1; }
     return out.join('·');
   }
-  function cullBadges(inst) {      // 总览：挤在一起的天数章只留一个，写成“2–5”；被合并的天仍能点到（点击挑选）
-    var kept = [];
-    inst.marks.forEach(function (m) {
-      if (!m.badge) return; var x = m.px, y = m.py, hide = false, i;
-      for (i = 0; i < kept.length; i++) if (Math.abs(kept[i].x - x) < 30 && Math.abs(kept[i].y - y) < 30) { hide = true; kept[i].g.push(m.day + 1); break; }
-      m.el.style.visibility = hide ? 'hidden' : ''; if (!hide) kept.push({ x: x, y: y, m: m, g: [m.day + 1] });
+  function cullBadges(inst) {      // 总览：挤在一起的天数章——≤3 个并排摆开（各自的色 / 形，信息不丢），更多的只留一个写成“2–5”；被合并的天仍能点到（点击挑选）
+    var kept = [], bd = inst.marks.filter(function (m) { return m.badge; });
+    bd.forEach(function (m) {
+      var x = m.px, y = m.py, hit = null, i; m.fan = 0; m.dx = 0;
+      for (i = 0; i < kept.length; i++) if (Math.abs(kept[i].x - x) < 30 && Math.abs(kept[i].y - y) < 30) { hit = kept[i]; break; }
+      if (hit) hit.g.push(m); else kept.push({ x: x, y: y, m: m, g: [m] });
     });
     kept.forEach(function (k) {
-      var t = k.g.length > 1 ? rangeLabel(k.g) : String(k.m.day + 1), ie = k.m.el.firstChild;
-      if (ie && ie.textContent !== t) ie.textContent = t;
-      k.m.el.setAttribute('aria-label', (k.g.length > 1 ? '第 ' + t + ' 天（位置相近）' : '第 ' + t + ' 天') + '：' + (inst.days[k.m.day].title || ''));
+      var n = k.g.length, dir = k.x > inst.sw / 2 ? -1 : 1;
+      k.g.forEach(function (m, j) {
+        var fan = n <= 3 && j > 0, hide = n > 3 && j > 0, t = String(m.day + 1), ie = m.el.firstChild;
+        if (n > 3 && j === 0) t = rangeLabel(k.g.map(function (g) { return g.day + 1; }));
+        if (ie && ie.textContent !== t) ie.textContent = t;
+        m.dx = fan ? dir * 26 * j : 0; m.fan = fan ? 1 : 0; m.px = k.x + m.dx;
+        m.el.style.visibility = hide ? 'hidden' : '';
+        if (fan) m.el.style.transform = 'translate(' + Math.round(k.x + m.dx) + 'px,' + Math.round(k.y) + 'px)';
+        m.el.setAttribute('aria-label', (n > 3 && j === 0 ? '第 ' + t + ' 天（位置相近）' : '第 ' + t + ' 天') + '：' + (inst.days[m.day].title || ''));
+      });
     });
   }
-  function clearLabels(inst) { qsa('.rm-lb', inst.pts).forEach(function (e) { e.parentNode.removeChild(e); }); inst.lbs = false; }
-  function schLabels(inst) {      // 示意图版：站名小标签（贪心，不重叠）
-    clearLabels(inst); var d = curDay(inst); if (!d) return; inst.lbs = true; var boxes = [];
-    d.pts.forEach(function (p) {
-      var m = inst.marks.filter(function (k) { return k.kind === 'n' && k.n === p.n; })[0]; if (!m || m.px < 0 || m.px > inst.sw || m.py < 0 || m.py > inst.sh2 - (inst.sheetH || 0)) return;
-      var nm = p.name.length > 9 ? p.name.slice(0, 9) + '…' : p.name, w = nm.length * 12 + 12, x = m.px + 16, y = m.py - 9;
-      if (x + w > inst.sw - 4) x = m.px - 16 - w;
-      var hit = boxes.some(function (b) { return x < b.x + b.w && x + w > b.x && y < b.y + 18 && y + 18 > b.y; }); if (hit) return;
-      boxes.push({ x: x, y: y, w: w }); var e = el('span', 'rm-lb', esc(nm)); e.style.cssText = 'left:' + Math.round(x) + 'px;top:' + Math.round(y) + 'px'; inst.pts.appendChild(e);
-    });
+  function zoomBtns(inst) {      // 只在变了的时候才写 DOM（拖地图时每帧都会走到这里，不要让底下的条 / 控件重绘）
+    var v = inst.view; if (!v) return; var zi = qs('.rm-zi', inst.root), zo = qs('.rm-zo', inst.root), rs = qs('.rm-rs', inst.root), a = v.atMax(), b = v.atMin(), c = atFit(inst);
+    if (zi.disabled !== a) zi.disabled = a; if (zo.disabled !== b) zo.disabled = b;
+    if (rs && rs.disabled !== c) { rs.disabled = c; rs.setAttribute('aria-disabled', c ? 'true' : 'false'); }      // 已经在当天 / 全程视野里：“回到视野”置灰
   }
-  function zoomBtns(inst) { var v = inst.view; if (!v) return; var zi = qs('.rm-zi', inst.root), zo = qs('.rm-zo', inst.root); zi.disabled = v.atMax(); zo.disabled = v.atMin(); }
   function compass(inst) {
     var v = inst.view, b = qs('.rm-cp', inst.root); if (!b) return; var br = v && v.kind === 'ml' ? v.map.getBearing() : 0;
-    b.hidden = Math.abs(br) < 0.5; if (!b.hidden) b.firstChild.style.transform = 'rotate(' + (-br) + 'deg)';
+    var hd = Math.abs(br) < 0.5; if (b.hidden !== hd) b.hidden = hd; if (!hd) b.firstChild.style.transform = 'rotate(' + (-br) + 'deg)';
   }
   // 点按（地图上）：挑离点击位置最近的标记；一处只有一个 → 当作点了它；挤在一起有几个 → 弹列表选；点空白 → 取消选中
   function onTap(inst, x, y) {
     var c = [];
     inst.marks.forEach(function (m) {
-      if (m.dot || m.tag || !m.kind) return; var dx = m.px - x, dy = m.py - y, d = Math.sqrt(dx * dx + dy * dy);
+      if (m.dot || m.tag || m.lab || !m.kind) return; var dx = m.px - x, dy = m.py - y, d = Math.sqrt(dx * dx + dy * dy);
       if (d <= (m.small ? 20 : 26)) c.push({ m: m, d: d });
     });
     if (!c.length) { closeAt(inst); if (inst.cur || inst.curG || inst.curH) deselect(inst); return; }
@@ -412,11 +512,13 @@
     inst.tabs.innerHTML = h; inst.tabs.className = 'rm-tabs' + (n > 6 ? ' long' : '');
     var on = qs('.rm-tb.on', inst.tabs); if (on && inst.tabs.scrollWidth > inst.tabs.clientWidth) inst.tabs.scrollLeft = Math.max(0, on.offsetLeft - inst.tabs.clientWidth / 2 + on.offsetWidth / 2);      // 选中项始终可见
   }
-  // 当天那一行信息：第 N 天 · 标题 · 今天：走路约 … · 路上约 …（数字和页面每天那一行是同一个 ZD.loadText）
+  // 当天的信息条：两行分明——第一行标题（一行，放不下省略），第二行数字（每一块“走路约 2 小时 10 分”“路上约 30 分钟”不许从中间断，只能在块之间换行）。
+  // 数字和页面每天那一行是同一个 ZD.loadText（去掉了“今天：”）
+  function numHtml(t) { return String(t).split(' · ').map(function (x) { return '<span class="nw">' + esc(x) + '</span>'; }).join(' · '); }
   function paintDayLine(inst) {
     var d = curDay(inst), n = inst.days.length, h;
-    if (!d) h = '<p class="rm-ld"><b>全程 · 共 ' + n + ' 天</b>　点上面的天数，看那一天的路线</p>';
-    else h = '<p class="rm-ld"><b>第 ' + (d.i + 1) + ' 天 · ' + esc(d.title) + '</b>　今天：' + esc(ZD.loadText(ZD.facts(d))) + '</p>';
+    if (!d) h = '<p class="rm-ld"><b>全程 · 共 ' + n + ' 天</b><span class="rm-ln"><span class="nw">点上面的天数，看那一天的路线</span></span></p>';
+    else h = '<p class="rm-ld"><b>第 ' + (d.i + 1) + ' 天 · ' + esc(d.title) + '</b><span class="rm-ln">' + numHtml(ZD.loadText(ZD.facts(d))) + '</span></p>';
     inst.bodyEl.innerHTML = h; inst.bodyEl.className = 'rm-body rm-day';
   }
   function clearSel(inst) { inst.cur = 0; inst.curG = 0; inst.curH = false; }
@@ -486,7 +588,7 @@
     paintAll(inst); draw(inst); fitView(inst, true); loadGray(inst);
   }
   function markOn(inst) {
-    qsa('section.day.rm-on').forEach(function (s) { s.className = s.className.replace(/\s*rm-(on|c\d|s\d)\b/g, ''); });
+    qsa('section.day.rm-on').forEach(function (s) { s.className = s.className.replace(/\s*rm-(on|dk\d|dt\d)\b/g, ''); });
   }
   function selectStop(inst, n, opt) {      // 点图上的站点：底部条换成这一站的卡片，地图飞过去
     var d = curDay(inst); if (!d || !d.pts[n - 1]) return; opt = opt || {};
@@ -515,7 +617,7 @@
   }
   function deselect(inst) {      // 点空白 / “回当天”：回到当天那一行信息
     if (inst.mode !== 'card' && !inst.cur && !inst.curG && !inst.curH) return;
-    clearSel(inst); inst.mode = 'day'; closeAt(inst); paintSheet(inst); paintTagsAndMarks(inst);
+    clearSel(inst); inst.mode = 'day'; closeAt(inst); paintSheet(inst); paintTagsAndMarks(inst); fitView(inst, true);      // 关掉站点卡回当天：镜头也回到当天视野（和切天 / 回到视野同一套留边）
   }
 
   // ——— 顺路可去（灰点）：复用顺路加一站的候选、试算、加站和撤销（site.js 里 window.zNpMap）———
@@ -567,7 +669,7 @@
   }
   function closeInst(inst) {
     if (!inst || !inst.alive) return;
-    inst.alive = false; clearTimeout(inst.timer); clearTimeout(inst.tchk); clearTimeout(inst.hard); clearTimeout(inst.rft); if (inst.off) inst.off();
+    inst.alive = false; clearTimeout(inst.pfin); clearTimeout(inst.pcap); clearTimeout(inst.timer); clearTimeout(inst.tchk); clearTimeout(inst.hard); clearTimeout(inst.rft); if (inst.off) inst.off();
     if (inst.mq && inst.mq.removeListener) inst.mq.removeListener(inst.onScheme);
     W.removeEventListener('resize', inst.onResize); W.removeEventListener('orientationchange', inst.onResize);
     toRowAfterClose(inst);
@@ -660,8 +762,8 @@
       x.save(); x.beginPath(); x.rect(0, HD, CW, mh); x.clip();
       inst.days.forEach(function (d, i) {
         var show = inst.sel < 0 || inst.sel === i, col = PAL[i % 3]; if (!show || d.pts.length < 2) return;
-        x.beginPath(); d.pts.forEach(function (p, j) { var q = P(p.ll); if (j) x.lineTo(q[0], q[1]); else x.moveTo(q[0], q[1]); });
-        x.setLineDash([]); x.strokeStyle = BG; x.lineWidth = 12; x.globalAlpha = .85; x.stroke(); x.globalAlpha = 1; x.setLineDash([20, 14]); x.strokeStyle = col; x.lineWidth = 7; x.stroke(); x.setLineDash([]);
+        x.beginPath(); segsOf(d.pts).forEach(function (sg) { var q0 = P(sg[0]), q1 = P(sg[1]); x.moveTo(q0[0], q0[1]); x.lineTo(q1[0], q1[1]); });      // 和屏幕上同一套：往返重复的段只画一条
+        x.setLineDash([]); x.strokeStyle = BG; x.lineWidth = 10; x.globalAlpha = .55; x.stroke(); x.globalAlpha = .8; x.setLineDash([16, 16]); x.strokeStyle = col; x.lineWidth = 4.5; x.stroke(); x.globalAlpha = 1; x.setLineDash([]);
       });
       function sqr(q, txt, col, hollow, mu) {
         var s = 62; x.fillStyle = hollow ? BG : col; x.fillRect(q[0] - s / 2, q[1] - s / 2, s, s); x.lineWidth = 5; x.strokeStyle = hollow ? col : BG; x.strokeRect(q[0] - s / 2 + 2, q[1] - s / 2 + 2, s - 4, s - 4);
@@ -725,12 +827,18 @@
     });
   }
   // ——— 加载 / 兜底 ———
-  function setProg(inst, v) { if (inst.prog) inst.prog.style.width = Math.round(clamp(v, 0, 1) * 100) + '%'; inst.pv = v; }
-  function showLoad(inst) { inst.load.textContent = NOTE_LOAD; inst.load.hidden = false; inst.root.classList.add('rm-loading'); }
-  function hideLoad(inst) { inst.load.hidden = true; inst.root.classList.remove('rm-loading'); setProg(inst, 1); setTimeout(function () { if (inst.alive) setProg(inst, 0); }, 400); }
+  // 进度条：收到瓦片就往前走，但一定要有终点——'idle'（所有瓦片 / 样式 / 字形都完事）、“瓦片不再来了”（最后一块之后 0.9 秒）、“街道图出现后最多 5 秒”三者任一先到就收；收了以后再来的瓦片（拖地图）不再把它叫出来
+  function setProg(inst, v) { if (!inst.prog || inst.loaded) return; inst.prog.style.width = Math.round(clamp(v, 0, 1) * 100) + '%'; inst.pv = v; }
+  function showLoad(inst) { inst.loaded = false; inst.prog.parentNode.classList.remove('rm-pend'); inst.load.textContent = NOTE_LOAD; inst.load.hidden = false; inst.root.classList.add('rm-loading'); }
+  function hideLoad(inst) {
+    if (inst.loaded) return; clearTimeout(inst.pfin); clearTimeout(inst.pcap);
+    inst.prog.style.width = '100%'; inst.pv = 1; inst.loaded = true; inst.load.hidden = true; inst.root.classList.remove('rm-loading');
+    setTimeout(function () { if (inst.alive) inst.prog.parentNode.classList.add('rm-pend'); }, 250);      // 走满以后淡出（CSS 里 rm-pend = opacity 0）
+    setTimeout(function () { if (inst.alive && inst.loaded) inst.prog.style.width = '0%'; }, 700);
+  }
   function fallback(inst, why) {
     if (!inst.alive || inst.failed) return; inst.failed = true; inst.why = why; clearTimeout(inst.timer); clearTimeout(inst.tchk); clearTimeout(inst.hard); hideLoad(inst);
-    if (inst.view && inst.view.kind === 'ml') { var c = inst.view.cam(); inst.view.destroy(); inst.sch.go(c, false); }
+    if (inst.view && inst.view.kind === 'ml') { var c = inst.view.cam(); inst.view.destroy(); if (inst.sch.admit) inst.sch.admit(c); inst.sch.go(c, false); }
     inst.map = null; inst.mapEl.innerHTML = ''; inst.mapEl.className = 'rm-map'; inst.mapShown = false; inst.root.classList.add('rm-sch');
     inst.view = inst.sch; inst.sch.onMove(function () { place(inst); });
     var nt = qs('span', inst.note); nt.textContent = why === 'offline' ? NOTE_NET : NOTE_OFF; inst.note.hidden = false; inst.note.classList.toggle('rm-nr', why === 'offline');
@@ -772,13 +880,15 @@
         } catch (e) { return fallback(inst, 'gl'); }
         inst.map = map; inst.view = mlView(inst, map); inst.tiles = 0; inst.terr = 0; inst.pend = 0; inst.mapShown = false;
         map.on('move', function () { if (inst.map === map) place(inst); });
+        map.on('dragstart', function () { inst.touched = true; }); map.on('zoomstart', function (e) { if (e && e.originalEvent) inst.touched = true; });
         map.on('rotate', function () { compass(inst); });
         map.on('dataloading', function (e) { if (e.tile) inst.pend++; });
         map.on('data', function (e) {
           if (e.tile) {
             inst.tiles++; inst.pend = Math.max(0, inst.pend - 1); clearTimeout(inst.hard);
+            clearTimeout(inst.pfin); inst.pfin = setTimeout(function () { if (inst.alive && inst.map === map && !(inst.pend > 0)) hideLoad(inst); }, 900);      // 瓦片都到齐了、0.9 秒没有新的 → 加载完成
             setProg(inst, .6 + .38 * inst.tiles / Math.max(1, inst.tiles + inst.pend));
-            if (!inst.mapShown && inst.tiles > 0) { inst.mapShown = true; inst.mapEl.classList.add('rm-in'); paintGr(inst); try { localStorage.setItem('zouni_map_t', String(Date.now())); } catch (x) {} }      // 记一笔“刚开过地图”：site.js 的 warm() 10 分钟内不再预热
+            if (!inst.mapShown && inst.tiles > 0) { inst.mapShown = true; inst.pcap = setTimeout(function () { if (inst.alive) hideLoad(inst); }, PROG_CAP); inst.mapEl.classList.add('rm-in'); paintGr(inst); try { localStorage.setItem('zouni_map_t', String(Date.now())); } catch (x) {} }      // 记一笔“刚开过地图”：site.js 的 warm() 10 分钟内不再预热
           }
         });
         map.on('idle', function () { if (inst.map === map && inst.tiles > 0) hideLoad(inst); });
@@ -830,7 +940,7 @@
     measure(inst); readPal(inst);
     inst.sch = schView(inst); inst.view = inst.sch; inst.sch.onMove(function () { place(inst); });
     inst.mq = W.matchMedia ? W.matchMedia('(prefers-color-scheme: dark)') : null; inst.onScheme = function () { readPal(inst); place(inst); }; if (inst.mq && inst.mq.addListener) inst.mq.addListener(inst.onScheme);
-    inst.onResize = function () { if (!inst.alive) return; measure(inst); if (inst.view) inst.view.resize(); place(inst); };
+    inst.onResize = function () { if (!inst.alive) return; measure(inst); if (inst.view) inst.view.resize(); if (!inst.touched && inst.mode === 'day') fitView(inst, false); place(inst); };
     W.addEventListener('resize', inst.onResize); W.addEventListener('orientationchange', function () { setTimeout(inst.onResize, 300); });
     wire(inst); paintAll(inst);
     inst.mapEl.style.bottom = inst.sheetH + 'px';      // 地图容器只到底部条的上沿（条高固定，不会再长）
