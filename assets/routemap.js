@@ -825,6 +825,7 @@
     if (boot && boot.layer && boot.layer.alive) { inst.layer = boot.layer; inst.layer.o.onclose = function () { closeInst(inst); }; }      // 起步壳已经是层栈里的一层：接手它（同一条历史），关闭时走 closeInst
     else inst.layer = ZL.open([], { kind: 'map', onclose: function () { closeInst(inst); } });
     B.appendChild(inst.root); lockBody(inst);
+    inst.layer.o.root = inst.root; try { var cx_ = inst.root.querySelector('.rm-x'); if (cx_) cx_.focus({ preventScroll: true }); } catch (e) {}      // 焦点进地图（Tab 在地图里循环，关闭时由层栈还给“看路线图”按钮）
     if (boot && boot.root && boot.root.parentNode) boot.root.parentNode.removeChild(boot.root);
     measure(inst); readPal(inst);
     inst.sch = schView(inst); inst.view = inst.sch; inst.sch.onMove(function () { place(inst); });
