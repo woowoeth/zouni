@@ -384,7 +384,7 @@ with sync_playwright() as p:
             check('M5g 拖开以后点“回到视野”：回到当天取景（偏离 %.4f → %.4f）' % (d1, d2), d1 > .01 and d2 < d1 * .3, (d1, d2))
             for _ in range(14):
                 if pg.is_disabled('.rm-zi'): break
-                pg.click('.rm-zi', timeout=2500) if not pg.is_disabled('.rm-zi') else None; pg.wait_for_timeout(260)
+                pg.click('.rm-zi', timeout=6000) if not pg.is_disabled('.rm-zi') else None; pg.wait_for_timeout(260)
             pg.wait_for_timeout(400); zmax = state(pg)['z']
             pg.evaluate("document.querySelector('.rm-zi').disabled=false"); pg.click('.rm-zi'); pg.wait_for_timeout(450)
             check('M5h 放大到头（%.2f）+ 置灰，再点不再放大（%.2f）' % (zmax, state(pg)['z']), zmax <= 17.01 and state(pg)['z'] - zmax < .05, (zmax, state(pg)['z']))

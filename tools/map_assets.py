@@ -23,7 +23,7 @@ OFM = 'https://tiles.openfreemap.org'
 STYLE_URL = OFM + '/styles/liberty'
 # 合规：边界线图层（含争议边界）和国家 / 省级标注一律隐藏（data_checks 33 扫这一行）
 HIDE_RE = re.compile(r'boundary|country|state|disputed')
-ZH_TEXT = ['coalesce', ['get', 'name:zh-Hans'], ['get', 'name:zh'], ['get', 'name']]
+ZH_TEXT = ['coalesce', ['get', 'name:zh-Hans'], ['get', 'name:zh'], ['get', 'name:ja'], ['get', 'name:latin'], ['get', 'name']]      # 中文优先 → 日文（汉字，中国人读得懂）→ 拉丁字母（泰文 / 阿拉伯文 / 韩文 / 西里尔字母的地名中国人读不了，不如拉丁字母）→ 本地名（2026-10-20）
 FONT_RANGES = ['0-255', '256-511', '8192-8447']
 LOCAL_PREFIX = '/assets/map'
 
@@ -141,7 +141,19 @@ def check_live():
     return not bad and hit > 0
 
 
+def relang(st):
+    """把已经生成的样式里“中文优先”的 text-field 换成现在的 ZH_TEXT（不联网；重复调用无副作用）。返回 (样式, 改的图层数)"""
+    old = ['coalesce', ['get', 'name:zh-Hans'], ['get', 'name:zh'], ['get', 'name']]; n = 0
+    for l in st['layers']:
+        tf = l.get('layout', {}).get('text-field')
+        if tf == old or (isinstance(tf, list) and tf[:3] == ['coalesce', ['get', 'name:zh-Hans'], ['get', 'name:zh']] and tf != ZH_TEXT): l['layout']['text-field'] = ZH_TEXT; n += 1
+    return st, n
+
+
 if __name__ == '__main__':
+    if '--relang' in sys.argv:
+        f = os.path.join(OUT, 'style.json'); st = json.load(open(f, encoding='utf-8')); st, n = relang(st)
+        open(f, 'w', encoding='utf-8').write(json.dumps(st, ensure_ascii=False, separators=(',', ':'))); print('已改 %d 个图层的地名语言' % n); sys.exit(0)
     if '--check' in sys.argv: sys.exit(0 if check_live() else 1)
     if '--requiet' in sys.argv:      # 不联网：对现有 site_src/map/style.json 套一遍“底图退后”（已经套过就什么也不做）
         f = os.path.join(OUT, 'style.json'); st = json.load(open(f, encoding='utf-8'))

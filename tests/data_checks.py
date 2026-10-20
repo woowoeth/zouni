@@ -624,7 +624,7 @@ _ma = open('tools/map_assets.py', encoding='utf-8').read()
 _mh = re.search(r"HIDE_RE = re\.compile\(r'([^']+)'\)", _ma)
 if not _mh or not all(w_ in _mh.group(1) for w_ in ('boundary', 'country', 'state', 'disputed')): _bad33.append('tools/map_assets.py 里没有隐藏 boundary|country|state|disputed 图层的 HIDE_RE')
 if not re.search(r"if HIDE_RE\.search\(l\['id'\]\):\s*l\.setdefault\('layout', \{\}\)\['visibility'\] = 'none'", _ma): _bad33.append('tools/map_assets.py 的 tune 没有把边界 / 国家 / 省级图层设成 visibility none')
-if "['get', 'name:zh-Hans']" not in _ma or "ZH_TEXT = ['coalesce', ['get', 'name:zh-Hans'], ['get', 'name:zh'], ['get', 'name']]" not in _ma: _bad33.append('tools/map_assets.py 的标注没改成中文优先（name:zh-Hans → name:zh → name）')
+if "['get', 'name:zh-Hans']" not in _ma or "ZH_TEXT = ['coalesce', ['get', 'name:zh-Hans'], ['get', 'name:zh'], ['get', 'name:ja'], ['get', 'name:latin'], ['get', 'name']]" not in _ma: _bad33.append('tools/map_assets.py 的标注没改成中文优先（name:zh-Hans → name:zh → name:ja → name:latin → name：国外地名用拉丁字母，不留泰文 / 阿拉伯文 / 韩文给中国用户）')
 _mh2 = re.search(r"var HIDE_RE = /([^/]+)/;", _rm)
 if not _mh2 or not all(w_ in _mh2.group(1) for w_ in ('boundary', 'country', 'state', 'disputed')): _bad33.append('routemap.js 里没有隐藏 boundary|country|state|disputed 图层的 HIDE_RE（运行时核对样式用）')
 if 'styleOk(j)' not in _rm: _bad33.append('routemap.js 拿到样式后没有核对“边界图层都隐藏了”（styleOk）：样式被换成没隐藏的也会照画')
@@ -637,6 +637,7 @@ def _chk_style(path_, what_):
             else: _bad33.append(f'{what_} 里图层 {l_["id"]} 没隐藏（边界 / 国家 / 省级）')
         elif l_.get('type') == 'symbol' and (l_.get('layout') or {}).get('text-field') and 'shield' not in l_['id']:
             if (l_['layout']['text-field'] or [None])[:2] != ['coalesce', ['get', 'name:zh-Hans']]: _bad33.append(f'{what_} 里标注图层 {l_["id"]} 的 text-field 不是中文优先')
+            elif ['get', 'name:latin'] not in l_['layout']['text-field'] or l_['layout']['text-field'].index(['get', 'name:latin']) > l_['layout']['text-field'].index(['get', 'name']): _bad33.append(f'{what_} 里标注图层 {l_["id"]} 的 text-field 没有“拉丁字母兜底”（name:latin 要排在本地名 name 前面：国外地名中国用户读不了本地文字）')
     if hid_ < 4: _bad33.append(f'{what_} 里只有 {hid_} 个边界类图层被隐藏（线上有 8 个；少于 4 个说明规则没命中）')
     if st_.get('sprite', '').startswith('http') or st_.get('glyphs', '').startswith('http'): _bad33.append(f'{what_} 的 sprite / glyphs 还指向外站（应自托管）')
 _chk_style('site_src/map/style.json', 'site_src/map/style.json')
@@ -689,6 +690,15 @@ _bad35 = ['闸自检失败：' + e for e in _ap.selftest()]
 _base35 = set(json.load(open(_ap.BASELINE, encoding='utf-8'))['keys']) if os.path.exists(_ap.BASELINE) else set()
 _bad35 += _ap.term_violations(I, _base35)
 if _bad35: fails.append(('站名专名不在 q 里（q 只写了泛称，坐标会落到别处）', _bad35))
+
+# 36 时长文字不许颠倒（2026-10-20）：“自驾约 30 分 3 小时”（应是“3 小时 30 分”）——编译器解析 via 里“3 小时 30 分”时只认“分钟”，30 分丢在文字里、小时又补在后面；
+#    页面每一行、地图卡片的“从出发点 / 距上一站”都带着它。判据：任何页面里不得出现“N 分 M 小时”（要建好的站）
+_bad36 = []
+if site:
+    for _f36 in sorted(glob.glob(os.path.join(site, 'trip', '*', 'index.html'))):
+        _m36 = re.search(r'[^<>]{0,10}\d+ 分 \d+ 小时', open(_f36, encoding='utf-8').read())
+        if _m36: _bad36.append(os.path.basename(os.path.dirname(_f36)) + '：' + _m36.group(0).strip())
+if _bad36: fails.append(('时长文字颠倒（“N 分 M 小时”，应是“M 小时 N 分”）', _bad36))
 
 if fails:
     for title, items in fails:

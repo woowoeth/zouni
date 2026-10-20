@@ -63,9 +63,9 @@ SELFV = [False]
 def leg(a, b, via=None):
     """两点之间：怎么走、多久、多远（自驾线路写开车）"""
     if via:
-        h = re.search(r'(\d+) 小时', via); m2 = re.search(r'(\d+) 分钟', via)
+        h = re.search(r'(\d+) 小时', via); m2 = re.search(r'(\d+) 分钟', via) or re.search(r'小时 (\d+) 分', via)      # “3 小时 30 分”（分后面没有“钟”）也要认：以前只认“分钟”，30 分丢了、还留在文字里，卡片上成了“自驾约 30 分 3 小时”（2026-10-20）
         mins = (int(h.group(1)) * 60 if h else 0) + (int(m2.group(1)) if m2 else 0)
-        _v = re.sub(r'\s*\d+ (小时|分钟)', '', via).strip()
+        _v = re.sub(r'\s*\d+ 小时(?: \d+ 分(?!钟))?', '', re.sub(r'\s*\d+ 分钟', '', via)).strip()
         if SELFV[0] and _v.startswith('包车'): _v = '自驾' + _v[2:]      # 自驾线里没有“包车”：租了车就是自己开（澳洲、新西兰、冰岛的山路没有别的车可包）
         return _v, (mins or 25), None
     if not a or not b: return '打车', 20, None

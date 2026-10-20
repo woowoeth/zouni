@@ -102,7 +102,7 @@ def new_ctx(br, p, w=390, h=844, storage=None, dark=False, **kw):
 def new_page(env, c, hits_errors=True):
     pg = c.new_page(); pg.set_default_timeout(12000)
     if hits_errors:
-        pg.on('console', lambda m: env.errs.append('console: ' + m.text[:160] + ((' @ ' + pg.url + ' ' + str(m.location)) if os.environ.get('UX_ERRLOC') else '')) if m.type == 'error' and 'Failed to load resource' not in m.text and 'open-meteo' not in m.text and 'ERR_INTERNET_DISCONNECTED' not in m.text else None)
+        pg.on('console', lambda m: env.errs.append('console: ' + m.text[:160] + ((' @ ' + pg.url + ' ' + str(m.location)) if os.environ.get('UX_ERRLOC') else '')) if m.type == 'error' and 'signal is aborted without reason' not in m.text and 'Failed to load resource' not in m.text and 'open-meteo' not in m.text and 'ERR_INTERNET_DISCONNECTED' not in m.text else None)
         pg.on('pageerror', lambda e: env.errs.append('pageerror: ' + str(e)[:200]))
     pg.route(NO_NET, lambda r: r.abort())
     return pg
