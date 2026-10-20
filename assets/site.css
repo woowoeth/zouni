@@ -1004,6 +1004,8 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .rm .rm-hm i{width:24px;height:24px;font-size:13px;background:var(--bg);color:var(--dc);border:2px solid var(--dc)}
 .rm .rm-db i{width:auto;min-width:24px;height:24px;padding:0 4px;font-size:13px;white-space:nowrap}
 .rm .rm-db.rm-dk1 i{border-radius:12px}
+.rm .rm-db.rm-dl i{min-width:20px;height:20px;padding:0 3px;font-size:11px;border-width:1.5px}      /* 长线总览：小号序号章（落脚点），挤在一起合成“8–10” */
+.rm .rm-db.rm-dl.rm-dk1 i{border-radius:10px}
 .rm .rm-db.rm-dk2 i{background:var(--bg);color:var(--dc);border-color:var(--dc)}      /* 全程里每天一个形 + 色：实心方 / 实心圆 / 空心方（和图上各站的小点同形） */
 .rm .rm-cur i{outline:2px solid var(--ink);outline-offset:2px;transform:scale(1.2)}
 .rm .rm-gy i{width:11px;height:11px;background:var(--mute);border:1.5px solid var(--bg)}
@@ -1055,6 +1057,9 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .rm .rm-tabs::-webkit-scrollbar{display:none}
 .rm .rm-tb{flex:1 1 0;min-width:44px;height:44px;margin:0;padding:0 8px;border:0;background:none;color:var(--ink);font:900 15px var(--serif);display:flex;align-items:center;justify-content:center;white-space:nowrap;cursor:pointer;border-radius:0}
 .rm .rm-tabs.long .rm-tb{flex:0 0 auto;padding:0 12px}
+.rm .rm-tabs.xl .rm-tb{min-width:40px;padding:0 6px;font-size:14px}      /* 天数 ≥ 10：标签更紧凑，一屏多露几个 */
+.rm .rm-tabs.fl,.rm .rm-tabs.fr{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 var(--fl,0px),#000 calc(100% - var(--fr,0px)),transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 var(--fl,0px),#000 calc(100% - var(--fr,0px)),transparent 100%)}      /* 两头还有标签没露出来：边上渐隐，提示能左右划 */
+.rm .rm-tabs.fl{--fl:30px}.rm .rm-tabs.fr{--fr:30px}
 .rm .rm-tb.on{background:var(--ink);color:var(--bg)}
 .rm .rm-sht.m-card .rm-tabs,.rm .rm-sht.m-card .rm-foot{display:none}
 .rm .rm-body{flex:1 1 auto;min-height:0;overflow:hidden;padding:0 20px;display:flex;flex-direction:column;justify-content:center}
@@ -1075,9 +1080,10 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .rm .rm-ch b{flex:none;min-width:22px;font:900 20px var(--serif);color:var(--red)}
 .rm .rm-ch .rm-gq{display:inline-block;width:10px;height:10px;min-width:10px;background:var(--mute)}
 .rm .rm-cname{flex:1;min-width:0;font:900 19px/1.25 var(--serif);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rm .rm-cname.rm-cn2{font-size:16px;white-space:normal;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;line-clamp:2;word-break:break-all}      /* 名字超过 9 个字：缩到 16px、最多两行（44px 一格放得下），不再从中间截成“…” */
 .rm .rm-cb{flex:none;height:44px;margin:0 -8px 0 0;padding:0 8px;border:0;background:none;color:var(--sub);font:700 13px var(--sans);cursor:pointer;border-radius:0}
 .rm .rm-c1{margin:0;font-size:13px;line-height:1.5;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rm .rm-c3{margin:2px 0 0;display:flex;align-items:center;gap:6px;font-size:12px;line-height:20px;color:var(--sub);white-space:nowrap;overflow:hidden}
+.rm .rm-c3{margin:2px 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:0 6px;font-size:12px;line-height:20px;color:var(--sub);max-height:40px;overflow:hidden}      /* 小标签 + 前后车程：一行放不下就折到第二行（原来一行省略，“距下一站…”看不到），最多两行，卡片总高不超过 168 */
 .rm .rm-c3 em{flex:none;font-style:normal;font:700 11px/16px var(--sans);padding:0 5px;color:var(--red);border:1px solid var(--red)}
 .rm .rm-c3 em.rm-cl{color:var(--amb);border-color:var(--amb)}
 .rm .rm-c3 em.rm-q{color:var(--sub);border-color:var(--line2)}
