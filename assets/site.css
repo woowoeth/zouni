@@ -1003,9 +1003,11 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .rm .rm-eat i{background:var(--bg);color:var(--dc);border-color:var(--dc)}
 .rm .rm-hm i{width:24px;height:24px;font-size:13px;background:var(--bg);color:var(--dc);border:2px solid var(--dc)}
 .rm .rm-db i{width:auto;min-width:24px;height:24px;padding:0 4px;font-size:13px;white-space:nowrap}
-.rm .rm-db.rm-dk1 i{border-radius:12px}
-.rm .rm-db.rm-dl i{min-width:20px;height:20px;padding:0 3px;font-size:11px;border-width:1.5px}      /* 长线总览：小号序号章（落脚点），挤在一起合成“8–10” */
-.rm .rm-db.rm-dl.rm-dk1 i{border-radius:10px}
+.rm .rm-mk.rm-nb{width:auto;height:22px;margin:0;display:block}      /* 总览：落脚城镇的名字方块（名字 + 天数小角标），左上角贴着 transform 的坐标；位置由 cullNames 定 */
+.rm .rm-nb i{display:flex;align-items:center;gap:4px;width:auto;min-width:0;height:22px;padding:0 7px;font:700 12px/1 var(--sans);border-width:1.5px;white-space:nowrap}
+.rm .rm-nb i b{font-weight:700}
+.rm .rm-nb i s{text-decoration:none;font:700 9.5px/1 var(--serif);opacity:.8}
+.rm .rm-nb.rm-dk1 i{border-radius:11px}
 .rm .rm-db.rm-dk2 i{background:var(--bg);color:var(--dc);border-color:var(--dc)}      /* 全程里每天一个形 + 色：实心方 / 实心圆 / 空心方（和图上各站的小点同形） */
 .rm .rm-cur i{outline:2px solid var(--ink);outline-offset:2px;transform:scale(1.2)}
 .rm .rm-gy i{width:11px;height:11px;background:var(--mute);border:1.5px solid var(--bg)}
@@ -1014,6 +1016,7 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .rm .rm-nm{height:20px;box-sizing:border-box;margin:0;padding:0;visibility:hidden;font-style:normal;pointer-events:none}
 .rm .rm-nm span{display:block;height:20px;padding:0 5px;box-sizing:border-box;background:var(--bg);border:1px solid var(--line2);color:var(--ink);font:700 12px/18px var(--sans);white-space:nowrap}
 .rm .rm-nm.rm-cur span{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.rm .rm-nm.rm-sg span{font-weight:400;font-size:11px;color:var(--sub)}      /* 总览放大后才出现的“主要景点”：比站名标签淡一档 */
 .rm .rm-b{position:absolute;z-index:8;width:44px;height:44px;margin:0;padding:0;border:1px solid var(--line2);background:var(--bg);color:var(--ink);font:900 20px/1 var(--serif);display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0;touch-action:manipulation}
 .rm .rm-b:disabled{opacity:.4;cursor:default}
 .rm .rm-rs:disabled svg{opacity:.55}
@@ -1049,6 +1052,8 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .rm .rm-bl.dim{opacity:.3}
 .rm .rm-bm rect{fill:var(--dc);stroke:var(--bg);stroke-width:2}
 .rm .rm-bm text{fill:var(--bg);font:900 14px var(--serif)}
+.rm .rm-bn text{font:700 12px var(--sans)}      /* 起步壳里总览的地名方块 */
+.rm .rm-bn.rm-dk2 rect{fill:var(--bg);stroke:var(--dc)}.rm .rm-bn.rm-dk2 text{fill:var(--dc)}
 .rm-boot .rm-tb:disabled{opacity:1}
 /* 底部面板：高度由 JS 给（style.height）；收起 / 半屏 / 拉满三档，松手吸附 */
 .rm .rm-sht{position:absolute;z-index:7;left:50%;bottom:0;width:100%;max-width:430px;height:calc(168px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box;background:var(--bg);border-top:1px solid var(--ink);padding-bottom:env(safe-area-inset-bottom,0px);touch-action:none}
