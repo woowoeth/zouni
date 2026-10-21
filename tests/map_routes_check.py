@@ -7,8 +7,8 @@
 用法（项目根目录；先 bash build/pipe.sh build/site_ml，或改了 site_src 后 python3 tools/build_site.py build/site_ml）：
     python3 tests/map_routes_check.py build/site_ml [--shots DIR] [--only R1,R2] [--inject 名字]      # 反向自检：每个名字必须变红
 
-R1  长线总览（g318 14 天 / xl3a 24 天 / xbdh30 30 天 / xb96a 105 天）：有一条首尾相连的主线（粗实线 + 行进方向箭头）；序号章在每天结束的落脚点；
-    可见的章互不重叠、挤在一起的合成“8–10”；取景贴着路线包围盒（不留大片空白）且居中；放大后章拆开；点并着一大堆天的章放大、少的弹选
+R1  长线总览（g318 14 天 / xl3a 24 天 / xbdh30 30 天 / xb96a 105 天）：有一条首尾相连的主线（粗实线 + 行进方向箭头）；地名方块的落脚点在每天结束的地方（2026-10-21 D34：方块从数字章改成地名，合并 / 避让 / 点击见 map_names_check.py）；
+    可见的名字方块互不重叠、不压控件；每个落脚城镇有方块或小点；取景贴着路线包围盒（不留大片空白）且居中
 R2  天标签条（天数 ≥ 10）：标签紧凑（≥40 宽、44 高）；选中某天（点标签 / 点图上的章 / 从页面“本日地图”进 / 站点卡回当天）后选中的那个完整落在条内；
     两头还有内容时边上渐隐（有遮罩）；点“全程”回到最左
 R3  各类线路遍历（g318 / xb96a / xl3a / xv612a / tk4 / bkk3 / hsg1 / hjgs1 / xa3）：每天的站都在可视区内且不被控件盖住、标签条里选中的在视野；
@@ -33,10 +33,9 @@ INJ = {
     # R1
     'trunk_off': ('assets/routemap.js', "if (LG && inst.trunk && inst.trunk.length > 1) paintTrunk(inst, c, dbg);", ""),                                      # 不画主线
     'long_off': ('assets/routemap.js', "var LONG_N = 8;", "var LONG_N = 9999;"),                                                                         # 长线总览回到老样子（每天第一站的章，各画各的）
-    'no_cull': ('assets/routemap.js', "if (isLong(inst)) cullLong(inst); else cullBadges(inst);", "cullBadges(inst);"),                                    # 章挤在一起不合并
-    'at_first': ('assets/routemap.js', "var at = LG ? (anchorOf(d) || d.pts[0].ll) : d.pts[0].ll;", "var at = d.pts[0].ll;"),                              # 章放在每天第一站，不在落脚点
+    'no_cull': ('assets/routemap.js', "if (inst.sel < 0) { cullNames(inst); sights(inst); }", "if (inst.sel < 0) { inst.marks.forEach(function (m) { if (m.badge) { m.el.style.transform = 'translate(' + Math.round(m.px) + 'px,' + Math.round(m.py) + 'px)'; m.el.style.visibility = 'visible'; m.box = null; } }); }"),      # 名字方块不避让（全叠在落脚点上）
+    'at_first': ('assets/routemap.js', "at = LG ? (anchorOf(d) || d.pts[0].ll) : d.pts[0].ll, g = null", "at = d.pts[0].ll, g = null"),      # 方块放在每天第一站，不在落脚点
     'fit_loose': ('assets/routemap.js', "var pad = { t: inst.st + 56, b: 28, l: 40, r: 40 }", "var pad = { t: inst.st + 56, b: 28, l: 130, r: 130 }"),     # 取景留一大圈边
-    'zoom_nosplit': ('assets/routemap.js', "if (c.length > 6 && inst.sel < 0) {", "if (false) {"),                                                     # 点并着一大堆天的章不放大
     'thin_trunk': ('assets/routemap.js', "c.globalAlpha = dim ? .3 : .95; c.strokeStyle = col; c.lineWidth = dim ? 2 : 3;", "c.globalAlpha = dim ? .3 : .95; c.strokeStyle = col; c.lineWidth = dim ? 2 : 1;"),   # 主线细成 1px（总览看不清）
     # R2
     'tab_noscroll': ('assets/routemap.js', "    if (!on || !tb.clientWidth) return;\n    var m = tb.scrollWidth", "    return;\n    var m = tb.scrollWidth"),                                    # 选中的标签不自动滚进视野
@@ -110,11 +109,11 @@ def open_sel(pg):
 OVG = """(function(){var z=ZRM.cur(),st=z.stage.getBoundingClientRect(),n=z.days.length;
  function R(e){var r=e.getBoundingClientRect();return {l:r.left-st.left,t:r.top-st.top,r:r.right-st.left,b:r.bottom-st.top}}
  var bd=[],all=[];
- z.marks.forEach(function(m){ if(!m.badge) return; var e=m.el, vis=e.style.visibility!=='hidden', i=e.firstElementChild, r=R(i); all.push({day:m.day,vis:vis,n:m.n_||1,px:m.px,py:m.py,ll:m.ll}); if(vis) bd.push({day:m.day,txt:i.textContent,box:r,n:m.n_||1,px:m.px,py:m.py}) });
+ z.marks.forEach(function(m){ if(!m.badge) return; var e=m.el, vis=e.style.visibility!=='hidden', i=e.firstElementChild, r=R(i); all.push({day:m.day,vis:vis,n:(m.days||[]).length,px:m.px,py:m.py,ll:m.ll}); if(vis) bd.push({day:m.day,txt:i.textContent,box:r,n:(m.days||[]).length,px:m.px,py:m.py}) });
  var tp=(z.trunk||[]).map(function(t){var q=z.view.project(t.ll);return [q.x,q.y]});
  var ctrl=z.ctrl.map(function(c){return {l:c.l,t:c.t,r:c.r,b:c.b}});
  var dbg=z.dbg||{}; return {n:n,bd:bd,all:all,tp:tp,ctrl:ctrl,dbg:dbg,sw:z.sw,mh:z.mh,st:z.st,tl:(z.trunk||[]).length,cam:z.view.cam(),
-   anchors:z.days.map(function(d){var a=d.ep||(d.pts.length?d.pts[d.pts.length-1].ll:null);return a}),marks:z.marks.filter(function(m){return m.badge}).map(function(m){return m.ll})}})()"""
+   anchors:z.days.map(function(d){var a=d.ep||(d.pts.length?d.pts[d.pts.length-1].ll:null);return a}),marks:z.marks.filter(function(m){return m.badge}).map(function(m){return {ll:m.ll,day:m.day}})}})()"""
 
 
 def ovg(pg): return pg.evaluate(OVG)
@@ -126,8 +125,8 @@ def ov_checks(tag, g, rid):
     n = g['n']; d = g['dbg']
     check('%s 主线：落脚点连成 %d 段（≥ 天数一半 %d），线宽 %s、不透明 %s，行进箭头 %s 个' % (tag, g['tl'] - 1, n // 2, d.get('tlw'), d.get('talpha'), d.get('tarrows')),
           g['tl'] - 1 >= n // 2 and d.get('trunk', 0) >= n // 2 and d.get('tlw', 0) >= 2.5 and d.get('talpha', 0) >= .9 and d.get('tarrows', 0) >= 1, (g['tl'], d))
-    bad_at = [i + 1 for i, (a, m) in enumerate(zip(g['anchors'], g['marks'])) if a and m and (abs(a[0] - m[0]) > 1e-6 or abs(a[1] - m[1]) > 1e-6)]
-    check('%s 序号章放在每天结束的落脚点（住的位置 / 最后一站），不在每天第一站（不对的天 %s）' % (tag, bad_at[:6]), not bad_at, bad_at[:6])
+    bad_at = [m['day'] + 1 for m in g['marks'] if g['anchors'][m['day']] and (abs(g['anchors'][m['day']][0] - m['ll'][0]) > 1e-6 or abs(g['anchors'][m['day']][1] - m['ll'][1]) > 1e-6)]
+    check('%s 名字方块的落脚点是这一堆第一天结束的地方（住的位置 / 最后一站），不在每天第一站（不对的天 %s）' % (tag, bad_at[:6]), not bad_at, bad_at[:6])
     hits = []
     for i, a in enumerate(g['bd']):
         for b in g['bd'][i + 1:]:
@@ -135,11 +134,8 @@ def ov_checks(tag, g, rid):
         for c in g['ctrl']:
             if overlap(a['box'], c): hits.append((a['txt'], 'ctrl'))
     check('%s 可见的章互不重叠、不压控件（%d 个章，重叠 %s）' % (tag, len(g['bd']), hits[:4]), not hits and len(g['bd']) >= 1, hits[:4])
-    # 每一天都归在某个可见的章里（被并掉的章挨着可见的那个：同一位置）
-    lost = []
-    for a in g['all']:
-        if not a['vis'] and not any(abs(b['px'] - a['px']) < 1 and abs(b['py'] - a['py']) < 1 for b in g['bd']): lost.append(a['day'] + 1)
-    check('%s 并进去的天都有一个可见的章在同一处可点（失踪的天 %s）' % (tag, lost[:6]), not lost, lost[:6])
+    # 每个落脚城镇：名字方块看得见，或者（让开了）在落脚点上有一个小点——不会整个城镇从图上消失
+    check('%s 每个落脚城镇都有标记：名字方块 %d 个看得见，其余 %d 个在落脚点上画了小点（小点共 %s 个 = 城镇数 %d）' % (tag, len(g['bd']), len(g['all']) - len(g['bd']), g['dbg'].get('dots'), len(g['all'])), g['dbg'].get('dots') == len(g['all']) and len(g['all']) >= 1, (g['dbg'].get('dots'), len(g['all'])))
     # 取景：主线包围盒要贴满可用区（左右各 40、上 st+56、下 28，再扣右侧控件列在下半屏的情况下不另算），并居中
     xs = [p[0] for p in g['tp']]; ys = [p[1] for p in g['tp']]
     if xs:
@@ -179,28 +175,7 @@ with sync_playwright() as p:
                 c, pg = route(br, rid); T = Touch(c, pg); open_ov(pg); g = ovg(pg)
                 check('R1 %s 天数 %d' % (rid, nd), g['n'] == nd, g['n'])
                 ov_checks('R1 %s' % rid, g, rid); shot(pg, 'r1_%s.png' % rid)
-                if rid in ('xb96a', 'xl3a'):
-                    # 放大后拆开：挑最大的一堆，居中放大 3 级，屏幕里最大的一堆变小
-                    big = max(g['bd'], key=lambda b: b['n']); n0 = big['n']
-                    mem = [a['ll'] for a in g['all'] if abs(a['px'] - big['px']) < 1 and abs(a['py'] - big['py']) < 1]
-                    la = sum(m[0] for m in mem) / len(mem); lo = sum(m[1] for m in mem) / len(mem)
-                    pg.evaluate("(function(){var z=ZRM.cur(),c=z.view.cam();z.view.go({lng:%f,lat:%f,z:c.z+3},false)})()" % (lo, la)); pg.wait_for_timeout(600)
-                    g2 = ovg(pg); n1 = max([b['n'] for b in g2['bd'] if 0 <= b['px'] <= g2['sw'] and g2['st'] <= b['py'] <= g2['mh']] or [0])
-                    check('R1 %s 放大 3 级后屏幕里最大的一堆从 %d 天拆成 %d 天（拆开了）' % (rid, n0, n1), n1 < n0, (n0, n1))
-                    shot(pg, 'r1_%s_zoom.png' % rid)
-                    c.close(); c, pg = route(br, rid); T = Touch(c, pg); open_ov(pg); g = ovg(pg)
-                    # 点并着一大堆（>6）天的章 → 放大；点少的（2–6）→ 弹选
-                    many = [b for b in g['bd'] if b['n'] > 6 and 30 < b['px'] < g['sw'] - 60 and g['st'] + 70 < b['py'] < g['mh'] - 40]
-                    few = [b for b in g['bd'] if 2 <= b['n'] <= 6 and 30 < b['px'] < g['sw'] - 60 and g['st'] + 70 < b['py'] < g['mh'] - 40]
-                    if many:
-                        z0 = g['cam']['z']; T.tap(many[0]['px'], many[0]['py']); pg.wait_for_timeout(900); z1 = ovg(pg)['cam']['z']
-                        check('R1 %s 点并着 %d 天的章“%s”：放大（z %.1f → %.1f，≥ +2）' % (rid, many[0]['n'], many[0]['txt'], z0, z1), z1 >= z0 + 2, (z0, z1))
-                    elif rid == 'xb96a': check('R1 %s 有并着 >6 天的章可点（没有就测不了）' % rid, False, [b['n'] for b in g['bd']])
-                    if few:
-                        c.close(); c, pg = route(br, rid); T = Touch(c, pg); open_ov(pg)      # 刚才点“放大”那一下已经动了镜头：重开一遍，坐标才是 few 算出来时的
-                        T.tap(few[0]['px'], few[0]['py']); pg.wait_for_timeout(500)
-                        pk = pg.evaluate("(function(){var e=document.querySelector('.rm-pk');return e&&!e.hidden?e.querySelectorAll('.rm-pi').length:0})()")
-                        check('R1 %s 点并着 %d 天的章“%s”：弹出选择（%d 项）' % (rid, few[0]['n'], few[0]['txt'], pk), pk == few[0]['n'], (pk, few[0]['n']))
+                # （放大后冒出来的名字、点名字 / 点小点：见 tests/map_names_check.py N4 / N5）
                 c.close()
 
     # ─────────── R2 天标签条
@@ -353,8 +328,8 @@ with sync_playwright() as p:
             pg.wait_for_timeout(500); c.close(); env.delays.clear()
             env.delays['routemap.js'] = 2.5
             c, pg = route(br, 'g318'); pg.evaluate("document.querySelector('.mapgo').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('.mapgo'); pg.wait_for_timeout(500)
-            sh = pg.evaluate("(function(){var r=document.querySelector('.rm-boot');return r?{lines:r.querySelectorAll('.rm-bl').length,badges:r.querySelectorAll('.rm-bm').length}:null})()")
-            check('R6 g318 总览的起步壳：长线只画主线（%s 段）、不画每天的章（%s 个）' % (sh and sh['lines'], sh and sh['badges']), bool(sh) and sh['lines'] >= 7 and sh['badges'] == 0, sh)
+            sh = pg.evaluate("(function(){var r=document.querySelector('.rm-boot');return r?{lines:r.querySelectorAll('.rm-bl').length,badges:r.querySelectorAll('.rm-bm:not(.rm-bn)').length}:null})()")
+            check('R6 g318 总览的起步壳：长线只画主线（%s 段）、不画每天的数字章（%s 个；起点 / 终点的地名方块不算，见 map_names_check N8）' % (sh and sh['lines'], sh and sh['badges']), bool(sh) and sh['lines'] >= 7 and sh['badges'] == 0, sh)
             shot(pg, 'r6_shell.png'); pg.wait_for_timeout(500); c.close(); env.delays.clear()
 
     # ─────────── R7 长站名

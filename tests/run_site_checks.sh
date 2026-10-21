@@ -20,6 +20,7 @@ run map_app          python3 tests/map_app_check.py "$SITE"       # 2026-10-18 �
 run map_anchor       python3 tests/map_anchor_check.py "$SITE"       # 2026-10-19 标点贴不贴真实坐标：每个标点中心与 map.project 误差 ≤2px（zoom 6/10/14/17、+/−、双击、双指、拖动、旋转、横屏、动画途中、示意图兜底；颜色类与卡片类撞名的根因判据）（A1–A8，4 个 --inject）
 run map_polish       python3 tests/map_polish_check.py "$SITE"       # 2026-10-19 地图细节打磨：站名标签避让 / 视野居中同一套留边 / 底图退后 / 底部条两行不断数字 / 全程每天形色 / 进度条一定收 / 细线箭头往返一条 / 点击区·置灰·不闪·暗色·横屏（P1–P8，23 个 --inject）
 run map_routes      python3 tests/map_routes_check.py "$SITE"       # 2026-10-20 各类线路走一遍：长线总览（主线 / 章合并 / 取景）· 天标签条（滚进视野 / 渐隐 / 紧凑）· g318 / 105 天 / xl* / 国外 / h* 线遍历 · 卡片 · 关闭回原位 · 105 天切天速度 · 暗色 / 375 / 414 / 横屏 · 国外地名拉丁字母兜底 · 起步壳 · 长站名（R1–R7，16 个 --inject）
+run map_names       python3 tests/map_names_check.py "$SITE"       # 2026-10-21 总览里每个方块写地名（D34）：地名 / 同城合并 / 不压控件·不重叠 / 首尾必有名字 / 点名字进那一天 / 放大后才出现主要景点 / 存图·起步壳也写地名 / 105 天速度（N1–N9，13 个 --inject）
 run map_perf         python3 tests/map_perf.py --target fixture --site "$SITE" --cases 4g:cold,4g:warm,3g:cold --assert      # 点开地图的耗时（稳定版：本机服务 + 共享链路模型）
 run weekday          python3 tests/weekday_check.py "$SITE"
 run memorial         python3 tests/memorial_check.py "$SITE"

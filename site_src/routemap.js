@@ -372,6 +372,16 @@
         }
       }
     }
+    if (sel < 0 && inst.marks) {      // 总览：每个落脚城镇在真实位置上一个小点（名字方块让开了 / 没放下时，点还在；放大后出现的主要景点也各一个小点）
+      c.globalAlpha = 1; c.setLineDash([]); c.lineWidth = 1.5; c.strokeStyle = inst.cl.bg; dbg.dots = 0;
+      c.globalAlpha = .8; c.lineWidth = 1; inst.marks.forEach(function (m) {      // 名字方块没盖在落脚点上：一条细线连回去
+        if (!m.badge || !m.box || !m.lead) return; var bx = m.box, ex = clamp(m.px, bx.x, bx.x + bx.w), ey = m.py < bx.y ? bx.y : (m.py > bx.y + bx.h ? bx.y + bx.h : bx.y + bx.h / 2);
+        c.strokeStyle = inst.pal[m.day % 9]; c.beginPath(); c.moveTo(m.px, m.py); c.lineTo(ex, ey); c.stroke();
+      });
+      c.globalAlpha = 1; c.lineWidth = 1.5; c.strokeStyle = inst.cl.bg;
+      inst.marks.forEach(function (m) { if (!m.badge) return; c.fillStyle = inst.pal[m.day % 9]; c.beginPath(); c.arc(m.px, m.py, 4, 0, 6.2832); c.fill(); c.stroke(); dbg.dots++; });
+      (inst.sgPl || []).forEach(function (q) { c.fillStyle = inst.pal[q.day % 9]; c.beginPath(); c.arc(q.x, q.y, 3, 0, 6.2832); c.fill(); c.stroke(); });
+    }
     c.globalAlpha = 1; c.setLineDash([]); inst.dbg = dbg;      // 自检用：这一帧画了几条线、几个箭头、线宽 / 不透明度
   }
   // 长线的主线：相邻落脚点之间的粗实线（每天一个颜色，和该天的序号章同色），每隔 TRUNK_ARROW 像素一个行进方向的小箭头；选了某天以后退成淡淡的一条
@@ -416,13 +426,18 @@
     inst.pts.innerHTML = ''; inst.marks = [];
     var sel = inst.sel;
     function add(e, ll, meta) { inst.pts.appendChild(e); var m = { el: e, ll: ll, badge: e.className.indexOf('rm-db') >= 0 }, k; if (meta) for (k in meta) if (meta.hasOwnProperty(k)) m[k] = meta[k]; inst.marks.push(m); return m; }
-    var LG = isLong(inst); inst.trunk = LG ? trunkOf(inst.days) : null;
-    if (sel < 0) inst.days.forEach(function (d, i) {
-      if (!d.pts.length) return;
-      var at = LG ? (anchorOf(d) || d.pts[0].ll) : d.pts[0].ll;      // 长线：章放在这一天结束的地方（住的位置），主线从一章连到下一章
-      var b = el('button', 'rm-mk rm-db ' + (LG ? 'rm-dl ' : '') + dayCls(i), '<i>' + (i + 1) + '</i>'); b.type = 'button'; b.setAttribute('data-day', i); b.tabIndex = -1; b.setAttribute('aria-label', '第 ' + (i + 1) + ' 天：' + d.title);
-      add(b, at, { kind: 'day', day: i, label: '第 ' + (i + 1) + ' 天：' + (d.title || '') });
-    });
+    var LG = isLong(inst); inst.trunk = LG ? trunkOf(inst.days) : null; inst.sgEls = []; inst.sgAll = []; inst.sgPl = [];
+    if (sel < 0) {      // 总览：每个“落脚城镇”一个方块，写地名（同一城镇连住 / 回来的几天合成一个，天数退成小角标）；主要景点放大后才出现（sights）
+      groupsOf(inst).forEach(function (g) {
+        var b = el('button', 'rm-mk rm-db rm-nb ' + dayCls(g.day), '<i><b>' + esc(g.name) + '</b><s>' + esc(g.dl) + '</s></i>'); b.type = 'button'; b.setAttribute('data-day', g.day); b.tabIndex = -1;
+        b.setAttribute('aria-label', g.name + '，第 ' + g.txt + ' 天：' + (inst.days[g.day].title || ''));
+        add(b, g.at, { kind: 'day', day: g.day, days: g.days, name: g.name, dl: g.dl, label: g.name + ' · 第 ' + g.txt + ' 天' });
+      });
+      inst.days.forEach(function (d, i) {
+        var P = d.pts.filter(function (p) { return p.mk !== 'eat'; }).map(function (p, k) { return { p: p, k: k }; }).sort(function (x, y) { return (y.p.durMin || 0) - (x.p.durMin || 0) || x.k - y.k; }).slice(0, 2).sort(function (x, y) { return x.k - y.k; });
+        P.forEach(function (x) { inst.sgAll.push({ day: i, ll: x.p.ll, name: shortName(x.p) }); });
+      });
+    }
     var d = curDay(inst);
     if (d) {
       (inst.gray || []).forEach(function (g, gi) { var e = el('button', 'rm-mk rm-gy' + (inst.curG === gi + 1 ? ' rm-cur' : ''), '<i></i>'); e.type = 'button'; e.setAttribute('data-g', gi); e.tabIndex = -1; e.setAttribute('aria-label', '顺路可去：' + g.c.n); add(e, g.ll, { kind: 'g', gi: gi, label: '顺路可去：' + g.c.n, small: true }); });
@@ -437,6 +452,35 @@
       });
     }
     place(inst);
+  }
+  // ——— 总览的地名方块 ———
+  // 一天的名字：当天住的城镇（页面 data-nm：长线 = 当晚住的城，短线 = 这天大部分站所在的地方）；没有就取当天最后一站的名字。去掉“市”（≥3 字），保留“县 / 州”；超过 6 字截成 6 字 + …
+  function townName(d) {
+    var t = String(d.nm || d.city || '').replace(/\s*[（(][^）)]*[）)]\s*/g, '').replace(/\s+/g, '').trim();
+    if (!t && d.pts.length) t = shortName(d.pts[d.pts.length - 1]);
+    if (t.length >= 3 && t.charAt(t.length - 1) === '市') t = t.slice(0, -1);
+    return t.length > 6 ? t.slice(0, 6) + '…' : t;
+  }
+  function dayText(a) {      // “4–5”“1、3”：页面上读起来的天数
+    a = a.slice().sort(function (x, y) { return x - y; }); var out = [], i = 0, j;
+    while (i < a.length) { j = i; while (j + 1 < a.length && a[j + 1] === a[j] + 1) j++; out.push(j > i ? a[i] + '–' + a[j] : String(a[i])); i = j + 1; }
+    return out.join('、');
+  }
+  // 同一个城镇连住（挨着的天），或离开又回来、位置在 30 公里内的天，合成一个方块；方块放在这一堆里第一天的落脚点（长线 = 住的位置，短线 = 第一站）
+  function groupsOf(inst) {
+    var LG = isLong(inst), gs = [], prev = -1;
+    inst.days.forEach(function (d, i) {
+      if (!d.pts.length) return;
+      var nm = townName(d) || ('第 ' + (i + 1) + ' 天'), at = LG ? (anchorOf(d) || d.pts[0].ll) : d.pts[0].ll, g = null, k;
+      for (k = gs.length - 1; k >= 0; k--) if (gs[k].name === nm && (gs[k].last === prev || kmd(gs[k].at, at) < 30)) { g = gs[k]; break; }
+      if (g) { g.days.push(i); g.last = i; } else gs.push({ name: nm, at: at, day: i, days: [i], last: i });
+      prev = i;
+    });
+    gs.forEach(function (g) {
+      var a = g.days.map(function (x) { return x + 1; }), r = rangeLabel(a), pc = r.split('·');
+      g.dl = pc.length > 2 ? pc[0] + '+' : r; g.txt = dayText(a);
+    });
+    return gs;
   }
   // 站名缩短：“西安城墙 · 永宁门” → 取最短且 ≤6 字的一段；吃饭取菜名；超过 6 字截成 6 字 + …
   function shortName(p) {
@@ -458,7 +502,7 @@
     inst.marks.forEach(function (m) {
       var q = v.project(m.ll); m.px = q.x; m.py = q.y; if (!m.lab) m.el.style.transform = 'translate(' + Math.round(q.x) + 'px,' + Math.round(q.y) + 'px)';
     });
-    if (inst.sel < 0) { if (isLong(inst)) cullLong(inst); else cullBadges(inst); } else { denseMarks(inst); placeLabels(inst); }
+    if (inst.sel < 0) { cullNames(inst); sights(inst); } else { denseMarks(inst); placeLabels(inst); }
     paintCv(inst); paintGr(inst);
     zoomBtns(inst); compass(inst);
     if (inst.pf) { var dt_ = now() - t0_; inst.pf.n++; inst.pf.ms += dt_; if (dt_ > inst.pf.max) inst.pf.max = dt_; }
@@ -496,57 +540,65 @@
     while (i < a.length) { j = i; while (j + 1 < a.length && a[j + 1] === a[j] + 1) j++; out.push(j > i ? a[i] + '–' + a[j] : String(a[i])); i = j + 1; }
     return out.join('·');
   }
-  // 长线总览：序号章是小号的，挤到一起（盒子相碰）就合成一个“8–10”；放大到分得开了自然拆开。被并进去的章仍在原位置参与点击（点到几个就弹选 / 太多就放大）
-  function cullLong(inst) {
-    var bd = inst.marks.filter(function (m) { return m.badge; }), cl = [], i, j, merged;
-    function fresh(c) {      // 这一堆现在写什么、占多宽（只在合并时重算）
-      var ds = c.g.map(function (m) { return m.day + 1; }), r = rangeLabel(ds);
-      var pc = r.split('·'); c.t = pc.length > 2 ? pc[0] + '+' : r; c.w = Math.max(20, c.t.length * 7 + 10);      // 环线首尾并在一起是“1·104–105”（不写成“1–105”：中间那些天不在这里）；三段以上只写第一段 + “+”
-    }
-    bd.forEach(function (m) { var c = { g: [m], x: m.px, y: m.py }; fresh(c); cl.push(c); });
-    do {
-      merged = false;
-      for (i = 0; i < cl.length && !merged; i++) {
-        for (j = i + 1; j < cl.length; j++) {
-          if (Math.abs(cl[i].x - cl[j].x) < (cl[i].w + cl[j].w) / 2 + 2 && Math.abs(cl[i].y - cl[j].y) < 22) {
-            var n1 = cl[i].g.length, n2 = cl[j].g.length;
-            cl[i].x = (cl[i].x * n1 + cl[j].x * n2) / (n1 + n2); cl[i].y = (cl[i].y * n1 + cl[j].y * n2) / (n1 + n2); cl[i].g = cl[i].g.concat(cl[j].g); fresh(cl[i]); cl.splice(j, 1); merged = true; break;
-          }
-        }
-      }
-    } while (merged);
-    cl.forEach(function (c) {
-      var t = c.t, n = c.g.length; c.g.sort(function (p, q) { return p.day - q.day; });
-      c.g.forEach(function (m, k) {
-        var ie = m.el.firstChild, hide = k > 0, s = hide ? 'hidden' : '';
-        m.px = c.x; m.py = c.y; m.fan = 0; m.dx = 0; m.n_ = n;
-        if (k === 0) { if (ie && ie.textContent !== t) ie.textContent = t; m.el.style.transform = 'translate(' + Math.round(c.x) + 'px,' + Math.round(c.y) + 'px)'; }
-        if (m.el.style.visibility !== s) m.el.style.visibility = s;
-        var al = (n > 1 && k === 0 ? '第 ' + t + ' 天（位置相近，点一下选）' : '第 ' + (m.day + 1) + ' 天') + '：' + (inst.days[m.day].title || '');
-        if (m.al !== al) { m.al = al; m.el.setAttribute('aria-label', al); }
-      });
-    });
-    inst.cl_ = cl.length;      // 自检用：合并后还剩几个章
+  // 总览的名字方块：按优先级一个个放（起点那一堆、终点那一堆 > 连住天数多的 > 先后），每个先试“盖在落脚点上”，压到别的方块 / 控件 / 屏幕边就换成上 / 下 / 右 / 左，都放不下就不显示（放大以后自然出现；落脚点上仍有一个小点，点一下照样能选）
+  var CANDS = {};
+  function candsFor(w, h) {      // 名字方块相对落脚点的候选位置（方块中心的偏移），按离落脚点的距离排好；同一个宽度只算一次
+    var k = w + 'x' + h; if (CANDS[k]) return CANDS[k];
+    var xs = [0, w / 2 + 8, -(w / 2 + 8), w / 2, -w / 2, w + 8, -(w + 8)], ys = [0, h / 2 + 7, -(h / 2 + 7), h + h / 2 + 10, -(h + h / 2 + 10), 2 * h + h / 2 + 13, -(2 * h + h / 2 + 13), 3 * h + h / 2 + 16, -(3 * h + h / 2 + 16)], o = [];
+    xs.forEach(function (x) { ys.forEach(function (y) { if (x !== 0 && y !== 0 && Math.abs(x) < w / 2 + 8 && Math.abs(y) < h / 2 + 7) return; o.push([x, y]); }); });
+    o.sort(function (a, b) { return Math.hypot(a[0], a[1]) - Math.hypot(b[0], b[1]); });
+    return (CANDS[k] = o);
   }
-  function cullBadges(inst) {      // 总览：挤在一起的天数章——≤3 个并排摆开（各自的色 / 形，信息不丢），更多的只留一个写成“2–5”；被合并的天仍能点到（点击挑选）
-    var kept = [], bd = inst.marks.filter(function (m) { return m.badge; });
-    bd.forEach(function (m) {
-      var x = m.px, y = m.py, hit = null, i; m.fan = 0; m.dx = 0;
-      for (i = 0; i < kept.length; i++) if (Math.abs(kept[i].x - x) < 30 && Math.abs(kept[i].y - y) < 30) { hit = kept[i]; break; }
-      if (hit) hit.g.push(m); else kept.push({ x: x, y: y, m: m, g: [m] });
-    });
-    kept.forEach(function (k) {
-      var n = k.g.length, dir = k.x > inst.sw / 2 ? -1 : 1;
-      k.g.forEach(function (m, j) {
-        var fan = n <= 3 && j > 0, hide = n > 3 && j > 0, t = String(m.day + 1), ie = m.el.firstChild;
-        if (n > 3 && j === 0) t = rangeLabel(k.g.map(function (g) { return g.day + 1; }));
-        if (ie && ie.textContent !== t) ie.textContent = t;
-        m.dx = fan ? dir * 26 * j : 0; m.fan = fan ? 1 : 0; m.px = k.x + m.dx;
-        m.el.style.visibility = hide ? 'hidden' : '';
-        if (fan) m.el.style.transform = 'translate(' + Math.round(k.x + m.dx) + 'px,' + Math.round(k.y) + 'px)';
-        m.el.setAttribute('aria-label', (n > 3 && j === 0 ? '第 ' + t + ' 天（位置相近）' : '第 ' + t + ' 天') + '：' + (inst.days[m.day].title || ''));
-      });
-    });
+  function cullNames(inst) {
+    var gs = inst.marks.filter(function (m) { return m.badge; }), W_ = inst.sw, T_ = inst.st + 4, B_ = inst.mh - 4, rs = inst.ctrl || [], placed = [], i, k, last = gs.length ? gs[gs.length - 1] : null;
+    function hit(x, y, w, h) {
+      var j; if (x < 4 || x + w > W_ - 4 || y < T_ || y + h > B_) return true;
+      for (j = 0; j < rs.length; j++) if (x < rs[j].r + 2 && x + w > rs[j].l - 2 && y < rs[j].b + 2 && y + h > rs[j].t - 2) return true;
+      for (j = 0; j < placed.length; j++) if (x < placed[j].x + placed[j].w + 3 && x + w > placed[j].x - 3 && y < placed[j].y + placed[j].h + 2 && y + h > placed[j].y - 2) return true;
+      return false;
+    }
+    var order = gs.slice().sort(function (a, b) { var pa = (a === gs[0] || a === last) ? 0 : 1, pb = (b === gs[0] || b === last) ? 0 : 1; return pa - pb || b.days.length - a.days.length || a.day - b.day; });
+    for (i = 0; i < gs.length; i++) gs[i].w = gs[i].el.offsetWidth || gs[i].w || 60;      // 宽度先一口气读完（边读边写 transform 会让浏览器每个方块重排一遍）
+    for (i = 0; i < order.length; i++) {
+      var m = order[i], w = m.w, h = 22, ok = null;
+      var c = candsFor(w, h);      // 离落脚点从近到远：盖在上面 → 紧贴上 / 下 / 左 / 右 → 再往外退一层、两层…（退出去的名字用一条细线连回落脚点）
+      for (k = 0; k < c.length && !ok; k++) { var cx = clamp(m.px + c[k][0] - w / 2, 5, W_ - 5 - w), cy = m.py + c[k][1] - h / 2; if (!hit(cx, cy, w, h)) ok = [cx, cy]; }
+      if (ok) { m.box = { x: ok[0], y: ok[1], w: w, h: h }; m.lead = !(m.px >= ok[0] && m.px <= ok[0] + w && m.py >= ok[1] && m.py <= ok[1] + h); placed.push(m.box); m.el.style.transform = 'translate(' + Math.round(ok[0]) + 'px,' + Math.round(ok[1]) + 'px)'; if (m.hid !== false) { m.el.style.visibility = 'visible'; m.hid = false; } }
+      else { m.box = null; if (m.hid !== true) { m.el.style.visibility = 'hidden'; m.hid = true; } }
+    }
+    inst.nbPl = placed; inst.cl_ = placed.length;      // 自检用：看得见的名字方块数
+  }
+  // 放大后（≥ ZS）总览里才出现每天的主要景点（停得最久的两个）：小标签 + 小点，避让名字方块 / 控件 / 彼此；总览缩小时一个都没有
+  var ZS = 11;
+  function sights(inst) {
+    var v = inst.view, all = inst.sgAll || [], on = inst.sel < 0 && v.zoom() >= ZS, pl = [], i, k, W_ = inst.sw, T_ = inst.st + 4, B_ = inst.mh - 4, rs = inst.ctrl || [];
+    inst.sgPl = pl;
+    if (!on) { if (inst.sgOn) { inst.sgEls.forEach(function (e) { if (e) e.style.visibility = 'hidden'; }); inst.sgOn = false; } return; }
+    inst.sgOn = true;
+    var obs = (inst.nbPl || []).slice();
+    function hit(x, y, w, h) {
+      var j; if (x < 4 || x + w > W_ - 4 || y < T_ || y + h > B_) return true;
+      for (j = 0; j < rs.length; j++) if (x < rs[j].r + 2 && x + w > rs[j].l - 2 && y < rs[j].b + 2 && y + h > rs[j].t - 2) return true;
+      for (j = 0; j < obs.length; j++) if (x < obs[j].x + obs[j].w + 2 && x + w > obs[j].x - 2 && y < obs[j].y + obs[j].h + 2 && y + h > obs[j].y - 2) return true;
+      return false;
+    }
+    var qs_ = [];
+    for (i = 0; i < all.length; i++) {      // 先把画面里的标签都建出来、宽度一口气读完，再摆
+      var a0 = all[i], q0 = v.project(a0.ll); qs_[i] = q0;
+      if (q0.x < -10 || q0.x > W_ + 10 || q0.y < T_ - 10 || q0.y > B_ + 10) continue;
+      if (!inst.sgEls[i]) { var e0 = inst.sgEls[i] = el('i', 'rm-nm rm-sg', '<span>' + esc(a0.name) + '</span>'); e0.setAttribute('aria-hidden', 'true'); inst.pts.appendChild(e0); }
+    }
+    for (i = 0; i < all.length; i++) if (inst.sgEls[i] && !all[i].w) all[i].w = inst.sgEls[i].offsetWidth || 50;
+    for (i = 0; i < all.length; i++) {
+      var a = all[i], q = qs_[i], e = inst.sgEls[i];
+      if (q.x < -10 || q.x > W_ + 10 || q.y < T_ - 10 || q.y > B_ + 10) { if (e && e.style.visibility !== 'hidden') e.style.visibility = 'hidden'; continue; }
+      var w = a.w, h = 20, c, ok = null;
+      c = candsFor(w, h).filter(function (o) { return Math.abs(o[0]) >= w / 2 + 4 || Math.abs(o[1]) >= h / 2 + 5; }).map(function (o) { return [q.x + o[0] - w / 2, q.y + o[1] - h / 2]; });      // 离点从近到远，别盖住点自己；名字方块 / 别的标签 / 控件让开
+      obs.push({ x: q.x - 4, y: q.y - 4, w: 8, h: 8 });      // 点本身也别被别的标签盖住
+      for (k = 0; k < c.length && !ok; k++) if (!hit(clamp(c[k][0], 5, W_ - 5 - w), c[k][1], w, h)) ok = [clamp(c[k][0], 5, W_ - 5 - w), c[k][1]];
+      if (ok) { obs.push({ x: ok[0], y: ok[1], w: w, h: h }); e.style.transform = 'translate(' + Math.round(ok[0]) + 'px,' + Math.round(ok[1]) + 'px)'; e.style.visibility = 'visible'; pl.push({ x: q.x, y: q.y, day: a.day, box: { x: ok[0], y: ok[1], w: w, h: h } }); }
+      else if (e.style.visibility !== 'hidden') e.style.visibility = 'hidden';
+    }
   }
   function zoomBtns(inst) {      // 只在变了的时候才写 DOM（拖地图时每帧都会走到这里，不要让底下的条 / 控件重绘）
     var v = inst.view; if (!v) return; var zi = qs('.rm-zi', inst.root), zo = qs('.rm-zo', inst.root), rs = qs('.rm-rs', inst.root), a = v.atMax(), b = v.atMin(), c = atFit(inst);
@@ -562,8 +614,17 @@
     var c = [];
     inst.marks.forEach(function (m) {
       if (m.dot || m.tag || m.lab || !m.kind) return; var dx = m.px - x, dy = m.py - y, d = Math.sqrt(dx * dx + dy * dy);
+      if (m.badge) {      // 总览的名字方块：点在方块里（边上 6px 内）算点中；方块被让开了 / 没放下，点它的落脚点（小点）也算
+        var bx = m.box, rd = bx ? Math.sqrt(Math.pow(Math.max(bx.x - x, 0, x - bx.x - bx.w), 2) + Math.pow(Math.max(bx.y - y, 0, y - bx.y - bx.h), 2)) : 1e9;
+        if (rd <= 6) c.push({ m: m, d: rd === 0 ? 0 : rd }); else if (d <= 18) c.push({ m: m, d: d });
+        return;
+      }
       if (d <= (m.small ? 20 : 26)) c.push({ m: m, d: d });
     });
+    if (!c.length && inst.sel < 0 && inst.sgPl) {      // 放大后出现的“主要景点”标签：点它 = 看那一天
+      var sg = inst.sgPl.filter(function (q) { return x >= q.box.x - 4 && x <= q.box.x + q.box.w + 4 && y >= q.box.y - 4 && y <= q.box.y + q.box.h + 4; })[0];
+      if (sg) { closeAt(inst); selectDay(inst, sg.day); return; }
+    }
     var real = c.filter(function (x) { return x.m.kind !== 'g'; });
     if (real.length && real.length < c.length) c = real;      // 灰色的（前后天的站）和这一天的站 / 住挤在一起：只在这一天的里挑。住在北海、第二天第一站也是北海银滩时，第二天地图上两个点几乎重合，点它不该弹“选哪个”（2026-10-20）
     if (!c.length) { closeAt(inst); if (inst.cur || inst.curG || inst.curH) deselect(inst); return; }
@@ -576,7 +637,12 @@
     showPick(inst, c);
   }
   function pickMark(inst, m) {
-    if (m.kind === 'day') return selectDay(inst, m.day);
+    if (m.kind === 'day') {
+      if (m.days && m.days.length > 1 && m.days.length <= 6) {      // 一个城镇连住 / 回来了几天：弹出各天让选
+        var ps = m.days.map(function (i) { return { m: { kind: 'day', day: i, label: '第 ' + (i + 1) + ' 天：' + (inst.days[i].title || '') }, d: 0 }; }); return showPick(inst, ps);
+      }
+      return selectDay(inst, m.day);      // 一天就直接进那一天；连住 >6 天的先进第一天（标签条里能换）
+    }
     if (m.kind === 'n') return selectStop(inst, m.n, { fly: true });      // 列表模式：点一下 = 行高亮并滚到可见；已经选中的再点一下 = 站点卡片
     if (m.kind === 'g') return selectGray(inst, m.gi);
     if (m.kind === 'hm') return selectHome(inst);
@@ -903,17 +969,21 @@
         if (mu) { x.lineWidth = 4; x.strokeStyle = hollow ? col : BG; x.strokeRect(q[0] - s / 2 + 12, q[1] - s / 2 + 12, s - 24, s - 24); }
         x.fillStyle = hollow ? col : BG; x.font = '900 32px ' + SERIF; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(txt, q[0], q[1] + 2);
       }
-      if (LGO) inst.marks.forEach(function (m) {      // 小号章：圆角方块 + 序号（合并的写“8–10”）
-        if (!m.badge || m.el.style.visibility === 'hidden') return;
-        var q = P(m.ll), t = m.el.firstChild ? m.el.firstChild.textContent : '', col = PAL[m.day % 3], hollow = m.day % 3 === 2, w = Math.max(54, t.length * 22 + 26), hh = 54;
-        x.fillStyle = hollow ? BG : col; x.fillRect(q[0] - w / 2, q[1] - hh / 2, w, hh); x.lineWidth = 5; x.strokeStyle = hollow ? col : BG; x.strokeRect(q[0] - w / 2 + 2, q[1] - hh / 2 + 2, w - 4, hh - 4);
-        x.fillStyle = hollow ? col : BG; x.font = '900 30px ' + SERIF; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(t, q[0], q[1] + 2);
+      if (inst.sel < 0) inst.marks.forEach(function (m) {      // 总览：地名方块（和屏幕上同一套：名字 + 小角标天数）；让开 / 没放下的只画落脚点上的小点
+        if (!m.badge) return;
+        var q = P(m.ll), col = PAL[m.day % 3], hollow = m.day % 3 === 2;
+        x.fillStyle = col; x.beginPath(); x.arc(q[0], q[1], 11, 0, 6.2832); x.fill(); x.lineWidth = 4; x.strokeStyle = BG; x.stroke();
+        if (!m.box) return;
+        x.font = '700 33px ' + SANS; var wn = x.measureText(m.name).width; x.font = '700 25px ' + SERIF; var wd = m.dl ? x.measureText(m.dl).width : 0;
+        var w = 30 + wn + (wd ? 12 + wd : 0), hh = 62, X = (m.box.x + m.box.w / 2) * k - w / 2, Y = HD + (m.box.y + m.box.h / 2) * k - hh / 2;
+        x.fillStyle = hollow ? BG : col; x.fillRect(X, Y, w, hh); x.lineWidth = 5; x.strokeStyle = hollow ? col : BG; x.strokeRect(X + 2, Y + 2, w - 4, hh - 4);
+        x.fillStyle = hollow ? col : BG; x.textAlign = 'left'; x.textBaseline = 'middle'; x.font = '700 33px ' + SANS; x.fillText(m.name, X + 15, Y + hh / 2 + 2);
+        if (m.dl) { x.globalAlpha = .8; x.font = '700 25px ' + SERIF; x.fillText(m.dl, X + 15 + wn + 12, Y + hh / 2 + 3); x.globalAlpha = 1; }
       });
       inst.days.forEach(function (d, i) {
         var col = PAL[i % 3];
         if (LGO) return;
         if (inst.sel === i) { d.pts.forEach(function (p) { sqr(P(p.ll), String(p.n), col, p.mk === 'eat', p.mk === 'mu'); }); if (d.ep) sqr(P(d.ep), '住', col, true, false); }
-        else if (inst.sel < 0 && d.pts.length) sqr(P(d.pts[0].ll), String(i + 1), col, false, false);
       });
       x.restore(); x.textAlign = 'left'; x.textBaseline = 'alphabetic';
       var title = (ART && (ART.getAttribute('data-title') || ART.getAttribute('data-label'))) || document.title, d0 = curDay(inst);

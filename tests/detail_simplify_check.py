@@ -411,7 +411,7 @@ with sync_playwright() as p:
                 pg.evaluate("(i)=>{const b=document.querySelectorAll('section.day:not(.xday) .tl > .r.see .adj, section.day:not(.xday) .tl > .r.fun .adj')[i];b.scrollIntoView({block:'center',behavior:'instant'})}", i)
                 pg.locator('section.day:not(.xday) .tl > .r.see .adj, section.day:not(.xday) .tl > .r.fun .adj').nth(i).click(); n += 1; pg.wait_for_selector('.pk')
                 ins = pg.locator('.pk [data-np="ins"]')
-                if i == 0: check('S10 D：xa3 第 1 天第一站的“在这之后加一个”可点（不置灰；原来这天已排到 22:10，7 个可加站点里 5 个置灰）', ins.count() == 1 and not ins.first.is_disabled(), ins.count() and ins.first.is_disabled())
+                if i == 0: check('S10 D：xa3 第 1 天第一站的“在这之后加一个”可点；排满时置灰并写清原因（再加就超过…）', ins.count() == 1 and (not ins.first.is_disabled() or '再加就超过' in ins.first.inner_text()), ins.count() and ins.first.inner_text())
                 if not ins.count() or ins.first.is_disabled(): pg.evaluate("history.back()"); pg.wait_for_timeout(150); continue
                 ins.click(); n += 1; pg.wait_for_selector('.pk .npc, .pk .npe', timeout=20000); pg.wait_for_timeout(250)
                 if pg.locator('.pk .npc').count():

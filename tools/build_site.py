@@ -15886,6 +15886,57 @@ def go_info(r, t, d0, rid=None):
 NO_HSR = {'榆林', '敦煌', '喀什', '伊宁', '阿勒泰', '格尔木', '香格里拉', '腾冲', '稻城', '九寨沟', '阿尔山', '漠河', '额济纳', '海拉尔', '满洲里', '拉萨', '林芝', '日喀则', '塔县', '和田', '库车', '若尔盖', '康定', '泸沽湖', '德钦', '丙中洛', '阿坝', '甘孜', '玛多', '果洛', '那曲', '巴音布鲁克', '禾木', '喀纳斯', '布尔津', '芒康', '左贡', '八宿', '波密', '然乌'}   # 不通高铁的旅游地，“怎么去”不写坐高铁
 
 
+
+_NM_MUNI = ('北京市', '天津市', '上海市', '重庆市')
+def _nm_clean(t, drop_qu=False):
+    """总览里写在方块上的地名：去掉“市”（≥3 字才去：“吐鲁番市”→“吐鲁番”），保留“县 / 州 / 旗”免得有歧义；区名（临潼区）去“区”"""
+    t = (t or '').strip()
+    if len(t) >= 3 and t.endswith('市'): t = t[:-1]
+    if drop_qu and len(t) >= 3 and t.endswith('区'): t = t[:-1]
+    return t
+def _hit_locality(hit):
+    """data/geo/pois.json 的 hit（“华清宫, 骊山街道, 临潼区, 西安市, 陕西省, 中国”）里取“区 / 县 / 县级市”那一级；国外 / 只到市 / 找不到返回 ''"""
+    toks = [t.strip() for t in (hit or '').split(',')]
+    toks = [t for t in toks if t and t != '中国' and not re.match(r'^[\d\- ]+$', t)]
+    pi = next((k for k, t in enumerate(toks) if t.endswith('省') or t.endswith('自治区') or t.endswith('特别行政区') or t in _NM_MUNI), None)
+    if pi is None or pi == 0: return ''
+    T = toks[:pi]; ok = lambda t: bool(re.search(r'(区|县|旗|市)$', t)) and not re.search(r'(街道|镇|乡)$', t)
+    if toks[pi] in _NM_MUNI: return T[-1] if ok(T[-1]) else ''      # 直辖市：区县就在市名前一格
+    if re.search(r'(区|县|旗)$', T[-1]) and ok(T[-1]): return T[-1]      # 省直辖县
+    if re.search(r'(市|州|盟|地区)$', T[-1]) and len(T) >= 2 and ok(T[-2]): return T[-2]      # 前一格是地级市，再前一格才是区县 / 县级市
+    return ''
+_LOC_IDX = []
+def _near_locality(pt, maxkm=15):
+    if not _LOC_IDX:
+        for v_ in GEO.values():
+            if isinstance(v_, dict) and v_.get('lat') is not None and ',' in (v_.get('hit') or ''):
+                l_ = _hit_locality(v_['hit'])
+                if l_: _LOC_IDX.append((v_['lat'], v_['lng'], l_))
+        if not _LOC_IDX: _LOC_IDX.append((0, 0, ''))
+    best = None
+    for la_, lo_, l_ in _LOC_IDX:
+        if abs(la_ - pt[0]) > 0.2 or abs(lo_ - pt[1]) > 0.25 or not l_: continue
+        d_ = _km((la_, lo_), pt)
+        if d_ <= maxkm and (best is None or d_ < best[0]): best = (d_, l_)
+    return best[1] if best else ''
+def day_nm(r, d, i, n, city_pt):
+    """总览（整屏地图“全程”）里这一天的方块写什么：天数 ≥8 的线 = 当晚住的城（stay_city）；短线 = 这一天大部分站所在的地方（兵马俑华清宫是“临潼”，不是“西安”），
+    离城市中心 >20 公里的站才按 pois.json 的行政区另算，其余都算城市本身。"""
+    base = _nm_clean(stay_city(r, d))
+    if n >= 8 or not city_pt: return base
+    from collections import Counter
+    cnt, first = Counter(), {}
+    for w in d['rows']:
+        if w.get('type') not in ('see', 'fun') or not w.get('poi'): continue
+        g0 = GEO.get((d.get('navCity') or d.get('city') or '') + '|' + w['poi'])
+        if not g0 or g0.get('lat') is None: continue
+        nm = base
+        if _km((g0['lat'], g0['lng']), city_pt) > 20:
+            loc = _hit_locality(g0.get('hit')) or _near_locality((g0['lat'], g0['lng']))      # 人工补录的点（hit 写“人工核对”）没有行政区：借 15 公里内有真实地址的点的区县
+            if loc: nm = _nm_clean(loc, True)
+        cnt[nm] += 1; first.setdefault(nm, len(first))
+    if not cnt: return base
+    return sorted(cnt, key=lambda k: (-cnt[k], first[k]))[0]
 def _stay_line(r):
     """多城市长线：住哪、住几晚（订住宿用），只有住三个以上地方才写"""
     seq = []
@@ -16546,7 +16597,7 @@ def trip_page(rid):
         _rows_html = ''.join(row_html(w, city, app) for w in rows)
         _wk_, _road = day_load_html('<ol>' + _rows_html + '</ol>'); ROADS.append(_road); TRW.setdefault(rid, []).append(_wk_)      # 走路分钟也记下：首页“带老人孩子”推荐按它判断（泰山线第 2 天走路 5 小时，卡片却写“没有长爬坡和台阶”）
         _npd_ = _npd_.replace('@@DRV@@', str(_road))
-        days.append(f'<section class="day" id="d{i + 1}" data-city="{E(d.get("navCity") or d.get("city") or "")}" data-stay="{E(stay_city(r, d))}"{_npd_}><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
+        days.append(f'<section class="day" id="d{i + 1}" data-city="{E(d.get("navCity") or d.get("city") or "")}" data-stay="{E(stay_city(r, d))}" data-nm="{E(day_nm(r, d, i, n, _ccp_))}"{_npd_}><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
                     f'<div class="facts">{fx}</div><p class="cl"{" hidden" if (i == 0 or (not LONG and i > 0 and dates[i].month == dates[i - 1].month)) else ""} data-clim=\'{E(json.dumps({} if LONG else {**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (not LONG and (d.get("clim") or {}).get(str(dates[i].month))) else ""}</p>' + ('' if MEMO_ON[0] else _sj_fold(sj_lines(_sj.get(i, [])), rid)) + f'{_alt_html}{notes}<p class="lead"{" hidden" if lead_restates(d.get("text"), d) else ""}>{E(d.get("text"))}</p><ol class="tl">{_rows_html}</ol>{stays}{story}</section>')
         sights += [w['name'] for w in d['rows'] if w['type'] == 'see' and w.get('poi')]
     LONG_ON[0] = False; MEMO_ON[0] = False

@@ -12,7 +12,7 @@ A1 CSS 判据（从样式表出发）：每天的颜色类（rm-dk0-2 / rm-dt0-2
 A2 街道底图：第 1 / 2 / 3 天各自在 zoom 6 / 10 / 14 / 17、+ / −、双击、双指缩放、拖动后，每个标点（站 / 住 / 顺路灰点）中心与 map.project 误差 ≤ 2px
 A3 动画途中（easeTo 缩放的每一帧）也 ≤ 2px：不是只在 moveend 才更新
 A4 旋转 / 横屏 / 地址栏收起（容器改变大小）后 ≤ 2px
-A5 总览的天数章（并排摆开的不算，它们按设计偏 26px 的整数倍；合并成“1–5”的 leader 算）≤ 2px；放大到各自分开后仍然 ≤ 2px
+A5 总览的名字方块（D34：每个落脚城镇一个；落脚点画小点的位置 ≤ 2px，名字方块要么盖着落脚点、要么离它不超过 60px）；缩放各级都成立
 A6 真值：在 maplibre 里放一个原生圆点（GeoJSON circle 图层，用的是渲染器自己的投影），读 canvas 像素找圆点中心，和方块中心 ≤ 2px（z14 / z17，第 2 天）——防“project 和真画出来的不一致”
 A7 示意图兜底（瓦片全失败）：同样的缩放 / 拖动 / 双击 ≤ 2px
 A8 示意图 ↔ 街道图 同一个摄像机：同一个 camera 下 sch.project 和 map.project 一致（≤1px）；街道图失败回退示意图时摄像机不被夹回去（站点位置不跳）
@@ -38,7 +38,9 @@ check, guard = env.check, env.guard
 TOL = 2.0
 
 ERR_JS = """(function(){var z=ZRM.cur(); if(!z||!z.view) return null; var st=z.stage.getBoundingClientRect(), out=[], mx=0, n=0, kinds={};
- z.marks.forEach(function(m){ if(m.tag||!m.kind||m.kind==='lb'||m.fan) return; var q=z.view.project(m.ll); var e=m.el.firstElementChild||m.el; var r=e.getBoundingClientRect();
+ z.marks.forEach(function(m){ if(m.tag||!m.kind||m.kind==='lb') return; var q=z.view.project(m.ll); var e=m.el.firstElementChild||m.el; var r=e.getBoundingClientRect();
+   if(m.badge){ var b=m.box, dd=Math.max(Math.abs(m.px-q.x),Math.abs(m.py-q.y)); if(b&&m.lead&&Math.hypot(Math.max(b.x-q.x,0,q.x-b.x-b.w),Math.max(b.y-q.y,0,q.y-b.y-b.h))>60) dd=999; n++; kinds[m.kind]=(kinds[m.kind]||0)+1; if(dd>mx) mx=dd; if(dd>2) out.push('day'+(m.day+1)+':'+dd.toFixed(1)); return }      // 总览的名字方块：落脚点（画小点的地方）贴着真实坐标，名字方块要么盖着它、要么离它不超过 60px
+  
    var d=Math.max(Math.abs(r.left+r.width/2-st.left-q.x),Math.abs(r.top+r.height/2-st.top-q.y)); n++; kinds[m.kind]=(kinds[m.kind]||0)+1; if(d>mx) mx=d; if(d>2) out.push(m.kind+(m.n||m.day||'')+':'+d.toFixed(1)); });
  return {mx:mx,n:n,kinds:kinds,bad:out.slice(0,6),kind:z.view.kind,z:z.view.cam().z}})()"""
 
@@ -147,7 +149,7 @@ with sync_playwright() as p:
         out = [('全程', err(pg))]
         for z in (5, 8, 12, 15): pg.evaluate("ZRM.cur().map.jumpTo({zoom:%d})" % z); pg.wait_for_timeout(300); out.append(('zoom%d' % z, err(pg)))
         mx = max(e['mx'] for _, e in out); nd = out[0][1]['kinds'].get('day', 0)
-        check('A5 总览：%d 个天数章，缩放各级最大误差 %.2fpx ≤ %gpx' % (nd, mx, TOL), nd >= 1 and mx <= TOL, [(l, e['mx'], e['bad']) for l, e in out if e['mx'] > TOL])
+        check('A5 总览：%d 个名字方块（落脚点位置），缩放各级最大误差 %.2fpx ≤ %gpx' % (nd, mx, TOL), nd >= 1 and mx <= TOL, [(l, e['mx'], e['bad']) for l, e in out if e['mx'] > TOL])
         c.close()
 
     with guard('A6'):

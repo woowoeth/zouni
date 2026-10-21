@@ -9,7 +9,7 @@ P2  视野居中：390 / 375 / 414 宽 + 横屏，每个站点方块完整落在
     切天 / 关闭站点卡回当天 / “回到视野” / 刚打开 四条路到的视野一样；已经在视野里时“回到视野”置灰，拖开后亮起
 P3  底图退后：样式文件里道路盾牌、村名整层隐藏，区名 / 路名 / POI 字号压小、颜色换成浅灰；运行时加载进地图的样式一样；站点方块 / 标签在底图画布之上（DOM 层级）
 P4  底部条文案：两行分明（标题一行 / 数字一行），数字块（“走路约 2 小时 10 分”）任何宽度下都不从中间断，没有“今天：”；说明句只在当天视图出现一次、更小更淡；全程态同样排版
-P5  全程视图：每天一个形 + 色（实心方 / 实心圆 / 空心方），章更小；挤在一起的 ≤3 天并排摆开都看得见，更多的合成“1–5”
+P5  全程视图（D34）：名字方块每个城镇一个形 + 色（实心方 / 实心圆 / 空心方），≤24px 高；同一城镇的几天合成一个方块写地名 + 天数角标“1–5”；不同城镇挤在一处时往外退开、都看得见、不重叠
 P6  进度条：街道图出现后一定收掉（哪怕有几块瓦片一直挂着不回），收了以后拖地图不再冒出来；失败走“重试”
 P7  线：更细更淡、有先后小箭头、A→B→A 的往返只画一条
 P8  其它：点击区 ≥44、回到视野置灰、拖地图时底部条一个字都不重绘、暗色模式标签对比度、横屏底部条收成 104、卡片切换有动画（尊重减弱动效）、安全区
@@ -61,8 +61,8 @@ INJ = {
     'today_back': ('assets/routemap.js', "<b>第 ' + (d.i + 1) + ' 天 · ' + esc(d.title) + '</b><span class=\"rm-ln\">'", "<b>第 ' + (d.i + 1) + ' 天 · ' + esc(d.title) + '</b><span class=\"rm-ln\">今天：'"),   # 又写“今天：”
     'hint_big': ('assets/site.css', "font-size:10.5px;line-height:14px;color:var(--mute);", "font-size:13px;line-height:14px;color:var(--ink);"),      # 说明句又大又黑
     # P5
-    'no_fan': ('assets/routemap.js', "var fan = n <= 3 && j > 0, hide = n > 3 && j > 0,", "var fan = false, hide = j > 0,"),                                # 挤在一起的天全部合并
-    'shape_same': ('assets/site.css', ".rm .rm-db.rm-dk1 i{border-radius:12px}", ""),                                                       # 每天同一个形
+    'no_fan': ('assets/routemap.js', "var c = candsFor(w, h);", "var c = candsFor(w, h).slice(0, 1);"),                                # 名字方块挤在一起时不往外退（只试盖在落脚点上，放不下就藏）
+    'shape_same': ('assets/site.css', ".rm .rm-nb.rm-dk1 i{border-radius:11px}", ""),                                                       # 每天同一个形
     # P6
     'prog_stuck': ('assets/routemap.js', "    if (inst.loaded) return; clearTimeout(inst.pfin); clearTimeout(inst.pcap);", "    return; clearTimeout(inst.pfin); clearTimeout(inst.pcap);"),   # hideLoad 失效（只剩 idle 的老路：idle 不来就停在半截）
     'prog_revive': ('assets/routemap.js', "function setProg(inst, v) { if (!inst.prog || inst.loaded) return;", "function setProg(inst, v) { if (!inst.prog) return;"),   # 收了以后瓦片一来又冒出来
@@ -271,29 +271,26 @@ with sync_playwright() as p:
             check('P4e 站点卡片里没有说明句（说明句只在当天视图出现）', pg.evaluate("[].every.call(document.querySelectorAll('.rm-hint'),function(e){return !e.offsetHeight})"))
             c.close()
 
-    # ─────────── P5 全程视图：每天一个形 + 色
+    # ─────────── P5 全程视图：每个城镇一个形 + 色
     if want('P5'):
         with guard('P5'):
-            c = mk(br); pg = new_page(env, c); goto(env, pg, '/trip/xa3/', 400); open_ov(pg)
-            o = pg.evaluate("""(function(){var z=ZRM.cur(),a=z.marks.filter(function(m){return m.badge}).map(function(m){var i=m.el.firstElementChild,cs=getComputedStyle(i),r=i.getBoundingClientRect();return {day:m.day,w:r.width,h:r.height,rad:cs.borderTopLeftRadius,bg:cs.backgroundColor,bd:cs.borderTopColor,col:cs.color,vis:getComputedStyle(m.el).visibility,x:r.left+r.width/2,y:r.top+r.height/2,fan:m.fan||0}});return a})()""")
-            vis = [b for b in o if b['vis'] != 'hidden']
-            shapes = set((b['rad'] if b['rad'] != '0px' else 'sq') + ('/hollow' if b['bg'] == b['col'] or b['bg'] != b['bd'] and b['bg'] == o[0]['col'] else '') for b in o)
+            c = mk(br); pg = new_page(env, c); goto(env, pg, '/trip/hsg1/', 400); open_ov(pg)
+            o = pg.evaluate("""(function(){var z=ZRM.cur(),a=z.marks.filter(function(m){return m.badge}).map(function(m){var i=m.el.firstElementChild,cs=getComputedStyle(i),r=i.getBoundingClientRect();return {day:m.day,w:r.width,h:r.height,rad:cs.borderTopLeftRadius,bg:cs.backgroundColor,bd:cs.borderTopColor,col:cs.color,vis:getComputedStyle(m.el).visibility,x:r.left+r.width/2,y:r.top+r.height/2}});return a})()""")
             tall = max(b['h'] for b in o)
             paper = 'rgb(244, 242, 236)'; kinds = set(('round' if float(b['rad'].replace('px', '') or 0) >= 10 else 'sq') + ('-hollow' if b['bg'] == paper else '') for b in o)
-            check('P5a 全程：章 ≤24px（最高 %.0f）；3 天里有 %d 种形（%s）：实心方 / 实心圆 / 空心方各不同' % (tall, len(kinds), sorted(kinds)), tall <= 24 and len(kinds) == 3, o)
-            shot(pg, 'p5_ov_xa3.png')
+            check('P5a hsg1 全程：名字方块 ≤24px 高（最高 %.0f）；%d 个城镇里有 %d 种形（%s）：实心方 / 实心圆 / 空心方各不同' % (tall, len(o), len(kinds), sorted(kinds)), tall <= 24 and len(kinds) == 3, o)
+            shot(pg, 'p5_ov_hsg1.png')
             c.close()
             c = mk(br); pg = new_page(env, c); goto(env, pg, '/trip/ys5/', 400); open_ov(pg)
-            o = pg.evaluate("(function(){var z=ZRM.cur();return z.marks.filter(function(m){return m.badge}).map(function(m){var r=m.el.firstElementChild.getBoundingClientRect();return {day:m.day,fan:m.fan||0,vis:getComputedStyle(m.el).visibility,x:r.left+r.width/2,y:r.top+r.height/2}})})()")
-            vis = [b for b in o if b['vis'] != 'hidden']; fans = [b for b in o if b['fan']]
-            pairs = [(a['day'], b['day'], round(math.hypot(a['x'] - b['x'], a['y'] - b['y']))) for i, a in enumerate(vis) for b in vis[i + 1:]]
-            close_ = [q for q in pairs if q[2] < 22]
-            check('P5b 玉树 5 天：挤在一起的天（≤3）并排摆开：%d 个并排的章、%d 个章都看得见（共 %d），互相 ≥22px（太近：%s）' % (len(fans), len(vis), len(o), close_), len(fans) >= 1 and len(vis) == len(o) and not close_, (o, close_))
+            o = pg.evaluate("(function(){var z=ZRM.cur();return z.marks.filter(function(m){return m.badge}).map(function(m){return {name:m.name,days:m.days,t:m.el.firstElementChild.textContent,v:getComputedStyle(m.el).visibility}})})()")
+            check('P5b 玉树 5 天住在同一个城镇：合成一个方块，写地名和小角标“1–5”（%s）' % o, len(o) == 1 and o[0]['v'] != 'hidden' and len(o[0]['days']) == 5 and o[0]['t'].endswith('1–5') and re.search('[一-鿿]{2}', o[0]['t']), o)
             shot(pg, 'p5_ov_ys5.png')
-            pg.evaluate("(function(){var z=ZRM.cur();for(var i=1;i<5;i++)z.days[i].pts[0].ll=z.days[0].pts[0].ll.slice();ZRM.selectDay(-1)})()"); pg.wait_for_timeout(800)
-            o = pg.evaluate("(function(){var z=ZRM.cur(),a=z.marks.filter(function(m){return m.badge}).map(function(m){return {t:m.el.textContent,v:getComputedStyle(m.el).visibility}});return a})()")
+            pg.evaluate("(function(){var z=ZRM.cur(),nm=['甲地','乙地','丙地','丁地','戊地'];for(var i=0;i<5;i++){z.days[i].nm=nm[i];z.days[i].pts[0].ll=z.days[0].pts[0].ll.slice()}ZRM.selectDay(0);ZRM.selectDay(-1)})()"); pg.wait_for_timeout(900)
+            o = pg.evaluate("""(function(){var z=ZRM.cur(),st=z.stage.getBoundingClientRect();return z.marks.filter(function(m){return m.badge}).map(function(m){var r=m.el.firstElementChild.getBoundingClientRect();return {n:m.name,v:getComputedStyle(m.el).visibility,l:r.left,t:r.top,r:r.right,b:r.bottom}})})()""")
             vis = [b for b in o if b['v'] != 'hidden']
-            check('P5c 5 天挤在同一处（>3）：只留一个章，写成“1–5”（%s）' % o, len(vis) == 1 and vis[0]['t'] in ('1–5',), o)
+            ovl = [(a['n'], b['n']) for i, a in enumerate(vis) for b in vis[i + 1:] if a['l'] < b['r'] and a['r'] > b['l'] and a['t'] < b['b'] and a['b'] > b['t']]
+            check('P5c 5 个不同城镇的落脚点在同一处：往外退开，5 个名字都看得见（%d 个）、互不重叠（%s）' % (len(vis), ovl[:3]), len(o) == 5 and len(vis) == 5 and not ovl, (o, ovl))
+            shot(pg, 'p5_ov_pile.png')
             c.close()
 
     # ─────────── P6 进度条
