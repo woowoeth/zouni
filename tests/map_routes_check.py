@@ -28,6 +28,8 @@ from map_touch import Touch
 SITE = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 and not sys.argv[1].startswith('--') else os.path.join(ROOT, 'build', 'site')
 
 INJ = {
+    # R3
+    'tap_gray': ('assets/routemap.js', "if (real.length && real.length < c.length) c = real;", ""),      # 灰色的前后天标记和这一天的站挤在一起时也弹“选哪个”（R3 xb96a 第 2 天第 1 站）
     # R1
     'trunk_off': ('assets/routemap.js', "if (LG && inst.trunk && inst.trunk.length > 1) paintTrunk(inst, c, dbg);", ""),                                      # 不画主线
     'long_off': ('assets/routemap.js', "var LONG_N = 8;", "var LONG_N = 9999;"),                                                                         # 长线总览回到老样子（每天第一站的章，各画各的）

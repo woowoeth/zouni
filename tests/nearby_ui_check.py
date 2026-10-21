@@ -438,18 +438,24 @@ with sync_playwright() as p:
     # ———————————————— 自驾长线：车程文字是“自驾约/开车”，开车小时更新，撤销逐字一致 ————————————————
     with guard('自驾长线：车程文字是“自驾约/开车”，开车小时更新，撤销逐字一致'):
         c, pg = new_page()
-        goto(pg, 'gqhx10')
-        sec0 = sect(pg, 1)
-        fx0 = pg.evaluate("document.querySelector('#d1 .dload').innerText")      # 2026-10-18：“开车 N 小时”那一格删了，同一天只在“开车约 N”这一行写
-        cands = pick_list(pg, 1, '塔尔寺', 'ins')
-        check('① 自驾长线第 1 天：“在这之后加一个”有候选', bool(cands), (cands, getattr(pg, '_note', '')))
+        # 2026-10-20：原来固定 gqhx10 第 1 天的塔尔寺。自驾线搬家日 / 当天来回的“最后一站 → 住处”车程现在算进当天（有分钟了），gqhx10 第 1 天晚饭顺延后排到 20:45、再加就超 21:30，
+        # 这是数据变真实的结果、不是 bug；换成第一个“第 1 天在这个站之后有候选”的自驾线（都是自驾长线、第 1 天有景点，覆盖的断言不变）
+        for _rid, _anchor in (('gqhx10', '塔尔寺'), ('g331d12', '虎山长城'), ('sxl8', '晋祠'), ('dnl8', '建水古城')):
+            goto(pg, _rid)
+            sec0 = sect(pg, 1)
+            fx0 = pg.evaluate("document.querySelector('#d1 .dload').innerText")      # 2026-10-18：“开车 N 小时”那一格删了，同一天只在“开车约 N”这一行写
+            if '开车约' not in fx0: continue      # 要“开车约 N”那一行的自驾线（路上全是自驾 / 开车）
+            cands = pick_list(pg, 1, _anchor, 'ins')
+            if cands: break
+            close_pk(pg)
+        check('① 自驾长线第 1 天：“在这之后加一个”有候选', bool(cands), (_rid, cands, getattr(pg, '_note', '')))
         if cands:
             X_name = cands[0]['n']
             choose(pg, 0)
             d1 = rows(pg, 1); sinfo = pg.evaluate(LIM_JS, 1)
             nrow = [r for r in d1 if r['np'] == 'v' and 'see' in r['c']]
             dep_n = [r for r in d1 if r['np'] == 'v' and 'dep' in r['c']]
-            S_row = next(r for r in d1 if r['m'].startswith('塔尔寺'))
+            S_row = next(r for r in d1 if r['m'].startswith(_anchor))
             if nrow and dep_n:
                 S = ll(S_row['ll']); X = ll(nrow[0]['ll'])
                 e1, m1_ = leg_text(S, X, sinfo['lm'], 1.0, sinfo['sv'] == '1')

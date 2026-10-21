@@ -7,6 +7,7 @@ declare -a RED=()
 run() { local name="$1"; shift; echo "═══ $name"; "$@" > "/tmp/zouni_check_${name// /_}.log" 2>&1; local rc=$?; tail -3 "/tmp/zouni_check_${name// /_}.log"; [ $rc -ne 0 ] && RED+=("$name（日志 /tmp/zouni_check_${name// /_}.log）"); }
 run data_checks      python3 tests/data_checks.py "$SITE"
 run home_ux          python3 tests/home_ux_check.py "$SITE"
+run w1_season        python3 tests/w1_season_check.py "$SITE"       # 2026-10-20 第 1 波：季节措辞跟日期走（红字行 / 极夜流冰雪胎句子 / “9 月上旬”句子；Z1–Z7，4 个 --inject）。数据类的闸（住处点 / 路上时间 / 气温 / 餐食…）在 data_checks 第 37 项（tests/w1_checks.py）
 run home_layout      python3 tests/home_layout_check.py "$SITE"
 run nearby_ui        python3 tests/nearby_ui_check.py "$SITE"
 run follow           python3 tests/follow_check.py "$SITE"

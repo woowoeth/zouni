@@ -1183,6 +1183,7 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 
 /* 页头：往年气温和“最好 X–Y”合成一行放页头（日期只在 glance 日期条里写一次）；出发前页内只留 ≤2 条提示 */
 .dnote:empty,.pre ul:empty{display:none}
+.swarn{margin:6px 20px 0;font:700 13px/1.5 var(--sans);color:var(--red)}.swarn[hidden],.mw[hidden],.sw[hidden]{display:none}
 .pre li.capx{display:none}
 .pre ul.prehid[hidden]{display:none}
 .tdn li{min-height:0;border-bottom:0;padding:4px 0}.tdn li span{font-size:14px;color:var(--sub)}

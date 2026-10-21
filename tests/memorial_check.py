@@ -120,7 +120,7 @@ for t, h in H.items():
             if body not in blob.replace(' ', '').replace('\xa0', '') and body.replace(' ', '') not in blob.replace(' ', '').replace('\xa0', ''): continue    # 这条没落在页面上（站点没排进线路）
             n_ex += 1
             if (nm_(h) + '：' + body).replace(' ', '') in blob.replace(' ', '').replace('\xa0', '') or ('相传' + body).replace(' ', '') in blob.replace(' ', '').replace('\xa0', ''): bad5.append((t, k, '展陈带了前缀或相传'))
-        elif v.get('conf') == 'medium':
+        elif v.get('conf') == 'medium' and not re.search(r'传记|史载|据载|据年谱|据[^，。；]{0,8}(简介|介绍)|学界|一般认为|传统上', line):      # 2026-10-20：已写出处词的（传记 / 史载 / 学界 / 一般认为…）是“有记载但有争议”，不加“相传”（build_site.hist_note_texts 同一条规则）
             want = (nm_(h) + '：' + (line if '相传' in line else '相传' + line)).replace(' ', '')
             if line.replace(' ', '') in blob.replace(' ', '').replace('\xa0', ''):
                 n_leg += 1

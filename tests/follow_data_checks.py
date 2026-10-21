@@ -117,7 +117,7 @@ def expected_notes(S, tid, bare=False):
         if re.search(r'博物馆|博物院|纪念馆|陈列馆|纪念园|展览馆|美术馆|科技馆', k) and re.search(r'陈列|展陈|展出|展示|展览|馆藏|收藏|馆里|馆内|设有|辟有|专题博物馆|综合博物馆', line):
             out[k] = _html.escape(_NB.sub('\\1\u00a0\\2', re.sub(r'^(相传|传说)[，,]?', '', line)))     # 2026-10-18：馆内展陈介绍不加“某某：”前缀、不写“相传”
             continue
-        if v.get('conf') == 'medium' and '相传' not in line: line = '相传' + line
+        if v.get('conf') == 'medium' and '相传' not in line and not re.search(r'传记|史载|据载|据年谱|据[^，。；]{0,8}(简介|介绍)|学界|一般认为|传统上', line): line = '相传' + line      # 2026-10-20：和 build_site.hist_note_texts 同一条规则：已写出处的不再加“相传”
         out[k] = _html.escape(_NB.sub('\\1\u00a0\\2', line if bare else f'{nm}：{line}'))     # bare：前缀只在整页第一条写，其余条是不带前缀的原文（2026-10-19）
         # 页面里 E() 会把“1 月”这类数字+单位中间的空格换成不换行空格
     return out

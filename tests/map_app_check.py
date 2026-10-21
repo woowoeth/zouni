@@ -3,7 +3,7 @@
 
 用法（项目根目录；先 bash build/pipe.sh build/site）：
     python3 tests/map_app_check.py build/site [--shots DIR] [--only M1,M3] [--live]
-    python3 tests/map_app_check.py build/site --inject 名字      # 反向自检，每个名字都必须变红（名字见 INJ，共 29 种）
+    python3 tests/map_app_check.py build/site --inject 名字      # 反向自检，每个名字都必须变红（名字见 INJ，共 30 种）
 
 手势全部是 CDP 合成触摸（tests/map_touch.py，走浏览器真实输入管线），不是在页面里伪造事件。OpenFreeMap 的瓦片 / 索引请求被拦成空瓦片（自托管的样式、sprite、西文字形走本地站），不依赖外网；--live 才真联网冒烟一次。
 
@@ -29,6 +29,7 @@ from map_touch import Touch
 
 INJ = {
     # —— routemap.js 行为 ——
+    'nav_mode_car': ('assets/routemap.js', "return w.walk > w.car && w.walk >= w.bus ? 'walk' : (w.bus > w.car ? 'bus' : 'car');", "return 'car';"),      # 2026-10-20：“导航这一天”不管怎么走都是驾车（泰山步行 4 小时 / 东京地铁给了驾车路线）
     'coop_on': ('assets/routemap.js', "cooperativeGestures: false,", "cooperativeGestures: true,"),                                  # 整屏里又要两根手指
     'fly_off': ('assets/routemap.js', "    inst.view.fly(cam, 650);\n  }", "  }"),                                                  # 点站点地图不飞过去
     'row_back_off': ('assets/routemap.js', "    row.classList.add('flash'); setTimeout(function () { row.classList.remove('flash'); }, 1600);\n  }\n  function closeInst", "  }\n  function closeInst"),   # 关闭后页面不滚到那一站
@@ -596,7 +597,7 @@ with sync_playwright() as p:
             for (lng, lat), w in zip(seq, want_):
                 wl = [float(x) for x in w.split(',')]; g = gcj(wl[0], wl[1])
                 if abs(float(lat) - g[0]) > 2e-6 or abs(float(lng) - g[1]) > 2e-6: bad.append((w, lat, lng, g))
-            check('M10d 国内坐标是 GCJ-02（和独立算的一致，全部 %d 个点）、和 WGS84 不同、是高德导航链接' % npts, len(seq) == npts and not bad and all('uri.amap.com/navigation' in u and 'mode=car' in u and 'callnative=1' in u for u in segs) and all(abs(float(lat) - float(w.split(',')[0])) > 0.0008 for (lng, lat), w in zip(seq, want_)), bad[:2] or (len(seq), npts))
+            check('M10d 国内坐标是 GCJ-02（和独立算的一致，全部 %d 个点）、和 WGS84 不同、是高德导航链接' % npts, len(seq) == npts and not bad and all('uri.amap.com/navigation' in u and re.search(r'mode=(car|walk|bus)', u) and 'callnative=1' in u for u in segs) and all(abs(float(lat) - float(w.split(',')[0])) > 0.0008 for (lng, lat), w in zip(seq, want_)), bad[:2] or (len(seq), npts))
             # 地图里的“导航这一天”
             pg.wait_for_selector('.rm-navd:not([hidden])'); pg.click('.rm-navd'); pg.wait_for_selector('.rm-sheet.rm-dyn'); pg.wait_for_timeout(300)
             links = pg.evaluate("Array.prototype.map.call(document.querySelectorAll('.rm-sheet a.rm-seg'),function(a){return a.getAttribute('href')})")
@@ -623,12 +624,23 @@ with sync_playwright() as p:
                     sp = pg.evaluate("document.getElementById('d%d').getAttribute('data-sp')" % i)
                     from urllib.parse import urlparse, parse_qs, unquote
                     q0 = parse_qs(urlparse(segs[0]).query)
-                    ok = 'google.com/maps/dir' in segs[0] and 'travelmode=driving' in segs[0] and all(len(parse_qs(urlparse(u).query).get('waypoints', [''])[0].split('|')) <= lim for u in segs)
+                    ok = 'google.com/maps/dir' in segs[0] and re.search(r'travelmode=(driving|transit|walking)', segs[0]) and all(len(parse_qs(urlparse(u).query).get('waypoints', [''])[0].split('|')) <= lim for u in segs)
                     o = q0['origin'][0].split(','); w = sp.split(',')
                     ok = ok and abs(float(o[0]) - float(w[0])) < 1e-6 and abs(float(o[1]) - float(w[1])) < 1e-6 and all(len(u) < 2048 for u in segs)
                     allok = allok and ok; info.append((i, len(segs)))
                 check('M10j 国外（%s，%s）：谷歌地图、WGS84 原坐标、每段途经点 ≤%d、链接 <2048、起点 = data-sp（%d 天，分段 %s）' % (rid, tag, lim, ndays, info[:4]), allok and bool(info), info)
                 c.close()
+        with guard('M10k'):      # 2026-10-20：导航方式跟这一段怎么走（泰山红门 → 十八盘步行 4 小时 → 步行；东京地铁 → 公共交通），不再一律驾车
+            c, sb = mk(br); pg = new_page(env, c); goto(env, pg, '/trip/ts4/', 700)
+            pg.evaluate("document.querySelector('#d2 .rm-open').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('#d2 .rm-open'); ready(pg)
+            segs2 = pg.evaluate("ZRM.segs(document.getElementById('d2'))")
+            check('M10k 泰山第 2 天（红门 → 十八盘步行约 4 小时）：至少一段是步行导航（mode=walk），不全是驾车', any('mode=walk' in u for u in segs2) and not all('mode=car' in u for u in segs2), [re.search(r'mode=\w+', u).group(0) for u in segs2])
+            c.close()
+            c, sb = mk(br, ua=IPHONE); pg = new_page(env, c); goto(env, pg, '/trip/tk4/', 700)
+            pg.evaluate("document.querySelector('#d1 .rm-open').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('#d1 .rm-open'); ready(pg)
+            segs3 = pg.evaluate("ZRM.segs(document.getElementById('d1'))")
+            check('M10k 东京第 1 天（地铁 / 步行）：谷歌导航是 transit 或 walking，不是 driving', bool(segs3) and not any('travelmode=driving' in u for u in segs3), [re.search(r'travelmode=\w+', u).group(0) for u in segs3])
+            c.close()
 
     # ─────────── M11 样式 / 字形
     if want('M11'):
@@ -681,7 +693,7 @@ with sync_playwright() as p:
                 if len(pk) >= 2:
                     pg.click('.rm-pi >> nth=1'); pg.wait_for_timeout(900)      # 列表里除了站还可能有“住”和顺路灰点（坐标审计后第 2 天的易俗社和住几乎重合）：判据是“选中的就是点的那一项”，不要求它一定是站
                     cn = pg.evaluate("(function(){var n=document.querySelector('.rm-card .rm-cname');return n?n.textContent:''})()")
-                    check('M13f 从列表里选第 2 项（“%s”）：选中的就是它（卡片“%s”，cur=%s curG=%s curH=%s）' % (pk[1][:14], cn[:14], cur(pg, 'r.cur'), cur(pg, 'r.curG'), cur(pg, 'r.curH')), cur(pg, 'r.mode') == 'card' and bool(cn) and (cn.replace(' ', '')[:4] in pk[1].replace(' ', '') or pk[1].replace(' ', '')[:6] in cn.replace(' ', '') or (cn.startswith('住') and pk[1].startswith('住'))), (pk, cn))
+                    check('M13f 从列表里选第 2 项（“%s”）：选中的就是它（卡片“%s”，cur=%s curG=%s curH=%s）' % (pk[1][:14], cn[:14], cur(pg, 'r.cur'), cur(pg, 'r.curG'), cur(pg, 'r.curH')), (cur(pg, 'r.mode') == 'card' and bool(cn) and (cn.replace(' ', '')[:4] in pk[1].replace(' ', '') or pk[1].replace(' ', '')[:6] in cn.replace(' ', '') or (cn.startswith('住') and pk[1].startswith('住')))) or (re.match(r'^\d+ ', pk[1]) is not None and str(cur(pg, 'r.cur')) == pk[1].split(' ')[0]), (pk, cn))      # 2026-10-20：列表里不再有灰点（挑这一天的），第 2 项是站：点一下 = 选中并高亮（再点才出卡片），所以“选中的是它”也认 cur == 列表项的序号
             c.close()
             c, sb = mk(br); pg = new_page(env, c); T = Touch(c, pg); goto(env, pg, '/trip/hss1a/', 800)
             open_ov(pg); pg.wait_for_timeout(900)

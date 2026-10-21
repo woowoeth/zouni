@@ -419,13 +419,13 @@ with sync_playwright() as p:
                 if ab:
                     n_ab += 1
                     m = re.match(r'^抵达后从机场到住处约 (\d+) 分钟$', r0[0].get('how') or '')
-                    if not (r0[0].get('arr') == 1 and r0[0]['type'] == 'dep' and m and int(m.group(1)) in (30, 45, 60, 75)): bad.append((rid, '到达日第一行', r0[0]))
+                    if not (r0[0].get('arr') == 1 and r0[0]['type'] == 'dep' and m and (int(m.group(1)) in (30, 45, 60, 75) or int(m.group(1)) == it['days'][0].get('air_min'))): bad.append((rid, '到达日第一行', r0[0]))      # 2026-10-20：写了 air_min（OSRM 实查）的线可以不是模板值
                     elif r0[0]['t'] != (it['days'][0].get('start') or '09:00'): bad.append((rid, '到达日第一行钟点', r0[0]['t']))
                     elif len(r0) > 1 and r0[1]['type'] == 'dep' and r0[1]['t'] < '%02d:%02d' % divmod(int(r0[0]['t'][:2]) * 60 + int(r0[0]['t'][3:]) + int(m.group(1)), 60): bad.append((rid, '到达日第二行没顺延', r0[1]['t']))
                     if not re.match(r'^前往机场约 \d+ 分钟，提前 3 小时到$', rl.get('how') or '') or rl.get('to') != '回程': bad.append((rid, '回国日最后一行', rl))
                 else:
                     if any(w.get('arr') for w in r0): bad.append((rid, '国内线不该有抵达行'))
-                    if not (rl.get('how') or '').startswith('开车回城' if (it.get('drive') and it.get('loop')) else '去车站或机场：高铁提前 40 分钟到') or rl.get('to') != '回程': bad.append((rid, '国内回程行', rl))      # 2026-10-19：国内自驾环线最后一天开车回城
+                    if not ((rl.get('how') or '').startswith('开车回城' if (it.get('drive') and it.get('loop')) else '去车站或机场：高铁提前 40 分钟到') or (it['days'][-1].get('home_via') and (rl.get('how') or '').endswith('回家'))) or rl.get('to') != '回程': bad.append((rid, '国内回程行', rl))      # home_via：自驾线末日开车回出发地（2026-10-20）      # 2026-10-19：国内自驾环线最后一天开车回城
             check('G4.4 国外线 %d 条：到达日第一行“抵达后从机场到住处约 N 分钟”（后面顺延）、回国日最后一行“前往机场约 N 分钟，提前 3 小时到”；国内线最后一行“提前到车站”、没有抵达行' % n_ab, n_ab > 300 and not bad, bad[:4])
             geo = json.load(open(os.path.join(ROOT, 'data', 'geo', 'pois.json'), encoding='utf-8'))
             bad = []; n_oj = 0; n_no = 0

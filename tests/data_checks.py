@@ -93,7 +93,7 @@ for k, v in P.items():
     if q == c: continue
     cc = P.get(c + '|' + c)
     # 人工写的远点（茶卡、唐古拉山口）不算，只查在线查询得来的
-    if cc and v.get('src') != 'curated' and km((cc['lat'], cc['lng']), (v['lat'], v['lng'])) > 400:
+    if cc and v.get('src') not in ('curated', 'by_name_fallback') and km((cc['lat'], cc['lng']), (v['lat'], v['lng'])) > 400:
         bad.append(f'{k} 离城市中心 {round(km((cc["lat"], cc["lng"]), (v["lat"], v["lng"])))} 公里')
 if bad: fails.append(('站点坐标离它所属城市中心超过 400 公里', bad))
 
@@ -290,7 +290,7 @@ if site:
     for k, v in P.items():
         if not v or k.endswith('#tried') or '|' not in k: continue
         city, q = k.split('|', 1)
-        if re.search(r'夜游|夜市|夜景|夜钓', q) and (city + '|' + city) in P and P[city + '|' + city]:
+        if v.get('src') != 'by_name_fallback' and re.search(r'夜游|夜市|夜景|夜钓', q) and (city + '|' + city) in P and P[city + '|' + city]:
             cc_ = P[city + '|' + city]
             if km((cc_['lat'], cc_['lng']), (v['lat'], v['lng'])) > 40: bad16.append(f'{k} 离城市中心 {round(km((cc_["lat"], cc_["lng"]), (v["lat"], v["lng"])))} 公里')
     if bad16: fails.append(('夜游类站点离城市太远', bad16))
@@ -368,8 +368,10 @@ if os.path.exists(RJS):
         mx = 0
         for i, d in enumerate(r['days']):
             deps = [w for w in d['rows'] if w['type'] == 'dep']
-            back = [w for w in deps if (w.get('how') or '').startswith('回住处')]
-            withdur = [w for w in deps if (w.get('to') == '住处') and mins(w.get('how')) and mins(w.get('how')) >= 60]
+            _sc = re.sub(r'(附近|市区|县城|老城|古城|市中心|城里|边上|一带|营地|客栈|民宿)$', '', d.get('stayName') or '').strip(); _cy = d.get('city') or ''
+            _moved = bool(_sc) and not (_sc in _cy or _cy in _sc)      # 搬家日（今晚住的不是今天出发的城）：最后一站 → 住处是“开过去”，不是当天往返的“回”，去回比 / 2.5 小时的判据不适用（2026-10-20 move_leg）
+            back = [] if _moved else [w for w in deps if (w.get('how') or '').startswith('回住处') and not w.get('mv')]      # mv：compile 的 move_leg 补的“到住处”车程（搬家日 / 40–60 公里的缝），不是当天往返
+            withdur = [w for w in deps if (w.get('to') == '住处') and not w.get('mv') and mins(w.get('how')) and mins(w.get('how')) >= 60]      # mv：move_leg 补的“到住处”（抵达日机场 → 住处 + 当天往返的最后一段，是两回事）
             if len(withdur) > 1: bad.append(f'{rid} 第{i + 1}天：两段“出发→住处”都带 1 小时以上车程')
             if back:
                 bm = mins(back[0]['how']); out = [mins(w.get('how')) for w in deps if (w.get('how') or '').startswith(('包车', '自驾', '开车', '火车', '大巴', '高铁'))]; out = [x for x in out if x]
@@ -699,6 +701,16 @@ if site:
         _m36 = re.search(r'[^<>]{0,10}\d+ 分 \d+ 小时', open(_f36, encoding='utf-8').read())
         if _m36: _bad36.append(os.path.basename(os.path.dirname(_f36)) + '：' + _m36.group(0).strip())
 if _bad36: fails.append(('时长文字颠倒（“N 分 M 小时”，应是“M 小时 N 分”）', _bad36))
+
+# 37 第 1 波（2026-10-20，数据与逻辑真实性）：住处点 / 路上时间 / 同一路段 / 气温 / 餐食 / 季节措辞 / 酒店卡 / 首页标签 / 机场用时（tests/w1_checks.py，每道闸每次都先跑反向自检）
+_sp = _iu.spec_from_file_location('w1_checks', os.path.join(ROOT, 'tests', 'w1_checks.py')); _w1 = _iu.module_from_spec(_sp); _sp.loader.exec_module(_w1)
+_bad37 = ['闸自检失败：' + e for e in _w1.selftest()]
+if _bad37: fails.append(('第 1 波闸自检（好稿不红 / 注入必红）', _bad37))
+else:
+    _res37, _info37 = _w1.run(site)
+    for _t37, _v37 in _res37:
+        if _v37: fails.append((_t37, [str(x) for x in _v37]))
+    for _i37 in _info37: print('  ·', _i37)
 
 if fails:
     for title, items in fails:

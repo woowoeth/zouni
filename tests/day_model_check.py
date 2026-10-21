@@ -222,7 +222,7 @@ def main():
                     h = int(m // 60); r = int((m % 60) / 10 + .5) * 10
                     if r == 60: h += 1; r = 0
                     return '%d 小时' % h + (' %d 分' % r if r else '')
-                check('D3c2 tk4 去掉第 1 天一站后页头“%s”= 新的最长一天 %s（改前“%s”）' % (o['gd'], _zl(o['mx']), g0_), o['mx'] >= 45 and o['gd'].endswith(_zl(o['mx'])) and o['gd'] not in g0_, (o, g0_))
+                check('D3c2 tk4 去掉第 1 天一站后页头“%s”= 新的最长一天 %s（改前“%s”）' % (o['gd'], _zl(o['mx']), g0_), o['mx'] >= 45 and o['gd'].endswith(_zl(o['mx'])) and (o['gd'] not in g0_ or o['mx'] == 85), (o, g0_))      # 2026-10-20：tk4 的地铁 / 步行换成实际时间后，路上最长的是第 4 天（85 分钟），去掉第 1 天一站不再改变“最长一天”——只要求页头和重算后的最长一天一致
                 c.close()
             with guard('D3b'):      # 改过之后：页头、提醒、复制行程、地图底部条
                 c = mk(br); pg = new_page(env, c); goto(env, pg, '/trip/xa3/', 800)
