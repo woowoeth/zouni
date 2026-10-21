@@ -564,6 +564,8 @@
       if (m.dot || m.tag || m.lab || !m.kind) return; var dx = m.px - x, dy = m.py - y, d = Math.sqrt(dx * dx + dy * dy);
       if (d <= (m.small ? 20 : 26)) c.push({ m: m, d: d });
     });
+    var real = c.filter(function (x) { return x.m.kind !== 'g'; });
+    if (real.length && real.length < c.length) c = real;      // 灰色的（前后天的站）和这一天的站 / 住挤在一起：只在这一天的里挑。住在北海、第二天第一站也是北海银滩时，第二天地图上两个点几乎重合，点它不该弹“选哪个”（2026-10-20）
     if (!c.length) { closeAt(inst); if (inst.cur || inst.curG || inst.curH) deselect(inst); return; }
     c.sort(function (a, b) { return a.d - b.d; });
     if (c.length > 6 && inst.sel < 0) {      // 长线总览里一个章里并着一大堆天（点选列表放不下）：放大到它们分开
@@ -791,23 +793,38 @@
   function gcj(ll) { var f = W.zGcj; return f ? f(ll[0], ll[1]) : ll; }
   function navPts(d) {
     var a = [];
-    function push(n, ll) { if (!ll) return; var l = a[a.length - 1]; if (l && kmd(l.ll, ll) < 0.03) return; a.push({ n: n, ll: ll }); }
-    push(d.spName || '昨晚住处', d.sp); d.pts.forEach(function (p) { push(p.name, p.ll); }); push(d.stay ? '住处（' + d.stay + '）' : '住处', d.ep);
+    function push(n, ll, leg) { if (!ll) return; var l = a[a.length - 1]; if (l && kmd(l.ll, ll) < 0.03) return; a.push({ n: n, ll: ll, leg: leg || '' }); }
+    push(d.spName || '昨晚住处', d.sp); d.pts.forEach(function (p) { push(p.name, p.ll, p.prev && p.prev.txt); }); push(d.stay ? '住处（' + d.stay + '）' : '住处', d.ep);
     return a;
   }
   function mobileUA() { return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent); }
   function viaMax() { return APP === 'google' ? (mobileUA() ? 3 : 9) : 1; }
+  // 这一段怎么走：按这一段里每一站前那一格（步行 / 徒步 / 地铁 / 公交 / 火车 / 自驾 / 打车 / 包车）的分钟数加权，哪种最久就用哪种；没写分钟的算 1。
+  // 原来一律驾车：泰山红门 → 十八盘（步行约 4 小时）给了驾车路线、东京线（地铁）给了驾车路线（2026-10-20 family.md #5、abroad.md #8 / #11）
+  function legMin(t) {
+    var h = /(\d+)\s*小时/.exec(t || ''), m = /(\d+)\s*分/.exec(t || '');
+    return (h ? +h[1] * 60 : 0) + (m ? +m[1] : 0);
+  }
+  function segMode(seg) {
+    var w = { walk: 0, bus: 0, car: 0 }, i, t, k;
+    for (i = 1; i < seg.length; i++) {
+      t = seg[i].leg || '';
+      k = /^(步行|徒步)/.test(t) ? 'walk' : (/地铁|公交|火车|JR|轻轨|有轨|大巴/.test(t) ? 'bus' : 'car');
+      w[k] += legMin(t) || 1;
+    }
+    return w.walk > w.car && w.walk >= w.bus ? 'walk' : (w.bus > w.car ? 'bus' : 'car');
+  }
   function segUrl(seg) {
-    var f = seg[0], t = seg[seg.length - 1], mid = seg.slice(1, -1), g;
+    var f = seg[0], t = seg[seg.length - 1], mid = seg.slice(1, -1), g, md = segMode(seg);
     if (APP === 'google') {
       var u = 'https://www.google.com/maps/dir/?api=1&origin=' + f.ll[0] + ',' + f.ll[1] + '&destination=' + t.ll[0] + ',' + t.ll[1];
       if (mid.length) u += '&waypoints=' + mid.map(function (m) { return m.ll[0] + ',' + m.ll[1]; }).join('%7C');
-      return u + '&travelmode=driving';
+      return u + '&travelmode=' + (md === 'walk' ? 'walking' : (md === 'bus' ? 'transit' : 'driving'));
     }
     function pt(p) { g = gcj(p.ll); return g[1] + ',' + g[0] + ',' + encodeURIComponent(p.n); }
     var s = 'https://uri.amap.com/navigation?from=' + pt(f) + '&to=' + pt(t);
     if (mid.length) s += '&via=' + pt(mid[0]);
-    return s + '&mode=car&src=zouni&callnative=1';
+    return s + '&mode=' + md + '&src=zouni&callnative=1';
   }
   function navSegs(d) {
     var a = navPts(d); if (a.length < 2) return [];

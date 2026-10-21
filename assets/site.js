@@ -460,6 +460,22 @@ var fd=window.zFareDelta?window.zFareDelta():[0,0];p.textContent='¥'+r(Math.max
       function WD(d){return'周'+W[d.getDay()]}
       function noteTxt(d0,c0){var wn=(document.querySelector('.dnote')||{dataset:{}}).dataset.when||'';var y_=yp(d0)?yp(d0)+' 出发':'';return(isSugg?[y_,wn,c0]:['按你'+srcTxt+'选的日期排的'+(yp(d0)?' · '+yp(d0):''),c0]).filter(Boolean).join(' · ')}      // 日期只在日期条里写一次；这里只写“最好 X–Y”或“按你选的日期排的”，加上往年气温
       function iso(d){return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
+      // 季节措辞跟日期走（2026-10-20）：整趟有一天出了线路的“能走季节”→ 红字一行（.swarn）；正文里的“9 月上旬”句子（.mw）、只属于冬季的提示（.sw：极夜 / 流冰 / 雪胎 / 冰爪…）对不上那天的日期就隐藏。构建时 season_post 只包句子，不改字；没有 JS 时照原样显示。
+      var SZ_WIN={polar:['11-20','01-20'],ice:['01-15','03-25'],winter:['11-01','04-20']};
+      function szP2(x){return(x<10?'0':'')+x}
+      function szMD(d){return szP2(d.getMonth()+1)+'-'+szP2(d.getDate())}
+      function szIn(md,a,b){return a<=b?(md>=a&&md<=b):(md>=a||md<=b)}
+      function szTxt(a){return(+a.slice(0,2))+'/'+(+a.slice(3))}
+      function szMW(el,date){var q=(el.getAttribute('data-mw')||'').split(':'),m=+q[0],p=q[1],a=1,b=31;if(p==='上旬'||p==='初'){b=10}else if(p==='中旬'||p==='中'){a=11;b=20}else{a=21}
+        var y,best=1e9,t0,s0,e0;for(y=date.getFullYear()-1;y<=date.getFullYear()+1;y++){s0=new Date(y,m-1,a,12).getTime();e0=new Date(y,m-1,b,12).getTime();t0=date.getTime();best=Math.min(best,t0<s0?s0-t0:(t0>e0?t0-e0:0))}
+        return best<=10*864e5}      // 那句话说的是哪个月的哪一旬：离那一旬 10 天以内才留
+      function szApply(d0,secs){var W=document.querySelector('.swarn'),n=secs.length,i,bad=-1,o,bd;
+        if(W&&W.getAttribute('data-ok')){o=W.getAttribute('data-ok').split(',');for(i=0;i<n;i++){if(!szIn(szMD(new Date(d0.getTime()+i*864e5)),o[0],o[1])){bad=i;break}}
+          if(bad<0){W.hidden=true;W.textContent=''}else{bd=new Date(d0.getTime()+bad*864e5);W.textContent=(bad===0?'你选的日期不在这条线能走的季节（'+szTxt(o[0])+'–'+szTxt(o[1])+'）':'第 '+(bad+1)+' 天（'+fmt(bd)+'）起已出了这条线能走的季节（'+szTxt(o[0])+'–'+szTxt(o[1])+'）')+'：路况、气温、装备提示不适用，出发前重新核对';W.hidden=false}}
+        [].slice.call(document.querySelectorAll('.mw,.sw')).forEach(function(el){var sec=el.closest?el.closest('.day'):null,k=sec?secs.indexOf(sec):-1,date=new Date(d0.getTime()+(k<0?0:k)*864e5),ok=true,w;
+          if(el.classList.contains('mw')&&!szMW(el,date))ok=false;
+          if(ok&&el.classList.contains('sw')){w=SZ_WIN[el.getAttribute('data-sw')];if(w&&!szIn(szMD(date),w[0],w[1]))ok=false}
+          el.hidden=!ok})}
       function applyStart(v){var d0=new Date(v+'T12:00:00'),secs=[].slice.call(document.querySelectorAll('.day')),n=secs.length;
         secs.forEach(function(sec,i){var di=new Date(d0.getTime()+i*864e5),sm=sec.querySelector('header small');sm.textContent=sm.textContent.split(' · ')[0]+' · '+fmt(di)+' 周'+W[di.getDay()];
           sec.querySelectorAll('.sun').forEach(function(b){b.dataset.date=iso(di);var v=sun(+b.dataset.lat,+b.dataset.lng,di,b.dataset.k==='rise',parseFloat(b.dataset.tz),b.dataset.dst);b.textContent=v;if(b.parentNode)b.parentNode.hidden=(v==='—'||b.dataset.off==='1')});
@@ -467,7 +483,7 @@ var fd=window.zFareDelta?window.zFareDelta():[0,0];p.textContent='¥'+r(Math.max
         var pm_=0;secs.forEach(function(sec,i){var cl=sec.querySelector('.cl');if(!cl)return;var m=new Date(d0.getTime()+i*864e5).getMonth()+1,has=!!cl.textContent;cl.hidden=(i===0)||!has||m===pm_||!!sec.querySelector('.fc:not(.mon)');if(has)pm_=m});   // 往年气温：第一天写在页头；之后只在月份变了的那天写；有天气预报的天不再并排写
         document.querySelectorAll('.overview i').forEach(function(x,i){x.textContent=fmt(new Date(d0.getTime()+i*864e5))});
         var dN=new Date(d0.getTime()+(n-1)*864e5);dtb.firstChild.textContent=fmt(d0)+(n>1?'–'+(dN.getMonth()===d0.getMonth()?dN.getDate():fmt(dN)):'')+' ';   // 同一个月写 10/15–17，窄屏不挤
-        var db=document.querySelector('.dock b');if(db)db.textContent=(isSugg?'建议 ':'')+fmt(d0)+' 出发 · '+n+' 天';var dn_=document.querySelector('.dnote');if(dn_)dn_.textContent=noteTxt(d0,((secs[0]&&secs[0].querySelector('.cl'))||{}).textContent||'')}
+        var db=document.querySelector('.dock b');if(db)db.textContent=(isSugg?'建议 ':'')+fmt(d0)+' 出发 · '+n+' 天';var dn_=document.querySelector('.dnote');if(dn_)dn_.textContent=noteTxt(d0,((secs[0]&&secs[0].querySelector('.cl'))||{}).textContent||'');szApply(d0,secs)}
       dtb.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();dtb.click()}});
       var dkd=document.querySelector('.dock>div:first-child');if(dkd){dkd.setAttribute('role','button');dkd.setAttribute('tabindex','0');dkd.setAttribute('aria-label','改出发日期');dkd.addEventListener('click',function(){dtb.click()});dkd.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();dtb.click()}})}      // 底栏的日期价格整块可点：滚到哪里都能改出发日期（2 次点击）
       dtb.addEventListener('click',function(){var b0=dtb.dataset.best?dtb.dataset.best.split(','):null;openPicker({value:dk.value,min:dk.dataset.min||dk.getAttribute('min'),best:b0&&b0.length===2?b0:null,sug:isSugg?dk.value:'',onPick:function(v){dk.value=v;dk.dispatchEvent(new Event('change'))}})});
@@ -1251,7 +1267,7 @@ var fd=window.zFareDelta?window.zFareDelta():[0,0];p.textContent='¥'+r(Math.max
         if(st.w==='o'&&li.dataset.drv==='1'&&n>8)s-=15;
         // 和谁去、怎么走：真的改变推荐，并且写出理由（标签来自行程本身：徒步、爬山、走路多、台阶多、坡多、带娃、海岛、温泉、古镇、红叶、高铁、不开车、自驾……）
         var tg=(li.dataset.tg||'').split('|'),hasT=function(x){return tg.indexOf(x)>=0},phys=['徒步','爬山','走路多','台阶多','坡多'].filter(hasT),whoWhy='';
-        if(st.w==='o'){if(phys.length)return;   // 带老人孩子：要徒步、爬山、走很多路、爬很多台阶的线不推荐
+        if(st.w==='o'){if(phys.length||hasT('偏累'))return;   // 带老人孩子：要徒步、爬山、走很多路、爬很多台阶的线不推荐
           if(hasT('带娃'))s+=14;if(hasT('高铁')||hasT('不开车'))s+=4;whoWhy='带老人孩子：不上高原，没有长爬坡和台阶'+(hasT('带娃')?'，本来就是带娃的线':'')}
         else if(st.w==='c'){var cp=['海岛','温泉','古镇','古城','古村','小城','红叶','海边城市'].filter(hasT);if(cp.length){s+=14*Math.min(cp.length,2);whoWhy='两个人去：有'+cp[0]+'，适合慢慢逛'}if(phys.length)s-=10;if(hasT('带娃'))s-=10}
         else if(st.w==='f'){var hard=['徒步','爬山'].filter(hasT);if(hard.length){s+=10;whoWhy='和朋友去：能'+hard[0]+'，玩得尽兴'}else if(hasT('走路多')){s+=6;whoWhy='和朋友去：适合边走边逛，不用赶'}else if(hasT('自驾')){s+=8;whoWhy='和朋友去：可以自驾，路上更自由'}if(hasT('带娃'))s-=10}
