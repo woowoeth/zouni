@@ -650,7 +650,7 @@
   function showPick(inst, c) {
     inst.pick = c.map(function (x) { return x.m; }); var pk = inst.pickEl;
     if (!pk) { pk = inst.pickEl = el('div', 'rm-pk'); inst.root.appendChild(pk); }
-    pk.innerHTML = '<span class="rm-pt">这里有 ' + c.length + ' 处，点选一个</span>' + c.slice(0, 6).map(function (x, i) { return '<button type="button" class="rm-pi" data-pi="' + i + '">' + esc(x.m.label) + '</button>'; }).join('');
+    pk.innerHTML = '<span class="rm-pt">选一个</span>' + c.slice(0, 6).map(function (x, i) { return '<button type="button" class="rm-pi" data-pi="' + i + '">' + esc(x.m.label) + '</button>'; }).join('');
     pk.hidden = false;
   }
   function closeAt(inst) { if (inst.pickEl) inst.pickEl.hidden = true; }
@@ -688,7 +688,7 @@
   function numHtml(t) { return String(t).split(' · ').map(function (x) { return '<span class="nw">' + esc(x) + '</span>'; }).join(' · '); }
   function paintDayLine(inst) {
     var d = curDay(inst), n = inst.days.length, h;
-    if (!d) h = '<p class="rm-ld"><b>全程 · 共 ' + n + ' 天</b><span class="rm-ln"><span class="nw">点上面的天数，看那一天的路线</span></span></p>';
+    if (!d) h = '<p class="rm-ld"><b>全程 · 共 ' + n + ' 天</b><span class="rm-ln"><span class="nw">点上面的天数</span></span></p>';
     else h = '<p class="rm-ld"><b>第 ' + (d.i + 1) + ' 天 · ' + esc(d.title) + '</b><span class="rm-ln">' + numHtml(ZD.loadText(ZD.facts(d))) + '</span></p>';
     inst.bodyEl.innerHTML = h; inst.bodyEl.className = 'rm-body rm-day';
   }
@@ -821,7 +821,7 @@
   function addGray(inst) {
     var d = curDay(inst), N = W.zNpMap, g = inst.curG ? inst.gray[inst.curG - 1] : null; if (!d || !N || !g) return;
     var t; try { t = N.tryIns(d.sec, g.S, g.c); } catch (e) { t = { ok: false }; }
-    if (!t || !t.ok) { toast('这天已经排满了，加不进去'); return; }
+    if (!t || !t.ok) { toast('这天排满了'); return; }
     inst.curG = 0; deselect(inst); N.commit(d.sec, g.S, g.c);
   }
 
@@ -900,8 +900,7 @@
   }
   function navHint(d) {
     var a = navPts(d), segs = navSegs(d).length;
-    var lim = APP === 'google' ? '谷歌地图一次最多带 ' + viaMax() + ' 个中途点' : '高德一次只带 1 个中途点';
-    return segs > 1 ? '这天 ' + a.length + ' 个点，分 ' + segs + ' 段导航（' + lim + '），按顺序点。' : '';
+    return segs > 1 ? '分 ' + segs + ' 段，按顺序点' : '';
   }
   function goUrl(u) {
     if (navigator.onLine === false) { toast('没网，暂时不能导航'); return; }
@@ -1000,7 +999,7 @@
       }
       var url; try { url = cv.toDataURL('image/png'); } catch (e) { toast('保存图片失败'); return; }
       var m = el('div', 'hmap-zoom shotv rm-shot');
-      m.innerHTML = '<button type="button" class="hz-x" aria-label="关闭">×</button><div class="hz-b"><img alt="地图" src="' + url + '"></div><p class="shotp">' + (real ? '' : '街道底图没取到，存的是示意图版。') + '手机上长按图片保存；电脑上 <a download="走你-地图.png" href="' + url + '">点这里下载</a></p>';
+      m.innerHTML = '<button type="button" class="hz-x" aria-label="关闭">×</button><div class="hz-b"><img alt="地图" src="' + url + '"></div><p class="shotp">' + (real ? '' : '街道底图没取到，存的是示意图。') + '长按图片保存 · <a download="走你-地图.png" href="' + url + '">下载</a></p>';
       var LZ = ZL.open([m], { kind: 'shot' });
       function cl() { ZL.close(LZ); }
       qs('.hz-x', m).addEventListener('click', cl); m.addEventListener('click', function (e) { if (e.target === m || e.target.classList.contains('hz-b')) cl(); });

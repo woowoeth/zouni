@@ -1273,3 +1273,5 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .home .now .nowh .datebar .hdt i{flex:none}.home .now .nowh .datebar .hdt b{white-space:nowrap}.home .now .nowh h2 .ns{font-size:13px}
 .home .now .nowh .datebar .hdt i{width:max-content;min-width:3em}
 .glance b.big{line-height:28px;line-height:max(28px,1.25em);height:auto;min-height:28px;margin-bottom:-3px}      /* 默认和原来一样高（28px 格 + 里面小字撑出的 3px 用负边距吃掉）；大字号时随字撑开 */
+/* 文字预算（2026-10-21）：“改这一天”每个选项一行；“改出发时间”的当前时间跟在后面，不另起一行；只有“去掉这一天”带真实警告时才两行 */
+.pkd .xd button{flex-direction:row;align-items:baseline;gap:10px}.pkd .xd button.rmgo{flex-direction:column;align-items:flex-start;gap:2px}
