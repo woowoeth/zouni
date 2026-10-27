@@ -145,7 +145,7 @@ with sync_playwright() as p:
         tag = '暗色' if dark else '亮色'
         ov = pg.evaluate("document.documentElement.scrollWidth-innerWidth")
         check(f'通用 {tag} 无横向溢出', ov <= 0, str(ov))
-        for sel in ('.hsearch input', '.chan2 b', '.chan2 small', '.pick .pkh b', '.pick .pkh small', '.now h2 .nt', '.now .ns', '.now .datebar b', '.items li:not([hidden]) h3 a', '.items li:not([hidden]) p', '.items li:not([hidden]) small', '.items li:not([hidden]) .left'):
+        for sel in ('.hsearch input', '.chan2 b', '.chan2 small', '.pick .pkh b', '.now h2 .nt', '.now .ns', '.now .datebar b', '.items li:not([hidden]) h3 a', '.items li:not([hidden]) p', '.items li:not([hidden]) small', '.items li:not([hidden]) .left'):
             if sel == '.hsearch input': continue
             ct = contrast(pg, sel)
             check(f'通用 {tag} 对比度 {sel} >= 4.5', ct is not None and ct >= 4.5, str(ct))

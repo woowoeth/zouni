@@ -359,7 +359,7 @@ with sync_playwright() as p:
         js = GET('/assets/site.js')
         gone = [x for x in ('改成 \'+fmt(d)+\' 出发了', '加好了，日期和底栏都跟着变了', '日历文件好了', '恢复了原来的安排', '换回原来的了', '按现在重排了') if x in js]
         check('A7d site.js 里复述类 toast 文案都没了（还在：%s）' % gone, not gone, gone)
-        check('A7e 日历说明搬进了按钮副标题（“下载后…选“全部添加””出现在 button 里，不在 toast 里）', '下载后打开，选“全部添加”' in js and "toast('日历" not in js)
+        check('A7e 日历说明搬进了按钮副标题（“下载后…选“全部添加””出现在 button 里，不在 toast 里）', '下载后选“全部添加”' in js and "toast('日历" not in js)
         check('A7f 没有按钮的 toast 时长按字数（site.js 里有 Math.max(1700,Math.min(6000,String(t).length*140))）', 'Math.max(1700,Math.min(6000,String(t).length*140))' in js)
     with guard('A7g'):   # 微信提示：首次点“复制”才说
         cw = new_ctx(br, p, user_agent='Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 MicroMessenger/8.0.40 Mobile/15E148')
@@ -418,7 +418,7 @@ with sync_playwright() as p:
         h = GET('/'); ft = ' '.join(GET(x) for x in ('/where/', '/pian/', '/long/', '/trip/xa3/'))
         check('C1 “本期”→“首页”：首页顶部 / 页脚 / 各频道页没有“本期”链接', '>本期</a>' not in h + ft and re.search(r'class="home" href="/">首页</a>', GET('/where/')) is not None)
         check('C2 入口副标：走哪儿“按月份挑国内外”、跟片走“舌尖、国宝、航拍”、跟谁走“苏轼、玄奘、郑和”、长线自驾“15 天以上的自驾路”', all(x in h for x in ('按月份挑国内外', '舌尖、国宝、航拍', '苏轼、玄奘、郑和', '15 天以上的自驾路')) and h.count('<nav class="chan2"') == 1 and len(re.findall(r'<nav class="chan2".*?</nav>', h, re.S)[0].split('<a ')) - 1 == 4)
-        check('C3 “替我挑三条”改叫“替我挑三条行程”，副标“选出发地、天数、和谁去”', '替我挑三条行程' in GET('/assets/site.js') and '选出发地、天数、和谁去' in GET('/assets/site.js'))
+        check('C3 “替我挑三条”改叫“替我挑三条行程”，没有副标（2026-10-21 文字预算：展开后每行都有标签）', '替我挑三条行程' in GET('/assets/site.js') and '选出发地、天数、和谁去' not in GET('/assets/site.js'))
         tx = GET('/trip/xa3/')
         check('C4 行程页：“看路线图”→“看地图”；“调整”→“改这站 / 改这一天”；日期“改日期”、时间“改时间”', '看路线图' not in GET('/assets/site.js') and '看路线图' not in tx and '<i>改日期</i>' in tx and '<i>改时间</i>' in tx and '改这站</button>' in GET('/assets/site.js') and '改这一天 ›' in GET('/assets/site.js') and '>调整</button>' not in GET('/assets/site.js'))
         prices = [m_ for pth in ('/', '/where/', '/trip/xa3/', '/long/', '/d/shaanxi/', '/trip/xl9a/') for m_ in re.findall(r'¥[\d.]+K', GET(pth))]

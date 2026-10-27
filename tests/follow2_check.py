@@ -158,7 +158,7 @@ with sync_playwright() as p:
         pg.evaluate("document.querySelector('.rm-navd').click()"); pg.wait_for_timeout(400)
         sheet = pg.evaluate("(document.querySelector('.rm-sheet')||{}).innerText||''")
         allt = pg.evaluate("document.body.innerText")
-        check('P6d 页面、地图、导航层里没有“途经点”“片区位置”“懂一点”旧词；导航层说明里用“中途点”', not re.search(r'途经点|片区位置|懂一点', allt + sheet) and '中途点' in sheet, (re.findall(r'途经点|片区位置|懂一点', allt + sheet), sheet[:80]))
+        check('P6d 页面、地图、导航层里没有“途经点”“片区位置”“懂一点”旧词；导航层说明只写“分 N 段，按顺序点”（2026-10-21 文字预算：不再解释“高德一次只带 1 个中途点”）', not re.search(r'途经点|片区位置|懂一点', allt + sheet) and '按顺序点' in sheet, (re.findall(r'途经点|片区位置|懂一点', allt + sheet), sheet[:80]))
         c.close()
     br.close()
 env.finish('专栏页与术语')

@@ -26,7 +26,7 @@ from ux_common import *
 INJ = {
     'toast_long': ('assets/site.js', "ms||(label?5000:1700)", "ms||(label?10000:1700)"),          # 提示条又停 10 秒
     'toast_stack': ('assets/site.js', ["function toast(t,label,fn,ms){toastOff();", "var ts=document.querySelectorAll('.toast');for(var i=0;i<ts.length;i++){if(!ts[i].contains(e.target)){clearTimeout(ts[i]._tm);ts[i].remove()}}"], ["function toast(t,label,fn,ms){", ""]),   # 新提示不顶掉旧的、点别处也不收 → 叠起来（两条机制都拿掉才算）
-    'no_undo': ('assets/site.js', "ztrack('去掉一站');toast('去掉了「'+npCore(nmx)+'」，后面的时间往前挪了','撤销',function(){undo0();replan(sec);toast('撤销了，「'+npCore(nmx)+'」回来了')})", "ztrack('去掉一站');toast('去掉了「'+npCore(nmx)+'」，后面的时间往前挪了')"),   # 去掉这一站不给撤销
+    'no_undo': ('assets/site.js', "ztrack('去掉一站');toast('去掉了「'+npCore(nmx)+'」','撤销',function(){undo0();replan(sec)})", "ztrack('去掉一站');toast('去掉了「'+npCore(nmx)+'」')"),   # 去掉这一站不给撤销
     'small_x': ('assets/site.css', ".pk-x{width:44px;min-width:44px;height:44px;", ".pk-x{width:30px;min-width:30px;height:30px;"),                                                  # 右上“×”缩成 30（点击区的判据要红）
 }
 IPHONE = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1'

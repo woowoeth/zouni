@@ -49,7 +49,7 @@ INJ = {
     # S10 / S11 / S12 / S13
     'dock_nolink': ('assets/site.js', "dkd.addEventListener('click',function(){dtb.click()});", ""),                                                                                  # 底栏日期不可点
     'ics_gone': ('assets/site.js', "<b>加入日历</b><small>每天的安排，加上买票", "<b>日历</b><small>每天的安排，加上买票"),                                                              # 分享层里的“加入日历”按钮改了名
-    'gray_old': ('assets/site.js', "if(b.last+NP_LIM.EXTRA>NP_LIM.CAP)return'这天已经排到 '", "if(b.last>NP_LIM.END)return'这天已经排到 '"),                                             # 置灰规则退回死的 21:30
+    'gray_old': ('assets/site.js', "if(b.last+NP_LIM.EXTRA>NP_LIM.CAP)return'已排到 '", "if(b.last>NP_LIM.END)return'已排到 '"),                                             # 置灰规则退回死的 21:30
     'ret_gone': ('trip/xa3/index.html', '回：第 3\u00a0天', '第 3\u00a0天'),                                                                                                                        # 去掉“回：…”这句
     'label_old': ('assets/site.js', "(sv&&f.own>0&&f.own>=f.drive-.5?'开车约 ':'路上约 ')", "(sv?'开车约 ':'路上约 ')"),                                                                  # 有自驾段的线路里每天都叫“开车”（hss1a 第 2 天坐高铁也写开车）
     'stay_nojump': ('assets/site.js', "var j=e.target.closest('.tl > .r.stay');if(j&&", "var j=null;if(j&&"),                                                                      # 当天末尾“住 · …”不可点
@@ -205,7 +205,7 @@ with sync_playwright() as p:
             pg.click('.pk .rmgo'); pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(1200)
             m_ = pg.evaluate("({mark:window.__mark,pk:document.querySelectorAll('.pk').length,days:document.querySelectorAll('.day').length,act:document.querySelectorAll('.toast .toast-act').length,t:(document.querySelector('.toast')||{}).innerText||''})")
             check('S1 去掉这一天：点一下就执行（页面重载了、没有确认层 / 取消按钮 / 任何层挡着）、少了一天（%d→%d）' % (n0, m_['days']), m_['mark'] is None and m_['pk'] == 0 and m_['days'] == n0 - 1, m_)
-            check('S1 去掉这一天：执行后马上有带“撤销”的提示条，写着“价格和天数已按剩下的天数改”（%s）' % m_['t'].replace('\n', ' '), m_['act'] == 1 and '价格和天数' in m_['t'], m_)
+            check('S1 去掉这一天：执行后马上有带“撤销”的提示条，写着“去掉了「X」”（%s）' % m_['t'].replace('\n', ' '), m_['act'] == 1 and '去掉了' in m_['t'], m_)
             shot(pg, 'S1_rmday_toast.png')
             pg.click('.toast .toast-act'); pg.wait_for_load_state('networkidle'); pg.wait_for_timeout(900)
             check('S1 去掉这一天：点“撤销”天数回来', pg.evaluate("document.querySelectorAll('.day').length") == n0)
@@ -411,14 +411,14 @@ with sync_playwright() as p:
                 pg.evaluate("(i)=>{const b=document.querySelectorAll('section.day:not(.xday) .tl > .r.see .adj, section.day:not(.xday) .tl > .r.fun .adj')[i];b.scrollIntoView({block:'center',behavior:'instant'})}", i)
                 pg.locator('section.day:not(.xday) .tl > .r.see .adj, section.day:not(.xday) .tl > .r.fun .adj').nth(i).click(); n += 1; pg.wait_for_selector('.pk')
                 ins = pg.locator('.pk [data-np="ins"]')
-                if i == 0: check('S10 D：xa3 第 1 天第一站的“在这之后加一个”可点；排满时置灰并写清原因（再加就超过…）', ins.count() == 1 and (not ins.first.is_disabled() or '再加就超过' in ins.first.inner_text()), ins.count() and ins.first.inner_text())
+                if i == 0: check('S10 D：xa3 第 1 天第一站的“在这之后加一个”可点；排满时置灰并写清原因（再加就超过…）', ins.count() == 1 and (not ins.first.is_disabled() or '已排到' in ins.first.inner_text() or '排满' in ins.first.inner_text()), ins.count() and ins.first.inner_text())
                 if not ins.count() or ins.first.is_disabled(): pg.evaluate("history.back()"); pg.wait_for_timeout(150); continue
                 ins.click(); n += 1; pg.wait_for_selector('.pk .npc, .pk .npe', timeout=20000); pg.wait_for_timeout(250)
                 if pg.locator('.pk .npc').count():
                     pg.locator('.pk .npc').first.click(); n += 1; pg.wait_for_timeout(500); done = True; break
                 if i == 0: empty_msg = pg.inner_text('.pk .npe')
                 pg.evaluate("history.back()"); pg.wait_for_timeout(150)
-            if empty_msg: check('S10 D：第一站点开后候选为空时写清原因（%s）' % empty_msg, '超过' in empty_msg or '排满' in empty_msg or '没有顺路' in empty_msg, empty_msg)
+            if empty_msg: check('S10 D：第一站点开后候选为空时写清原因（%s）' % empty_msg, '已排到' in empty_msg or '超过' in empty_msg or '排满' in empty_msg or '没有顺路' in empty_msg, empty_msg)
             check('S10 D 加一个顺路景点（试到第 %d 个有候选的站）：%d 点击（≤3），加上了、有“撤销”' % (tried, n), done and n <= 3 and pg.locator('.toast .toast-act').count() == 1 and pg.evaluate("!!document.querySelector('.tl > .r[data-np=v]')"), (done, n, tried))
             TASKS['D'] = ('3 点击（xa3 的 7 个可加站点里 5 个置灰）', '%d 点击（xa3 7 个站点都可点，其中 4 个点开有候选；有候选的站 3 步、没有候选的站点开后写“再加就超过 22:40 了”）' % n); c.close()
         with guard('S10 E 改出发日期（xl9a 第 12 天处）'):
@@ -512,7 +512,7 @@ with sync_playwright() as p:
                     pg.evaluate("history.back()"); pg.wait_for_timeout(120)
                 COV[rid] = (ok, tot, withc); TOT_OK += ok; TOT_N += tot
                 check('S11 %s：可点 %d / %d，点开后都有候选 %d / %d（可点 ⇒ 有候选）' % (rid, ok, tot, withc, ok), tot > 0 and withc == ok, (ok, tot, withc))
-                check('S11 %s：置灰的都写清原因（%s）' % (rid, list(why)[:3]), all(('再加就超过' in w or '排满' in w or '已有' in w or '超过' in w or '附近没有' in w or '关门' in w) for w in why), why)
+                check('S11 %s：置灰的都写清原因（%s）' % (rid, list(why)[:3]), all(('已排到' in w or '再加就超过' in w or '排满' in w or '已有' in w or '超过' in w or '附近没有' in w or '关门' in w) for w in why), why)
                 c.close()
         if not ONLY or 'S11' in ONLY: check('S11 六条线合计可点 %d / %d = %.0f%%（≥50%%：置灰是例外，不是常态）' % (TOT_OK, TOT_N, 100.0 * TOT_OK / max(1, TOT_N)), TOT_N > 0 and TOT_OK / TOT_N >= 0.5, (TOT_OK, TOT_N))
         TASKS['S11'] = COV
@@ -524,7 +524,7 @@ with sync_playwright() as p:
             except Exception: pass
             if pg.locator('.pk [data-np="ins"]').count():
                 dis = pg.locator('.pk [data-np="ins"]').first.is_disabled(); tx = pg.inner_text('.pk [data-np="ins"] small') if dis else ''
-                check('S11 候选为空时入口置灰并写清为什么（%s）' % (tx or '可点'), dis and ('超过' in tx or '排满' in tx or '附近没有' in tx), tx)
+                check('S11 候选为空时入口置灰并写清为什么（%s）' % (tx or '可点'), dis and ('已排到' in tx or '超过' in tx or '排满' in tx or '附近没有' in tx), tx)
             c.close()
 
     # ———————————————— S12 / S13 ————————————————

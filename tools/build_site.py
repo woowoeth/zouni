@@ -17204,10 +17204,10 @@ def home_page():
             f'<div class="cv"><span class="kick">封面故事 · 正当季{((" · 今天最后一天" if dl0 == 0 else " · 最好到 " + _end_txt(tc))) if dl0 is not None else ""}</span><a class="go" href="/trip/{cover}/"><h2>{tsplit(r["title"])}</h2></a><div class="chips"><span>{len(r["days"])} 天 · {E(price_k(r.get("price")))}/人</span><span>{m} 月 {c0[0]}°C / {c0[1]}°C</span></div></div></div>'
             f'<form class="hsearch" action="/where/" method="get" role="search"><input type="search" name="q" placeholder="搜地名、行程，如 川藏" aria-label="搜地名、景点或行程" enterkeyhint="search" autocomplete="off"></form>'
             f'<nav class="chan2" aria-label="频道"><a href="/where/"><b>走哪儿</b><small>按月份挑国内外</small></a><a href="/pian/"><b>跟片走</b><small>舌尖、国宝、航拍</small></a><a href="/follow/"><b>跟谁走</b><small>苏轼、玄奘、郑和</small></a><a href="/long/"><b>长线自驾</b><small>{LONG_MIN_DAYS} 天以上的自驾路</small></a></nav>'
-            f'<section class="toc now" id="now"><div class="nowh"><h2><span class="nt">现在去正好</span><small class="ns">{len(order) + 1} 条，快过季的先看</small></h2>{datebar}</div>{chips}<ol class="items">{toc}</ol>'
+            f'<section class="toc now" id="now"><div class="nowh"><h2><span class="nt">现在去正好</span><small class="ns">{len(order) + 1} 条</small></h2>{datebar}</div>{chips}<ol class="items">{toc}</ol>'
             f'{("<button type=button class=moreb>再看 8 条</button>") if len(order) > 8 else ""}</section>'
-            + (f'<section class="toc"><h2>下个月正好<small>{nxt} 月开始</small></h2><ol class="items">{nitems}</ol></section>' if nitems else '')
-            + (f'<section class="toc"><h2>什么时候去都行<small>城市、古城、博物馆</small></h2><ol class="items">{aitems}</ol></section>' if aitems else '')
+            + (f'<section class="toc"><h2>下个月正好</h2><ol class="items">{nitems}</ol></section>' if nitems else '')
+            + (f'<section class="toc"><h2>什么时候去都行</h2><ol class="items">{aitems}</ol></section>' if aitems else '')
             + '</article>'
             '<script>(function(){var m=location.hash.match(/#trip=(\\w+)/);if(m){location.replace("/trip/"+m[1]+"/");}})();</script>')
     ld = {'@context': 'https://schema.org', '@type': 'WebSite', 'name': SITE, 'url': BASE + '/', 'inLanguage': 'zh-CN', 'description': '按季节挑目的地，按天排好每一站：几点出发、怎么去、吃什么、住哪。'}

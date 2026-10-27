@@ -9,7 +9,7 @@
   F1  “在这之后加一个…”：按钮可点 ⇒ 点开一定有候选；没有候选的站在弹层里就置灰并写清原因（不新增控件）。xa3 / tk4 / hss1a / hcz1 全部站点逐个点
   F2  “路上”口径：回程“提前到车站 / 机场”缓冲不计入路上（data-drv 与 ZD.facts 一致），页头“最长一天”= 每天“路上约”里最大的那个；小时写法全站“N 小时 M 分”
   F3  去掉站点 / 去掉一天后页面一致：导语不复述旧标题、标题只留还在的站名、“回：第 N 天”读实际序号、出发前清单按剩下的天重算、复制整条行程不带旧标题
-  F4  “加一天”候选里含本行程已排过站点的，灰字写“其中 X 你已排过”并排到末尾
+  F4  “加一天”候选里含本行程已排过站点的，灰字写“X已排过”并排到末尾
   F5  默认出发日：没有季节限制的线路 = 今天起最近的合理日（不跨年）；跨年才写“明年 M/D（距今 N 天）”
   F6  g318 第 1 天不再写 3,649 米高反
   F7  可访问性：弹层 / 地图接管焦点并在关闭时还给触发按钮；日期选择器 Esc 后焦点回触发处；展开按钮 aria-expanded；深色“出发前查”对比度；小字链接点击区
@@ -31,7 +31,7 @@ INJ = {
     'ret_stale': ('assets/site.js', "gw.textContent=gw.textContent.replace(/回：第[\\s\\S]*$/,", "gw.textContent=gw.textContent.replace(/NEVER_MATCH/,"),
     'pre_stale': ('assets/site.js', "li.hidden=true})}", "li.hidden=false})}"),
     # F4：加一天候选不标“已排过”、不排到末尾
-    'ov_off': ('assets/site.js', "你已排过</span>':'')", "</span>':'')"),
+    'ov_off': ('assets/site.js', "已排过</span>':'')", "</span>':'')"),
     'ov_sort': ('assets/site.js', "((a.ov&&a.ov.length?1:0)-(b.ov&&b.ov.length?1:0))||", ""),
     # F5：跨年的日期不写“明年”
     'ny_off': ('assets/site.js', "return d.getFullYear()>n.getFullYear()?'明年 '+fmt(d)", "return false?'明年 '+fmt(d)"),
@@ -82,7 +82,7 @@ with sync_playwright() as p:
                     if ins.first.is_disabled():
                         dis += 1; tx = pg.inner_text('.pk [data-np="ins"] small') if pg.locator('.pk [data-np="ins"] small').count() else ''
                         reasons[tx[:12]] = reasons.get(tx[:12], 0) + 1
-                        if not re.search(r'超过|排满|已有|附近没有|关门', tx): bad_reason += 1
+                        if not re.search(r'超过|排满|已有|附近没有|关门|已排到|闭馆', tx): bad_reason += 1
                     else:
                         en += 1
                         ins.first.click(); pg.wait_for_selector('.pk .npc, .pk .npe', timeout=20000)
@@ -95,7 +95,7 @@ with sync_playwright() as p:
             pg.evaluate("document.querySelector('#d1 .tl .adj').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('#d1 .tl .adj >> nth=0'); pg.wait_for_selector('.pk')
             pg.wait_for_function("(()=>{const b=document.querySelector('.pk [data-np=\"ins\"]');return b&&(b.disabled||b.getAttribute('data-chk'))})()", timeout=20000)
             st = pg.evaluate("(()=>{const b=document.querySelector('.pk [data-np=\"ins\"]');return {d:b.disabled,t:(b.querySelector('small')||{}).textContent||'',chk:b.getAttribute('data-chk')}})()")
-            check('F1 xa3 第 1 天（默认排到 22:10）进弹层就置灰并写原因：%s' % st, st['d'] and ('超过' in st['t'] or '附近没有' in st['t']), st)
+            check('F1 xa3 第 1 天（默认排到 22:10）进弹层就置灰并写原因：%s' % st, st['d'] and ('已排到' in st['t'] or '排满' in st['t'] or '附近没有' in st['t']), st)
             c.close()
 
 
@@ -200,10 +200,10 @@ with sync_playwright() as p:
                 pg.evaluate("document.querySelector('.addday .add').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('.addday .add'); pg.wait_for_selector('.pk')
                 items = pg.evaluate("[...document.querySelectorAll('.pk [data-rid]')].map(b=>({t:b.querySelector('b').textContent,ov:(b.querySelector('.xov')||{}).textContent||''}))")
                 flags = [bool(x['ov']) for x in items]
-                check('F4 %s：有 %d 条标了“其中 X 你已排过”（%s）' % (cand, sum(flags), [x['ov'] for x in items if x['ov']][:2]), any(flags) and all(re.search(r'^ · 其中 .+ 你已排过$', x['ov']) for x in items if x['ov']), items[:4])
+                check('F4 %s：有 %d 条标了“X已排过”（%s）' % (cand, sum(flags), [x['ov'] for x in items if x['ov']][:2]), any(flags) and all(re.search(r'^ · .+已排过$', x['ov']) for x in items if x['ov']), items[:4])
                 check('F4 %s：标了的都排在没标的后面（%s）' % (cand, ''.join('○' if not f else '●' for f in flags)), flags == sorted(flags), flags)
                 page_txt = pg.evaluate("document.querySelector('article.trip').textContent")
-                nm = [re.sub(r'^ · 其中 | 你已排过$', '', x['ov']).split('、') for x in items if x['ov']]
+                nm = [re.sub(r'^ · |已排过$', '', x['ov']).split('、') for x in items if x['ov']]
                 check('F4 %s：写出的“已排过”站名真在本行程里' % cand, all(n in page_txt for g in nm for n in g), nm)
                 c.close()
 

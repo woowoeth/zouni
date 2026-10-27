@@ -121,7 +121,9 @@ def judge(tid, date, d):
         ok = any((date + datetime.timedelta(days=i)).month == int(m.group(1)) and (date + datetime.timedelta(days=i)).day == int(m.group(2)) and WN[(date + datetime.timedelta(days=i)).weekday()] == m.group(3) for i in range(len(d['days'])))
         ok = ok or (today <= date)   # 建议日期（不是这条线某天的日期）只要求星期和日期对得上
         try:
-            dd = datetime.date(date.year if int(m.group(1)) >= date.month else date.year + 1, int(m.group(1)), int(m.group(2)))
+            # 建议日期可能在所选日期之前或之后（跨年也可能）：取离所选日期最近的那一年算星期
+            cands = [datetime.date(date.year + k, int(m.group(1)), int(m.group(2))) for k in (-1, 0, 1)]
+            dd = min(cands, key=lambda x: abs((x - date).days))
             ok = WN[dd.weekday()] == m.group(3)
         except Exception: ok = False
         if not ok: errs.append('顶部提醒里的日期星期不对：' + m.group(0))

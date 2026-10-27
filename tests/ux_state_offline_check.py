@@ -192,7 +192,7 @@ with sync_playwright() as p:
         # O5 断网点“调整”
         pg.locator('#d3 .adj').first.click(); pg.wait_for_selector('.pk'); pg.wait_for_timeout(200)
         btn = pg.locator('.pk [data-np="ins"]'); small = btn.locator('small').inner_text() if btn.count() else ''
-        check('O5 断网时“在这之后加一个…”入口上就写“没网，暂时不能加景点”', '没网，暂时不能加景点' in small, small)
+        check('O5 断网时“在这之后加一个…”入口上就写“没网”（2026-10-21 文字预算：原因一个词）', small.strip() == '没网', small)
         check('O5 断网时“换成…”入口上写“没网”', '没网' in (pg.locator('.pk [data-np="rep"] small').inner_text() if pg.locator('.pk [data-np="rep"] small').count() else ''))
         btn.click(force=True); pg.wait_for_timeout(300)
         check('O5 点了给提示条，不进空的候选页', pg.locator('.toast').count() == 1 and '没网' in pg.inner_text('.toast') and pg.locator('.pk .npc').count() == 0, pg.locator('.toast').count())
