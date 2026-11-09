@@ -15,7 +15,7 @@ from fontTools.varLib import instancer
 
 FD = 'site_src/fonts'
 CH = json.load(open('tools/home_font_chars.json', encoding='utf-8'))
-FAM = {'Noto Sans SC': ('sans.css', 'swap'), 'Noto Serif SC': ('serif.css', 'block')}
+FAM = {'Noto Sans SC': ('sans.css', 'swap'), 'Noto Serif SC': ('serif.css', 'fallback')}
 
 
 def slices(css):

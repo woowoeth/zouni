@@ -327,14 +327,14 @@ with sync_playwright() as p:
         full = "(()=>{var o={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if((/_xa3$/.test(k)&&k.indexOf('lastday')<0)||k==='zouni_date'||k==='zouni_n')o[k]=localStorage.getItem(k)}return o})()"
         mine_before = pg.evaluate(full)
         pg3 = new_page(env, c); pg3.goto(link_new, wait_until='networkidle'); pg3.wait_for_timeout(1500)
-        act = pg3.locator('.toast .toast-act')
-        check('S4 打开另一个版本时有“换回我自己的”（自己的最新改动被盖掉前给了退路）', act.count() == 1 and '换回我自己的' in act.inner_text(), act.count())
-        changed = pg3.evaluate(full) != mine_before
-        check('S4 另一个版本确实载入了（状态和我的最新状态不同）', changed)
+        act = pg3.locator('.fbar .fb-me')      # 2026-10-29：朋友的版本只显示不写本机；页头下一行“朋友发来的版本”，“用我的”回到本机版本
+        check('S4 打开另一个版本时页头下有“朋友发来的版本 / 用我的”', act.count() == 1 and '朋友发来的版本' in pg3.inner_text('.fbar'), act.count())
+        check('S4 另一个版本确实载入了（覆盖层和我的最新状态不同）', bool(pg3.evaluate('window.zFriend&&window.zFriend()')))
+        check('S4 本机的改动一个字没变（从另一页读真正的存储）', pg.evaluate(full) == mine_before, (pg.evaluate(full), mine_before))
         if act.count():
             act.click(); pg3.wait_for_load_state('networkidle'); pg3.wait_for_timeout(800)
             mine_after = pg3.evaluate(full)
-            check('S4 点“换回我自己的”后所有改动回来（含日期和时间戳）', mine_before == mine_after, [(k, mine_before.get(k), mine_after.get(k)) for k in set(mine_before) | set(mine_after) if mine_before.get(k) != mine_after.get(k)])
+            check('S4 点“用我的”后回到本机版本（含日期和时间戳）、横条消失', mine_before == mine_after and pg3.locator('.fbar').count() == 0, [(k, mine_before.get(k), mine_after.get(k)) for k in set(mine_before) | set(mine_after) if mine_before.get(k) != mine_after.get(k)])
         pg3.close()
         c.close()
 

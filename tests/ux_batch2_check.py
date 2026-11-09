@@ -487,7 +487,7 @@ with sync_playwright() as p:
             pg.click('.mcmp'); pg.wait_for_selector('.cmpt', timeout=8000); pg.wait_for_timeout(200)
             tb = pg.evaluate("[...document.querySelectorAll('.cmpt tbody tr')].map(tr=>[...tr.children].map(c=>c.innerText.trim()))")
             hd = pg.evaluate("[...document.querySelectorAll('.cmpt thead th')].map(c=>c.innerText.trim())")
-            check('G5.2 对比表：表头是两条线路名、7 行（天数/出发日期/人均价/最长一天开车/走路/最高海拔/要预约）', hd[1:] == ['西安 3 天', '东京 4 天'] and [r[0] for r in tb] == ['天数', '出发日期', '人均价', '最长一天开车', '最长一天走路', '最高海拔', '要预约'], (hd, [r[0] for r in tb]))
+            check('G5.2 对比表：表头是两条线路名、9 行（第二波加了去程、降雨：天数/出发日期/人均价/去程/降雨/最长一天开车/走路/最高海拔/要预约）', hd[1:] == ['西安 3 天', '东京 4 天'] and [r[0] for r in tb] == ['天数', '出发日期', '人均价', '去程', '降雨', '最长一天开车', '最长一天走路', '最高海拔', '要预约'], (hd, [r[0] for r in tb]))
             row = {r[0]: r[1:] for r in tb}
             ids = ['xa3', 'tk4']
 
@@ -517,11 +517,11 @@ with sync_playwright() as p:
             im = cv2.imdecode(np.frombuffer(base64.b64decode(src.split(',', 1)[1]), np.uint8), cv2.IMREAD_COLOR)
             det = cv2.QRCodeDetector(); val, pts, _ = det.detectAndDecode(im)
             page_url = env.B + '/trip/xa3/'
-            check('G5.4 分享图二维码解码出来的 = 线路页网址（不带修改状态）：%s' % val, val == page_url, (val, page_url))
+            check('G5.4 分享图二维码解码出来的 = 线路页网址 + 当前修改状态（和图上的价格一致，朋友扫了看到同一个版本）：%s' % val, (val or '').startswith(page_url + '#m=') and len(val) <= 200, (val, page_url))
             ft = pg.evaluate("window.__ft")
             foot = next((t for t in ft if t.startswith('走你 · ')), None)
-            check('G5.4 底部网址文字和二维码一致（%s ↔ %s）' % (foot, val), foot is not None and val.split('://', 1)[-1] == foot[len('走你 · '):], (foot, val))
-            check('G5.4 二维码里没有“#”修改状态（解码长度 %d ≤ 60）' % len(val or ''), '#' not in (val or '#') and len(val or '#' * 99) <= 60, val)
+            check('G5.4 底部网址文字和二维码一致（%s ↔ %s）' % (foot, val), foot is not None and val.split('#', 1)[0].split('://', 1)[-1] == foot[len('走你 · '):], (foot, val))
+            check('G5.4 二维码长度仍好扫（解码长度 %d ≤ 200）' % len(val or ''), 0 < len(val or '') <= 200, val)
             if env.shots:
                 with open(os.path.join(env.shots, 'G5_share.png'), 'wb') as f_: f_.write(base64.b64decode(src.split(',', 1)[1]))
             c.close()

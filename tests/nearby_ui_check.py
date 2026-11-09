@@ -177,11 +177,11 @@ with sync_playwright() as p:
         if open_adj(pg, day, name) is None:
             return None
         bt = pg.locator('.pk [data-np="%s"]' % kind)
-        if kind == 'ins' and bt.count():      # 2026-10-19：入口先算候选，0 条就置灰（data-chk=none）并把原因写在按钮下面；等它算完，当作“空状态”返回 []
-            try: pg.wait_for_function("(()=>{const b=document.querySelector('.pk [data-np=\"ins\"]');return b&&(b.disabled||b.getAttribute('data-chk'))})()", timeout=20000)
+        if bt.count():      # 2026-10-19：入口先算候选，0 条就置灰（data-chk=none）并把原因写在按钮下面；等它算完，当作“空状态”返回 []
+            try: pg.wait_for_function("(k)=>{const b=document.querySelector('.pk [data-np=\"'+k+'\"]');return b&&(b.disabled||b.getAttribute('data-chk'))}", arg=kind, timeout=20000)
             except Exception: pass
             if bt.is_disabled() and bt.get_attribute('data-chk') == 'none':
-                pg._note = pg.evaluate("(document.querySelector('.pk [data-np=\"ins\"] small')||{}).textContent||''")
+                pg._note = pg.evaluate("(k)=>(document.querySelector('.pk [data-np=\"'+k+'\"] small')||{}).textContent||''", kind)
                 return []
         if not bt.count() or bt.is_disabled():
             return None
@@ -339,7 +339,11 @@ with sync_playwright() as p:
         cs_ = pg.evaluate("[...document.querySelectorAll('.pk .npc')].length")
         check('⑥ 点开后：要么有候选（每个都过 22:40 的上限，由 pool_check 保证），要么写清“已排到 22:10”（%s）' % note[:50], cs_ > 0 or ('已排到 22:10' in note), (cs_, note))
         pg.locator('.pk .pk-x').first.click(); pg.wait_for_timeout(200)
-        check('⑥ 第 2 天已排到 22:10：“换成”仍可用', open_adj(pg, 2, '华清宫') is not None and pg.locator('.pk [data-np="rep"]').count() == 1 and not pg.locator('.pk [data-np="rep"]').is_disabled())
+        ok_ = open_adj(pg, 2, '华清宫') is not None and pg.locator('.pk [data-np="rep"]').count() == 1
+        try: pg.wait_for_function("(()=>{const b=document.querySelector('.pk [data-np=\"rep\"]');return b&&b.getAttribute('data-chk')})()", timeout=20000)
+        except Exception: pass
+        rb_ = pg.locator('.pk [data-np="rep"]')
+        check('⑥ 第 2 天已排到 22:10：“换成”要么可用，要么置灰并写原因（第二波：没有候选就置灰）', ok_ and (not rb_.is_disabled() or bool(pg.evaluate("(document.querySelector('.pk [data-np=\"rep\"] small')||{}).textContent||''"))))
         close_pk(pg)
     with guard('当天结束上限：晚出发把一天推过 23:00 → 置灰并写原因'):
         c2, pg2 = new_page({'zouni_st_xa3': json.dumps({'1': '15:00'})}); goto(pg2, 'xa3')
@@ -495,7 +499,7 @@ with sync_playwright() as p:
         check('⑦ 巴黎：“加一个”空状态写“附近没有顺路的”（现在在入口上置灰写原因）', cands == [] and '附近没有顺路的' in getattr(pg, '_note', '') + pg.evaluate("(document.querySelector('.pk .npe')||{}).textContent||''"), getattr(pg, '_note', ''))
         close_pk(pg)
         cands = pick_list(pg, 5, '圣心堂', 'rep')
-        check('⑦ 巴黎：“换成”空状态也写“附近没有顺路的”', cands == [] and '附近没有顺路的' in pg.evaluate("(document.querySelector('.pk .npe')||{}).textContent||''"))
+        check('⑦ 巴黎：“换成”空状态也写“附近没有顺路的”（第二波：入口置灰，原因写在按钮下）', cands == [] and '附近没有顺路的' in (getattr(pg, '_note', '') + pg.evaluate("(document.querySelector('.pk .npe')||{}).textContent||''")))
         c.close()
 
     # ———————————————— 南京：周一闭馆的候选，落在周一就不出现；离线提示 ————————————————

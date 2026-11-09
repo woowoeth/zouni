@@ -270,6 +270,7 @@ if site:
         n0, st = int(ms.group(1)), datetime.date.fromisoformat(ms.group(2))
         for w in re.finditer(r'(\d+)\s*月\s*(\d+)\s*日到\s*(\d+)\s*月\s*(\d+)\s*日是([^，。<]+)', h):
             a = datetime.date(st.year, int(w.group(1)), int(w.group(2))); b = datetime.date(st.year, int(w.group(3)), int(w.group(4)))
+            if (a - datetime.date.today()).days < 2 and st.year == datetime.date.today().year: continue      # 节日离今天不足两天（订不了）或已过：默认日期不强制盖住（和 build_site.start_date 同一条）
             if not (st <= a and b <= st + datetime.timedelta(days=n0 - 1)): bad14.append(f'{rid} 默认 {st} 起 {n0} 天，没盖住{w.group(5)}（{a}–{b}）')
     if bad14: fails.append(('节日窗口没盖住', sorted(set(bad14))))
     # 15 晚饭后“出发 → 住处”不能是 ≥2 小时的火车/高铁（把白天转场的高铁抄到了晚上：slgt8、hngt6 到住处过了午夜）
@@ -578,7 +579,7 @@ if site:
         _Bd = json.loads(open(os.path.join(site, 'assets', 'home-b.js'), encoding='utf-8').read().split('window.ZHB=')[1].rsplit(';', 1)[0])
         _cnt = int(re.search(r'<small class="ns">(\d+) 条', _hp).group(1)) - 1      # 2026-10-19：天数键没有“全部”了，总数写在标题行（含封面那一条）
         if len(_A) + 8 != _cnt: _bad31.append(f'A 组 {len(_A)} + 8 ≠ 页面上写的“{_cnt + 1} 条”（减封面）')
-        if any(len(r) != 26 for r in _A + _Bd): _bad31.append('A/B 数据行不是 26 列')
+        if any(len(r) != 27 for r in _A + _Bd): _bad31.append("A/B 数据行不是 27 列（第 27 列 = data-gg 去程参数）")
         _ids = {r[0] for r in _A + _Bd} | set(re.findall(r'href="/trip/([^/"]+)/"', _now))
         _ap = open(os.path.join(site, 'all', 'index.html'), encoding='utf-8').read() if os.path.exists(os.path.join(site, 'all', 'index.html')) else ''
         _idx = set(re.findall(r'href="/trip/([^/"]+)/"', _ap))

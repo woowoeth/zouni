@@ -24,6 +24,7 @@
   var ATTR_HTML = '<a href="https://openfreemap.org" target="_blank" rel="noopener">OpenFreeMap</a> <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener">© OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>';
   var NOTE_OFF = '街道地图加载失败，已改用示意图';      // 有网也会失败（瓦片服务器连不上、被拦），所以不写“需要联网”
   var NOTE_NET = '没有网络，已改用示意图';
+  var NOTE_NET2 = '还是没有网络', NOTE_OFF2 = '还是没加载出来';      // 点“重试”后仍失败：和第一次的文字不同，才看得出重试有反应
   var NOTE_LOAD = '街道地图加载中…';
   var PROG_CAP = 5000;      // 街道图出现后进度条最多再显示这么久（有瓦片一直挂着不回也要收）
   var SLOW_MS = 12000, HARD_MS = 20000;      // 以收到的瓦片数为准：地图建好后 12 秒内一块瓦片都没收到才退示意图（有瓦片在到就一直等）；脚本 / 样式每一步各等 20 秒（取到一步重新计时）
@@ -1050,12 +1051,13 @@
     if (inst.view && inst.view.kind === 'ml') { var c = inst.view.cam(); inst.view.destroy(); if (inst.sch.admit) inst.sch.admit(c); inst.sch.go(c, false); }
     inst.map = null; inst.mapEl.innerHTML = ''; inst.mapEl.className = 'rm-map'; inst.mapShown = false; inst.root.classList.add('rm-sch');
     inst.view = inst.sch; inst.sch.onMove(function () { place(inst); });
-    var nt = qs('span', inst.note); nt.textContent = why === 'offline' ? NOTE_NET : NOTE_OFF; inst.note.hidden = false; inst.note.classList.toggle('rm-nr', why === 'offline');
+    var nt = qs('span', inst.note); nt.textContent = inst.retried ? (why === 'offline' ? NOTE_NET2 : NOTE_OFF2) : (why === 'offline' ? NOTE_NET : NOTE_OFF); inst.note.hidden = false; inst.note.classList.toggle('rm-nr', why === 'offline');
+    if (inst.retried) { inst.note.classList.remove('rm-nflash'); void inst.note.offsetWidth; inst.note.classList.add('rm-nflash'); }      // 点了“重试”还是不行：文字变一下 + 闪一下，不是什么都没发生
     var at = qs('.rm-at', inst.root); if (at) at.hidden = true;
     draw(inst); place(inst); settle(inst);
   }
   function retry(inst) {
-    if (!inst.alive || !inst.failed) return; inst.failed = false; inst.why = ''; inst.note.hidden = true; inst.root.classList.remove('rm-sch'); var at = qs('.rm-at', inst.root); if (at) at.hidden = false;
+    if (!inst.alive || !inst.failed) return; inst.retried = true; inst.failed = false; inst.why = ''; inst.note.hidden = true; inst.root.classList.remove('rm-sch'); var at = qs('.rm-at', inst.root); if (at) at.hidden = false;
     startMap(inst);
   }
   function startMap(inst) {

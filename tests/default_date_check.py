@@ -63,7 +63,7 @@ check('D2 今天正落在窗口里的 %d 条线：默认日期在窗口内、2�
 check('D3 窗口 30 天内就开的 %d 条线：默认日期在窗口里、窗口开始后 10 天之内' % n3, n3 >= 3 and not bad3, bad3[:5])
 seas = {r: near[r] for r in ('hss1a', 'hlia', 'hcz1', 'hss2a', 'hkx2', 'hlib') if r in near}
 spread = (max(seas.values()) - min(seas.values())).days if seas else 99
-check('D4 同一个季节的几条线（%s）默认日期互相差 %d 天（≤14）' % (', '.join('%s %s' % (r, d.strftime('%m/%d')) for r, d in sorted(seas.items())), spread), len(seas) >= 3 and spread <= 14, seas)
+check('D4 同一个季节的几条线（%s）默认日期互相差 %d 天（≤14）' % (', '.join('%s %s' % (r, d.strftime('%m/%d')) for r, d in sorted(seas.items())), spread), len(seas) >= 2 and spread <= 14, seas)  # 11 月只剩两条（hcz1 / hss1a）还在窗口里；原来写 ≥3 是 10 月的数
 for x in oks: print('✓', x)
 for x in fails: print('✗', x)
 print('\n默认出发日期：%d 过 · %d 红%s' % (len(oks), len(fails), '（--inject %s）' % INJ if INJ else ''))

@@ -166,7 +166,7 @@ with sync_playwright() as p:
             sans = pg.evaluate("fetch('/assets/fonts/sans.css').then(r=>r.text())"); serif = pg.evaluate("fetch('/assets/fonts/serif.css').then(r=>r.text())")
             nf = len(re.findall(r'@font-face', sans)); ns = len(re.findall(r'font-display:\s*swap', sans))
             check('A6a sans.css %d 个字体块全是 font-display: swap（swap %d 个）' % (nf, ns), nf > 100 and nf == ns, (nf, ns))
-            check('A6b serif.css 仍是 block（每次切页标题不先显示系统字再跳）', len(re.findall(r'@font-face', serif)) == len(re.findall(r'font-display:\s*block', serif)) > 100)
+            check('A6b serif.css 是 fallback、不是 block（慢网先出系统字，字体到了再换，不挡首屏）', len(re.findall(r'@font-face', serif)) == len(re.findall(r'font-display:\s*fallback', serif)) > 100 and 'font-display:block' not in serif.replace(' ', ''))
             html = open(os.path.join(env.site, 'trip', 'hzh1', 'index.html'), encoding='utf-8').read()
             check('A6c 黑体样式表不挡渲染（media=print + onload 换 all）', re.search(r'<link rel="stylesheet" href="/assets/fonts/sans\.css" media="print" onload="this\.media=\'all\'">', html) is not None)
 

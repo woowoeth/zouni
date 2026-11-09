@@ -517,6 +517,11 @@ SIGHT = {
     '草海': '泸沽湖边长满芦苇的湖湾，走走婚桥', '女神湾': '泸沽湖看日落的湖湾', '潮州工夫茶': '潮州人喝茶的老讲究', '珠海渔女': '珠海海边的渔女石像', '日月贝': '珠海大剧院，像两片贝壳',
     '情侣路': '珠海海边几十公里的海滨路', '雪如意': '张家口崇礼的冬奥跳台', '燊海井': '自贡的千米深盐井，还在用古法熬盐', '蜀南竹海': '宜宾七万多亩竹林，《卧虎藏龙》竹林戏在这里拍', '邛海湿地': '西昌城边的湖和湿地',
     '泸山': '邛海边的山，山上有寺庙', '拜将坛': '汉中刘邦拜韩信为大将的地方',
+    '卡拉麦里自然保护区': '准噶尔盆地东部的有蹄类动物保护区，戈壁荒原',
+    '青河镇': '阿勒泰地区最靠东的县城',
+    '三道海子': '青河山里的湖泊和夏牧场，阿尔泰山脚下',
+    '可可托海国家地质公园': '阿尔泰山里的峡谷景区，有老矿坑',
+    '克拉玛依': '准噶尔盆地西缘的石油城市，行程终点',
     '北滨站': '鄂霍次克海边的小站，站台紧靠海面',
     '宇登吕温泉': '知床半岛西侧的温泉小镇，冬季看流冰的落脚点',
     '宇登吕港': '宇登吕的渔港，冬季海面常被流冰盖满',
@@ -7109,6 +7114,7 @@ def page(path, title, desc, body, jsonld=(), image=None, crumbs=(), head='', can
 <link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png"><link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <link rel="stylesheet" href="/assets/fonts/serif.css"><link rel="stylesheet" href="/assets/site.css?v={ASSET_V}">
 <link rel="stylesheet" href="/assets/fonts/sans.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="/assets/fonts/sans.css"></noscript>
+<link rel="stylesheet" href="/assets/fonts/serif-700.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="/assets/fonts/serif-700.css"></noscript>
 {head}<script src="/assets/site.js?v={ASSET_V}" defer fetchpriority="high"></script>
 {ga}{ld}
 </head>
@@ -7161,6 +7167,11 @@ def navurl(a, b, how, app, name):
 
 
 DEEP = {   # “懂一点”的补充段落：时间轴那一行只是一句话，这里讲来历和看点；只写核对过的
+    '卡拉麦里自然保护区': '卡拉麦里山有蹄类野生动物自然保护区在准噶尔盆地东部，是蒙古野驴、鹅喉羚等动物的栖息地，路边的戈壁上偶尔能看到。看到动物停车远看，不下车、不靠近、不喂食；保护区里的路不熟不要往里开，一带几乎没有补给点，出发前把油加满。',
+    '青河镇': '青河镇是青河县的县城，在阿勒泰地区的最东边，靠近国界，县城不大，有超市和饭馆。到了先把住处安排好，把第二天要用的水、吃的买好，往三道海子和可可托海走的路上店很少。',
+    '三道海子': '三道海子在青河县东北的山里，是阿尔泰山脚下的几处湖泊和夏牧场，夏天草场开阔，能看到山坡上的牛羊。山里天气变化快，早晚凉，带外套；路上遇到牧民的羊群让一让，不要穿过牧场的围栏，不要打扰牧民。',
+    '可可托海国家地质公园': '可可托海在富蕴县北面的阿尔泰山里，景区里有额尔齐斯大峡谷、三号矿坑等地方，要换乘景区的车。三号矿坑是 20 世纪开采稀有金属留下的矿坑，是当地的工业遗址，参观时留在步道和观景台上，不要翻越围栏，山里海拔高，早晚凉，带外套。',
+    '克拉玛依': '克拉玛依是准噶尔盆地西缘的石油城市，城里有宽阔的街道和各种价位的住处，有机场，行程在这里结束，可以乘飞机回去，也可以往西接伊犁河谷的线路。',
     '北滨站': 'JR 钏网线上的小站，站台离海只有几步路，冬季流冰靠岸时窗外就是一片冰面。站里有小咖啡厅，墙上贴满了旅人留下的名片和车票；站台上看海要抓紧时间，风大很冷，外面不要走到海边的积雪和冰面上。班次很少，开车来最方便。',
     '宇登吕温泉': '宇登吕是知床半岛上最大的落脚小镇，酒店集中在海边的坡上，很多有看海的露天温泉。冬季整个半岛往里的山路封闭，这里是能到的最里面一段，流冰来的时候可以在岸边看到海面一片白；晚上路灯少，走路穿防滑鞋。',
     '宇登吕港': '夏季是渔港，冬季渔船停了，海面被流冰盖住，日出前后天空和冰面颜色变化最好看。岸边和防波堤积雪很厚，有狐狸脚印等动物痕迹，但冰下是水，不要踩上冰面，也不要走到防波堤尖端；拍照站在岸上，注意脚下的雪坑。',
@@ -15553,15 +15564,27 @@ def start_date(r):
                 wend = datetime.date(wlo.year + (1 if wrap else 0), int(b[1][:2]), int(b[1][3:]))
                 cand = wlo + datetime.timedelta(days=(5 - wlo.weekday()) % 7)
                 d = cand if cand <= wend else wlo; end = wend
+    # 行程“出发前”写了节日窗口（“10 月 31 日到 11 月 2 日是亡灵节”）：默认出发日必须盖住整段窗口；窗口离今天不足两天（订不了）或已过就不强制
+    fw = None
+    for _p in (r.get('prep') or []):
+        _m = re.search(r'(\d+)\s*月\s*(\d+)\s*日到\s*(\d+)\s*月\s*(\d+)\s*日是', _p)
+        if _m:
+            _y = TODAY.year
+            _a = datetime.date(_y, int(_m.group(1)), int(_m.group(2)))
+            if (_a - TODAY).days >= 2: fw = (_a, datetime.date(_y, int(_m.group(3)), int(_m.group(4))))      # 离今天不足两天（订不了）或已过：不强制盖住，沿用在季默认日期
+            break
+    if fw:
+        _n = len(r['days']); d = max(fw[0] - datetime.timedelta(days=1), TODAY + datetime.timedelta(days=1))
+        if d + datetime.timedelta(days=_n - 1) < fw[1]: d = fw[1] - datetime.timedelta(days=_n - 1)
     # 行程里有“周一闭馆”的去处：默认日期要避开让那一天落在周一（先试后一天、前一天，再远一点；不出窗口、不早于明天）
     mons = mon_days(r); fcl = fclosed_days(r); own_hol = any(x in ' '.join(r.get('prep') or []) for x in ('春节', '国庆', '五一', '中秋', '端午', '清明'))     # 线路本来就为假日做的（蔚县打树花）不避
     if mons or fcl or not own_hol:
-        lo = TODAY + datetime.timedelta(days=1); found = False
+        lo = TODAY + datetime.timedelta(days=2 if end else 1); found = False      # 在季线路：和“下一个周六至少两天后”同一条下限
         for lim in (end, None):      # 先在“最好的日子”窗口里找；窗口太窄（今天离窗口结束只剩一两天）找不到，就放宽到窗口外几天，也不让周一闭馆的那天落在周一
             for off in [0] + [x * y for x in range(1, 13) for y in (1, -1)]:
                 c_ = d + datetime.timedelta(days=off)
                 if c_ < lo or (lim and c_ > lim): continue
-                if all((c_ + datetime.timedelta(days=i)).weekday() != 0 for i in mons) and all((c_ + datetime.timedelta(days=i)).weekday() != wd for i, wd in fcl) and (own_hol or not holiday_hit(c_, len(r['days']))): d = c_; found = True; break
+                if (not fw or (c_ <= fw[0] and fw[1] <= c_ + datetime.timedelta(days=len(r['days']) - 1))) and all((c_ + datetime.timedelta(days=i)).weekday() != 0 for i in mons) and all((c_ + datetime.timedelta(days=i)).weekday() != wd for i, wd in fcl) and (own_hol or not holiday_hit(c_, len(r['days']))): d = c_; found = True; break
             if found or not end: break
     return d
 
@@ -16367,6 +16390,7 @@ def season_post(body, t):
     body = re.sub(r'(<li class="tip[^"]*"><span>)(.*?)(</span>)', fix_p, body, flags=re.S)
     return body
 
+TRD = {}      # {线路: [每天路上分钟]}，同上（口径同 site.js 的 warn：路上 > 180 分钟也算对老人孩子偏累，2026-10-29：原来只看走路，线路页写“偏累”的线首页照样推给“带老人孩子”）
 TRW = {}      # {线路: [每天走路分钟]}，trip_page 填，首页卡片读（口径同 site.js 的 warn：走路 > 150 分钟就是对老人孩子偏累）
 
 
@@ -16595,7 +16619,7 @@ def trip_page(rid):
         if _fe and 'alt ferry"><b>今天要坐船' in _fe: FERRY_SEEN[0] = True
         _alt_html += _fe + mosque_note(d) + weather_note(d)
         _rows_html = ''.join(row_html(w, city, app) for w in rows)
-        _wk_, _road = day_load_html('<ol>' + _rows_html + '</ol>'); ROADS.append(_road); TRW.setdefault(rid, []).append(_wk_)      # 走路分钟也记下：首页“带老人孩子”推荐按它判断（泰山线第 2 天走路 5 小时，卡片却写“没有长爬坡和台阶”）
+        _wk_, _road = day_load_html('<ol>' + _rows_html + '</ol>'); ROADS.append(_road); TRW.setdefault(rid, []).append(_wk_); TRD.setdefault(rid, []).append(_road)      # 走路分钟也记下：首页“带老人孩子”推荐按它判断（泰山线第 2 天走路 5 小时，卡片却写“没有长爬坡和台阶”）
         _npd_ = _npd_.replace('@@DRV@@', str(_road))
         days.append(f'<section class="day" id="d{i + 1}" data-city="{E(d.get("navCity") or d.get("city") or "")}" data-stay="{E(stay_city(r, d))}" data-nm="{E(day_nm(r, d, i, n, _ccp_))}"{_npd_}><header><span class="no">{i + 1:02d}</span><div><small>{cn_day(i)} · {md(dates[i])} 周{WEEK[dates[i].weekday()]}</small><h2>{E(d["title"])}</h2></div></header>'
                     f'<div class="facts">{fx}</div><p class="cl"{" hidden" if (i == 0 or (not LONG and i > 0 and dates[i].month == dates[i - 1].month)) else ""} data-clim=\'{E(json.dumps({} if LONG else {**(d0.get("climate") or {}), **(d.get("clim") or {})}))}\'>{("往年 " + str(dates[i].month) + " 月平均：白天 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[0]) + "℃，夜里 " + str((d.get("clim") or {}).get(str(dates[i].month), ["", ""])[1]) + "℃") if (not LONG and (d.get("clim") or {}).get(str(dates[i].month))) else ""}</p>' + ('' if MEMO_ON[0] else _sj_fold(sj_lines(_sj.get(i, [])), rid)) + f'{_alt_html}{notes}<p class="lead"{" hidden" if lead_restates(d.get("text"), d) else ""}>{E(d.get("text"))}</p><ol class="tl">{_rows_html}</ol>{stays}{story}</section>')
@@ -16650,6 +16674,10 @@ def trip_page(rid):
     img = '/img/' + (r.get('img') or '').replace('/_blob/', '') + '.svg' if r.get('img') else None
     _faq_ld = {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in _fq]}
     body = season_post(body, t)
+    # 慢网：“看地图”“按天看”放进静态 HTML（原来要等 site.js 下完、跑完才画，Slow 3G 下首屏少两个入口）；site.js 认领已有的按钮、只绑点击。条件同 routemap.js：总览有示意图或至少 2 个带坐标的站
+    if ('class=hmap' in body or len(re.findall(r'<li class="r [^"]*"[^>]*data-ll=', body)) >= 2) and re.search(r'<p class="dnote"[^>]*>.*?</p>', body, re.S):
+        body = re.sub(r'(<p class="dnote"[^>]*>.*?</p>)', r'\1<button type="button" class="mapgo" aria-haspopup="dialog" aria-expanded="false"><span>看地图</span><i>›</i></button>', body, count=1, flags=re.S)
+    body = body.replace('<span>收进行程</span></button></div>', '<span>收进行程</span></button><button type="button" class="tvbtn">按天看</button></div>', 1)
     write(f'/trip/{rid}/', page(f'/trip/{rid}/', f'{r.get("label") or r["title"]}行程：{r["title"]} | 走你', desc, body, [ld, _faq_ld], img, crumbs, canon=_canon))
     return desc
 
@@ -17056,7 +17084,9 @@ def cmp_stats():
         el = r.get('maxElev') or max([(d_.get('elev') or 0) for d_ in r['days']] + [0])
         nb = len(re.findall(r'<li class="r (?:see|fun)"[^>]*>(?:(?!</li>).)*?class="bkn', h, re.S))
         sd = re.search(r'data-start="(\d{4}-\d\d-\d\d)"', h)
-        out[rid] = [len(r['days']), price_k(r.get('price') or ''), max([w for w, d in wl] + [0]), max([d for w, d in wl] + [0]), el, nb, sd.group(1) if sd else '']
+        _gm = re.search(r"data-go='(.*?)'", h); _go = json.loads(__import__('html').unescape(_gm.group(1))) if _gm else {}
+        out[rid] = [len(r['days']), price_k(r.get('price') or ''), max([w for w, d in wl] + [0]), max([d for w, d in wl] + [0]), el, nb, sd.group(1) if sd else '',
+                    [_go.get('lat'), _go.get('lng'), _go.get('ab'), _go.get('nh'), _go.get('isl'), _go.get('drv'), _go.get('car'), 1 if _go.get('fx') else 0, _go.get('dst') or '', _go.get('o') or '', _go.get('km') or 0]]      # [7] 去程：同线路页“怎么去”的参数（site.js zGoWay），对比表的“去程”和线路页同一个数
     body = 'window.ZCMP=' + json.dumps(out, ensure_ascii=False, separators=(',', ':')) + ';\n'
     open(os.path.join(OUT, 'assets', 'cmp.js'), 'w', encoding='utf-8').write(body)
     return len(out), len(body.encode('utf-8'))
@@ -17090,8 +17120,13 @@ def trips_index():
             for w_ in d_['rows']:
                 if w_.get('type') in ('see', 'fun') and w_.get('name'): stops.append(re.split(r'\s*[·（(]', w_['name'])[0].strip())
         dn = (DEST.get(t.get('dest')) or {}).get('name', '')
-        txt = ' '.join(dict.fromkeys([rr.get('label') or '', rr.get('title') or '', dn, f'{n}天'] + chain + stops)).lower().replace(' ', '')
-        out.append([rid, re.sub(r'\s*\d+\s*天$', '', rr.get('label') or rr['title']), n, price_k(rr.get('price')), (rr.get('label') or '').lower().replace(' ', '') + '|' + (rr.get('title') or '').lower().replace(' ', ''), txt])
+        _tg_ = set(t.get('tags') or []); _syn = []      # 搜“老人 / 亲子 / 周末 / 情侣 / 海边”也要命中（2026-10-29）：标签和天数换成大家会搜的词
+        if '带娃' in _tg_ or ('偏累' not in _tg_ and not (_tg_ & {'徒步', '爬山', '走路多', '台阶多', '坡多'}) and n <= 5): _syn += ['亲子', '老人', '孩子']
+        if n <= 3: _syn += ['周末']
+        if _tg_ & {'海岛', '温泉', '古镇', '古城', '古村', '小城', '红叶', '海边城市'}: _syn += ['情侣', '两个人']
+        if _tg_ & {'海岛', '海边城市'} or '海' in (rr.get('title') or ''): _syn += ['海边', '看海']
+        txt = ' '.join(dict.fromkeys([rr.get('label') or '', rr.get('title') or '', dn, f'{n}天'] + chain + stops + _syn)).lower().replace(' ', '')
+        out.append([rid, re.sub(r'\s*\d+\s*天$', '', rr.get('label') or rr['title']), n, price_k(rr.get('price')), (rr.get('label') or '').lower().replace(' ', '') + '|' + (rr.get('title') or '').lower().replace(' ', '') + '|' + ''.join(_syn), txt, ('' if (DEST.get(t.get('dest')) or {}).get('scope') == 'domestic' else dn)])      # [6] 国外线写国家名（搜索下拉里标出来）
     open(os.path.join(OUT, 'assets', 'tidx.js'), 'w', encoding='utf-8').write('window.ZTIDX=' + json.dumps(out, ensure_ascii=False, separators=(',', ':')) + ';\nwindow.ZTFOL=' + json.dumps(follow_index(), ensure_ascii=False, separators=(',', ':')) + ';\nwindow.ZTDEST=' + json.dumps([[d_['id'], d_['name'], d_['name'].lower().replace(' ', '')] for d_ in CAT['destinations']], ensure_ascii=False, separators=(',', ':')) + ';\n')      # ZTDEST = 目的地 [id, 名字, 搜索文本]（首页搜索框输入时下面即时出现的建议用）      # ZTFOL = 跟谁走的主题 [id, 名字, 一句话, 线路数, 搜索文本]
     return len(out)
 
@@ -17155,8 +17190,10 @@ def home_page():
         _c = (sum(p_[0] for p_ in _pts) / len(_pts), sum(p_[1] for p_ in _pts) / len(_pts)) if _pts else (dd.get('lat'), dd.get('lng'))
         _hi = 1 if (rr.get('maxElev') or max([(d_.get('elev') or 0) for d_ in rr['days']] + [0])) >= 2500 else 0     # 最高天标 ≥2500 米算高原：带老人孩子不推荐，也不能写“不上高原”
         _sd = 1 if (rr.get('drive') or any((w_.get('how') or '').startswith(('自驾', '开车', '回住处 · 自驾', '回住处 · 开车')) or '提车' in (w_.get('name') or w_.get('to') or '') for d_ in rr['days'] for w_ in d_['rows'])) else 0     # 要自己开车（自驾、提车）：首页“不开车”要排除
+        _gi = go_info(rr, tt, dd, rid)      # 首页“替我挑”的去程时间和线路页“怎么去”同一个函数、同一组参数（site.js zGoWay）：lat,lng,ab,nh,isl,drv,car,fx,dst,每天最多走路分钟,每天最多路上分钟
+        _gg = ','.join(str(x_) for x_ in (_gi['lat'], _gi['lng'], _gi['ab'], _gi['nh'], _gi['isl'], _gi['drv'], _gi['car'], 1 if _gi.get('fx') else 0, _gi.get('dst') or '', int(max(TRW.get(rid, [0]))), int(max(TRD.get(rid, [0])))))
         _tg = [g_ for g_ in (tt.get('tags') or []) if g_ in PHYS + ('带娃', '不开车', '高铁', '海岛', '温泉', '古镇', '古城', '古村', '小城', '红叶', '城市', '自驾', '海边城市')]     # 首页“替我挑”按和谁去、出行方式打分用
-        if any(w_ > 150 for w_ in TRW.get(rid, [])) and '偏累' not in _tg: _tg.append('偏累')      # 有一天走路超过 2.5 小时：标“偏累”（只有“带老人孩子”认它：不再推荐、也不会写“没有长爬坡和台阶”；不用“走路多”，那个标签会改变和朋友 / 两个人去的排序，cxd12 川西大环线就被挤出前三）（family.md #1）
+        if (any(w_ > 150 for w_ in TRW.get(rid, [])) or any(d_ > 180 for d_ in TRD.get(rid, []))) and '偏累' not in _tg: _tg.append('偏累')      # 有一天走路超过 2.5 小时：标“偏累”（只有“带老人孩子”认它：不再推荐、也不会写“没有长爬坡和台阶”；不用“走路多”，那个标签会改变和朋友 / 两个人去的排序，cxd12 川西大环线就被挤出前三）（family.md #1）
         img = (rr.get('img') or '').replace('/_blob/', '')
         if not (img and os.path.exists(os.path.join(POSTER_SRC, img + '.svg'))) and os.path.exists(os.path.join('site_src', 'posters', rid + '.svg')): img = 'p/' + rid
         _tile_img = bool(img and (img.startswith('p/') or os.path.exists(os.path.join(POSTER_SRC, img + '.svg'))))
@@ -17167,11 +17204,11 @@ def home_page():
         if sink is not None:
             # 紧凑数据（给 JS 拼 <li>）：[rid, kicker, band, ws, we, os, oe, img0/1, comp0/1, 目的地id, lat, lng, hi, drv, sd, ab, 标题, 天数, 价格, 封面图, h3 文字, 一行路线, 小图, 标签, 四季都能去0/1, 圈名]
             sink.append([rid, kicker, band, wb[0], wb[1], ob[0], ob[1], 1 if rr.get('img') else 0, 1 if rr.get('compiled') else 0, tt['dest'], round(_c[0], 3) if _c[0] else '', round(_c[1], 3) if _c[0] else '', _hi, 1 if rr.get('drive') else 0, _sd, 0 if dd.get('scope') == 'domestic' else 1,
-                         rr['title'], n, price_k(rr.get('price')), _src[5:-4] if _src.startswith('/img/') else _src, h3, day_line(rr), (((img if ('/img/' + img + '.svg') != _src else 1) if _tile_img else -(i % 6) - 1)), '|'.join(_tg), 0 if window(tt) else 1, lab0])
+                         rr['title'], n, price_k(rr.get('price')), _src[5:-4] if _src.startswith('/img/') else _src, h3, day_line(rr), (((img if ('/img/' + img + '.svg') != _src else 1) if _tile_img else -(i % 6) - 1)), '|'.join(_tg), 0 if window(tt) else 1, lab0, _gg])
             return ''
         extra = (f' data-ws="{wb[0]}" data-we="{wb[1]}" data-os="{ob[0]}" data-oe="{ob[1]}" data-img="{1 if rr.get("img") else 0}" data-comp="{1 if rr.get("compiled") else 0}" data-clim=\'{E(json.dumps(dd.get("climate") or {}))}\''
                  + (f' data-lat="{_c[0]:.3f}" data-lng="{_c[1]:.3f}"' if _c[0] else '') + f' data-hi="{_hi}" data-drv="{1 if rr.get("drive") else 0}" data-sd="{_sd}" data-ab="{0 if dd.get("scope") == "domestic" else 1}"'
-                 f' data-t="{E(rr["title"])}" data-n="{n}" data-pr="{E(price_k(rr.get("price")))}" data-src="{E(_src)}" data-h="/trip/{rid}/" data-tg="{E("|".join(_tg))}"')
+                 f' data-t="{E(rr["title"])}" data-n="{n}" data-pr="{E(price_k(rr.get("price")))}" data-src="{E(_src)}" data-h="/trip/{rid}/" data-tg="{E("|".join(_tg))}" data-gg="{E(_gg)}"')
         tile = (f'<a class="tile img" href="/trip/{rid}/" tabindex="-1" aria-hidden="true"><img src="/img/{img}.svg" alt="" loading="lazy"></a>' if _tile_img
                 else f'<a class="tile" href="/trip/{rid}/" tabindex="-1" aria-hidden="true" style="background:{["#c8432f", "#2e5b6b", "#4f6233", "#5a4a6b", "#8a5a2b", "#3b5a7a"][i % 6]}">{E(lab0)}</a>')
         when = (f'<span class="left{" urgent" if dl is not None and dl <= 2 else ""}">{("今天最后一天" if dl == 0 else "最好到 " + _end_txt(tt)) if dl is not None and dl <= 2 else "最好 " + wtxt(tt)}</span>' if window(tt) else '<span class="left">四季都能去</span>')     # “最后 N 天”只在真的剩 ≤2 天时写；几乎每条都写就失去意义了
@@ -17185,9 +17222,9 @@ def home_page():
     counts = {b: sum(1 for x in order if ('d1' if len(ROUTES[x]['days']) <= 3 else 'd2' if len(ROUTES[x]['days']) <= 5 else 'd3') == b) for b in ('d1', 'd2', 'd3')}
     others = [x for x in ROUTE_IDS if TRIP_OF_ROUTE.get(x) and window(TRIP_OF_ROUTE[x]) and x not in order and x != cover]
     _kick = lambda rid: '小众' if '小众' in (TRIP_OF_ROUTE[rid].get('tags') or []) else '正当季'
-    toc = ''.join(item(i + 2, rid, _kick(rid), hide=False, mo=m) for i, rid in enumerate(order[:8]))      # 首屏只放 8 张的 HTML；其余是数据（assets/home-a.js、home-b.js），手机上读到后补成同样的 <li>
+    toc = ''.join(item(i + 1, rid, _kick(rid), hide=False, mo=m) for i, rid in enumerate(order[:8]))      # 首屏只放 8 张的 HTML；其余是数据（assets/home-a.js、home-b.js），手机上读到后补成同样的 <li>
     for i, rid in enumerate(order):
-        if i >= 8: item(i + 2, rid, _kick(rid), hide=True, mo=m, sink=HOME_A)
+        if i >= 8: item(i + 1, rid, _kick(rid), hide=True, mo=m, sink=HOME_A)
     for rid in others: item(0, rid, '小众' if '小众' in (TRIP_OF_ROUTE[rid].get('tags') or []) else '过季', hide=True, mo=m, sink=HOME_B)   # 这些不在最好的日子里：只给按月份筛选用，不能写“正当季”
     chips = (f'<div class="dchips" role="group" aria-label="我有几天（再点一次取消）">'      # 没有“全部”：再点一次选中的就取消（2026-10-19，首屏控件 14→11）
              f'<button type="button" data-b="d1" aria-pressed="false">周末 2–3 天 · {counts["d1"]}</button><button type="button" data-b="d2" aria-pressed="false">4–5 天 · {counts["d2"]}</button><button type="button" data-b="d3" aria-pressed="false">一周以上 · {counts["d3"]}</button></div>')
@@ -17200,7 +17237,7 @@ def home_page():
     c0 = clim(dc); dl0 = days_left(tc)
     datebar = (f'<div class="datebar"><button type="button" class="hdt" aria-label="改出发日期"><b>今天 {TODAY.month}/{TODAY.day} 周{"一二三四五六日"[TODAY.weekday()]} 出发</b><i>改日期</i></button><input type="hidden" class="hdpk" data-min="{TODAY.isoformat()}" value="{TODAY.isoformat()}"></div>')
     body = (f'<article class="home"><div class="cover">{f"<img src=/img/{cimg}.svg alt=>" if cimg else ""}'
-            f'<div class="mast"><div><h1>走你</h1><small>{TODAY.year} · {mname}</small></div><button type="button" class="minebtn">{FAV_ICON}<span>我的行程</span></button></div>'
+            f'<div class="mast"><div><h1>走你</h1><small>{TODAY.year} · {mname}</small><p class="tagline">按季节挑地方，按天排好每一站</p></div><button type="button" class="minebtn">{FAV_ICON}<span>我的行程</span></button></div>'
             f'<div class="cv"><span class="kick">封面故事 · 正当季{((" · 今天最后一天" if dl0 == 0 else " · 最好到 " + _end_txt(tc))) if dl0 is not None else ""}</span><a class="go" href="/trip/{cover}/"><h2>{tsplit(r["title"])}</h2></a><div class="chips"><span>{len(r["days"])} 天 · {E(price_k(r.get("price")))}/人</span><span>{m} 月 {c0[0]}°C / {c0[1]}°C</span></div></div></div>'
             f'<form class="hsearch" action="/where/" method="get" role="search"><input type="search" name="q" placeholder="搜地名、行程，如 川藏" aria-label="搜地名、景点或行程" enterkeyhint="search" autocomplete="off"></form>'
             f'<nav class="chan2" aria-label="频道"><a href="/where/"><b>走哪儿</b><small>按月份挑国内外</small></a><a href="/pian/"><b>跟片走</b><small>舌尖、国宝、航拍</small></a><a href="/follow/"><b>跟谁走</b><small>苏轼、玄奘、郑和</small></a><a href="/long/"><b>长线自驾</b><small>{LONG_MIN_DAYS} 天以上的自驾路</small></a></nav>'
@@ -17421,6 +17458,10 @@ if __name__ == '__main__':
     os.makedirs(os.path.join(OUT, 'img')); os.makedirs(os.path.join(OUT, 'assets'))
     for f in glob.glob(os.path.join(POSTER_SRC, '*.svg')): shutil.copy(f, os.path.join(OUT, 'img'))
     if os.path.isdir('site_src/fonts'): shutil.copytree('site_src/fonts', os.path.join(OUT, 'assets', 'fonts'))
+    # 衬线字体 700 字重的 101 个切片不挡首屏（2026-10-29，慢网首屏 63KB → 32KB gzip）：serif.css 只留 900（标题、天数、价格），700 另放 serif-700.css 空闲后再取（没到时浏览器用最近的 900 字重顶着）
+    _sc = open(os.path.join(OUT, 'assets', 'fonts', 'serif.css'), encoding='utf-8').read(); _bl = re.findall(r'@font-face\s*\{.*?\}\s*', _sc, re.S)
+    open(os.path.join(OUT, 'assets', 'fonts', 'serif.css'), 'w', encoding='utf-8').write(''.join(b_ for b_ in _bl if 'font-weight: 700' not in b_))
+    open(os.path.join(OUT, 'assets', 'fonts', 'serif-700.css'), 'w', encoding='utf-8').write(''.join(b_ for b_ in _bl if 'font-weight: 700' in b_))
     if os.path.isdir('site_src/posters'): shutil.copytree('site_src/posters', os.path.join(OUT, 'img', 'p'))
     for f in ('sw.js', 'manifest.webmanifest'):
         if os.path.exists('site_src/' + f): shutil.copy('site_src/' + f, os.path.join(OUT, f))
