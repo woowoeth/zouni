@@ -144,7 +144,7 @@ for _f in ('shejian', 'fengwei', 'docs_more', 'docs_more2', 'docs_travel'):
     _p = f'data/catalog/{_f}.json'
     if not os.path.exists(_p): continue
     for _x in json.load(open(_p, encoding='utf-8')):
-        if (_x.get('show') or '舌尖上的中国') in ('舌尖上的中国', '风味人间', '风味原产地', '人生一串', '宵夜江湖', '老广的味道', '街头美食') and _x.get('food') and _x['food'] != _x.get('place') and len(_x['food']) <= 12 and not any(w_ in _x['food'] for w_ in ('节', '（', '(', '季', '之')):
+        if (_x.get('show') or '舌尖上的中国') in ('舌尖上的中国', '风味人间', '风味原产地', '人生一串', '宵夜江湖', '老广的味道', '街头美食', '我的美食向导') and _x.get('food') and _x['food'] != _x.get('place') and len(_x['food']) <= 12 and not any(w_ in _x['food'] for w_ in ('节', '（', '(', '季', '之')):
             REGION_FOOD.setdefault(_x['prov'], []).append((_x['food'], _x['place']))
 def _dup(tok, seen):
     """这道菜和已经吃过的是不是同一道（“呱呱”和“天水呱呱”算一道）"""

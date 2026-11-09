@@ -67,7 +67,7 @@ def dish_provs():
         p = os.path.join(cat, f + '.json')
         if not os.path.exists(p): continue
         for x in json.load(open(p, encoding='utf-8')):
-            if (x.get('show') or '舌尖上的中国') in ('舌尖上的中国', '风味人间', '风味原产地', '人生一串', '宵夜江湖', '老广的味道', '街头美食') and x.get('food') and x['food'] != x.get('place') and len(x['food']) <= 12 and not any(w in x['food'] for w in ('节', '（', '(', '季', '之')):
+            if (x.get('show') or '舌尖上的中国') in ('舌尖上的中国', '风味人间', '风味原产地', '人生一串', '宵夜江湖', '老广的味道', '街头美食', '我的美食向导') and x.get('food') and x['food'] != x.get('place') and len(x['food']) <= 12 and not any(w in x['food'] for w in ('节', '（', '(', '季', '之')):
                 out[dn(x['food'])].add(x['prov'])
     dm = {d['id']: d['name'] for d in json.load(open(os.path.join(ROOT, 'data/destinations.json'), encoding='utf-8'))['domestic']}
     for x in json.load(open(os.path.join(cat, 'destinations.json'), encoding='utf-8'))['destinations']:

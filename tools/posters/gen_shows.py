@@ -300,6 +300,18 @@ def jietou():
     vgrad(s, 690, 800, [(0, '#3a4a3a'), (1, '#12181a')]); s.grain(119); return s.svg(119)
 
 
+def xiangdao():
+    """我的美食向导：夜里一碗面，热气，一盏灯笼。"""
+    s = S(122); vgrad(s, 0, 800, [(0, '#2a2148'), (.55, '#7a3a4a'), (1, '#e8a060')])
+    for k in range(3): s.line(110 + k * 190, 0, 110 + k * 190, 150 + k * 20, '#10131f', 3); s.circ(110 + k * 190, 190 + k * 20, 40, '#d9453a'); glow(s, 110 + k * 190, 190 + k * 20, 90, '#ffd080', .5)
+    s.rect(0, 560, W, 240, '#3a2418'); s.rect(0, 560, W, 14, '#6a4328')
+    ell(s, 300, 560, 170, 34, '#1c1d1a'); s.poly([(130, 540), (470, 540), (420, 640), (180, 640)], '#f4e8d0'); ell(s, 300, 540, 170, 30, '#e8d9b8')
+    ell(s, 300, 538, 140, 22, '#c9843a')
+    s.line(250, 440, 400, 560, '#6a3a1a', 7); s.line(280, 430, 430, 550, '#6a3a1a', 7)
+    for dx in (-60, 0, 60): steam(s, 300 + dx, 520, 1, op=.55, h=160)
+    s.grain(122); return s.svg(122)
+
+
 def lp():
     """孤独星球年度榜：罗盘压在经纬网上，蓝底。"""
     s = S(120); vgrad(s, 0, 800, [(0, '#1a4a7a'), (1, '#0c2440')])
@@ -325,7 +337,7 @@ def natgeo():
 
 SHOWS = {'shejian': shejian, 'fengwei': fengwei, 'yuanchandi': yuanchandi, 'zaocan': zaocan, 'guobao': guobao, 'xiangchou': xiangchou, 'yichuan': yichuan, 'xiaoye': xiaoye,
          'hexi': hexi, 'shuben': shuben, 'hangpai': hangpai, 'laoguang': laoguang, 'changjiang': changjiang, 'silu': silu, 'sichou': sichou, 'yingxiang': yingxiang,
-         'phil': phil, 'weizhi': weizhi, 'jietou': jietou, 'lp': lp, 'natgeo': natgeo}
+         'phil': phil, 'weizhi': weizhi, 'jietou': jietou, 'xiangdao': xiangdao, 'lp': lp, 'natgeo': natgeo}
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True)
     for k, fn in SHOWS.items():

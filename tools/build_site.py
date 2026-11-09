@@ -7052,7 +7052,7 @@ def fit_label(best, m):
 
 
 def extras(trip_desc, dest_desc):
-    urls = ['/', '/where/', '/long/', '/follow/', '/pian/', '/all/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/yichuan/', '/xiaoye/', '/hexi/', '/shuben/', '/hangpai/', '/laoguang/', '/changjiang/', '/sichou/', '/yingxiang/', '/silu/', '/phil/', '/weizhi/', '/lp/', '/natgeo/', '/jietou/'] + [f'/follow/{t_}/' for t_ in follow_topics()] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
+    urls = ['/', '/where/', '/long/', '/follow/', '/pian/', '/all/', '/shejian/', '/fengwei/', '/yuanchandi/', '/zaocan/', '/guobao/', '/xiangchou/', '/yichuan/', '/xiaoye/', '/hexi/', '/shuben/', '/hangpai/', '/laoguang/', '/changjiang/', '/sichou/', '/yingxiang/', '/silu/', '/phil/', '/weizhi/', '/lp/', '/natgeo/', '/jietou/', '/xiangdao/'] + [f'/follow/{t_}/' for t_ in follow_topics()] + [f'/d/{d["id"]}/' for d in CAT['destinations']] + [f'/trip/{rid}/' for rid in ROUTE_IDS]
     lm = TODAY.isoformat()
     open(os.path.join(OUT, 'sitemap.xml'), 'w', encoding='utf-8').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
         ''.join(f'<url><loc>{BASE}{u}</loc><lastmod>{lm}</lastmod></url>\n' for u in urls) + '</urlset>\n')
@@ -16048,7 +16048,7 @@ def faq_items(r, t, d0, g, roads=None):
 
 
 SJ = (json.load(open('data/catalog/shejian.json')) if os.path.exists('data/catalog/shejian.json') else []) + (json.load(open('data/catalog/fengwei.json')) if os.path.exists('data/catalog/fengwei.json') else []) + (json.load(open('data/catalog/docs_more.json')) if os.path.exists('data/catalog/docs_more.json') else []) + (json.load(open('data/catalog/docs_more2.json')) if os.path.exists('data/catalog/docs_more2.json') else []) + (json.load(open('data/catalog/docs_travel.json')) if os.path.exists('data/catalog/docs_travel.json') else [])
-SHOWS = [('舌尖上的中国', '/shejian/', '推荐'), ('风味人间', '/fengwei/', '推荐'), ('风味原产地', '/yuanchandi/', '推荐'), ('早餐中国', '/zaocan/', '早上吃'), ('如果国宝会说话', '/guobao/', '拍过'), ('记住乡愁', '/xiangchou/', '拍过'), ('人生一串', '/yichuan/', '推荐'), ('宵夜江湖', '/xiaoye/', '拍过'), ('河西走廊', '/hexi/', '拍过'), ('跟着书本去旅行', '/shuben/', '拍过'), ('航拍中国', '/hangpai/', '拍过'), ('老广的味道', '/laoguang/', '推荐'), ('话说长江', '/changjiang/', '拍过'), ('新丝绸之路', '/sichou/', '拍过'), ('中国影像方志', '/yingxiang/', '拍过'), ('丝绸之路', '/silu/', '拍过'), ('菲尔来蹭饭', '/phil/', '拍过'), ('未知之旅', '/weizhi/', '拍过'), ('孤独星球年度榜', '/lp/', '入选'), ('国家地理年度榜', '/natgeo/', '入选'), ('街头美食', '/jietou/', '拍过')]
+SHOWS = [('舌尖上的中国', '/shejian/', '推荐'), ('风味人间', '/fengwei/', '推荐'), ('风味原产地', '/yuanchandi/', '推荐'), ('早餐中国', '/zaocan/', '早上吃'), ('如果国宝会说话', '/guobao/', '拍过'), ('记住乡愁', '/xiangchou/', '拍过'), ('人生一串', '/yichuan/', '推荐'), ('宵夜江湖', '/xiaoye/', '拍过'), ('河西走廊', '/hexi/', '拍过'), ('跟着书本去旅行', '/shuben/', '拍过'), ('航拍中国', '/hangpai/', '拍过'), ('老广的味道', '/laoguang/', '推荐'), ('话说长江', '/changjiang/', '拍过'), ('新丝绸之路', '/sichou/', '拍过'), ('中国影像方志', '/yingxiang/', '拍过'), ('丝绸之路', '/silu/', '拍过'), ('菲尔来蹭饭', '/phil/', '拍过'), ('未知之旅', '/weizhi/', '拍过'), ('孤独星球年度榜', '/lp/', '入选'), ('国家地理年度榜', '/natgeo/', '入选'), ('街头美食', '/jietou/', '拍过'), ('我的美食向导', '/xiangdao/', '推荐')]
 SHOW_VERB = {a: c for a, b, c in SHOWS}
 SJ_VAGUE = {'东北', '四川', '云南', '河南', '广东', '江南', '闽南', '内蒙古', '宁夏', '西藏', '台湾', '山西', '山东', '陕北', '贵州', '广东乡下', '粤东海边', '四川养蜂人', '吉林朝鲜族山村', '北部湾渔船', '客家'}
 WHY = json.load(open('data/catalog/why.json', encoding='utf-8')) if os.path.exists('data/catalog/why.json') else {}   # “好在哪、为什么要吃要去”一句话：show|food|place -> 句子
@@ -16064,7 +16064,7 @@ def sj_label(x):
 
 _SJ_TRIP_CACHE = {}
 _SJ_EXTRA = {}
-_EAT_SHOWS = {'舌尖上的中国', '风味人间', '风味原产地', '早餐中国', '人生一串', '宵夜江湖', '老广的味道', '街头美食'}
+_EAT_SHOWS = {'舌尖上的中国', '风味人间', '风味原产地', '早餐中国', '人生一串', '宵夜江湖', '老广的味道', '街头美食', '我的美食向导'}
 
 
 def sj_for_trip(rid, r):
@@ -16684,10 +16684,10 @@ def trip_page(rid):
 
 SHOW_NOTE = {'舌尖上的中国': '中国人的家常和手艺', '风味人间': '一样食材在世界各地的做法', '风味原产地': '一地一集，追到食材长出来的地方', '早餐中国': '一城一家早餐店',
              '如果国宝会说话': '一集一件国宝，现在在哪个馆', '记住乡愁': '一集一个古村', '人生一串': '各地的烧烤摊', '宵夜江湖': '一城一夜的宵夜',
-             '河西走廊': '从武威到敦煌的丝路历史', '跟着书本去旅行': '课文里写到的地方，带着书去看', '航拍中国': '从天上看一个省', '老广的味道': '广东广西的一集一味，追到食材的产地', '话说长江': '1983 年的老片，从源头走到入海口', '新丝绸之路': '楼兰、龟兹、敦煌、喀什，一路走到长安', '中国影像方志': '央视的县域纪录片，一集一个县', '丝绸之路': '1980 年中日合拍的老片，从长安走到楼兰、和田', '菲尔来蹭饭': '一集一座城，跟着菲尔去吃当地人的饭', '未知之旅': '安东尼·波登的旅行，一集一个地方', '孤独星球年度榜': '《Best in Travel》每年评出的 25 个目的地', '国家地理年度榜': '《Best of the World》每年评出的 25 个目的地', '街头美食': 'Netflix 的街头小吃，一集一座城'}
+             '河西走廊': '从武威到敦煌的丝路历史', '跟着书本去旅行': '课文里写到的地方，带着书去看', '航拍中国': '从天上看一个省', '老广的味道': '广东广西的一集一味，追到食材的产地', '话说长江': '1983 年的老片，从源头走到入海口', '新丝绸之路': '楼兰、龟兹、敦煌、喀什，一路走到长安', '中国影像方志': '央视的县域纪录片，一集一个县', '丝绸之路': '1980 年中日合拍的老片，从长安走到楼兰、和田', '菲尔来蹭饭': '一集一座城，跟着菲尔去吃当地人的饭', '未知之旅': '安东尼·波登的旅行，一集一个地方', '孤独星球年度榜': '《Best in Travel》每年评出的 25 个目的地', '国家地理年度榜': '《Best of the World》每年评出的 25 个目的地', '街头美食': 'Netflix 的街头小吃，一集一座城', '我的美食向导': '陈晓卿跟着各地的本地朋友，一座城一座城地吃'}
 
 
-PIAN_CATS = [('美食', ['舌尖上的中国', '风味人间', '风味原产地', '早餐中国', '人生一串', '宵夜江湖', '老广的味道', '街头美食']),
+PIAN_CATS = [('美食', ['舌尖上的中国', '风味人间', '风味原产地', '早餐中国', '人生一串', '宵夜江湖', '老广的味道', '街头美食', '我的美食向导']),
              ('文化', ['如果国宝会说话', '记住乡愁', '跟着书本去旅行', '中国影像方志']),
              ('山河', ['航拍中国', '河西走廊', '话说长江', '丝绸之路', '新丝绸之路']),
              ('旅行', ['菲尔来蹭饭', '未知之旅']),
@@ -16762,7 +16762,7 @@ def shejian_page(show='舌尖上的中国', path='/shejian/', other=('风味人�
                 _why = WHY.get(f'{show}|{x["food"]}|{x["place"]}')
                 _wy = f'<p class="why">{E(_why)}</p>' if _why else ''
                 _sp = '' if show == '中国影像方志' else f'<span>{E(x["prov"]) if x["food"] == x["place"] else E(x["place"]) + (("，" + E(x["prov"])) if x["prov"] not in x["place"] else "")}</span>'
-                _eat_s = show in ('舌尖上的中国', '风味人间', '风味原产地', '早餐中国', '人生一串', '宵夜江湖', '老广的味道', '街头美食')
+                _eat_s = show in ('舌尖上的中国', '风味人间', '风味原产地', '早餐中国', '人生一串', '宵夜江湖', '老广的味道', '街头美食', '我的美食向导')
                 _dscope = (DEST.get(dname.get(x['prov'])) or {}).get('scope', 'domestic')
                 if _eat_s: _kw, _cy = x['food'], x['place']
                 elif show == '如果国宝会说话': _kw, _cy = x['place'], ''
