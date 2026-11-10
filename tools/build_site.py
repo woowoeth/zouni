@@ -15624,6 +15624,9 @@ def _km(a, b):
 _EP_PREV = [None, False]
 
 
+STAY_KEEP = {'xo3d'}
+
+
 def stay_fix(r):
     """每天晚上实际住哪：返回 [(住处名, 回住处的交通说明或 None)]
     只改一种明确的错：当天已经到了下一个地方（离前一天最后一站 60 公里以上、第二天也从这附近出发），住处却还写着前一天那家；
@@ -15641,7 +15644,7 @@ def stay_fix(r):
         plast = P[i - 1][-1] if i > 0 and P[i - 1] else None; nf = P[i + 1][0] if P[i + 1] else None
         if prev_nm and nm == prev_nm and last and plast and _km(last, plast) > 60 and (nf is None or _km(last, nf) < 60):
             pcity = r['days'][i - 1].get('navCity') or r['days'][i - 1].get('city')
-            if city and city != pcity: nm = city + '附近'
+            if city and city != pcity and r.get('id') not in STAY_KEEP: nm = city + '附近'      # xo3d：2026-11-10 定住安卡拉（戈尔迪翁离安卡拉 100 公里当天往返，4 天还车点在安卡拉）
         how = None
         cc = GEO.get((city or '') + '|' + (city or '')); ccp = (cc['lat'], cc['lng']) if cc else None
         core = GENERIC_STAY.sub('', nm or '').strip()

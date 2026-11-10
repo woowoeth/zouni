@@ -296,7 +296,7 @@ def check_xiangchuan(pages):
 BACK_RE = re.compile(r'回住处\s*·[^<]*?·\s*(\d+) 公里')
 
 
-S11_WAIVE = {('xo3d', 3): '数据自相矛盾：第 3 天 stay 写安卡拉，第 4 天却从戈尔迪翁一带出发（stay_fix 判成住在戈尔迪翁附近，编译器按写明的安卡拉算了 100 公里）。拿不准住哪，写进 06 待办，不硬改'}      # 人工确认过的例外，写明原因
+S11_WAIVE = {}      # 人工确认过的例外，写明原因
 
 
 def check_back_dist(pages):
