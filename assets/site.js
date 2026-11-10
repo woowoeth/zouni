@@ -798,7 +798,7 @@ var fd=window.zFareDelta?window.zFareDelta():[0,0];p.textContent='¥'+r(Math.max
         if(op.x&&op.x.b)sub='<em class="bkn">要预约</em> · '+sub;return sub+'<button type="button" class="adj" aria-label="改这一站">改这站</button>'}
       function npRb(op,rep,nav){return'<p class="m">'+npEsc(op.n+(rep?'（换的）':'（加的）'))+npIcons(op,nav)+'</p><p class="s">'+npSub(op)+'</p>'}
       function npStopAttrs(r,op){r.setAttribute('data-ll',op.a.toFixed(5)+','+op.o.toFixed(5));r.setAttribute('data-dm',op.d);if(op.t)r.setAttribute('data-ty',op.t);else r.removeAttribute('data-ty');if(op.i)r.setAttribute('data-pid',op.i);else r.removeAttribute('data-pid');
-        if(NP_INDOOR.test(op.n))r.setAttribute('data-in','1');else r.removeAttribute('data-in');if(op.x&&op.x.cl!=null)r.setAttribute('data-cw',String(op.x.cl));else r.removeAttribute('data-cw')}
+        if(NP_INDOOR.test(op.n))r.setAttribute('data-in','1');else r.removeAttribute('data-in');if(op.x&&op.x.cl!=null)r.setAttribute('data-cw',String(op.x.cl));else r.removeAttribute('data-cw');r.removeAttribute('data-ow')}
       // 一行附近的前后点和车程：A 前一个点、C 后一个点（没有就用这天的出发点 / 住处）、lb 前面那段车程行、la 后面那段车程行（只有文字是干净的“怎么走 N 分钟 · N 公里”才算）
       function npScan(sec,S,isDrop){var L=[].slice.call(sec.querySelector('.tl').children).filter(npIsRow),i=L.indexOf(S),spt=npLL(sec.dataset.sp),ept=npLL(sec.dataset.ep),A=spt,C=ept,lb=null,la=null,j,m,lg;
         function skip(q){return isDrop(q)||(q.classList.contains('eat')&&!q.dataset.ll)}
@@ -812,7 +812,7 @@ var fd=window.zFareDelta?window.zFareDelta():[0,0];p.textContent='¥'+r(Math.max
       function npRevert(sec){var tl=sec.querySelector('.tl');if(!tl)return;[].slice.call(tl.children).forEach(function(r){if(!npIsRow(r))return;
         if(r.getAttribute('data-np')==='v'){r.parentNode.removeChild(r);return}
         if(r.getAttribute('data-np')==='r'){var rb=r.querySelector('.rb'),a={};if(rb&&r.hasAttribute('data-np-rb'))rb.innerHTML=r.getAttribute('data-np-rb');try{a=JSON.parse(r.getAttribute('data-np-a')||'{}')}catch(e){}
-          ['ll','dm','ty','pid','in','cw','d0'].forEach(function(k){if(a[k]==null)r.removeAttribute('data-'+k);else r.setAttribute('data-'+k,a[k])});
+          ['ll','dm','ty','pid','in','cw','ow','d0'].forEach(function(k){if(a[k]==null)r.removeAttribute('data-'+k);else r.setAttribute('data-'+k,a[k])});
           r.removeAttribute('data-np');r.removeAttribute('data-np-rb');r.removeAttribute('data-np-a');r.removeAttribute('data-np-ll0');
           if(a.ord){var vv={};[].forEach.call(r.attributes,function(x){vv[x.name]=x.value});a.ord.forEach(function(n){if(vv[n]!=null){r.removeAttribute(n);r.setAttribute(n,vv[n])}})}}   // 属性顺序也放回原样
         if(r.hasAttribute('data-np-s0')){var s=r.querySelector('.s');if(s)s.innerHTML=r.getAttribute('data-np-s0');r.removeAttribute('data-np-s0')}
@@ -840,7 +840,7 @@ var fd=window.zFareDelta?window.zFareDelta():[0,0];p.textContent='¥'+r(Math.max
         pr.forEach(function(S){var g=byK[S.dataset.k],s0,sc,f,X1,o,nv,wasNav,rb,sv0;if(!g||isDrop(S)||!S.dataset.ll)return;s0=npLL(S.dataset.ll);
           if(g.rep){o=g.rep;sc=npScan(sec,S,isDrop);X1=[o.a,o.o];rb=S.querySelector('.rb');wasNav=NP_NAVRE.test(((S.querySelector('a.ic.map')||{getAttribute:function(){return''}}).getAttribute('href'))||'');
             if(sc.lb){if(sc.A){f=NPM.factor(sc.A,s0,+sc.lb.dep.dataset.min||sc.lb.lg.min,mode);setLeg(sc.lb.dep,npLeg(sc.A,X1,mode,f,sv,sc.lb.lg.pre),o.n)}else rename(sc.lb.dep,o.n)}
-            if(rb){S.setAttribute('data-np-rb',rb.innerHTML);S.setAttribute('data-np-ll0',S.dataset.ll);sv0={n:npCore(npName(S)),ll:S.getAttribute('data-ll'),dm:S.getAttribute('data-dm'),ty:S.getAttribute('data-ty'),pid:S.getAttribute('data-pid'),'in':S.getAttribute('data-in'),cw:S.getAttribute('data-cw'),d0:S.getAttribute('data-d0'),ord:[].map.call(S.attributes,function(x){return x.name})};S.setAttribute('data-np-a',JSON.stringify(sv0));
+            if(rb){S.setAttribute('data-np-rb',rb.innerHTML);S.setAttribute('data-np-ll0',S.dataset.ll);sv0={n:npCore(npName(S)),ll:S.getAttribute('data-ll'),dm:S.getAttribute('data-dm'),ty:S.getAttribute('data-ty'),pid:S.getAttribute('data-pid'),'in':S.getAttribute('data-in'),cw:S.getAttribute('data-cw'),ow:S.getAttribute('data-ow'),d0:S.getAttribute('data-d0'),ord:[].map.call(S.attributes,function(x){return x.name})};S.setAttribute('data-np-a',JSON.stringify(sv0));
               nv=(wasNav&&sc.A)?npNavHref(o.q||o.n,o.n,sc.A,X1,sc.lb&&sc.lb.lg.how==='步行'?'步行':'开车'):null;rb.innerHTML=npRb(o,true,nv);npStopAttrs(S,o);S.removeAttribute('data-d0');S.setAttribute('data-np','r');X.rd[S.dataset.k]={d:o.d,d0:+sv0.dm||0}}
             if(sc.la){f=NPM.factor(s0,sc.la.pt,+sc.la.dep.dataset.min||sc.la.lg.min,mode);setLeg(sc.la.dep,npLeg(X1,sc.la.pt,mode,f,sv,sc.la.lg.pre),null);retarget(sc.la.to,X1,sc.la.lg.how==='步行'?'步行':'开车')}
             X.n++}
@@ -1047,6 +1047,9 @@ var fd=window.zFareDelta?window.zFareDelta():[0,0];p.textContent='¥'+r(Math.max
           function clw(r,txt){var rb=r.querySelector('.rb');if(!rb||rb.querySelector('.clw'))return;var q=document.createElement('p');q.className='clw';q.textContent=txt;rb.appendChild(q)}   // 行内红字：这一站这一天闭馆（不用翻到页头才知道）
           if(wk===1)sureR.forEach(function(r){var m=/周一(陵寝)?闭馆/.exec(r.innerText);clw(r,'这天是周一，'+(m?m[0]:'博物馆周一多半闭馆，以官网为准'))});
           fclR.forEach(function(r){clw(r,'这天是周'+WN[wk]+'，周'+WN[wk]+'闭馆')});   // 国外去处每周固定闭馆日（表在 build_site.FOREIGN_CLOSED）
+          var fowR=rs.filter(function(r){return r.dataset.ow&&r.dataset.ow.split(',').indexOf(String(wk))<0});   // 只在每周某几天营业的去处（表在 build_site.FOREIGN_OPEN_ONLY，data-ow 是营业的周几）
+          fowR.forEach(function(r){clw(r,'这天是周'+WN[wk]+'，只在周'+r.dataset.ow.split(',').map(function(x){return WN[+x]}).join('、周')+'营业')});
+          if(fowR.length&&!fcl.length&&cl0){var po=document.createElement('p');po.className='fc mon';po.innerHTML='<b>这天是周'+WN[wk]+'</b>「'+nm(fowR[0])+'」只在周'+fowR[0].dataset.ow.split(',').map(function(x){return WN[+x]}).join('、周')+'营业，把出发日期改一天，或者换一站';cl0.parentNode.insertBefore(po,cl0.nextSibling);return}
           if(fcl.length&&cl0){var ls=wk===0&&d.getDate()+7>new Date(d.getFullYear(),d.getMonth()+1,0).getDate(),pf=document.createElement('p');pf.className='fc mon';
             pf.innerHTML='<b>这天是周'+WN[wk]+'</b>'+(ls&&fcl.length===1&&/梵蒂冈/.test(fcl[0])?'今天是月底周日，「'+fcl[0]+'」免费开放，但人极多、要排很久；想看得舒服就把出发日期改一天':'「'+fcl.slice(0,2).join('」「')+'」周'+WN[wk]+'闭馆，出发前以官网为准，或者把出发日期改一天');cl0.parentNode.insertBefore(pf,cl0.nextSibling);return}
           if(wk!==1||(!sure.length&&!maybe.length))return;
