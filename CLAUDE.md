@@ -40,6 +40,6 @@ node tools/preserve-external.js src/index.html <线上的 index.html>
 
 ## 当前状态
 
-56 条线路 · 36 族 · 646KB · 21 项测试全绿 · 省份覆盖 23/34
+（过时，以 HANDOFF.md 为准）1613 条线路 · 82 个目的地 · 34 个省区市全覆盖
 
 下一步按 `docs/province-plan.md` 推进内容，按 `docs/product-judgment.md` 补执行断点。

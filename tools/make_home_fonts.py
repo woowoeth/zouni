@@ -15,7 +15,9 @@ from fontTools.varLib import instancer
 
 FD = 'site_src/fonts'
 CH = json.load(open('tools/home_font_chars.json', encoding='utf-8'))
-FAM = {'Noto Sans SC': ('sans.css', 'swap'), 'Noto Serif SC': ('serif.css', 'fallback')}
+# 首页专用小字体一律 swap，不能用 fallback：fallback 只给 3 秒，Slow 3G 下首页字体要 14 秒才到，超时后浏览器把这些字当“失败”，
+# 转去下 16 个大切片（首页字体 517KB → 1.5MB，tests/slow3g_check.py 红）。2026-11-10 定位，swap 后 517KB / 22 秒。
+FAM = {'Noto Sans SC': ('sans.css', 'swap'), 'Noto Serif SC': ('serif.css', 'swap')}
 
 
 def slices(css):
