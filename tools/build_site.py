@@ -15560,7 +15560,8 @@ def start_date(r):
         else:
             wlo = datetime.date(TODAY.year, int(b[0][:2]), int(b[0][3:]))
             if wlo < TODAY: wlo = datetime.date(TODAY.year + 1, int(b[0][:2]), int(b[0][3:]))
-            if 0 < (wlo - TODAY).days <= 30:      # 窗口很快就开：默认放在窗口里第一个周六（原来用线路自己写的日期，同一个季节的几条线能差出两周）
+            _mdd = d.strftime('%m-%d'); _din = (_mdd >= b[0] or _mdd <= b[1]) if wrap else (b[0] <= _mdd <= b[1])
+            if 0 < (wlo - TODAY).days <= 30 or (not _din and wlo < d):      # 2026-11-12：线路自己写的日期不在“最好的日子”里、而窗口比它先到（哈尔滨写 9/18，窗口 12/20 开）：也放窗口里第一个周六，原来默认成“明年 9/18、距今 310 天”。窗口很快就开：默认放在窗口里第一个周六（原来用线路自己写的日期，同一个季节的几条线能差出两周）
                 wend = datetime.date(wlo.year + (1 if wrap else 0), int(b[1][:2]), int(b[1][3:]))
                 cand = wlo + datetime.timedelta(days=(5 - wlo.weekday()) % 7)
                 d = cand if cand <= wend else wlo; end = wend
@@ -17215,7 +17216,7 @@ def home_page():
         tile = (f'<a class="tile img" href="/trip/{rid}/" tabindex="-1" aria-hidden="true"><img src="/img/{img}.svg" alt="" loading="lazy"></a>' if _tile_img
                 else f'<a class="tile" href="/trip/{rid}/" tabindex="-1" aria-hidden="true" style="background:{["#c8432f", "#2e5b6b", "#4f6233", "#5a4a6b", "#8a5a2b", "#3b5a7a"][i % 6]}">{E(lab0)}</a>')
         when = (f'<span class="left{" urgent" if dl is not None and dl <= 2 else ""}">{("今天最后一天" if dl == 0 else "最好到 " + _end_txt(tt)) if dl is not None and dl <= 2 else "最好 " + wtxt(tt)}</span>' if window(tt) else '<span class="left">四季都能去</span>')     # “最后 N 天”只在真的剩 ≤2 天时写；几乎每条都写就失去意义了
-        return (f'<li data-band="{band}"{extra}{" hidden" if hide else ""}><span class="num">{i:02d}</span><div class="tx"><div class="kl"><span class="k">{kicker}</span>{when}</div><h3><a href="/trip/{rid}/">{E(h3)}</a></h3><p>{E(day_line(rr))}</p>'
+        return (f'<li data-band="{band}"{extra}{" hidden" if hide else ""}><span class="num">{i:02d}</span><div class="tx"><div class="kl"><span class="k"{"" if kicker == "小众" else " hidden"}>{kicker}</span>{when}</div><h3><a href="/trip/{rid}/">{E(h3)}</a></h3><p>{E(day_line(rr))}</p>'
                 f'<small>{n} 天 · {E(price_k(rr.get("price")))}/人<span class="c">{(" · " + str(c[0]) + "°/" + str(c[1]) + "°") if c[0] != "" else ""}</span></small></div>{tile}</li>')
     TAGS = {t['id']: (t.get('tags') or []) for t in TRIPS_ALL} if 'TRIPS_ALL' in globals() else {}
     rest = [x for x in inseason if x != cover]
@@ -17236,7 +17237,7 @@ def home_page():
     nextm.sort(key=lambda x: (0 if ROUTES[x].get('img') else 1, 0 if not ROUTES[x].get('compiled') else 1))
     nitems = ''.join(item(i + 1, rid, f'{nxt} 月开始') for i, rid in enumerate(nextm[:5]))
     anyt = sorted([x for x in ROUTE_IDS if TRIP_OF_ROUTE.get(x) and TRIP_OF_ROUTE[x].get('anytime')], key=lambda x: (0 if ROUTES[x].get('img') else 1, 0 if not ROUTES[x].get('compiled') else 1))
-    aitems = ''.join(item(i + 1, rid, '随时') for i, rid in enumerate(anyt[:6]))
+    aitems = ''.join(item(i + 1, rid, '随时') for i, rid in enumerate(anyt[:6])).replace('<span class="left">四季都能去</span>', '')      # 2026-11-12 减法：这一栏标题就是“什么时候去都行”，卡片上不再每张重复；“正当季 / N 月开始 / 随时”同理不显示（留在 HTML 里给“替我挑”打分读），只有“小众”显示
     c0 = clim(dc); dl0 = days_left(tc)
     datebar = (f'<div class="datebar"><button type="button" class="hdt" aria-label="改出发日期"><b>今天 {TODAY.month}/{TODAY.day} 周{"一二三四五六日"[TODAY.weekday()]} 出发</b><i>改日期</i></button><input type="hidden" class="hdpk" data-min="{TODAY.isoformat()}" value="{TODAY.isoformat()}"></div>')
     body = (f'<article class="home"><div class="cover">{f"<img src=/img/{cimg}.svg alt=>" if cimg else ""}'
