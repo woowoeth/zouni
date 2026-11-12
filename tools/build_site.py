@@ -16146,7 +16146,7 @@ def sj_lines(xs):
 def _sj_fold(h, rid):
     """跟谁走的线路：影视、美食挂钩行默认折叠（和人物无关的噪音，纪念类线路本来就不放）；其余线路原样（亲子偏好在 site.js 里折）"""
     n = h.count('<p class="sjn">')
-    if not n or rid not in HIST_OF_ROUTE: return h
+    if not n or (rid not in HIST_OF_ROUTE and n < 2): return h      # 2026-11-12：普通线路有两条以上也收成一行（每天正文前叠了四五行提示，时间线被推到一屏以外；只做减法）
     return f'<details class="sjd"><summary>影视和美食里的这一带 {n} 条</summary>{h}</details>'
 
 
@@ -16279,7 +16279,7 @@ def ferry_note(d, first=True, rid='', extra=''):
     if rid in LIGHT_FERRY: light = True
     if light: return '<p class="alt ferry"><b>今天要坐渡轮</b>班次以当天为准，别把回程安排得太紧。</p>'
     if not first: return '<p class="alt ferry"><b>今天要坐船</b>班次以当天为准，遇风浪可能停航。</p>'
-    return '<p class="alt ferry"><b>今天要坐船</b>船班以当天为准，遇大风浪可能停航或改点；去岛上、过海的，回程别排得太紧，当天要赶飞机、高铁的别订最后一班，出发前一天再向船公司或码头确认班次。</p>'
+    return '<p class="alt ferry"><b>今天要坐船</b>班次以当天为准，遇风浪可能停航，回程别排最后一班。</p>'      # 2026-11-12：原来第一次出现写四行，河上的渡船也照抄“去岛上、过海”，缩成一句
 
 
 LIGHT_FERRY = {'hrs2'}
