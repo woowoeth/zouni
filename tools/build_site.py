@@ -16776,7 +16776,7 @@ def shejian_page(show='舌尖上的中国', path='/shejian/', other=('风味人�
             _hl = (f'<a href="/d/{dname[ep]}/">{E(ep)}</a>' if (show == '中国影像方志' and ep and ep in dname) else (E(ep) if show == '中国影像方志' else '《' + E(ep) + '》')) if ep else ''
             if show == '中国影像方志' and ep:      # 868 条 130 屏：按省折叠（点上面的省名跳转会自动展开）
                 body += f'<details class="pvd"{_hid}><summary><span>{E(ep)}</span><small>{len([x_ for x_ in xs if kf(x_) == ep])} 处</small></summary>{(f'<p class="pvl"><a href="/d/{dname[ep]}/">{E(ep)}的其他去处 ›</a></p>' if ep in dname else '')}<ul class="sjl">{li}</ul></details>'
-            else: body += f'<h3{_hid}>{_hl if ep else "这一季还拍过"}</h3><ul class="sjl">{li}</ul>'
+            else: body += f'<h3{_hid}>{_hl if ep else ("这一季还拍过" if body else "这一季拍过")}</h3><ul class="sjl">{li}</ul>'
         out.append(f'<section class="sjs" id="s{sn}">' + ('' if show in SINGLE_SEASON else f'<h2>第{SJ_CN[sn]}季</h2>') + f'{body}</section>')
         if show not in SINGLE_SEASON: jumps.append((f's{sn}', f'第{SJ_CN[sn]}季'))
     n_hit = sum(1 for x in ALL if hit.get(id(x)))

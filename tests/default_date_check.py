@@ -53,7 +53,8 @@ for r, (d, b) in rows.items():
     lo, hi, inside = window(b)
     if inside and (hi - T).days >= 3:
         n2 += 1
-        if not (lo <= d <= hi and 2 <= (d - T).days <= 16): bad2.append((r, d.isoformat(), '窗口到 %s' % hi.isoformat()))
+        # 窗口只剩三四天时，为避开周一闭馆往后挪的日期会出窗口 1–3 天（2026-11-12 hzhux1 / hxinh1：窗口到 11/15，周六出发第三天撞周一，挪到 11/17），容 3 天
+        if not (lo <= d <= hi + datetime.timedelta(days=3) and 2 <= (d - T).days <= 16): bad2.append((r, d.isoformat(), '窗口到 %s' % hi.isoformat()))
         near[r] = d
     elif not inside and 0 < (lo - T).days <= 30 and (hi - lo).days >= 7:
         n3 += 1

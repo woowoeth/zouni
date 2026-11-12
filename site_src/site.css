@@ -1309,3 +1309,9 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 }
 .hsearch input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none;appearance:none;width:20px;height:20px;margin-left:6px;background:var(--sub);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 5l10 10M15 5L5 15' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 5l10 10M15 5L5 15' stroke='black' stroke-width='2'/%3E%3C/svg%3E") center/contain no-repeat;cursor:pointer}
 .home .mast .tagline{margin:6px 0 0;font:700 0.75rem/1.3 var(--sans);color:var(--onimg);text-shadow:0 1px 3px rgba(20,18,24,.9)}
+
+/* 2026-11-12 频道页“另有 N 条”展开后：原来是一串行内链接挤在一起（18px 高、行距 0、路线名被折行），改成一行一条、每条 36px 可点 */
+.sjl small>a{display:inline-flex;align-items:center;min-height:32px}
+.sjl details.gm[open]{display:block}
+.sjl details.gm[open]>a{display:flex;align-items:center;min-height:36px;border-top:1px solid var(--line)}
+.sjl details.gm[open]>a::before{content:none!important;display:none!important}
