@@ -27,6 +27,7 @@ import hashlib, json, os, random, re, sys, time
 from playwright.sync_api import sync_playwright
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from ux_common import *
+import ux_common; ux_common.ROWS_OPEN = False      # 这一套验的就是默认收起的页面
 
 INJ = {
     # S1
@@ -118,11 +119,13 @@ def trip(br, rid, storage=None, wait=700):
 
 
 # 打开各种层：返回 (名字, 打开函数, 层根选择器)
+def open_row(r):      # 2026-11-18：每站默认一行，“改这站”和图标要先点开这一行；已经开着就不再点（再点会收起）
+    if 'open' not in (r.get_attribute('class') or '').split(): r.locator('time').click(); r.page.wait_for_timeout(100)
 def L_share(pg): pg.click('.share'); pg.wait_for_selector('.pk')
 def L_date(pg): pg.click('.glance .dt'); pg.wait_for_selector('.pk')
 def L_stime(pg): pg.evaluate("document.querySelector('#d1 .st').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('#d1 .st'); pg.wait_for_selector('.pk')
 def L_addday(pg): pg.evaluate("document.querySelector('.addday .add').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('.addday .add'); pg.wait_for_selector('.pk')
-def L_adj(pg): pg.evaluate("document.querySelector('#d1 .tl .adj').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('#d1 .tl .adj >> nth=0'); pg.wait_for_selector('.pk')
+def L_adj(pg): pg.evaluate("document.querySelector('#d1 .tl .adj').scrollIntoView({block:'center',behavior:'instant'})"); open_row(pg.locator('#d1 .tl > .r:has(.adj) >> nth=0')); pg.click('#d1 .tl .adj >> nth=0'); pg.wait_for_selector('.pk')
 def L_dayadj(pg): pg.evaluate("document.querySelector('#d1 .dayadj').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('#d1 .dayadj'); pg.wait_for_selector('.pk')
 def L_tv(pg): pg.click('.tvbtn'); pg.wait_for_selector('.tv')
 def L_todo(pg): pg.evaluate("document.querySelector('.todoall').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('.todoall'); pg.wait_for_selector('.tv.todo')
@@ -398,10 +401,10 @@ with sync_playwright() as p:
             c.close()
         with guard('S10 C 去掉一站再撤销'):
             c, pg = trip(br, 'xa3'); row = pg.locator('#d2 .tl > .r.see').nth(1); k0 = {k: ls(pg, k) for k in ('zouni_drop_xa3', 'zouni_np_xa3', 'zouni_adj_xa3')}; n = 0
-            row.evaluate("r=>r.scrollIntoView({block:'center',behavior:'instant'})"); row.locator('.adj').click(); n += 1; pg.wait_for_selector('.pk')
+            row.evaluate("r=>r.scrollIntoView({block:'center',behavior:'instant'})"); row.locator('time').click(); n += 1; pg.wait_for_timeout(100); row.locator('.adj').click(); n += 1; pg.wait_for_selector('.pk')
             pg.click('.pk [data-x="1"]'); n += 1; pg.wait_for_timeout(300); pg.click('.toast .toast-act'); n += 1; pg.wait_for_timeout(300)
             k1 = {k: ls(pg, k) for k in k0}
-            check('S10 C 去掉一站再撤销：%d 点击（≤3），存的键回到去掉之前' % n, n <= 3 and k0 == k1 and not row.evaluate("r=>r.hidden"), (k0, k1))
+            check('S10 C 去掉一站再撤销：%d 点击（≤4：2026-11-18 起每站默认一行，多一次“点开这一行”），存的键回到去掉之前' % n, n <= 4 and k0 == k1 and not row.evaluate("r=>r.hidden"), (k0, k1))
             TASKS['C'] = ('3 点击', '%d 点击' % n); c.close()
         with guard('S10 D 加一个顺路景点'):
             c, pg = trip(br, 'xa3'); n = 0; tried = 0; done = False; empty_msg = ''
@@ -409,7 +412,9 @@ with sync_playwright() as p:
             for i in idxs:
                 tried += 1; n = 0
                 pg.evaluate("(i)=>{const b=document.querySelectorAll('section.day:not(.xday) .tl > .r.see .adj, section.day:not(.xday) .tl > .r.fun .adj')[i];b.scrollIntoView({block:'center',behavior:'instant'})}", i)
-                pg.locator('section.day:not(.xday) .tl > .r.see .adj, section.day:not(.xday) .tl > .r.fun .adj').nth(i).click(); n += 1; pg.wait_for_selector('.pk')
+                _b = pg.locator('section.day:not(.xday) .tl > .r.see .adj, section.day:not(.xday) .tl > .r.fun .adj').nth(i); _r = _b.locator('xpath=ancestor::li[1]')
+                if 'open' not in (_r.get_attribute('class') or ''): _r.locator('time').click(); n += 1; pg.wait_for_timeout(100)
+                _b.click(); n += 1; pg.wait_for_selector('.pk')
                 ins = pg.locator('.pk [data-np="ins"]')
                 if i == 0: check('S10 D：xa3 第 1 天第一站的“在这之后加一个”可点；排满时置灰并写清原因（再加就超过…）', ins.count() == 1 and (not ins.first.is_disabled() or '已排到' in ins.first.inner_text() or '排满' in ins.first.inner_text()), ins.count() and ins.first.inner_text())
                 if not ins.count() or ins.first.is_disabled(): pg.evaluate("history.back()"); pg.wait_for_timeout(150); continue
@@ -419,7 +424,7 @@ with sync_playwright() as p:
                 if i == 0: empty_msg = pg.inner_text('.pk .npe')
                 pg.evaluate("history.back()"); pg.wait_for_timeout(150)
             if empty_msg: check('S10 D：第一站点开后候选为空时写清原因（%s）' % empty_msg, '已排到' in empty_msg or '超过' in empty_msg or '排满' in empty_msg or '没有顺路' in empty_msg, empty_msg)
-            check('S10 D 加一个顺路景点（试到第 %d 个有候选的站）：%d 点击（≤3），加上了、有“撤销”' % (tried, n), done and n <= 3 and pg.locator('.toast .toast-act').count() == 1 and pg.evaluate("!!document.querySelector('.tl > .r[data-np=v]')"), (done, n, tried))
+            check('S10 D 加一个顺路景点（试到第 %d 个有候选的站）：%d 点击（≤4：含点开这一行），加上了、有“撤销”' % (tried, n), done and n <= 4 and pg.locator('.toast .toast-act').count() == 1 and pg.evaluate("!!document.querySelector('.tl > .r[data-np=v]')"), (done, n, tried))
             TASKS['D'] = ('3 点击（xa3 的 7 个可加站点里 5 个置灰）', '%d 点击（xa3 7 个站点都可点，其中 4 个点开有候选；有候选的站 3 步、没有候选的站点开后写“再加就超过 22:40 了”）' % n); c.close()
         with guard('S10 E 改出发日期（xl9a 第 12 天处）'):
             c, pg = trip(br, 'xl9a'); n = 0
@@ -462,9 +467,25 @@ with sync_playwright() as p:
             TASKS['I'] = ('单段 1 / 多段 2 点击', '%d 点击（xa3 第 1 天多段）' % n); c.close()
         with guard('S10 J 怎么去、怎么回'):
             c, pg = trip(br, 'xa3')
-            j = pg.evaluate("(()=>{const g=document.querySelector('section.pre.go'),r=g.getBoundingClientRect();return {y:(r.bottom+scrollY)/innerHeight,h2:g.querySelector('h2').textContent,txt:g.querySelector('.gw span').innerText}})()")
-            check('S10 J 怎么去怎么回：0 点击、整块在 %.2f 屏内；回程写在同一块里（%s）' % (j['y'], j['txt'][:60]), j['y'] <= 1.0 and '回：' in j['txt'], j)
-            TASKS['J'] = ('去：0.5 屏；回：在最后一天末行（xa3 约 6.4 屏、xl9a 约 27 屏之外）', '去、回同一块：0 点击、%.2f 屏内' % j['y']); c.close()
+            # 2026-11-18 用户定：默认只留一行摘要（怎么去 + 第 N 天几点回），点一下看全；原来“0 点击整块可见”这条按此重设
+            j = pg.evaluate("(()=>{const g=document.querySelector('section.pre.go'),r=g.getBoundingClientRect(),b=g.querySelector('.gob'),u=g.querySelector('ul');return {y:(r.bottom+scrollY)/innerHeight,h:r.height,sum:b?b.innerText.replace(/\\s+/g,' '):'',ulh:u.getBoundingClientRect().height}})()")
+            check('S10 J 怎么去怎么回：收成一行（高 %d px ≤ 60）、在 %.2f 屏内；摘要里有回程时间（%s）' % (j['h'], j['y'], j['sum'][:40]), j['h'] <= 60 and j['y'] <= 1.0 and j['ulh'] == 0 and re.search(r'第 \d+ 天 \d\d:\d\d 回', j['sum']), j)
+            pg.click('section.pre.go .gob'); pg.wait_for_timeout(200)
+            j2 = pg.evaluate("(()=>{const g=document.querySelector('section.pre.go'),s=g.querySelector('.gw span'),b=g.querySelector('.gob');return {txt:s.innerText,sh:s.getBoundingClientRect().height,bh:b.getBoundingClientRect().height,og:!!g.querySelector('.ogsel')&&g.querySelector('.ogsel').getBoundingClientRect().height>0,h2:g.querySelector('h2').textContent}})()")
+            check('S10 J 点一下看全：1 点击后正文出现、含“回：”、出发地可选、摘要行收起（%s）' % j2['txt'][:60], j2['sh'] > 0 and '回：' in j2['txt'] and j2['og'] and j2['bh'] == 0, j2)
+            TASKS['J'] = ('去：0.5 屏；回：在最后一天末行（xa3 约 6.4 屏、xl9a 约 27 屏之外）', '一行摘要 0 点击（%.2f 屏内）；全文 1 点击' % j['y']); c.close()
+        with guard('S13 每站默认一行'):      # 2026-11-18
+            c, pg = trip(br, 'xa3')
+            v = pg.evaluate("(()=>{const H=e=>e?e.getBoundingClientRect().height:-1,d=document.querySelector('#d1'),rs=[...d.querySelectorAll('.tl > .r.see, .tl > .r.fun, .tl > .r.eat')],deps=[...d.querySelectorAll('.tl > .r.dep:not(:last-child)')],st=d.querySelector('.story');return {n:rs.length,icg:rs.filter(r=>H(r.querySelector('.icg'))>0).length,adj:rs.filter(r=>H(r.querySelector('.adj'))>0).length,tre:[...d.querySelectorAll('.s.tre')].filter(e=>H(e)>0).length,rowmax:Math.max.apply(null,rs.filter(r=>r.classList.contains('see')).map(H)),depm:deps.filter(r=>H(r.querySelector('.m'))>0).length,depmax:Math.max.apply(null,deps.map(H)),story:H(st),day:H(d)/innerHeight}})()")
+            check('S13 默认：%d 站的图标、改这站、镇馆之宝都不显示；景点行高 ≤60（%d）；路上那行不重复站名、行高 ≤36（%d）；背景一行 ≤48（%d）；第一天 %.2f 屏 ≤1.6' % (v['n'], v['rowmax'], v['depmax'], v['story'], v['day']), v['n'] >= 3 and v['icg'] == 0 and v['adj'] == 0 and v['tre'] == 0 and v['rowmax'] <= 60 and v['depm'] == 0 and v['depmax'] <= 36 and 0 < v['story'] <= 48 and v['day'] <= 1.6, v)
+            row = pg.locator('#d1 .tl > .r:has(.adj) >> nth=0'); row.locator('time').click(); pg.wait_for_timeout(150)
+            o = row.evaluate("r=>({icg:r.querySelector('.icg').getBoundingClientRect().height,adj:r.querySelector('.adj').getBoundingClientRect().height,n:r.querySelectorAll('.icg a').length})")
+            check('S13 点这一行：图标 %d 个和“改这站”出现' % o['n'], o['icg'] > 0 and o['adj'] > 0 and o['n'] >= 3, o)
+            row.locator('time').click(); pg.wait_for_timeout(150)
+            check('S13 再点一次收起', row.evaluate("r=>r.querySelector('.icg').getBoundingClientRect().height") == 0)
+            pg.click('#d1 .story'); pg.wait_for_timeout(150)
+            sh = pg.evaluate("(()=>{const s=document.querySelector('#d1 .story');return {h:s.getBoundingClientRect().height,p:[...s.querySelectorAll('p')].filter(e=>e.getBoundingClientRect().height>0).length,all:s.querySelectorAll('p').length}})()")
+            check('S13 点“背景”：%d 段全部出现' % sh['all'], sh['p'] == sh['all'] and sh['h'] > 100, sh); c.close()
         with guard('S10 K 查住宿'):
             c, pg = trip(br, 'xa3'); n = 0
             pg.evaluate("document.querySelector('.todoall').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('.todoall'); n += 1; pg.wait_for_selector('.tv.todo'); pg.wait_for_timeout(250)
@@ -519,7 +540,7 @@ with sync_playwright() as p:
         with guard('S11 列表为空时的原因'):
             c, pg = trip(br, 'xa3', wait=1000)
             # 第 1 天晚上已排到 22:10：弹层里就置灰并写“再加就超过 …”（不再点进去才看到空列表）
-            pg.evaluate("document.querySelector('#d1 .tl .adj').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('#d1 .tl .adj >> nth=0'); pg.wait_for_selector('.pk')
+            pg.evaluate("document.querySelector('#d1 .tl .adj').scrollIntoView({block:'center',behavior:'instant'})"); open_row(pg.locator('#d1 .tl > .r:has(.adj) >> nth=0')); pg.click('#d1 .tl .adj >> nth=0'); pg.wait_for_selector('.pk')
             try: pg.wait_for_function(WAIT, timeout=(3000 if env.inject else 20000))
             except Exception: pass
             if pg.locator('.pk [data-np="ins"]').count():

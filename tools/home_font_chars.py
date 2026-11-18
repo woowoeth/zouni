@@ -16,6 +16,8 @@ JS = """()=>{const res={};const w=document.createTreeWalker(document.body,NodeFi
  while(n=w.nextNode()){const t=n.nodeValue;if(!t.trim())continue;const el=n.parentElement;if(!el||['SCRIPT','STYLE','NOSCRIPT'].includes(el.tagName))continue;
   if(!el.getClientRects().length)continue;const cs=getComputedStyle(el);if(cs.visibility==='hidden')continue;
   const fam=cs.fontFamily.split(',')[0].replace(/["']/g,'').trim();const key=fam+'|'+cs.fontWeight;(res[key]=res[key]||new Set());for(const ch of t)if(ch.trim()&&ch.charCodeAt(0)>0x20)res[key].add(ch)}
+ // 输入框的占位字不是文字节点（2026-11-18：频道小字收起后，“搜地名、行程”里的顿号没别处带进来，多拉了一个 76KB 的切片）
+ document.querySelectorAll('input[placeholder],textarea[placeholder]').forEach(el=>{if(!el.getClientRects().length)return;const cs=getComputedStyle(el,'::placeholder');const key=cs.fontFamily.split(',')[0].replace(/["']/g,'').trim()+'|'+cs.fontWeight;(res[key]=res[key]||new Set());for(const ch of el.placeholder)if(ch.trim()&&ch.charCodeAt(0)>0x20)res[key].add(ch)});
  const o={};for(const k in res)o[k]=[...res[k]].join('');return o}"""
 
 
@@ -34,7 +36,7 @@ def main():
         pg.goto(B + '/', wait_until='networkidle'); pg.wait_for_timeout(1500)
         for k, v in pg.evaluate(JS).items(): out.setdefault(k, set()).update(v)
         # 首页上一点就出来的东西：日期面板、“替我挑三条”展开（真点开再收一遍字），不然用户第一次点就多下几个切片
-        for sel_ in ('.pkh', '.hdt'):
+        for sel_ in ('.chan2 .pka', '.hdt'):      # 2026-11-18：“替我挑”从频道那一行点开
             try:
                 pg.click(sel_, timeout=4000); pg.wait_for_timeout(500)
                 for k, v in pg.evaluate(JS).items(): out.setdefault(k, set()).update(v)

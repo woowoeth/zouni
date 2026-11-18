@@ -117,6 +117,7 @@ with sync_playwright() as p:
     def new_page(storage=None, ctx=None):
         c = ctx or br.new_context(**p.devices['iPhone 13'], timezone_id='Asia/Shanghai', locale='zh-CN')
         c.add_init_script(FIX)
+        c.add_init_script("(function(){function f(){document.documentElement&&document.documentElement.classList.add('xall')}f();document.addEventListener('DOMContentLoaded',f)})();")      # 全展开（见 ux_common.XALL）：这套验加站/换站，不验默认收起
         if storage:
             c.add_init_script('try{' + ''.join('localStorage.setItem(%s,%s);' % (json.dumps(k), json.dumps(v)) for k, v in storage.items()) + '}catch(e){}')
         pg = c.new_page()

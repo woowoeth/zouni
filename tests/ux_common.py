@@ -91,9 +91,16 @@ HIT = """(el)=>{if(!el)return null;el.scrollIntoView({block:'center',behavior:'i
 NO_NET = re.compile(r'.*(open-meteo|amap\.com|baidu|googletagmanager|hm\.baidu).*')
 
 
+# 2026-11-18：行程页每站默认一行、“怎么去怎么回”默认一行摘要。功能类检查（改这站、加顺路站、改出发地……）在“全展开”下跑：
+# 给 <html> 加 class xall，site.css 里收起的规则都写在 html:not(.xall) 下。默认收起的样子和“点开”本身由 detail_simplify_check.py 验（它把 ROWS_OPEN 关掉）。
+XALL = "(function(){function f(){document.documentElement&&document.documentElement.classList.add('xall')}f();document.addEventListener('DOMContentLoaded',f)})();"
+ROWS_OPEN = True
+
+
 def new_ctx(br, p, w=390, h=844, storage=None, dark=False, **kw):
     c = br.new_context(viewport={'width': w, 'height': h}, is_mobile=True, has_touch=True, device_scale_factor=2, color_scheme='dark' if dark else 'light', timezone_id='Asia/Shanghai', locale='zh-CN', **kw)
     c.add_init_script("""(function(){var w={writeText:function(t){window.__clip=t;return Promise.resolve()}};try{Object.defineProperty(navigator,'clipboard',{value:w,configurable:true})}catch(e){}})();""")
+    if ROWS_OPEN: c.add_init_script(XALL)
     if storage:
         c.add_init_script('try{if(!localStorage.getItem("__seeded")){localStorage.setItem("__seeded","1");' + ''.join('localStorage.setItem(%s,%s);' % (json.dumps(k), json.dumps(v)) for k, v in storage.items()) + '}}catch(e){}')
     return c

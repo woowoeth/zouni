@@ -24,7 +24,8 @@ site = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 and not sys.argv[1].sta
 shots = sys.argv[sys.argv.index('--shots') + 1] if '--shots' in sys.argv else None
 if shots: os.makedirs(shots, exist_ok=True)
 INJECT = sys.argv[sys.argv.index('--inject') + 1] if '--inject' in sys.argv else None
-INJ_CSS = {'chan_flat': '.chan2{flex-wrap:nowrap!important}', 'chan_missing': '.chan2 a[href="/follow/"]{display:none!important}'}
+INJ_CSS = {'chan_wrap': '.chan2{flex-wrap:wrap!important}.chan2 a{flex:1 1 50%!important}',      # 2026-11-18 起频道是一行字；反向注入改成“变回两行”
+            'chan_missing': '.chan2 a[href="/follow/"]{display:none!important}'}
 if INJECT and INJECT not in INJ_CSS: sys.exit('--inject 只认 ' + ' / '.join(INJ_CSS))
 
 class Q(http.server.SimpleHTTPRequestHandler):
@@ -76,22 +77,25 @@ with sync_playwright() as p:
     # A：首屏
     s, ch = R(pg, '.hsearch'), [R(pg, f'.chan2 a:nth-child({i})') for i in (1, 2, 3, 4)]
     check('A 390×844 首屏看得到搜索框', bool(s) and s['b'] <= 844, str(s))
-    check('A 频道是 2×2（第 1、2 格同一行，第 3、4 格在下一行，两列各自左对齐）', all(ch) and abs(ch[0]['t'] - ch[1]['t']) <= 1 and abs(ch[2]['t'] - ch[3]['t']) <= 1 and ch[2]['t'] >= ch[0]['b'] - 1 and abs(ch[0]['l'] - ch[2]['l']) <= 1 and abs(ch[1]['l'] - ch[3]['l']) <= 1, str([x and (round(x['l']), round(x['t'])) for x in ch]))
+    pka = R(pg, '.chan2 .pka')
+    check('A 频道是一行字（2026-11-18 用户定）：四个频道加“替我挑”同一行、从左到右、每个高 >= 44', all(ch) and bool(pka) and all(abs(x['t'] - ch[0]['t']) <= 1 for x in ch + [pka]) and all(a['r'] <= b['l'] + 1 for a, b in zip(ch + [pka], ch[1:] + [pka])) and all(x['h'] >= 44 for x in ch + [pka]) and ch[0]['h'] <= 48, str([x and (round(x['l']), round(x['t']), round(x['h'])) for x in ch + [pka]]))
     check('A 390×844 首屏看得到频道四格', all(x and x['b'] <= 844 for x in ch), str([x and x['b'] for x in ch]))
     cov = R(pg, '.cover')
-    check('A 封面不吃掉整屏（高 <= 380）', cov and cov['h'] <= 380, str(cov and cov['h']))
+    check('A 封面缩成一条（高 <= 140；2026-11-18 用户定）', cov and cov['h'] <= 140, str(cov and cov['h']))
     img = pg.evaluate("(()=>{const i=document.querySelector('.cover img');return i?{ok:i.complete&&i.naturalWidth>0,src:i.getAttribute('src')}:null})()")
     check('A 封面有图且加载成功', bool(img and img['ok']), str(img))
     check('A 首屏有“翻开”封面入口', (R(pg, '.cv .go') or {'b': 9999})['b'] <= 844)
     pk = R(pg, '.pick')
-    check('A 首屏看到“替我挑三条”那一行', bool(pk) and pk['t'] < 844 - 20, str(pk))
+    check('A 首屏看到“替我挑”入口（在频道那一行里）', bool(pka) and pka['b'] <= 844, str(pka))
+    cards = pg.evaluate("[...document.querySelectorAll('#now .items li')].filter(l=>{const r=l.getBoundingClientRect();return r.height>0&&r.bottom<=innerHeight}).length")
+    check('A 390×844 首屏完整露出 >= 2 条线路（%d 条）' % cards, cards >= 2, str(cards))
     # C：顺序
-    check('C 搜索框在“替我挑三条”之前', s and pk and s['t'] < pk['t'])
+    check('C 搜索框在频道那一行之前', s and ch[0] and s['t'] < ch[0]['t'])
     check('C 搜索框在“现在去正好”之前', s['t'] < R(pg, '#now')['t'])
     # 替我挑三条：折叠
     check('通用 替我挑默认折叠（.pkb 隐藏）', pg.evaluate("document.querySelector('.pick .pkb').hidden===true"))
-    check('通用 替我挑折叠时只占一行（<= 80）', pk and pk['h'] <= 80, str(pk and pk['h']))
-    pg.click('.pick .pkh'); pg.wait_for_timeout(200)
+    check('通用 替我挑没点开时不占地方（高 0）', pk and pk['h'] == 0, str(pk and pk['h']))
+    pg.click('.chan2 .pka'); pg.wait_for_timeout(200)
     pk2 = R(pg, '.pick')
     check('通用 替我挑展开后 4 个问题 <= 340 高（原来 > 560）', pk2['h'] <= 340, str(pk2['h']))
     pg.click('.pkr[data-k="o"] button[data-v="北京"]'); pg.click('.pkr[data-k="d"] button[data-v="w"]'); pg.click('.pkr[data-k="w"] button[data-v="f"]'); pg.wait_for_timeout(300)
@@ -100,7 +104,7 @@ with sync_playwright() as p:
     hs = pg.evaluate("document.querySelector('.pick .pkh small').innerText")
     check('通用 替我挑折叠头显示已选项', '北京' in hs, hs)
     pg.click('.pick .pkh'); pg.wait_for_timeout(150)
-    check('通用 再点一下收起', pg.evaluate("document.querySelector('.pick .pkb').hidden===true"))
+    check('通用 再点一下收起（收起后又不占地方）', pg.evaluate("document.querySelector('.pick .pkb').hidden===true") and R(pg, '.pick')['h'] == 0)
     # D/B：列表
     vis = lambda: pg.evaluate("[...document.querySelectorAll('.now .items li')].filter(l=>!l.hidden).length")
     n0 = vis()
@@ -145,16 +149,19 @@ with sync_playwright() as p:
         tag = '暗色' if dark else '亮色'
         ov = pg.evaluate("document.documentElement.scrollWidth-innerWidth")
         check(f'通用 {tag} 无横向溢出', ov <= 0, str(ov))
-        for sel in ('.hsearch input', '.chan2 b', '.chan2 small', '.pick .pkh b', '.now h2 .nt', '.now .ns', '.now .datebar b', '.items li:not([hidden]) h3 a', '.items li:not([hidden]) p', '.items li:not([hidden]) small', '.items li:not([hidden]) .left'):
+        for sel in ('.hsearch input', '.chan2 b', '.now h2 .nt', '.now .ns', '.now .datebar b', '.items li:not([hidden]) h3 a', '.items li:not([hidden]) p', '.items li:not([hidden]) small', '.items li:not([hidden]) .left'):
             if sel == '.hsearch input': continue
             ct = contrast(pg, sel)
             check(f'通用 {tag} 对比度 {sel} >= 4.5', ct is not None and ct >= 4.5, str(ct))
+        pg.click('.chan2 .pka'); pg.wait_for_timeout(200)
+        ct = contrast(pg, '.pick .pkh b'); check(f'通用 {tag} 对比度 .pick .pkh b（点开后）>= 4.5', ct is not None and ct >= 4.5, str(ct))
         pkbg = pg.evaluate("[getComputedStyle(document.querySelector('.pick .pkh')).backgroundColor,getComputedStyle(document.body).backgroundColor]")
-        check(f'通用 {tag} 替我挑那一行和页面底色有区别', pkbg[0] != pkbg[1], str(pkbg))
+        check(f'通用 {tag} 替我挑点开后那一行和页面底色有区别', pkbg[0] != pkbg[1], str(pkbg))
+        pg.click('.pick .pkh'); pg.wait_for_timeout(150)
         if shots:
             pg.screenshot(path=f'{shots}/home_390_{"dark" if dark else "light"}_fold.png')
             if not dark:
-                pg.click('.pick .pkh'); pg.wait_for_timeout(200); pg.locator('.pick').screenshot(path=f'{shots}/home_390_pick_open.png')
+                pg.click('.chan2 .pka'); pg.wait_for_timeout(200); pg.locator('.pick').screenshot(path=f'{shots}/home_390_pick_open.png')
                 pg.reload(wait_until='networkidle'); pg.wait_for_timeout(500); pg.screenshot(path=f'{shots}/home_390_full.png', full_page=True)
         c.close()
 
@@ -181,6 +188,6 @@ for x in oks: print('✓', x)
 for x in fails: print('✗', x)
 print(f'\n{len(oks)} 过 · {len(fails)} 红')
 if INJECT:
-    hit = [f for f in fails if '频道' in f or '2×2' in f]
+    hit = [f for f in fails if '频道' in f]
     print(('红（正确）' if hit else '没红（判据有洞）'), '·', INJECT, '→', hit[:1]); sys.exit(0 if hit else 2)
 sys.exit(1 if fails else 0)
