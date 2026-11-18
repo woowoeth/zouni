@@ -60,7 +60,7 @@ const L=R(q('.hsearch')); o.L=L.l; o.Rr=L.r;
 // a 左缘 / 右缘
 const edges=[];
 const E=(name,e,mode,side)=>{if(!e)return;const r=mode==='t'?txt(e):R(e);if(!r)return;edges.push({name,l:r.l,r:r.r,side:side||'lr'})};
-E('封面 走你',q('.mast h1'),'t','l');E('封面 小字',q('.cv .kick'),'t','l');E('封面 标题',q('.cv h2'),'t','l');
+E('封面 走你',q('.mast h1'),'t','l');
 E('封面 我的行程(右缘)',q('.minebtn'),'b','r');
 E('搜索框',q('.hsearch'),'b');E('频道一行',q('.chan2'),'b');if(vis(q('.pick .pkh')))E('挑三条 条',q('.pick .pkh'),'b');
 if(state!=='base'){E('挑三条 左标签',q('.pick .pkq'),'t','l');E('挑三条 提示',q('.pick .pkhint'),'t','l')}

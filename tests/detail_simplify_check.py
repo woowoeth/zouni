@@ -485,7 +485,14 @@ with sync_playwright() as p:
             check('S13 再点一次收起', row.evaluate("r=>r.querySelector('.icg').getBoundingClientRect().height") == 0)
             pg.click('#d1 .story'); pg.wait_for_timeout(150)
             sh = pg.evaluate("(()=>{const s=document.querySelector('#d1 .story');return {h:s.getBoundingClientRect().height,p:[...s.querySelectorAll('p')].filter(e=>e.getBoundingClientRect().height>0).length,all:s.querySelectorAll('p').length}})()")
-            check('S13 点“背景”：%d 段全部出现' % sh['all'], sh['p'] == sh['all'] and sh['h'] > 100, sh); c.close()
+            check('S13 点“背景”：%d 段全部出现' % sh['all'], sh['p'] == sh['all'] and sh['h'] > 100, sh)
+            st = pg.evaluate("(()=>{const s=document.querySelector('#d1 .stays'),l=s.querySelector('.sh .lbl');return {h:s.getBoundingClientRect().height,a:l.getAttribute('data-a')||'',ul:s.querySelector('ul')?s.querySelector('ul').getBoundingClientRect().height:-1}})()")
+            check('S13 住宿卡默认一行（高 %d ≤ 48），行上写着住哪一带（%s）' % (st['h'], st['a']), 0 < st['h'] <= 48 and st['a'] and st['ul'] == 0, st)
+            pg.click('#d1 .stays .sh'); pg.wait_for_timeout(150)
+            st2 = pg.evaluate("(()=>{const s=document.querySelector('#d1 .stays');return {h:s.getBoundingClientRect().height,ul:s.querySelector('ul').getBoundingClientRect().height,a:s.querySelectorAll('a').length}})()")
+            check('S13 点住宿那一行：卡片展开（高 %d），住处列表和链接 %d 个出现' % (st2['h'], st2['a']), st2['h'] > 100 and st2['ul'] > 0 and st2['a'] >= 1, st2)
+            dk = pg.evaluate("(()=>{const d=document.querySelector('.dock');return {h:d.getBoundingClientRect().height,w:d.querySelector('div').getBoundingClientRect().width}})()")
+            check('S13 底栏（非长线）只有两个按钮、高 %d ≤ 64' % dk['h'], dk['h'] <= 64 and dk['w'] == 0, dk); c.close()
         with guard('S10 K 查住宿'):
             c, pg = trip(br, 'xa3'); n = 0
             pg.evaluate("document.querySelector('.todoall').scrollIntoView({block:'center',behavior:'instant'})"); pg.click('.todoall'); n += 1; pg.wait_for_selector('.tv.todo'); pg.wait_for_timeout(250)

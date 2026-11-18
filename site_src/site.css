@@ -1347,3 +1347,20 @@ html:not(.xall) .day .story:not(.open):after{content:"›";flex:none;font-size:1
 .home .chan2 a,.home .chan2 .pka{flex:none;min-width:0;min-height:44px;padding:0;border:0;background:none;display:flex;flex-direction:row;align-items:center;color:var(--ink);font:inherit;cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}
 .home .chan2 small{display:none}.home .chan2 b{font-size:0.875rem;font-weight:700}.home .chan2 .pka b{color:var(--red)}
 .home .pick:not(.open){display:none}
+/* 第二轮减法（2026-11-18）：住宿卡默认一行、页头图变矮、底栏只留两个按钮、首页不要封面故事、能展开的行尾有“›” */
+html:not(.xall) .day .stays:not(.sx){cursor:pointer}
+html:not(.xall) .day .stays:not(.sx)>:not(.sh){display:none}
+html:not(.xall) .day .stays:not(.sx) .sh{min-height:44px;padding:0 14px}
+html:not(.xall) .day .stays:not(.sx) .sh .lbl[data-a]:after{content:" · " attr(data-a);letter-spacing:0;font-weight:400;color:var(--ink)}
+html:not(.xall) .day .stays:not(.sx) .sh span:last-child{margin-left:auto}
+html:not(.xall) .day .stays:not(.sx) .sh:after{content:"›";flex:none;margin-left:10px;font-size:1.125rem;color:var(--sub)}
+@media print{html:not(.xall) .day .stays:not(.sx)>:not(.sh){display:revert}html:not(.xall) .day .stays:not(.sx) .sh:after{content:none}}
+html:not(.xall) .day .tl>.r.see:not(.open) .m:after,html:not(.xall) .day .tl>.r.fun:not(.open) .m:after,html:not(.xall) .day .tl>.r.eat:not(.open) .m:after{content:"›";margin-left:auto;padding-left:8px;font-weight:400;font-size:1.125rem;line-height:1;color:var(--sub)}
+@media print{.day .tl>.r .m:after{content:none!important}}
+.trip .hero,.trip .hero.text{min-height:190px;padding-top:56px}
+.trip .dock{padding-top:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0))}
+/* 长线（data-lg=1）保留底栏左边“日期 改”：滚到第 12 天还能改出发日期，不用翻回 20 多屏之外的页头 */
+.trip:not([data-lg="1"]) .dock>div:first-child{flex:0 0 0;width:0;min-width:0;overflow:hidden}
+.trip:not([data-lg="1"]) .dock .fav,.trip:not([data-lg="1"]) .dock .tvbtn{flex:1;justify-content:center;margin-left:0}.trip:not([data-lg="1"]) .dock .tvbtn{margin-left:8px}
+.trip .dock .fav,.trip .dock .tvbtn{height:44px}
+.home .cv{display:none}.home .mast{margin-bottom:10px}
