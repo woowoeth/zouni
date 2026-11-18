@@ -269,6 +269,9 @@ with sync_playwright() as p:
             c2, pg2 = new_page()
             pg2.goto(link.replace('http://127.0.0.1:%d' % srv.server_address[1], B), wait_until='networkidle'); pg2.wait_for_timeout(1500)
             r2 = [r['m'] for r in vis(pg2, 3)]
+            for _w in range(17):      # 机器忙时 1.5 秒不够画完：最多再等 8.5 秒，判据不变（2026-11-18）
+                if X_name + '（加的）' in r2: break
+                pg2.wait_for_timeout(500); r2 = [r['m'] for r in vis(pg2, 3)]
             check('⑨ 朋友打开链接，第 3 天里也有新站', X_name + '（加的）' in r2, r2)
             c2.close()
         # 今天视图读 DOM

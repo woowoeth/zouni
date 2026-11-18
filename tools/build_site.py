@@ -16159,8 +16159,13 @@ def _sj_for_trip(rid, r):
     used = set(); out = {}; seen_food = set()     # seen_food：同一条行程里同一道菜只推荐一次
     tt = TRIP_OF_ROUTE.get(rid) or {}; prov = (DEST.get(tt.get('dest'), {}) or {}).get('name', ''); cross = bool(set(tt.get('tags') or []) & {'跨省', '全国'})
     for k, d in enumerate(r['days']):
-        txt = ' '.join(str(d.get(f) or '') for f in ('city', 'navCity', 'title', 'stayName')) + ' ' + ' '.join((w.get('name') or w.get('to') or '') for w in d['rows'] if w['type'] in ('see', 'fun', 'dep'))
-        _cities = {str(d.get(f) or '') for f in ('city', 'navCity', 'stayName')} - {''}
+        # 2026-11-18：当天的 city 写的是回程的城市、而这天的站全在 80 公里以外（zhni 第 3 天 city=长沙、站在安化）：city 不参与对地名，否则“长沙”的条目会挂到安化那天
+        _cf = ('city', 'navCity')
+        _c0 = d.get('navCity') or d.get('city'); _cc = GEO.get((_c0 or '') + '|' + (_c0 or ''))
+        _ps = [coord(w['poi'], _c0) for w in d['rows'] if w['type'] in ('see', 'fun') and w.get('poi')]
+        if _cc and _ps and all(_ps) and min(_km(p_, (_cc['lat'], _cc['lng'])) for p_ in _ps) > 80: _cf = ()
+        txt = ' '.join(str(d.get(f) or '') for f in _cf + ('title', 'stayName')) + ' ' + ' '.join((w.get('name') or w.get('to') or '') for w in d['rows'] if w['type'] in ('see', 'fun', 'dep'))
+        _cities = {str(d.get(f) or '') for f in _cf + ('stayName',)} - {''}
         _toks = [t_ for t_ in _TOK_SPLIT.split(txt) if t_]
         for i, x in sorted(enumerate(SJ), key=lambda ix: 0 if ix[1].get('show') in ('如果国宝会说话', '记住乡愁') else 1):   # 当天去的博物馆里的国宝、当天去的村子先说
             if i in used or x.get('show') == '航拍中国': continue
