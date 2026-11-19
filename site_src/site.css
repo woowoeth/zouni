@@ -1371,3 +1371,5 @@ html:not(.xall) .day .tl>.r.see:not(.open) .m:after,html:not(.xall) .day .tl>.r.
 .home .items .tx p{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* 走哪儿减法（2026-11-19）：页头不要说明段和两条导流（首页已有这两个入口） */
 .where .deck,.where .wlong{display:none}
+/* 频道页减法（2026-11-19）：标题上面那行“走你 · 2026 · 十一月 · 频道”只是装饰；跟谁走的“常看”一排和下面的列表、搜索框重复 */
+.pagehead+.kick{display:none}.fpg .fhot{display:none}
