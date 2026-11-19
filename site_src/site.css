@@ -1364,3 +1364,8 @@ html:not(.xall) .day .tl>.r.see:not(.open) .m:after,html:not(.xall) .day .tl>.r.
 .trip:not([data-lg="1"]) .dock .fav,.trip:not([data-lg="1"]) .dock .tvbtn{flex:1;justify-content:center;margin-left:0}.trip:not([data-lg="1"]) .dock .tvbtn{margin-left:8px}
 .trip .dock .fav,.trip .dock .tvbtn{height:44px}
 .home .cv{display:none}.home .mast{margin-bottom:10px}
+/* 第三轮减法（2026-11-19）：“影视和美食里的这一带”挪到当天末尾；“改这站”和“改日期/改时间”同一个样子；首页卡片途经地只占一行 */
+.trip .day{display:flex;flex-direction:column}.trip .day>*{min-width:0}
+.trip .day>.sjd{order:1;margin-top:14px}.trip .day>.dayact{order:2}
+.r .s .adj{padding:0;background:none;font-size:0.8125rem;color:var(--red)}
+.home .items .tx p{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}

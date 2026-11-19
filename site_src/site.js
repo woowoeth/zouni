@@ -1087,8 +1087,10 @@ var fd=window.zFareDelta?window.zFareDelta():[0,0];p.textContent='¥'+r(Math.max
     window.zOrigin=zOrigin;window.zGoHas=function(){return!!(goEl&&GO)};
     function goSum(){if(!goEl)return;var b=goEl.querySelector('.gob'),sp=goEl.querySelector('.gw span');if(!b||!sp)return;var t=sp.textContent,m=/回：第\s*(\d+)\s*天\s*(\d\d:\d\d)/.exec(t),gs=b.querySelector('.gos'),gr=b.querySelector('.gor');if(gs)gs.textContent=t.split('。')[0];if(gr&&m)gr.textContent='第 '+m[1]+' 天 '+m[2]+' 回'}
     window.zGoSum=goSum;
+    // 点“住 · …”跳到住宿卡：卡片要先展开再跳（捕获阶段，赶在上面那个算位置的监听之前），不然跳完才展开、落点偏 90 像素（2026-11-19）
+    document.addEventListener('click',function(e){var sr=e.target.closest&&e.target.closest('.day .tl > .r.stay');if(sr){var sc=sr.closest('.day').querySelector('.stays');if(sc)sc.classList.add('sx')}},true);
     // 每站只留一行：点这一行（不是点里面的链接、按钮）展开/收起图标、改这站、镇馆之宝（2026-11-18）
-    document.addEventListener('click',function(e){var t=e.target;if(!t.closest)return;var sr=t.closest('.day .tl > .r.stay');if(sr){var sc=sr.closest('.day').querySelector('.stays');if(sc)sc.classList.add('sx')}if(t.closest('a,button,select,input,label'))return;var sk=t.closest('.day .stays');if(sk&&!sk.classList.contains('sx')){sk.classList.add('sx');return}var r=t.closest('.day .tl > .r.see, .day .tl > .r.fun, .day .tl > .r.eat');if(!r){var sy=t.closest('.day .story');if(sy&&!sy.classList.contains('open'))sy.classList.add('open');return}r.classList.toggle('open')});
+    document.addEventListener('click',function(e){var t=e.target;if(!t.closest)return;if(t.closest('a,button,select,input,label'))return;var sk=t.closest('.day .stays');if(sk&&!sk.classList.contains('sx')){sk.classList.add('sx');return}var r=t.closest('.day .tl > .r.see, .day .tl > .r.fun, .day .tl > .r.eat');if(!r){var sy=t.closest('.day .story');if(sy&&!sy.classList.contains('open'))sy.classList.add('open');return}r.classList.toggle('open')});
     (function(){var b=goEl&&goEl.querySelector('.gob');if(b)b.addEventListener('click',function(){goEl.classList.add('open');b.setAttribute('aria-expanded','true');ztrack('线路页·展开怎么去')})})();
     goSum();
     [].slice.call(document.querySelectorAll('.day .stays')).forEach(function(c){var l=c.querySelector('.sh .lbl'),nm=c.querySelector('li:not(.more) b.tg, li:not(.more) b'),a=c.dataset.area||(nm?nm.textContent.trim():'');if(l&&a)l.setAttribute('data-a',a)});
