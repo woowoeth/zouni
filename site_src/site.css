@@ -1369,3 +1369,5 @@ html:not(.xall) .day .tl>.r.see:not(.open) .m:after,html:not(.xall) .day .tl>.r.
 .trip .day>.sjd{order:1;margin-top:14px}.trip .day>.dayact{order:2}
 .r .s .adj{padding:0;background:none;font-size:0.8125rem;color:var(--red)}
 .home .items .tx p{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* 走哪儿减法（2026-11-19）：页头不要说明段和两条导流（首页已有这两个入口） */
+.where .deck,.where .wlong{display:none}

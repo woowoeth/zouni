@@ -16954,13 +16954,14 @@ def where_page():
                 for y_ in sj_for_dest(x['name']): xs_[y_.get('show') or '舌尖上的中国'] = xs_.get(y_.get('show') or '舌尖上的中国', 0) + 1
                 xtop_ = sorted(xs_.items(), key=lambda kv: (-kv[1]))[:3]
                 xp_ = (f'<p class="kv"><b>拍过</b><span>' + '、'.join(f'{E(s_)} {n_}' for s_, n_ in xtop_) + (f'…共 {len(xs_)} 部' if len(xs_) > 3 else '') + '</span></p>') if xtop_ and not x['noTrip'] else ''
+                xp_ = ''      # 2026-11-19：卡片里不再写“拍过”那一行（节目名加集数，不帮人拿主意；目的地页里还有）
                 tg_txt = qn + ' ' + ' '.join(ROUTES[r_].get('label', '') for r_ in DEST_ROUTES.get(x['id'], []))
                 tags_ = ','.join([k_ for k_, pat_ in WHERE_TAGS if re.search(pat_, tg_txt)] + (['亲子'] if x['name'] in KIDS_DEST else []))
                 rows = []
-                for rid in DEST_ROUTES.get(x['id'], [])[:4]:
+                for rid in DEST_ROUTES.get(x['id'], [])[:2]:      # 2026-11-19：卡片里只列 2 条（原来 4 条），其余在“还有 N 条行程”里
                     tt = TRIP_OF_ROUTE[rid]; rr = ROUTES[rid]
                     rows.append(f'<a href="/trip/{rid}/"><b>{E(rr.get("label"))} ›</b><span>{E(price_k(rr.get("price")))}{(" · " + " · ".join((tt.get("tags") or [])[:2])) if tt.get("tags") else ""}</span></a>')
-                more = len(DEST_ROUTES.get(x['id'], [])) - 4
+                more = len(DEST_ROUTES.get(x['id'], [])) - 2
                 qn_ = len(QUAL_BY_PROV.get(x['name'], [])) if scope == 'domestic' else 0
                 qlink = (f'<a class="q" href="/d/{x["id"]}/{"" if more > 0 else "#q"}">' + '　'.join(z_ for z_ in [f'还有 {more} 条行程' if more > 0 else '', f'{qn_} 处 5A 和世界遗产' if qn_ else ''] if z_) + ' ›</a>') if (qn_ or more > 0) else ''      # 同一个目的地页的链接：卡头 + 这一条（原来 4 个：卡头、“片里”、5A、还有 N 条）
                 entry = f'<p class="kv"><b>入境</b>{E(x.get("entry"))}</p>' if x.get('entry') else ''
