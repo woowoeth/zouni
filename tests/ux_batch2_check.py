@@ -208,7 +208,7 @@ with sync_playwright() as p:
             fd2 = [a - b for a, b in zip(fare(km2), fare(g['km']))]
             check('G1.5 票价跟着变（%s，和成都那次 %s 不同）' % (price_expect(S['cost'], 3, fd2), S['price']), S2['price'] == price_expect(S['cost'], 3, fd2) and S2['price'] != S['price'], (S2['price'], S['price']))
             if env.shots: pg.screenshot(path=os.path.join(env.shots, 'G1_trip_origin.png'))
-            goto(env, pg, '/'); pg.click('.chan2 .pka'); pg.wait_for_timeout(200)
+            goto(env, pg, '/'); pg.click('.pkh'); pg.wait_for_timeout(200)
             on = pg.inner_text('.pkr[data-k="o"] button.on')
             check('G1.6 回首页：向导里出发地也是乌鲁木齐（同一个默认）', on == '乌鲁木齐', on)
             pg.click('.pkr[data-k="w"] button[data-v="c"]'); pg.wait_for_timeout(150)
@@ -577,7 +577,7 @@ with sync_playwright() as p:
             c.close()
         with guard('G6-precache'):
             DEV_SW = "try{localStorage.setItem('zouni_dev_sw','1')}catch(e){}"
-            c = br.new_context(viewport={'width': 390, 'height': 844}, is_mobile=True, has_touch=True, service_workers='allow'); c.add_init_script(DEV_SW); c.add_init_script(XALL)
+            c = br.new_context(viewport={'width': 390, 'height': 844}, is_mobile=True, has_touch=True, service_workers='allow'); c.add_init_script(DEV_SW)
             pg = new_page(env, c); goto(env, pg, '/'); pg.wait_for_function("navigator.serviceWorker&&navigator.serviceWorker.controller", timeout=20000)
             goto(env, pg, '/trip/xa3/', 800)
             ll = pg.evaluate("[...document.querySelectorAll('.tl > .r[data-ll],.day')].map(e=>e.dataset.ll||e.dataset.sp||'').filter(Boolean)")

@@ -16730,7 +16730,7 @@ def trip_page(rid):
     _canon = f'/trip/{t["covered_by"]}/' if t.get('covered_by') in ROUTES and t.get('covered_by') != rid else None      # 被完整覆盖的线：页面保留，canonical 指向覆盖它的那条
     dock = f'<div class="dock"><div><b>建议 {md(dates[0])} 出发 · {n} 天</b><small>2 人 · 每人 {E(price_k(price))}</small></div><button type="button" class="fav" data-id="{rid}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{FAV_ICON}<span>收进行程</span></button></div>'
     body = (f'<article class="trip" data-app="{app}" data-id="{rid}" data-dest="{E(np_it(rid).get("dest") or t.get("dest") or "")}" data-sv="{_sv}" data-lg="{1 if is_long(rid) else 0}" data-n0="{n}" data-mon="{",".join(str(x) for x in mon_days(r))}" data-start="{dates[0].isoformat()}" data-cl="{",".join(f"{i}:{(wd + 1) % 7}" for i, wd in fclosed_days(r))}" data-label="{E(r.get("label"))}" data-title="{E(r["title"])}">{hero(r, back, True)}{glance}'
-            + (f'<section class="pre go" data-go=\'{E(json.dumps(_g, ensure_ascii=False))}\'><button type="button" class="gob" aria-expanded="false"><span class="gos">{E(go_text(_g))}</span>{f'<b class="gor">第 {n} 天 {_dm[-1][0]} 回</b>' if _ret else ''}<i>›</i></button><h2>{"怎么去、怎么回" if _ret else "怎么去"}</h2><ul><li class="tip gw"><span>{E(go_text(_g))}。'
+            + (f'<section class="pre go" data-go=\'{E(json.dumps(_g, ensure_ascii=False))}\'><h2>{"怎么去、怎么回" if _ret else "怎么去"}</h2><ul><li class="tip gw"><span>{E(go_text(_g))}。'
                + (f'第一天 {E(_g["first"])} 开始。' if _g['first'] and _g['first'] >= '12:00' else (f'第一天 {E(_g["first"])} 就开始，最好头天晚上到。' if _g['first'] else '')) + (E(_ret) if _ret else '') + '</span></li>'
 
                + '</ul></section>' if _g else '') +
@@ -16954,14 +16954,13 @@ def where_page():
                 for y_ in sj_for_dest(x['name']): xs_[y_.get('show') or '舌尖上的中国'] = xs_.get(y_.get('show') or '舌尖上的中国', 0) + 1
                 xtop_ = sorted(xs_.items(), key=lambda kv: (-kv[1]))[:3]
                 xp_ = (f'<p class="kv"><b>拍过</b><span>' + '、'.join(f'{E(s_)} {n_}' for s_, n_ in xtop_) + (f'…共 {len(xs_)} 部' if len(xs_) > 3 else '') + '</span></p>') if xtop_ and not x['noTrip'] else ''
-                xp_ = ''      # 2026-11-19：卡片里不再写“拍过”那一行（节目名加集数，不帮人拿主意；目的地页里还有）
                 tg_txt = qn + ' ' + ' '.join(ROUTES[r_].get('label', '') for r_ in DEST_ROUTES.get(x['id'], []))
                 tags_ = ','.join([k_ for k_, pat_ in WHERE_TAGS if re.search(pat_, tg_txt)] + (['亲子'] if x['name'] in KIDS_DEST else []))
                 rows = []
-                for rid in DEST_ROUTES.get(x['id'], [])[:2]:      # 2026-11-19：卡片里只列 2 条（原来 4 条），其余在“还有 N 条行程”里
+                for rid in DEST_ROUTES.get(x['id'], [])[:4]:
                     tt = TRIP_OF_ROUTE[rid]; rr = ROUTES[rid]
                     rows.append(f'<a href="/trip/{rid}/"><b>{E(rr.get("label"))} ›</b><span>{E(price_k(rr.get("price")))}{(" · " + " · ".join((tt.get("tags") or [])[:2])) if tt.get("tags") else ""}</span></a>')
-                more = len(DEST_ROUTES.get(x['id'], [])) - 2
+                more = len(DEST_ROUTES.get(x['id'], [])) - 4
                 qn_ = len(QUAL_BY_PROV.get(x['name'], [])) if scope == 'domestic' else 0
                 qlink = (f'<a class="q" href="/d/{x["id"]}/{"" if more > 0 else "#q"}">' + '　'.join(z_ for z_ in [f'还有 {more} 条行程' if more > 0 else '', f'{qn_} 处 5A 和世界遗产' if qn_ else ''] if z_) + ' ›</a>') if (qn_ or more > 0) else ''      # 同一个目的地页的链接：卡头 + 这一条（原来 4 个：卡头、“片里”、5A、还有 N 条）
                 entry = f'<p class="kv"><b>入境</b>{E(x.get("entry"))}</p>' if x.get('entry') else ''
@@ -17310,7 +17309,7 @@ def home_page():
             f'<div class="mast"><div><h1>走你</h1><small>{TODAY.year} · {mname}</small><p class="tagline">按季节挑地方，按天排好每一站</p></div><button type="button" class="minebtn">{FAV_ICON}<span>我的行程</span></button></div>'
             f'<div class="cv"><span class="kick">封面故事 · 正当季{((" · 今天最后一天" if dl0 == 0 else " · 最好到 " + _end_txt(tc))) if dl0 is not None else ""}</span><a class="go" href="/trip/{cover}/"><h2>{tsplit(r["title"])}</h2></a><div class="chips"><span>{len(r["days"])} 天 · {E(price_k(r.get("price")))}/人</span><span>{m} 月 {c0[0]}°C / {c0[1]}°C</span></div></div></div>'
             f'<form class="hsearch" action="/where/" method="get" role="search"><input type="search" name="q" placeholder="搜地名、行程，如 川藏" aria-label="搜地名、景点或行程" enterkeyhint="search" autocomplete="off"></form>'
-            f'<nav class="chan2" aria-label="频道"><a href="/where/"><b>走哪儿</b><small>按月份挑国内外</small></a><a href="/pian/"><b>跟片走</b><small>舌尖、国宝、航拍</small></a><a href="/follow/"><b>跟谁走</b><small>苏轼、玄奘、郑和</small></a><a href="/long/"><b>长线自驾</b><small>{LONG_MIN_DAYS} 天以上的自驾路</small></a><button type="button" class="pka"><b>替我挑</b></button></nav>'
+            f'<nav class="chan2" aria-label="频道"><a href="/where/"><b>走哪儿</b><small>按月份挑国内外</small></a><a href="/pian/"><b>跟片走</b><small>舌尖、国宝、航拍</small></a><a href="/follow/"><b>跟谁走</b><small>苏轼、玄奘、郑和</small></a><a href="/long/"><b>长线自驾</b><small>{LONG_MIN_DAYS} 天以上的自驾路</small></a></nav>'
             f'<section class="toc now" id="now"><div class="nowh"><h2><span class="nt">现在去正好</span><small class="ns">{len(order) + 1} 条</small></h2>{datebar}</div>{chips}<ol class="items">{toc}</ol>'
             f'{("<button type=button class=moreb>再看 8 条</button>") if len(order) > 8 else ""}</section>'
             + (f'<section class="toc"><h2>下个月正好</h2><ol class="items">{nitems}</ol></section>' if nitems else '')

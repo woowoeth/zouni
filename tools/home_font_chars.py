@@ -36,7 +36,7 @@ def main():
         pg.goto(B + '/', wait_until='networkidle'); pg.wait_for_timeout(1500)
         for k, v in pg.evaluate(JS).items(): out.setdefault(k, set()).update(v)
         # 首页上一点就出来的东西：日期面板、“替我挑三条”展开（真点开再收一遍字），不然用户第一次点就多下几个切片
-        for sel_ in ('.chan2 .pka', '.hdt'):      # 2026-11-18：“替我挑”从频道那一行点开
+        for sel_ in ('.pkh', '.hdt'):
             try:
                 pg.click(sel_, timeout=4000); pg.wait_for_timeout(500)
                 for k, v in pg.evaluate(JS).items(): out.setdefault(k, set()).update(v)

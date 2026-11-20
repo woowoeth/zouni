@@ -62,8 +62,17 @@ B = 'http://127.0.0.1:%d' % srv.server_address[1]
 fails, oks = [], []
 
 
+# 2026-11-19：叠加 / ⑨ 偶发红（刷新后顺路站没放回去），单独连跑 6 遍复现不了，只在发布链里出现。
+# 失败时把每个页面的 zouni_np_xa3、zouni_np_bad、每天的顺路站数、以及页面对 zouni_np_ 的每次写/删（带调用位置）打到日志里，下次红了直接看 build/logs/rd_nearby_ui*.log 里的 DIAG 行。
+PAGES = []
+DJS = "(()=>{let np=null,bad=null,log=null;try{np=localStorage.getItem('zouni_np_xa3');bad=sessionStorage.getItem('zouni_np_bad');log=JSON.stringify(window.__npdiag||[])}catch(e){}return {url:location.pathname+location.hash.slice(0,12),np:np&&np.slice(0,400),bad,days:[...document.querySelectorAll('.day')].map(s=>s.id+':'+s.dataset.oi+':np'+s.querySelectorAll('[data-np=v]').length),log:log&&log.slice(0,800)}})()"
 def check(name, cond, detail=''):
     (oks if cond else fails).append(name + ('  → ' + str(detail)[:300] if detail != '' and not cond else ''))
+    if not cond and (name.startswith('叠加') or name.startswith('⑨')):
+        for p_ in PAGES:
+            try:
+                if not p_.is_closed(): print('DIAG', name[:30], p_.evaluate(DJS), flush=True)
+            except Exception as e_: print('DIAG-ERR', str(e_)[:80], flush=True)
 
 
 class _Guard:
@@ -117,10 +126,11 @@ with sync_playwright() as p:
     def new_page(storage=None, ctx=None):
         c = ctx or br.new_context(**p.devices['iPhone 13'], timezone_id='Asia/Shanghai', locale='zh-CN')
         c.add_init_script(FIX)
-        c.add_init_script("(function(){function f(){document.documentElement&&document.documentElement.classList.add('xall')}f();document.addEventListener('DOMContentLoaded',f)})();")      # 全展开（见 ux_common.XALL）：这套验加站/换站，不验默认收起
         if storage:
             c.add_init_script('try{' + ''.join('localStorage.setItem(%s,%s);' % (json.dumps(k), json.dumps(v)) for k, v in storage.items()) + '}catch(e){}')
         pg = c.new_page()
+        PAGES.append(pg)
+        pg.add_init_script("""(function(){window.__npdiag=[];var si=Storage.prototype.setItem,ri=Storage.prototype.removeItem;Storage.prototype.setItem=function(k,v){if(/zouni_np_/.test(k))window.__npdiag.push(['set',k,String(v).length,(new Error).stack.split('\\n').slice(2,4).join('|').replace(/https?:[^ )]+site.js[^:]*/g,'js')]);return si.apply(this,arguments)};Storage.prototype.removeItem=function(k){if(/zouni_np_/.test(k))window.__npdiag.push(['rm',k,(new Error).stack.split('\\n').slice(2,4).join('|').replace(/https?:[^ )]+site.js[^:]*/g,'js')]);return ri.apply(this,arguments)}})();""")
         pg.on('console', lambda m: errs.append('console: ' + m.text) if m.type == 'error' and 'Failed to load resource' not in m.text and 'open-meteo' not in m.text else None)
         pg.on('pageerror', lambda e: errs.append('pageerror: ' + str(e)[:200]))
         pg.route(re.compile(r'.*(open-meteo|googletagmanager|hm\.baidu).*'), lambda r: r.abort())

@@ -367,7 +367,7 @@
       // 去掉了几天以后，页面上别的地方按剩下的天重算（2026-10-19）：① “怎么去、怎么回”里“回：第 N 天 …”读剩下的最后一天（天序号、几点、从哪一站出发）；② “出发前”里只提到被去掉那几天的站（兵马俑预约）、剩下的天里没有的，整条隐藏——页内、“出发前要办的事”清单和复制行程都读 li.hidden
       if(gone.length&&left.length){var gw=document.querySelector('.pre.go .gw span'),ld_=left[left.length-1],bdp=[].slice.call(ld_.querySelectorAll('.tl > .r.dep')).filter(function(r){return/→\s*回程/.test(r.textContent)}).pop();
         if(gw&&bdp&&/回：第/.test(gw.textContent)){var sees_=[].slice.call(ld_.querySelectorAll('.tl > .r.see .m, .tl > .r.fun .m')),ln_=sees_.length?(sees_[sees_.length-1].childNodes[0]||sees_[sees_.length-1]).textContent.trim().split(/\s*·\s*/)[0]:'',tm_=(bdp.querySelector('time')||{}).textContent||'',hw_=((bdp.querySelector('.s')||{}).textContent||'').trim().replace(/。$/,'');
-          gw.textContent=gw.textContent.replace(/回：第[\s\S]*$/,'回：第 '+left.length+'\u00a0天 '+tm_+' '+(ln_?'从'+ln_+'出发，':'出发，')+hw_+'。');if(window.zGoSum)window.zGoSum()}
+          gw.textContent=gw.textContent.replace(/回：第[\s\S]*$/,'回：第 '+left.length+'\u00a0天 '+tm_+' '+(ln_?'从'+ln_+'出发，':'出发，')+hw_+'。')}
         var rem_=left.map(function(d){var t=d.querySelector('.tl');return t?t.textContent:''}).join(' ');
         [].slice.call(document.querySelectorAll('section.pre:not(.go) li')).forEach(function(li){if(li.querySelector('li'))return;var tx=li.textContent||'';
           var hit=goneNm.some(function(n){var z=n.replace(/博物院|博物馆/g,'');return z.length>=3&&tx.indexOf(z)>=0});
@@ -1085,22 +1085,13 @@ var fd=window.zFareDelta?window.zFareDelta():[0,0];p.textContent='¥'+r(Math.max
     function goNow(){if(!GO)return null;var o=zOrigin()||{n:GO.o,lat:null},km=o.lat!=null?zKm(o.lat,o.lng,GO.lat,GO.lng):GO.km;var mode=(+GO.drv)?'drive':(km<60?'near':(+GO.ab||km>1200)?'fly':'train');return{o:o.n,km:km,mode:mode,way:zGoWay(GO,o.n,km)}}
     // 注意：不要把注释写在同一行代码后面——以前这里一行“// 行程里写明了…”把后面的 var gn=…、改写文字全吞了，线路页从来没按出发地改写过
     window.zOrigin=zOrigin;window.zGoHas=function(){return!!(goEl&&GO)};
-    function goSum(){if(!goEl)return;var b=goEl.querySelector('.gob'),sp=goEl.querySelector('.gw span');if(!b||!sp)return;var t=sp.textContent,m=/回：第\s*(\d+)\s*天\s*(\d\d:\d\d)/.exec(t),gs=b.querySelector('.gos'),gr=b.querySelector('.gor');if(gs)gs.textContent=t.split('。')[0];if(gr&&m)gr.textContent='第 '+m[1]+' 天 '+m[2]+' 回'}
-    window.zGoSum=goSum;
-    // 点“住 · …”跳到住宿卡：卡片要先展开再跳（捕获阶段，赶在上面那个算位置的监听之前），不然跳完才展开、落点偏 90 像素（2026-11-19）
-    document.addEventListener('click',function(e){var sr=e.target.closest&&e.target.closest('.day .tl > .r.stay');if(sr){var sc=sr.closest('.day').querySelector('.stays');if(sc)sc.classList.add('sx')}},true);
-    // 每站只留一行：点这一行（不是点里面的链接、按钮）展开/收起图标、改这站、镇馆之宝（2026-11-18）
-    document.addEventListener('click',function(e){var t=e.target;if(!t.closest)return;if(t.closest('a,button,select,input,label'))return;var sk=t.closest('.day .stays');if(sk&&!sk.classList.contains('sx')){sk.classList.add('sx');return}var r=t.closest('.day .tl > .r.see, .day .tl > .r.fun, .day .tl > .r.eat');if(!r){var sy=t.closest('.day .story');if(sy&&!sy.classList.contains('open'))sy.classList.add('open');return}r.classList.toggle('open')});
-    (function(){var b=goEl&&goEl.querySelector('.gob');if(b)b.addEventListener('click',function(){goEl.classList.add('open');b.setAttribute('aria-expanded','true');ztrack('线路页·展开怎么去')})})();
-    goSum();
-    [].slice.call(document.querySelectorAll('.day .stays')).forEach(function(c){var l=c.querySelector('.sh .lbl'),nm=c.querySelector('li:not(.more) b.tg, li:not(.more) b'),a=c.dataset.area||(nm?nm.textContent.trim():'');if(l&&a)l.setAttribute('data-a',a)});
     var FARE=function(k){return k<60?[0,0]:k<300?[200,500]:k<1000?[500,1200]:k<2000?[1000,2000]:[1500,3000]};   // 和 tools/estimate_prices.py 同一组档位（往返大交通，每人）
     window.zFareDelta=function(){if(!GO||+GO.ab||GO.fx||+GO.drv)return[0,0];var o=zOrigin();if(!o||o.lat==null||o.n===GO.o)return[0,0];var a=FARE(zKm(o.lat,o.lng,GO.lat,GO.lng)),b=FARE(+GO.km||0);return[a[0]-b[0],a[1]-b[1]]};
     function applyGo(){if(!goEl||!GO)return;var sp=goEl.querySelector('.gw span'),o=zOrigin();if(sp&&sp.dataset.t0==null)sp.dataset.t0=sp.textContent;
       var faqD=null;[].slice.call(document.querySelectorAll('.faq dt')).forEach(function(dt){if(/怎么去/.test(dt.textContent)&&dt.nextElementSibling){faqD=dt.nextElementSibling;if(faqD.dataset.t0==null)faqD.dataset.t0=faqD.textContent}});
       if(o&&!GO.fx){var gn=goNow();if(sp)sp.textContent=sp.dataset.t0.replace(/^[^。]*。/,gn.way+'。');if(faqD)faqD.textContent=gn.way+'。'}
       else{if(sp&&sp.dataset.t0!=null)sp.textContent=sp.dataset.t0;if(faqD&&faqD.dataset.t0!=null)faqD.textContent=faqD.dataset.t0}
-      var sel=goEl.querySelector('.ogsel');if(sel){var og_=zOrgGet(),v=og_?og_.k:'';if(!sel.querySelector('option[value="'+v+'"]'))v='';sel.value=v}goSum()}
+      var sel=goEl.querySelector('.ogsel');if(sel){var og_=zOrgGet(),v=og_?og_.k:'';if(!sel.querySelector('option[value="'+v+'"]'))v='';sel.value=v}}
     if(goEl&&GO&&!GO.fx){   // 线路页上改出发地：和首页“替我挑”是同一个全站默认（zouni_pick.o / zouni_org）
       var ogl=document.createElement('li');ogl.className='og';var opts='<option value="">按附近大城市（'+GO.o+'）</option>';
       var og1_=zOrgGet();if(og1_&&og1_.k==='here')opts+='<option value="here">你这里（定位）</option>';
@@ -1356,8 +1347,6 @@ var fd=window.zFareDelta?window.zFareDelta():[0,0];p.textContent='¥'+r(Math.max
     // 选满三项后结果自动滚进视野（2026-10-29）：结果在面板最下面，手机上选完最后一项什么都没变，像没反应；只在结果没完全看到时才滚（nearest），不乱跳
     function showRes(){if(!(st.o&&st.d&&st.w))return;var r=sec.querySelector('.pkres')||sec.querySelector('.pkhint');if(!r)return;var rc=r.getBoundingClientRect(),vh=window.innerHeight||document.documentElement.clientHeight;if(rc.top<56||rc.bottom>vh-8){try{r.scrollIntoView({block:'nearest',behavior:'smooth'})}catch(e){r.scrollIntoView()}}}
     document.addEventListener('zouni:home-data',function(){render()});
-    render()
-    var pka=document.querySelector('.chan2 .pka');if(pka)pka.addEventListener('click',function(){if(!op){op=true;render()}sec.scrollIntoView({block:'nearest'});ztrack('首页·替我挑')});
     render()})();
   // ——— 首页搜索：断网时不跳页（跳过去也是空的），词留在框里，明说“没网，搜不了” ———
   (function(){var f=document.querySelector('form.hsearch');if(!f)return;var msg=null;function off(){if(msg){msg.remove();msg=null}}
