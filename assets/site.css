@@ -709,12 +709,6 @@ body{background:var(--bg);color:var(--ink)}
 .mapfold{display:block;width:100%;text-align:left;padding:12px 0;background:none;border:0;border-top:1px solid var(--line,rgba(28,29,26,.14));border-bottom:1px solid var(--line,rgba(28,29,26,.14));font:700 0.875rem var(--sans);color:var(--ink);cursor:pointer}
 .mapfold:after{content:" ›";color:var(--red)}.overview.mapopen .mapfold:after{content:" ‹"}
 .pre.go{margin-bottom:0;padding-bottom:6px}.pre.go + .pre{margin-top:0;padding-top:4px}.pre.go + .pre h2{display:none}
-/* 怎么去、怎么回：默认只留一行摘要，点开看全（2026-11-18） */
-.gob{display:flex;align-items:center;gap:10px;width:100%;min-height:44px;padding:0;border:0;background:none;color:var(--ink);font:400 0.875rem var(--sans);text-align:left;cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}
-.gob .gos{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.gob .gor{flex:none;font-weight:700}.gob i{flex:none;font-style:normal;font-size:1.125rem;color:var(--sub)}
-/* html.xall：自动化检查用的“全展开”开关（tests/ux_common.py 加），线上页面不会有这个 class */
-html:not(.xall) .pre.go:not(.open){padding-top:0;padding-bottom:0}html:not(.xall) .pre.go:not(.open)>h2,html:not(.xall) .pre.go:not(.open)>ul{display:none}.pre.go.open>.gob,html.xall .gob{display:none}
-@media print{.gob{display:none!important}html:not(.xall) .pre.go:not(.open){padding:16px 16px 6px}html:not(.xall) .pre.go:not(.open)>h2{display:block}html:not(.xall) .pre.go:not(.open)>ul{display:block}}
 @media print{.mapfold{display:none}.overview .hmap{max-height:none}}
 .pre li.gen details summary{cursor:pointer;font-size:0.875rem;font-weight:700;color:var(--sub);list-style:none}.pre li.gen details summary:after{content:" ›";color:var(--red)}.pre li.gen details[open] summary:after{content:" ‹"}.pre li.gen ul{margin-top:10px}
 
@@ -1321,55 +1315,3 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .sjl details.gm[open]{display:block}
 .sjl details.gm[open]>a{display:flex;align-items:center;min-height:36px;border-top:1px solid var(--line)}
 .sjl details.gm[open]>a::before{content:none!important;display:none!important}
-
-/* 每站只留一行，点开再看（2026-11-18）：图标、改这站、镇馆之宝默认收起，点这一行展开；“出发 → 下一站”只留怎么去那半句（下一行就是那一站） */
-html:not(.xall) .day .tl>.r:not(.open) .icg,html:not(.xall) .day .tl>.r:not(.open) .s .adj,html:not(.xall) .day .tl>.r:not(.open) .s.tre{display:none}
-.day .tl>.r.see,.day .tl>.r.fun,.day .tl>.r.eat{cursor:pointer}
-html:not(.xall) .day .tl>.r.dep:not(:last-child){min-height:32px;padding:2px 0}html:not(.xall) .day .tl>.r.dep:not(:last-child) .m{display:none}html:not(.xall) .day .tl>.r.dep:not(:last-child) .s{margin-top:0}
-html:not(.xall) .day .tl>.r.dep:not(:last-child) time{font-size:0.8125rem;font-weight:500;color:var(--sub)}
-@media print{html:not(.xall) .day .tl>.r.dep:not(:last-child) .m{display:flex}}
-/* 背景：默认一行（标签 + 第一段开头），点开看全（2026-11-18） */
-html:not(.xall) .day .story:not(.open){display:flex;align-items:center;gap:10px;min-height:44px;padding-top:0;padding-bottom:0;cursor:pointer}
-html:not(.xall) .day .story:not(.open) .lbl{flex:none}
-html:not(.xall) .day .story:not(.open) p{display:none}
-html:not(.xall) .day .story:not(.open) p:first-of-type{display:block;flex:1;min-width:0;margin:0;font:400 0.875rem var(--sans);color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-html:not(.xall) .day .story:not(.open) p:first-of-type b{display:inline;margin:0 6px 0 0;font:inherit;color:inherit;letter-spacing:0}
-html:not(.xall) .day .story:not(.open) .stk{display:none}
-html:not(.xall) .day .story:not(.open):after{content:"›";flex:none;font-size:1.125rem;color:var(--sub)}
-@media print{html:not(.xall) .day .story:not(.open){display:block;padding:16px}html:not(.xall) .day .story:not(.open) p,html:not(.xall) .day .story:not(.open) p:first-of-type{display:block;white-space:normal;font:16px/1.85 var(--serif);margin:8px 0 0}html:not(.xall) .day .story:not(.open):after{content:none}}
-/* 首页减法（2026-11-18）：封面缩成一条，频道和“替我挑”收成一行字，第一屏露出线路 */
-.home .cover{min-height:0}
-.home .mast{margin-top:10px;align-items:center}.home .mast h1{font-size:1.75rem}
-.home .mast small,.home .mast .tagline{display:none}
-.home .cv{margin:8px 20px 12px;gap:4px}.home .cv h2{font-size:1.25rem}.home .cv .chips{display:none}
-.home .chan2{flex-wrap:nowrap;justify-content:space-between;gap:0;margin-top:8px}
-.home .cv .go{position:relative}.home .cv .go:after{content:"";position:absolute;left:0;right:0;top:-11px;bottom:-11px}
-.home .chan2 a,.home .chan2 .pka{flex:none;min-width:0;min-height:44px;padding:0;border:0;background:none;display:flex;flex-direction:row;align-items:center;color:var(--ink);font:inherit;cursor:pointer;-webkit-appearance:none;appearance:none;border-radius:0}
-.home .chan2 small{display:none}.home .chan2 b{font-size:0.875rem;font-weight:700}.home .chan2 .pka b{color:var(--red)}
-.home .pick:not(.open){display:none}
-/* 第二轮减法（2026-11-18）：住宿卡默认一行、页头图变矮、底栏只留两个按钮、首页不要封面故事、能展开的行尾有“›” */
-html:not(.xall) .day .stays:not(.sx){cursor:pointer}
-html:not(.xall) .day .stays:not(.sx)>:not(.sh){display:none}
-html:not(.xall) .day .stays:not(.sx) .sh{min-height:44px;padding:0 14px}
-html:not(.xall) .day .stays:not(.sx) .sh .lbl[data-a]:after{content:" · " attr(data-a);letter-spacing:0;font-weight:400;color:var(--ink)}
-html:not(.xall) .day .stays:not(.sx) .sh span:last-child{margin-left:auto}
-html:not(.xall) .day .stays:not(.sx) .sh:after{content:"›";flex:none;margin-left:10px;font-size:1.125rem;color:var(--sub)}
-@media print{html:not(.xall) .day .stays:not(.sx)>:not(.sh){display:revert}html:not(.xall) .day .stays:not(.sx) .sh:after{content:none}}
-html:not(.xall) .day .tl>.r.see:not(.open) .m:after,html:not(.xall) .day .tl>.r.fun:not(.open) .m:after,html:not(.xall) .day .tl>.r.eat:not(.open) .m:after{content:"›";margin-left:auto;padding-left:8px;font-weight:400;font-size:1.125rem;line-height:1;color:var(--sub)}
-@media print{.day .tl>.r .m:after{content:none!important}}
-.trip .hero,.trip .hero.text{min-height:190px;padding-top:56px}
-.trip .dock{padding-top:8px;padding-bottom:calc(8px + env(safe-area-inset-bottom,0))}
-/* 长线（data-lg=1）保留底栏左边“日期 改”：滚到第 12 天还能改出发日期，不用翻回 20 多屏之外的页头 */
-.trip:not([data-lg="1"]) .dock>div:first-child{flex:0 0 0;width:0;min-width:0;overflow:hidden}
-.trip:not([data-lg="1"]) .dock .fav,.trip:not([data-lg="1"]) .dock .tvbtn{flex:1;justify-content:center;margin-left:0}.trip:not([data-lg="1"]) .dock .tvbtn{margin-left:8px}
-.trip .dock .fav,.trip .dock .tvbtn{height:44px}
-.home .cv{display:none}.home .mast{margin-bottom:10px}
-/* 第三轮减法（2026-11-19）：“影视和美食里的这一带”挪到当天末尾；“改这站”和“改日期/改时间”同一个样子；首页卡片途经地只占一行 */
-.trip .day{display:flex;flex-direction:column}.trip .day>*{min-width:0}
-.trip .day>.sjd{order:1;margin-top:14px}.trip .day>.dayact{order:2}
-.r .s .adj{padding:0;background:none;font-size:0.8125rem;color:var(--red)}
-.home .items .tx p{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-/* 走哪儿减法（2026-11-19）：页头不要说明段和两条导流（首页已有这两个入口） */
-.where .deck,.where .wlong{display:none}
-/* 频道页减法（2026-11-19）：标题上面那行“走你 · 2026 · 十一月 · 频道”只是装饰；跟谁走的“常看”一排和下面的列表、搜索框重复 */
-.pagehead+.kick{display:none}.fpg .fhot{display:none}
