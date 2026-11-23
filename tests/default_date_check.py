@@ -63,6 +63,14 @@ for r, (d, b) in rows.items():
 check('D2 今天正落在窗口里的 %d 条线：默认日期在窗口内、2–16 天后（下一个周六，避开周一 / 假日）' % n2, n2 >= 20 and not bad2, bad2[:5])
 check('D3 窗口 30 天内就开的 %d 条线：默认日期在窗口里、窗口开始后 10 天之内' % n3, n3 >= 3 and not bad3, bad3[:5])
 seas = {r: near[r] for r in ('hss1a', 'hlia', 'hcz1', 'hss2a', 'hkx2', 'hlib') if r in near}
+# 2026-11-23：季节往后走，上面这几条会一条条出窗口（11/23 只剩 hss1a），只剩一条就没法比、闸永远红。
+# 不够两条时，用“和它们窗口完全一样、此刻也在窗口里”的线补齐（同一个窗口 = 同一个季节），仍要求互相差 ≤14 天。
+if len(seas) < 2:
+    _grp = {}
+    for r_ in near: _grp.setdefault(tuple(rows[r_][1]), []).append(r_)
+    _key = tuple(rows[next(iter(seas))][1]) if seas else None
+    if len(_grp.get(_key, [])) < 2: _key = max(_grp, key=lambda k: len(_grp[k]), default=None)      # 它自己的窗口没有第二条线，就拿此刻在窗口里、窗口相同的最大一组
+    for r_ in sorted(_grp.get(_key, []))[:6]: seas.setdefault(r_, near[r_])
 spread = (max(seas.values()) - min(seas.values())).days if seas else 99
 check('D4 同一个季节的几条线（%s）默认日期互相差 %d 天（≤14）' % (', '.join('%s %s' % (r, d.strftime('%m/%d')) for r, d in sorted(seas.items())), spread), len(seas) >= 2 and spread <= 14, seas)  # 11 月只剩两条（hcz1 / hss1a）还在窗口里；原来写 ≥3 是 10 月的数
 for x in oks: print('✓', x)
