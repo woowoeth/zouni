@@ -1315,3 +1315,137 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 .sjl details.gm[open]{display:block}
 .sjl details.gm[open]>a{display:flex;align-items:center;min-height:36px;border-top:1px solid var(--line)}
 .sjl details.gm[open]>a::before{content:none!important;display:none!important}
+/* 行程页排版规矩（2026-11-23，用户认可方案稿二）：字号三档、红色只给能改能订的、图标和“改这站”靠右一列、天头小表格、入口统一列表行、路是线站是点、背景挂在各站下面。不删不藏任何字段 */
+.trip .day{display:flex;flex-direction:column}
+.trip .day>*{min-width:0;order:7}
+.trip .day>header{order:1}.trip .day>.lead{order:2}.trip .day>.facts{order:3}.trip .day>.dload{order:4}.trip .day>.cl{order:5}.trip .day>.rm-row2{order:6}
+.trip .day>.tl{order:8}.trip .day>.stays,.trip .day>.mn{order:9}.trip .day>.story{order:10}.trip .day>.dayact{order:11}
+.trip .day header{display:grid;grid-template-columns:auto 1fr;align-items:baseline;column-gap:10px;row-gap:4px}
+.trip .day header div{display:contents}
+.trip .day header small{grid-column:1/3;grid-row:1}
+.trip .day .no{grid-column:1;grid-row:2;font:700 1.625rem/1.3 var(--serif)}
+.trip .day header h2{grid-column:2;grid-row:2;margin:0;font-size:1.625rem;line-height:1.3}
+.trip .day>.lead{margin:8px 0 0;font:0.9375rem/1.7 var(--sans);color:var(--ink2)}
+/* 天头：一格一项，细线隔开 */
+.trip .day>.facts{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:16px;border-top:1px solid var(--line)}
+.trip .day>.facts .fx{display:flex;align-items:baseline;gap:8px;padding:10px 0;border-bottom:1px solid var(--line);min-height:44px}
+.trip .day>.facts .fx small{font-size:0.8125rem;color:var(--sub)}
+.trip .day>.facts .fx b{font:500 0.9375rem var(--sans);color:var(--ink)}
+.trip .day>.facts .fx i{font-style:normal;font-size:0.8125rem;font-weight:400;color:var(--red);margin-left:6px}
+.trip .day>.dload,.trip .day>.cl{margin:0;padding:10px 0;border-bottom:1px solid var(--line);font-size:0.8125rem;line-height:1.6;color:var(--sub)}
+/* 入口：带 › 的列表行，不套框 */
+.trip .day>.rm-row2{display:flex;flex-direction:column;gap:0;margin:0}
+.trip .day>.rm-row2 button{display:flex;justify-content:space-between;align-items:center;width:100%;height:46px;margin:0;padding:0;border:0;border-bottom:1px solid var(--line);border-radius:0;background:none;font:400 0.9375rem var(--sans);color:var(--ink);text-align:left}
+.trip .day>details.sjd{margin:0}
+.trip .day>details.sjd>summary{min-height:46px;padding:0;border:0;border-bottom:1px solid var(--line);background:none;font:400 0.9375rem var(--sans);color:var(--ink)}
+.trip .day>details.sjd>summary:after{content:"›";margin-left:auto;font-size:1.125rem;color:var(--sub)}
+.trip .day>details.sjd[open]>summary:after{transform:rotate(90deg)}
+.trip .day>.alt{margin:10px 0 0}
+/* 时间轴：时间贴左边、和上面对齐；站是点，路是线 */
+.trip .day>.tl{margin-top:22px}
+.trip .r{gap:0;align-items:flex-start;min-height:0;padding:0 0 22px}
+.trip .r:before{left:44px;width:1px;top:0;bottom:0;background:var(--line2)}
+.trip .r:first-child:before{top:8px}.trip .r:last-child:before{display:none}
+.trip .r time{width:40px;font:400 0.8125rem/24px var(--sans);color:var(--sub)}
+.trip .r .dot{width:9px;height:9px;margin:7px 14px 0 0;box-shadow:0 0 0 3px var(--bg)}
+.trip .r.dep{padding-bottom:16px}
+.trip .r.dep .dot{background:none;box-shadow:none}
+.trip .r.dep .rb{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:0}
+.trip .r.dep .m,.trip .r.dep .s,.trip .r[data-x] .m,.trip .r[data-x] .s{margin:0;font-size:0.8125rem;font-weight:400;line-height:24px;color:var(--sub)}
+.trip .r.dep .s:before{content:"·";margin:0 6px}
+.trip .r .m{font-size:1.0625rem;font-weight:600;line-height:24px;flex-wrap:nowrap}
+.trip .r .m .icg,.trip .r .m>a.ic:first-of-type{margin-left:auto;padding-left:8px;flex:none}
+.trip .r .icg,.trip .r .m>a.ic{color:var(--sub)}
+.trip .r .ic{width:32px;height:32px;margin:-4px 0;justify-content:center}
+.trip .r .s{display:flex;flex-wrap:wrap;align-items:baseline;margin-top:2px;font-size:0.8125rem;line-height:1.6}
+.trip .r .s .adj{margin-left:auto;padding:0 0 0 12px;height:auto;background:none;font-size:0.8125rem;font-weight:400;color:var(--red)}
+.trip .r .rb p.bgp{margin:10px 0 0;font-size:0.875rem;line-height:1.75;color:var(--ink2)}
+.trip .r .rb p.bgp i{font-style:normal;font-size:0.75rem;color:var(--sub);margin-right:8px}
+.trip .r.stay>.rb>.m{text-decoration:none}
+/* 住：卡片对齐时间轴正文 */
+.trip .day>.stays{margin:-8px 0 0 63px}
+.trip .day>.story{margin-top:18px;padding:0;background:none;border:0}
+.trip .day>.dayact{margin-top:14px}
+.trip .day>.dayact .dayadj{display:flex;justify-content:space-between;align-items:center;width:100%;height:46px;padding:0;border:0;border-top:1px solid var(--line);border-radius:0;background:none;font:400 0.9375rem var(--sans);color:var(--ink);text-align:left}
+.trip .day>.rm-row2 button{flex:none;justify-content:flex-start}
+.trip .day>.facts .fx:has(.sun[data-k="rise"]){display:none}
+.trip .day>details.sjd>summary:after{content:" ›";margin-left:4px;font-size:inherit}
+.trip .day>details.sjd[open]>summary:after{transform:none;content:" ⌄"}
+.trip .day>.dayact .dayadj{box-shadow:none;justify-content:flex-start;font-weight:400}
+.trip .day .r .ic,.trip .day .stays .ic{color:var(--sub)}
+.trip .r.dep .s:before{margin:0 4px}
+.trip .day>.stays li>div{display:grid;grid-template-columns:1fr auto;align-items:center;column-gap:8px}
+.trip .day>.stays li>div>b.tg{grid-column:1/3}
+.trip .day>.stays li>div>small{grid-column:1;grid-row:2}
+.trip .day>.stays li>div>.icg{grid-column:2;grid-row:2;margin:0;display:flex}
+.trip .day>.stays li>div>.tl2{grid-column:1/3}
+/* 行程页开头同一套规矩：入口是列表行，“怎么去怎么回”“出发前”不套底色框 */
+.trip>.mapgo{display:flex;justify-content:flex-start;align-items:center;gap:4px;width:calc(100% - 40px);height:46px;margin:14px 20px 0;padding:0;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;background:none;box-shadow:none;font:400 0.9375rem var(--sans);color:var(--ink)}
+.trip>.mapgo i{font-style:normal;color:var(--sub)}
+.trip>.pre{margin:24px 20px 0;padding:0;background:none;border:0;box-shadow:none}
+.trip>.pre>h2{margin:0 0 6px;font:400 0.8125rem var(--sans);letter-spacing:0;color:var(--sub)}
+.trip>.pre>ul{margin:0;padding:0}
+.trip>.pre li.tip{padding:0;font-size:0.9375rem;line-height:1.7;color:var(--ink2)}
+.trip>.pre li.og{margin-top:10px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.trip>.pre li.og label{display:flex;align-items:center;gap:12px;min-height:46px;font:400 0.8125rem var(--sans);color:var(--sub)}
+.trip>.pre li.og select{flex:1;min-width:0;height:44px;padding:0 4px;border:0;background:none;font:500 0.9375rem var(--sans);color:var(--ink);text-align:left;text-align-last:left}
+.trip>.pre .todoall{display:flex;justify-content:flex-start;align-items:center;gap:4px;width:100%;height:46px;margin:10px 0 0;padding:0;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;background:none;box-shadow:none;font:400 0.9375rem var(--sans);color:var(--ink)}
+.trip>.pre .todoall b{color:var(--red);font-weight:500}
+.trip>.pre .todoall i{font-style:normal;color:var(--sub)}
+/* 细节（2026-11-23）：天头格子数不定（有时多一格高海拔），改成一行排开、整行一条细线；酒店评分不被图标挤断；按档位的住宿块不缩进；没挂到站上的背景用同一套字 */
+.trip .day>.facts{display:flex;flex-wrap:wrap;gap:0 28px;padding:0;border-bottom:1px solid var(--line)}
+.trip .day>.facts .fx{border-bottom:0;padding:10px 0}
+.trip .day>.stays li>div{grid-template-columns:minmax(0,1fr) auto}
+.trip .day>.stays li>div>small{white-space:normal}
+.trip .day>.story{padding:0;background:none}
+.trip .day>.story .lbl{font:400 0.75rem var(--sans);letter-spacing:0;color:var(--sub)}
+.trip .day>.story p{margin:6px 0 0;font:0.875rem/1.75 var(--sans);color:var(--ink2)}
+.trip .day>.story p b{color:var(--ink);font-weight:600}
+/* 紧凑一点（同一套规矩不变，只收间距）：地图/导航并排成一行两格；列表行 44 高 */
+.trip .day>.rm-row2{flex-direction:row;border-bottom:1px solid var(--line)}
+.trip .day>.rm-row2 button{flex:1 1 0;width:auto;height:44px;border-bottom:0}
+.trip .day>.rm-row2 button+button{padding-left:16px;border-left:1px solid var(--line)}
+.trip .day>details.sjd>summary{min-height:44px}
+.trip .day header{row-gap:2px}
+.trip .day>.facts .fx{padding:8px 0;min-height:40px}
+.trip .day>.dload,.trip .day>.cl{padding:8px 0}
+.trip .day>.dload.warn{color:var(--amb);font-weight:700}
+.trip>.mapgo{height:44px;margin-top:10px}
+.trip>.pre{margin-top:16px}
+.trip>.pre>h2{margin-bottom:4px}
+.trip>.pre li.tip{line-height:1.6}
+.trip>.pre li.og{margin-top:4px}
+.trip>.pre li.og label{min-height:44px}
+.trip>.pre .todoall{height:44px;margin-top:4px}
+.trip>.pre+.pre{margin-top:10px}
+.trip>.pre li.tip{font-size:0.875rem}
+.trip .day>.stays li>div>b.tg{grid-column:1;grid-row:1}
+.trip .day>.stays li>div>.icg{grid-column:2;grid-row:1;align-self:start}
+.trip .day>.stays li>div>small{grid-column:1/3;grid-row:2;white-space:normal}
+.trip .day>.stays li>div>.tl2{grid-column:1/3;grid-row:3}
+.trip .day>.stays .icg{gap:0}
+.trip .day>.stays .ic{width:32px;height:32px;margin:-4px 0;display:inline-flex;align-items:center;justify-content:center}
+.trip .day>.stays li>div>b.tg{grid-column:1/3;grid-row:1}
+.trip .day>.stays li>div>.icg{grid-column:2;grid-row:2;align-self:center}
+.trip .day>.stays li>div>small{grid-column:1/3;grid-row:2}
+.trip .day>.stays li>div>small{grid-column:1/3;grid-row:2}
+.trip .day>.stays li>div>.tl2{grid-column:1;grid-row:3;align-self:center}
+.trip .day>.stays li>div>.icg{grid-column:2;grid-row:3}
+.trip .day>.stays .icg .ic{margin:0}
+/* 按档位推荐的住宿（没有具体酒店的地方）：和有酒店的住宿卡同一个样子，档位名（高级/中低/奢华）显示出来 */
+.trip .day>.stays.gen{display:block;margin-top:-8px;background:var(--card)}
+.trip .day>.stays.gen .sh{display:flex;padding:12px 14px 0}
+.trip .day>.stays.gen ul{padding:6px 14px 0}
+.trip .day>.stays.gen li{display:flex;gap:10px;align-items:baseline;padding:8px 0}
+.trip .day>.stays.gen li.more{display:none}
+.trip .day>.stays.gen.open li.more{display:flex}
+.trip .day>.stays.gen li .tier{display:inline;flex:none;font-size:0.8125rem;color:var(--sub)}
+.trip .day>.stays.gen li div{display:flex;flex-direction:column}
+.trip .day>.stays.gen li b.tg{display:block;font-size:0.9375rem;font-weight:600;color:var(--ink)}
+.trip .day>.stays.gen li small{display:block;font-size:0.8125rem;color:var(--sub)}
+.trip .day>.stays.gen li b.tg+small:before{content:none}
+.trip .day>.stays.gen .tog{display:block;width:100%;height:44px;padding:0 14px;border-top:1px solid var(--line);text-align:left;font-size:0.8125rem;font-weight:700;color:var(--ink);text-decoration:none}
+.trip .day>.stays.gen li div{flex:1;min-width:0;align-items:flex-start;text-align:left}
+/* 首页（2026-11-23）：尺寸、底色块都不动（试过换成细线框，满屏框线反而更乱）；红色只留给“改日期”“展开”这类能点的，序号和“今天最后一天”改灰 */
+.home .items .num{color:var(--sub);font-weight:700}
+.home .items .kl .left{color:var(--sub);font-weight:500}
