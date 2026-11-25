@@ -1449,3 +1449,14 @@ body.rm-lock{position:fixed;left:0;right:0;width:100%;overflow:hidden}
 /* 首页（2026-11-23）：尺寸、底色块都不动（试过换成细线框，满屏框线反而更乱）；红色只留给“改日期”“展开”这类能点的，序号和“今天最后一天”改灰 */
 .home .items .num{color:var(--sub);font-weight:700}
 .home .items .kl .left{color:var(--sub);font-weight:500}
+/* 频道页排版规矩（2026-11-23，同行程页）：去掉卡片底色盒子，内容对齐页边 20px；行程行 44px、细线分隔；筛选按钮统一成实底一种。字段一个不动。*/
+.where .cards{gap:0}
+.where .card{padding:18px 0 16px;background:none;border-top:1px solid var(--line)}
+.where .cards>.card:first-child{border-top:0;padding-top:8px}
+.where .card .tr{margin-top:8px;border-top:1px solid var(--line)}
+.where .card .tr a{min-height:44px;border-bottom:1px solid var(--line);font-size:0.875rem}
+.where .card .q{display:flex;align-items:center;min-height:44px}
+.fpg .fchip{border-color:transparent;background:var(--card)}
+.fpg .fchip.on{background:var(--ink);border-color:var(--ink)}
+.fpg .ftl li{flex-direction:column;gap:2px;padding:10px 0}
+.fpg .ftl time{width:auto;font-weight:500}
