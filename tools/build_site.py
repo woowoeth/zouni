@@ -16734,11 +16734,11 @@ def trip_page(rid):
                + (f'第一天 {E(_g["first"])} 开始。' if _g['first'] and _g['first'] >= '12:00' else (f'第一天 {E(_g["first"])} 就开始，最好头天晚上到。' if _g['first'] else '')) + (E(_ret) if _ret else '') + '</span></li>'
 
                + '</ul></section>' if _g else '') +
-            f'<section class="pre"><h2>出发前</h2><ul>{top_li}{prep or ("" if (top_li or prep_more_n) else "<li class=fit>没有特别要提前办的</li>")}</ul>{f'<ul class="prehid" hidden>{prep_more}</ul>' if prep_more_n else ''}</section>{follow_banner(rid)}'
+            f'<section class="pre"><h2>出发前</h2><ul>{top_li}{prep or ("" if (top_li or prep_more_n) else "<li class=fit>没有特别要提前办的</li>")}</ul>{f'<ul class="prehid" hidden>{prep_more}</ul>' if prep_more_n else ''}</section>'
             f'<script type="application/json" id="cands">{json.dumps(add_cands(rid, r), ensure_ascii=False).replace("</", "<\\/")}</script>'
             f'<script type="application/json" id="indoor">{json.dumps(indoor_near(r), ensure_ascii=False).replace("</", "<\\/")}</script>'
             f'<script type="application/json" id="nearby">{json.dumps(near_for(r), ensure_ascii=False).replace("</", "<\\/")}</script>'
-            f'<section class="overview{" folded" if n > 10 else ""}"><h2>{n} 天，怎么排</h2>{_stay_line(r)}<ol>{over}</ol>{f'<button type="button" class="ovmore">看全部 {n} 天</button>' if n > 10 else ''}{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{"".join(days)}<div class="addday" data-city="{E(addday_city(r, STAYFIX))}"><button type="button" class="add">＋ 加一天</button></div>{dest_link}{dock}</article>')
+            f'<section class="overview{" folded" if n > 10 else ""}"><h2>{n} 天，怎么排</h2>{_stay_line(r)}<ol>{over}</ol>{f'<button type="button" class="ovmore">看全部 {n} 天</button>' if n > 10 else ''}{("<figure class=hmap>" + hm_ + "</figure>") if hm_ else ""}</section>{daynav}{follow_banner(rid)}{"".join(days)}<div class="addday" data-city="{E(addday_city(r, STAYFIX))}"><button type="button" class="add">＋ 加一天</button></div>{dest_link}{dock}</article>')
     crumbs = [('首页', '/'), (('长线自驾', '/long/') if (t.get('days') or len(r['days'])) >= LONG_MIN_DAYS else ('走哪儿', '/where/'))] + ([(d0['name'], f'/d/{t["dest"]}/')] if d0 else []) + [(r.get('label') or r['title'], f'/trip/{rid}/')]
     img = '/img/' + (r.get('img') or '').replace('/_blob/', '') + '.svg' if r.get('img') else None
     _faq_ld = {'@context': 'https://schema.org', '@type': 'FAQPage', 'mainEntity': [{'@type': 'Question', 'name': q, 'acceptedAnswer': {'@type': 'Answer', 'text': a}} for q, a in _fq]}
